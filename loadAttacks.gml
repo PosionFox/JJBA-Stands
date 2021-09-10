@@ -9,27 +9,36 @@ skills[skill, StandSkill.ExecutionTime] = 0;
 skills[skill, StandSkill.Cooldown] = 0;
 skills[skill, StandSkill.ExecutionTime] = 0;
 
-#define ProjectileCreate(_spd, _dmg)
+#define ProjectileCreate(_x, _y)
 
-visible = false;
-type = "projectile";
-subtype = "projectile";
-owner = other.owner;
-baseSpd = _spd;
-spd = baseSpd;
-damage = _dmg;
-destroyOnImpact = true;
-instancesHit = [];
-stationary = false;
-distance = 0;
-canMoveInTs = true;
-canDespawnInTs = false;
-knockback = 0;
-
-if (owner.myStand.punchSprite != noone)
+var _o = ModObjectSpawn(_x, _y, 0);
+with (_o)
 {
-    sprite_index = owner.myStand.punchSprite;
+    visible = false;
+    type = "projectile";
+    subtype = "projectile";
+    owner = other.owner;
+    baseSpd = 5;
+    spd = baseSpd;
+    baseDamage = 0;
+    damage = baseDamage;
+    destroyOnImpact = true;
+    instancesHit = [];
+    stationary = false;
+    distance = 0;
+    canMoveInTs = true;
+    canDespawnInTs = false;
+    knockback = 0;
+    
+    if (owner.myStand.punchSprite != noone)
+    {
+        sprite_index = owner.myStand.punchSprite;
+    }
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(ProjectileStep), false);
+    InstanceAssignMethod(self, "destroy", ScriptWrap(ProjectileDestroy), false);
 }
+return _o;
 
 #define ProjectileStep
 
@@ -208,19 +217,19 @@ target.hp -= damageStack;
 
 #endregion
 
-#define ThrowPunch(_x, _y, _dir, _dmg, _knockback)
+#define PunchCreate(_x, _y, _dir, _dmg, _knockback)
 
-var _punch = ModObjectSpawn(_x, _y, 0);
-_punch.sprite_index = global.sprTheWorldPunch;
-_punch.despawnTime = room_speed * 0.1;
-
-with (_punch) { ProjectileCreate(5, _dmg); }
-_punch.canDespawnInTs = true;
-_punch.destroyOnImpact = false;
-_punch.direction = _dir;
-_punch.knockback = _knockback;
-InstanceAssignMethod(_punch, "step", ScriptWrap(ProjectileStep), false);
-InstanceAssignMethod(_punch, "destroy", ScriptWrap(ProjectileDestroy), false);
+var _p = ProjectileCreate(_x, _y);
+with (_p)
+{
+    sprite_index = other.punchSprite;
+    damage = _dmg;
+    despawnTime = room_speed * 0.1;
+    canDespawnInTs = true;
+    destroyOnImpact = false;
+    direction = _dir;
+    knockback = _knockback;
+}
 
 #define StandBarrage(method, skill)
 
@@ -239,7 +248,7 @@ if (distance_to_point(_xx, _yy) < 2)
     var yy = y + random_range(-8, 8);
     var ddir = _dir + random_range(-2, 2);
     var _dmg = (skills[skill, StandSkill.Damage] * 0.01) * (owner.level * 0.5);
-    ThrowPunch(xx, yy, ddir, _dmg, 0);
+    PunchCreate(xx, yy, ddir, _dmg, 0);
     skills[skill, StandSkill.ExecutionTime] += 1 / room_speed;
 }
 
@@ -272,7 +281,7 @@ spd = 0.1;
 if (distance_to_point(_xx, _yy) <= 1)
 {
     var _dmg = (skills[skill, StandSkill.Damage] * 0.2) * owner.level;
-    ThrowPunch(x, y, _dir, _dmg, 3);
+    PunchCreate(x, y, _dir, _dmg, 3);
     FireCD(skill);
     spd = stats[StandStat.BaseSpd];
     state = StandState.Idle;
@@ -282,17 +291,18 @@ if (distance_to_point(_xx, _yy) <= 1)
 
 for (var i = 1; i <= 3; i++)
 {
-    var _knife = ModObjectSpawn(owner.x, owner.y, 0);
     var _dir = (point_direction(owner.x, owner.y, mouse_x, mouse_y) - 16) + (i * 8);
-    _knife.despawnTime = room_speed * 5;
-    
     var _dmg = (skills[skill, StandSkill.Damage] * 0.1) * owner.level;
-    with (_knife) { ProjectileCreate(5, _dmg); }
-    _knife.direction = _dir;
-    _knife.canMoveInTs = false;
-    _knife.sprite_index = global.sprKnife;
-    InstanceAssignMethod(_knife, "step", ScriptWrap(ProjectileStep), false);
-    InstanceAssignMethod(_knife, "destroy", ScriptWrap(ProjectileDestroy), false);
+    
+    var _p = ProjectileCreate(owner.x, owner.y);
+    with (_p)
+    {
+        despawnTime = room_speed * 5;
+        damage = _dmg;
+        direction = _dir;
+        canMoveInTs = false;
+        sprite_index = global.sprKnife;
+    }
 }
 FireCD(skill);
 state = StandState.Idle;
@@ -354,20 +364,22 @@ if (distance_to_point(_xx, _yy) <= 1)
 {
     if (!modSubtypeExists("starFinger"))
     {
-        var _o = ModObjectSpawn(x, y, 0);
         var _dmg = (skills[skill, StandSkill.Damage] * 0.1) * (owner.level * 0.5);
-        with (_o) { ProjectileCreate(0, _dmg); }
-        _o.subtype = "starFinger";
-        _o.stationary = true;
-        _o.canDespawnInTs = true;
-        _o.destroyOnImpact = false;
-        _o.sprite_index = global.sprStarPlatinumFinger;
-        _o.direction = _dir;
-        _o.despawnTime = room_speed * 0.7;
-        _o.fingerSize = 0;
-        InstanceAssignMethod(_o, "step", ScriptWrap(ProjectileStep), false);
-        InstanceAssignMethod(_o, "draw", ScriptWrap(StarFingerDraw), false);
-        InstanceAssignMethod(_o, "destroy", ScriptWrap(ProjectileDestroy), false);
+        
+        var _p = ProjectileCreate(x, y);
+        with (_p)
+        {
+            subtype = "starFinger";
+            sprite_index = global.sprStarPlatinumFinger;
+            damage = _dmg;
+            stationary = true;
+            canDespawnInTs = true;
+            destroyOnImpact = false;
+            direction = _dir;
+            despawnTime = room_speed * 0.7;
+            fingerSize = 0;
+            InstanceAssignMethod(self, "draw", ScriptWrap(StarFingerDraw), false);
+        }
     }
     else
     {
@@ -527,18 +539,18 @@ gpu_set_blendmode(bm_normal);
 
 #define HorizontalSlash(method, skill)
 
-FireCD(skill);
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-var _slash = ModObjectSpawn(owner.x, owner.y, 0);
-_slash.sprite_index = global.sprHorizontalSlash;
-_slash.despawnTime = room_speed * 0.1;
 
-with (_slash) { ProjectileCreate(0, 1); }
-_slash.distance = 16;
-_slash.direction = _dir;
-_slash.stationary = true;
-_slash.destroyOnImpact = false;
-InstanceAssignMethod(_slash, "step", ScriptWrap(ProjectileStep), false);
-InstanceAssignMethod(_slash, "destroy", ScriptWrap(ProjectileDestroy), false);
+var _p = ProjectileCreate(owner.x, owner.y);
+with (_p)
+{
+    sprite_index = global.sprHorizontalSlash;
+    despawnTime = room_speed * 0.1;
+    distance = 16;
+    direction = _dir;
+    stationary = true;
+    destroyOnImpact = false;
+}
+FireCD(skill);
 state = StandState.Idle;
 

@@ -71,7 +71,7 @@ loadStands();
 loadItems();
 
 CommandCreate("stand", true, ScriptWrap(CheatGiveStand), "name");
-//CommandCreate("timestop", true, ScriptWrap(TestCommand));
+CommandCreate("testcommand", false, ScriptWrap(TestCommand));
 
 #define OnRoomLoad
 
