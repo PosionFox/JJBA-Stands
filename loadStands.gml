@@ -48,7 +48,7 @@ if (active) {
     {
         if (keyboard_check_pressed(ord(skills[i, StandSkill.Key])))
         {
-            if (skills[i, StandSkill.Cooldown] <= 0)
+            if (skills[i, StandSkill.Cooldown] <= 0 and state == StandState.Idle)
             {
                 state = i;
             }
@@ -82,6 +82,10 @@ depth = -y;
 
 if (keyboard_check_pressed(ord("Q"))) {
     active = !active;
+    if (active)
+    {
+        audio_play_sound(global.sndSpSummon, 0, false);
+    }
 }
 
 x = lerp(x, xTo, spd);
@@ -132,7 +136,7 @@ var _s;
 _s = StandState.SkillA;
 _skills[_s, StandSkill.Skill] = StandBarrage;
 _skills[_s, StandSkill.Key] = "R";
-_skills[_s, StandSkill.Icon] = global.sprSkillBarrage;
+_skills[_s, StandSkill.Icon] = global.sprSkillBarrageSp;
 _skills[_s, StandSkill.Damage] = _stats[StandStat.AttackDamage];
 _skills[_s, StandSkill.MaxCooldown] = 5;
 _skills[_s, StandSkill.Cooldown] = 0;
@@ -142,7 +146,7 @@ _skills[_s, StandSkill.ExecutionTime] = 0;
 _s = StandState.SkillB;
 _skills[_s, StandSkill.Skill] = StrongPunch;
 _skills[_s, StandSkill.Key] = "F";
-_skills[_s, StandSkill.Icon] = global.sprSkillStrongPunch;
+_skills[_s, StandSkill.Icon] = global.sprSkillStrongPunchSp;
 _skills[_s, StandSkill.Damage] = _stats[StandStat.AttackDamage];
 _skills[_s, StandSkill.MaxCooldown] = 8;
 _skills[_s, StandSkill.Cooldown] = 0;
@@ -150,19 +154,19 @@ _skills[_s, StandSkill.MaxExecutionTime] = 1;
 _skills[_s, StandSkill.ExecutionTime] = 0;
 
 _s = StandState.SkillC;
-_skills[_s, StandSkill.Skill] = TripleKnifeThrow;
+_skills[_s, StandSkill.Skill] = StarFinger;
 _skills[_s, StandSkill.Key] = "C";
-_skills[_s, StandSkill.Icon] = global.sprSkillTripleKnifeThrow;
+_skills[_s, StandSkill.Icon] = global.sprSkillStarFinger;
 _skills[_s, StandSkill.Damage] = _stats[StandStat.AttackDamage];
 _skills[_s, StandSkill.MaxCooldown] = 3;
 _skills[_s, StandSkill.Cooldown] = 0;
-_skills[_s, StandSkill.MaxExecutionTime] = 1;
+_skills[_s, StandSkill.MaxExecutionTime] = 0.7;
 _skills[_s, StandSkill.ExecutionTime] = 0;
 
 _s = StandState.SkillD;
 _skills[_s, StandSkill.Skill] = TimestopSp;
 _skills[_s, StandSkill.Key] = "G";
-_skills[_s, StandSkill.Icon] = global.sprSkillTimestop;
+_skills[_s, StandSkill.Icon] = global.sprSkillTimestopSp;
 _skills[_s, StandSkill.Damage] = _stats[StandStat.AttackDamage];
 _skills[_s, StandSkill.MaxCooldown] = 15;
 _skills[_s, StandSkill.Cooldown] = 0;
@@ -306,6 +310,63 @@ StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
 InstanceAssignMethod(objPlayer.myStand, "step", ScriptWrap(StandDefaultStep), false);
 InstanceAssignMethod(objPlayer.myStand, "drawGUI", ScriptWrap(StandSkillDrawGUI), false);
 
+#define GiveD4C
+
+var _name = "D4C";
+var _sprite = global.sprD4C;
+var _punchSprite = noone;
+
+var _stats;
+_stats[StandStat.Range] = 50;
+_stats[StandStat.AttackDamage] = 4.8;
+_stats[StandStat.AttackRange] = 20;
+_stats[StandStat.BaseSpd] = 0.4;
+
+var _skills;
+var _s;
+
+_s = StandState.SkillA;
+_skills[_s, StandSkill.Skill] = EventHandler;
+_skills[_s, StandSkill.Key] = "R";
+_skills[_s, StandSkill.MaxCooldown] = 1;
+_skills[_s, StandSkill.Cooldown] = 0;
+_skills[_s, StandSkill.Icon] = global.sprSkillTemplate;
+_skills[_s, StandSkill.MaxExecutionTime] = 0;
+_skills[_s, StandSkill.ExecutionTime] = 0;
+
+_s = StandState.SkillB;
+_skills[_s, StandSkill.Skill] = EventHandler;
+_skills[_s, StandSkill.Key] = "F";
+_skills[_s, StandSkill.MaxCooldown] = 1;
+_skills[_s, StandSkill.Cooldown] = 0;
+_skills[_s, StandSkill.Icon] = global.sprSkillTemplate;
+_skills[_s, StandSkill.MaxExecutionTime] = 0;
+_skills[_s, StandSkill.ExecutionTime] = 0;
+
+_s = StandState.SkillC;
+_skills[_s, StandSkill.Skill] = EventHandler;
+_skills[_s, StandSkill.Key] = "C";
+_skills[_s, StandSkill.MaxCooldown] = 1;
+_skills[_s, StandSkill.Cooldown] = 0;
+_skills[_s, StandSkill.Icon] = global.sprSkillTemplate;
+_skills[_s, StandSkill.MaxExecutionTime] = 0;
+_skills[_s, StandSkill.ExecutionTime] = 0;
+
+_s = StandState.SkillD;
+_skills[_s, StandSkill.Skill] = LoveTrain;
+_skills[_s, StandSkill.Key] = "G";
+_skills[_s, StandSkill.MaxCooldown] = 1;
+_skills[_s, StandSkill.Cooldown] = 0;
+_skills[_s, StandSkill.Icon] = global.sprSkillTemplate;
+_skills[_s, StandSkill.MaxExecutionTime] = 0;
+_skills[_s, StandSkill.ExecutionTime] = 0;
+
+StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
+
+InstanceAssignMethod(objPlayer.myStand, "step", ScriptWrap(StandDefaultStep), false);
+InstanceAssignMethod(objPlayer.myStand, "drawGUI", ScriptWrap(StandSkillDrawGUI), false);
+SaveStand("bunny");
+
 #define StandBuilder(name, sprite, stats, skills, punchSprite)
 
 // init
@@ -340,4 +401,5 @@ switch (args[0]) {
     case "starplatinum": GiveStarPlatinum(); break;
     case "theworld": GiveTheWorld(); break;
     case "anubis": GiveAnubis(); break;
+    case "d4c": GiveD4C(); break;
 }

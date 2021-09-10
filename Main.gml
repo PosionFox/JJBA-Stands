@@ -23,19 +23,14 @@ if (_stand != noone)
 {
     switch (_stand)
     {
-        case "tw":
-            GiveTheWorld();
-            break;
-        case "sp":
-            GiveStarPlatinum();
-            break;
-        case "anubis":
-            GiveAnubis();
-            break;
+        case "tw": GiveTheWorld(); break;
+        case "sp": GiveStarPlatinum(); break;
+        case "anubis": GiveAnubis(); break;
+        case "bunny": GiveD4C(); break;
     }
 }
 
-#define modInstanceExists(_type)
+#define modTypeExists(_type)
 
 var _exists = false;
 with (objModEmpty)
@@ -44,7 +39,22 @@ with (objModEmpty)
     {
         if (type == _type)
         {
-            _exists = true
+            _exists = true;
+        }
+    }
+}
+return _exists;
+
+#define modSubtypeExists(_type)
+
+var _exists = false;
+with (objModEmpty)
+{
+    if ("subtype" in self)
+    {
+        if (subtype == _type)
+        {
+            _exists = true;
         }
     }
 }

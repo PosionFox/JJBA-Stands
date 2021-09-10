@@ -106,12 +106,18 @@ if (instance_exists(self)) {
 type = "timestop";
 global.timeIsFrozen = true;
 radiusGrow = true;
-growthTarget = 800;
-growth = 0;
+growthTarget = 0;
+growth = 800;
 maxLength = _length;
 length = 0;
+whiteScreen = 0.1;
 
 #define TimestopStep
+
+if (whiteScreen > 0)
+{
+    whiteScreen -= 1 / room_speed;
+}
 
 with (parEnemy)
 {
@@ -137,19 +143,7 @@ if (instance_exists(owner))
     y = owner.y;
 }
 
-if (growth > 790)
-{
-    radiusGrow = false;
-}
 //growth = clamp(growth, 0, 500);
-if (radiusGrow)
-{
-    growthTarget = 800;
-}
-else
-{
-    growthTarget = 0;
-}
 growth = lerp(growth, growthTarget, 0.1);/*
 with (objModEnemy)
 {
@@ -167,9 +161,16 @@ if (length >= maxLength)
 
 #define TimestopDraw
 
-gpu_set_blendmode_ext(bm_inv_dest_color, bm_inv_src_alpha);
-draw_circle(x, y, growth, false);
-gpu_set_blendmode(bm_normal);
+if (whiteScreen > 0)
+{
+    draw_circle(x, y, 1000, false);
+}
+else
+{
+    gpu_set_blendmode_ext(bm_inv_dest_color, bm_inv_src_alpha);
+    draw_circle(x, y, growth, false);
+    gpu_set_blendmode(bm_normal);
+}
 
 #define TimestopDestroy
 
@@ -268,7 +269,7 @@ xTo = _xx;
 yTo = _yy;
 spd = 0.1;
 
-if (distance_to_point(_xx, _yy) == 0)
+if (distance_to_point(_xx, _yy) <= 1)
 {
     var _dmg = (skills[skill, StandSkill.Damage] * 0.2) * owner.level;
     ThrowPunch(x, y, _dir, _dmg, 3);
@@ -298,7 +299,7 @@ state = StandState.Idle;
 
 #define TimestopTw(method, skill)
 
-var _tsExists = modInstanceExists("timestop");
+var _tsExists = modTypeExists("timestop");
 
 if (_tsExists)
 {
@@ -320,7 +321,7 @@ state = StandState.Idle;
 
 #define TimestopSp(method, skill)
 
-var _tsExists = modInstanceExists("timestop");
+var _tsExists = modTypeExists("timestop");
 
 if (_tsExists)
 {
@@ -339,6 +340,190 @@ if (!_tsExists)
     FireCD(skill);
 }
 state = StandState.Idle;
+
+#define StarFinger(method, skill)
+
+var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+
+var _xx = owner.x + lengthdir_x(stats[StandStat.AttackRange], _dir);
+var _yy = owner.y + lengthdir_y(stats[StandStat.AttackRange], _dir);
+xTo = _xx;
+yTo = _yy;
+
+if (distance_to_point(_xx, _yy) <= 1)
+{
+    if (!modSubtypeExists("starFinger"))
+    {
+        var _o = ModObjectSpawn(x, y, 0);
+        var _dmg = (skills[skill, StandSkill.Damage] * 0.1) * (owner.level * 0.5);
+        with (_o) { ProjectileCreate(0, _dmg); }
+        _o.subtype = "starFinger";
+        _o.stationary = true;
+        _o.canDespawnInTs = true;
+        _o.destroyOnImpact = false;
+        _o.sprite_index = global.sprStarPlatinumFinger;
+        _o.direction = _dir;
+        _o.despawnTime = room_speed * 0.7;
+        _o.fingerSize = 0;
+        InstanceAssignMethod(_o, "step", ScriptWrap(ProjectileStep), false);
+        InstanceAssignMethod(_o, "draw", ScriptWrap(StarFingerDraw), false);
+        InstanceAssignMethod(_o, "destroy", ScriptWrap(ProjectileDestroy), false);
+    }
+    else
+    {
+        with (objModEmpty)
+        {
+            if ("subtype" in self)
+            {
+                if (subtype == "starFinger")
+                {
+                    fingerSize = lerp(fingerSize, 120, 0.1);
+                    var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+                    direction = _dir;
+                    
+                    var x2 = owner.x + lengthdir_x(fingerSize, direction);
+                    var y2 = owner.y + lengthdir_y(fingerSize, direction);
+                    var _col = collision_line(owner.x, owner.y, x2, y2, parEnemy, false, true);
+                    var _colTs = collision_line(owner.x, owner.y, x2, y2, objModEmpty, false, true);
+                    
+                    if (_col)
+                    {
+                        with (_col)
+                        {
+                            if (array_find_index(other.instancesHit, id) == -1)
+                            {
+                                var _dir = point_direction(x, y, other.x, other.y) - 180;
+                                h = lengthdir_x(other.knockback, _dir);
+                                v = lengthdir_y(other.knockback, _dir);
+                                hp -= other.damage;
+                                array_push(other.instancesHit, id);
+                                if (other.destroyOnImpact)
+                                {
+                                    instance_destroy(other);
+                                }
+                            }
+                        }
+                    }
+                    if (_colTs)
+                    {
+                        with (_colTs)
+                        {
+                            if ("type" in self)
+                            {
+                                if (type == "TsEnemy")
+                                {
+                                    damageStack += 0.1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    skills[skill, StandSkill.ExecutionTime] += 1 / room_speed;
+}
+
+#define StarFingerDraw
+
+//draw_set_color(c_purple);
+var ox = owner.myStand.x;
+var oy = owner.myStand.y;
+var w = fingerSize / sprite_get_width(sprite_index);
+
+var xx = ox + lengthdir_x(w, direction);
+var yy = oy + lengthdir_y(w, direction);
+draw_sprite_ext(sprite_index, 0, xx, yy, w, 1, image_angle, image_blend, image_alpha);
+//draw_line_width(x, y, owner.myStand.x, owner.myStand.y, 2);
+//draw_set_color(image_blend);
+
+#define LoveTrain(method, skill)
+
+if (!modTypeExists("loveTrain"))
+{
+    audio_play_sound(global.sndLoveTrain, 5, false);
+    var _o = ModObjectSpawn(x, y, -1000);
+    with (_o) { LoveTrainCreate(); }
+    _o.type = "loveTrain";
+    InstanceAssignMethod(_o, "step", ScriptWrap(LoveTrainStep), false);
+    InstanceAssignMethod(_o, "draw", ScriptWrap(LoveTrainDraw), false);
+    FireCD(skill);
+    state = StandState.Idle;
+}
+else
+{
+    ResetCD(skill)
+    state = StandState.Idle;
+}
+
+#define LoveTrainCreate
+
+size = 1;
+length = 10;
+healRate = 1;
+
+for (var i = 0; i < 8; i++)
+{
+    rays[i] = ModObjectSpawn(x, y, 0);
+    rays[i].width = 1;
+    rays[i].height = 1;
+    InstanceAssignMethod(rays[i], "step", ScriptWrap(LoveTrainRayStep), false);
+    InstanceAssignMethod(rays[i], "draw", ScriptWrap(LoveTrainRayDraw), false);
+}
+
+#define LoveTrainStep
+
+size *= 1.1;
+size = clamp(size, 0, 1000);
+
+healRate -= 1 / room_speed;
+if (healRate <= 0)
+{
+    objPlayer.hp++;
+    healRate = 1;
+}
+
+for (var i = 0; i < 8; i++)
+{
+    rays[i].x = objPlayer.x + lengthdir_x(16, (i * 45) + current_time / 100);
+    rays[i].y = objPlayer.y + lengthdir_y(12, (i * 45) + current_time / 100);
+}
+
+length -= 1 / room_speed;
+if (length <= 0)
+{
+    for (var i = 0; i < 8; i++)
+    {
+        instance_destroy(rays[i]);
+    }
+    instance_destroy(self);
+}
+
+#define LoveTrainDraw
+/*
+gpu_set_blendmode_ext(bm_inv_dest_color, bm_inv_src_alpha);
+draw_set_color(c_teal);
+draw_rectangle(objPlayer.x - 500, (objPlayer.y + 500) - size, objPlayer.x + 500, objPlayer.y + 500, false);
+draw_set_color(image_blend);
+gpu_set_blendmode(bm_normal);*/
+
+#define LoveTrainRayStep
+
+height *= 1.1;
+height = clamp(height, 0, 1000);
+width = cos(current_time / 1000) * 2;
+
+depth = -y;
+
+#define LoveTrainRayDraw
+
+gpu_set_blendmode(bm_add);
+draw_set_alpha(0.5);
+draw_set_color(c_yellow);
+draw_line_width(x, y, x, y - height, width);
+draw_set_color(image_blend);
+draw_set_alpha(image_alpha);
+gpu_set_blendmode(bm_normal);
 
 #define HorizontalSlash(method, skill)
 

@@ -47,7 +47,8 @@ StructureEdit(Structure.Forge, StructureData.Items, _newArray);
 DmgPlayer(1, false);
 var _standPool =
 [
-    GiveTheWorld
+    GiveTheWorld,
+    GiveStarPlatinum
 ]
 
 var _c = irandom(array_length(_standPool) - 1);
