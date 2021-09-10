@@ -7,10 +7,13 @@ skills[skill, StandSkill.ExecutionTime] = 0;
 #define ResetCD(skill)
 
 skills[skill, StandSkill.Cooldown] = 0;
+skills[skill, StandSkill.ExecutionTime] = 0;
 
 #define ProjectileCreate(_spd, _dmg)
 
-label = "projectile";
+visible = false;
+type = "projectile";
+subtype = "projectile";
 owner = other.owner;
 baseSpd = _spd;
 spd = baseSpd;
@@ -20,12 +23,20 @@ instancesHit = [];
 stationary = false;
 distance = 0;
 canMoveInTs = true;
+canDespawnInTs = false;
+knockback = 0;
+
+if (owner.myStand.punchSprite != noone)
+{
+    sprite_index = owner.myStand.punchSprite;
+}
 
 #define ProjectileStep
 
+if (!visible) { visible = true; }
 depth = -y;
 
-if (!global.timeIsFrozen)
+if (global.timeIsFrozen and canDespawnInTs or !global.timeIsFrozen)
 {
     despawnTime--;
 }
@@ -64,12 +75,19 @@ if (instance_exists(self)) {
         }
     }
     
-    with (parEnemy) {
-        if (place_meeting(x, y, other)) {
-            if (array_find_index(other.instancesHit, id) == -1) {
+    with (parEnemy)
+    {
+        if (place_meeting(x, y, other))
+        {
+            if (array_find_index(other.instancesHit, id) == -1)
+            {
+                var _dir = point_direction(x, y, other.x, other.y) - 180;
+                h = lengthdir_x(other.knockback, _dir);
+                v = lengthdir_y(other.knockback, _dir);
                 hp -= other.damage;
                 array_push(other.instancesHit, id);
-                if (other.destroyOnImpact) {
+                if (other.destroyOnImpact)
+                {
                     instance_destroy(other);
                 }
             }
@@ -83,16 +101,18 @@ if (instance_exists(self)) {
 
 #region Timestop
 
-#define TimestopCreate
+#define TimestopCreate(_length)
 
-audio_play_sound(global.sndTwTs, 5, false);
 type = "timestop";
 global.timeIsFrozen = true;
 radiusGrow = true;
 growthTarget = 800;
 growth = 0;
-maxLength = 9;
+maxLength = _length;
 length = 0;
+
+#define TimestopStep
+
 with (parEnemy)
 {
     var _o = ModObjectSpawn(x, y, depth);
@@ -108,10 +128,8 @@ with (parEnemy)
     _o.damageStack = 0;
     InstanceAssignMethod(_o, "step", ScriptWrap(TsEnemyStep), false);
     InstanceAssignMethod(_o, "destroy", ScriptWrap(TsEnemyDestroy), false);
+    instance_deactivate_object(self);
 }
-instance_deactivate_object(parEnemy);
-
-#define TimestopStep
 
 if (instance_exists(owner))
 {
@@ -132,15 +150,15 @@ else
 {
     growthTarget = 0;
 }
-growth = lerp(growth, growthTarget, 0.1);
+growth = lerp(growth, growthTarget, 0.1);/*
 with (objModEnemy)
 {
     var _col = instance_place(x, y, objEmpty);
     if ("projectile" in _col)
     {
-        //damageStack += _col.damage;
+        damageStack += _col.damage;
     }
-}
+}*/
 length += 1 / room_speed;
 if (length >= maxLength)
 {
@@ -176,7 +194,7 @@ if (_col)
 {
     if ("type" in _col)
     {
-        if (_col.type == "knife")
+        if (_col.type == "projectile")
         {
             damageStack += _col.damage;
         }
@@ -189,106 +207,73 @@ target.hp -= damageStack;
 
 #endregion
 
-#define ThrowPunch(_x, _y, dir, dmg)
+#define ThrowPunch(_x, _y, _dir, _dmg, _knockback)
 
 var _punch = ModObjectSpawn(_x, _y, 0);
 _punch.sprite_index = global.sprTheWorldPunch;
 _punch.despawnTime = room_speed * 0.1;
 
-with (_punch) { ProjectileCreate(5, dmg); }
+with (_punch) { ProjectileCreate(5, _dmg); }
+_punch.canDespawnInTs = true;
 _punch.destroyOnImpact = false;
-_punch.direction = dir;
+_punch.direction = _dir;
+_punch.knockback = _knockback;
 InstanceAssignMethod(_punch, "step", ScriptWrap(ProjectileStep), false);
 InstanceAssignMethod(_punch, "destroy", ScriptWrap(ProjectileDestroy), false);
 
 #define StandBarrage(method, skill)
 
-if (instance_exists(parEnemy))
+var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
+var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+
+var _xx = owner.x + lengthdir_x(stats[StandStat.AttackRange], _dir);
+var _yy = owner.y + lengthdir_y(stats[StandStat.AttackRange], _dir);
+xTo = _xx;
+yTo = _yy;
+
+image_xscale = mouse_x > owner.x ? 1 : -1;
+if (distance_to_point(_xx, _yy) < 2)
 {
-    var _t = instance_nearest(mouse_x, mouse_y, parEnemy);
-    var _dis = point_distance(owner.x, owner.y, _t.x, _t.y);
-    var _dir = point_direction(owner.x, owner.y, _t.x, _t.y);
-    
-    if (_dis < stats[StandStat.Range])
+    var xx = x + random_range(-8, 8);
+    var yy = y + random_range(-8, 8);
+    var ddir = _dir + random_range(-2, 2);
+    var _dmg = (skills[skill, StandSkill.Damage] * 0.01) * (owner.level * 0.5);
+    ThrowPunch(xx, yy, ddir, _dmg, 0);
+    skills[skill, StandSkill.ExecutionTime] += 1 / room_speed;
+}
+
+if (keyboard_check_released(ord(skills[skill, StandSkill.Key])))
+{
+    if (skills[skill, StandSkill.ExecutionTime] > 0)
     {
-        target = _t;
-        spd = 0.1;
-        xTo = owner.x + lengthdir_x(_dis - 16, _dir);
-        yTo = owner.y + lengthdir_y(_dis - 16, _dir);
-        if (distance_to_object(target) < stats[StandStat.AttackRange])
-        {
-            var xx = x + random_range(-8, 8);
-            var yy = y + random_range(-8, 8);
-            var ddir = _dir + random_range(-2, 2);
-            var _dmg = (skills[skill, StandSkill.Damage] * 0.01) * (owner.level * 0.5);
-            ThrowPunch(xx, yy, ddir, _dmg);
-            skills[skill, StandSkill.ExecutionTime] += 1 / room_speed;
-        }
+        FireCD(skill);
     }
     else
     {
-        target = noone;
-        spd = stats[StandStat.BaseSpd];
-        if (skills[skill, StandSkill.ExecutionTime] > 0)
-        {
-            FireCD(skill);
-        }
-        else
-        {
-            ResetCD(skill);
-        }
-        state = StandState.Idle;
+        ResetCD(skill);
     }
-    if (keyboard_check_released(ord(skills[skill, StandSkill.Key])))
-    {
-        target = noone;
-        spd = stats[StandStat.BaseSpd];
-        if (skills[skill, StandSkill.ExecutionTime] > 0)
-        {
-            FireCD(skill);
-        }
-        else
-        {
-            ResetCD(skill);
-        }
-        state = StandState.Idle;
-    }
-}
-else
-{
-    target = noone;
-    spd = stats[StandStat.BaseSpd];
-    ResetCD(skill);
     state = StandState.Idle;
 }
 
+
+
 #define StrongPunch(method, skill)
 
-if (instance_exists(parEnemy)) {
-    var _t = instance_nearest(mouse_x, mouse_y, parEnemy);
-    var _dis = point_distance(owner.x, owner.y, _t.x, _t.y);
-    if (_dis < stats[StandStat.Range]) {
-        target = _t;
-        spd = 0.1;
-        xTo = target.x;
-        yTo = target.y;
-        if (distance_to_object(target) < stats[StandStat.AttackRange]) {
-            var _dmg = (skills[skill, StandSkill.Damage] * 0.2) * owner.level;
-            target.hp -= _dmg;
-            var _dir = point_direction(owner.x, owner.y, target.x, target.y);
-            target.h = lengthdir_x(3, _dir);
-            target.v = lengthdir_y(3, _dir);
-            target = noone;
-            spd = stats[StandStat.BaseSpd];
-            FireCD(skill);
-            state = StandState.Idle;
-        }
-    } else {
-        ResetCD(skill);
-        state = StandState.Idle;
-    }
-} else {
-    ResetCD(skill);
+var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
+var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y)
+
+var _xx = owner.x + lengthdir_x(stats[StandStat.AttackRange], _dir);
+var _yy = owner.y + lengthdir_y(stats[StandStat.AttackRange], _dir);
+xTo = _xx;
+yTo = _yy;
+spd = 0.1;
+
+if (distance_to_point(_xx, _yy) == 0)
+{
+    var _dmg = (skills[skill, StandSkill.Damage] * 0.2) * owner.level;
+    ThrowPunch(x, y, _dir, _dmg, 3);
+    FireCD(skill);
+    spd = stats[StandStat.BaseSpd];
     state = StandState.Idle;
 }
 
@@ -297,40 +282,56 @@ if (instance_exists(parEnemy)) {
 for (var i = 1; i <= 3; i++)
 {
     var _knife = ModObjectSpawn(owner.x, owner.y, 0);
-    _knife.sprite_index = global.sprKnife;
     var _dir = (point_direction(owner.x, owner.y, mouse_x, mouse_y) - 16) + (i * 8);
     _knife.despawnTime = room_speed * 5;
-    _knife.type = "knife";
     
     var _dmg = (skills[skill, StandSkill.Damage] * 0.1) * owner.level;
     with (_knife) { ProjectileCreate(5, _dmg); }
     _knife.direction = _dir;
     _knife.canMoveInTs = false;
+    _knife.sprite_index = global.sprKnife;
     InstanceAssignMethod(_knife, "step", ScriptWrap(ProjectileStep), false);
     InstanceAssignMethod(_knife, "destroy", ScriptWrap(ProjectileDestroy), false);
 }
 FireCD(skill);
 state = StandState.Idle;
 
-#define Timestop(method, skill)
+#define TimestopTw(method, skill)
 
-var _tsExists = false;
-with (objModEmpty)
+var _tsExists = modInstanceExists("timestop");
+
+if (_tsExists)
 {
-    if ("type" in self)
-    {
-        if (type == "timestop")
-        {
-            _tsExists = true;
-            instance_destroy(self);
-        }
-    }
+    instance_destroy(self);
 }
 
 if (!_tsExists)
 {
+    audio_play_sound(global.sndTwTs, 5, false);
     var _ts = ModObjectSpawn(x, y, -1000);
-    with (_ts) { TimestopCreate(); }
+    with (_ts) { TimestopCreate(9); }
+    _ts.owner = self;
+    InstanceAssignMethod(_ts, "step", ScriptWrap(TimestopStep), false);
+    InstanceAssignMethod(_ts, "draw", ScriptWrap(TimestopDraw), false);
+    InstanceAssignMethod(_ts, "destroy", ScriptWrap(TimestopDestroy), false);
+    FireCD(skill);
+}
+state = StandState.Idle;
+
+#define TimestopSp(method, skill)
+
+var _tsExists = modInstanceExists("timestop");
+
+if (_tsExists)
+{
+    instance_destroy(self);
+}
+
+if (!_tsExists)
+{
+    audio_play_sound(global.sndSpTs, 5, false);
+    var _ts = ModObjectSpawn(x, y, -1000);
+    with (_ts) { TimestopCreate(5); }
     _ts.owner = self;
     InstanceAssignMethod(_ts, "step", ScriptWrap(TimestopStep), false);
     InstanceAssignMethod(_ts, "draw", ScriptWrap(TimestopDraw), false);

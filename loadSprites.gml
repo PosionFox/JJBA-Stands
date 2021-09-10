@@ -4,6 +4,7 @@ global.sprDisc = sprite_add("Resources/Sprites/Disc.png", 1, false, false, 8, 8)
 global.sprKnife = sprite_add("Resources/Sprites/Knife.png", 1, false, false, 8, 8);
 global.sprHorizontalSlash = sprite_add("Resources/Sprites/HorizontalSlash.png", 1, false, false, 16, 16);
 global.sprTheWorldPunch = sprite_add("Resources/Sprites/TheWorldPunch.png", 1, false, false, 16, 16);
+global.sprStarPlatinumPunch = sprite_add("Resources/Sprites/StarPlatinumPunch.png", 1, false, false, 16, 16);
 
 global.sprSkillTemplate = sprite_add("Resources/Sprites/SkillTemplate.png", 1, false, false, 16, 16);
 global.sprSkillCooldown = sprite_add("Resources/Sprites/SkillCooldown.png", 1, false, false, 16, 16);

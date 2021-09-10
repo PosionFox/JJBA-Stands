@@ -26,11 +26,29 @@ if (_stand != noone)
         case "tw":
             GiveTheWorld();
             break;
+        case "sp":
+            GiveStarPlatinum();
+            break;
         case "anubis":
             GiveAnubis();
             break;
     }
 }
+
+#define modInstanceExists(_type)
+
+var _exists = false;
+with (objModEmpty)
+{
+    if ("type" in self)
+    {
+        if (type == _type)
+        {
+            _exists = true
+        }
+    }
+}
+return _exists;
 
 #define Main
 
