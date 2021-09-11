@@ -27,6 +27,7 @@ if (_stand != noone)
         case "sp": GiveStarPlatinum(); break;
         case "anubis": GiveAnubis(); break;
         case "bunny": GiveD4C(); break;
+        case "twau": GiveTheWorldAU(); break;
     }
 }
 
@@ -72,6 +73,10 @@ loadItems();
 
 CommandCreate("stand", true, ScriptWrap(CheatGiveStand), "name");
 CommandCreate("testcommand", false, ScriptWrap(TestCommand));
+
+#define OnNewGame
+
+GiveRandomStand();
 
 #define OnRoomLoad
 

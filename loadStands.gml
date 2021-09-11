@@ -30,6 +30,7 @@ enum StandSkill {
 var _width = display_get_gui_width();
 var _height = display_get_gui_height();
 
+//draw_text(128, 128, "asd");
 draw_text(168, _height - 160, string_lower(name));
 for (var i = 1; i <= 4; i++) {
     var xx = (64 * i);
@@ -160,8 +161,6 @@ _skills[sk, StandSkill.MaxExecutionTime] = 1;
 
 StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
 
-InstanceAssignMethod(objPlayer.myStand, "step", ScriptWrap(StandDefaultStep), false);
-InstanceAssignMethod(objPlayer.myStand, "drawGUI", ScriptWrap(StandSkillDrawGUI), false);
 SaveStand("sp");
 
 #endregion
@@ -213,8 +212,6 @@ _skills[sk, StandSkill.MaxExecutionTime] = 1;
 
 StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
 
-InstanceAssignMethod(objPlayer.myStand, "step", ScriptWrap(StandDefaultStep), false);
-InstanceAssignMethod(objPlayer.myStand, "drawGUI", ScriptWrap(StandSkillDrawGUI), false);
 SaveStand("tw");
 
 #endregion
@@ -242,9 +239,6 @@ _skills[sk, StandSkill.Skill] = HorizontalSlash;
 
 StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
 
-InstanceAssignMethod(objPlayer.myStand, "step", ScriptWrap(StandDefaultStep), false);
-InstanceAssignMethod(objPlayer.myStand, "drawGUI", ScriptWrap(StandSkillDrawGUI), false);
-
 #define GiveD4C
 
 var _name = "D4C";
@@ -259,14 +253,59 @@ _stats[StandStat.BaseSpd] = 0.4;
 
 var _skills = StandSkillInit(_stats);
 
-var sk = StandState.SkillD;
+var sk;
+sk = StandState.SkillC;
+_skills[sk, StandSkill.Skill] = BulletVolley;
+_skills[sk, StandSkill.MaxExecutionTime] = 3;
+
+sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = LoveTrain;
 
 StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
 
-InstanceAssignMethod(objPlayer.myStand, "step", ScriptWrap(StandDefaultStep), false);
-InstanceAssignMethod(objPlayer.myStand, "drawGUI", ScriptWrap(StandSkillDrawGUI), false);
 SaveStand("bunny");
+
+#define GiveTheWorldAU
+
+var _name = "The World AU";
+var _sprite = global.sprTheWorldAU;
+var _punchSprite = global.sprTheWorldPunch;
+
+var _stats;
+_stats[StandStat.Range] = 50;
+_stats[StandStat.AttackDamage] = 4.0;
+_stats[StandStat.AttackRange] = 20;
+_stats[StandStat.BaseSpd] = 0.5;
+
+var _skills = StandSkillInit(_stats);
+
+var sk;
+sk = StandState.SkillA;
+_skills[sk, StandSkill.Skill] = KnifeBarrage;
+_skills[sk, StandSkill.Icon] = global.sprSkillKnifeBarrage;
+_skills[sk, StandSkill.MaxCooldown] = 8;
+_skills[sk, StandSkill.MaxExecutionTime] = 3;
+
+sk = StandState.SkillB;
+_skills[sk, StandSkill.Skill] = StrongPunch;
+_skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
+_skills[sk, StandSkill.MaxCooldown] = 7;
+_skills[sk, StandSkill.MaxExecutionTime] = 1;
+
+sk = StandState.SkillC;
+_skills[sk, StandSkill.Skill] = GunShot;
+_skills[sk, StandSkill.Icon] = global.sprSkillGunShot;
+_skills[sk, StandSkill.MaxCooldown] = 5;
+_skills[sk, StandSkill.MaxExecutionTime] = 1;
+
+sk = StandState.SkillD;
+_skills[sk, StandSkill.Skill] = TimestopTwAu;
+_skills[sk, StandSkill.Icon] = global.sprSkillTimestop;
+_skills[sk, StandSkill.MaxCooldown] = 45;
+
+StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
+
+SaveStand("twau");
 
 #define StandSkillInit(_stats)
 
@@ -323,6 +362,8 @@ objPlayer.myStand.type = "stand";
 objPlayer.myStand.name = name;
 objPlayer.myStand.sprite_index = sprite;
 objPlayer.myStand.punchSprite = punchSprite;
+objPlayer.myStand.attackState = 0;
+objPlayer.myStand.attackStateTimer = 0;
 // state
 objPlayer.myStand.active = false;
 objPlayer.myStand.state = StandState.Idle;
@@ -337,6 +378,9 @@ objPlayer.myStand.spd = objPlayer.myStand.stats[StandStat.BaseSpd];
 // skills
 objPlayer.myStand.skills = array_clone(skills);
 
+InstanceAssignMethod(objPlayer.myStand, "step", ScriptWrap(StandDefaultStep), false);
+InstanceAssignMethod(objPlayer.myStand, "drawGUI", ScriptWrap(StandSkillDrawGUI), false);
+
 #define CheatGiveStand(args)
 
 with (objPlayer) {
@@ -350,4 +394,5 @@ switch (args[0]) {
     case "theworld": GiveTheWorld(); break;
     case "anubis": GiveAnubis(); break;
     case "d4c": GiveD4C(); break;
+    case "twau": GiveTheWorldAU(); break;
 }

@@ -1,11 +1,15 @@
 
 #define FireCD(skill)
 
+attackState = 0;
+attackStateTimer = 0;
 skills[skill, StandSkill.Cooldown] = skills[skill, StandSkill.MaxCooldown];
 skills[skill, StandSkill.ExecutionTime] = 0;
 
 #define ResetCD(skill)
 
+attackState = 0;
+attackStateTimer = 0;
 skills[skill, StandSkill.Cooldown] = 0;
 skills[skill, StandSkill.ExecutionTime] = 0;
 
@@ -29,6 +33,7 @@ with (_o)
     canMoveInTs = true;
     canDespawnInTs = false;
     knockback = 0;
+    onHitSound = global.sndPunchHit;
     
     if (owner.myStand.punchSprite != noone)
     {
@@ -90,6 +95,12 @@ if (instance_exists(self)) {
         {
             if (array_find_index(other.instancesHit, id) == -1)
             {
+                if (other.onHitSound != noone)
+                {
+                    var _s = audio_play_sound(other.onHitSound, 0, false);
+                    audio_sound_pitch(_s, random_range(0.9, 1.1));
+                }
+                DustEntityAdd(other.x, other.y);
                 var _dir = point_direction(x, y, other.x, other.y) - 180;
                 h = lengthdir_x(other.knockback, _dir);
                 v = lengthdir_y(other.knockback, _dir);
@@ -230,6 +241,7 @@ with (_p)
     direction = _dir;
     knockback = _knockback;
 }
+return _p;
 
 #define StandBarrage(method, skill)
 
@@ -240,15 +252,23 @@ var _xx = owner.x + lengthdir_x(stats[StandStat.AttackRange], _dir);
 var _yy = owner.y + lengthdir_y(stats[StandStat.AttackRange], _dir);
 xTo = _xx;
 yTo = _yy;
-
 image_xscale = mouse_x > owner.x ? 1 : -1;
+
+attackStateTimer += 1 / room_speed;
 if (distance_to_point(_xx, _yy) < 2)
 {
-    var xx = x + random_range(-8, 8);
-    var yy = y + random_range(-8, 8);
-    var ddir = _dir + random_range(-2, 2);
-    var _dmg = (skills[skill, StandSkill.Damage] * 0.01) * (owner.level * 0.5);
-    PunchCreate(xx, yy, ddir, _dmg, 0);
+    if (attackStateTimer >= 0.1)
+    {
+        var _snd = audio_play_sound(global.sndPunchAir, 0, false);
+        audio_sound_pitch(_snd, random_range(0.9, 1.1));
+        var xx = x + random_range(-8, 8);
+        var yy = y + random_range(-8, 8);
+        var ddir = _dir + random_range(-2, 2);
+        var _dmg = (skills[skill, StandSkill.Damage] * 0.01) * (owner.level * 0.5);
+        var _p = PunchCreate(xx, yy, ddir, _dmg, 0);
+        _p.onHitSound = global.sndPunchHit;
+        attackStateTimer = 0;
+    }
     skills[skill, StandSkill.ExecutionTime] += 1 / room_speed;
 }
 
@@ -265,7 +285,73 @@ if (keyboard_check_released(ord(skills[skill, StandSkill.Key])))
     state = StandState.Idle;
 }
 
+#define KnifeBarrage(method, skill)
 
+var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
+var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+
+var _xx = owner.x + lengthdir_x(stats[StandStat.AttackRange], _dir);
+var _yy = owner.y + lengthdir_y(stats[StandStat.AttackRange], _dir);
+xTo = _xx;
+yTo = _yy;
+image_xscale = mouse_x > owner.x ? 1 : -1;
+
+attackStateTimer += 1 / room_speed;
+if (distance_to_point(_xx, _yy) < 2)
+{
+    if (attackStateTimer >= 0.1)
+    {
+        var _snd = audio_play_sound(global.sndKnifeThrow, 0, false);
+        audio_sound_pitch(_snd, random_range(0.9, 1.1));
+        var xx = x + random_range(-8, 8);
+        var yy = y + random_range(-8, 8);
+        var ddir = _dir + random_range(-2, 2);
+        var _dmg = (skills[skill, StandSkill.Damage] * 0.02) * (owner.level);
+        var _p = ProjectileCreate(xx, yy);
+        with (_p)
+        {
+            despawnTime = room_speed * 5;
+            damage = _dmg;
+            direction = _dir
+            direction += random_range(-4, 4);
+            canMoveInTs = false;
+            sprite_index = global.sprKnife;
+        }
+        attackStateTimer = 0;
+    }
+    skills[skill, StandSkill.ExecutionTime] += 1 / room_speed;
+}
+
+if (keyboard_check_released(ord(skills[skill, StandSkill.Key])))
+{
+    if (skills[skill, StandSkill.ExecutionTime] > 0)
+    {
+        FireCD(skill);
+    }
+    else
+    {
+        ResetCD(skill);
+    }
+    state = StandState.Idle;
+}
+
+#define GunShot(method, skill)
+
+var _dmg = (skills[skill, StandSkill.Damage] * 0.1) * owner.level;
+var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+
+var _p = ProjectileCreate(owner.x, owner.y);
+with (_p)
+{
+    audio_play_sound(global.sndGunShot, 0, false);
+    sprite_index = global.sprBullet;
+    despawnTime = room_speed * 5;
+    damage = _dmg;
+    direction = _dir;
+    canMoveInTs = false;
+}
+FireCD(skill)
+state = StandState.Idle;
 
 #define StrongPunch(method, skill)
 
@@ -276,16 +362,24 @@ var _xx = owner.x + lengthdir_x(stats[StandStat.AttackRange], _dir);
 var _yy = owner.y + lengthdir_y(stats[StandStat.AttackRange], _dir);
 xTo = _xx;
 yTo = _yy;
-spd = 0.1;
 
-if (distance_to_point(_xx, _yy) <= 1)
+switch (attackState)
 {
-    var _dmg = (skills[skill, StandSkill.Damage] * 0.2) * owner.level;
-    PunchCreate(x, y, _dir, _dmg, 3);
-    FireCD(skill);
-    spd = stats[StandStat.BaseSpd];
-    state = StandState.Idle;
+    case 0:
+        if (attackStateTimer >= 1)
+        {
+            attackState++;
+        }
+        break;
+    case 1:
+        var _dmg = (skills[skill, StandSkill.Damage] * 0.2) * owner.level;
+        var _p = PunchCreate(x, y, _dir, _dmg, 3);
+        _p.onHitSound = global.sndStrongPunch;
+        FireCD(skill);
+        state = StandState.Idle;
+        break;
 }
+attackStateTimer += 1 / room_speed;
 
 #define TripleKnifeThrow(method, skill)
 
@@ -297,6 +391,9 @@ for (var i = 1; i <= 3; i++)
     var _p = ProjectileCreate(owner.x, owner.y);
     with (_p)
     {
+        var _snd = audio_play_sound(global.sndKnifeThrow, 0, false);
+        audio_sound_pitch(_snd, random_range(0.9, 1.1));
+        onHitSound = global.sndPunchHit;
         despawnTime = room_speed * 5;
         damage = _dmg;
         direction = _dir;
@@ -319,6 +416,28 @@ if (_tsExists)
 if (!_tsExists)
 {
     audio_play_sound(global.sndTwTs, 5, false);
+    var _ts = ModObjectSpawn(x, y, -1000);
+    with (_ts) { TimestopCreate(9); }
+    _ts.owner = self;
+    InstanceAssignMethod(_ts, "step", ScriptWrap(TimestopStep), false);
+    InstanceAssignMethod(_ts, "draw", ScriptWrap(TimestopDraw), false);
+    InstanceAssignMethod(_ts, "destroy", ScriptWrap(TimestopDestroy), false);
+    FireCD(skill);
+}
+state = StandState.Idle;
+
+#define TimestopTwAu(method, skill)
+
+var _tsExists = modTypeExists("timestop");
+
+if (_tsExists)
+{
+    instance_destroy(self);
+}
+
+if (!_tsExists)
+{
+    audio_play_sound(global.sndTwAuTs, 5, false);
     var _ts = ModObjectSpawn(x, y, -1000);
     with (_ts) { TimestopCreate(9); }
     _ts.owner = self;
@@ -536,6 +655,73 @@ draw_line_width(x, y, x, y - height, width);
 draw_set_color(image_blend);
 draw_set_alpha(image_alpha);
 gpu_set_blendmode(bm_normal);
+
+#define BulletVolley(method, skill)
+
+var _dmg = 1;
+var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+xTo = owner.x + lengthdir_x(8, _dir - 180);
+yTo = owner.y + lengthdir_y(8, _dir - 180);
+
+if (attackStateTimer == 0)
+{
+    var _p = ProjectileCreate(owner.x, owner.y);
+    with (_p)
+    {
+        sprite_index = global.sprBullet;
+        despawnTime = room_speed * 5;
+        damage = _dmg;
+        direction = _dir;
+        canMoveInTs = false;
+    }
+}
+attackStateTimer += 1 / room_speed;
+if (attackStateTimer >= 0.3)
+{
+    attackStateTimer = 0;
+    attackState++;
+}
+if (attackState >= 3)
+{
+    FireCD(skill);
+    state = StandState.Idle;
+}
+/*
+switch (attackState)
+{
+    case 0:
+        var _p = ProjectileCreate(owner.x, owner.y);
+        with (_p)
+        {
+            sprite_index = global.sprBullet;
+            despawnTime = room_speed * 5;
+            damage = _dmg;
+            direction = _dir;
+            canMoveInTs = false;
+        }
+        attackState++;
+        break;
+    case 1:
+        if (attackStateTimer >= 0.3)
+        {
+            attackState++;
+        }
+        attackStateTimer += 1 / room_speed;
+        break;
+    case 2:
+        var _p = ProjectileCreate(owner.x, owner.y);
+        with (_p)
+        {
+            sprite_index = global.sprBullet;
+            despawnTime = room_speed * 5;
+            damage = _dmg;
+            direction = _dir;
+            canMoveInTs = false;
+        }
+        FireCD(skill);
+        state = StandState.Idle;
+    break;
+}*/
 
 #define HorizontalSlash(method, skill)
 

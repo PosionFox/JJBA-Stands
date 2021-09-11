@@ -14,7 +14,7 @@ global.jjbamArrow = ItemCreate(
         Item.Wood, 1,
         Item.StarFragment, 1
     ],
-    ScriptWrap(GiveRandomStand),
+    ScriptWrap(SusArrowUse),
     5 * 10,
     true
 );
@@ -32,7 +32,7 @@ global.jjbamDisc = ItemCreate(
     [
         Item.Glass, 2,
     ],
-    ScriptWrap(RemoveStand),
+    ScriptWrap(DiscUse),
     5 * 10,
     true
 );
@@ -42,19 +42,24 @@ array_push(_newArray, global.jjbamArrow);
 array_push(_newArray, global.jjbamDisc);
 StructureEdit(Structure.Forge, StructureData.Items, _newArray);
 
-#define GiveRandomStand
+#define SusArrowUse
 
 DmgPlayer(1, false);
+GiveRandomStand();
+
+#define GiveRandomStand
+
 var _standPool =
 [
     GiveTheWorld,
-    GiveStarPlatinum
+    GiveStarPlatinum,
+    GiveTheWorldAU
 ]
 
 var _c = irandom(array_length(_standPool) - 1);
 script_execute(_standPool[_c]);
 
-#define RemoveStand
+#define DiscUse
 
 DmgPlayer(1, false);
 with (objModEmpty)
