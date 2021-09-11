@@ -307,6 +307,48 @@ StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
 
 SaveStand("twau");
 
+#define GiveShadowTheWorld
+
+var _name = "Shadow The World";
+var _sprite = global.sprShadowTheWorld;
+var _punchSprite = global.sprStwPunch;
+
+var _stats;
+_stats[StandStat.Range] = 50;
+_stats[StandStat.AttackDamage] = 4;
+_stats[StandStat.AttackRange] = 10;
+_stats[StandStat.BaseSpd] = 0.6;
+
+var _skills = StandSkillInit(_stats);
+
+var sk;
+sk = StandState.SkillA;
+_skills[sk, StandSkill.Skill] = ComboDash;
+_skills[sk, StandSkill.Icon] = global.sprSkillKnifeCoffin;
+_skills[sk, StandSkill.MaxCooldown] = 3;
+_skills[sk, StandSkill.MaxExecutionTime] = 3;
+
+sk = StandState.SkillB;
+_skills[sk, StandSkill.Skill] = BackDashKnife;
+_skills[sk, StandSkill.Icon] = global.sprSkillBackDashKnife;
+_skills[sk, StandSkill.MaxCooldown] = 3;
+_skills[sk, StandSkill.MaxExecutionTime] = 1;
+
+sk = StandState.SkillC;
+_skills[sk, StandSkill.Skill] = TripleCombo;
+_skills[sk, StandSkill.Icon] = global.sprSkillTripleCombo;
+_skills[sk, StandSkill.MaxCooldown] = 5;
+_skills[sk, StandSkill.MaxExecutionTime] = 3;
+
+sk = StandState.SkillD;
+_skills[sk, StandSkill.Skill] = TimestopSTW;
+_skills[sk, StandSkill.Icon] = global.sprSkillTimestopStw;
+_skills[sk, StandSkill.MaxCooldown] = 12;
+
+StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
+
+SaveStand("stw");
+
 #define StandSkillInit(_stats)
 
 var _arr;
@@ -395,4 +437,5 @@ switch (args[0]) {
     case "anubis": GiveAnubis(); break;
     case "d4c": GiveD4C(); break;
     case "twau": GiveTheWorldAU(); break;
+    case "stw": GiveShadowTheWorld(); break;
 }

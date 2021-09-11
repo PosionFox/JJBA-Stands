@@ -10,3 +10,4 @@ global.sndPunchHit = audio_create_stream("Resources/Sounds/punchHit.ogg");
 global.sndStrongPunch = audio_create_stream("Resources/Sounds/strongPunch.ogg");
 global.sndGunShot = audio_create_stream("Resources/Sounds/gunShot.ogg");
 global.sndKnifeThrow = audio_create_stream("Resources/Sounds/knifeThrow.ogg");
+global.sndStwTs = audio_create_stream("Resources/Sounds/stwTs.ogg");

@@ -28,6 +28,7 @@ if (_stand != noone)
         case "anubis": GiveAnubis(); break;
         case "bunny": GiveD4C(); break;
         case "twau": GiveTheWorldAU(); break;
+        case "stw": GiveShadowTheWorld(); break;
     }
 }
 
