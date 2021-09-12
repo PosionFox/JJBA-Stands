@@ -8,20 +8,20 @@ skills[skill, StandSkill.ExecutionTime] = 0;
 
 #define ResetCD(skill)
 
-attackState = 0;
-attackStateTimer = 0;
+FireCD(skill);
 skills[skill, StandSkill.Cooldown] = 0;
-skills[skill, StandSkill.ExecutionTime] = 0;
 
 #define ProjectileCreate(_x, _y)
 
 var _o = ModObjectSpawn(_x, _y, 0);
 with (_o)
 {
+    sprite_index = global.sprBullet;
     visible = false;
     type = "projectile";
     subtype = "projectile";
     owner = other.owner;
+    despawnTime = room_speed * 5;
     baseSpd = 5;
     spd = baseSpd;
     baseDamage = 0;
@@ -35,11 +35,6 @@ with (_o)
     knockback = 0;
     onHitSound = global.sndPunchHit;
     onHitEvent = noone;
-    
-    if (owner.myStand.punchSprite != noone)
-    {
-        sprite_index = owner.myStand.punchSprite;
-    }
     
     InstanceAssignMethod(self, "step", ScriptWrap(ProjectileStep), false);
     InstanceAssignMethod(self, "destroy", ScriptWrap(ProjectileDestroy), false);
@@ -108,6 +103,7 @@ if (instance_exists(self)) {
                         script_execute(onHitEvent);
                     }
                 }
+                PunchEffectCreate(other.x, other.y);
                 DustEntityAdd(other.x, other.y);
                 var _dir = point_direction(x, y, other.x, other.y) - 180;
                 h = lengthdir_x(other.knockback, _dir);
@@ -253,13 +249,31 @@ with (_p)
 }
 return _p;
 
+#define PunchEffectCreate(_x, _y)
+
+var _o = ModObjectSpawn(_x, _y, 0);
+with (_o)
+{
+    depth = -y;
+    sprite_index = global.sprPunchEffect;
+    image_index = 0;
+    InstanceAssignMethod(self, "step", ScriptWrap(PunchEffectStep), false);
+}
+
+#define PunchEffectStep
+
+if (image_index >= image_number - 1)
+{
+    instance_destroy(self);
+}
+
 #define StandBarrage(method, skill)
 
 var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
 
-var _xx = owner.x + lengthdir_x(stats[StandStat.AttackRange], _dir);
-var _yy = owner.y + lengthdir_y(stats[StandStat.AttackRange], _dir);
+var _xx = owner.x + lengthdir_x(stats[StandStat.AttackRange], _dir + random_range(-4, 4));
+var _yy = owner.y + lengthdir_y(stats[StandStat.AttackRange], _dir + random_range(-4, 4));
 xTo = _xx;
 yTo = _yy;
 image_xscale = mouse_x > owner.x ? 1 : -1;
@@ -419,7 +433,7 @@ var _tsExists = modTypeExists("timestop");
 
 if (_tsExists)
 {
-    instance_destroy(self);
+    instance_destroy(modTypeFind("timestop"));
 }
 
 if (!_tsExists)
@@ -441,14 +455,14 @@ var _tsExists = modTypeExists("timestop");
 
 if (_tsExists)
 {
-    instance_destroy(self);
+    instance_destroy(modTypeFind("timestop"));
 }
 
 if (!_tsExists)
 {
     audio_play_sound(global.sndTwAuTs, 5, false);
     var _ts = ModObjectSpawn(x, y, -1000);
-    with (_ts) { TimestopCreate(9); }
+    with (_ts) { TimestopCreate(5); }
     _ts.owner = self;
     InstanceAssignMethod(_ts, "step", ScriptWrap(TimestopStep), false);
     InstanceAssignMethod(_ts, "draw", ScriptWrap(TimestopDraw), false);
@@ -463,7 +477,7 @@ var _tsExists = modTypeExists("timestop");
 
 if (_tsExists)
 {
-    instance_destroy(self);
+    instance_destroy(modTypeFind("timestop"));
 }
 
 if (!_tsExists)
@@ -485,7 +499,7 @@ var _tsExists = modTypeExists("timestop");
 
 if (_tsExists)
 {
-    instance_destroy(self);
+    instance_destroy(modTypeFind("timestop"));
 }
 
 if (!_tsExists)
@@ -603,12 +617,7 @@ draw_sprite_ext(sprite_index, 0, xx, yy, w, 1, image_angle, image_blend, image_a
 
 if (!modTypeExists("loveTrain"))
 {
-    audio_play_sound(global.sndLoveTrain, 5, false);
-    var _o = ModObjectSpawn(x, y, -1000);
-    with (_o) { LoveTrainCreate(); }
-    _o.type = "loveTrain";
-    InstanceAssignMethod(_o, "step", ScriptWrap(LoveTrainStep), false);
-    InstanceAssignMethod(_o, "draw", ScriptWrap(LoveTrainDraw), false);
+    LoveTrainCreate(15);
     FireCD(skill);
     state = StandState.Idle;
 }
@@ -618,64 +627,90 @@ else
     state = StandState.Idle;
 }
 
-#define LoveTrainCreate
+#define LoveTrainCreate(_length)
 
-size = 1;
-length = 10;
-healRate = 1;
-
-for (var i = 0; i < 8; i++)
+audio_play_sound(global.sndLtStart, 5, false);
+var _o = ModObjectSpawn(objPlayer.x, objPlayer.y, 0)
+with (_o)
 {
-    rays[i] = ModObjectSpawn(x, y, 0);
-    rays[i].width = 1;
-    rays[i].height = 1;
-    InstanceAssignMethod(rays[i], "step", ScriptWrap(LoveTrainRayStep), false);
-    InstanceAssignMethod(rays[i], "draw", ScriptWrap(LoveTrainRayDraw), false);
+    depth = -1000;
+    type = "loveTrain";
+    size = 1;
+    length = _length;
+    rotSpeed = 0;
+    range = 500;
+    circRange = 500;
+    InstanceAssignMethod(self, "step", ScriptWrap(LoveTrainStep), false);
+    InstanceAssignMethod(self, "draw", ScriptWrap(LoveTrainDraw), false);
+    
+    for (var i = 0; i < 8; i++)
+    {
+        rays[i] = ModObjectSpawn(x, y, 0);
+        rays[i].width = 1;
+        rays[i].height = 1;
+        InstanceAssignMethod(rays[i], "step", ScriptWrap(LoveTrainRayStep), false);
+        InstanceAssignMethod(rays[i], "draw", ScriptWrap(LoveTrainRayDraw), false);
+    }
 }
 
 #define LoveTrainStep
 
-size *= 1.1;
-size = clamp(size, 0, 1000);
-
-healRate -= 1 / room_speed;
-if (healRate <= 0)
+if (!audio_is_playing(global.sndLtStart) and !audio_is_playing(global.sndLtLoop))
 {
-    objPlayer.hp++;
-    healRate = 1;
+    audio_play_sound(global.sndLtLoop, 5, true);
 }
 
-for (var i = 0; i < 8; i++)
+size *= 1.1;
+size = clamp(size, 0, 1000);
+rotSpeed = lerp(rotSpeed, 100, 0.05);
+range = lerp(range, 16, 0.08);
+circRange = lerp(circRange, 0, 0.2);
+
+if (instance_exists(objPlayer))
 {
-    rays[i].x = objPlayer.x + lengthdir_x(16, (i * 45) + current_time / 100);
-    rays[i].y = objPlayer.y + lengthdir_y(12, (i * 45) + current_time / 100);
+    x = objPlayer.x;
+    y = objPlayer.y;
+    for (var i = 0; i < 8; i++)
+    {
+        rays[i].x = x + lengthdir_x(range, (i * 45) + current_time / rotSpeed);
+        rays[i].y = y + lengthdir_y(range, (i * 45) + current_time / rotSpeed);
+    }
 }
 
 length -= 1 / room_speed;
 if (length <= 0)
 {
-    for (var i = 0; i < 8; i++)
-    {
-        instance_destroy(rays[i]);
-    }
+    audio_stop_sound(global.sndLtLoop);
+    audio_play_sound(global.sndLtEnd, 5, false);
     instance_destroy(self);
 }
 
 #define LoveTrainDraw
-/*
+
 gpu_set_blendmode_ext(bm_inv_dest_color, bm_inv_src_alpha);
 draw_set_color(c_teal);
-draw_rectangle(objPlayer.x - 500, (objPlayer.y + 500) - size, objPlayer.x + 500, objPlayer.y + 500, false);
+draw_circle(x, y, circRange, false);
 draw_set_color(image_blend);
-gpu_set_blendmode(bm_normal);*/
+gpu_set_blendmode(bm_normal);
 
 #define LoveTrainRayStep
 
-height *= 1.1;
-height = clamp(height, 0, 1000);
-width = cos(current_time / 1000) * 2;
-
 depth = -y;
+
+if (modTypeExists("loveTrain"))
+{
+    height *= 1.1;
+    height = clamp(height, 0, 1000);
+    width = cos(current_time / 1000) * 2;
+}
+else
+{
+    height *= 0.9;
+    if (height <= 0)
+    {
+        instance_destroy(self);
+    }
+}
 
 #define LoveTrainRayDraw
 
@@ -689,13 +724,16 @@ gpu_set_blendmode(bm_normal);
 
 #define BulletVolley(method, skill)
 
-var _dmg = 1;
+var _dmg = (stats[StandStat.AttackDamage] * 0.1) * owner.level;
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
 xTo = owner.x + lengthdir_x(8, _dir - 180);
 yTo = owner.y + lengthdir_y(8, _dir - 180);
 
 if (attackStateTimer == 0)
 {
+    var _snd = audio_play_sound(global.sndGunShot, 0, false);
+    audio_sound_pitch(_snd, random_range(0.9, 1.1));
+    audio_sound_gain(_snd, 0.5, 0);
     var _p = ProjectileCreate(owner.x, owner.y);
     with (_p)
     {
@@ -704,10 +742,11 @@ if (attackStateTimer == 0)
         damage = _dmg;
         direction = _dir;
         canMoveInTs = false;
+        onHitEvent = VolleyRefund;
     }
 }
 attackStateTimer += 1 / room_speed;
-if (attackStateTimer >= 0.3)
+if (attackStateTimer >= 0.15)
 {
     attackStateTimer = 0;
     attackState++;
@@ -717,6 +756,16 @@ if (attackState >= 3)
     FireCD(skill);
     state = StandState.Idle;
 }
+
+#define VolleyRefund
+
+var _skill = StandState.SkillC;
+owner.myStand.skills[_skill, StandSkill.Cooldown] -= 1.5;
+owner.myStand.skills[_skill, StandSkill.Cooldown] = clamp(
+    owner.myStand.skills[_skill, StandSkill.Cooldown],
+    0,
+    owner.myStand.skills[_skill, StandSkill.MaxCooldown]
+);
 
 #define ComboDash(method, skill)
 var _dmg = (skills[skill, StandSkill.Damage] * 0.05) * owner.level;
@@ -891,6 +940,117 @@ switch (attackState)
     break;
 }
 attackStateTimer += 1 / room_speed;
+
+#define CloneSummon(method, skill)
+var _dmg = (stats[StandStat.AttackDamage] * 0.02) * owner.level;
+var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+xTo = owner.x + lengthdir_x(8, _dir);
+yTo = owner.y + lengthdir_y(8, _dir);
+
+attackStateTimer += 1 / room_speed;
+switch (attackState)
+{
+    case 0:
+        audio_play_sound(global.sndCloneSummon, 1, false);
+        attackState++;
+    break;
+    case 1:
+        if (attackStateTimer >= 2)
+        {
+            attackState++;
+        }
+    break;
+    case 2:
+        var _xx = x + lengthdir_x(8, _dir);
+        var _yy = y + lengthdir_y(8, _dir);
+        var _o = CloneCreate(_xx, _yy);
+        _o.damage = _dmg
+        FireCD(skill);
+        state = StandState.Idle;
+    break;
+}
+
+#define CloneCreate(_x, _y)
+
+var _o = ModObjectSpawn(_x, _y, 0);
+with (_o)
+{
+    owner = other;
+    sprite_index = objPlayer.sprIdle;
+    image_speed = objPlayer.image_speed;
+    var _c = irandom(1);
+    var _xs = [-1, 1];
+    image_xscale = _xs[_c];
+    image_yscale = 0;
+    yscale = 1;
+    sprHatIdle = objPlayer.sprHatIdle;
+    sprBackIdle = objPlayer.sprBackIdle;
+    depth = -y;
+    
+    damage = 1;
+    life = 15;
+    gunMaxCD = 1;
+    gunCD = gunMaxCD;
+    spawnRad = 16;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(CloneStep), false);
+    InstanceAssignMethod(self, "draw", ScriptWrap(CloneDraw), false);
+}
+return _o;
+
+#define CloneStep
+
+image_yscale = lerp(image_yscale, yscale, 0.3);
+spawnRad = lerp(spawnRad, 0, 0.1);
+
+gunCD -= 1 / room_speed;
+if (instance_exists(parEnemy))
+{
+    var _t = instance_nearest(x, y, parEnemy);
+    image_xscale = _t.x > x ? 1 : -1;
+    
+    if (gunCD <= 0)
+    {
+        var _dir = point_direction(x, y, _t.x, _t.y);
+        var _snd = audio_play_sound(global.sndGunShot, 0, false);
+        audio_sound_pitch(_snd, random_range(0.9, 1.1));
+        audio_sound_gain(_snd, 0.3, 0);
+        var _o = ProjectileCreate(x, y);
+        with (_o)
+        {
+            owner = other.owner;
+            direction = _dir;
+            damage = other.damage;
+        }
+        gunCD = gunMaxCD;
+    }
+}
+life -= 1 / room_speed;
+if (life <= 0)
+{
+    yscale = 0;
+}
+if (image_yscale <= 0)
+{
+    instance_destroy(self);
+}
+
+#define CloneDraw
+
+if (sprBackIdle != noone)
+{
+    draw_sprite_ext(sprBackIdle, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
+}
+draw_self();
+if (sprHatIdle != noone)
+{
+    draw_sprite_ext(sprHatIdle, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
+}
+
+gpu_set_blendmode_ext(bm_inv_dest_color, bm_inv_src_alpha);
+draw_set_color(c_teal);
+draw_circle(x, y, spawnRad, false);
+gpu_set_blendmode(bm_normal);
 
 #define HorizontalSlash(method, skill)
 

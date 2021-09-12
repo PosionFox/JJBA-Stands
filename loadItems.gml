@@ -54,7 +54,8 @@ var _standPool =
     GiveTheWorld,
     GiveStarPlatinum,
     GiveTheWorldAU,
-    GiveShadowTheWorld
+    GiveShadowTheWorld,
+    GiveD4CLT
 ]
 
 var _c = irandom(array_length(_standPool) - 1);

@@ -26,7 +26,7 @@ if (_stand != noone)
         case "tw": GiveTheWorld(); break;
         case "sp": GiveStarPlatinum(); break;
         case "anubis": GiveAnubis(); break;
-        case "bunny": GiveD4C(); break;
+        case "d4clt": GiveD4CLT(); break;
         case "twau": GiveTheWorldAU(); break;
         case "stw": GiveShadowTheWorld(); break;
     }
@@ -46,6 +46,19 @@ with (objModEmpty)
     }
 }
 return _exists;
+
+#define modTypeFind(_type)
+
+with (objModEmpty)
+{
+    if ("type" in self)
+    {
+        if (type == _type)
+        {
+            return self;
+        }
+    }
+}
 
 #define modSubtypeExists(_type)
 
@@ -74,6 +87,18 @@ loadItems();
 
 CommandCreate("stand", true, ScriptWrap(CheatGiveStand), "name");
 CommandCreate("testcommand", false, ScriptWrap(TestCommand));
+
+#define OnPlayerDamage(_dodge, _damage)
+
+if (modTypeExists("loveTrain")) {
+    objPlayer.hp++;
+    if (instance_exists(parEnemy))
+    {
+        var _t = instance_nearest(objPlayer.x, objPlayer.y, parEnemy);
+        _t.hp -= (_t.hpMax * 0.06) + _damage;
+        objPlayer.invulFrames = 0;
+    }
+}
 
 #define OnNewGame
 

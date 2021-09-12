@@ -8,7 +8,9 @@ global.sprTheWorldPunch = sprite_add("Resources/Sprites/TheWorldPunch.png", 1, f
 global.sprStwPunch = sprite_add("Resources/Sprites/StwPunch.png", 1, false, false, 16, 16);
 global.sprStarPlatinumPunch = sprite_add("Resources/Sprites/StarPlatinumPunch.png", 1, false, false, 16, 16);
 global.sprStarPlatinumFinger = sprite_add("Resources/Sprites/StarPlatinumFinger.png", 1, false, false, 1, 1);
+global.sprD4CPunch = sprite_add("Resources/Sprites/D4CPunch.png", 1, false, false, 16, 16);
 global.sprBullet = sprite_add("Resources/Sprites/Bullet.png", 1, false, false, 1, 1);
+global.sprPunchEffect = sprite_add("Resources/Sprites/PunchEffect.png", 6, false, false, 8, 8);
 
 global.sprSkillTemplate = sprite_add("Resources/Sprites/SkillTemplate.png", 1, false, false, 16, 16);
 global.sprSkillCooldown = sprite_add("Resources/Sprites/SkillCooldown.png", 1, false, false, 16, 16);
@@ -25,6 +27,11 @@ global.sprSkillBarrageSp = sprite_add("Resources/Sprites/SkillBarrageSp.png", 1,
 global.sprSkillStrongPunchSp = sprite_add("Resources/Sprites/SkillStrongPunchSp.png", 1, false, false, 16, 16);
 global.sprSkillStarFinger = sprite_add("Resources/Sprites/SkillStarFinger.png", 1, false, false, 16, 16);
 global.sprSkillTimestopSp = sprite_add("Resources/Sprites/SkillTimestopSp.png", 1, false, false, 16, 16);
+
+global.sprSkillBarrageD4C = sprite_add("Resources/Sprites/SkillBarrageD4C.png", 1, false, false, 16, 16);
+global.sprSkillBulletVolley = sprite_add("Resources/Sprites/SkillVolleyShot.png", 1, false, false, 16, 16);
+global.sprSkillCloneSummon = sprite_add("Resources/Sprites/SkillCloneSummon.png", 1, false, false, 16, 16);
+global.sprSkillLoveTrain = sprite_add("Resources/Sprites/SkillLoveTrain.png", 1, false, false, 16, 16);
 
 global.sprSkillKnifeCoffin = sprite_add("Resources/Sprites/SkillKnifeCoffin.png", 1, false, false, 16, 16);
 global.sprSkillBackDashKnife = sprite_add("Resources/Sprites/SkillBackDashKnife.png", 1, false, false, 16, 16);

@@ -30,7 +30,7 @@ enum StandSkill {
 var _width = display_get_gui_width();
 var _height = display_get_gui_height();
 
-//draw_text(128, 128, "asd");
+//draw_text(128, 128, string(objPlayer.sprHatIdle));
 draw_text(168, _height - 160, string_lower(name));
 for (var i = 1; i <= 4; i++) {
     var xx = (64 * i);
@@ -86,7 +86,10 @@ if (keyboard_check_pressed(ord("Q"))) {
     active = !active;
     if (active)
     {
-        audio_play_sound(global.sndSpSummon, 0, false);
+        if (!audio_is_playing(summonSound))
+        {
+            audio_play_sound(summonSound, 0, false);
+        }
     }
 }
 
@@ -156,10 +159,11 @@ _skills[sk, StandSkill.MaxExecutionTime] = 0.7;
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = TimestopSp;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimestopSp;
-_skills[sk, StandSkill.MaxCooldown] = 15;
+_skills[sk, StandSkill.MaxCooldown] = 20;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
 
 StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
+objPlayer.myStand.summonSound = global.sndSpSummon;
 
 SaveStand("sp");
 
@@ -211,6 +215,7 @@ _skills[sk, StandSkill.MaxCooldown] = 30;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
 
 StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
+objPlayer.myStand.summonSound = global.sndTwSummon;
 
 SaveStand("tw");
 
@@ -239,31 +244,48 @@ _skills[sk, StandSkill.Skill] = HorizontalSlash;
 
 StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
 
-#define GiveD4C
+#define GiveD4CLT
 
-var _name = "D4C";
+var _name = "D4C: Love Train";
 var _sprite = global.sprD4C;
-var _punchSprite = global.sprTheWorldPunch;
+var _punchSprite = global.sprD4CPunch;
 
 var _stats;
 _stats[StandStat.Range] = 50;
-_stats[StandStat.AttackDamage] = 4.8;
+_stats[StandStat.AttackDamage] = 5;
 _stats[StandStat.AttackRange] = 20;
 _stats[StandStat.BaseSpd] = 0.4;
 
 var _skills = StandSkillInit(_stats);
 
 var sk;
-sk = StandState.SkillC;
+sk = StandState.SkillA;
+_skills[sk, StandSkill.Skill] = StandBarrage;
+_skills[sk, StandSkill.Icon] = global.sprSkillBarrageD4C;
+_skills[sk, StandSkill.MaxCooldown] = 5;
+_skills[sk, StandSkill.MaxExecutionTime] = 5;
+
+sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = BulletVolley;
+_skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
+_skills[sk, StandSkill.MaxCooldown] = 4;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
+
+sk = StandState.SkillC;
+_skills[sk, StandSkill.Skill] = CloneSummon;
+_skills[sk, StandSkill.Icon] = global.sprSkillCloneSummon;
+_skills[sk, StandSkill.MaxCooldown] = 8;
+_skills[sk, StandSkill.MaxExecutionTime] = 5;
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = LoveTrain;
+_skills[sk, StandSkill.Icon] = global.sprSkillLoveTrain;
+_skills[sk, StandSkill.MaxCooldown] = 45;
 
 StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
+objPlayer.myStand.summonSound = global.sndD4CSummon;
 
-SaveStand("bunny");
+SaveStand("d4clt");
 
 #define GiveTheWorldAU
 
@@ -301,9 +323,10 @@ _skills[sk, StandSkill.MaxExecutionTime] = 1;
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = TimestopTwAu;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimestop;
-_skills[sk, StandSkill.MaxCooldown] = 45;
+_skills[sk, StandSkill.MaxCooldown] = 25;
 
 StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
+objPlayer.myStand.summonSound = global.sndTwSummon;
 
 SaveStand("twau");
 
@@ -343,7 +366,7 @@ _skills[sk, StandSkill.MaxExecutionTime] = 3;
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = TimestopSTW;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimestopStw;
-_skills[sk, StandSkill.MaxCooldown] = 12;
+_skills[sk, StandSkill.MaxCooldown] = 15;
 
 StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
 
@@ -406,6 +429,7 @@ objPlayer.myStand.sprite_index = sprite;
 objPlayer.myStand.punchSprite = punchSprite;
 objPlayer.myStand.attackState = 0;
 objPlayer.myStand.attackStateTimer = 0;
+objPlayer.myStand.summonSound = global.sndStandSummon;
 // state
 objPlayer.myStand.active = false;
 objPlayer.myStand.state = StandState.Idle;
@@ -435,7 +459,7 @@ switch (args[0]) {
     case "starplatinum": GiveStarPlatinum(); break;
     case "theworld": GiveTheWorld(); break;
     case "anubis": GiveAnubis(); break;
-    case "d4c": GiveD4C(); break;
+    case "d4clt": GiveD4CLT(); break;
     case "twau": GiveTheWorldAU(); break;
     case "stw": GiveShadowTheWorld(); break;
 }
