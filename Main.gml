@@ -1,32 +1,4 @@
 
-#define TestCommand
-
-
-
-#define JjbamDebug
-
-if (!modTypeExists("jjbamDebug"))
-{
-    var _o = ModObjectSpawnPersistent(0, 0, 0);
-    with (_o)
-    {
-        InstanceAssignMethod(self, "draw", ScriptWrap(JjbamDebugDraw), false);
-    }
-}
-else
-{
-    var _o = modTypeFind("jjbamDebug");
-    instance_destroy(_o);
-}
-
-#define JjbamDebugDraw
-
-with (all)
-{
-    draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, true);
-    draw_circle(x, y, 1, false);
-}
-
 #define EventHandler
 
 
@@ -133,11 +105,13 @@ loadSounds();
 loadSprites();
 loadEffects();
 loadAttacks();
+loadStandsCore();
 loadStands();
 loadItems();
+loadCommands();
 
-CommandCreate("stand", true, ScriptWrap(CheatGiveStand), "name");
-CommandCreate("testcommand", false, ScriptWrap(TestCommand));
+CommandCreate("jjbamStand", true, ScriptWrap(CheatGiveStand), "name");
+CommandCreate("jjbamTest", false, ScriptWrap(TestCommand));
 CommandCreate("jjbamDebug", true, ScriptWrap(JjbamDebug));
 
 #define OnPlayerDamage(_dodge, _damage)

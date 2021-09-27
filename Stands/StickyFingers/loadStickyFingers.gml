@@ -1,5 +1,5 @@
 
-#define GiveStickyFingers
+#define GiveStickyFingers //stand
 
 var _name = "Sticky Fingers";
 var _sprite = global.sprKillerQueen;
@@ -9,7 +9,7 @@ var _stats;
 _stats[StandStat.Range] = 50;
 _stats[StandStat.AttackDamage] = 4;
 _stats[StandStat.AttackRange] = 10;
-_stats[StandStat.BaseSpd] = 0.4;
+_stats[StandStat.BaseSpd] = 0.6;
 
 var _skills = StandSkillInit(_stats);
 
