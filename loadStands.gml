@@ -15,8 +15,12 @@ enum StandStat {
 }
 enum StandSkill {
     Skill,
+    SkillAlt,
     Key,
     Icon,
+    IconAlt,
+    MaxHold,
+    Hold,
     Damage,
     MaxCooldown,
     Cooldown,
@@ -27,17 +31,26 @@ enum StandSkill {
 
 #define StandSkillDrawGUI
 
-var _width = display_get_gui_width();
-var _height = display_get_gui_height();
+if (!active) { exit; }
 
-//draw_text(128, 128, string(objPlayer.sprHatIdle));
+var _width = display_get_gui_width();
+var _height = display_get_gui_height() - 40;
+
+//draw_text(128, 128, string(objPlayer.dmg));
 draw_text(168, _height - 160, string_lower(name));
-for (var i = 1; i <= 4; i++) {
+for (var i = StandState.SkillA; i <= StandState.SkillD; i++) {
     var xx = (64 * i);
+    var _cc = skills[i, StandSkill.Cooldown] / skills[i, StandSkill.MaxCooldown];
+    if (skills[i, StandSkill.IconAlt] != global.sprSkillSkip)
+    {
+        draw_sprite_ext(global.sprSkillHoldTemplate, 0, xx, (_height - 32) - (_cc * 64), 2, 2, 0, c_white, 1);
+        draw_sprite_ext(skills[i, StandSkill.IconAlt], 0, xx, (_height - 32) - (_cc * 64), 2, 2, 0, c_white, 1);
+    }
+    draw_sprite_ext(global.sprSkillTemplate, 0, xx, _height - 96, 2, 2, 0, c_white, 1);
     draw_sprite_ext(skills[i, StandSkill.Icon], 0, xx, _height - 96, 2, 2, 0, c_white, 1);
     draw_text(xx + 8, _height - 120, string_lower(skills[i, StandSkill.Key]));
     if (skills[i, StandSkill.Cooldown] > 0) {
-        var cyy = (skills[i, StandSkill.Cooldown] / skills[i, StandSkill.MaxCooldown]) * 2;
+        var cyy = _cc * 2;
         draw_sprite_ext(global.sprSkillCooldown, 0, xx, _height - 96, 2, cyy, 0, c_white, 0.8);
         draw_text(xx + 8, _height - 64, string(skills[i, StandSkill.Cooldown]));
     }
@@ -45,14 +58,29 @@ for (var i = 1; i <= 4; i++) {
 
 #define StandSkillManage
 
-if (active) {
+if (active)
+{
     for (var i = 1; i < StandState.LEN; i++)
     {
-        if (keyboard_check_pressed(ord(skills[i, StandSkill.Key])))
+        if (skills[i, StandSkill.Cooldown] <= 0 and state == StandState.Idle)
         {
-            if (skills[i, StandSkill.Cooldown] <= 0 and state == StandState.Idle)
+            if (keyboard_check(ord(skills[i, StandSkill.Key])))
             {
-                state = i;
+                skills[i, StandSkill.Hold] += 1 / room_speed;
+                if (skills[i, StandSkill.Hold] >= skills[i, StandSkill.MaxHold])
+                {
+                    altAttack = true;
+                    skills[i, StandSkill.Hold] = 0;
+                    state = i;
+                }
+            }
+            if (keyboard_check_released(ord(skills[i, StandSkill.Key])))
+            {
+                if (skills[i, StandSkill.Hold] < skills[i, StandSkill.MaxHold])
+                {
+                    skills[i, StandSkill.Hold] = 0;
+                    state = i;
+                }
             }
         }
     }
@@ -62,7 +90,14 @@ if (active) {
         {
             if (state == i)
             {
-                script_execute(skills[i, StandSkill.Skill], state, undefined);
+                if (altAttack)
+                {
+                    script_execute(skills[i, StandSkill.SkillAlt], state, undefined);
+                }
+                else
+                {
+                    script_execute(skills[i, StandSkill.Skill], state, undefined);
+                }
                 if (skills[i, StandSkill.ExecutionTime] >= skills[i, StandSkill.MaxExecutionTime]) {
                     FireCD(i)
                     state = StandState.Idle;
@@ -77,6 +112,12 @@ for (var i = 4; i > 0; i--) {
         skills[i, StandSkill.Cooldown] -= 1 / room_speed;
     }
 }
+
+#define StandDefaultPos
+
+var xPos = mouse_x > owner.x ? 1 : -1;
+xTo = owner.x - (xPos * 16);
+yTo = owner.y - 8;
 
 #define StandDefaultStep
 
@@ -100,11 +141,9 @@ if (active)
 {
     if (state == StandState.Idle)
     {
-        var xPos = mouse_x > owner.x ? 1 : -1;
-        image_xscale = xPos;
+        image_xscale = mouse_x > owner.x ? 1 : -1;
         image_alpha = lerp(image_alpha, 1, 0.1);
-        xTo = owner.x - (xPos * 8);
-        yTo = owner.y - 8;
+        StandDefaultPos()
         y += sin(current_time / 1000);
     }
 }
@@ -117,7 +156,9 @@ else
 
 StandSkillManage();
 
-#region Star Platinum
+#define StandDefaultDraw
+
+draw_self();
 
 #define StarPlatinumStep
 
@@ -139,8 +180,9 @@ var _skills = StandSkillInit(_stats);
 
 var sk;
 sk = StandState.SkillA;
-_skills[sk, StandSkill.Skill] = StandBarrage;
+_skills[sk, StandSkill.SkillAlt] = StandBarrage;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrageSp;
+_skills[sk, StandSkill.MaxHold] = 0;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
 
@@ -165,9 +207,7 @@ _skills[sk, StandSkill.MaxExecutionTime] = 1;
 StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
 objPlayer.myStand.summonSound = global.sndSpSummon;
 
-SaveStand("sp");
-
-#endregion
+SaveStand("jjbamSp");
 
 #region The World
 
@@ -191,8 +231,9 @@ var _skills = StandSkillInit(_stats);
 
 var sk;
 sk = StandState.SkillA;
-_skills[sk, StandSkill.Skill] = StandBarrage;
+_skills[sk, StandSkill.SkillAlt] = StandBarrage;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
+_skills[sk, StandSkill.MaxHold] = 0;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
 
@@ -217,9 +258,11 @@ _skills[sk, StandSkill.MaxExecutionTime] = 1;
 StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
 objPlayer.myStand.summonSound = global.sndTwSummon;
 
-SaveStand("tw");
+SaveStand("jjbamTw");
 
 #endregion
+
+#region Anubis
 
 #define AnubisStep
 
@@ -244,6 +287,8 @@ _skills[sk, StandSkill.Skill] = HorizontalSlash;
 
 StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
 
+#endregion
+
 #define GiveD4CLT
 
 var _name = "D4C: Love Train";
@@ -260,8 +305,9 @@ var _skills = StandSkillInit(_stats);
 
 var sk;
 sk = StandState.SkillA;
-_skills[sk, StandSkill.Skill] = StandBarrage;
+_skills[sk, StandSkill.SkillAlt] = StandBarrage;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrageD4C;
+_skills[sk, StandSkill.MaxHold] = 0;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 5;
 
@@ -285,7 +331,7 @@ _skills[sk, StandSkill.MaxCooldown] = 45;
 StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
 objPlayer.myStand.summonSound = global.sndD4CSummon;
 
-SaveStand("d4clt");
+SaveStand("jjbamD4clt");
 
 #define GiveTheWorldAU
 
@@ -303,8 +349,9 @@ var _skills = StandSkillInit(_stats);
 
 var sk;
 sk = StandState.SkillA;
-_skills[sk, StandSkill.Skill] = KnifeBarrage;
+_skills[sk, StandSkill.SkillAlt] = KnifeBarrage;
 _skills[sk, StandSkill.Icon] = global.sprSkillKnifeBarrage;
+_skills[sk, StandSkill.MaxHold] = 0;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
 
@@ -328,7 +375,7 @@ _skills[sk, StandSkill.MaxCooldown] = 25;
 StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
 objPlayer.myStand.summonSound = global.sndTwSummon;
 
-SaveStand("twau");
+SaveStand("jjbamTwau");
 
 #define GiveShadowTheWorld
 
@@ -370,17 +417,71 @@ _skills[sk, StandSkill.MaxCooldown] = 15;
 
 StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
 
-SaveStand("stw");
+SaveStand("jjbamStw");
+
+#define GiveKillerQueenBtD
+
+var _name = "KQ: Bites The Dust";
+var _sprite = global.sprKillerQueenBtD;
+var _punchSprite = global.sprKqPunch;
+
+var _stats;
+_stats[StandStat.Range] = 50;
+_stats[StandStat.AttackDamage] = 4;
+_stats[StandStat.AttackRange] = 10;
+_stats[StandStat.BaseSpd] = 0.4;
+
+var _skills = StandSkillInit(_stats);
+
+var sk;
+sk = StandState.SkillA;
+_skills[sk, StandSkill.SkillAlt] = StandBarrage;
+_skills[sk, StandSkill.Icon] = global.sprSkillBarrageKq;
+_skills[sk, StandSkill.MaxHold] = 0;
+_skills[sk, StandSkill.MaxCooldown] = 5;
+_skills[sk, StandSkill.MaxExecutionTime] = 3;
+
+sk = StandState.SkillB;
+_skills[sk, StandSkill.Skill] = PlaceBomb;
+_skills[sk, StandSkill.Icon] = global.sprSkillFirstBomb;
+_skills[sk, StandSkill.SkillAlt] = TripleCoin;
+_skills[sk, StandSkill.IconAlt] = global.sprSkillCoinBomb;
+_skills[sk, StandSkill.MaxCooldown] = 1;
+_skills[sk, StandSkill.MaxExecutionTime] = 2;
+
+sk = StandState.SkillC;
+_skills[sk, StandSkill.Skill] = StrayCat;
+_skills[sk, StandSkill.Icon] = global.sprSkillStrayCat;
+_skills[sk, StandSkill.SkillAlt] = ShaSummon;
+_skills[sk, StandSkill.IconAlt] = global.sprSkillSHA;
+_skills[sk, StandSkill.MaxCooldown] = 12;
+_skills[sk, StandSkill.MaxExecutionTime] = 5;
+
+sk = StandState.SkillD;
+_skills[sk, StandSkill.Skill] = PlaceThirdBomb;
+_skills[sk, StandSkill.Icon] = global.sprSkillThirdBomb;
+_skills[sk, StandSkill.MaxCooldown] = 2;
+_skills[sk, StandSkill.MaxExecutionTime] = 20;
+
+StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
+objPlayer.myStand.summonSound = global.sndKqbtdSummon;
+
+SaveStand("jjbamKqbtd");
 
 #define StandSkillInit(_stats)
 
 var _arr;
 var _s;
 
+// tap
 _s = StandState.SkillA;
-_arr[_s, StandSkill.Skill] = EventHandler;
+_arr[_s, StandSkill.Skill] = AttackHandler;
+_arr[_s, StandSkill.SkillAlt] = AttackHandler;
 _arr[_s, StandSkill.Key] = "R";
-_arr[_s, StandSkill.Icon] = global.sprSkillTemplate;
+_arr[_s, StandSkill.Icon] = global.sprSkillSkip;
+_arr[_s, StandSkill.IconAlt] = global.sprSkillSkip;
+_arr[_s, StandSkill.MaxHold] = 0.5;
+_arr[_s, StandSkill.Hold] = 0;
 _arr[_s, StandSkill.Damage] = _stats[StandStat.AttackDamage];
 _arr[_s, StandSkill.MaxCooldown] = 1;
 _arr[_s, StandSkill.Cooldown] = 0;
@@ -388,9 +489,13 @@ _arr[_s, StandSkill.MaxExecutionTime] = 0;
 _arr[_s, StandSkill.ExecutionTime] = 0;
 
 _s = StandState.SkillB;
-_arr[_s, StandSkill.Skill] = EventHandler;
+_arr[_s, StandSkill.Skill] = AttackHandler;
+_arr[_s, StandSkill.SkillAlt] = AttackHandler;
 _arr[_s, StandSkill.Key] = "F";
-_arr[_s, StandSkill.Icon] = global.sprSkillTemplate;
+_arr[_s, StandSkill.Icon] = global.sprSkillSkip;
+_arr[_s, StandSkill.IconAlt] = global.sprSkillSkip;
+_arr[_s, StandSkill.MaxHold] = 0.5;
+_arr[_s, StandSkill.Hold] = 0;
 _arr[_s, StandSkill.Damage] = _stats[StandStat.AttackDamage];
 _arr[_s, StandSkill.MaxCooldown] = 1;
 _arr[_s, StandSkill.Cooldown] = 0;
@@ -398,9 +503,13 @@ _arr[_s, StandSkill.MaxExecutionTime] = 0;
 _arr[_s, StandSkill.ExecutionTime] = 0;
 
 _s = StandState.SkillC;
-_arr[_s, StandSkill.Skill] = EventHandler;
+_arr[_s, StandSkill.Skill] = AttackHandler;
+_arr[_s, StandSkill.SkillAlt] = AttackHandler;
 _arr[_s, StandSkill.Key] = "C";
-_arr[_s, StandSkill.Icon] = global.sprSkillTemplate;
+_arr[_s, StandSkill.Icon] = global.sprSkillSkip;
+_arr[_s, StandSkill.IconAlt] = global.sprSkillSkip;
+_arr[_s, StandSkill.MaxHold] = 0.5;
+_arr[_s, StandSkill.Hold] = 0;
 _arr[_s, StandSkill.Damage] = _stats[StandStat.AttackDamage];
 _arr[_s, StandSkill.MaxCooldown] = 1;
 _arr[_s, StandSkill.Cooldown] = 0;
@@ -408,9 +517,13 @@ _arr[_s, StandSkill.MaxExecutionTime] = 0;
 _arr[_s, StandSkill.ExecutionTime] = 0;
 
 _s = StandState.SkillD;
-_arr[_s, StandSkill.Skill] = EventHandler;
+_arr[_s, StandSkill.Skill] = AttackHandler;
+_arr[_s, StandSkill.SkillAlt] = AttackHandler;
 _arr[_s, StandSkill.Key] = "G";
-_arr[_s, StandSkill.Icon] = global.sprSkillTemplate;
+_arr[_s, StandSkill.Icon] = global.sprSkillSkip;
+_arr[_s, StandSkill.IconAlt] = global.sprSkillSkip;
+_arr[_s, StandSkill.MaxHold] = 0.5;
+_arr[_s, StandSkill.Hold] = 0;
 _arr[_s, StandSkill.Damage] = _stats[StandStat.AttackDamage];
 _arr[_s, StandSkill.MaxCooldown] = 1;
 _arr[_s, StandSkill.Cooldown] = 0;
@@ -435,6 +548,7 @@ objPlayer.myStand.active = false;
 objPlayer.myStand.state = StandState.Idle;
 objPlayer.myStand.owner = objPlayer;
 objPlayer.myStand.target = noone;
+objPlayer.myStand.altAttack = false;
 // position
 objPlayer.myStand.xTo = objPlayer.x;
 objPlayer.myStand.yTo = objPlayer.y;
@@ -445,6 +559,7 @@ objPlayer.myStand.spd = objPlayer.myStand.stats[StandStat.BaseSpd];
 objPlayer.myStand.skills = array_clone(skills);
 
 InstanceAssignMethod(objPlayer.myStand, "step", ScriptWrap(StandDefaultStep), false);
+InstanceAssignMethod(objPlayer.myStand, "draw", ScriptWrap(StandDefaultDraw), false);
 InstanceAssignMethod(objPlayer.myStand, "drawGUI", ScriptWrap(StandSkillDrawGUI), false);
 
 #define CheatGiveStand(args)
@@ -456,10 +571,33 @@ with (objPlayer) {
     }
 }
 switch (args[0]) {
-    case "starplatinum": GiveStarPlatinum(); break;
-    case "theworld": GiveTheWorld(); break;
+    case "sp": GiveStarPlatinum(); break;
+    case "tw": GiveTheWorld(); break;
     case "anubis": GiveAnubis(); break;
     case "d4clt": GiveD4CLT(); break;
     case "twau": GiveTheWorldAU(); break;
     case "stw": GiveShadowTheWorld(); break;
+    case "kq": GiveKillerQueen(); break;
+    case "kqbtd": GiveKillerQueenBtD(); break;
 }
+
+#define RemoveStand
+
+with (objModEmpty)
+{
+    if ("type" in self)
+    {
+        if (type == "timestop")
+        {
+            instance_destroy(self);
+        }
+    }
+}
+with (objPlayer)
+{
+    instance_destroy(myStand);
+    myStand = noone;
+}
+
+
+

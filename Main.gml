@@ -3,6 +3,30 @@
 
 
 
+#define JjbamDebug
+
+if (!modTypeExists("jjbamDebug"))
+{
+    var _o = ModObjectSpawnPersistent(0, 0, 0);
+    with (_o)
+    {
+        InstanceAssignMethod(self, "draw", ScriptWrap(JjbamDebugDraw), false);
+    }
+}
+else
+{
+    var _o = modTypeFind("jjbamDebug");
+    instance_destroy(_o);
+}
+
+#define JjbamDebugDraw
+
+with (all)
+{
+    draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, true);
+    draw_circle(x, y, 1, false);
+}
+
 #define EventHandler
 
 
@@ -29,6 +53,17 @@ if (_stand != noone)
         case "d4clt": GiveD4CLT(); break;
         case "twau": GiveTheWorldAU(); break;
         case "stw": GiveShadowTheWorld(); break;
+        case "kq": GiveKillerQueen(); break;
+        case "kqbtd": GiveKillerQueenBtD(); break;
+        
+        case "jjbamTw": GiveTheWorld(); break;
+        case "jjbamSp": GiveStarPlatinum(); break;
+        case "jjbamAnubis": GiveAnubis(); break;
+        case "jjbamD4clt": GiveD4CLT(); break;
+        case "jjbamTwau": GiveTheWorldAU(); break;
+        case "jjbamStw": GiveShadowTheWorld(); break;
+        case "jjbamKq": GiveKillerQueen(); break;
+        case "jjbamKqbtd": GiveKillerQueenBtD(); break;
     }
 }
 
@@ -60,6 +95,21 @@ with (objModEmpty)
     }
 }
 
+#define modTypeCount(_type)
+
+var _count = 0;
+with (objModEmpty)
+{
+    if ("type" in self)
+    {
+        if (type == _type)
+        {
+            _count++;
+        }
+    }
+}
+return _count;
+
 #define modSubtypeExists(_type)
 
 var _exists = false;
@@ -81,12 +131,14 @@ global.timeIsFrozen = false;
 
 loadSounds();
 loadSprites();
+loadEffects();
 loadAttacks();
 loadStands();
 loadItems();
 
 CommandCreate("stand", true, ScriptWrap(CheatGiveStand), "name");
 CommandCreate("testcommand", false, ScriptWrap(TestCommand));
+CommandCreate("jjbamDebug", true, ScriptWrap(JjbamDebug));
 
 #define OnPlayerDamage(_dodge, _damage)
 

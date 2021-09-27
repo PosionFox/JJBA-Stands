@@ -1,6 +1,7 @@
 
 #define FireCD(skill)
 
+altAttack = false;
 attackState = 0;
 attackStateTimer = 0;
 skills[skill, StandSkill.Cooldown] = skills[skill, StandSkill.MaxCooldown];
@@ -10,6 +11,11 @@ skills[skill, StandSkill.ExecutionTime] = 0;
 
 FireCD(skill);
 skills[skill, StandSkill.Cooldown] = 0;
+
+#define AttackHandler(method, skill)
+
+ResetCD(skill);
+state = StandState.Idle;
 
 #define ProjectileCreate(_x, _y)
 
@@ -248,24 +254,6 @@ with (_p)
     knockback = _knockback;
 }
 return _p;
-
-#define PunchEffectCreate(_x, _y)
-
-var _o = ModObjectSpawn(_x, _y, 0);
-with (_o)
-{
-    depth = -y;
-    sprite_index = global.sprPunchEffect;
-    image_index = 0;
-    InstanceAssignMethod(self, "step", ScriptWrap(PunchEffectStep), false);
-}
-
-#define PunchEffectStep
-
-if (image_index >= image_number - 1)
-{
-    instance_destroy(self);
-}
 
 #define StandBarrage(method, skill)
 
@@ -640,10 +628,11 @@ with (_o)
     rotSpeed = 0;
     range = 500;
     circRange = 500;
+    amountRays = 12;
     InstanceAssignMethod(self, "step", ScriptWrap(LoveTrainStep), false);
     InstanceAssignMethod(self, "draw", ScriptWrap(LoveTrainDraw), false);
     
-    for (var i = 0; i < 8; i++)
+    for (var i = 0; i < amountRays; i++)
     {
         rays[i] = ModObjectSpawn(x, y, 0);
         rays[i].width = 1;
@@ -663,17 +652,17 @@ if (!audio_is_playing(global.sndLtStart) and !audio_is_playing(global.sndLtLoop)
 size *= 1.1;
 size = clamp(size, 0, 1000);
 rotSpeed = lerp(rotSpeed, 100, 0.05);
-range = lerp(range, 16, 0.08);
+range = lerp(range, 24, 0.08);
 circRange = lerp(circRange, 0, 0.2);
 
 if (instance_exists(objPlayer))
 {
     x = objPlayer.x;
     y = objPlayer.y;
-    for (var i = 0; i < 8; i++)
+    for (var i = 0; i < amountRays; i++)
     {
-        rays[i].x = x + lengthdir_x(range, (i * 45) + current_time / rotSpeed);
-        rays[i].y = y + lengthdir_y(range, (i * 45) + current_time / rotSpeed);
+        rays[i].x = x + lengthdir_x(range, (i * (360 / amountRays)) + current_time / rotSpeed);
+        rays[i].y = y + lengthdir_y(range - 8, (i * (360 / amountRays)) + current_time / rotSpeed);
     }
 }
 
@@ -877,7 +866,7 @@ for (var i = 0; i <= _k; i++)
 }
 
 #define TripleCombo(method, skill)
-var _dmg = (skills[skill, StandSkill.Damage] * 0.1) * owner.level;
+var _dmg = 5 * (owner.level * 0.2);
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
 xTo = owner.x + lengthdir_x(8, _dir);
 yTo = owner.y + lengthdir_y(8, _dir);
@@ -1051,6 +1040,719 @@ gpu_set_blendmode_ext(bm_inv_dest_color, bm_inv_src_alpha);
 draw_set_color(c_teal);
 draw_circle(x, y, spawnRad, false);
 gpu_set_blendmode(bm_normal);
+
+#define PlaceBomb(method, skill)
+var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+var _dmg = 3 + (owner.level * 1.5);
+xTo = owner.x + lengthdir_x(8, _dir);
+yTo = owner.y + lengthdir_y(8, _dir);
+
+switch (attackState)
+{
+    case 0:
+        attackStateTimer += 1 / room_speed;
+        if (attackStateTimer >= 0.5)
+        {
+            attackState++;
+        }
+    break;
+    case 1:
+        BombEffect(x, y);
+        BombCreate(x, y, _dmg);
+        skills[skill, StandSkill.Icon] = global.sprSkillDetonate;
+        skills[skill, StandSkill.Skill] = DetonateBomb;
+        if (name == "KQ: Bites The Dust")
+        {
+            skills[skill, StandSkill.IconAlt] = global.sprSkillDetonate;
+            skills[skill, StandSkill.SkillAlt] = DetonateBomb;
+        }
+        skills[skill, StandSkill.MaxCooldown] = 2;
+        FireCD(skill);
+        state = StandState.Idle;
+    break;
+}
+
+#define DetonateBomb(method, skill)
+StandDefaultPos();
+
+switch (attackState)
+{
+    case 0:
+        audio_play_sound(global.sndClickBomb, 1, false);
+        attackState++;
+    break;
+    case 1:
+        attackStateTimer += 1 / room_speed;
+        if (attackStateTimer >= 0.5)
+        {
+            attackState++;
+        }
+    break;
+    case 2:
+        var _b = modTypeFind("bomb");
+        if (_b)
+        {
+            instance_destroy(_b);
+        }
+        with (objModEmpty)
+        {
+            if ("type" in self)
+            {
+                if (type == "coinBomb")
+                {
+                    ExplosionCreate(x, y, 32, true);
+                    instance_destroy(self);
+                }
+            }
+        }
+        skills[skill, StandSkill.Icon] = global.sprSkillFirstBomb;
+        skills[skill, StandSkill.Skill] = PlaceBomb;
+        if (name == "KQ: Bites The Dust")
+        {
+            skills[skill, StandSkill.IconAlt] = global.sprSkillCoinBomb;
+            skills[skill, StandSkill.SkillAlt] = TripleCoin;
+        }
+        skills[skill, StandSkill.MaxCooldown] = 5;
+        FireCD(skill);
+        state = StandState.Idle;
+    break;
+}
+
+#define BombCreate(_x, _y, _dmg)
+var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+xTo = owner.x + lengthdir_x(8, _dir);
+yTo = owner.y + lengthdir_y(8, _dir);
+
+var _target = noone;
+var _nearest = self;
+if (instance_exists(parObject))
+{
+    _nearest = instance_nearest(x, y, parObject);
+    if (distance_to_object(_nearest) <= 8)
+    {
+        _target = _nearest;
+    }
+}
+if (instance_exists(parEnemy))
+{
+    _nearest = instance_nearest(x, y, parEnemy);
+    if (distance_to_object(_nearest) <= 8)
+    {
+        _target = _nearest;
+    }
+}
+var _o = ModObjectSpawn(_x, _y, 0);
+with (_o)
+{
+    type = "bomb";
+    target = _target;
+    range = 32;
+    damage = _dmg
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(BombStep), false);
+    InstanceAssignMethod(self, "destroy", ScriptWrap(BombDestroy), false);
+}
+
+#define BombStep
+
+if (instance_exists(target))
+{
+    x = target.x;
+    y = target.y;
+}
+
+#define BombDestroy
+
+ExplosionCreate(x, y, 32, true);
+ExplosionEffect(x, y);
+audio_play_sound(global.sndDetonateBomb, 1, false);
+if (instance_exists(parEnemy))
+{
+    with (parEnemy)
+    {
+        if (distance_to_object(other) < other.range)
+        {
+            hp -= other.damage;
+        }
+    }
+}
+
+#define PlaceThirdBomb(method, skill)
+var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+xTo = owner.x + lengthdir_x(8, _dir);
+yTo = owner.y + lengthdir_y(8, _dir);
+
+BombEffect(x, y);
+var _o = ModObjectSpawn(x, y, 0);
+with (_o)
+{
+    type = "thirdBomb";
+    warpX = objPlayer.x;
+    warpY = objPlayer.y;
+    prevHp = objPlayer.hp;
+    prevEnergy = objPlayer.energy
+    
+}
+skills[skill, StandSkill.Icon] = global.sprSkillBtD;
+skills[skill, StandSkill.Skill] = BitesTheDust;
+skills[skill, StandSkill.MaxCooldown] = 2;
+FireCD(skill);
+state = StandState.Idle;
+
+#define BitesTheDust(method, skill)
+
+attackStateTimer += 1 / room_speed;
+switch (attackState)
+{
+    case 0:
+        if (!instance_exists(parEnemy))
+        {
+            ResetCD(skill);
+            state = StandState.Idle;
+            exit;
+        }
+        audio_play_sound(global.sndBitesTheDust, 5, false);
+        visible = false;
+        with (parEnemy)
+        {
+            BtDStareCreate(self);
+        }
+        attackState++;
+    break;
+    case 1:
+        if (attackStateTimer >= 6.5)
+        {
+            attackState++;
+        }
+    break;
+    case 2:
+        if (instance_exists(parEnemy))
+        {
+            with (parEnemy)
+            {
+                ExplosionCreate(x, y, 32, false);
+                hp -= (hpMax * 0.4) + 5;
+            }
+        }
+        BtDVoidCreate();
+        attackState++;
+    break;
+    case 3:
+        if (attackStateTimer >= 14)
+        {
+            attackState++;
+        }
+    break;
+    case 4:
+        var _w = modTypeFind("thirdBomb");
+        objPlayer.x = _w.warpX;
+        objPlayer.y = _w.warpY;
+        objPlayer.hp = _w.prevHp;
+        objPlayer.energy = _w.prevEnergy;
+        instance_destroy(_w);
+        instance_destroy(modTypeFind("BtDVoid"));
+        with (objModEmpty)
+        {
+            if ("type" in self)
+            {
+                if (type == "BtDStare")
+                {
+                    instance_destroy(self);
+                }
+            }
+        }
+        objPlayer.invulFrames = 0;
+        visible = true;
+        skills[skill, StandSkill.Icon] = global.sprSkillThirdBomb;
+        skills[skill, StandSkill.Skill] = PlaceThirdBomb;
+        skills[skill, StandSkill.MaxCooldown] = 40;
+        FireCD(skill);
+        state = StandState.Idle;
+    break;
+}
+xTo = owner.x;
+yTo = owner.y - 16;
+
+#define BtDStareCreate(_target)
+
+var _o = ModObjectSpawn(_target.x, _target.y, _target.depth - 1);
+with (_o)
+{
+    type = "BtDStare";
+    sprite_index = global.sprBtdStare;
+    image_alpha = 0;
+    image_xscale = 0;
+    image_yscale = 0;
+    target = _target;
+    
+    alpha = 0;
+    size = 0;
+    
+    timer = 1;
+    counts = 0;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(BtDStareStep), false);
+}
+
+#define BtDStareStep
+
+image_alpha = lerp(image_alpha, alpha, 0.2);
+image_xscale = lerp(image_xscale, size, 0.2);
+image_yscale = lerp(image_yscale, size, 0.2);
+
+timer -= 1 / room_speed;
+if (timer <= 0 and counts < 3)
+{
+    alpha += 0.3;
+    size += 0.3;
+    timer = 1;
+    counts++;
+}
+
+if (!instance_exists(target))
+{
+    instance_destroy(self);
+}
+else
+{
+    x = target.x;
+    y = target.y - abs(target.sprite_width * 2);
+}
+
+#define BtDVoidCreate
+
+var _o = ModObjectSpawn(objPlayer.x, objPlayer.y, 0);
+with (_o)
+{
+    type = "BtDVoid";
+    depth = -10;
+    
+    maxPoints = 8;
+    point = array_create(maxPoints, 1);
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(BtDVoidStep), false);
+    InstanceAssignMethod(self, "draw", ScriptWrap(BtDVoidDraw), false);
+    var _f = ModObjectSpawn(objPlayer.x, objPlayer.y, 0);
+    with (_f)
+    {
+        type = "BtDVoidFade";
+        depth = -1000;
+        
+        rectAlpha = 0;
+        
+        InstanceAssignMethod(self, "step", ScriptWrap(BtDVoidFadeStep), false);
+        InstanceAssignMethod(self, "draw", ScriptWrap(BtDVoidFadeDraw), false);
+    }
+}
+
+#define BtDVoidStep
+
+if (instance_exists(objPlayer))
+{
+    x = objPlayer.x;
+    y = objPlayer.y;
+    objPlayer.invulFrames = 10;
+    objPlayer.h = 0;
+    objPlayer.v = 0;
+}
+
+for (var i = 0; i < maxPoints; i++)
+{
+    point[i] *= 1 + random(0.1);
+}
+var _o = ModObjectSpawn(x, y, depth - 1);
+with (_o)
+{
+    sprite_index = global.sprBtdVoidTrace;
+    direction = random(360);
+    image_angle = direction;
+    image_xscale = random(3);
+    speed = random_range(10, 20);
+    timer = 2;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(BtDVoidTrace), false);
+}
+
+#define BtDVoidDraw
+
+draw_set_color(c_black);
+draw_primitive_begin(pr_trianglefan);
+for (var i = 0; i < maxPoints; i++)
+{
+    var _xx = x + lengthdir_x(point[i], i * (360 / maxPoints));
+    var _yy = y + lengthdir_y(point[i], i * (360 / maxPoints));
+    draw_vertex(_xx, _yy);
+}
+draw_primitive_end();
+draw_set_color(image_blend);
+
+#define BtDVoidTrace
+
+timer -= 1 / room_speed;
+if (timer <= 0) { instance_destroy(self); }
+
+#define BtDVoidFadeStep
+
+if (modTypeExists("BtDVoid"))
+{
+rectAlpha += (1 / room_speed) * 0.15;
+}
+else
+{
+    rectAlpha -= (1 / room_speed);
+    if (rectAlpha <= 0)
+    {
+        instance_destroy(self);
+    }
+}
+
+#define BtDVoidFadeDraw
+
+draw_set_alpha(rectAlpha);
+draw_rectangle(objPlayer.x- 500, objPlayer.y - 500, objPlayer.x + 500, objPlayer.y + 500, false);
+draw_set_alpha(image_alpha);
+
+#define ShaSummon(method, skill)
+
+if (!modTypeExists("SHA"))
+{
+    ShaCreate(x, y);
+    FireCD(skill);
+    state = StandState.Idle;
+}
+else
+{
+    ResetCD(skill);
+    state = StandState.Idle;
+}
+
+#define ShaCreate(_x, _y)
+
+audio_play_sound(global.sndSHA, 1, false);
+var _o = ModObjectSpawn(_x, _y, 0);
+with (_o)
+{
+    type = "SHA";
+    sprite_index = global.sprSHA;
+    image_xscale = 0.5;
+    image_yscale = 0.5;
+    maxSpd = 2;
+    spd = 0;
+    h = 0;
+    v = 0;
+    
+    life = 20;
+    state = 0;
+    bombCD = 0;
+    canCollide = true;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(ShaStep), false);
+}
+
+#define ShaStep
+
+if (canCollide)
+{
+    // solid h
+    if (place_meeting(x + h, y, parSolid))
+    {
+        while !(place_meeting(x + sign(h), y, parSolid))
+        {
+            x += sign(h);
+        }
+        h = 0;
+    }
+    // water h
+    //var hSize = bbox_right - bbox_left;
+    if (WaterCollision(x + h, y))
+    {
+        while !(WaterCollision(x + sign(h), y))
+        {
+            x += sign(h);
+        }
+        h = 0;
+    }
+    x += h;
+
+    // solid v
+    if (place_meeting(x, y + v, parSolid))
+    {
+        while !(place_meeting(x, y + sign(v), parSolid))
+        {
+            y += sign(v);
+        }
+        v = 0;
+    }
+    //var vSize = bbox_bottom - bbox_top;
+    // water v
+    if (WaterCollision(x, y + v))
+    {
+        while !(WaterCollision(x, y + sign(v)))
+        {
+            y += sign(v);
+        }
+        v = 0;
+    }
+    y += v;
+}
+
+depth = -y;
+
+life -= 1 / room_speed;
+if (life <= 0)
+{
+    state = 3;
+}
+if (bombCD > 0)
+{
+    bombCD -= 1 / room_speed;
+}
+
+switch (state)
+{
+    case 0: // follow
+        if (instance_exists(objPlayer))
+        {
+            var _dir = point_direction(x, y, objPlayer.x, objPlayer.y);
+            
+            if (distance_to_object(objPlayer) > 100)
+            {
+                canCollide = false;
+                state = 2;
+            }
+            if (distance_to_object(objPlayer) > 32)
+            {
+                image_xscale = sign(dcos(_dir)) * 0.5;
+                h = lengthdir_x(spd, _dir);
+                v = lengthdir_y(spd, _dir);
+                spd = lerp(spd, maxSpd, 0.1);
+            }
+            else
+            {
+                spd = lerp(spd, 0, 0.1);
+            }
+        }
+        if (instance_exists(parEnemy))
+        {
+            var _near = instance_nearest(x, y, parEnemy);
+            if (distance_to_object(_near) < 128)
+            {
+                state = 1;
+            }
+        }
+    break;
+    case 1: // attack
+        if (instance_exists(parEnemy))
+        {
+            var _near = instance_nearest(x, y, parEnemy);
+            var _dir = point_direction(x, y, _near.x, _near.y);
+            var _dis = distance_to_object(_near);
+            
+            if (_dis > 136)
+            {
+                state = 0;
+            }
+            if (_dis > 8)
+            {
+                image_xscale = sign(dcos(_dir)) * 0.5;
+                var _r = random_range(-4, 4)
+                h = lengthdir_x(spd, _dir + _r);
+                v = lengthdir_y(spd, _dir + _r);
+                spd = lerp(spd, maxSpd, 0.1);
+            }
+            else if (bombCD <= 0)
+            {
+                ExplosionCreate(x, y, 32, false);
+                bombCD = 2;
+            }
+        }
+        else
+        {
+            state = 0;
+        }
+        if (instance_exists(objPlayer))
+        {
+            if (distance_to_object(objPlayer) > 200)
+            {
+                canCollide = false;
+                state = 2;
+            }
+        }
+    break;
+    case 2: // super follow
+        if (instance_exists(objPlayer))
+        {
+            if (distance_to_object(objPlayer) > 16)
+            {
+                FireEffect(c_white, c_fuchsia);
+                var _dir = point_direction(x, y, objPlayer.x, objPlayer.y);
+                x += lengthdir_x(5, _dir);
+                y += lengthdir_y(5, _dir);
+            }
+            else
+            {
+                canCollide = true;
+                state = 0;
+            }
+        }
+    break;
+    case 3: // come back
+        if (instance_exists(objPlayer))
+        {
+            image_xscale = 0.1;
+            image_yscale = 0.1;
+            FireEffect(c_white, c_fuchsia);
+            canCollide = false;
+            var _dir = point_direction(x, y, objPlayer.myStand.x, objPlayer.myStand.y);
+            x += lengthdir_x(5, _dir);
+            y += lengthdir_y(5, _dir);
+            
+            if (place_meeting(x, y, objPlayer.myStand))
+            {
+                instance_destroy(self);
+            }
+        }
+    break;
+}
+
+#define CoinBomb(method, skill)
+if (modTypeCount("coinBomb") < 5)
+{
+    var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+    audio_play_sound(sndCoin1, 0, false);
+    CoinBombCreate(owner.x, owner.y, _dir);
+    FireCD(skill);
+    state = StandState.Idle;
+}
+else
+{
+    ResetCD(skill);
+    state = StandState.Idle;
+}
+
+#define TripleCoin(method, skill)
+var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+
+audio_play_sound(sndCoin2, 0, false);
+CoinBombCreate(owner.x, owner.y, _dir - 45);
+CoinBombCreate(owner.x, owner.y, _dir);
+CoinBombCreate(owner.x, owner.y, _dir + 45);
+skills[skill, StandSkill.Icon] = global.sprSkillDetonate;
+skills[skill, StandSkill.Skill] = DetonateBomb;
+skills[skill, StandSkill.IconAlt] = global.sprSkillDetonate;
+skills[skill, StandSkill.SkillAlt] = DetonateBomb;
+skills[skill, StandSkill.MaxCooldown] = 2;
+FireCD(skill);
+state = StandState.Idle;
+
+#define CoinBombCreate(_x, _y, _dir)
+
+var _o = ModObjectSpawn(_x, _y, 0);
+with (_o)
+{
+    type = "coinBomb";
+    sprite_index = global.sprCoin;
+    direction = _dir;
+    speed = 5;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(CoinBombStep), false);
+}
+
+#define CoinBombStep
+
+speed = lerp(speed, 0, 0.1);
+if (WaterCollision(x, y))
+{
+    instance_destroy(self);
+}
+
+#define StrayCat(method, skill)
+var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+xTo = owner.x + lengthdir_x(8, _dir);
+yTo = owner.y + lengthdir_y(8, _dir);
+
+switch (attackState)
+{
+    case 0:
+        audio_play_sound(global.sndStrayCat, 1, false);
+        attackState++;
+    break;
+    case 1:
+        attackStateTimer += 1 / room_speed;
+        if (attackStateTimer >= 0.8)
+        {
+            attackState++;
+        }
+    break;
+    case 2:
+        ScBubbleCreate(x, y);
+        FireCD(skill)
+        state = StandState.Idle;
+    break;
+}
+
+#define ScBubbleCreate(_x, _y)
+
+var _o = ModObjectSpawn(_x, _y, 0)
+with (_o)
+{
+    type = "ScBubble";
+    sprite_index = global.sprScBubble;
+    image_xscale = 0;
+    image_yscale = 0;
+    direction = point_direction(x, y, mouse_x, mouse_y);
+    speed = 0.5;
+    life = 8;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(ScBubbleStep), false);
+    InstanceAssignMethod(self, "destroy", ScriptWrap(ScBubbleDestroy), false);
+}
+
+#define ScBubbleStep
+
+depth = -y;
+
+var _xs, _ys;
+_xs = (1 + abs(cos(current_time / 1000))) * 0.5;
+_ys = (1 + abs(sin(current_time / 1000))) * 0.5;
+image_xscale = lerp(image_xscale, _xs, 0.1);
+image_yscale = lerp(image_yscale, _ys, 0.1);
+image_alpha = lerp(image_alpha, 0.5, 0.1);
+
+life -= 1 / room_speed;
+if (life <= 0)
+{
+    instance_destroy(self);
+}
+if (instance_exists(parEnemy))
+{
+    var _near = instance_nearest(x, y, parEnemy);
+    if (distance_to_object(_near) < 64)
+    {
+        var pd = point_direction(x, y, _near.x, _near.y);
+        var dd = angle_difference(direction, pd);
+        direction -= min(abs(dd), 2) * sign(dd);
+    }
+    if (distance_to_object(_near) < 8)
+    {
+        instance_destroy(self);
+    }
+}
+
+#define ScBubbleDestroy
+
+audio_play_sound(global.sndDetonateBomb, 0, false);
+with (parEnemy)
+{
+    var _p = modTypeFind("ScBubble");
+    if (distance_to_object(_p) < 32)
+    {
+        hp -= (hpMax * 0.04) + 5;
+    }
+}
+ExplosionEffect(x, y);
+ExplosionCreate(x, y, 32, true);
+instance_destroy(self);
 
 #define HorizontalSlash(method, skill)
 
