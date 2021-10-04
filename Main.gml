@@ -6,38 +6,66 @@
 #define SaveStand(_name)
 
 var _map = ds_map_create();
-_map[? "pAbility"] = _name;
+_map[? "jjbamAbility"] = _name;
+if (instance_exists(objPlayer))
+{
+    if ("myStand" in objPlayer)
+    {
+        if (instance_exists(objPlayer.myStand))
+        {
+            switch (objPlayer.myStand.name)
+            {
+                case "Shadow The World":
+                    _map[? "jjbamStwXp"] = objPlayer.myStand.xp;
+                break;
+            }
+        }
+    }
+}
 ModSaveDataSubmit(_map);
 ds_map_destroy(_map);
 
 #define LoadStand
 
 var _map = ModSaveDataFetch();
-var _stand = _map[? "pAbility"];
+var _standCompatibility = _map[? "pAbility"];
+var _stand = _map[? "jjbamAbility"];
 
-if (_stand != noone)
+switch (_standCompatibility)
 {
-    switch (_stand)
-    {
-        case "tw": GiveTheWorld(); break;
-        case "sp": GiveStarPlatinum(); break;
-        case "anubis": GiveAnubis(); break;
-        case "d4clt": GiveD4CLT(); break;
-        case "twau": GiveTheWorldAU(); break;
-        case "stw": GiveShadowTheWorld(); break;
-        case "kq": GiveKillerQueen(); break;
-        case "kqbtd": GiveKillerQueenBtD(); break;
-        
-        case "jjbamTw": GiveTheWorld(); break;
-        case "jjbamSp": GiveStarPlatinum(); break;
-        case "jjbamAnubis": GiveAnubis(); break;
-        case "jjbamD4clt": GiveD4CLT(); break;
-        case "jjbamTwau": GiveTheWorldAU(); break;
-        case "jjbamStw": GiveShadowTheWorld(); break;
-        case "jjbamKq": GiveKillerQueen(); break;
-        case "jjbamKqbtd": GiveKillerQueenBtD(); break;
-    }
+    case "tw": GiveTheWorld(); break;
+    case "sp": GiveStarPlatinum(); break;
+    case "anubis": GiveAnubis(); break;
+    case "d4clt": GiveD4CLT(); break;
+    case "twau": GiveTheWorldAU(); break;
+    case "stw": GiveShadowTheWorld(); break;
+    case "kq": GiveKillerQueen(); break;
+    case "kqbtd": GiveKillerQueenBtD(); break;
 }
+switch (_stand)
+{
+    case "jjbamTw": GiveTheWorld(); break;
+    case "jjbamSp": GiveStarPlatinum(); break;
+    case "jjbamAnubis": GiveAnubis(); break;
+    case "jjbamD4clt": GiveD4CLT(); break;
+    case "jjbamTwau": GiveTheWorldAU(); break;
+    case "jjbamStw":
+        GiveShadowTheWorld();
+        var _xp = _map[? "jjbamStwXp"];
+        if (_xp == undefined)
+        {
+            objPlayer.myStand.xp = 0;
+        }
+        else
+        {
+            objPlayer.myStand.xp = _xp;
+        }
+    break;
+    case "jjbamKq": GiveKillerQueen(); break;
+    case "jjbamKqbtd": GiveKillerQueenBtD(); break;
+    case "jjbamSw": GiveSpookyWorld(); break;
+}
+
 
 #define modTypeExists(_type)
 
@@ -126,17 +154,53 @@ if (modTypeExists("loveTrain")) {
     }
 }
 
+#define OnMobDeath(_mob)
+
+if (instance_exists(objPlayer))
+{
+    if ("myStand" in objPlayer)
+    {
+        switch (objPlayer.myStand.name)
+        {
+            case "Shadow The World":
+                objPlayer.myStand.xp += _mob.hpMax;
+                if (objPlayer.myStand.xp >= objPlayer.myStand.maxXp)
+                {
+                    GiveTheWorld();
+                }
+            break;
+        }
+    }
+}
+
 #define OnNewGame
 
 GiveRandomStand();
 
 #define OnRoomLoad
 
-
+if (instance_exists(objPlayer)) {
+    if ("myStand" in objPlayer) {
+        LoadStand();
+    }
+}
 
 #define OnSave
 
-
+if (instance_exists(objPlayer))
+{
+    if ("myStand" in objPlayer)
+    {
+        if (instance_exists(objPlayer.myStand))
+        {
+            SaveStand(objPlayer.myStand.saveKey);
+        }
+        else
+        {
+            SaveStand("jjbamStandless");
+        }
+    }
+}
 
 #define OnLoad
 
@@ -149,9 +213,6 @@ if (instance_exists(objPlayer)) {
     {
         LoadStand();
     }
-    
-    //var _s = ModSaveDataFetch();
-    //Trace(_s[? "pAbility"]);
 }
 
 /* TODO

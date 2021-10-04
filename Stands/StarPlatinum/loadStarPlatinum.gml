@@ -123,7 +123,7 @@ draw_sprite_ext(sprite_index, 0, xx, yy, w, 1, image_angle, image_blend, image_a
 
 var _name = "Star Platinum";
 var _sprite = global.sprStarPlatinum;
-var _punchSprite = global.sprStarPlatinumPunch;
+var _color = 0x8a4276;
 
 var _stats;
 _stats[StandStat.Range] = 50;
@@ -136,14 +136,14 @@ var _skills = StandSkillInit(_stats);
 var sk;
 sk = StandState.SkillA;
 _skills[sk, StandSkill.SkillAlt] = StandBarrage;
-_skills[sk, StandSkill.Icon] = global.sprSkillBarrageSp;
+_skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxHold] = 0;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = StrongPunch;
-_skills[sk, StandSkill.Icon] = global.sprSkillStrongPunchSp;
+_skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
 
@@ -159,7 +159,8 @@ _skills[sk, StandSkill.Icon] = global.sprSkillTimestopSp;
 _skills[sk, StandSkill.MaxCooldown] = 20;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
 
-StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
+StandBuilder(_name, _sprite, _stats, _skills, _color);
 objPlayer.myStand.summonSound = global.sndSpSummon;
 
-SaveStand("jjbamSp");
+objPlayer.myStand.saveKey = "jjbamSp";
+objPlayer.myStand.discType = global.jjbamDiscSp;

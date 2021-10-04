@@ -44,10 +44,10 @@ for (var i = StandState.SkillA; i <= StandState.SkillD; i++) {
     if (skills[i, StandSkill.IconAlt] != global.sprSkillSkip)
     {
         draw_sprite_ext(global.sprSkillHoldTemplate, 0, xx, (_height - 32) - (_cc * 64), 2, 2, 0, c_white, 1);
-        draw_sprite_ext(skills[i, StandSkill.IconAlt], 0, xx, (_height - 32) - (_cc * 64), 2, 2, 0, c_white, 1);
+        draw_sprite_ext(skills[i, StandSkill.IconAlt], 0, xx, (_height - 32) - (_cc * 64), 2, 2, 0, color, 1);
     }
     draw_sprite_ext(global.sprSkillTemplate, 0, xx, _height - 96, 2, 2, 0, c_white, 1);
-    draw_sprite_ext(skills[i, StandSkill.Icon], 0, xx, _height - 96, 2, 2, 0, c_white, 1);
+    draw_sprite_ext(skills[i, StandSkill.Icon], 0, xx, _height - 96, 2, 2, 0, color, 1);
     draw_text(xx + 8, _height - 120, string_lower(skills[i, StandSkill.Key]));
     if (skills[i, StandSkill.Cooldown] > 0) {
         var cyy = _cc * 2;
@@ -224,35 +224,48 @@ _arr[_s, StandSkill.ExecutionTime] = 0;
 
 return _arr;
 
-#define StandBuilder(name, sprite, stats, skills, punchSprite)
+#define StandBuilder(_name, _sprite, _stats, _skills, _color)
 
+if ("myStand" in objPlayer)
+{
+    if (instance_exists(objPlayer.myStand))
+    {
+        instance_destroy(objPlayer.myStand);
+    }
+}
 // init
-objPlayer.myStand = ModObjectSpawn(objPlayer.x, objPlayer.y, 0);
-objPlayer.myStand.type = "stand";
-objPlayer.myStand.name = name;
-objPlayer.myStand.sprite_index = sprite;
-objPlayer.myStand.punchSprite = punchSprite;
-objPlayer.myStand.attackState = 0;
-objPlayer.myStand.attackStateTimer = 0;
-objPlayer.myStand.summonSound = global.sndStandSummon;
-// state
-objPlayer.myStand.active = false;
-objPlayer.myStand.state = StandState.Idle;
-objPlayer.myStand.owner = objPlayer;
-objPlayer.myStand.target = noone;
-objPlayer.myStand.altAttack = false;
-// position
-objPlayer.myStand.xTo = objPlayer.x;
-objPlayer.myStand.yTo = objPlayer.y;
-// stats
-objPlayer.myStand.stats = array_clone(stats);
-objPlayer.myStand.spd = objPlayer.myStand.stats[StandStat.BaseSpd];
-// skills
-objPlayer.myStand.skills = array_clone(skills);
-
-InstanceAssignMethod(objPlayer.myStand, "step", ScriptWrap(StandDefaultStep), false);
-InstanceAssignMethod(objPlayer.myStand, "draw", ScriptWrap(StandDefaultDraw), false);
-InstanceAssignMethod(objPlayer.myStand, "drawGUI", ScriptWrap(StandSkillDrawGUI), false);
+var _stand = ModObjectSpawn(objPlayer.x, objPlayer.y, 0);
+with (_stand)
+{
+    type = "stand";
+    saveKey = "jjbamStandless";
+    name = _name;
+    sprite_index = _sprite;
+    color = _color;
+    attackState = 0;
+    attackStateTimer = 0;
+    summonSound = global.sndStandSummon;
+    // state
+    active = false;
+    state = StandState.Idle;
+    owner = objPlayer;
+    target = noone;
+    altAttack = false;
+    // position
+    xTo = objPlayer.x;
+    yTo = objPlayer.y;
+    // stats
+    stats = array_clone(_stats);
+    spd = stats[StandStat.BaseSpd];
+    // skills
+    skills = array_clone(_skills);
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(StandDefaultStep), false);
+    InstanceAssignMethod(self, "draw", ScriptWrap(StandDefaultDraw), false);
+    InstanceAssignMethod(self, "drawGUI", ScriptWrap(StandSkillDrawGUI), false);
+    objPlayer.myStand = self;
+}
+return _stand;
 
 #define RemoveStand
 

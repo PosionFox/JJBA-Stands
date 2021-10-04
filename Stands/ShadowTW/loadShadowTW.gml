@@ -195,11 +195,23 @@ if (!_tsExists)
 }
 state = StandState.Idle;
 
+#define StwDrawGuiXp //misc
+
+if (!active) { exit; }
+
+var _height = display_get_gui_height() - 200;
+
+draw_set_color(c_gray);
+draw_line_width(32, _height, 32 + 256, _height, 2);
+draw_set_color(c_yellow);
+draw_line_width(32, _height, 32 + (xp / maxXp) * 256, _height, 2);
+draw_set_color(c_white);
+
 #define GiveShadowTheWorld //stand
 
 var _name = "Shadow The World";
 var _sprite = global.sprShadowTheWorld;
-var _punchSprite = global.sprStwPunch;
+var _color = 0xffffff;
 
 var _stats;
 _stats[StandStat.Range] = 50;
@@ -233,6 +245,14 @@ _skills[sk, StandSkill.Skill] = TimestopSTW;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimestopStw;
 _skills[sk, StandSkill.MaxCooldown] = 15;
 
-StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
+var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
+with (_s)
+{
+    saveKey = "jjbamStw";
+    discType = global.jjbamDiscStw;
+    maxXp = 200;
+    xp = 0;
+    
+    InstanceAssignMethod(self, "drawGUI", ScriptWrap(StwDrawGuiXp), true);
+}
 
-SaveStand("jjbamStw");

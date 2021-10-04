@@ -5,6 +5,7 @@ global.sndTwSummon = audio_create_stream("Resources/Sounds/twSummon.ogg");
 global.sndD4CSummon = audio_create_stream("Resources/Sounds/d4cSummon.ogg");
 global.sndKqSummon = audio_create_stream("Resources/Sounds/kqSummon.ogg");
 global.sndKqbtdSummon = audio_create_stream("Resources/Sounds/kqbtdSummon.ogg");
+global.sndSfSummon = audio_create_stream("Resources/Sounds/sfSummon.ogg");
 
 global.sndTwTs = audio_create_stream("Resources/Sounds/twTs.ogg");
 global.sndTwAuTs = audio_create_stream("Resources/Sounds/twauTs.ogg");

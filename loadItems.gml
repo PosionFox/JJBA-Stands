@@ -19,6 +19,8 @@ global.jjbamArrow = ItemCreate(
     true
 );
 
+#region discs
+
 global.jjbamDisc = ItemCreate(
     undefined,
     "DISC",
@@ -36,6 +38,136 @@ global.jjbamDisc = ItemCreate(
     5 * 10,
     true
 );
+
+global.jjbamDiscTw = ItemCreate(
+    undefined,
+    "DISC:TW",
+    "The label says: The World",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(GiveTheWorld),
+    5 * 10,
+    true
+);
+
+global.jjbamDiscSw = ItemCreate(
+    undefined,
+    "DISC:SW",
+    "The label says: Spooky World",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(GiveSpookyWorld),
+    5 * 10,
+    true
+);
+
+global.jjbamDiscSp = ItemCreate(
+    undefined,
+    "DISC:SP",
+    "The label says: Star Platinum",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(GiveStarPlatinum),
+    5 * 10,
+    true
+);
+
+global.jjbamDiscTwau = ItemCreate(
+    undefined,
+    "DISC:TWAU",
+    "The label says: The World AU",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(GiveTheWorldAU),
+    5 * 10,
+    true
+);
+
+global.jjbamDiscStw = ItemCreate(
+    undefined,
+    "DISC:STW",
+    "The label says: Shadow The World",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(GiveShadowTheWorld),
+    5 * 10,
+    true
+);
+
+global.jjbamDiscD4clt = ItemCreate(
+    undefined,
+    "DISC:D4CLT",
+    "The label says: D4C Love Train",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(GiveD4CLT),
+    5 * 10,
+    true
+);
+
+global.jjbamDiscKq = ItemCreate(
+    undefined,
+    "DISC:KQ",
+    "The label says: Killer Queen",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(GiveKillerQueen),
+    5 * 10,
+    true
+);
+
+global.jjbamDiscKqbtd = ItemCreate(
+    undefined,
+    "DISC:KQBTD",
+    "The label says: KQ Bites the Dust",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(GiveKillerQueenBtD),
+    5 * 10,
+    true
+);
+
+#endregion
 
 global.jjbamRequiem = ItemCreate(
     undefined,
@@ -83,21 +215,48 @@ switch (objPlayer.myStand.name)
 
 var _standPool =
 [
-    GiveTheWorld,
-    GiveStarPlatinum,
-    GiveTheWorldAU,
-    GiveShadowTheWorld,
-    GiveD4CLT,
-    GiveKillerQueen
+    [GiveStarPlatinum, 20],
+    [GiveTheWorldAU, 20],
+    [GiveShadowTheWorld, 20],
+    [GiveD4CLT, 20],
+    [GiveKillerQueen, 20],
+    [GiveSpookyWorld, 1]
 ]
 
-var _c = irandom(array_length(_standPool) - 1);
-script_execute(_standPool[_c]);
+var sumWeight = 0;
+for(var i = 0; i < array_length(_standPool); i++)
+{
+    sumWeight += _standPool[i, 1];
+}
+var rnd = random(sumWeight);
+for(var i = 0; i < array_length(_standPool); i++)
+{
+    if (rnd < _standPool[i, 1])
+    {
+        script_execute(_standPool[i, 0]);
+        exit;
+    }
+    rnd -= _standPool[i, 1];
+}
+
+//var _c = irandom(array_length(_standPool) - 1);
+//script_execute(_standPool[_c]);
 
 #define DiscUse
 
-DmgPlayer(1, false);
-RemoveStand();
-SaveStand(noone);
+if (instance_exists(objPlayer))
+{
+    DmgPlayer(1, false);
+    if ("myStand" in objPlayer)
+    {
+        if (instance_exists(objPlayer.myStand))
+        {
+            GainItem(objPlayer.myStand.discType);
+        }
+    }
+    RemoveStand();
+    SaveStand("jjbamStandless");
+}
+
 
 

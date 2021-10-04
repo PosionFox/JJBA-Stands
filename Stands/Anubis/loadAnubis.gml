@@ -34,5 +34,4 @@ var sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = HorizontalSlash;
 
 StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
-
-SaveStand("jjbamAnubis");
+objPlayer.myStand.saveKey = "jjbamAnubis";

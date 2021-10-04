@@ -241,7 +241,8 @@ target.hp -= damageStack;
 var _p = ProjectileCreate(_x, _y);
 with (_p)
 {
-    sprite_index = other.punchSprite;
+    sprite_index = global.sprAttackPunch;
+    image_blend = other.color;
     damage = _dmg;
     despawnTime = room_speed * 0.1;
     canDespawnInTs = true;
@@ -252,29 +253,27 @@ with (_p)
 return _p;
 
 #define StandBarrage(method, skill)
-
 var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+var _dmg = 2 * (owner.level * 0.05);
 
-var _xx = owner.x + lengthdir_x(stats[StandStat.AttackRange], _dir + random_range(-4, 4));
-var _yy = owner.y + lengthdir_y(stats[StandStat.AttackRange], _dir + random_range(-4, 4));
-xTo = _xx;
-yTo = _yy;
+xTo = owner.x + lengthdir_x(stats[StandStat.AttackRange], _dir + random_range(-4, 4));
+yTo = owner.y + lengthdir_y(stats[StandStat.AttackRange], _dir + random_range(-4, 4));
 image_xscale = mouse_x > owner.x ? 1 : -1;
 
 attackStateTimer += 1 / room_speed;
-if (distance_to_point(_xx, _yy) < 2)
+if (distance_to_point(xTo, yTo) < 2)
 {
-    if (attackStateTimer >= 0.1)
+    if (attackStateTimer >= 0.08)
     {
         var _snd = audio_play_sound(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
-        var xx = x + random_range(-8, 8);
+        var xx = x + random_range(-4, 4);
         var yy = y + random_range(-8, 8);
-        var ddir = _dir + random_range(-2, 2);
-        var _dmg = (skills[skill, StandSkill.Damage] * 0.01) * (owner.level * 0.5);
+        var ddir = _dir + random_range(-45, 45);
         var _p = PunchCreate(xx, yy, ddir, _dmg, 0);
         _p.onHitSound = global.sndPunchHit;
+        InstanceAssignMethod(_p, "step", ScriptWrap(StandBarrageStep), true);
         attackStateTimer = 0;
     }
     skills[skill, StandSkill.ExecutionTime] += 1 / room_speed;
@@ -292,6 +291,15 @@ if (keyboard_check_released(ord(skills[skill, StandSkill.Key])))
     }
     state = StandState.Idle;
 }
+
+#define StandBarrageStep
+
+var pd = point_direction(x, y, mouse_x, mouse_y);
+var xx = owner.x + lengthdir_x(32, pd);
+var yy = owner.y + lengthdir_y(32, pd);
+pd = point_direction(x, y, xx, yy);
+var dd = angle_difference(direction, pd);
+direction -= min(abs(dd), 10) * sign(dd);
 
 #define StrongPunch(method, skill)
 

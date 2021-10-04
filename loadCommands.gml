@@ -16,11 +16,12 @@ switch (args[0]) {
     case "stw": GiveShadowTheWorld(); break;
     case "kq": GiveKillerQueen(); break;
     case "kqbtd": GiveKillerQueenBtD(); break;
+    case "sf": GiveStickyFingers(); break;
 }
 
 #define TestCommand
 
-
+GiveRandomStand();
 
 #define JjbamDebug
 

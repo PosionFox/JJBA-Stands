@@ -269,7 +269,7 @@ gpu_set_blendmode(bm_normal);
 
 var _name = "D4C: Love Train";
 var _sprite = global.sprD4C;
-var _punchSprite = global.sprD4CPunch;
+var _color = 0xe4cd5f;
 
 var _stats;
 _stats[StandStat.Range] = 50;
@@ -282,7 +282,7 @@ var _skills = StandSkillInit(_stats);
 var sk;
 sk = StandState.SkillA;
 _skills[sk, StandSkill.SkillAlt] = StandBarrage;
-_skills[sk, StandSkill.Icon] = global.sprSkillBarrageD4C;
+_skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxHold] = 0;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 5;
@@ -304,7 +304,8 @@ _skills[sk, StandSkill.Skill] = LoveTrain;
 _skills[sk, StandSkill.Icon] = global.sprSkillLoveTrain;
 _skills[sk, StandSkill.MaxCooldown] = 45;
 
-StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
+StandBuilder(_name, _sprite, _stats, _skills, _color);
 objPlayer.myStand.summonSound = global.sndD4CSummon;
 
-SaveStand("jjbamD4clt");
+objPlayer.myStand.saveKey = "jjbamD4clt";
+objPlayer.myStand.discType = global.jjbamDiscD4clt;

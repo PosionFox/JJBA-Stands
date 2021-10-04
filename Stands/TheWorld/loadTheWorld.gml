@@ -47,7 +47,7 @@ state = StandState.Idle;
 
 var _name = "The World";
 var _sprite = global.sprTheWorld;
-var _punchSprite = global.sprTheWorldPunch;
+var _color = 0x36f2fb;
 
 var _stats;
 _stats[StandStat.Range] = 50;
@@ -83,7 +83,8 @@ _skills[sk, StandSkill.Icon] = global.sprSkillTimestop;
 _skills[sk, StandSkill.MaxCooldown] = 30;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
 
-StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
+StandBuilder(_name, _sprite, _stats, _skills, _color);
 objPlayer.myStand.summonSound = global.sndTwSummon;
 
-SaveStand("jjbamTw");
+objPlayer.myStand.saveKey = "jjbamTw";
+objPlayer.myStand.discType = global.jjbamDiscTw;

@@ -381,7 +381,7 @@ switch (state)
 
 var _name = "Killer Queen";
 var _sprite = global.sprKillerQueen;
-var _punchSprite = global.sprKqPunch;
+var _color = 0xba7bd7;
 
 var _stats;
 _stats[StandStat.Range] = 50;
@@ -394,7 +394,7 @@ var _skills = StandSkillInit(_stats);
 var sk;
 sk = StandState.SkillA;
 _skills[sk, StandSkill.SkillAlt] = StandBarrage;
-_skills[sk, StandSkill.Icon] = global.sprSkillBarrageKq;
+_skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxHold] = 0;
 _skills[sk, StandSkill.MaxCooldown] = 4;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
@@ -417,8 +417,8 @@ _skills[sk, StandSkill.Icon] = global.sprSkillSHA;
 _skills[sk, StandSkill.MaxCooldown] = 40;
 _skills[sk, StandSkill.MaxExecutionTime] = 20;
 
-StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
+StandBuilder(_name, _sprite, _stats, _skills, _color);
 objPlayer.myStand.summonSound = global.sndKqSummon;
 
-SaveStand("jjbamKq");
-
+objPlayer.myStand.saveKey = "jjbamKq";
+objPlayer.myStand.discType = global.jjbamDiscKq;

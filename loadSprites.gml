@@ -13,6 +13,7 @@ global.sprArrowBeetle = sprite_add("Resources/Sprites/ArrowBeetle.png", 1, false
 // generic
 global.sprKnife = sprite_add("Resources/Sprites/Knife.png", 1, false, false, 8, 8);
 global.sprBullet = sprite_add("Resources/Sprites/Bullet.png", 1, false, false, 1, 1);
+global.sprAttackPunch = sprite_add("Resources/Sprites/AttackPunch.png", 1, false, false, 16, 16);
 
 // shadow dio's the world
 global.sprKnifeStw = sprite_add("Resources/Sprites/KnifeStw.png", 1, false, false, 8, 8);
@@ -117,6 +118,8 @@ global.sprD4C = sprite_add("Resources/Sprites/D4C.png", 1, false, false, 16, 16)
 global.sprShadowTheWorld = sprite_add("Resources/Sprites/ShadowTheWorld.png", 1, false, false, 16, 16);
 global.sprKillerQueen = sprite_add("Resources/Sprites/KillerQueen.png", 1, false, false, 16, 16);
 global.sprKillerQueenBtD = sprite_add("Resources/Sprites/KillerQueenBtD.png", 1, false, false, 16, 16);
+global.sprStickyFingers = sprite_add("Resources/Sprites/StickyFingers.png", 1, false, false, 16, 16);
+global.sprSpookyWorld = sprite_add("Resources/Sprites/SpookyWorld.png", 1, false, false, 16, 16);
 
 #endregion
 
