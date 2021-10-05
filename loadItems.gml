@@ -197,8 +197,11 @@ StructureEdit(Structure.Forge, StructureData.Items, _newArray);
 
 #define SusArrowUse
 
-DmgPlayer(1, false);
-GiveRandomStand();
+if (objPlayer.myStand == noone)
+{
+    DmgPlayer(1, false);
+    GiveRandomStand();
+}
 
 #define VerySusArrowUse
 

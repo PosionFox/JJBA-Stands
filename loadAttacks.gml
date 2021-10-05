@@ -23,6 +23,8 @@ var _o = ModObjectSpawn(_x, _y, 0);
 with (_o)
 {
     sprite_index = global.sprBullet;
+    baseAnimSpd = 1;
+    image_speed = baseAnimSpd;
     visible = false;
     type = "projectile";
     subtype = "projectile";
@@ -41,6 +43,7 @@ with (_o)
     knockback = 0;
     onHitSound = global.sndPunchHit;
     onHitEvent = noone;
+    onHitEventArg = undefined;
     
     InstanceAssignMethod(self, "step", ScriptWrap(ProjectileStep), false);
     InstanceAssignMethod(self, "destroy", ScriptWrap(ProjectileDestroy), false);
@@ -74,18 +77,21 @@ if (instance_exists(self)) {
         if (!global.timeIsFrozen)
         {
             spd = baseSpd;
+            image_speed = baseAnimSpd;
             x += lengthdir_x(spd, direction);
             y += lengthdir_y(spd, direction);
         }
         else if (global.timeIsFrozen and canMoveInTs)
         {
             spd = baseSpd;
+            image_speed = baseAnimSpd;
             x += lengthdir_x(spd, direction);
             y += lengthdir_y(spd, direction);
         }
         else if (global.timeIsFrozen and !canMoveInTs)
         {
             spd = lerp(spd, 0, 0.15);
+            image_speed = lerp(image_speed, 0, 0.1);
             x += lengthdir_x(spd, direction);
             y += lengthdir_y(spd, direction);
         }
@@ -106,7 +112,7 @@ if (instance_exists(self)) {
                 {
                     with (other)
                     {
-                        script_execute(onHitEvent);
+                        script_execute(onHitEvent, onHitEventArg, undefined);
                     }
                 }
                 PunchEffectCreate(other.x, other.y);

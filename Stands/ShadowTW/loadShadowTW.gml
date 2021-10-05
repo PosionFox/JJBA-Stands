@@ -1,15 +1,33 @@
 
-#define ComboDash(method, skill) //attacks
-var _dmg = (skills[skill, StandSkill.Damage] * 0.05) * owner.level;
+#define StwPos // core
+
+xTo = owner.x;
+yTo = owner.y;
+alphaTarget = 0;
+
+#define StwDrawGui
+
+var _height = display_get_gui_height() - 200;
+
+draw_set_color(c_gray);
+draw_line_width(32, _height, 32 + 256, _height, 2);
+draw_set_color(c_yellow);
+draw_line_width(32, _height, 32 + (xp / maxXp) * 256, _height, 2);
+draw_set_color(c_white);
+
+#define StwXXI(method, skill) //attacks
+var _dmg = 3 + (owner.level * 0.2) + owner.dmg;
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-xTo = owner.x + lengthdir_x(8, _dir);
-yTo = owner.y + lengthdir_y(8, _dir);
+var _dis = 12;
+alphaTarget = 1;
 
 switch (attackState)
 {
     case 0:
-        owner.h += lengthdir_x(4, _dir);
-        owner.v += lengthdir_y(4, _dir);
+        audio_play_sound(global.sndStwSummon, 0, false);
+        var _snd = audio_play_sound(global.sndPunchAir, 0, false);
+        audio_sound_pitch(_snd, random_range(0.9, 1.1));
+        PunchCreate(x, y, _dir, _dmg, 0);
         attackState++;
     break;
     case 1:
@@ -21,10 +39,55 @@ switch (attackState)
     case 2:
         var _snd = audio_play_sound(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
-        var _p = PunchCreate(x, y, _dir, _dmg, 0);
+        PunchCreate(x, y, _dir, _dmg, 0);
+        attackState++;
+    break;
+    case 3:
+        if (attackStateTimer >= 0.8)
+        {
+            attackState++;
+        }
+    break;
+    case 4:
+        _dis = 16;
+        var _snd = audio_play_sound(global.sndPunchAir, 0, false);
+        audio_sound_pitch(_snd, random_range(0.9, 1.1));
+        PunchCreate(x, y, _dir, _dmg * 2, 2);
+        FireCD(skill);
+        state = StandState.Idle;
+    break;
+}
+xTo = owner.x + lengthdir_x(_dis, _dir);
+yTo = owner.y + lengthdir_y(_dis, _dir);
+attackStateTimer += 1 / room_speed;
+
+#define StwPunishment(method, skill)
+var _dmg = 2 + (owner.level * 0.1) + owner.dmg;
+var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+xTo = owner.x + lengthdir_x(12, _dir);
+yTo = owner.y + lengthdir_y(12, _dir);
+alphaTarget = 1;
+
+switch (attackState)
+{
+    case 0:
+        audio_play_sound(global.sndStwSummon, 0, false);
+        attackState++;
+    break;
+    case 1:
+        if (attackStateTimer >= 0.8)
+        {
+            attackState++;
+        }
+    break;
+    case 2:
+        var _snd = audio_play_sound(global.sndPunchAir, 0, false);
+        audio_sound_pitch(_snd, random_range(0.9, 1.1));
+        var _p = PunchCreate(x, y, _dir, _dmg, 2);
         with (_p)
         {
             onHitEvent = KnifeCoffin;
+            destroyOnImpact = true;
         }
         FireCD(skill);
         state = StandState.Idle;
@@ -33,9 +96,10 @@ switch (attackState)
 attackStateTimer += 1 / room_speed;
 
 #define KnifeCoffin(_x, _y)
-var _dmg = (owner.myStand.stats[StandStat.AttackDamage] * 0.02) * owner.level;
+var _dmg = 2 + (owner.level * 0.2) + owner.dmg;
 //var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
 var _target = owner;
+alphaTarget = 1;
 if (instance_exists(parEnemy))
 {
     _target = instance_nearest(x, y, parEnemy);
@@ -60,75 +124,30 @@ for (var i = 0; i <= _k; i++)
     }
 }
 
-#define BackDashKnife(method, skill)
-var _dmg = (skills[skill, StandSkill.Damage] * 0.15) * owner.level;
+#define StwThrowingKnifes(method, skill)
+var _dmg = 2 + (owner.level * 0.15) + owner.dmg;
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-
-owner.h -= lengthdir_x(4, _dir);
-owner.v -= lengthdir_y(4, _dir);
-var _p = ProjectileCreate(owner.x, owner.y);
-with (_p)
-{
-    var _snd = audio_play_sound(global.sndKnifeThrow, 0, false);
-    audio_sound_pitch(_snd, random_range(0.9, 1.1));
-    despawnTime = room_speed * 5;
-    damage = _dmg;
-    direction = _dir;
-    canMoveInTs = false;
-    sprite_index = global.sprKnifeStw;
-}
-skills[skill, StandSkill.MaxCooldown] = 1;
-skills[skill, StandSkill.Icon] = global.sprSkillRadialKnife;
-FireCD(skill);
-skills[skill, StandSkill.Skill] = RadialKnife;
-state = StandState.Idle;
-
-#define RadialKnife(method, skill)
-var _dmg = (skills[skill, StandSkill.Damage] * 0.1) * owner.level;
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-
-var _snd = audio_play_sound(global.sndKnifeThrow, 0, false);
-audio_sound_pitch(_snd, random_range(0.9, 1.1));
-var _k = 8;
-for (var i = 0; i <= _k; i++)
-{
-    var _p = ProjectileCreate(owner.x, owner.y);
-    with (_p)
-    {
-        despawnTime = room_speed * 5;
-        damage = _dmg;
-        direction = _dir + (i * (360 / _k));
-        canMoveInTs = false;
-        sprite_index = global.sprKnifeStw;
-    }
-}
-skills[skill, StandSkill.MaxCooldown] = 3;
-skills[skill, StandSkill.Icon] = global.sprSkillBackDashKnife;
-FireCD(skill);
-skills[skill, StandSkill.Skill] = BackDashKnife;
-state = StandState.Idle;
-
-#define TripleCombo(method, skill)
-var _dmg = 5 * (owner.level * 0.2);
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-xTo = owner.x + lengthdir_x(8, _dir);
-yTo = owner.y + lengthdir_y(8, _dir);
 
 switch (attackState)
 {
     case 0:
-        owner.h += lengthdir_x(2, _dir);
-        owner.v += lengthdir_y(2, _dir);
-        var _snd = audio_play_sound(global.sndKnifeThrow, 0, false);
+        var _snd = audio_play_sound(global.sndStwKnifeThrow, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
-        var _p = ProjectileCreate(owner.x, owner.y);
-        with (_p)
+        var i = 0;
+        repeat (4)
         {
-            despawnTime = room_speed * 5;
-            damage = _dmg;
-            direction = _dir;
-            canMoveInTs = false;
-            sprite_index = global.sprKnifeStw;
+            var _p = ProjectileCreate(owner.x, owner.y);
+            with (_p)
+            {
+                despawnTime = room_speed * 5;
+                damage = _dmg;
+                direction = (_dir - (i * 2)) - 4;
+                canMoveInTs = false;
+                sprite_index = global.sprKnifeStw;
+                x += lengthdir_x(4 * i, direction - 90);
+                y += lengthdir_y(4 * i, direction - 90);
+            }
+            i++;
         }
         attackState++;
     break;
@@ -139,35 +158,182 @@ switch (attackState)
         }
     break;
     case 2:
-        owner.h += lengthdir_x(1, _dir);
-        owner.v += lengthdir_y(1, _dir);
-        var _snd = audio_play_sound(global.sndPunchAir, 0, false);
+        var _snd = audio_play_sound(global.sndStwKnifeThrow, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
-        PunchCreate(x, y, _dir + random_range(-8, 8), _dmg, 0);
-        PunchCreate(x, y, _dir + random_range(-8, 8), _dmg, 0);
-        attackState++;
+        var i = 0;
+        repeat (4)
+        {
+            var _p = ProjectileCreate(owner.x, owner.y);
+            with (_p)
+            {
+                despawnTime = room_speed * 5;
+                damage = _dmg;
+                direction = (_dir + (i * 2)) + 4;
+                canMoveInTs = false;
+                sprite_index = global.sprKnifeStw;
+                x += lengthdir_x(4 * i, direction + 90);
+                y += lengthdir_y(4 * i, direction + 90);
+            }
+            i++;
+        }
+        FireCD(skill);
+        state = StandState.Idle;
     break;
-    case 3:
-        if (attackStateTimer >= 0.8)
+}
+attackStateTimer += 1 / room_speed;
+
+#define StwDivineBlood(method, skill)
+var _dmg = 1 + (owner.level * 0.1) + owner.dmg;
+var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+
+switch (attackState)
+{
+    case 0:
+        if (attackStateTimer >= 0.3)
         {
             attackState++;
         }
     break;
-    case 4:
-        owner.h -= lengthdir_x(3, _dir);
-        owner.v -= lengthdir_y(3, _dir);
-        var _snd = audio_play_sound(global.sndKnifeThrow, 0, false);
-        audio_sound_pitch(_snd, random_range(0.9, 1.1));
-        var _p = ProjectileCreate(owner.x, owner.y);
+    case 1:
+        var _p = PunchCreate(x, y, _dir, _dmg, 0);
         with (_p)
         {
-            despawnTime = room_speed * 5;
-            damage = _dmg;
-            direction = _dir;
-            canMoveInTs = false;
-            sprite_index = global.sprKnifeStw;
+            var _arg = noone;
+            if (instance_exists(parEnemy))
+            {
+                _arg = instance_nearest(x, y, parEnemy);
+            }
+            onHitEvent = StwDivineBloodCreate;
+            onHitEventArg = _arg;
+            destroyOnImpact = true;
         }
         FireCD(skill);
+        state = StandState.Idle;
+    break;
+}
+attackStateTimer += 1 / room_speed;
+
+#define StwSRSE(method, skill)
+var _dmg = 3 + (owner.level * 0.1) + owner.dmg;
+var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+
+owner.h = lengthdir_x(1, _dir + 180);
+owner.v = lengthdir_y(1, _dir + 180);
+audio_play_sound(global.sndStwSRSE, 0, false);
+var _p = ProjectileCreate(owner.x, owner.y - 4);
+with (_p)
+{
+    speed = 10;
+    despawnTime = room_speed * 5;
+    damage = _dmg;
+    direction = _dir;
+    canMoveInTs = false;
+    destroyOnImpact = false;
+    sprite_index = global.sprBtdVoidTrace;
+    image_blend = c_red;
+    x += lengthdir_x(2, _dir + 90);
+    y += lengthdir_y(2, _dir + 90);
+    GlowOrderCreate(self, 0.1, c_red);
+}
+var _p = ProjectileCreate(owner.x, owner.y - 4);
+with (_p)
+{
+    speed = 10;
+    despawnTime = room_speed * 5;
+    damage = _dmg;
+    direction = _dir;
+    canMoveInTs = false;
+    destroyOnImpact = false;
+    sprite_index = global.sprBtdVoidTrace;
+    image_blend = c_red;
+    x += lengthdir_x(2, _dir - 90);
+    y += lengthdir_y(2, _dir - 90);
+    GlowOrderCreate(self, 0.1, c_red);
+}
+FireCD(skill);
+state = StandState.Idle;
+
+#define StwUry(method, skill)
+var _dmg = 4 + (owner.level * 0.2) + owner.dmg;
+var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+
+switch (attackState)
+{
+    case 0:
+        owner.h -= lengthdir_x(2, _dir);
+        owner.v -= lengthdir_y(2, _dir);
+        attackState++;
+    break;
+    case 1:
+        if (attackStateTimer >= 0.2)
+        {
+            attackState++;
+        }
+    break;
+    case 2:
+        audio_play_sound(global.sndStwUry, 1, false);
+        owner.h += lengthdir_x(6, _dir);
+        owner.v += lengthdir_y(6, _dir);
+        var _p = PunchCreate(x, y, _dir, _dmg, 4);
+        with (_p)
+        {
+            image_alpha = 0;
+            stationary = true;
+            speed = 0;
+            despawnTime = room_speed * 0.8;
+        }
+        FireCD(skill);
+        state = StandState.Idle;
+    break;
+}
+attackStateTimer += 1 / room_speed;
+
+#define StwCharisma(method, skill)
+var _dmg = 1 + (owner.level * 0.5) + owner.dmg;
+var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+
+switch (attackState)
+{
+    case 0:
+        audio_play_sound(global.sndStwCharisma, 1, false);
+        GrowingCircleEffect(x, y);
+        with (parEnemy)
+        {
+            if (distance_to_object(objPlayer) < 32)
+            {
+                var _dir = point_direction(x, y, objPlayer.x, objPlayer.y);
+                h = lengthdir_x(-2, _dir);
+                h = lengthdir_y(-2, _dir);
+            }
+        }
+        attackState++;
+    break;
+    case 1:
+        if (attackStateTimer > 0.3)
+        {
+            attackState++;
+        }
+    break;
+    case 2:
+        for (var i = 0; i < 5; i++)
+        {
+            var _o = ProjectileCreate(x + lengthdir_x(16, 45 * i), y + lengthdir_y(16, 45 * i));
+            with (_o)
+            {
+                damage = _dmg;
+                canMoveInTs = false;
+                baseSpd = 0.1;
+                direction = random(360);
+                sprite_index = global.sprStwCharisma;
+                baseAnimSpd = 0.2;
+                image_speed = baseAnimSpd;
+                destroyOnImpact = true;
+                
+                InstanceAssignMethod(self, "step", ScriptWrap(StwCharismaStep), true);
+                GlowOrderCreate(self, 0.1, c_white);
+            }
+        }
+        FireCD(skill)
         state = StandState.Idle;
     break;
 }
@@ -195,17 +361,106 @@ if (!_tsExists)
 }
 state = StandState.Idle;
 
-#define StwDrawGuiXp //misc
+#define StwTheWorld(method, skill)
 
-if (!active) { exit; }
+if (xp >= maxXp)
+{
+    audio_play_sound(global.sndStwEvolve, 5, false);
+    var _o = ModObjectSpawn(x, y, 0);
+    with (_o)
+    {
+        timer = 1;
+        
+        InstanceAssignMethod(self, "step", ScriptWrap(StwTheWorldStep), false);
+    }
+}
+else
+{
+    ResetCD(skill);
+    state = StandState.Idle;
+}
 
-var _height = display_get_gui_height() - 200;
+#define StwTheWorldStep
 
-draw_set_color(c_gray);
-draw_line_width(32, _height, 32 + 256, _height, 2);
-draw_set_color(c_yellow);
-draw_line_width(32, _height, 32 + (xp / maxXp) * 256, _height, 2);
-draw_set_color(c_white);
+if (instance_exists(objPlayer.myStand))
+{
+    RemoveStand();
+}
+FireEffect(c_white, c_yellow);
+timer -= 1 / room_speed;
+if (timer <= 0)
+{
+    GiveTheWorld();
+    instance_destroy(self);
+}
+
+#define StwDivineBloodCreate(_scr, _target)
+
+var _o = ModObjectSpawn(objPlayer.x, objPlayer.y, 0);
+with (_o)
+{
+    if (!instance_exists(objPlayer)) { instance_destroy(self); }
+    life = 3;
+    timer = 0.8;
+    target = noone;
+    if (instance_exists(_target)) { target = _target; }
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(StwDivineBloodStep), false);
+}
+audio_play_sound(global.sndStwDivineBlood, 1, false);
+
+#define StwDivineBloodStep
+
+if (instance_exists(target))
+{
+    target.h = 0;
+    target.v = 0;
+}
+else
+{
+    objPlayer.invulFrames = 0;
+    instance_destroy(self);
+    exit;
+}
+
+objPlayer.invulFrames = 2;
+objPlayer.h = 0;
+objPlayer.v = 0;
+if (timer > 0)
+{
+    timer -= 1 / room_speed;
+}
+else
+{
+    objPlayer.hp++;
+    target.hp -= target.hpMax * 0.05;
+    timer = 0.8;
+}
+life -= 1 / room_speed;
+if (life <= 0)
+{
+    var _dir = point_direction(objPlayer.x, objPlayer.y, target.x, target.y);
+    target.h = lengthdir_x(3, _dir);
+    target.v = lengthdir_y(3, _dir);
+    objPlayer.h = lengthdir_x(3, _dir + 180);
+    objPlayer.v = lengthdir_y(3, _dir + 180);
+    objPlayer.invulFrames = 0;
+    instance_destroy(self);
+}
+
+#define StwCharismaStep
+
+baseSpd *= 1.02;
+if (instance_exists(parEnemy))
+{
+    var _near = instance_nearest(x, y, parEnemy);
+    if (distance_to_object(_near) < 128)
+    {
+        var pd = point_direction(x, y, _near.x, _near.y);
+        var dd = angle_difference(direction, pd);
+        direction -= min(abs(dd), 5) * sign(dd);
+    }
+}
 
 #define GiveShadowTheWorld //stand
 
@@ -220,39 +475,61 @@ _stats[StandStat.AttackRange] = 10;
 _stats[StandStat.BaseSpd] = 0.6;
 
 var _skills = StandSkillInit(_stats);
-
+// off
 var sk;
+sk = StandState.SkillAOff;
+_skills[sk, StandSkill.Skill] = StwUry;
+_skills[sk, StandSkill.Icon] = global.sprSkillUry;
+_skills[sk, StandSkill.MaxCooldown] = 8;
+
+sk = StandState.SkillBOff;
+_skills[sk, StandSkill.Skill] = StwSRSE;
+_skills[sk, StandSkill.Icon] = global.sprSkillSRSE;
+_skills[sk, StandSkill.MaxCooldown] = 8;
+
+sk = StandState.SkillCOff;
+_skills[sk, StandSkill.Skill] = StwDivineBlood;
+_skills[sk, StandSkill.Icon] = global.sprSkillDivineBlood;
+_skills[sk, StandSkill.MaxCooldown] = 10;
+
+sk = StandState.SkillDOff;
+_skills[sk, StandSkill.Skill] = StwCharisma;
+_skills[sk, StandSkill.Icon] = global.sprSkillCharisma;
+_skills[sk, StandSkill.MaxCooldown] = 15;
+// on
 sk = StandState.SkillA;
-_skills[sk, StandSkill.Skill] = ComboDash;
-_skills[sk, StandSkill.Icon] = global.sprSkillKnifeCoffin;
-_skills[sk, StandSkill.MaxCooldown] = 3;
-_skills[sk, StandSkill.MaxExecutionTime] = 3;
+_skills[sk, StandSkill.Skill] = StwXXI;
+_skills[sk, StandSkill.Icon] = global.sprSkillXXI;
+_skills[sk, StandSkill.MaxCooldown] = 5;
 
 sk = StandState.SkillB;
-_skills[sk, StandSkill.Skill] = BackDashKnife;
-_skills[sk, StandSkill.Icon] = global.sprSkillBackDashKnife;
-_skills[sk, StandSkill.MaxCooldown] = 3;
-_skills[sk, StandSkill.MaxExecutionTime] = 1;
+_skills[sk, StandSkill.Skill] = StwPunishment;
+_skills[sk, StandSkill.Icon] = global.sprSkillPunishment;
+_skills[sk, StandSkill.MaxCooldown] = 8;
 
 sk = StandState.SkillC;
-_skills[sk, StandSkill.Skill] = TripleCombo;
-_skills[sk, StandSkill.Icon] = global.sprSkillTripleCombo;
-_skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.MaxExecutionTime] = 3;
+_skills[sk, StandSkill.Skill] = StwThrowingKnifes;
+_skills[sk, StandSkill.Icon] = global.sprSkillStwKnifes;
+_skills[sk, StandSkill.MaxCooldown] = 6;
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = TimestopSTW;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimestopStw;
-_skills[sk, StandSkill.MaxCooldown] = 15;
+_skills[sk, StandSkill.MaxCooldown] = 20;
+_skills[sk, StandSkill.SkillAlt] = StwTheWorld;
+_skills[sk, StandSkill.IconAlt] = global.sprSkillStwTw;
+_skills[sk, StandSkill.MaxHold] = 2;
 
 var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
 with (_s)
 {
+    summonSound = noone;
+    idlePos = StwPos;
     saveKey = "jjbamStw";
     discType = global.jjbamDiscStw;
-    maxXp = 200;
+    maxXp = 300;
     xp = 0;
     
-    InstanceAssignMethod(self, "drawGUI", ScriptWrap(StwDrawGuiXp), true);
+    InstanceAssignMethod(self, "drawGUI", ScriptWrap(StwDrawGui), true);
 }
 

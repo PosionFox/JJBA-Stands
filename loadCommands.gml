@@ -21,7 +21,7 @@ switch (args[0]) {
 
 #define TestCommand
 
-GiveRandomStand();
+
 
 #define JjbamDebug
 

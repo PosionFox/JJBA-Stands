@@ -163,10 +163,9 @@ if (instance_exists(objPlayer))
         switch (objPlayer.myStand.name)
         {
             case "Shadow The World":
-                objPlayer.myStand.xp += _mob.hpMax;
-                if (objPlayer.myStand.xp >= objPlayer.myStand.maxXp)
+                if (objPlayer.myStand.xp < objPlayer.myStand.maxXp)
                 {
-                    GiveTheWorld();
+                    objPlayer.myStand.xp += _mob.hpMax;
                 }
             break;
         }

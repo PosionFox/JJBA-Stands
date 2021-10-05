@@ -18,6 +18,7 @@ global.sprAttackPunch = sprite_add("Resources/Sprites/AttackPunch.png", 1, false
 // shadow dio's the world
 global.sprKnifeStw = sprite_add("Resources/Sprites/KnifeStw.png", 1, false, false, 8, 8);
 global.sprStwPunch = sprite_add("Resources/Sprites/StwPunch.png", 1, false, false, 16, 16);
+global.sprStwCharisma = sprite_add("Resources/Sprites/StwCharisma.png", 2, false, false, 8, 8);
 
 // anubis
 global.sprHorizontalSlash = sprite_add("Resources/Sprites/HorizontalSlash.png", 1, false, false, 16, 16);
@@ -88,11 +89,15 @@ global.sprSkillCloneSummon = sprite_add("Resources/Sprites/SkillCloneSummon.png"
 global.sprSkillLoveTrain = sprite_add("Resources/Sprites/SkillLoveTrain.png", 1, false, false, 16, 16);
 
 // shadow dio's the world
-global.sprSkillKnifeCoffin = sprite_add("Resources/Sprites/SkillKnifeCoffin.png", 1, false, false, 16, 16);
-global.sprSkillBackDashKnife = sprite_add("Resources/Sprites/SkillBackDashKnife.png", 1, false, false, 16, 16);
-global.sprSkillRadialKnife = sprite_add("Resources/Sprites/SkillRadialKnife.png", 1, false, false, 16, 16);
-global.sprSkillTripleCombo = sprite_add("Resources/Sprites/SkillTripleCombo.png", 1, false, false, 16, 16);
+global.sprSkillUry = sprite_add("Resources/Sprites/SkillUry.png", 1, false, false, 16, 16);
+global.sprSkillSRSE = sprite_add("Resources/Sprites/SkillSRSE.png", 1, false, false, 16, 16);
+global.sprSkillDivineBlood = sprite_add("Resources/Sprites/SkillDivineBlood.png", 1, false, false, 16, 16);
+global.sprSkillCharisma = sprite_add("Resources/Sprites/SkillCharisma.png", 1, false, false, 16, 16);
+global.sprSkillXXI = sprite_add("Resources/Sprites/SkillXXI.png", 1, false, false, 16, 16);
+global.sprSkillPunishment = sprite_add("Resources/Sprites/SkillKnifeCoffin.png", 1, false, false, 16, 16);
+global.sprSkillStwKnifes = sprite_add("Resources/Sprites/SkillStwKnifes.png", 1, false, false, 16, 16);
 global.sprSkillTimestopStw = sprite_add("Resources/Sprites/SkillTimestopStw.png", 1, false, false, 16, 16);
+global.sprSkillStwTw = sprite_add("Resources/Sprites/SkillStwTw.png", 1, false, false, 16, 16);
 
 // killer queen
 global.sprSkillBarrageKq = sprite_add("Resources/Sprites/SkillBarrageKq.png", 1, false, false, 16, 16);
@@ -110,16 +115,16 @@ global.sprSkillBtD = sprite_add("Resources/Sprites/SkillBtD.png", 1, false, fals
 
 #region Stands
 
-global.sprStarPlatinum = sprite_add("Resources/Sprites/StarPlatinum.png", 1, false, false, 16, 16);
-global.sprTheWorld = sprite_add("Resources/Sprites/TheWorld.png", 1, false, false, 16, 16);
-global.sprTheWorldAU = sprite_add("Resources/Sprites/TheWorldAU.png", 1, false, false, 16, 16);
-global.sprAnubis = sprite_add("Resources/Sprites/Anubis.png", 1, false, false, 16, 16)
-global.sprD4C = sprite_add("Resources/Sprites/D4C.png", 1, false, false, 16, 16);
-global.sprShadowTheWorld = sprite_add("Resources/Sprites/ShadowTheWorld.png", 1, false, false, 16, 16);
-global.sprKillerQueen = sprite_add("Resources/Sprites/KillerQueen.png", 1, false, false, 16, 16);
-global.sprKillerQueenBtD = sprite_add("Resources/Sprites/KillerQueenBtD.png", 1, false, false, 16, 16);
-global.sprStickyFingers = sprite_add("Resources/Sprites/StickyFingers.png", 1, false, false, 16, 16);
-global.sprSpookyWorld = sprite_add("Resources/Sprites/SpookyWorld.png", 1, false, false, 16, 16);
+global.sprStarPlatinum = sprite_add("Resources/Sprites/StarPlatinum.png", 1, false, false, 16, 19);
+global.sprTheWorld = sprite_add("Resources/Sprites/TheWorld.png", 1, false, false, 16, 19);
+global.sprTheWorldAU = sprite_add("Resources/Sprites/TheWorldAU.png", 1, false, false, 16, 19);
+global.sprAnubis = sprite_add("Resources/Sprites/Anubis.png", 1, false, false, 16, 19)
+global.sprD4C = sprite_add("Resources/Sprites/D4C.png", 1, false, false, 16, 19);
+global.sprShadowTheWorld = sprite_add("Resources/Sprites/ShadowTheWorld.png", 1, false, false, 16, 19);
+global.sprKillerQueen = sprite_add("Resources/Sprites/KillerQueen.png", 1, false, false, 16, 19);
+global.sprKillerQueenBtD = sprite_add("Resources/Sprites/KillerQueenBtD.png", 1, false, false, 16, 19);
+global.sprStickyFingers = sprite_add("Resources/Sprites/StickyFingers.png", 1, false, false, 16, 19);
+global.sprSpookyWorld = sprite_add("Resources/Sprites/SpookyWorld.png", 1, false, false, 16, 19);
 
 #endregion
 

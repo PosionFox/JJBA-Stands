@@ -115,4 +115,35 @@ draw_circle(x, y, size, false);
 draw_set_color(image_blend);
 gpu_set_blendmode(bm_normal);
 
+#define GrowingCircleEffect(_x, _y)
+
+var _o = ModObjectSpawn(_x, _y, 0);
+with (_o)
+{
+    radius = 0;
+    color = c_white;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(GrowingCircleStep), false);
+    InstanceAssignMethod(self, "draw", ScriptWrap(GrowingCircleDraw), false);
+}
+
+#define GrowingCircleStep
+
+depth = -y;
+radius = lerp(radius, 32, 0.1);
+image_alpha -= 0.02;
+if (image_alpha <= 0)
+{
+    instance_destroy(self);
+}
+
+#define GrowingCircleDraw
+
+draw_set_alpha(image_alpha);
+draw_set_color(color);
+draw_circle(x, y, radius, false);
+draw_set_color(image_blend);
+
+
+
 
