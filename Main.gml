@@ -64,6 +64,7 @@ switch (_stand)
     case "jjbamKq": GiveKillerQueen(); break;
     case "jjbamKqbtd": GiveKillerQueenBtD(); break;
     case "jjbamSw": GiveSpookyWorld(); break;
+    case "jjbamSf": GiveStickyFingers(); break;
 }
 
 
@@ -124,6 +125,20 @@ with (objModEmpty)
     }
 }
 return _exists;
+
+#define modSubtypeFind(_type)
+
+with (objModEmpty)
+{
+    if ("subtype" in self)
+    {
+        if (subtype == _type)
+        {
+            return self;
+        }
+    }
+}
+return noone;
 
 #define Main
 

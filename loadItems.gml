@@ -167,6 +167,22 @@ global.jjbamDiscKqbtd = ItemCreate(
     true
 );
 
+global.jjbamDiscSf = ItemCreate(
+    undefined,
+    "DISC:SF",
+    "The label says: Sticky Fingers",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(GiveStickyFingers),
+    5 * 10,
+    true
+);
+
 #endregion
 
 global.jjbamRequiem = ItemCreate(

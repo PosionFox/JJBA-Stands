@@ -52,6 +52,14 @@ global.sndLtStart = audio_create_stream("Resources/Sounds/ltStart.ogg");
 global.sndLtLoop = audio_create_stream("Resources/Sounds/ltLoop.ogg");
 global.sndLtEnd = audio_create_stream("Resources/Sounds/ltEnd.ogg");
 
+// sticky fingers
+global.sndSfPunch = audio_create_stream("Resources/Sounds/sfPunch.ogg");
+global.sndSfInjury = audio_create_stream("Resources/Sounds/sfInjury.ogg");
+global.sndSfStrong = audio_create_stream("Resources/Sounds/sfStrong.ogg");
+global.sndSfGrab = audio_create_stream("Resources/Sounds/sfGrab.ogg");
+global.sndSfGrabReturn = audio_create_stream("Resources/Sounds/sfGrabReturn.ogg");
+global.sndSfPortal = audio_create_stream("Resources/Sounds/sfPortal.ogg");
+
 #endregion
 
 

@@ -17,6 +17,7 @@ switch (args[0]) {
     case "kq": GiveKillerQueen(); break;
     case "kqbtd": GiveKillerQueenBtD(); break;
     case "sf": GiveStickyFingers(); break;
+    case "ge": GiveGoldExperience(); break;
 }
 
 #define TestCommand

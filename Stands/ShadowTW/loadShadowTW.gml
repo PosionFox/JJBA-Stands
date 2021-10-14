@@ -413,6 +413,7 @@ audio_play_sound(global.sndStwDivineBlood, 1, false);
 
 if (instance_exists(target))
 {
+    target.behaviourEngage = false;
     target.h = 0;
     target.v = 0;
 }
@@ -442,6 +443,7 @@ if (life <= 0)
     var _dir = point_direction(objPlayer.x, objPlayer.y, target.x, target.y);
     target.h = lengthdir_x(3, _dir);
     target.v = lengthdir_y(3, _dir);
+    target.behaviourEngage = true;
     objPlayer.h = lengthdir_x(3, _dir + 180);
     objPlayer.v = lengthdir_y(3, _dir + 180);
     objPlayer.invulFrames = 0;

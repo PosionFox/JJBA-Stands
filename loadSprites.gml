@@ -55,6 +55,10 @@ global.sprSHA = sprite_add("Resources/Sprites/SHA.png", 1, false, false, 16, 16)
 global.sprBtdStare = sprite_add("Resources/Sprites/BtDStare.png", 1, false, false, 16, 16);
 global.sprBtdVoidTrace = sprite_add("Resources/Sprites/BtDVoidTrace.png", 1, false, false, 16, 1);
 
+// sticky fingers
+global.sprSfZipper = sprite_add("Resources/Sprites/SfZipper.png", 4, false, false, 16, 16);
+global.sprSfPortal = sprite_add("Resources/Sprites/SfPortal.png", 4, false, false, 16, 16);
+
 #endregion
 
 #region Skills
@@ -111,6 +115,10 @@ global.sprSkillStrayCat = sprite_add("Resources/Sprites/SkillStrayCat.png", 1, f
 global.sprSkillThirdBomb = sprite_add("Resources/Sprites/SkillThirdBomb.png", 1, false, false, 16, 16);
 global.sprSkillBtD = sprite_add("Resources/Sprites/SkillBtD.png", 1, false, false, 16, 16);
 
+// sticky fingers
+global.sprSkillZipperGrab = sprite_add("Resources/Sprites/SkillZipperGrab.png", 1, false, false, 16, 16);
+global.sprSkillZipPortal = sprite_add("Resources/Sprites/SkillZipPortal.png", 1, false, false, 16, 16);
+
 #endregion
 
 #region Stands
@@ -125,6 +133,7 @@ global.sprKillerQueen = sprite_add("Resources/Sprites/KillerQueen.png", 1, false
 global.sprKillerQueenBtD = sprite_add("Resources/Sprites/KillerQueenBtD.png", 1, false, false, 16, 19);
 global.sprStickyFingers = sprite_add("Resources/Sprites/StickyFingers.png", 1, false, false, 16, 19);
 global.sprSpookyWorld = sprite_add("Resources/Sprites/SpookyWorld.png", 1, false, false, 16, 19);
+global.sprGoldExperience = sprite_add("Resources/Sprites/GoldExperience.png", 1, false, false, 16, 19);
 
 #endregion
 
