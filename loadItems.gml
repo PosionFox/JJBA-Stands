@@ -213,18 +213,18 @@ StructureEdit(Structure.Forge, StructureData.Items, _newArray);
 
 #define SusArrowUse
 
+DmgPlayer(1, false);
 if (objPlayer.myStand == noone)
 {
-    DmgPlayer(1, false);
     GiveRandomStand();
 }
 
 #define VerySusArrowUse
 
+DmgPlayer(1, false);
 switch (objPlayer.myStand.name)
 {
     case "Killer Queen":
-        DmgPlayer(1, false);
         RemoveStand();
         GiveKillerQueenBtD();
     break;
@@ -239,6 +239,7 @@ var _standPool =
     [GiveShadowTheWorld, 20],
     [GiveD4CLT, 20],
     [GiveKillerQueen, 20],
+    [GiveStickyFingers, 20],
     [GiveSpookyWorld, 1]
 ]
 
@@ -263,15 +264,22 @@ for(var i = 0; i < array_length(_standPool); i++)
 
 #define DiscUse
 
+DmgPlayer(1, false);
 if (instance_exists(objPlayer))
 {
-    DmgPlayer(1, false);
-    if ("myStand" in objPlayer)
+    try
     {
-        if (instance_exists(objPlayer.myStand))
+        if ("myStand" in objPlayer)
         {
-            GainItem(objPlayer.myStand.discType);
+            if (instance_exists(objPlayer.myStand))
+            {
+                GainItem(objPlayer.myStand.discType);
+            }
         }
+    }
+    catch (e)
+    {
+        Trace("stand not known");
     }
     RemoveStand();
     SaveStand("jjbamStandless");

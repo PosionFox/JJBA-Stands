@@ -65,6 +65,7 @@ switch (_stand)
     case "jjbamKqbtd": GiveKillerQueenBtD(); break;
     case "jjbamSw": GiveSpookyWorld(); break;
     case "jjbamSf": GiveStickyFingers(); break;
+    case "jjbamGe": GiveGoldExperience(); break;
 }
 
 

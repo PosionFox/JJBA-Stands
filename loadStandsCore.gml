@@ -40,6 +40,8 @@ var _height = display_get_gui_height() - 40;
 
 draw_text(168, _height - 160, string_lower(name));
 //draw_text(128, 128, string(objPlayer.dmg));
+draw_set_halign(fa_center);
+draw_set_valign(fa_middle);
 if (active)
 {
     for (var i = StandState.SkillA; i <= StandState.SkillD; i++) {
@@ -82,6 +84,8 @@ else
         }
     }
 }
+draw_set_halign(fa_left);
+draw_set_valign(fa_top);
 
 #define StandSkillManage
 

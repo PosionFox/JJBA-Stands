@@ -59,6 +59,10 @@ global.sndSfStrong = audio_create_stream("Resources/Sounds/sfStrong.ogg");
 global.sndSfGrab = audio_create_stream("Resources/Sounds/sfGrab.ogg");
 global.sndSfGrabReturn = audio_create_stream("Resources/Sounds/sfGrabReturn.ogg");
 global.sndSfPortal = audio_create_stream("Resources/Sounds/sfPortal.ogg");
+global.sndSfTp = audio_create_stream("Resources/Sounds/sfTp.ogg");
+
+// gold experience
+global.sndGeHit = audio_create_stream("Resources/Sounds/geHit.ogg");
 
 #endregion
 

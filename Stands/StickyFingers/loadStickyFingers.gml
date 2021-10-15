@@ -327,7 +327,9 @@ if (instance_exists(parEntity))
         {
             _pt = modSubtypeFind("sfP1");
         }
+        audio_play_sound(global.sndSfTp, 0, false);
         FireEffect(c_white, c_aqua);
+        LineEffect(_ins.x, _ins.y, _pt.x, _pt.y).color = c_aqua;
         _ins.x = _pt.x;
         _ins.y = _pt.y;
         _pt.cooldown = 1;

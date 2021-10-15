@@ -144,6 +144,37 @@ draw_set_color(color);
 draw_circle(x, y, radius, false);
 draw_set_color(image_blend);
 
+#define LineEffect(_x1, _y1, _x2, _y2)
+
+var _o = ModObjectSpawn(_x1, _y1, 0);
+with (_o)
+{
+    x2 = _x2;
+    y2 = _y2;
+    color = c_white;
+    width = 2;
+    fadeRate = 0.1;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(LineEffectStep), false);
+    InstanceAssignMethod(self, "draw", ScriptWrap(LineEffectDraw), false);
+}
+return _o;
+
+#define LineEffectStep
+
+if (image_alpha <= 0)
+{
+    instance_destroy(self);
+    exit;
+}
+image_alpha -= fadeRate;
+
+#define LineEffectDraw
+
+draw_set_alpha(image_alpha);
+draw_set_color(color);
+draw_line_width(x, y, x2, y2, width);
+draw_set_color(image_blend);
 
 
 
