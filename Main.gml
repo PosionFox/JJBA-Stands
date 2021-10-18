@@ -160,7 +160,8 @@ CommandCreate("jjbamDebug", true, ScriptWrap(JjbamDebug));
 
 #define OnPlayerDamage(_dodge, _damage)
 
-if (modTypeExists("loveTrain")) {
+if (modTypeExists("loveTrain"))
+{
     objPlayer.hp++;
     if (instance_exists(parEnemy))
     {
@@ -190,12 +191,21 @@ if (instance_exists(objPlayer))
 
 #define OnNewGame
 
+if (instance_exists(objPlayer))
+{
+    if !("myStand" in objPlayer)
+    {
+        objPlayer.myStand = noone;
+    }
+}
 GiveRandomStand();
 
 #define OnRoomLoad
 
-if (instance_exists(objPlayer)) {
-    if ("myStand" in objPlayer) {
+if (instance_exists(objPlayer))
+{
+    if ("myStand" in objPlayer)
+    {
         LoadStand();
     }
 }
@@ -219,8 +229,10 @@ if (instance_exists(objPlayer))
 
 #define OnLoad
 
-if (instance_exists(objPlayer)) {
-    if !("myStand" in objPlayer) {
+if (instance_exists(objPlayer))
+{
+    if !("myStand" in objPlayer)
+    {
         objPlayer.myStand = noone;
         LoadStand();
     }
