@@ -150,6 +150,7 @@ loadSprites();
 loadEffects();
 loadAttacks();
 loadStandsCore();
+loadActors();
 loadStands();
 loadItems();
 loadCommands();

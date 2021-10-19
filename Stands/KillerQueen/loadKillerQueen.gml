@@ -1,6 +1,5 @@
 
-/// attacks
-#define PlaceBomb(method, skill)
+#define PlaceBomb(method, skill) //attacks
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
 var _dmg = 3 + (owner.level * 1.5);
 xTo = owner.x + lengthdir_x(8, _dir);
@@ -106,8 +105,7 @@ else
     state = StandState.Idle;
 }
 
-/// attacks properties
-#define BombCreate(_x, _y, _dmg)
+#define BombCreate(_x, _y, _dmg) //attack properties
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
 xTo = owner.x + lengthdir_x(8, _dir);
 yTo = owner.y + lengthdir_y(8, _dir);
@@ -187,197 +185,7 @@ if (WaterCollision(x, y))
     instance_destroy(self);
 }
 
-#define ShaCreate(_x, _y)
-
-audio_play_sound(global.sndSHA, 1, false);
-var _o = ModObjectSpawn(_x, _y, 0);
-with (_o)
-{
-    type = "SHA";
-    sprite_index = global.sprSHA;
-    image_xscale = 0.5;
-    image_yscale = 0.5;
-    maxSpd = 2;
-    spd = 0;
-    h = 0;
-    v = 0;
-    
-    life = 20;
-    state = 0;
-    bombCD = 0;
-    canCollide = true;
-    
-    InstanceAssignMethod(self, "step", ScriptWrap(ShaStep), false);
-}
-
-#define ShaStep
-
-if (canCollide)
-{
-    // solid h
-    if (place_meeting(x + h, y, parSolid))
-    {
-        while !(place_meeting(x + sign(h), y, parSolid))
-        {
-            x += sign(h);
-        }
-        h = 0;
-    }
-    // water h
-    //var hSize = bbox_right - bbox_left;
-    if (WaterCollision(x + h, y))
-    {
-        while !(WaterCollision(x + sign(h), y))
-        {
-            x += sign(h);
-        }
-        h = 0;
-    }
-    x += h;
-
-    // solid v
-    if (place_meeting(x, y + v, parSolid))
-    {
-        while !(place_meeting(x, y + sign(v), parSolid))
-        {
-            y += sign(v);
-        }
-        v = 0;
-    }
-    //var vSize = bbox_bottom - bbox_top;
-    // water v
-    if (WaterCollision(x, y + v))
-    {
-        while !(WaterCollision(x, y + sign(v)))
-        {
-            y += sign(v);
-        }
-        v = 0;
-    }
-    y += v;
-}
-
-depth = -y;
-
-life -= 1 / room_speed;
-if (life <= 0)
-{
-    state = 3;
-}
-if (bombCD > 0)
-{
-    bombCD -= 1 / room_speed;
-}
-
-switch (state)
-{
-    case 0: // follow
-        if (instance_exists(objPlayer))
-        {
-            var _dir = point_direction(x, y, objPlayer.x, objPlayer.y);
-            
-            if (distance_to_object(objPlayer) > 100)
-            {
-                canCollide = false;
-                state = 2;
-            }
-            if (distance_to_object(objPlayer) > 32)
-            {
-                image_xscale = sign(dcos(_dir)) * 0.5;
-                h = lengthdir_x(spd, _dir);
-                v = lengthdir_y(spd, _dir);
-                spd = lerp(spd, maxSpd, 0.1);
-            }
-            else
-            {
-                spd = lerp(spd, 0, 0.1);
-            }
-        }
-        if (instance_exists(parEnemy))
-        {
-            var _near = instance_nearest(x, y, parEnemy);
-            if (distance_to_object(_near) < 128)
-            {
-                state = 1;
-            }
-        }
-    break;
-    case 1: // attack
-        if (instance_exists(parEnemy))
-        {
-            var _near = instance_nearest(x, y, parEnemy);
-            var _dir = point_direction(x, y, _near.x, _near.y);
-            var _dis = distance_to_object(_near);
-            
-            if (_dis > 136)
-            {
-                state = 0;
-            }
-            if (_dis > 8)
-            {
-                image_xscale = sign(dcos(_dir)) * 0.5;
-                var _r = random_range(-4, 4)
-                h = lengthdir_x(spd, _dir + _r);
-                v = lengthdir_y(spd, _dir + _r);
-                spd = lerp(spd, maxSpd, 0.1);
-            }
-            else if (bombCD <= 0)
-            {
-                ExplosionCreate(x, y, 32, false);
-                bombCD = 2;
-            }
-        }
-        else
-        {
-            state = 0;
-        }
-        if (instance_exists(objPlayer))
-        {
-            if (distance_to_object(objPlayer) > 200)
-            {
-                canCollide = false;
-                state = 2;
-            }
-        }
-    break;
-    case 2: // super follow
-        if (instance_exists(objPlayer))
-        {
-            if (distance_to_object(objPlayer) > 16)
-            {
-                FireEffect(c_white, c_fuchsia);
-                var _dir = point_direction(x, y, objPlayer.x, objPlayer.y);
-                x += lengthdir_x(5, _dir);
-                y += lengthdir_y(5, _dir);
-            }
-            else
-            {
-                canCollide = true;
-                state = 0;
-            }
-        }
-    break;
-    case 3: // come back
-        if (instance_exists(objPlayer))
-        {
-            image_xscale = 0.1;
-            image_yscale = 0.1;
-            FireEffect(c_white, c_fuchsia);
-            canCollide = false;
-            var _dir = point_direction(x, y, objPlayer.myStand.x, objPlayer.myStand.y);
-            x += lengthdir_x(5, _dir);
-            y += lengthdir_y(5, _dir);
-            
-            if (place_meeting(x, y, objPlayer.myStand))
-            {
-                instance_destroy(self);
-            }
-        }
-    break;
-}
-
-/// stand
-#define GiveKillerQueen
+#define GiveKillerQueen //stand
 
 var _name = "Killer Queen";
 var _sprite = global.sprKillerQueen;

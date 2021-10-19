@@ -97,6 +97,12 @@ switch (attackState)
 }
 attackStateTimer += 1 / room_speed;
 
+#define LifeFormScorpion(method, skill)
+
+ScorpionCreate(x, y);
+FireCD(skill);
+state = StandState.Idle;
+
 #define LifeSoul(_scr, _dir) //attack properties
 
 var _p = ProjectileCreate(x, y);
@@ -109,7 +115,7 @@ with (_p)
         sprite_index = target.sprite_index;
         image_speed = 0;
     }
-    damage = 2 + (owner.level * 0.1) + owner.dmg;
+    damage = 2 + (objPlayer.level * 0.1) + objPlayer.dmg;
     destroyOnImpact = false;
     direction = _dir;
     
@@ -169,9 +175,9 @@ _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
 
 sk = StandState.SkillD;
-_skills[sk, StandSkill.Skill] = TimestopTwAu;
+_skills[sk, StandSkill.Skill] = LifeFormScorpion;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimestop;
-_skills[sk, StandSkill.MaxCooldown] = 30;
+_skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
 
 var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);

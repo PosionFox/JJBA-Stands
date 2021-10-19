@@ -28,7 +28,7 @@ with (_o)
     visible = false;
     type = "projectile";
     subtype = "projectile";
-    owner = other.owner;
+    owner = other;
     despawnTime = room_speed * 5;
     baseSpd = 5;
     spd = baseSpd;
