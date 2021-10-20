@@ -3,10 +3,10 @@
 
 for (var i = 1; i <= 3; i++)
 {
-    var _dir = (point_direction(owner.x, owner.y, mouse_x, mouse_y) - 16) + (i * 8);
-    var _dmg = (skills[skill, StandSkill.Damage] * 0.1) * owner.level;
+    var _dir = (point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y) - 16) + (i * 8);
+    var _dmg = (skills[skill, StandSkill.Damage] * 0.1) * objPlayer.level;
     
-    var _p = ProjectileCreate(owner.x, owner.y);
+    var _p = ProjectileCreate(objPlayer.x, objPlayer.y);
     with (_p)
     {
         var _snd = audio_play_sound(global.sndKnifeThrow, 0, false);

@@ -183,6 +183,22 @@ global.jjbamDiscSf = ItemCreate(
     true
 );
 
+global.jjbamDiscGe = ItemCreate(
+    undefined,
+    "DISC:GE",
+    "The label says: Gold Experience",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(GiveGoldExperience),
+    5 * 10,
+    true
+);
+
 #endregion
 
 global.jjbamRequiem = ItemCreate(
@@ -222,12 +238,15 @@ if (objPlayer.myStand == noone)
 #define VerySusArrowUse
 
 DmgPlayer(1, false);
-switch (objPlayer.myStand.name)
+if (instance_exists(objPlayer.myStand))
 {
-    case "Killer Queen":
-        RemoveStand();
-        GiveKillerQueenBtD();
-    break;
+    switch (objPlayer.myStand.name)
+    {
+        case "Killer Queen":
+            RemoveStand();
+            GiveKillerQueenBtD();
+        break;
+    }
 }
 
 #define GiveRandomStand
@@ -240,6 +259,7 @@ var _standPool =
     [GiveD4CLT, 20],
     [GiveKillerQueen, 20],
     [GiveStickyFingers, 20],
+    [GiveGoldExperience, 20],
     [GiveSpookyWorld, 1]
 ]
 

@@ -1,8 +1,8 @@
 
 #define StwPos // core
 
-xTo = owner.x;
-yTo = owner.y;
+xTo = objPlayer.x;
+yTo = objPlayer.y;
 alphaTarget = 0;
 
 #define StwDrawGui
@@ -16,8 +16,8 @@ draw_line_width(32, _height, 32 + (xp / maxXp) * 256, _height, 2);
 draw_set_color(c_white);
 
 #define StwXXI(method, skill) //attacks
-var _dmg = 3 + (owner.level * 0.2) + owner.dmg;
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+var _dmg = 3 + (objPlayer.level * 0.2) + objPlayer.dmg;
+var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 var _dis = 12;
 alphaTarget = 1;
 
@@ -57,15 +57,15 @@ switch (attackState)
         state = StandState.Idle;
     break;
 }
-xTo = owner.x + lengthdir_x(_dis, _dir);
-yTo = owner.y + lengthdir_y(_dis, _dir);
+xTo = objPlayer.x + lengthdir_x(_dis, _dir);
+yTo = objPlayer.y + lengthdir_y(_dis, _dir);
 attackStateTimer += 1 / room_speed;
 
 #define StwPunishment(method, skill)
-var _dmg = 2 + (owner.level * 0.1) + owner.dmg;
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-xTo = owner.x + lengthdir_x(12, _dir);
-yTo = owner.y + lengthdir_y(12, _dir);
+var _dmg = 2 + (objPlayer.level * 0.1) + objPlayer.dmg;
+var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+xTo = objPlayer.x + lengthdir_x(12, _dir);
+yTo = objPlayer.y + lengthdir_y(12, _dir);
 alphaTarget = 1;
 
 switch (attackState)
@@ -96,9 +96,9 @@ switch (attackState)
 attackStateTimer += 1 / room_speed;
 
 #define KnifeCoffin(_x, _y)
-var _dmg = 2 + (owner.level * 0.2) + owner.dmg;
-//var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-var _target = owner;
+var _dmg = 2 + (objPlayer.level * 0.2) + objPlayer.dmg;
+//var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+var _target = objPlayer;
 alphaTarget = 1;
 if (instance_exists(parEnemy))
 {
@@ -125,8 +125,8 @@ for (var i = 0; i <= _k; i++)
 }
 
 #define StwThrowingKnifes(method, skill)
-var _dmg = 2 + (owner.level * 0.15) + owner.dmg;
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+var _dmg = 2 + (objPlayer.level * 0.15) + objPlayer.dmg;
+var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
 switch (attackState)
 {
@@ -136,7 +136,7 @@ switch (attackState)
         var i = 0;
         repeat (4)
         {
-            var _p = ProjectileCreate(owner.x, owner.y);
+            var _p = ProjectileCreate(objPlayer.x, objPlayer.y);
             with (_p)
             {
                 despawnTime = room_speed * 5;
@@ -163,7 +163,7 @@ switch (attackState)
         var i = 0;
         repeat (4)
         {
-            var _p = ProjectileCreate(owner.x, owner.y);
+            var _p = ProjectileCreate(objPlayer.x, objPlayer.y);
             with (_p)
             {
                 despawnTime = room_speed * 5;
@@ -183,8 +183,8 @@ switch (attackState)
 attackStateTimer += 1 / room_speed;
 
 #define StwDivineBlood(method, skill)
-var _dmg = 1 + (owner.level * 0.1) + owner.dmg;
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+var _dmg = 1 + (objPlayer.level * 0.1) + objPlayer.dmg;
+var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
 switch (attackState)
 {
@@ -214,13 +214,13 @@ switch (attackState)
 attackStateTimer += 1 / room_speed;
 
 #define StwSRSE(method, skill)
-var _dmg = 3 + (owner.level * 0.1) + owner.dmg;
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+var _dmg = 3 + (objPlayer.level * 0.1) + objPlayer.dmg;
+var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
-owner.h = lengthdir_x(1, _dir + 180);
-owner.v = lengthdir_y(1, _dir + 180);
+objPlayer.h = lengthdir_x(1, _dir + 180);
+objPlayer.v = lengthdir_y(1, _dir + 180);
 audio_play_sound(global.sndStwSRSE, 0, false);
-var _p = ProjectileCreate(owner.x, owner.y - 4);
+var _p = ProjectileCreate(objPlayer.x, objPlayer.y - 4);
 with (_p)
 {
     speed = 10;
@@ -235,7 +235,7 @@ with (_p)
     y += lengthdir_y(2, _dir + 90);
     GlowOrderCreate(self, 0.1, c_red);
 }
-var _p = ProjectileCreate(owner.x, owner.y - 4);
+var _p = ProjectileCreate(objPlayer.x, objPlayer.y - 4);
 with (_p)
 {
     speed = 10;
@@ -254,14 +254,14 @@ FireCD(skill);
 state = StandState.Idle;
 
 #define StwUry(method, skill)
-var _dmg = 4 + (owner.level * 0.2) + owner.dmg;
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+var _dmg = 4 + (objPlayer.level * 0.2) + objPlayer.dmg;
+var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
 switch (attackState)
 {
     case 0:
-        owner.h -= lengthdir_x(2, _dir);
-        owner.v -= lengthdir_y(2, _dir);
+        objPlayer.h -= lengthdir_x(2, _dir);
+        objPlayer.v -= lengthdir_y(2, _dir);
         attackState++;
     break;
     case 1:
@@ -272,8 +272,8 @@ switch (attackState)
     break;
     case 2:
         audio_play_sound(global.sndStwUry, 1, false);
-        owner.h += lengthdir_x(6, _dir);
-        owner.v += lengthdir_y(6, _dir);
+        objPlayer.h += lengthdir_x(6, _dir);
+        objPlayer.v += lengthdir_y(6, _dir);
         var _p = PunchCreate(x, y, _dir, _dmg, 4);
         with (_p)
         {
@@ -289,8 +289,8 @@ switch (attackState)
 attackStateTimer += 1 / room_speed;
 
 #define StwCharisma(method, skill)
-var _dmg = 1 + (owner.level * 0.5) + owner.dmg;
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+var _dmg = 1 + (objPlayer.level * 0.5) + objPlayer.dmg;
+var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
 switch (attackState)
 {

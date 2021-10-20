@@ -6,6 +6,8 @@ var _o = ModObjectSpawn(_x, _y, 0);
 with (_o)
 {
     type = "Actor";
+    sprite_index = sprPlayerIdle;
+    
     maxSpd = 1;
     spd = 0;
     h = 0;
@@ -85,7 +87,7 @@ depth = -y;
 
 #define ActorDraw
 
-draw_sprite_ext(sprShadow, 0, x, y + (image_yscale * 4), image_xscale, image_yscale, 0, c_white, 0.5);
+draw_sprite_ext(sprShadow, 0, x, y, image_xscale, image_yscale, 0, c_white, 0.5);
 draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
 
 #define ShaCreate(_x, _y)
@@ -260,9 +262,8 @@ var _o = ActorCreate(_x, _y);
 with (_o)
 {
     subtype = "scorpion";
-    sprite_index = global.sprTheWorldAU;
-    image_xscale = 0.5;
-    image_yscale = 0.5;
+    sprite_index = global.sprGeScorpion;
+    image_speed = 0.05;
     maxSpd = 2;
     life = 20;
 
@@ -295,11 +296,11 @@ switch (state)
             var _dir = point_direction(x, y, _near.x, _near.y);
             var _dis = distance_to_point(_near.x, _near.y);
             
-            image_xscale = sign(dcos(_dir)) * 0.5;
+            image_xscale = sign(dcos(_dir));
             h = lengthdir_x(spd, _dir);
             v = lengthdir_y(spd, _dir);
             spd = lerp(spd, maxSpd, 0.1);
-            if (_dis < 10)
+            if (_dis < 16)
             {
                 state = "attack";
             }
@@ -316,7 +317,7 @@ switch (state)
             var _dir = point_direction(x, y, _near.x, _near.y);
             var _dis = distance_to_point(_near.x, _near.y);
             
-            image_xscale = sign(dcos(_dir)) * 0.5;
+            image_xscale = sign(dcos(_dir));
             h = lengthdir_x(spd, _dir);
             v = lengthdir_y(spd, _dir);
             spd = lerp(spd, 0, 0.1);
@@ -332,7 +333,7 @@ switch (state)
                 }
                 attackCD = 1.25;
             }
-            if (_dis > 16)
+            if (_dis > 32)
             {
                 state = "chase";
             }
@@ -353,7 +354,37 @@ switch (state)
     break;
 }
 
+#define FrogCreate(_x, _y)
 
+var _o = ActorCreate(_x, _y);
+with (_o)
+{
+    subtype = "geFrog";
+    sprite_index = global.sprGeFrog;
+    life = 5;
+    canCollide = false;
+
+    InstanceAssignMethod(self, "step", ScriptWrap(FrogStep), true);
+}
+
+#define FrogStep
+
+if (life <= 0)
+{
+    image_alpha -= 0.1;
+    if (image_alpha <= 0)
+    {
+        instance_destroy(self);
+        exit;
+    }
+}
+
+var _xs = mouse_x > objPlayer.x ? 1 : -1;
+x = objPlayer.x + (_xs * 2);
+y = objPlayer.y;
+depth = objPlayer.depth - 1;
+image_yscale = -_xs;
+image_angle = 90;
 
 
 

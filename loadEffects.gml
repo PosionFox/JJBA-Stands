@@ -144,6 +144,35 @@ draw_set_color(color);
 draw_circle(x, y, radius, false);
 draw_set_color(image_blend);
 
+#define ShrinkingCircleEffect(_x, _y)
+
+var _o = ModObjectSpawn(_x, _y, 0);
+with (_o)
+{
+    radius = 32;
+    color = c_white;
+    depth = -y - 10;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(ShrinkingCircleStep), false);
+    InstanceAssignMethod(self, "draw", ScriptWrap(ShrinkingCircleDraw), false);
+}
+return _o;
+
+#define ShrinkingCircleStep
+
+if (radius <= 0)
+{
+    instance_destroy(self);
+    exit;
+}
+radius = lerp(radius, 0, 0.1);
+
+#define ShrinkingCircleDraw
+
+draw_set_color(color);
+draw_circle(x, y, radius, false);
+draw_set_color(image_blend);
+
 #define LineEffect(_x1, _y1, _x2, _y2)
 
 var _o = ModObjectSpawn(_x1, _y1, 0);

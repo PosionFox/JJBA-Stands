@@ -259,13 +259,13 @@ with (_p)
 return _p;
 
 #define StandBarrage(method, skill)
-var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-var _dmg = 2 * (owner.level * 0.05);
+var _dis = point_distance(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+var _dmg = 1 + (objPlayer.level * 0.05) + objPlayer.dmg;
 
-xTo = owner.x + lengthdir_x(stats[StandStat.AttackRange], _dir + random_range(-4, 4));
-yTo = owner.y + lengthdir_y(stats[StandStat.AttackRange], _dir + random_range(-4, 4));
-image_xscale = mouse_x > owner.x ? 1 : -1;
+xTo = objPlayer.x + lengthdir_x(stats[StandStat.AttackRange], _dir + random_range(-4, 4));
+yTo = objPlayer.y + lengthdir_y(stats[StandStat.AttackRange], _dir + random_range(-4, 4));
+image_xscale = mouse_x > objPlayer.x ? 1 : -1;
 
 attackStateTimer += 1 / room_speed;
 if (distance_to_point(xTo, yTo) < 2)
@@ -301,19 +301,19 @@ if (keyboard_check_released(ord(skills[skill, StandSkill.Key])))
 #define StandBarrageStep
 
 var pd = point_direction(x, y, mouse_x, mouse_y);
-var xx = owner.x + lengthdir_x(32, pd);
-var yy = owner.y + lengthdir_y(32, pd);
+var xx = objPlayer.x + lengthdir_x(32, pd);
+var yy = objPlayer.y + lengthdir_y(32, pd);
 pd = point_direction(x, y, xx, yy);
 var dd = angle_difference(direction, pd);
 direction -= min(abs(dd), 10) * sign(dd);
 
 #define StrongPunch(method, skill)
 
-var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y)
+var _dis = point_distance(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y)
 
-var _xx = owner.x + lengthdir_x(stats[StandStat.AttackRange], _dir);
-var _yy = owner.y + lengthdir_y(stats[StandStat.AttackRange], _dir);
+var _xx = objPlayer.x + lengthdir_x(stats[StandStat.AttackRange], _dir);
+var _yy = objPlayer.y + lengthdir_y(stats[StandStat.AttackRange], _dir);
 xTo = _xx;
 yTo = _yy;
 
@@ -326,7 +326,7 @@ switch (attackState)
         }
         break;
     case 1:
-        var _dmg = (skills[skill, StandSkill.Damage] * 0.2) * owner.level;
+        var _dmg = 5 + (objPlayer.level * 0.2) + objPlayer.dmg;
         var _p = PunchCreate(x, y, _dir, _dmg, 3);
         _p.onHitSound = global.sndStrongPunch;
         FireCD(skill);

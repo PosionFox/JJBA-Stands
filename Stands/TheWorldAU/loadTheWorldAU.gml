@@ -1,14 +1,14 @@
 
 #define KnifeBarrage(method, skill) //attacks
 
-var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+var _dis = point_distance(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
-var _xx = owner.x + lengthdir_x(stats[StandStat.AttackRange], _dir);
-var _yy = owner.y + lengthdir_y(stats[StandStat.AttackRange], _dir);
+var _xx = objPlayer.x + lengthdir_x(stats[StandStat.AttackRange], _dir);
+var _yy = objPlayer.y + lengthdir_y(stats[StandStat.AttackRange], _dir);
 xTo = _xx;
 yTo = _yy;
-image_xscale = mouse_x > owner.x ? 1 : -1;
+image_xscale = mouse_x > objPlayer.x ? 1 : -1;
 
 attackStateTimer += 1 / room_speed;
 if (distance_to_point(_xx, _yy) < 2)
@@ -20,7 +20,7 @@ if (distance_to_point(_xx, _yy) < 2)
         var xx = x + random_range(-8, 8);
         var yy = y + random_range(-8, 8);
         var ddir = _dir + random_range(-2, 2);
-        var _dmg = (skills[skill, StandSkill.Damage] * 0.02) * (owner.level);
+        var _dmg = (skills[skill, StandSkill.Damage] * 0.02) * (objPlayer.level);
         var _p = ProjectileCreate(xx, yy);
         with (_p)
         {
@@ -51,10 +51,10 @@ if (keyboard_check_released(ord(skills[skill, StandSkill.Key])))
 
 #define GunShot(method, skill)
 
-var _dmg = (skills[skill, StandSkill.Damage] * 0.1) * owner.level;
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+var _dmg = (skills[skill, StandSkill.Damage] * 0.1) * objPlayer.level;
+var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
-var _p = ProjectileCreate(owner.x, owner.y);
+var _p = ProjectileCreate(objPlayer.x, objPlayer.y);
 with (_p)
 {
     audio_play_sound(global.sndGunShot, 0, false);

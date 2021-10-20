@@ -1,12 +1,12 @@
 
 #define SfBarrage(method, skill) //attacks
-var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-var _dmg = 2 + (owner.level * 0.05) + owner.dmg;
+var _dis = point_distance(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+var _dmg = 2 + (objPlayer.level * 0.05) + objPlayer.dmg;
 
-xTo = owner.x + lengthdir_x(8, _dir + random_range(-4, 4));
-yTo = owner.y + lengthdir_y(8, _dir + random_range(-4, 4));
-image_xscale = mouse_x > owner.x ? 1 : -1;
+xTo = objPlayer.x + lengthdir_x(8, _dir + random_range(-4, 4));
+yTo = objPlayer.y + lengthdir_y(8, _dir + random_range(-4, 4));
+image_xscale = mouse_x > objPlayer.x ? 1 : -1;
 
 attackStateTimer += 1 / room_speed;
 if (distance_to_point(xTo, yTo) < 2)
@@ -48,9 +48,9 @@ if (keyboard_check_released(ord(skills[skill, StandSkill.Key])))
 
 #define ZipperPunch(method, skill)
 var _dir = point_direction(x, y, mouse_x, mouse_y);
-var _dmg = 2 + (owner.level * 0.1) + owner.dmg;
-xTo = owner.x + lengthdir_x(8, _dir);
-yTo = owner.y + lengthdir_y(8, _dir);
+var _dmg = 2 + (objPlayer.level * 0.1) + objPlayer.dmg;
+xTo = objPlayer.x + lengthdir_x(8, _dir);
+yTo = objPlayer.y + lengthdir_y(8, _dir);
 
 switch (attackState)
 {
@@ -76,8 +76,8 @@ attackStateTimer += 1 / room_speed;
 
 #define ZipperGrab(method, skill)
 var _dir = point_direction(x, y, mouse_x, mouse_y);
-xTo = owner.x + lengthdir_x(8, _dir);
-yTo = owner.y + lengthdir_y(8, _dir);
+xTo = objPlayer.x + lengthdir_x(8, _dir);
+yTo = objPlayer.y + lengthdir_y(8, _dir);
 
 switch (attackState)
 {
@@ -147,8 +147,8 @@ if (_sc or _wc)
 }
 
 var _dir = point_direction(x, y, mouse_x, mouse_y);
-xTo = owner.x + lengthdir_x(10, _dir);
-yTo = owner.y + lengthdir_y(10, _dir);
+xTo = objPlayer.x + lengthdir_x(10, _dir);
+yTo = objPlayer.y + lengthdir_y(10, _dir);
 
 switch (attackState)
 {
@@ -265,7 +265,7 @@ if (grab and instance_exists(target))
 #define ZipperGrabDraw
 
 draw_set_color(c_yellow);
-draw_line_width(x, y, owner.myStand.x, owner.myStand.y, 2);
+draw_line_width(x, y, objPlayer.myStand.x, objPlayer.myStand.y, 2);
 draw_set_color(image_blend);
 
 #define SfPortalCreate(_x, _y)

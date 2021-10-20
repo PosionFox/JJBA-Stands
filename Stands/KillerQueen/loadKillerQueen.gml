@@ -1,9 +1,9 @@
 
 #define PlaceBomb(method, skill) //attacks
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-var _dmg = 3 + (owner.level * 1.5);
-xTo = owner.x + lengthdir_x(8, _dir);
-yTo = owner.y + lengthdir_y(8, _dir);
+var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+var _dmg = 3 + (objPlayer.level * 1.5);
+xTo = objPlayer.x + lengthdir_x(8, _dir);
+yTo = objPlayer.y + lengthdir_y(8, _dir);
 
 switch (attackState)
 {
@@ -33,9 +33,9 @@ switch (attackState)
 #define CoinBomb(method, skill)
 if (modTypeCount("coinBomb") < 5)
 {
-    var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+    var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
     audio_play_sound(sndCoin1, 0, false);
-    CoinBombCreate(owner.x, owner.y, _dir);
+    CoinBombCreate(objPlayer.x, objPlayer.y, _dir);
     FireCD(skill);
     state = StandState.Idle;
 }
@@ -106,9 +106,9 @@ else
 }
 
 #define BombCreate(_x, _y, _dmg) //attack properties
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-xTo = owner.x + lengthdir_x(8, _dir);
-yTo = owner.y + lengthdir_y(8, _dir);
+var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+xTo = objPlayer.x + lengthdir_x(8, _dir);
+yTo = objPlayer.y + lengthdir_y(8, _dir);
 
 var _target = noone;
 var _nearest = self;

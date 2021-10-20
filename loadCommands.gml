@@ -42,8 +42,22 @@ else
 
 #define JjbamDebugDraw
 
+draw_set_color(c_gray);
+for (var v = 0; v < room_width; v += 16)
+{
+    draw_line(v, 0, v, room_height);
+}
+for (var h = h; h < room_height; h += 16)
+{
+    draw_line(0, h, room_width, h);
+}
+draw_set_color(c_white);
 with (all)
 {
     draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, true);
     draw_circle(x, y, 1, false);
 }
+
+
+
+

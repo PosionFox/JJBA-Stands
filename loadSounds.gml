@@ -10,6 +10,7 @@ global.sndKqSummon = audio_create_stream("Resources/Sounds/kqSummon.ogg");
 global.sndKqbtdSummon = audio_create_stream("Resources/Sounds/kqbtdSummon.ogg");
 global.sndSfSummon = audio_create_stream("Resources/Sounds/sfSummon.ogg");
 global.sndStwSummon = audio_create_stream("Resources/Sounds/stwSummon.ogg");
+global.sndGeSummon = audio_create_stream("Resources/Sounds/geSummon.ogg");
 
 // generic
 global.sndPunchAir = audio_create_stream("Resources/Sounds/punchAir.ogg");
@@ -63,6 +64,8 @@ global.sndSfTp = audio_create_stream("Resources/Sounds/sfTp.ogg");
 
 // gold experience
 global.sndGeHit = audio_create_stream("Resources/Sounds/geHit.ogg");
+global.sndGePunch = audio_create_stream("Resources/Sounds/gePunch.ogg");
+global.sndGeLife = audio_create_stream("Resources/Sounds/geLife.ogg");
 
 #endregion
 

@@ -1,17 +1,17 @@
 
 #define BulletVolley(method, skill) //attacks
 
-var _dmg = (stats[StandStat.AttackDamage] * 0.1) * owner.level;
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-xTo = owner.x + lengthdir_x(8, _dir - 180);
-yTo = owner.y + lengthdir_y(8, _dir - 180);
+var _dmg = (stats[StandStat.AttackDamage] * 0.1) * objPlayer.level;
+var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+xTo = objPlayer.x + lengthdir_x(8, _dir - 180);
+yTo = objPlayer.y + lengthdir_y(8, _dir - 180);
 
 if (attackStateTimer == 0)
 {
     var _snd = audio_play_sound(global.sndGunShot, 0, false);
     audio_sound_pitch(_snd, random_range(0.9, 1.1));
     audio_sound_gain(_snd, 0.5, 0);
-    var _p = ProjectileCreate(owner.x, owner.y);
+    var _p = ProjectileCreate(objPlayer.x, objPlayer.y);
     with (_p)
     {
         sprite_index = global.sprBullet;
@@ -35,10 +35,10 @@ if (attackState >= 3)
 }
 
 #define CloneSummon(method, skill)
-var _dmg = (stats[StandStat.AttackDamage] * 0.02) * owner.level;
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-xTo = owner.x + lengthdir_x(8, _dir);
-yTo = owner.y + lengthdir_y(8, _dir);
+var _dmg = (stats[StandStat.AttackDamage] * 0.02) * objPlayer.level;
+var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+xTo = objPlayer.x + lengthdir_x(8, _dir);
+yTo = objPlayer.y + lengthdir_y(8, _dir);
 
 attackStateTimer += 1 / room_speed;
 switch (attackState)
@@ -80,11 +80,11 @@ else
 #define VolleyRefund //attack properties
 
 var _skill = StandState.SkillC;
-owner.myStand.skills[_skill, StandSkill.Cooldown] -= 1.5;
-owner.myStand.skills[_skill, StandSkill.Cooldown] = clamp(
-    owner.myStand.skills[_skill, StandSkill.Cooldown],
+objPlayer.myStand.skills[_skill, StandSkill.Cooldown] -= 1.5;
+objPlayer.myStand.skills[_skill, StandSkill.Cooldown] = clamp(
+    objPlayer.myStand.skills[_skill, StandSkill.Cooldown],
     0,
-    owner.myStand.skills[_skill, StandSkill.MaxCooldown]
+    objPlayer.myStand.skills[_skill, StandSkill.MaxCooldown]
 );
 
 #define CloneCreate(_x, _y)
@@ -135,7 +135,7 @@ if (instance_exists(parEnemy))
         var _o = ProjectileCreate(x, y);
         with (_o)
         {
-            owner = other.owner;
+            owner = objPlayer;
             direction = _dir;
             damage = other.damage;
         }

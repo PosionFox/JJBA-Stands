@@ -171,6 +171,16 @@ if (modTypeExists("loveTrain"))
         objPlayer.invulFrames = 0;
     }
 }
+if (modSubtypeExists("geFrog"))
+{
+    objPlayer.hp++;
+    if (instance_exists(parEnemy))
+    {
+        var _t = instance_nearest(objPlayer.x, objPlayer.y, parEnemy);
+        _t.hp -= _damage;
+        objPlayer.invulFrames = 0;
+    }
+}
 
 #define OnMobDeath(_mob)
 

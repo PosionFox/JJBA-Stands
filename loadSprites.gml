@@ -39,6 +39,10 @@ global.sprCoin = sprite_add("Resources/Sprites/Coin.png", 1, false, false, 16, 1
 // killer queen: bites the dust
 global.sprScBubble = sprite_add("Resources/Sprites/Bubble.png", 1, false, false, 16, 16);
 
+// gold experience
+global.sprGeFrog = sprite_add("Resources/Sprites/GeFrog.png", 1, false, false, 16, 16);
+global.sprGeScorpion = sprite_add("Resources/Sprites/GeScorpion.png", 2, false, false, 16, 16);
+
 #endregion
 
 #region Effects
@@ -118,6 +122,12 @@ global.sprSkillBtD = sprite_add("Resources/Sprites/SkillBtD.png", 1, false, fals
 // sticky fingers
 global.sprSkillZipperGrab = sprite_add("Resources/Sprites/SkillZipperGrab.png", 1, false, false, 16, 16);
 global.sprSkillZipPortal = sprite_add("Resources/Sprites/SkillZipPortal.png", 1, false, false, 16, 16);
+
+// gold experience
+global.sprSkillLifeFormPlant = sprite_add("Resources/Sprites/SkillLifeFormPlant.png", 1, false, false, 16, 16);
+global.sprSkillLifeFormScorpion = sprite_add("Resources/Sprites/SkillLifeFormScorpion.png", 1, false, false, 16, 16);
+global.sprSkillLifeFormFrog = sprite_add("Resources/Sprites/SkillLifeFormFrog.png", 1, false, false, 16, 16);
+global.sprSkillSelfHeal = sprite_add("Resources/Sprites/SkillSelfHeal.png", 1, false, false, 16, 16);
 
 #endregion
 

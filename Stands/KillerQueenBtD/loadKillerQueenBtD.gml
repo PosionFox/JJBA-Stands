@@ -1,11 +1,11 @@
 
 #define TripleCoin(method, skill) //attacks
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
 audio_play_sound(sndCoin2, 0, false);
-CoinBombCreate(owner.x, owner.y, _dir - 45);
-CoinBombCreate(owner.x, owner.y, _dir);
-CoinBombCreate(owner.x, owner.y, _dir + 45);
+CoinBombCreate(objPlayer.x, objPlayer.y, _dir - 45);
+CoinBombCreate(objPlayer.x, objPlayer.y, _dir);
+CoinBombCreate(objPlayer.x, objPlayer.y, _dir + 45);
 skills[skill, StandSkill.Icon] = global.sprSkillDetonate;
 skills[skill, StandSkill.Skill] = DetonateBomb;
 skills[skill, StandSkill.IconAlt] = global.sprSkillDetonate;
@@ -15,9 +15,9 @@ FireCD(skill);
 state = StandState.Idle;
 
 #define StrayCat(method, skill)
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-xTo = owner.x + lengthdir_x(8, _dir);
-yTo = owner.y + lengthdir_y(8, _dir);
+var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+xTo = objPlayer.x + lengthdir_x(8, _dir);
+yTo = objPlayer.y + lengthdir_y(8, _dir);
 
 switch (attackState)
 {
@@ -40,9 +40,9 @@ switch (attackState)
 }
 
 #define PlaceThirdBomb(method, skill)
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-xTo = owner.x + lengthdir_x(8, _dir);
-yTo = owner.y + lengthdir_y(8, _dir);
+var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+xTo = objPlayer.x + lengthdir_x(8, _dir);
+yTo = objPlayer.y + lengthdir_y(8, _dir);
 
 BombEffect(x, y);
 var _o = ModObjectSpawn(x, y, 0);
@@ -132,8 +132,8 @@ switch (attackState)
         state = StandState.Idle;
     break;
 }
-xTo = owner.x;
-yTo = owner.y - 16;
+xTo = objPlayer.x;
+yTo = objPlayer.y - 16;
 
 #define ScBubbleCreate(_x, _y) //attacks properties
 
