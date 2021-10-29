@@ -302,7 +302,6 @@ if (instance_exists(objPlayer))
         Trace("stand not known");
     }
     RemoveStand();
-    SaveStand("jjbamStandless");
 }
 
 

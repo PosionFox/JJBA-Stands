@@ -3,16 +3,17 @@
 
 
 
-#define SaveStand(_name)
+#define SaveData
 
 var _map = ds_map_create();
-_map[? "jjbamAbility"] = _name;
+
 if (instance_exists(objPlayer))
 {
     if ("myStand" in objPlayer)
     {
         if (instance_exists(objPlayer.myStand))
         {
+            _map[? "jjbamAbility"] = objPlayer.myStand.saveKey;
             switch (objPlayer.myStand.name)
             {
                 case "Shadow The World":
@@ -21,15 +22,23 @@ if (instance_exists(objPlayer))
             }
         }
     }
+    if ("skCustomStands" in objPlayer)
+    {
+        _map[? "jjbamCustomStands"] = objPlayer.skCustomStands;
+    }
 }
+
 ModSaveDataSubmit(_map);
 ds_map_destroy(_map);
 
-#define LoadStand
+#define LoadData
 
 var _map = ModSaveDataFetch();
+
 var _standCompatibility = _map[? "pAbility"];
 var _stand = _map[? "jjbamAbility"];
+var _custom = _map[? "jjbamCustomStands"];
+Trace(_custom);
 
 switch (_standCompatibility)
 {
@@ -68,6 +77,30 @@ switch (_stand)
     case "jjbamGe": GiveGoldExperience(); break;
 }
 
+if (_custom == true)
+{
+    Trace("custom is: " + string(_custom));
+    if (instance_exists(objPlayer))
+    {
+        if ("skCustomStands" in objPlayer)
+        {
+            global.hasCustomStands = true;
+            StructureEdit(global.jjbamStandWorkshop, StructureData.Unlocked, true);
+        }
+    }
+}
+else
+{
+    
+    Trace("custom is: " + string(_custom));
+    if (instance_exists(objPlayer))
+    {
+        if ("skCustomStands" in objPlayer)
+        {
+            objPlayer.skCustomStands = false;
+        }
+    }
+}
 
 #define modTypeExists(_type)
 
@@ -141,6 +174,20 @@ with (objModEmpty)
 }
 return noone;
 
+#define InitPlayerVariables
+
+if (instance_exists(objPlayer))
+{
+    if !("myStand" in objPlayer)
+    {
+        objPlayer.myStand = noone;
+    }
+    if !("skCustomStands" in objPlayer)
+    {
+        objPlayer.skCustomStands = false;
+    }
+}
+
 #define Main
 
 global.timeIsFrozen = false;
@@ -153,6 +200,7 @@ loadStandsCore();
 loadActors();
 loadStands();
 loadItems();
+loadStructures();
 loadCommands();
 
 CommandCreate("jjbamStand", true, ScriptWrap(CheatGiveStand), "name");
@@ -163,7 +211,7 @@ CommandCreate("jjbamDebug", true, ScriptWrap(JjbamDebug));
 
 if (modTypeExists("loveTrain"))
 {
-    objPlayer.hp++;
+    objPlayer.hp += _damage;
     if (instance_exists(parEnemy))
     {
         var _t = instance_nearest(objPlayer.x, objPlayer.y, parEnemy);
@@ -173,7 +221,7 @@ if (modTypeExists("loveTrain"))
 }
 if (modSubtypeExists("geFrog"))
 {
-    objPlayer.hp++;
+    objPlayer.hp += _damage;
     if (instance_exists(parEnemy))
     {
         var _t = instance_nearest(objPlayer.x, objPlayer.y, parEnemy);
@@ -200,58 +248,76 @@ if (instance_exists(objPlayer))
     }
 }
 
-#define OnNewGame
+#define OnStructureInteract(type, structure, inst)
 
-if (instance_exists(objPlayer))
+if (structure == global.jjbamStandWorkshop)
 {
-    if !("myStand" in objPlayer)
+    if ("myStand" in objPlayer)
     {
-        objPlayer.myStand = noone;
+        if (instance_exists(objPlayer))
+        {
+            OpenStandWorkshop();
+        }
     }
 }
+
+#define OnNewGame
+
+InitPlayerVariables();
 GiveRandomStand();
 
 #define OnRoomLoad
 
-if (instance_exists(objPlayer))
+if (room == rmSkillGrid)
 {
-    if ("myStand" in objPlayer)
-    {
-        LoadStand();
-    }
+    //SkillStandWorkshop();
 }
+
+// if (instance_exists(objPlayer))
+// {
+//     if ("myStand" in objPlayer)
+//     {
+//         LoadStand();
+//     }
+// }
 
 #define OnSave
 
-if (instance_exists(objPlayer))
-{
-    if ("myStand" in objPlayer)
-    {
-        if (instance_exists(objPlayer.myStand))
-        {
-            SaveStand(objPlayer.myStand.saveKey);
-        }
-        else
-        {
-            SaveStand("jjbamStandless");
-        }
-    }
-}
+SaveData();
+
+
+// if (instance_exists(objPlayer))
+// {
+//     if ("myStand" in objPlayer)
+//     {
+//         if (instance_exists(objPlayer.myStand))
+//         {
+//             SaveStand(objPlayer.myStand.saveKey);
+//         }
+//         else
+//         {
+//             SaveStand("jjbamStandless");
+//         }
+//     }
+// }
 
 #define OnLoad
 
-if (instance_exists(objPlayer))
-{
-    if !("myStand" in objPlayer)
-    {
-        objPlayer.myStand = noone;
-        LoadStand();
-    }
-    else
-    {
-        LoadStand();
-    }
-}
+InitPlayerVariables();
+LoadData();
+
+// if (instance_exists(objPlayer))
+// {
+//     if !("myStand" in objPlayer)
+//     {
+//         objPlayer.myStand = noone;
+//         LoadStand();
+//     }
+//     else
+//     {
+//         LoadStand();
+//     }
+// }
 
 /* TODO
     

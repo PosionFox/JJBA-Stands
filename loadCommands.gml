@@ -31,6 +31,7 @@ if (!modTypeExists("jjbamDebug"))
     var _o = ModObjectSpawnPersistent(0, 0, 0);
     with (_o)
     {
+        type = "jjbamDebug";
         InstanceAssignMethod(self, "draw", ScriptWrap(JjbamDebugDraw), false);
     }
 }
@@ -38,6 +39,11 @@ else
 {
     var _o = modTypeFind("jjbamDebug");
     instance_destroy(_o);
+}
+var _o = instance_position(mouse_x, mouse_y, all);
+if (_o)
+{
+    Trace(object_get_name(_o.object_index));
 }
 
 #define JjbamDebugDraw
