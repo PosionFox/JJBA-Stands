@@ -138,6 +138,7 @@ global.sprTheWorld = sprite_add("Resources/Sprites/TheWorld.png", 1, false, fals
 global.sprTheWorldAU = sprite_add("Resources/Sprites/TheWorldAU.png", 1, false, false, 16, 19);
 global.sprAnubis = sprite_add("Resources/Sprites/Anubis.png", 1, false, false, 16, 19)
 global.sprD4C = sprite_add("Resources/Sprites/D4C.png", 1, false, false, 16, 19);
+global.sprD4CLT = sprite_add("Resources/Sprites/D4CLT.png", 1, false, false, 16, 19);
 global.sprShadowTheWorld = sprite_add("Resources/Sprites/ShadowTheWorld.png", 1, false, false, 16, 19);
 global.sprKillerQueen = sprite_add("Resources/Sprites/KillerQueen.png", 1, false, false, 16, 19);
 global.sprKillerQueenBtD = sprite_add("Resources/Sprites/KillerQueenBtD.png", 1, false, false, 16, 19);

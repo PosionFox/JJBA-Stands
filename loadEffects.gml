@@ -205,5 +205,49 @@ draw_set_color(color);
 draw_line_width(x, y, x2, y2, width);
 draw_set_color(image_blend);
 
+#define DimensionalHopEffect(_x, _y)
+
+var _o = ModObjectSpawn(_x, _y, 0);
+with (_o)
+{
+    x1 = 0;
+    x2 = display_get_gui_width()
+    y1 = display_get_gui_height();
+    y2 = y1;
+    
+    phase2 = false;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(DimensionalHopStep), false);
+    InstanceAssignMethod(self, "drawGUI", ScriptWrap(DimensionalHopDrawGUI), false);
+}
+return _o;
+
+#define DimensionalHopStep
+
+if (phase2)
+{
+    y2 = lerp(y2, 0, 0.4);
+    if (y2 <= 0)
+    {
+        instance_destroy(self);
+        exit;
+    }
+}
+else
+{
+    y1 = lerp(y1, 0, 0.4);
+    if (y1 <= 0)
+    {
+        phase2 = true;
+    }
+}
+
+#define DimensionalHopDrawGUI
+
+gpu_set_blendmode_ext(bm_inv_dest_color, bm_inv_src_alpha);
+draw_set_color(c_teal);
+draw_rectangle(x1, y1, x2, y2, false);
+gpu_set_blendmode(bm_normal);
+
 
 

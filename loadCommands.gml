@@ -11,6 +11,7 @@ switch (args[0]) {
     case "sp": GiveStarPlatinum(); break;
     case "tw": GiveTheWorld(); break;
     case "anubis": GiveAnubis(); break;
+    case "d4c": GiveD4C(); break;
     case "d4clt": GiveD4CLT(); break;
     case "twau": GiveTheWorldAU(); break;
     case "stw": GiveShadowTheWorld(); break;

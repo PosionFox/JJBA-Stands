@@ -56,6 +56,7 @@ switch (_stand)
     case "jjbamTw": GiveTheWorld(); break;
     case "jjbamSp": GiveStarPlatinum(); break;
     case "jjbamAnubis": GiveAnubis(); break;
+    case "jjbamD4c": GiveD4C(); break;
     case "jjbamD4clt": GiveD4CLT(); break;
     case "jjbamTwau": GiveTheWorldAU(); break;
     case "jjbamStw":
@@ -119,13 +120,16 @@ return _exists;
 
 #define modTypeFind(_type)
 
-with (objModEmpty)
+if (modTypeExists(_type))
 {
-    if ("type" in self)
+    with (objModEmpty)
     {
-        if (type == _type)
+        if ("type" in self)
         {
-            return self;
+            if (type == _type)
+            {
+                return self;
+            }
         }
     }
 }

@@ -1,10 +1,17 @@
 
 #define FireCD(skill)
 
-altAttack = false;
 attackState = 0;
 attackStateTimer = 0;
-skills[skill, StandSkill.Cooldown] = skills[skill, StandSkill.MaxCooldown];
+if (altAttack)
+{
+    skills[skill, StandSkill.CooldownAlt] = skills[skill, StandSkill.MaxCooldownAlt];
+}
+else
+{
+    skills[skill, StandSkill.Cooldown] = skills[skill, StandSkill.MaxCooldown];
+}
+altAttack = false;
 skills[skill, StandSkill.ExecutionTime] = 0;
 
 #define ResetCD(skill)
@@ -14,7 +21,7 @@ skills[skill, StandSkill.Cooldown] = 0;
 
 #define AttackHandler(method, skill)
 
-ResetCD(skill);
+//ResetCD(skill);
 state = StandState.Idle;
 
 #define ProjectileCreate(_x, _y)

@@ -18,6 +18,7 @@ enum StandStat {
     LEN
 }
 enum StandSkill {
+    ActiveOnly,
     Skill,
     SkillAlt,
     Key,
@@ -28,6 +29,8 @@ enum StandSkill {
     Damage,
     MaxCooldown,
     Cooldown,
+    MaxCooldownAlt,
+    CooldownAlt,
     MaxExecutionTime,
     ExecutionTime,
     LEN
@@ -38,108 +41,79 @@ enum StandSkill {
 var _width = display_get_gui_width();
 var _height = display_get_gui_height() - 40;
 
+
+//draw_text(128, 128, string(objPlayer.dmg)); // debug
+
 draw_text(168, _height - 160, string_lower(name));
-//draw_text(128, 128, string(objPlayer.dmg));
-draw_set_halign(fa_center);
-draw_set_valign(fa_middle);
+
+var _start = StandState.SkillAOff;
+var _end = StandState.SkillDOff;
 if (active)
 {
-    for (var i = StandState.SkillA; i <= StandState.SkillD; i++) {
-        var xx = (64 * i) - 256;
-        var _cc = skills[i, StandSkill.Cooldown] / skills[i, StandSkill.MaxCooldown];
-        if (skills[i, StandSkill.IconAlt] != global.sprSkillSkip)
-        {
-            draw_sprite_ext(global.sprSkillHoldTemplate, 0, xx, (_height - 32) - (_cc * 64), 2, 2, 0, c_white, 1);
-            draw_sprite_ext(skills[i, StandSkill.IconAlt], 0, xx, (_height - 32) - (_cc * 64), 2, 2, 0, color, 1);
-        }
-        draw_sprite_ext(global.sprSkillTemplate, 0, xx, _height - 96, 2, 2, 0, c_white, 1);
-        draw_sprite_ext(skills[i, StandSkill.Icon], 0, xx, _height - 96, 2, 2, 0, color, 1);
-        draw_text(xx + 8, _height - 120, string_lower(skills[i, StandSkill.Key]));
-        if (skills[i, StandSkill.Cooldown] > 0) {
-            var cyy = _cc * 2;
-            draw_sprite_ext(global.sprSkillCooldown, 0, xx, _height - 96, 2, cyy, 0, c_white, 0.8);
-            draw_text(xx + 8, _height - 64, string(skills[i, StandSkill.Cooldown]));
-        }
-    }
+    _start = StandState.SkillA;
+    _end = StandState.SkillD;
 }
-else
+
+for (var i = _start; i <= _end; i++)
 {
-    for (var i = StandState.SkillAOff; i <= StandState.SkillDOff; i++) {
-        var xx = (64 * i);
-        var _cc = skills[i, StandSkill.Cooldown] / skills[i, StandSkill.MaxCooldown];
-        if (skills[i, StandSkill.IconAlt] != global.sprSkillSkip)
-        {
-            draw_sprite_ext(global.sprSkillHoldTemplate, 0, xx, (_height - 32) - (_cc * 64), 2, 2, 0, c_white, 1);
-            draw_sprite_ext(skills[i, StandSkill.IconAlt], 0, xx, (_height - 32) - (_cc * 64), 2, 2, 0, color, 1);
-        }
-        var _c = color;
-        if (skills[i, StandSkill.Icon] == global.sprSkillSkip) { _c = c_white; }
-        draw_sprite_ext(global.sprSkillTemplate, 0, xx, _height - 96, 2, 2, 0, c_white, 1);
-        draw_sprite_ext(skills[i, StandSkill.Icon], 0, xx, _height - 96, 2, 2, 0, _c, 1);
-        draw_text(xx + 8, _height - 120, string_lower(skills[i, StandSkill.Key]));
-        if (skills[i, StandSkill.Cooldown] > 0) {
-            var cyy = _cc * 2;
-            draw_sprite_ext(global.sprSkillCooldown, 0, xx, _height - 96, 2, cyy, 0, c_white, 0.8);
-            draw_text(xx + 8, _height - 64, string(skills[i, StandSkill.Cooldown]));
-        }
+    var xx = 64 + (64 * ((i - 1) mod 4));
+    var yy = (_height - 96);
+    
+    // tap
+    draw_sprite_ext(global.sprSkillTemplate, 0, xx, yy, 2, 2, 0, c_white, 1);
+    draw_sprite_ext(skills[i, StandSkill.Icon], 0, xx, yy, 2, 2, 0, color, 1);
+    if (skills[i, StandSkill.Cooldown] > 0)
+    {
+        var cyy = (skills[i, StandSkill.Cooldown] / skills[i, StandSkill.MaxCooldown]) * 2;
+        draw_sprite_ext(global.sprSkillCooldown, 0, xx, yy, 2, cyy, 0, c_white, 0.8);
+        draw_text(xx + 8, yy + 10, string(skills[i, StandSkill.Cooldown]));
     }
+    // hold
+    draw_sprite_ext(global.sprSkillHoldTemplate, 0, xx, yy + 64, 2, 2, 0, c_white, 1);
+    draw_sprite_ext(skills[i, StandSkill.IconAlt], 0, xx, yy + 64, 2, 2, 0, color, 1);
+    var _hold = (skills[i, StandSkill.Hold] / skills[i, StandSkill.MaxHold]) * 2;
+    draw_sprite_ext(global.sprSkillCooldown, 0, xx, yy + 64, 2, _hold, 0, c_yellow, 0.8);
+    if (skills[i, StandSkill.CooldownAlt] > 0)
+    {
+        var cyy = (skills[i, StandSkill.CooldownAlt] / skills[i, StandSkill.MaxCooldownAlt]) * 2;
+        draw_sprite_ext(global.sprSkillCooldown, 0, xx, yy + 64, 2, cyy, 0, c_white, 0.8);
+        draw_text(xx + 8, yy + 74, string(skills[i, StandSkill.CooldownAlt]));
+    }
+    
+    draw_text(xx + 8, _height - 120, string_lower(skills[i, StandSkill.Key]));
 }
-draw_set_halign(fa_left);
-draw_set_valign(fa_top);
 
 #define StandSkillManage
 
-if (!active)
+for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
 {
-    for (var i = 1; i < StandState.SkillA; i++)
+    if (state == StandState.Idle and active = skills[i, StandSkill.ActiveOnly])
     {
-        if (skills[i, StandSkill.Cooldown] <= 0 and state == StandState.Idle)
+        if (keyboard_check(ord(skills[i, StandSkill.Key])))
         {
-            if (keyboard_check(ord(skills[i, StandSkill.Key])))
+            if (skills[i, StandSkill.CooldownAlt] <= 0 and skills[i, StandSkill.SkillAlt] != AttackHandler)
             {
                 skills[i, StandSkill.Hold] += 1 / room_speed;
-                if (skills[i, StandSkill.Hold] >= skills[i, StandSkill.MaxHold])
+                skills[i, StandSkill.Hold] = clamp(skills[i, StandSkill.Hold], 0, skills[i, StandSkill.MaxHold]);
+                if (skills[i, StandSkill.Hold] >= skills[i, StandSkill.MaxHold] and !altAttack)
                 {
                     altAttack = true;
-                    skills[i, StandSkill.Hold] = 0;
-                    state = i;
-                }
-            }
-            if (keyboard_check_released(ord(skills[i, StandSkill.Key])))
-            {
-                if (skills[i, StandSkill.Hold] < skills[i, StandSkill.MaxHold])
-                {
-                    skills[i, StandSkill.Hold] = 0;
-                    state = i;
+                    var _s = audio_play_sound(sndCoin1, 1, false);
+                    audio_sound_pitch(_s, 1.5);
                 }
             }
         }
-    }
-}
-else
-{
-    for (var i = StandState.SkillA; i < StandState.LEN; i++)
-    {
-        if (skills[i, StandSkill.Cooldown] <= 0 and state == StandState.Idle)
+        if (keyboard_check_released(ord(skills[i, StandSkill.Key])))
         {
-            if (keyboard_check(ord(skills[i, StandSkill.Key])))
+            if (!altAttack and skills[i, StandSkill.Cooldown] <= 0)
             {
-                skills[i, StandSkill.Hold] += 1 / room_speed;
-                if (skills[i, StandSkill.Hold] >= skills[i, StandSkill.MaxHold])
-                {
-                    altAttack = true;
-                    skills[i, StandSkill.Hold] = 0;
-                    state = i;
-                }
+                state = i;
             }
-            if (keyboard_check_released(ord(skills[i, StandSkill.Key])))
+            else if (altAttack)
             {
-                if (skills[i, StandSkill.Hold] < skills[i, StandSkill.MaxHold])
-                {
-                    skills[i, StandSkill.Hold] = 0;
-                    state = i;
-                }
+                state = i;
             }
+            skills[i, StandSkill.Hold] = 0;
         }
     }
 }
@@ -169,6 +143,9 @@ if (state != StandState.Idle)
 for (var i = StandState.LEN - 1; i > 0; i--) {
     if (skills[i, StandSkill.Cooldown] > 0) {
         skills[i, StandSkill.Cooldown] -= 1 / room_speed;
+    }
+    if (skills[i, StandSkill.CooldownAlt] > 0) {
+        skills[i, StandSkill.CooldownAlt] -= 1 / room_speed;
     }
 }
 
@@ -228,6 +205,7 @@ var _s;
 for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
 {
     _s = i;
+    _arr[_s, StandSkill.ActiveOnly] = i > StandState.SkillDOff;
     _arr[_s, StandSkill.Skill] = AttackHandler;
     _arr[_s, StandSkill.SkillAlt] = AttackHandler;
     _arr[_s, StandSkill.Key] = "";
@@ -238,6 +216,8 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
     _arr[_s, StandSkill.Damage] = _stats[StandStat.AttackDamage];
     _arr[_s, StandSkill.MaxCooldown] = 1;
     _arr[_s, StandSkill.Cooldown] = 0;
+    _arr[_s, StandSkill.MaxCooldownAlt] = 1;
+    _arr[_s, StandSkill.CooldownAlt] = 0;
     _arr[_s, StandSkill.MaxExecutionTime] = 5;
     _arr[_s, StandSkill.ExecutionTime] = 0;
 }

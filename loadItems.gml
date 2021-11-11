@@ -119,6 +119,22 @@ global.jjbamDiscStw = ItemCreate(
     true
 );
 
+global.jjbamDiscD4c = ItemCreate(
+    undefined,
+    "DISC:D4C",
+    "The label says: Dirty Deeds Done Dirt Cheap",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(GiveD4C),
+    5 * 10,
+    true
+);
+
 global.jjbamDiscD4clt = ItemCreate(
     undefined,
     "DISC:D4CLT",
@@ -256,11 +272,9 @@ var _standPool =
     [GiveStarPlatinum, 20],
     [GiveTheWorldAU, 20],
     [GiveShadowTheWorld, 20],
-    [GiveD4CLT, 20],
     [GiveKillerQueen, 20],
     [GiveStickyFingers, 20],
-    [GiveGoldExperience, 20],
-    [GiveSpookyWorld, 1]
+    [GiveGoldExperience, 20]
 ]
 
 var sumWeight = 0;
