@@ -10,7 +10,7 @@ global.jjbamStandWorkshop = StructureCreate(
     1,
     true,
     undefined,
-    true,
+    false,
     BuildMenuCategory.Magical,
     undefined,
     false

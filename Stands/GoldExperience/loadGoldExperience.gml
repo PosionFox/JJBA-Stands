@@ -2,7 +2,6 @@
 #define GeBarrage(method, skill) //attacks
 var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-var _dmg = 0.5 + (owner.level * 0.06) + owner.dmg;
 
 xTo = owner.x + lengthdir_x(8, _dir + random_range(-4, 4));
 yTo = owner.y + lengthdir_y(8, _dir + random_range(-4, 4));
@@ -18,7 +17,7 @@ if (distance_to_point(xTo, yTo) < 2)
         var xx = x + random_range(-4, 4);
         var yy = y + random_range(-8, 8);
         var ddir = _dir + random_range(-45, 45);
-        var _p = PunchCreate(xx, yy, ddir, _dmg, 0);
+        var _p = PunchCreate(xx, yy, ddir, skills[skill, StandSkill.Damage], 0);
         with (_p)
         {
             onHitSound = global.sndGeHit;
@@ -30,7 +29,7 @@ if (distance_to_point(xTo, yTo) < 2)
     skills[skill, StandSkill.ExecutionTime] += 1 / room_speed;
 }
 
-if (keyboard_check_released(ord(skills[skill, StandSkill.Key])))
+if (keyboard_check_pressed(ord(skills[skill, StandSkill.Key])))
 {
     if (skills[skill, StandSkill.ExecutionTime] > 0)
     {
@@ -45,7 +44,6 @@ if (keyboard_check_released(ord(skills[skill, StandSkill.Key])))
 
 #define LifePunch(method, skill)
 var _dir = point_direction(x, y, mouse_x, mouse_y);
-var _dmg = 2 + (owner.level * 0.1) + owner.dmg;
 xTo = owner.x + lengthdir_x(8, _dir);
 yTo = owner.y + lengthdir_y(8, _dir);
 
@@ -58,7 +56,7 @@ switch (attackState)
         }
     break;
     case 1:
-        var _p = PunchCreate(x, y, _dir, _dmg, 3);
+        var _p = PunchCreate(x, y, _dir, skills[skill, StandSkill.Damage], 3);
         with (_p)
         {
             onHitSound = global.sndGePunch;
@@ -74,7 +72,6 @@ attackStateTimer += 1 / room_speed;
 
 #define SelfHeal(method, skill)
 var _dir = point_direction(x, y, mouse_x, mouse_y);
-var _heal = 1 + floor(owner.level * 0.15);
 xTo = owner.x + lengthdir_x(-8, _dir);
 yTo = owner.y + lengthdir_y(-8, _dir);
 image_xscale = sign(dcos(_dir));
@@ -95,7 +92,7 @@ switch (attackState)
             var _e = ShrinkingCircleEffect(objPlayer.x, objPlayer.y);
             _e.color = c_lime;
             _e.radius = 8;
-            owner.hp += _heal;
+            owner.hp += skills[skill, StandSkill.Damage];
             FireEffect(c_white, c_lime);
             FireCD(skill);
             state = StandState.Idle;
@@ -133,7 +130,6 @@ attackStateTimer += 1 / room_speed;
 
 #define LifeFormPlant(method, skill)
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-//var _dmg = 2 + (owner.level * 0.03) + owner.dmg;
 var xx = owner.x + lengthdir_x(16, _dir);
 var yy = owner.y + lengthdir_y(16, _dir);
 var xs = (floor(xx / 16) * 16) + 8;
@@ -279,19 +275,21 @@ _skills[sk, StandSkill.Icon] = global.sprSkillLifeFormFrog;
 _skills[sk, StandSkill.MaxCooldown] = 20;
 
 sk = StandState.SkillA;
-_skills[sk, StandSkill.SkillAlt] = GeBarrage;
+_skills[sk, StandSkill.Skill] = GeBarrage;
+_skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.01) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
-_skills[sk, StandSkill.MaxHold] = 0;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 7;
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = LifePunch;
+_skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.02) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = SelfHeal;
+_skills[sk, StandSkill.Damage] = 1 + floor(objPlayer.level * 0.15);
 _skills[sk, StandSkill.Icon] = global.sprSkillSelfHeal;
 _skills[sk, StandSkill.MaxCooldown] = 15;
 

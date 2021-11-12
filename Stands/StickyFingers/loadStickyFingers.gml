@@ -2,7 +2,6 @@
 #define SfBarrage(method, skill) //attacks
 var _dis = point_distance(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-var _dmg = 2 + (objPlayer.level * 0.05) + objPlayer.dmg;
 
 xTo = objPlayer.x + lengthdir_x(8, _dir + random_range(-4, 4));
 yTo = objPlayer.y + lengthdir_y(8, _dir + random_range(-4, 4));
@@ -18,7 +17,7 @@ if (distance_to_point(xTo, yTo) < 2)
         var xx = x + random_range(-4, 4);
         var yy = y + random_range(-8, 8);
         var ddir = _dir + random_range(-45, 45);
-        var _p = PunchCreate(xx, yy, ddir, _dmg, 0);
+        var _p = PunchCreate(xx, yy, ddir, skills[skill, StandSkill.Damage], 0);
         with (_p)
         {
             destroyOnImpact = true;
@@ -33,7 +32,7 @@ if (distance_to_point(xTo, yTo) < 2)
     skills[skill, StandSkill.ExecutionTime] += 1 / room_speed;
 }
 
-if (keyboard_check_released(ord(skills[skill, StandSkill.Key])))
+if (keyboard_check_pressed(ord(skills[skill, StandSkill.Key])))
 {
     if (skills[skill, StandSkill.ExecutionTime] > 0)
     {
@@ -48,7 +47,6 @@ if (keyboard_check_released(ord(skills[skill, StandSkill.Key])))
 
 #define ZipperPunch(method, skill)
 var _dir = point_direction(x, y, mouse_x, mouse_y);
-var _dmg = 2 + (objPlayer.level * 0.1) + objPlayer.dmg;
 xTo = objPlayer.x + lengthdir_x(8, _dir);
 yTo = objPlayer.y + lengthdir_y(8, _dir);
 
@@ -61,7 +59,7 @@ switch (attackState)
         }
     break;
     case 1:
-        var _p = PunchCreate(x, y, _dir, _dmg, 3);
+        var _p = PunchCreate(x, y, _dir, skills[skill, StandSkill.Damage], 3);
         with (_p)
         {
             onHitSound = global.sndSfStrong;
@@ -353,14 +351,15 @@ var _skills = StandSkillInit(_stats);
 
 var sk;
 sk = StandState.SkillA;
-_skills[sk, StandSkill.SkillAlt] = SfBarrage;
+_skills[sk, StandSkill.Skill] = SfBarrage;
+_skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.01) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
-_skills[sk, StandSkill.MaxHold] = 0;
 _skills[sk, StandSkill.MaxCooldown] = 6;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = ZipperPunch;
+_skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.02) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 10;

@@ -20,13 +20,12 @@ if (distance_to_point(_xx, _yy) < 2)
         var xx = x + random_range(-8, 8);
         var yy = y + random_range(-8, 8);
         var ddir = _dir + random_range(-2, 2);
-        var _dmg = (skills[skill, StandSkill.Damage] * 0.02) * (objPlayer.level);
         var _p = ProjectileCreate(xx, yy);
         with (_p)
         {
             despawnTime = room_speed * 5;
-            damage = _dmg;
-            direction = _dir
+            damage = other.skills[skill, StandSkill.Damage];
+            direction = _dir;
             direction += random_range(-4, 4);
             canMoveInTs = false;
             sprite_index = global.sprKnife;
@@ -36,7 +35,7 @@ if (distance_to_point(_xx, _yy) < 2)
     skills[skill, StandSkill.ExecutionTime] += 1 / room_speed;
 }
 
-if (keyboard_check_released(ord(skills[skill, StandSkill.Key])))
+if (keyboard_check_pressed(ord(skills[skill, StandSkill.Key])))
 {
     if (skills[skill, StandSkill.ExecutionTime] > 0)
     {
@@ -50,19 +49,21 @@ if (keyboard_check_released(ord(skills[skill, StandSkill.Key])))
 }
 
 #define GunShot(method, skill)
-
-var _dmg = (skills[skill, StandSkill.Damage] * 0.1) * objPlayer.level;
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
 var _p = ProjectileCreate(objPlayer.x, objPlayer.y);
 with (_p)
 {
     audio_play_sound(global.sndGunShot, 0, false);
-    sprite_index = global.sprBullet;
+    baseSpd = 10;
+    sprite_index = global.sprBtdVoidTrace;
+    image_blend = c_yellow;
+    mask_index = global.sprKnife;
     despawnTime = room_speed * 5;
-    damage = _dmg;
+    damage = other.skills[skill, StandSkill.Damage];
     direction = _dir;
     canMoveInTs = false;
+    GlowOrderCreate(self, 0.1, c_yellow);
 }
 FireCD(skill)
 state = StandState.Idle;
@@ -105,23 +106,23 @@ var _skills = StandSkillInit(_stats);
 
 var sk;
 sk = StandState.SkillA;
-_skills[sk, StandSkill.SkillAlt] = KnifeBarrage;
+_skills[sk, StandSkill.Skill] = KnifeBarrage;
+_skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.02) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillKnifeBarrage;
-_skills[sk, StandSkill.MaxHold] = 0;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = StrongPunch;
+_skills[sk, StandSkill.Damage] = 4 + (objPlayer.level * 0.1) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 7;
-_skills[sk, StandSkill.MaxExecutionTime] = 1;
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = GunShot;
+_skills[sk, StandSkill.Damage] = 5 + (objPlayer.level * 0.2) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillGunShot;
 _skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.MaxExecutionTime] = 1;
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = TimestopTwAu;

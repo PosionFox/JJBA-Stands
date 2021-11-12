@@ -4,7 +4,6 @@
 for (var i = 1; i <= 3; i++)
 {
     var _dir = (point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y) - 16) + (i * 8);
-    var _dmg = (skills[skill, StandSkill.Damage] * 0.1) * objPlayer.level;
     
     var _p = ProjectileCreate(objPlayer.x, objPlayer.y);
     with (_p)
@@ -12,7 +11,7 @@ for (var i = 1; i <= 3; i++)
         var _snd = audio_play_sound(global.sndKnifeThrow, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         despawnTime = room_speed * 5;
-        damage = _dmg;
+        damage = other.skills[skill, StandSkill.Damage];
         direction = _dir;
         canMoveInTs = false;
         sprite_index = global.sprKnife;
@@ -59,29 +58,28 @@ var _skills = StandSkillInit(_stats);
 
 var sk;
 sk = StandState.SkillA;
-_skills[sk, StandSkill.SkillAlt] = StandBarrage;
+_skills[sk, StandSkill.Skill] = StandBarrage;
+_skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.02) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
-_skills[sk, StandSkill.MaxHold] = 0;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = StrongPunch;
+_skills[sk, StandSkill.Damage] = 5 + (objPlayer.level * 0.1) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 8;
-_skills[sk, StandSkill.MaxExecutionTime] = 1;
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = TripleKnifeThrow;
+_skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.02) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillTripleKnifeThrow;
 _skills[sk, StandSkill.MaxCooldown] = 3;
-_skills[sk, StandSkill.MaxExecutionTime] = 1;
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = TimestopTw;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimestop;
 _skills[sk, StandSkill.MaxCooldown] = 30;
-_skills[sk, StandSkill.MaxExecutionTime] = 1;
 
 var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
 with (_s)

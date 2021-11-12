@@ -1,6 +1,5 @@
 
 #define TrickShot(method, skill)
-var _dmg = (skills[skill, StandSkill.Damage] * 0.1) * objPlayer.level;
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
 var _p = ProjectileCreate(objPlayer.x, objPlayer.y);
@@ -9,11 +8,15 @@ with (_p)
     type = "bulletTime";
     prevSkill = skill;
     audio_play_sound(global.sndGunShot, 0, false);
-    sprite_index = global.sprBullet;
+    baseSpd = 10;
+    sprite_index = global.sprBtdVoidTrace;
+    image_blend = c_yellow;
+    mask_index = global.sprKnife;
     despawnTime = room_speed * 5;
-    damage = _dmg;
+    damage = other.skills[skill, StandSkill.Damage];
     direction = _dir;
     canMoveInTs = false;
+    GlowOrderCreate(self, 0.1, c_yellow);
     
     InstanceAssignMethod(self, "destroy", ScriptWrap(TrickShotDestroy), true);
 }
@@ -41,8 +44,6 @@ FireCD(skill)
 state = StandState.Idle;
 
 #define BulletVolley(method, skill) //attacks
-
-var _dmg = (stats[StandStat.AttackDamage] * 0.1) * objPlayer.level;
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 xTo = objPlayer.x + lengthdir_x(8, _dir - 180);
 yTo = objPlayer.y + lengthdir_y(8, _dir - 180);
@@ -55,12 +56,16 @@ if (attackStateTimer == 0)
     var _p = ProjectileCreate(objPlayer.x, objPlayer.y);
     with (_p)
     {
-        sprite_index = global.sprBullet;
+        baseSpd = 10;
+        sprite_index = global.sprBtdVoidTrace;
+        image_blend = c_yellow;
+        mask_index = global.sprKnife;
         despawnTime = room_speed * 5;
-        damage = _dmg;
+        damage = other.skills[skill, StandSkill.Damage];
         direction = _dir;
         canMoveInTs = false;
         onHitEvent = VolleyRefund;
+        GlowOrderCreate(self, 0.1, c_yellow);
     }
 }
 attackStateTimer += 1 / room_speed;
@@ -76,7 +81,6 @@ if (attackState >= 3)
 }
 
 #define CloneSummon(method, skill)
-var _dmg = (stats[StandStat.AttackDamage] * 0.02) * objPlayer.level;
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 xTo = objPlayer.x + lengthdir_x(8, _dir);
 yTo = objPlayer.y + lengthdir_y(8, _dir);
@@ -98,7 +102,7 @@ switch (attackState)
         var _xx = x + lengthdir_x(8, _dir);
         var _yy = y + lengthdir_y(8, _dir);
         var _o = CloneCreate(_xx, _yy);
-        _o.damage = _dmg
+        _o.damage = skills[skill, StandSkill.Damage];
         FireCD(skill);
         state = StandState.Idle;
     break;
@@ -128,6 +132,7 @@ if (instance_exists(objPlayer))
     {
         objPlayer.myStand.skills[prevSkill, StandSkill.Skill] = TrickShot;
         objPlayer.myStand.skills[prevSkill, StandSkill.MaxCooldown] = 5;
+        objPlayer.myStand.skills[prevSkill, StandSkill.Icon] = global.sprSkillGunShot;
         with (objPlayer.myStand)
         {
             FireCD(other.prevSkill);
@@ -245,9 +250,8 @@ _skills[sk, StandSkill.MaxCooldownAlt] = 5;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillBulletVolley;
 
 sk = StandState.SkillA;
-_skills[sk, StandSkill.SkillAlt] = StandBarrage;
+_skills[sk, StandSkill.Skill] = StandBarrage;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
-_skills[sk, StandSkill.MaxHold] = 0;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 5;
 

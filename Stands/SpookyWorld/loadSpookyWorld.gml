@@ -15,9 +15,8 @@ var _skills = StandSkillInit(_stats);
 
 var sk;
 sk = StandState.SkillA;
-_skills[sk, StandSkill.SkillAlt] = StandBarrage;
+_skills[sk, StandSkill.Skill] = StandBarrage;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
-_skills[sk, StandSkill.MaxHold] = 0;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
 

@@ -12,14 +12,12 @@ if (distance_to_point(_xx, _yy) <= 1)
 {
     if (!modSubtypeExists("starFinger"))
     {
-        var _dmg = (skills[skill, StandSkill.Damage] * 0.1) * (objPlayer.level * 0.5);
-        
         var _p = ProjectileCreate(x, y);
         with (_p)
         {
             subtype = "starFinger";
             sprite_index = global.sprStarPlatinumFinger;
-            damage = _dmg;
+            damage = other.skills[skill, StandSkill.Damage];
             stationary = true;
             canDespawnInTs = true;
             destroyOnImpact = false;
@@ -137,20 +135,22 @@ var _skills = StandSkillInit(_stats);
 
 var sk;
 sk = StandState.SkillA;
-_skills[sk, StandSkill.SkillAlt] = StandBarrage;
+_skills[sk, StandSkill.Skill] = StandBarrage;
+_skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.02) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
-_skills[sk, StandSkill.MaxHold] = 0;
 _skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.MaxExecutionTime] = 3;
+_skills[sk, StandSkill.MaxExecutionTime] = 5;
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = StrongPunch;
+_skills[sk, StandSkill.Damage] = 5 + (objPlayer.level * 0.1) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = StarFinger;
+_skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.05) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillStarFinger;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 0.7;

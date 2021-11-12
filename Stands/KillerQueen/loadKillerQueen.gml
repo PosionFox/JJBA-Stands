@@ -1,7 +1,6 @@
 
 #define PlaceBomb(method, skill) //attacks
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-var _dmg = 3 + (objPlayer.level * 1.5);
 xTo = objPlayer.x + lengthdir_x(8, _dir);
 yTo = objPlayer.y + lengthdir_y(8, _dir);
 
@@ -16,7 +15,7 @@ switch (attackState)
     break;
     case 1:
         BombEffect(x, y);
-        BombCreate(x, y, _dmg);
+        BombCreate(x, y, skills[skill, StandSkill.Damage]);
         skills[skill, StandSkill.Icon] = global.sprSkillDetonate;
         skills[skill, StandSkill.Skill] = DetonateBomb;
         if (name == "KQ: Bites The Dust")
@@ -134,7 +133,7 @@ with (_o)
     type = "bomb";
     target = _target;
     range = 32;
-    damage = _dmg
+    damage = _dmg;
     
     InstanceAssignMethod(self, "step", ScriptWrap(BombStep), false);
     InstanceAssignMethod(self, "destroy", ScriptWrap(BombDestroy), false);
@@ -201,9 +200,9 @@ var _skills = StandSkillInit(_stats);
 
 var sk;
 sk = StandState.SkillA;
-_skills[sk, StandSkill.SkillAlt] = StandBarrage;
+_skills[sk, StandSkill.Skill] = StandBarrage;
+_skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.01) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
-_skills[sk, StandSkill.MaxHold] = 0;
 _skills[sk, StandSkill.MaxCooldown] = 4;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
 

@@ -268,7 +268,6 @@ return _p;
 #define StandBarrage(method, skill)
 var _dis = point_distance(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-var _dmg = 1 + (objPlayer.level * 0.05) + objPlayer.dmg;
 
 xTo = objPlayer.x + lengthdir_x(stats[StandStat.AttackRange], _dir + random_range(-4, 4));
 yTo = objPlayer.y + lengthdir_y(stats[StandStat.AttackRange], _dir + random_range(-4, 4));
@@ -284,7 +283,7 @@ if (distance_to_point(xTo, yTo) < 2)
         var xx = x + random_range(-4, 4);
         var yy = y + random_range(-8, 8);
         var ddir = _dir + random_range(-45, 45);
-        var _p = PunchCreate(xx, yy, ddir, _dmg, 0);
+        var _p = PunchCreate(xx, yy, ddir, skills[skill, StandSkill.Damage], 0);
         _p.onHitSound = global.sndPunchHit;
         InstanceAssignMethod(_p, "step", ScriptWrap(StandBarrageStep), true);
         attackStateTimer = 0;
@@ -292,7 +291,7 @@ if (distance_to_point(xTo, yTo) < 2)
     skills[skill, StandSkill.ExecutionTime] += 1 / room_speed;
 }
 
-if (keyboard_check_released(ord(skills[skill, StandSkill.Key])))
+if (keyboard_check_pressed(ord(skills[skill, StandSkill.Key])))
 {
     if (skills[skill, StandSkill.ExecutionTime] > 0)
     {
@@ -333,8 +332,7 @@ switch (attackState)
         }
         break;
     case 1:
-        var _dmg = 5 + (objPlayer.level * 0.2) + objPlayer.dmg;
-        var _p = PunchCreate(x, y, _dir, _dmg, 3);
+        var _p = PunchCreate(x, y, _dir, skills[skill, StandSkill.Damage], 3);
         _p.onHitSound = global.sndStrongPunch;
         FireCD(skill);
         state = StandState.Idle;

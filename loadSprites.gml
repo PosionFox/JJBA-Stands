@@ -72,6 +72,7 @@ global.sprSkillTemplate = sprite_add("Resources/Sprites/SkillTemplate.png", 1, f
 global.sprSkillSkip = sprite_add("Resources/Sprites/SkillSkip.png", 1, false, false, 16, 16);
 global.sprSkillHoldTemplate = sprite_add("Resources/Sprites/SkillHoldTemplate.png", 1, false, false, 16, 16);
 global.sprSkillCooldown = sprite_add("Resources/Sprites/SkillCooldown.png", 1, false, false, 16, 16);
+global.sprSkillHold = sprite_add("Resources/Sprites/SkillHold.png", 1, false, false, 16, 16);
 
 global.sprSkillBarrage = sprite_add("Resources/Sprites/SkillBarrage.png", 1, false, false, 16, 16);
 global.sprSkillStrongPunch = sprite_add("Resources/Sprites/SkillStrongPunch.png", 1, false, false, 16, 16);

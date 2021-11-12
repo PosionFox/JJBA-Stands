@@ -52,8 +52,7 @@ with (_o)
     warpX = objPlayer.x;
     warpY = objPlayer.y;
     prevHp = objPlayer.hp;
-    prevEnergy = objPlayer.energy
-    
+    prevEnergy = objPlayer.energy;
 }
 skills[skill, StandSkill.Icon] = global.sprSkillBtD;
 skills[skill, StandSkill.Skill] = BitesTheDust;
@@ -353,27 +352,26 @@ var _skills = StandSkillInit(_stats);
 
 var sk;
 sk = StandState.SkillA;
-_skills[sk, StandSkill.SkillAlt] = StandBarrage;
+_skills[sk, StandSkill.Skill] = StandBarrage;
+_skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.02) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
-_skills[sk, StandSkill.MaxHold] = 0;
 _skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.MaxExecutionTime] = 3;
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = PlaceBomb;
 _skills[sk, StandSkill.Icon] = global.sprSkillFirstBomb;
+_skills[sk, StandSkill.MaxCooldown] = 1;
 _skills[sk, StandSkill.SkillAlt] = TripleCoin;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillCoinBomb;
-_skills[sk, StandSkill.MaxCooldown] = 1;
-_skills[sk, StandSkill.MaxExecutionTime] = 2;
+_skills[sk, StandSkill.MaxCooldownAlt] = 5;
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = StrayCat;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrayCat;
+_skills[sk, StandSkill.MaxCooldown] = 12;
 _skills[sk, StandSkill.SkillAlt] = ShaSummon;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillSHA;
-_skills[sk, StandSkill.MaxCooldown] = 12;
-_skills[sk, StandSkill.MaxExecutionTime] = 5;
+_skills[sk, StandSkill.MaxCooldownAlt] = 12;
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = PlaceThirdBomb;

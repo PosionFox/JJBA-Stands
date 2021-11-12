@@ -16,7 +16,6 @@ draw_line_width(32, _height, 32 + (xp / maxXp) * 256, _height, 2);
 draw_set_color(c_white);
 
 #define StwXXI(method, skill) //attacks
-var _dmg = 3 + (objPlayer.level * 0.2) + objPlayer.dmg;
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 var _dis = 12;
 alphaTarget = 1;
@@ -27,7 +26,7 @@ switch (attackState)
         audio_play_sound(global.sndStwSummon, 0, false);
         var _snd = audio_play_sound(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
-        PunchCreate(x, y, _dir, _dmg, 0);
+        PunchCreate(x, y, _dir, skills[skill, StandSkill.Damage], 0);
         attackState++;
     break;
     case 1:
@@ -39,7 +38,7 @@ switch (attackState)
     case 2:
         var _snd = audio_play_sound(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
-        PunchCreate(x, y, _dir, _dmg, 0);
+        PunchCreate(x, y, _dir, skills[skill, StandSkill.Damage], 0);
         attackState++;
     break;
     case 3:
@@ -52,7 +51,7 @@ switch (attackState)
         _dis = 16;
         var _snd = audio_play_sound(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
-        PunchCreate(x, y, _dir, _dmg * 2, 2);
+        PunchCreate(x, y, _dir, skills[skill, StandSkill.Damage] * 2, 2);
         FireCD(skill);
         state = StandState.Idle;
     break;
@@ -62,7 +61,6 @@ yTo = objPlayer.y + lengthdir_y(_dis, _dir);
 attackStateTimer += 1 / room_speed;
 
 #define StwPunishment(method, skill)
-var _dmg = 2 + (objPlayer.level * 0.1) + objPlayer.dmg;
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 xTo = objPlayer.x + lengthdir_x(12, _dir);
 yTo = objPlayer.y + lengthdir_y(12, _dir);
@@ -83,7 +81,7 @@ switch (attackState)
     case 2:
         var _snd = audio_play_sound(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
-        var _p = PunchCreate(x, y, _dir, _dmg, 2);
+        var _p = PunchCreate(x, y, _dir, skills[skill, StandSkill.Damage], 2);
         with (_p)
         {
             onHitEvent = KnifeCoffin;
@@ -125,7 +123,6 @@ for (var i = 0; i <= _k; i++)
 }
 
 #define StwThrowingKnifes(method, skill)
-var _dmg = 2 + (objPlayer.level * 0.15) + objPlayer.dmg;
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
 switch (attackState)
@@ -140,7 +137,7 @@ switch (attackState)
             with (_p)
             {
                 despawnTime = room_speed * 5;
-                damage = _dmg;
+                damage = other.skills[skill, StandSkill.Damage];
                 direction = (_dir - (i * 2)) - 4;
                 canMoveInTs = false;
                 sprite_index = global.sprKnifeStw;
@@ -167,7 +164,7 @@ switch (attackState)
             with (_p)
             {
                 despawnTime = room_speed * 5;
-                damage = _dmg;
+                damage = other.skills[skill, StandSkill.Damage];
                 direction = (_dir + (i * 2)) + 4;
                 canMoveInTs = false;
                 sprite_index = global.sprKnifeStw;
@@ -183,7 +180,6 @@ switch (attackState)
 attackStateTimer += 1 / room_speed;
 
 #define StwDivineBlood(method, skill)
-var _dmg = 1 + (objPlayer.level * 0.1) + objPlayer.dmg;
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
 switch (attackState)
@@ -195,7 +191,7 @@ switch (attackState)
         }
     break;
     case 1:
-        var _p = PunchCreate(x, y, _dir, _dmg, 0);
+        var _p = PunchCreate(x, y, _dir, skills[skill, StandSkill.Damage], 0);
         with (_p)
         {
             var _arg = noone;
@@ -214,7 +210,6 @@ switch (attackState)
 attackStateTimer += 1 / room_speed;
 
 #define StwSRSE(method, skill)
-var _dmg = 3 + (objPlayer.level * 0.1) + objPlayer.dmg;
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
 objPlayer.h = lengthdir_x(1, _dir + 180);
@@ -223,9 +218,9 @@ audio_play_sound(global.sndStwSRSE, 0, false);
 var _p = ProjectileCreate(objPlayer.x, objPlayer.y - 4);
 with (_p)
 {
-    speed = 10;
+    baseSpd = 10;
     despawnTime = room_speed * 5;
-    damage = _dmg;
+    damage = other.skills[skill, StandSkill.Damage];
     direction = _dir;
     canMoveInTs = false;
     destroyOnImpact = false;
@@ -238,9 +233,9 @@ with (_p)
 var _p = ProjectileCreate(objPlayer.x, objPlayer.y - 4);
 with (_p)
 {
-    speed = 10;
+    baseSpd = 10;
     despawnTime = room_speed * 5;
-    damage = _dmg;
+    damage = other.skills[skill, StandSkill.Damage];
     direction = _dir;
     canMoveInTs = false;
     destroyOnImpact = false;
@@ -254,7 +249,6 @@ FireCD(skill);
 state = StandState.Idle;
 
 #define StwUry(method, skill)
-var _dmg = 4 + (objPlayer.level * 0.2) + objPlayer.dmg;
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
 switch (attackState)
@@ -274,7 +268,7 @@ switch (attackState)
         audio_play_sound(global.sndStwUry, 1, false);
         objPlayer.h += lengthdir_x(6, _dir);
         objPlayer.v += lengthdir_y(6, _dir);
-        var _p = PunchCreate(x, y, _dir, _dmg, 4);
+        var _p = PunchCreate(x, y, _dir, skills[skill, StandSkill.Damage], 4);
         with (_p)
         {
             image_alpha = 0;
@@ -289,7 +283,6 @@ switch (attackState)
 attackStateTimer += 1 / room_speed;
 
 #define StwCharisma(method, skill)
-var _dmg = 1 + (objPlayer.level * 0.5) + objPlayer.dmg;
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
 switch (attackState)
@@ -320,7 +313,7 @@ switch (attackState)
             var _o = ProjectileCreate(x + lengthdir_x(16, 45 * i), y + lengthdir_y(16, 45 * i));
             with (_o)
             {
-                damage = _dmg;
+                damage = other.skills[skill, StandSkill.Damage];
                 canMoveInTs = false;
                 baseSpd = 0.1;
                 direction = random(360);
@@ -481,11 +474,13 @@ var _skills = StandSkillInit(_stats);
 var sk;
 sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = StwUry;
+_skills[sk, StandSkill.Damage] = 4 + (objPlayer.level * 0.1) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillUry;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = StwSRSE;
+_skills[sk, StandSkill.Damage] = 6 + (objPlayer.level * 0.02) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillSRSE;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 
@@ -496,21 +491,25 @@ _skills[sk, StandSkill.MaxCooldown] = 10;
 
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = StwCharisma;
+_skills[sk, StandSkill.Damage] = 5 + (objPlayer.level * 0.01) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillCharisma;
 _skills[sk, StandSkill.MaxCooldown] = 15;
 // on
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StwXXI;
+_skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.03) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillXXI;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = StwPunishment;
+_skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.2) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillPunishment;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = StwThrowingKnifes;
+_skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.02) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillStwKnifes;
 _skills[sk, StandSkill.MaxCooldown] = 6;
 

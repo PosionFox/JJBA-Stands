@@ -60,27 +60,32 @@ for (var i = _start; i <= _end; i++)
     var yy = (_height - 96);
     
     // tap
-    draw_sprite_ext(global.sprSkillTemplate, 0, xx, yy, 2, 2, 0, c_white, 1);
-    draw_sprite_ext(skills[i, StandSkill.Icon], 0, xx, yy, 2, 2, 0, color, 1);
-    if (skills[i, StandSkill.Cooldown] > 0)
+    if (skills[i, StandSkill.Skill] != AttackHandler)
     {
-        var cyy = (skills[i, StandSkill.Cooldown] / skills[i, StandSkill.MaxCooldown]) * 2;
-        draw_sprite_ext(global.sprSkillCooldown, 0, xx, yy, 2, cyy, 0, c_white, 0.8);
-        draw_text(xx + 8, yy + 10, string(skills[i, StandSkill.Cooldown]));
+        draw_sprite_ext(global.sprSkillTemplate, 0, xx, yy, 2, 2, 0, c_white, 1);
+        draw_sprite_ext(skills[i, StandSkill.Icon], 0, xx, yy, 2, 2, 0, color, 1);
+        if (skills[i, StandSkill.Cooldown] > 0)
+        {
+            var cyy = (skills[i, StandSkill.Cooldown] / skills[i, StandSkill.MaxCooldown]) * 2;
+            draw_sprite_ext(global.sprSkillCooldown, 0, xx, yy, 2, cyy, 0, c_white, 0.8);
+            draw_text(xx + 8, yy + 10, string(skills[i, StandSkill.Cooldown]));
+        }
+    draw_text(xx + 8, _height - 120, string_lower(skills[i, StandSkill.Key]));
     }
     // hold
-    draw_sprite_ext(global.sprSkillHoldTemplate, 0, xx, yy + 64, 2, 2, 0, c_white, 1);
-    draw_sprite_ext(skills[i, StandSkill.IconAlt], 0, xx, yy + 64, 2, 2, 0, color, 1);
-    var _hold = (skills[i, StandSkill.Hold] / skills[i, StandSkill.MaxHold]) * 2;
-    draw_sprite_ext(global.sprSkillCooldown, 0, xx, yy + 64, 2, _hold, 0, c_yellow, 0.8);
-    if (skills[i, StandSkill.CooldownAlt] > 0)
+    if (skills[i, StandSkill.SkillAlt] != AttackHandler)
     {
-        var cyy = (skills[i, StandSkill.CooldownAlt] / skills[i, StandSkill.MaxCooldownAlt]) * 2;
-        draw_sprite_ext(global.sprSkillCooldown, 0, xx, yy + 64, 2, cyy, 0, c_white, 0.8);
-        draw_text(xx + 8, yy + 74, string(skills[i, StandSkill.CooldownAlt]));
+        draw_sprite_ext(global.sprSkillHoldTemplate, 0, xx, yy + 64, 2, 2, 0, c_white, 1);
+        draw_sprite_ext(skills[i, StandSkill.IconAlt], 0, xx, yy + 64, 2, 2, 0, color, 1);
+        var _hold = (skills[i, StandSkill.Hold] / skills[i, StandSkill.MaxHold]) * 2;
+        draw_sprite_ext(global.sprSkillHold, 0, xx, yy + 64, 2, _hold, 0, color, 0.8);
+        if (skills[i, StandSkill.CooldownAlt] > 0)
+        {
+            var cyy = (skills[i, StandSkill.CooldownAlt] / skills[i, StandSkill.MaxCooldownAlt]) * 2;
+            draw_sprite_ext(global.sprSkillCooldown, 0, xx, yy + 64, 2, cyy, 0, c_white, 0.8);
+            draw_text(xx + 8, yy + 74, string(skills[i, StandSkill.CooldownAlt]));
+        }
     }
-    
-    draw_text(xx + 8, _height - 120, string_lower(skills[i, StandSkill.Key]));
 }
 
 #define StandSkillManage
@@ -213,7 +218,7 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
     _arr[_s, StandSkill.IconAlt] = global.sprSkillSkip;
     _arr[_s, StandSkill.MaxHold] = 0.5;
     _arr[_s, StandSkill.Hold] = 0;
-    _arr[_s, StandSkill.Damage] = _stats[StandStat.AttackDamage];
+    _arr[_s, StandSkill.Damage] = 0;
     _arr[_s, StandSkill.MaxCooldown] = 1;
     _arr[_s, StandSkill.Cooldown] = 0;
     _arr[_s, StandSkill.MaxCooldownAlt] = 1;
