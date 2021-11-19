@@ -5,6 +5,8 @@
 global.sprArrow = sprite_add("Resources/Sprites/Arrow.png", 1, false, false, 8, 8);
 global.sprDisc = sprite_add("Resources/Sprites/Disc.png", 1, false, false, 8, 8);
 global.sprArrowBeetle = sprite_add("Resources/Sprites/ArrowBeetle.png", 1, false, false, 8, 8);
+global.sprHeart = sprite_add("Resources/Sprites/Heart.png", 1, false, false, 8, 8);
+global.sprEye = sprite_add("Resources/Sprites/Eye.png", 1, false, false, 8, 8);
 
 #endregion
 
@@ -63,6 +65,9 @@ global.sprBtdVoidTrace = sprite_add("Resources/Sprites/BtDVoidTrace.png", 1, fal
 global.sprSfZipper = sprite_add("Resources/Sprites/SfZipper.png", 4, false, false, 16, 16);
 global.sprSfPortal = sprite_add("Resources/Sprites/SfPortal.png", 4, false, false, 16, 16);
 
+// d4c
+global.sprD4CFlag = sprite_add("Resources/Sprites/D4CFlag.png", 1, false, false, 16, 16);
+
 #endregion
 
 #region Skills
@@ -91,10 +96,17 @@ global.sprSkillStrongPunchSp = sprite_add("Resources/Sprites/SkillStrongPunchSp.
 global.sprSkillStarFinger = sprite_add("Resources/Sprites/SkillStarFinger.png", 1, false, false, 16, 16);
 global.sprSkillTimestopSp = sprite_add("Resources/Sprites/SkillTimestopSp.png", 1, false, false, 16, 16);
 
-// dirty deeds done dirt cheap: love train
-global.sprSkillBarrageD4C = sprite_add("Resources/Sprites/SkillBarrageD4C.png", 1, false, false, 16, 16);
+// dirty deeds done dirt cheap
+global.sprSkillBulletTime = sprite_add("Resources/Sprites/SkillBulletTime.png", 1, false, false, 16, 16);
 global.sprSkillBulletVolley = sprite_add("Resources/Sprites/SkillVolleyShot.png", 1, false, false, 16, 16);
+global.sprSkillCloneSwap = sprite_add("Resources/Sprites/SkillCloneSwap.png", 1, false, false, 16, 16);
+global.sprSkillDoubleSlap = sprite_add("Resources/Sprites/SkillDoubleSlap.png", 1, false, false, 16, 16);
+global.sprSkillCloneBomb = sprite_add("Resources/Sprites/SkillCloneBomb.png", 1, false, false, 16, 16);
 global.sprSkillCloneSummon = sprite_add("Resources/Sprites/SkillCloneSummon.png", 1, false, false, 16, 16);
+global.sprSkillDimensionalHop = sprite_add("Resources/Sprites/SkillDimensionalHop.png", 1, false, false, 16, 16);
+
+// d4c: love train
+global.sprSkillBarrageD4C = sprite_add("Resources/Sprites/SkillBarrageD4C.png", 1, false, false, 16, 16);
 global.sprSkillLoveTrain = sprite_add("Resources/Sprites/SkillLoveTrain.png", 1, false, false, 16, 16);
 
 // shadow dio's the world

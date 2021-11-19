@@ -217,12 +217,12 @@ with (_o)
     
     phase2 = false;
     
-    InstanceAssignMethod(self, "step", ScriptWrap(DimensionalHopStep), false);
-    InstanceAssignMethod(self, "drawGUI", ScriptWrap(DimensionalHopDrawGUI), false);
+    InstanceAssignMethod(self, "step", ScriptWrap(DimensionalHopEffectStep), false);
+    InstanceAssignMethod(self, "drawGUI", ScriptWrap(DimensionalHopEffectDrawGUI), false);
 }
 return _o;
 
-#define DimensionalHopStep
+#define DimensionalHopEffectStep
 
 if (phase2)
 {
@@ -242,12 +242,34 @@ else
     }
 }
 
-#define DimensionalHopDrawGUI
+#define DimensionalHopEffectDrawGUI
 
 gpu_set_blendmode_ext(bm_inv_dest_color, bm_inv_src_alpha);
 draw_set_color(c_teal);
 draw_rectangle(x1, y1, x2, y2, false);
 gpu_set_blendmode(bm_normal);
 
+#define LTPunishEffect(_x, _y)
+
+var _o = ModObjectSpawn(_x, _y, 0);
+with (_o)
+{
+    depth = -y;
+    
+    width = 8;
+    
+    InstanceAssignMethod(self, "draw", ScriptWrap(LTPunishDraw), false);
+}
+
+#define LTPunishDraw
+
+if (width <= 0)
+{
+    instance_destroy(self);
+    exit;
+}
+width -= 0.5;
+
+draw_line_width_color(x, y, x, y - 256, width, c_red, c_yellow);
 
 

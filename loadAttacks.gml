@@ -2,7 +2,6 @@
 #define FireCD(skill)
 
 attackState = 0;
-attackStateTimer = 0;
 if (altAttack)
 {
     skills[skill, StandSkill.CooldownAlt] = skills[skill, StandSkill.MaxCooldownAlt];
@@ -11,6 +10,7 @@ else
 {
     skills[skill, StandSkill.Cooldown] = skills[skill, StandSkill.MaxCooldown];
 }
+attackStateTimer = 0;
 altAttack = false;
 skills[skill, StandSkill.ExecutionTime] = 0;
 
@@ -48,6 +48,7 @@ with (_o)
     canMoveInTs = true;
     canDespawnInTs = false;
     knockback = 0;
+    knockbackDuration = 0.5;
     onHitSound = global.sndPunchHit;
     onHitEvent = noone;
     onHitEventArg = undefined;
@@ -106,7 +107,7 @@ if (instance_exists(self)) {
     
     with (parEnemy)
     {
-        if (place_meeting(x, y, other))
+        if (place_meeting(x, y, other) and scale != 0)
         {
             if (array_find_index(other.instancesHit, id) == -1)
             {
@@ -125,8 +126,12 @@ if (instance_exists(self)) {
                 PunchEffectCreate(other.x, other.y);
                 DustEntityAdd(other.x, other.y);
                 var _dir = point_direction(x, y, other.x, other.y) - 180;
-                h = lengthdir_x(other.knockback, _dir);
-                v = lengthdir_y(other.knockback, _dir);
+                // if (other.knockback > 0)
+                // {
+                //     KnockbackCreate(self, other.knockback, other.direction, other.knockbackDuration);
+                // }
+                h = lengthdir_x(other.knockback, other.direction);
+                v = lengthdir_y(other.knockback, other.direction);
                 hp -= other.damage;
                 array_push(other.instancesHit, id);
                 if (other.destroyOnImpact)
@@ -141,6 +146,35 @@ if (instance_exists(self)) {
 #define ProjectileDestroy
 
 
+
+#define KnockbackCreate(_target, _strength, _direction, _duration)
+
+var _o = ModObjectSpawn(x, y, 0);
+with (_o)
+{
+    target = _target;
+    strength = _strength;
+    dir = _direction;
+    duration = _duration;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(KnockbackStep), false);
+}
+return _o;
+
+#define KnockbackStep
+
+if (duration <= 0)
+{
+    instance_destroy(self);
+    exit;
+}
+duration -= 1 / room_speed;
+
+if (instance_exists(target))
+{
+    target.h = lengthdir_x(strength, dir);
+    target.v = lengthdir_y(strength, dir);
+}
 
 #define TimestopCreate(_length)
 
@@ -162,20 +196,19 @@ if (whiteScreen > 0)
 
 with (parEnemy)
 {
-    var _o = ModObjectSpawn(x, y, depth);
-    _o.type = "TsEnemy";
-    _o.target = self;
-    _o.sprite_index = sprite_index;
-    _o.image_speed = 0;
-    _o.image_index = image_index;
-    _o.image_xscale = -image_xscale;
-    _o.image_yscale = image_yscale;
-    //_o.maxHp = maxHp;
-    //_o.hp = hp;
-    _o.damageStack = 0;
-    InstanceAssignMethod(_o, "step", ScriptWrap(TsEnemyStep), false);
-    InstanceAssignMethod(_o, "destroy", ScriptWrap(TsEnemyDestroy), false);
-    instance_deactivate_object(self);
+    freeze = 2;
+    // var _o = ModObjectSpawn(x, y, depth);
+    // _o.type = "TsEnemy";
+    // _o.target = self;
+    // _o.sprite_index = sprite_index;
+    // _o.image_speed = 0;
+    // _o.image_index = image_index;
+    // _o.image_xscale = -image_xscale;
+    // _o.image_yscale = image_yscale;
+    // _o.damageStack = 0;
+    // InstanceAssignMethod(_o, "step", ScriptWrap(TsEnemyStep), false);
+    // InstanceAssignMethod(_o, "destroy", ScriptWrap(TsEnemyDestroy), false);
+    // instance_deactivate_object(self);
 }
 
 if (instance_exists(owner))
@@ -218,7 +251,6 @@ else
 #define TimestopDestroy
 
 audio_play_sound(global.sndTwTsResume, 5, false);
-instance_activate_object(parEnemy);
 with (objModEmpty)
 {
     if ("type" in self)

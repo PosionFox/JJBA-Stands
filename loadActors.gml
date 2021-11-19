@@ -386,5 +386,325 @@ depth = objPlayer.depth - 1;
 image_yscale = -_xs;
 image_angle = 90;
 
+#define CloneCreate(_x, _y)
+
+var _o = ActorCreate(_x, _y);
+with (_o)
+{
+    type = "clone";
+    owner = other;
+    state = "idle";
+    color = c_white;
+    target = noone;
+    sprIdle = objPlayer.sprIdle;
+    sprWalk = objPlayer.sprWalk;
+    sprite_index = sprIdle;
+    image_speed = objPlayer.image_speed;
+    var _c = irandom(1);
+    var _xs = [-1, 1];
+    image_xscale = _xs[_c];
+    image_yscale = 0;
+    yscale = 1;
+    sprHatIdle = objPlayer.sprHatIdle;
+    sprBackIdle = objPlayer.sprBackIdle;
+    sprWingsIdle = objPlayer.sprWingsIdle;
+    sprHatWalk = objPlayer.sprHatWalk;
+    sprBackWalk = objPlayer.sprBackWalk;
+    sprWingsWalk = objPlayer.sprWingsWalk;
+    
+    hpMax = objPlayer.hpMax;
+    hp = hpMax;
+    damage = 1;
+    life = 15;
+    spawnRad = 16;
+    
+    var _cloneTypes = [
+        CloneThugStep,
+        CloneGunslingerStep
+    ];
+    var _type = irandom(array_length(_cloneTypes) - 1);
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(_cloneTypes[_type]), true);
+    InstanceAssignMethod(self, "draw", ScriptWrap(CloneDraw), false);
+}
+return _o;
+
+#define CloneThugStep
+
+image_yscale = lerp(image_yscale, yscale, 0.3);
+spawnRad = lerp(spawnRad, 0, 0.1);
+if (hp <= 0)
+{
+    state = "destroy";
+}
+
+if (instance_exists(objPlayer))
+{
+    if (place_meeting(x, y, objPlayer))
+    {
+        var _pdir = point_direction(x, y, objPlayer.x, objPlayer.y);
+        h = lengthdir_x(-1, _pdir);
+        v = lengthdir_y(-1, _pdir);
+    }
+}
+
+switch (state)
+{
+    case "idle":
+        h = lerp(h, 0, 0.1);
+        v = lerp(v, 0, 0.1);
+        
+        if (instance_exists(parEnemy))
+        {
+            var _near = instance_nearest(x, y, parEnemy);
+            if (distance_to_object(_near) < 200 and _near.scale != 0)
+            {
+                target = _near;
+                sprite_index = sprWalk;
+                state = "chase";
+            }
+        }
+    break;
+    case "chase":
+        if (instance_exists(target))
+        {
+            if (target.scale == 0) { state = "idle"; }
+            if (distance_to_object(target) > 24)
+            {
+                image_xscale = target.x > x ? 1 : -1;
+                var _dir = point_direction(x, y, target.x, target.y);
+                h = lengthdir_x(1.2, _dir);
+                v = lengthdir_y(1.2, _dir);
+            }
+            else
+            {
+                sprite_index = sprIdle;
+                state = "attack";
+            }
+        }
+        else
+        {
+            target = noone;
+            state = "idle";
+        }
+    break;
+    case "attack":
+        h = lerp(h, 0, 0.1);
+        v = lerp(v, 0, 0.1);
+        if (instance_exists(target))
+        {
+            if (target.scale == 0) { state = "idle"; }
+            if (distance_to_object(target) > 24)
+            {
+                sprite_index = sprWalk;
+                state = "chase";
+            }
+            image_xscale = target.x > x ? 1 : -1;
+            
+            if (attackCD <= 0)
+            {
+                var _dir = point_direction(x, y, target.x, target.y);
+                var _snd = audio_play_sound(global.sndPunchAir, 0, false);
+                audio_sound_pitch(_snd, random_range(0.9, 1.1));
+                audio_sound_gain(_snd, 0.3, 0);
+                var _o = PunchCreate(x, y, _dir, damage, 0);
+                with (_o)
+                {
+                    owner = objPlayer;
+                    canMoveInTs = false;
+                    destroyOnImpact = true;
+                }
+                attackCD = random_range(0.3, 0.6);
+            }
+        }
+        else
+        {
+            target = noone;
+            state = "idle";
+        }
+    break;
+    case "destroy":
+        FireEffect(c_white, c_aqua);
+        yscale = 0;
+        if (image_yscale <= 0)
+        {
+            instance_destroy(self);
+        }
+    break;
+}
+
+#define CloneGunslingerStep
+
+image_yscale = lerp(image_yscale, yscale, 0.3);
+spawnRad = lerp(spawnRad, 0, 0.1);
+
+if (instance_exists(objPlayer))
+{
+    if (place_meeting(x, y, objPlayer))
+    {
+        var _pdir = point_direction(x, y, objPlayer.x, objPlayer.y);
+        h = lengthdir_x(-1, _pdir);
+        v = lengthdir_y(-1, _pdir);
+    }
+}
+
+switch (state)
+{
+    case "idle":
+        h = lerp(h, 0, 0.1);
+        v = lerp(v, 0, 0.1);
+        
+        if (instance_exists(parEnemy))
+        {
+            var _near = instance_nearest(x, y, parEnemy);
+            if (distance_to_object(_near) < 256)
+            {
+                target = _near;
+                state = "attack";
+            }
+        }
+    break;
+    case "attack":
+        h = lerp(h, 0, 0.1);
+        v = lerp(v, 0, 0.1);
+        if (instance_exists(target))
+        {
+            if (target.scale == 0) { state = "idle"; }
+            image_xscale = target.x > x ? 1 : -1;
+            
+            if (attackCD <= 0)
+            {
+                var _dir = point_direction(x, y, target.x, target.y);
+                var _snd = audio_play_sound(global.sndGunShot, 0, false);
+                audio_sound_pitch(_snd, random_range(0.9, 1.1));
+                audio_sound_gain(_snd, 0.3, 0);
+                var _o = ProjectileCreate(x, y);
+                with (_o)
+                {
+                    owner = objPlayer;
+                    direction = _dir;
+                    baseSpd = 10;
+                    sprite_index = global.sprBtdVoidTrace;
+                    image_blend = c_yellow;
+                    mask_index = global.sprKnife;
+                    damage = other.damage;
+                    canMoveInTs = false;
+                    GlowOrderCreate(self, 0.1, c_yellow);
+                }
+                attackCD = 1;
+            }
+        }
+        else
+        {
+            target = noone;
+            state = "idle";
+        }
+    break;
+    case "destroy":
+        FireEffect(c_white, c_aqua);
+        yscale = 0;
+        if (image_yscale <= 0)
+        {
+            instance_destroy(self);
+        }
+    break;
+}
+
+#define CloneDraw
+
+if (sprWingsIdle != noone)
+{
+    draw_sprite_ext(sprWingsIdle, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
+}
+if (sprBackIdle != noone)
+{
+    draw_sprite_ext(sprBackIdle, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
+}
+draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
+if (sprHatIdle != noone)
+{
+    draw_sprite_ext(sprHatIdle, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
+}
+
+gpu_set_blendmode_ext(bm_inv_dest_color, bm_inv_src_alpha);
+draw_set_color(c_teal);
+draw_circle(x, y, spawnRad, false);
+gpu_set_blendmode(bm_normal);
+
+#define CloneBombCreate(_x, _y, _target)
+
+if (!instance_exists(_target))
+{
+    exit;
+}
+
+var _a = ActorCreate(_x, _y);
+with (_a)
+{
+    type = "cloneBomb";
+    target = _target;
+    sprIdle = target.sprIdle;
+    sprWalk = target.sprWalk;
+    sprite_index = target.sprite_index;
+    
+    life = 10;
+    
+    GlowOrderCreate(self, 0.1, c_yellow);
+    InstanceAssignMethod(self, "step", ScriptWrap(CloneBombStep), true);
+}
+return _a;
+
+#define CloneBombStep
+
+switch (state)
+{
+    case "idle":
+        if (instance_exists(target))
+        {
+            if (distance_to_object(target) < 256 and target.scale != 0)
+            {
+                if (sprWalk != -1)
+                {
+                    sprite_index = sprWalk;
+                }
+                state = "chase";
+            }
+        }
+        else
+        {
+            state = "destroy";
+        }
+    break;
+    case "chase":
+        if (instance_exists(target))
+        {
+            if (target.scale == 0)
+            {
+                state = "idle";
+            }
+            var _dir = point_direction(x, y, target.x, target.y);
+            h = lengthdir_x(1.5, _dir);
+            v = lengthdir_y(1.5, _dir);
+            image_xscale = sign(dcos(_dir));
+            
+            if (distance_to_object(target) < 8)
+            {
+                state = "destroy";
+            }
+        }
+        else
+        {
+            state = "destroy";
+        }
+    break;
+    case "destroy":
+        ExplosionCreate(x, y, 32, true);
+        instance_destroy(self);
+    break;
+}
+
+
+
+
 
 

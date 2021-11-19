@@ -38,7 +38,7 @@ var _map = ModSaveDataFetch();
 var _standCompatibility = _map[? "pAbility"];
 var _stand = _map[? "jjbamAbility"];
 var _custom = _map[? "jjbamCustomStands"];
-Trace(_custom);
+//Trace(_custom);
 
 switch (_standCompatibility)
 {
@@ -80,7 +80,7 @@ switch (_stand)
 
 if (_custom == true)
 {
-    Trace("custom is: " + string(_custom));
+    //Trace("custom is: " + string(_custom));
     if (instance_exists(objPlayer))
     {
         if ("skCustomStands" in objPlayer)
@@ -92,8 +92,7 @@ if (_custom == true)
 }
 else
 {
-    
-    Trace("custom is: " + string(_custom));
+    //Trace("custom is: " + string(_custom));
     if (instance_exists(objPlayer))
     {
         if ("skCustomStands" in objPlayer)
@@ -133,6 +132,38 @@ if (modTypeExists(_type))
         }
     }
 }
+
+#define modTypeFindNearest(_x, _y, _type)
+
+var _list = [];
+with (objModEmpty)
+{
+    if ("type" in self)
+    {
+        if (type == "clone")
+        {
+            array_push(_list, self);
+        }
+    }
+}
+var _nearest = _list[0];
+for (var i = 0; i < array_length(_list); i++)
+{
+    var _nearestDis;
+    with (_nearest)
+    {
+        _nearestDis = distance_to_point(_x, _y);
+    }
+    
+    with (_list[i])
+    {
+        if (distance_to_point(_x, _y) < _nearestDis)
+        {
+            _nearest = self;
+        }
+    }
+}
+return _nearest;
 
 #define modTypeCount(_type)
 
@@ -221,6 +252,7 @@ if (modTypeExists("loveTrain"))
         var _t = instance_nearest(objPlayer.x, objPlayer.y, parEnemy);
         _t.hp -= (_t.hpMax * 0.06) + _damage;
         objPlayer.invulFrames = 0;
+        LTPunishEffect(_t.x, _t.y);
     }
 }
 if (modSubtypeExists("geFrog"))
@@ -265,6 +297,25 @@ if (structure == global.jjbamStandWorkshop)
     }
 }
 
+#define OnDig(_x, _y)
+
+if (_x >= 968 and _y <= 1144 and _y >= 200)
+{
+    if (place_meeting(_x, _y, objDigSpot))
+    {
+        if (random(1) < 0.25)
+        {
+            var _pool = [
+                global.jjbamHeart,
+                global.jjbamEye
+            ]
+            
+            var _item = irandom(array_length(_pool) - 1);
+            DropItem(_x, _y, _pool[_item], 1);
+        }
+    }
+}
+
 #define OnNewGame
 
 InitPlayerVariables();
@@ -277,54 +328,16 @@ if (room == rmSkillGrid)
     //SkillStandWorkshop();
 }
 
-// if (instance_exists(objPlayer))
-// {
-//     if ("myStand" in objPlayer)
-//     {
-//         LoadStand();
-//     }
-// }
-
 #define OnSave
 
 SaveData();
-
-
-// if (instance_exists(objPlayer))
-// {
-//     if ("myStand" in objPlayer)
-//     {
-//         if (instance_exists(objPlayer.myStand))
-//         {
-//             SaveStand(objPlayer.myStand.saveKey);
-//         }
-//         else
-//         {
-//             SaveStand("jjbamStandless");
-//         }
-//     }
-// }
 
 #define OnLoad
 
 InitPlayerVariables();
 LoadData();
 
-// if (instance_exists(objPlayer))
-// {
-//     if !("myStand" in objPlayer)
-//     {
-//         objPlayer.myStand = noone;
-//         LoadStand();
-//     }
-//     else
-//     {
-//         LoadStand();
-//     }
-// }
 
-/* TODO
-    
-    
-    
-*/
+
+
+

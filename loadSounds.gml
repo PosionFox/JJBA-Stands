@@ -46,6 +46,7 @@ global.sndStwEvolve = audio_create_stream("Resources/Sounds/stwEvolve.ogg");
 
 // dirty deeds done dirt cheap
 global.sndCloneSummon = audio_create_stream("Resources/Sounds/cloneSummon.ogg");
+global.sndDimensionalHop = audio_create_stream("Resources/Sounds/d4cDimensionalHop.ogg");
 
 // dirty deeds done dirt cheap: love train
 global.sndLoveTrain = audio_create_stream("Resources/Sounds/loveTrain.ogg");

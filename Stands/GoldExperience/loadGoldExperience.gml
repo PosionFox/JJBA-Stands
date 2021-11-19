@@ -170,8 +170,12 @@ switch (attackState)
         audio_sound_pitch(_s, random_range(0.8, 1.2));
         var _grid = ResourceSnapshot();
         var _res = ResourceSpawn(_grid, _pool[_pick]);
+        try {
         _res.x = xs;
         _res.y = ys;
+        } catch (e) {
+            
+        }
         ds_grid_destroy(_grid);
         FireCD(skill);
         state = StandState.Idle;

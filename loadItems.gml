@@ -237,11 +237,47 @@ global.jjbamRequiem = ItemCreate(
     true
 );
 
-var _newArray = StructureGet(Structure.Forge, StructureData.Items);
-array_push(_newArray, global.jjbamArrow);
-array_push(_newArray, global.jjbamDisc);
-array_push(_newArray, global.jjbamRequiem);
-StructureEdit(Structure.Forge, StructureData.Items, _newArray);
+// var _newArray = StructureGet(Structure.Forge, StructureData.Items);
+// array_push(_newArray, global.jjbamArrow);
+// array_push(_newArray, global.jjbamDisc);
+// array_push(_newArray, global.jjbamRequiem);
+// StructureEdit(Structure.Forge, StructureData.Items, _newArray);
+
+StructureAddItem(Structure.Forge, global.jjbamArrow);
+StructureAddItem(Structure.Forge, global.jjbamDisc);
+StructureAddItem(Structure.Forge, global.jjbamRequiem);
+
+global.jjbamHeart = ItemCreate(
+    undefined,
+    "Heart",
+    "The heart of the saint.",
+    global.sprHeart,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    undefined,
+    ScriptWrap(GiveD4C),
+    5 * 20,
+    true
+);
+
+global.jjbamEye = ItemCreate(
+    undefined,
+    "Eye",
+    "The eye of the saint.",
+    global.sprEye,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    undefined,
+    ScriptWrap(GiveTheWorldAU),
+    5 * 20,
+    true
+)
 
 #define SusArrowUse
 
@@ -270,7 +306,6 @@ if (instance_exists(objPlayer.myStand))
 var _standPool =
 [
     [GiveStarPlatinum, 20],
-    [GiveTheWorldAU, 20],
     [GiveShadowTheWorld, 20],
     [GiveKillerQueen, 20],
     [GiveStickyFingers, 20],
