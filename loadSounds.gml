@@ -44,6 +44,9 @@ global.sndStwCharisma = audio_create_stream("Resources/Sounds/StwCharisma.ogg");
 global.sndStwDivineBlood = audio_create_stream("Resources/Sounds/StwDivineBlood.ogg");
 global.sndStwEvolve = audio_create_stream("Resources/Sounds/stwEvolve.ogg");
 
+// the world
+global.sndStopSign = audio_create_stream("Resources/Sounds/stopSign.ogg");
+
 // dirty deeds done dirt cheap
 global.sndCloneSummon = audio_create_stream("Resources/Sounds/cloneSummon.ogg");
 global.sndDimensionalHop = audio_create_stream("Resources/Sounds/d4cDimensionalHop.ogg");

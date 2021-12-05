@@ -52,6 +52,9 @@ global.sprGeScorpion = sprite_add("Resources/Sprites/GeScorpion.png", 2, false, 
 // generic
 global.sprPunchEffect = sprite_add("Resources/Sprites/PunchEffect.png", 6, false, false, 8, 8);
 
+// the world
+global.sprStopSign = sprite_add("Resources/Sprites/StopSign.png", 1, false, false, 1, 16);
+
 // killer queen
 global.sprKqPunch = sprite_add("Resources/Sprites/KillerQueenPunch.png", 1, false, false, 16, 16);
 global.sprBombEffect = sprite_add("Resources/Sprites/BombEffect.png", 1, false, false, 16, 16);
@@ -83,6 +86,8 @@ global.sprSkillBarrage = sprite_add("Resources/Sprites/SkillBarrage.png", 1, fal
 global.sprSkillStrongPunch = sprite_add("Resources/Sprites/SkillStrongPunch.png", 1, false, false, 16, 16);
 
 // the world
+global.sprSkillJosephKnife = sprite_add("Resources/Sprites/SkillJosephKnife.png", 1, false, false, 16, 16);
+global.sprSkillStopSign = sprite_add("Resources/Sprites/SkillStopSign.png", 1, false, false, 16, 16);
 global.sprSkillTripleKnifeThrow = sprite_add("Resources/Sprites/SkillTripleKnifeThrow.png", 1, false, false, 16, 16);
 global.sprSkillTimestop = sprite_add("Resources/Sprites/SkillTimestop.png", 1, false, false, 16, 16);
 

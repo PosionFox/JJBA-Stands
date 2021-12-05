@@ -371,3 +371,50 @@ switch (attackState)
         break;
 }
 attackStateTimer += 1 / room_speed;
+
+#define LastingDamageCreate(_target, _dmg, _time, _percentageDamage)
+
+var _o = ModObjectSpawn(_target.x, _target.y, _target.depth);
+with (_o)
+{
+    target = _target;
+    damage = _dmg;
+    timeMax = _time;
+    time = 0;
+    percentageDamage = _percentageDamage;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(LastingDamageStep), false);
+}
+return _o;
+
+#define LastingDamageStep
+
+if (instance_exists(target))
+{
+    x = target.x;
+    y = target.y;
+    
+    if ("hp" in target)
+    {
+        if (percentageDamage)
+        {
+            target.hp -= target.hpMax * damage;
+        }
+        else
+        {
+            target.hp -= damage;
+        }
+    }
+    
+    if (time >= timeMax)
+    {
+        instance_destroy(self);
+        exit;
+    }
+    time += 1 / room_speed;
+}
+
+
+
+
+

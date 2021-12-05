@@ -487,13 +487,13 @@ _skills[sk, StandSkill.MaxCooldown] = 8;
 sk = StandState.SkillCOff;
 _skills[sk, StandSkill.Skill] = StwDivineBlood;
 _skills[sk, StandSkill.Icon] = global.sprSkillDivineBlood;
-_skills[sk, StandSkill.MaxCooldown] = 10;
+_skills[sk, StandSkill.MaxCooldown] = 15;
 
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = StwCharisma;
 _skills[sk, StandSkill.Damage] = 5 + (objPlayer.level * 0.01) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillCharisma;
-_skills[sk, StandSkill.MaxCooldown] = 15;
+_skills[sk, StandSkill.MaxCooldown] = 18;
 // on
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StwXXI;
