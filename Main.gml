@@ -102,113 +102,6 @@ else
     }
 }
 
-#define modTypeExists(_type)
-
-var _exists = false;
-with (objModEmpty)
-{
-    if ("type" in self)
-    {
-        if (type == _type)
-        {
-            _exists = true;
-        }
-    }
-}
-return _exists;
-
-#define modTypeFind(_type)
-
-if (modTypeExists(_type))
-{
-    with (objModEmpty)
-    {
-        if ("type" in self)
-        {
-            if (type == _type)
-            {
-                return self;
-            }
-        }
-    }
-}
-
-#define modTypeFindNearest(_x, _y, _type)
-
-var _list = [];
-with (objModEmpty)
-{
-    if ("type" in self)
-    {
-        if (type == "clone")
-        {
-            array_push(_list, self);
-        }
-    }
-}
-var _nearest = _list[0];
-for (var i = 0; i < array_length(_list); i++)
-{
-    var _nearestDis;
-    with (_nearest)
-    {
-        _nearestDis = distance_to_point(_x, _y);
-    }
-    
-    with (_list[i])
-    {
-        if (distance_to_point(_x, _y) < _nearestDis)
-        {
-            _nearest = self;
-        }
-    }
-}
-return _nearest;
-
-#define modTypeCount(_type)
-
-var _count = 0;
-with (objModEmpty)
-{
-    if ("type" in self)
-    {
-        if (type == _type)
-        {
-            _count++;
-        }
-    }
-}
-return _count;
-
-#define modSubtypeExists(_type)
-
-var _exists = false;
-with (objModEmpty)
-{
-    if ("subtype" in self)
-    {
-        if (subtype == _type)
-        {
-            _exists = true;
-        }
-    }
-}
-return _exists;
-
-#define modSubtypeFind(_type)
-
-with (objModEmpty)
-{
-    if ("subtype" in self)
-    {
-        if (subtype == _type)
-        {
-            return self;
-        }
-    }
-}
-return noone;
-
 #define InitPlayerVariables
 
 if (instance_exists(objPlayer))
@@ -227,6 +120,7 @@ if (instance_exists(objPlayer))
 
 global.timeIsFrozen = false;
 
+loadUtils();
 loadSounds();
 loadSprites();
 loadEffects();
