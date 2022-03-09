@@ -412,17 +412,25 @@ _skills[sk, StandSkill.Skill] = TrickShot;
 _skills[sk, StandSkill.Damage] = 2 + (objPlayer.level * 0.2) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillGunShot;
 _skills[sk, StandSkill.MaxCooldown] = 0.5;
+_skills[sk, StandSkill.Desc] = @"trick shot:
+fire a projectile forwards.
+
+(after cast) bullet time:
+redirects the projectile into the nearest enemy.
+dmg: " + DMG;
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = BulletVolley;
 _skills[sk, StandSkill.Damage] = 2 + (objPlayer.level * 0.1) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
 _skills[sk, StandSkill.MaxCooldown] = 5;
+_skills[sk, StandSkill.Desc] = "bullet volley:\nfire a volley of three projectiles.\ndmg: " + DMG;
 
 sk = StandState.SkillCOff;
 _skills[sk, StandSkill.Skill] = CloneSwap;
 _skills[sk, StandSkill.Icon] = global.sprSkillCloneSwap;
 _skills[sk, StandSkill.MaxCooldown] = 2;
+_skills[sk, StandSkill.Desc] = "clone swap:\nswap places with the nearest clone you aim at.";
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;
@@ -430,12 +438,14 @@ _skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.02) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 5;
+_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.\ndmg: " + DMG;
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = DoubleSlap;
 _skills[sk, StandSkill.Damage] = 2 + (objPlayer.level * 0.04) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillDoubleSlap;
 _skills[sk, StandSkill.MaxCooldown] = 4;
+_skills[sk, StandSkill.Desc] = "double slap:\nhovers forward and slaps the enemies twice.\ndmg: " + DMG;
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = CloneBomb;
@@ -445,11 +455,24 @@ _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.SkillAlt] = CloneSummon;
 _skills[sk, StandSkill.MaxCooldownAlt] = 6.5;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillCloneSummon;
+_skills[sk, StandSkill.Desc] = @"clone bomb:
+summons a clone of the enemy you aim at that
+chases the target and explodes on contact.
+
+(hold) clone summon:
+summons a clone of the user to aid them in combat,
+the clone can be either a gunslinger or a fighter.
+dmg: " + DMG;
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = DimensionalHop;
 _skills[sk, StandSkill.Icon] = global.sprSkillDimensionalHop;
 _skills[sk, StandSkill.MaxCooldown] = 25;
+_skills[sk, StandSkill.Desc] = @"dimensional hop:
+pulls out the flag and waves it
+flattening the user and warping them
+into another parallel dimension,
+enemies in range will also be teleported.";
 
 var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
 with (_s)

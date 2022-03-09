@@ -205,27 +205,37 @@ _skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.01) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 4;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
+_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.\ndmg: " + DMG;
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = PlaceBomb;
 _skills[sk, StandSkill.Icon] = global.sprSkillFirstBomb;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
+_skills[sk, StandSkill.Desc] = @"killer queen's first bomb:
+places a bomb on the nearest enemy or ground.
+
+(after cast) detonate bomb:
+explodes any bombs already placed.";
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = CoinBomb;
 _skills[sk, StandSkill.Icon] = global.sprSkillCoinBomb;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
+_skills[sk, StandSkill.Desc] = "coin bomb:\ntosses a coin that can be detonated on demand.";
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = ShaSummon;
 _skills[sk, StandSkill.Icon] = global.sprSkillSHA;
 _skills[sk, StandSkill.MaxCooldown] = 40;
 _skills[sk, StandSkill.MaxExecutionTime] = 20;
+_skills[sk, StandSkill.Desc] = "killer queen's second bomb:\nsummons sha in combat, chasing and exploding enemies on its own.";
 
-StandBuilder(_name, _sprite, _stats, _skills, _color);
-objPlayer.myStand.summonSound = global.sndKqSummon;
-
-objPlayer.myStand.saveKey = "jjbamKq";
-objPlayer.myStand.discType = global.jjbamDiscKq;
+var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
+with (_s)
+{
+    summonSound = global.sndKqSummon;
+    saveKey = "jjbamKq";
+    discType = global.jjbamDiscKq;
+}

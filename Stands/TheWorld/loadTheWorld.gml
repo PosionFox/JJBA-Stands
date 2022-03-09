@@ -142,17 +142,20 @@ _skills[sk, StandSkill.Skill] = JosephKnife;
 _skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.1) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillJosephKnife;
 _skills[sk, StandSkill.MaxCooldown] = 6;
+_skills[sk, StandSkill.Desc] = "joseph knife:\nsends out a knife that causes bleed on impact.\ndmg: " + DMG;
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = StopSign;
 _skills[sk, StandSkill.Damage] = 7 + (objPlayer.level * 0.15) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillStopSign;
 _skills[sk, StandSkill.MaxCooldown] = 10;
+_skills[sk, StandSkill.Desc] = "stop sign:\nstrikes with a stop sign.\ndmg: " + DMG;
 
 sk = StandState.SkillCOff;
 _skills[sk, StandSkill.Skill] = StwDivineBlood;
 _skills[sk, StandSkill.Icon] = global.sprSkillDivineBlood;
 _skills[sk, StandSkill.MaxCooldown] = 15;
+_skills[sk, StandSkill.Desc] = "divine blood:\ndrains the target's health and heals the user.";
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;
@@ -160,23 +163,27 @@ _skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.02) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
+_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.\ndmg: " + DMG;
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = StrongPunch;
 _skills[sk, StandSkill.Damage] = 5 + (objPlayer.level * 0.1) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 8;
+_skills[sk, StandSkill.Desc] = "strong punch:\ncharges and launches a strong punch.\ndmg: " + DMG;
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = TripleKnifeThrow;
 _skills[sk, StandSkill.Damage] = 2 + (objPlayer.level * 0.02) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillTripleKnifeThrow;
 _skills[sk, StandSkill.MaxCooldown] = 5;
+_skills[sk, StandSkill.Desc] = "knife wall:\nsends out a burst of knifes.\ndmg: " + DMG;
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = TimestopTw;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimestop;
 _skills[sk, StandSkill.MaxCooldown] = 30;
+_skills[sk, StandSkill.Desc] = "time, stop!:\nstops the time, most enemies are not allowed to move\nand makes your projectiles freeze in place.";
 
 var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
 with (_s)

@@ -477,41 +477,48 @@ _skills[sk, StandSkill.Skill] = StwUry;
 _skills[sk, StandSkill.Damage] = 4 + (objPlayer.level * 0.1) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillUry;
 _skills[sk, StandSkill.MaxCooldown] = 8;
+_skills[sk, StandSkill.Desc] = "uryyy:\nlunge forward striking enemies on the way.\ndmg: " + DMG;
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = StwSRSE;
 _skills[sk, StandSkill.Damage] = 6 + (objPlayer.level * 0.02) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillSRSE;
 _skills[sk, StandSkill.MaxCooldown] = 8;
+_skills[sk, StandSkill.Desc] = "space ripper stingy eyes:\nfire two piercing lasers at high speeds.\ndmg: " + DMG;
 
 sk = StandState.SkillCOff;
 _skills[sk, StandSkill.Skill] = StwDivineBlood;
 _skills[sk, StandSkill.Icon] = global.sprSkillDivineBlood;
 _skills[sk, StandSkill.MaxCooldown] = 15;
+_skills[sk, StandSkill.Desc] = "divine blood:\ndrains the target's health and heals the user.";
 
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = StwCharisma;
 _skills[sk, StandSkill.Damage] = 5 + (objPlayer.level * 0.01) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillCharisma;
 _skills[sk, StandSkill.MaxCooldown] = 18;
+_skills[sk, StandSkill.Desc] = "charisma:\nrelease vampiric spores that chase enemies around.\ndmg: " + DMG;
 // on
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StwXXI;
 _skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.03) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillXXI;
 _skills[sk, StandSkill.MaxCooldown] = 5;
+_skills[sk, StandSkill.Desc] = "xxi:\nexecutes a combo of two punches and a strong final punch.\ndmg: " + DMG;
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = StwPunishment;
 _skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.2) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillPunishment;
 _skills[sk, StandSkill.MaxCooldown] = 8;
+_skills[sk, StandSkill.Desc] = "punishment:\ncharges an attack that upon impact surrounds the enemy with knifes.\ndmg: " + DMG;
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = StwThrowingKnifes;
 _skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.02) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillStwKnifes;
 _skills[sk, StandSkill.MaxCooldown] = 6;
+_skills[sk, StandSkill.Desc] = "throwing knifes:\nthrows two bursts of knifes.\ndmg: " + DMG;
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = TimestopSTW;
@@ -520,6 +527,14 @@ _skills[sk, StandSkill.MaxCooldown] = 20;
 _skills[sk, StandSkill.SkillAlt] = StwTheWorld;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillStwTw;
 _skills[sk, StandSkill.MaxHold] = 2;
+_skills[sk, StandSkill.Desc] = @"the world's secret power:
+stops the time for a brief moment,
+most enemies are not allowed to move
+and makes your projectiles freeze in place.
+
+(hold) the world:
+with enough experience,
+shadow the world evolves into the world.";
 
 var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
 with (_s)

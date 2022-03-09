@@ -356,6 +356,7 @@ _skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.01) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 6;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
+_skills[sk, StandSkill.Desc] = "sticky barrage:\nlaunches a barrage of punches.\ninflicts the enemy with damaging zippers.\ndmg: " + DMG;
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = ZipperPunch;
@@ -363,18 +364,21 @@ _skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.02) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 10;
+_skills[sk, StandSkill.Desc] = "zipper punch:\ncharges and launches a strong punch.\ninflicts the enemy with damaging zippers.\ndmg: " + DMG;
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = ZipperGrab;
 _skills[sk, StandSkill.Icon] = global.sprSkillZipperGrab;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
+_skills[sk, StandSkill.Desc] = "zipper grab:\ndisjoints and launches their arm forwards\ngrabbing and pulling the first enemy it touches.";
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = SfPortal;
 _skills[sk, StandSkill.Icon] = global.sprSkillZipPortal;
 _skills[sk, StandSkill.MaxCooldown] = 20;
 _skills[sk, StandSkill.MaxExecutionTime] = 20;
+_skills[sk, StandSkill.Desc] = "portal through:\nopens two portals, one below the user\nand the other where they are aiming at.";
 
 var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
 with (_s)

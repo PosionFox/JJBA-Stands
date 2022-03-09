@@ -111,26 +111,32 @@ _skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.02) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillKnifeBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
+_skills[sk, StandSkill.Desc] = "knife barrage:\nlaunches a barrage of knifes.\ndmg: " + DMG;
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = StrongPunch;
 _skills[sk, StandSkill.Damage] = 4 + (objPlayer.level * 0.1) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 7;
+_skills[sk, StandSkill.Desc] = "strong punch:\ncharges and launches a strong punch.\ndmg: " + DMG;
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = GunShot;
 _skills[sk, StandSkill.Damage] = 5 + (objPlayer.level * 0.2) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillGunShot;
 _skills[sk, StandSkill.MaxCooldown] = 5;
+_skills[sk, StandSkill.Desc] = "gunshot:\nfires a single projectile forwards.\ndmg: " + DMG;
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = TimestopTwAu;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimestop;
 _skills[sk, StandSkill.MaxCooldown] = 25;
+_skills[sk, StandSkill.Desc] = "it's my time!:\nstops the time, most enemies are not allowed to move\nand makes your projectiles freeze in place.";
 
-StandBuilder(_name, _sprite, _stats, _skills, _color);
-objPlayer.myStand.summonSound = global.sndTwSummon;
-
-objPlayer.myStand.saveKey = "jjbamTwau";
-objPlayer.myStand.discType = global.jjbamDiscTwau;
+var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
+with (_s)
+{
+    summonSound = global.sndTwSummon;
+    saveKey = "jjbamTwau";
+    discType = global.jjbamDiscTwau;
+}

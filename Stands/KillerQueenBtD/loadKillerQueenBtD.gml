@@ -356,6 +356,7 @@ _skills[sk, StandSkill.Skill] = StandBarrage;
 _skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.02) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
+_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.\ndmg: " + DMG;
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = PlaceBomb;
@@ -364,6 +365,14 @@ _skills[sk, StandSkill.MaxCooldown] = 1;
 _skills[sk, StandSkill.SkillAlt] = TripleCoin;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillCoinBomb;
 _skills[sk, StandSkill.MaxCooldownAlt] = 5;
+_skills[sk, StandSkill.Desc] = @"killer queen's first bomb:
+places a bomb on the nearest enemy or ground.
+
+(hold) the wealthy:
+tosses three coins forward, these can be detonated on demand.
+
+(after cast) detonate bomb:
+explodes any bombs already placed.";
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = StrayCat;
@@ -372,15 +381,31 @@ _skills[sk, StandSkill.MaxCooldown] = 12;
 _skills[sk, StandSkill.SkillAlt] = ShaSummon;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillSHA;
 _skills[sk, StandSkill.MaxCooldownAlt] = 12;
+_skills[sk, StandSkill.Desc] = @"stray cat:
+releases a bubble that chases enemies and explodes on contact.
+
+(hold) killer queen's second bomb:
+summons sha in combat, chasing and exploding enemies on its own.";
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = PlaceThirdBomb;
 _skills[sk, StandSkill.Icon] = global.sprSkillThirdBomb;
 _skills[sk, StandSkill.MaxCooldown] = 2;
 _skills[sk, StandSkill.MaxExecutionTime] = 20;
+_skills[sk, StandSkill.Desc] = @"killer queen's third bomb:
+places a special bomb on the ground.
 
-StandBuilder(_name, _sprite, _stats, _skills, _color);
-objPlayer.myStand.summonSound = global.sndKqbtdSummon;
+(after cast) bites the dust:
+detonates the special bomb damaging all enemies nearby,
+returns the user to the original position
+where they placed the bomb in the first place while also
+healing the user for the amount of damage lost afterwards.
+";
 
-objPlayer.myStand.saveKey = "jjbamKqbtd";
-objPlayer.myStand.discType = global.jjbamDiscKqbtd;
+var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
+with (_s)
+{
+    summonSound = global.sndKqbtdSummon;
+    saveKey = "jjbamKqbtd";
+    discType = global.jjbamDiscKqbtd;
+}

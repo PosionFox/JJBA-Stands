@@ -22,6 +22,7 @@ enum StandSkill {
     Skill,
     SkillAlt,
     Key,
+    Desc,
     Icon,
     IconAlt,
     MaxHold,
@@ -35,6 +36,8 @@ enum StandSkill {
     ExecutionTime,
     LEN
 }
+
+#macro DMG string(_skills[sk, StandSkill.Damage])
 
 #define StandSkillDrawGUI
 
@@ -85,6 +88,21 @@ for (var i = _start; i <= _end; i++)
             draw_sprite_ext(global.sprSkillCooldown, 0, xx, yy + 64, 2, cyy, 0, c_white, 0.8);
             draw_text(xx + 8, yy + 74, string(skills[i, StandSkill.CooldownAlt]));
         }
+    }
+    //show tooltip
+    var gx = device_mouse_x_to_gui(0);
+    var gy = device_mouse_y_to_gui(0);
+    if (point_in_rectangle(gx, gy, xx - 32, yy - 32, xx + 32, yy + 32))
+    {
+        var txt = skills[i, StandSkill.Desc];
+        draw_set_color(c_dkgray);
+        draw_rectangle(gx, (yy - 64) - string_height(txt), gx + string_width(txt), (yy - 64), false);
+        draw_set_color(c_white);
+        draw_set_halign(fa_left);
+        draw_set_valign(fa_top);
+        draw_text(gx + 9, ((yy - 64) - string_height(txt)) + 8, txt);
+        draw_set_halign(fa_center);
+        draw_set_valign(fa_middle);
     }
 }
 
@@ -214,6 +232,7 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
     _arr[_s, StandSkill.Skill] = AttackHandler;
     _arr[_s, StandSkill.SkillAlt] = AttackHandler;
     _arr[_s, StandSkill.Key] = "";
+    _arr[_s, StandSkill.Desc] = "";
     _arr[_s, StandSkill.Icon] = global.sprSkillSkip;
     _arr[_s, StandSkill.IconAlt] = global.sprSkillSkip;
     _arr[_s, StandSkill.MaxHold] = 0.5;

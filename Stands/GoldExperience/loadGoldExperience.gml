@@ -267,16 +267,19 @@ sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = LifeFormPlant;
 _skills[sk, StandSkill.Icon] = global.sprSkillLifeFormPlant;
 _skills[sk, StandSkill.MaxCooldown] = 15;
+_skills[sk, StandSkill.Desc] = "lifeform plant:\nsummons a random plant.";
 
 sk = StandState.SkillCOff;
 _skills[sk, StandSkill.Skill] = LifeFormScorpion;
 _skills[sk, StandSkill.Icon] = global.sprSkillLifeFormScorpion;
 _skills[sk, StandSkill.MaxCooldown] = 20;
+_skills[sk, StandSkill.Desc] = "lifeform scorpion:\nsummons a scorpion that attacks nearby enemies.";
 
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = LifeFormFrog;
 _skills[sk, StandSkill.Icon] = global.sprSkillLifeFormFrog;
 _skills[sk, StandSkill.MaxCooldown] = 20;
+_skills[sk, StandSkill.Desc] = "lifeform frog:\nsummons a frog that protects and reflects damage.";
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = GeBarrage;
@@ -284,18 +287,21 @@ _skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.01) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 7;
+_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.\ndmg: " + DMG;
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = LifePunch;
 _skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.02) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 8;
+_skills[sk, StandSkill.Desc] = "life punch:\npunches the enemy and pulls their soul out,\nthe soul damages other enemies.\ndmg: " + DMG;
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = SelfHeal;
 _skills[sk, StandSkill.Damage] = 1 + floor(objPlayer.level * 0.15);
 _skills[sk, StandSkill.Icon] = global.sprSkillSelfHeal;
 _skills[sk, StandSkill.MaxCooldown] = 15;
+_skills[sk, StandSkill.Desc] = "self heal:\nmends the user's wounds,\nthe effectiveness of the healing is tied to the user's level.\nheal: " + DMG;
 
 sk = StandState.SkillD;
 

@@ -23,7 +23,7 @@ switch (args[0]) {
 
 #define TestCommand
 
-
+Trace("hello");
 
 #define JjbamDebug
 

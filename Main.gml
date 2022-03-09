@@ -13,11 +13,14 @@ if (instance_exists(objPlayer))
     {
         if (instance_exists(objPlayer.myStand))
         {
-            _map[? "jjbamAbility"] = objPlayer.myStand.saveKey;
+            _map[? "jjbamAbility"] = objPlayer.myStand.saveKey; // save stand
+            // _map[? "jjbamAbilitySkills"] = string(array_clone(objPlayer.myStand.skills)); // save stand skills
+            // Trace(_map[? "jjbamAbilitySkills"]);
+            
             switch (objPlayer.myStand.name)
             {
                 case "Shadow The World":
-                    _map[? "jjbamStwXp"] = objPlayer.myStand.xp;
+                    _map[? "jjbamStwXp"] = objPlayer.myStand.xp; // save stw xp
                 break;
             }
         }
@@ -78,6 +81,12 @@ switch (_stand)
     case "jjbamGe": GiveGoldExperience(); break;
 }
 
+// Trace(_map[? "jjbamAbilitySkills"]);
+// if (_map[? "jjbamAbilitySkills"] != undefined)
+// {
+//     objPlayer.myStand.skills = array_clone(json_decode(_map[? "jjbamAbilitySkills"])); // load skills
+// }
+
 if (_custom == true)
 {
     //Trace("custom is: " + string(_custom));
@@ -116,10 +125,15 @@ if (instance_exists(objPlayer))
     }
 }
 
+#define newClass(class)
+
+return array_clone(class);
+
 #define Main
 
 global.timeIsFrozen = false;
 
+// order for loading stuff matters
 loadUtils();
 loadSounds();
 loadSprites();
