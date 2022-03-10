@@ -87,6 +87,38 @@ global.jjbamDiscSp = ItemCreate(
     true
 );
 
+global.jjbamDiscSc = ItemCreate(
+    undefined,
+    "DISC:SC",
+    "The label says: Silver Chariot",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(GiveSilverChariot),
+    5 * 10,
+    true
+);
+
+global.jjbamDiscSptw = ItemCreate(
+    undefined,
+    "DISC:SPTW",
+    "The label says: Star Platinum: The World",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(GiveSPTW),
+    5 * 10,
+    true
+);
+
 global.jjbamDiscTwau = ItemCreate(
     undefined,
     "DISC:TWAU",

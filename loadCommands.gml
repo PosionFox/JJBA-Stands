@@ -9,6 +9,8 @@ with (objPlayer) {
 }
 switch (args[0]) {
     case "sp": GiveStarPlatinum(); break;
+    case "sc": GiveSilverChariot(); break;
+    case "sptw": GiveSPTW(); break;
     case "tw": GiveTheWorld(); break;
     case "anubis": GiveAnubis(); break;
     case "d4c": GiveD4C(); break;
@@ -19,6 +21,8 @@ switch (args[0]) {
     case "kqbtd": GiveKillerQueenBtD(); break;
     case "sf": GiveStickyFingers(); break;
     case "ge": GiveGoldExperience(); break;
+    case "ws": GiveWhiteSnake(); break;
+    case "cm": GiveCMoon(); break;
 }
 
 #define TestCommand

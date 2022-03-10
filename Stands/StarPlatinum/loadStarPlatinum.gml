@@ -163,7 +163,7 @@ _skills[sk, StandSkill.Skill] = TimestopSp;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimestopSp;
 _skills[sk, StandSkill.MaxCooldown] = 20;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
-_skills[sk, StandSkill.Desc] = "star platinum the world:\nstops the time, most enemies are not allowed to move\nand makes your projectiles freeze in place.";
+_skills[sk, StandSkill.Desc] = "time stop:\nstops the time, most enemies are not allowed to move\nand makes your projectiles freeze in place.";
 
 var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
 with (_s)

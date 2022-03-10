@@ -58,6 +58,8 @@ switch (_stand)
 {
     case "jjbamTw": GiveTheWorld(); break;
     case "jjbamSp": GiveStarPlatinum(); break;
+    case "jjbamSc": GiveSilverChariot(); break;
+    case "jjbamSptw": GiveSPTW(); break;
     case "jjbamAnubis": GiveAnubis(); break;
     case "jjbamD4c": GiveD4C(); break;
     case "jjbamD4clt": GiveD4CLT(); break;

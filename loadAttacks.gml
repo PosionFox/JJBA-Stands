@@ -113,6 +113,10 @@ if (instance_exists(self)) {
             {
                 if (other.onHitSound != noone)
                 {
+                    if (audio_is_playing(other.onHitSound))
+                    {
+                        audio_stop_sound(other.onHitSound);
+                    }
                     var _s = audio_play_sound(other.onHitSound, 0, false);
                     audio_sound_pitch(_s, random_range(0.9, 1.1));
                 }

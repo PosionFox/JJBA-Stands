@@ -45,6 +45,9 @@ global.sprScBubble = sprite_add("Resources/Sprites/Bubble.png", 1, false, false,
 global.sprGeFrog = sprite_add("Resources/Sprites/GeFrog.png", 1, false, false, 16, 16);
 global.sprGeScorpion = sprite_add("Resources/Sprites/GeScorpion.png", 2, false, false, 16, 16);
 
+// silver chariot
+global.sprScAttack = sprite_add("Resources/Sprites/SCAttack.png", 1, false, false, 16, 16);
+
 #endregion
 
 #region Effects
@@ -152,6 +155,9 @@ global.sprSkillSelfHeal = sprite_add("Resources/Sprites/SkillSelfHeal.png", 1, f
 #region Stands
 
 global.sprStarPlatinum = sprite_add("Resources/Sprites/StarPlatinum.png", 1, false, false, 16, 19);
+global.sprSilverChariot = sprite_add("Resources/Sprites/SilverChariot.png", 1, false, false, 16, 19);
+global.sprSCarmorless = sprite_add("Resources/Sprites/SilverChariotArmorless.png", 1, false, false, 16, 19);
+global.sprSptw = sprite_add("Resources/Sprites/SPTW.png", 1, false, false, 16, 19);
 global.sprTheWorld = sprite_add("Resources/Sprites/TheWorld.png", 1, false, false, 16, 19);
 global.sprTheWorldAU = sprite_add("Resources/Sprites/TheWorldAU.png", 1, false, false, 16, 19);
 global.sprAnubis = sprite_add("Resources/Sprites/Anubis.png", 1, false, false, 16, 19)
@@ -163,6 +169,8 @@ global.sprKillerQueenBtD = sprite_add("Resources/Sprites/KillerQueenBtD.png", 1,
 global.sprStickyFingers = sprite_add("Resources/Sprites/StickyFingers.png", 1, false, false, 16, 19);
 global.sprSpookyWorld = sprite_add("Resources/Sprites/SpookyWorld.png", 1, false, false, 16, 19);
 global.sprGoldExperience = sprite_add("Resources/Sprites/GoldExperience.png", 1, false, false, 16, 19);
+global.sprWhiteSnake = sprite_add("Resources/Sprites/Whitesnake.png", 1, false, false, 16, 19);
+global.sprCMoon = sprite_add("Resources/Sprites/CMoon.png", 1, false, false, 16, 19);
 
 #endregion
 
