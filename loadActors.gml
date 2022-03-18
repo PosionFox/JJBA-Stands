@@ -83,6 +83,17 @@ if (canCollide)
     y += v;
 }
 
+var _a = instance_place(x, y, MOBJ);
+if (instance_exists(_a) and "type" in _a)
+{
+    if (_a.type == "Actor" and id < _a.id)
+    {
+        var _dir = point_direction(x, y, _a.x, _a.y);
+        h = lengthdir_x(-1, _dir);
+        v = lengthdir_y(-1, _dir);
+    }
+}
+
 depth = -y;
 
 #define ActorDraw
@@ -391,7 +402,7 @@ image_angle = 90;
 var _o = ActorCreate(_x, _y);
 with (_o)
 {
-    type = "clone";
+    subtype = "clone";
     owner = other;
     state = "idle";
     color = c_white;

@@ -1,4 +1,49 @@
 
+#define SuperCloneSummon(m, skill)
+var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+xTo = objPlayer.x + lengthdir_x(8, _dir);
+yTo = objPlayer.y + lengthdir_y(8, _dir);
+image_xscale = sign(dcos(_dir));
+
+attackStateTimer += 1 / room_speed;
+switch (attackState)
+{
+    case 0:
+        USAflag.visible = true;
+        USAflag.x = x;
+        USAflag.y = y;
+        USAflag.image_xscale = 0;
+        USAflag.image_angle = 180;
+        audio_play_sound(global.sndCloneSummon, 1, false);
+        attackState++;
+    break;
+    case 1:
+        var _ang = _dir;
+        _ang -= cos(current_time / 100) * 2;
+        USAflag.x = x + lengthdir_x(18, _ang);
+        USAflag.y = y + lengthdir_y(18, _ang);
+        USAflag.image_xscale = lerp(USAflag.image_xscale, 1, 0.1);
+        USAflag.image_angle = _ang;
+        if (attackStateTimer >= 2)
+        {
+            attackState++;
+        }
+    break;
+    case 2:
+        USAflag.visible = false;
+        var _clonesMax = ceil(player.level / 5);
+        for (var i = 0; i < _clonesMax; i++)
+        {
+            var _xx = x + lengthdir_x(4 + (4 * i), _dir);
+            var _yy = y + lengthdir_y(4 + (4 * i), _dir);
+            var _o = CloneCreate(_xx, _yy);
+            _o.damage = skills[skill, StandSkill.Damage];
+        }
+        FireCD(skill);
+        state = StandState.Idle;
+    break;
+}
+
 #define LoveTrain(method, skill)
 
 if (!modTypeExists("loveTrain"))
@@ -15,7 +60,7 @@ else
 
 #define LoveTrainCreate(_length)
 
-audio_play_sound(global.sndLtStart, 5, false);
+audio_play_sound(global.sndLoveTrain, 5, false);
 var _o = ModObjectSpawn(objPlayer.x, objPlayer.y, 0)
 with (_o)
 {
@@ -42,11 +87,6 @@ with (_o)
 
 #define LoveTrainStep
 
-if (!audio_is_playing(global.sndLtStart) and !audio_is_playing(global.sndLtLoop))
-{
-    audio_play_sound(global.sndLtLoop, 5, true);
-}
-
 size *= 1.1;
 size = clamp(size, 0, 1000);
 rotSpeed = lerp(rotSpeed, 100, 0.05);
@@ -67,8 +107,8 @@ if (instance_exists(objPlayer))
 length -= 1 / room_speed;
 if (length <= 0)
 {
-    audio_stop_sound(global.sndLtLoop);
-    audio_play_sound(global.sndLtEnd, 5, false);
+    var _s = audio_play_sound(global.sndLtEnd, 5, false);
+    audio_sound_pitch(_s, random_range(0.9, 1.1));
     instance_destroy(self);
 }
 
@@ -124,37 +164,95 @@ _stats[StandStat.BaseSpd] = 0.4;
 var _skills = StandSkillInit(_stats);
 
 var sk;
-sk = StandState.SkillBOff;
+sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = TrickShot;
+_skills[sk, StandSkill.Damage] = 2 + (objPlayer.level * 0.2) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillGunShot;
-_skills[sk, StandSkill.MaxCooldown] = 0.6;
-_skills[sk, StandSkill.SkillAlt] = BulletVolley;
-_skills[sk, StandSkill.MaxCooldownAlt] = 6;
-_skills[sk, StandSkill.IconAlt] = global.sprSkillBulletVolley;
+_skills[sk, StandSkill.MaxCooldown] = 0.5;
+_skills[sk, StandSkill.Desc] = @"trick shot:
+fire a projectile forwards.
+
+(after cast) bullet time:
+redirects the projectile into the nearest enemy.
+dmg: " + DMG;
+
+sk = StandState.SkillBOff;
+_skills[sk, StandSkill.Skill] = BulletVolley;
+_skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.1) + objPlayer.dmg;
+_skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
+_skills[sk, StandSkill.MaxCooldown] = 5;
+_skills[sk, StandSkill.Desc] = "bullet volley:\nfire a volley of three projectiles.\ndmg: " + DMG;
+
+sk = StandState.SkillCOff;
+_skills[sk, StandSkill.Skill] = CloneSwap;
+_skills[sk, StandSkill.Icon] = global.sprSkillCloneSwap;
+_skills[sk, StandSkill.MaxCooldown] = 2;
+_skills[sk, StandSkill.Desc] = "clone swap:\nswap places with the nearest clone you aim at.";
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;
+_skills[sk, StandSkill.Damage] = 2 + (objPlayer.level * 0.02) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.MaxExecutionTime] = 5;
+_skills[sk, StandSkill.MaxExecutionTime] = 1;
+_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.\ndmg: " + DMG;
 
 sk = StandState.SkillB;
-_skills[sk, StandSkill.Skill] = BulletVolley;
-_skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
+_skills[sk, StandSkill.Skill] = DoubleSlap;
+_skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.04) + objPlayer.dmg;
+_skills[sk, StandSkill.Icon] = global.sprSkillDoubleSlap;
 _skills[sk, StandSkill.MaxCooldown] = 4;
+_skills[sk, StandSkill.Desc] = "double slap:\nhovers forward and slaps the enemies twice.\ndmg: " + DMG;
 
 sk = StandState.SkillC;
-_skills[sk, StandSkill.Skill] = CloneSummon;
-_skills[sk, StandSkill.Icon] = global.sprSkillCloneSummon;
+_skills[sk, StandSkill.Skill] = CloneBomb;
+_skills[sk, StandSkill.Damage] = 2 + (objPlayer.level * 0.01) + objPlayer.dmg;
+_skills[sk, StandSkill.Icon] = global.sprSkillCloneBomb;
 _skills[sk, StandSkill.MaxCooldown] = 8;
+_skills[sk, StandSkill.SkillAlt] = SuperCloneSummon;
+_skills[sk, StandSkill.MaxCooldownAlt] = 6.5;
+_skills[sk, StandSkill.IconAlt] = global.sprSkillCloneSummon;
+_skills[sk, StandSkill.Desc] = @"clone bomb:
+summons a clone of the enemy you aim at that
+chases the target and explodes on contact.
+
+(hold) super clone summon:
+summons even more clones of the user
+to aid them in combat,
+the amount of clones to summon depends
+on the user's level.
+dmg: " + DMG;
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = LoveTrain;
 _skills[sk, StandSkill.Icon] = global.sprSkillLoveTrain;
 _skills[sk, StandSkill.MaxCooldown] = 45;
+_skills[sk, StandSkill.SkillAlt] = DimensionalHop;
+_skills[sk, StandSkill.IconAlt] = global.sprSkillDimensionalHop;
+_skills[sk, StandSkill.MaxCooldownAlt] = 25;
+_skills[sk, StandSkill.Desc] = @"love train:
+summons a pocket dimension as a wall of light that
+reflects all incoming damage back to the nearest enemy.
 
-StandBuilder(_name, _sprite, _stats, _skills, _color);
-objPlayer.myStand.summonSound = global.sndD4CSummon;
+(hold) dimensional hop:
+pulls out the flag and waves it
+flattening the user and warping them
+into another parallel dimension,
+enemies in range will also be teleported.";
 
-objPlayer.myStand.saveKey = "jjbamD4clt";
-objPlayer.myStand.discType = global.jjbamDiscD4clt;
+var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
+with (_s)
+{
+    summonSound = global.sndD4CLTSummon;
+    saveKey = "jjbamD4clt";
+    discType = global.jjbamDiscD4clt;
+    
+    USAflag = ModObjectSpawn(x, y, depth);
+    with (USAflag)
+    {
+        sprite_index = global.sprD4CFlag;
+        visible = false;
+    }
+    
+    InstanceAssignMethod(self, "destroy", ScriptWrap(D4Cdestroy), true);
+}

@@ -247,6 +247,7 @@ else
 gpu_set_blendmode_ext(bm_inv_dest_color, bm_inv_src_alpha);
 draw_set_color(c_teal);
 draw_rectangle(x1, y1, x2, y2, false);
+draw_set_color(c_white);
 gpu_set_blendmode(bm_normal);
 
 #define LTPunishEffect(_x, _y)

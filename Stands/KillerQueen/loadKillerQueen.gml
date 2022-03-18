@@ -1,5 +1,11 @@
 
 #define PlaceBomb(method, skill) //attacks
+if (modTypeExists("bomb"))
+{
+    ResetCD(skill);
+    state = StandState.Idle;
+    exit;
+}
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 xTo = objPlayer.x + lengthdir_x(8, _dir);
 yTo = objPlayer.y + lengthdir_y(8, _dir);
@@ -16,14 +22,6 @@ switch (attackState)
     case 1:
         BombEffect(x, y);
         BombCreate(x, y, skills[skill, StandSkill.Damage]);
-        skills[skill, StandSkill.Icon] = global.sprSkillDetonate;
-        skills[skill, StandSkill.Skill] = DetonateBomb;
-        if (name == "KQ: Bites The Dust")
-        {
-            skills[skill, StandSkill.IconAlt] = global.sprSkillDetonate;
-            skills[skill, StandSkill.SkillAlt] = DetonateBomb;
-        }
-        skills[skill, StandSkill.MaxCooldown] = 2;
         FireCD(skill);
         state = StandState.Idle;
     break;
@@ -66,6 +64,11 @@ switch (attackState)
         {
             instance_destroy(_b);
         }
+        _b = modTypeFind("ScBubble");
+        if (_b)
+        {
+            instance_destroy(_b);
+        }
         with (objModEmpty)
         {
             if ("type" in self)
@@ -77,14 +80,6 @@ switch (attackState)
                 }
             }
         }
-        skills[skill, StandSkill.Icon] = global.sprSkillFirstBomb;
-        skills[skill, StandSkill.Skill] = PlaceBomb;
-        if (name == "KQ: Bites The Dust")
-        {
-            skills[skill, StandSkill.IconAlt] = global.sprSkillCoinBomb;
-            skills[skill, StandSkill.SkillAlt] = TripleCoin;
-        }
-        skills[skill, StandSkill.MaxCooldown] = 5;
         FireCD(skill);
         state = StandState.Idle;
     break;
@@ -199,13 +194,22 @@ _stats[StandStat.BaseSpd] = 0.4;
 var _skills = StandSkillInit(_stats);
 
 var sk;
+sk = StandState.SkillAOff;
+_skills[sk, StandSkill.Skill] = DetonateBomb;
+_skills[sk, StandSkill.Icon] = global.sprSkillDetonate;
+_skills[sk, StandSkill.MaxCooldown] = 2;
+_skills[sk, StandSkill.Desc] = @"detonate bomb:
+explodes any bombs already placed.";
+
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;
 _skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.01) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 4;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
-_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = @"barrage:
+launches a barrage of punches.
+dmg: " + DMG;
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = PlaceBomb;

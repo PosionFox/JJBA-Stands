@@ -7,22 +7,30 @@
 
 var _map = ds_map_create();
 
-if (instance_exists(objPlayer))
+if (instance_exists(player))
 {
-    if ("myStand" in objPlayer)
+    if ("myStand" in player and instance_exists(STAND))
     {
-        if (instance_exists(objPlayer.myStand))
+        _map[? "jjbamAbility"] = STAND.saveKey; // save stand
+        // _map[? "jjbamAbilitySkills"] = string(array_clone(objPlayer.myStand.skills)); // save stand skills
+        // Trace(_map[? "jjbamAbilitySkills"]);
+        
+        switch (STAND.saveKey)
         {
-            _map[? "jjbamAbility"] = objPlayer.myStand.saveKey; // save stand
-            // _map[? "jjbamAbilitySkills"] = string(array_clone(objPlayer.myStand.skills)); // save stand skills
-            // Trace(_map[? "jjbamAbilitySkills"]);
-            
-            switch (objPlayer.myStand.name)
-            {
-                case "Shadow The World":
-                    _map[? "jjbamStwXp"] = objPlayer.myStand.xp; // save stw xp
-                break;
-            }
+            case "jjbamStw": // save stw xp
+                _map[? "jjbamStwXp"] = STAND.xp;
+            break;
+            case "jjbamTsk": // save tusk acts
+                _map[? "jjbamTuskA1"] = STAND.hasAct1;
+                _map[? "jjbamTuskA2"] = STAND.hasAct2;
+                _map[? "jjbamTuskA3"] = STAND.hasAct3;
+                _map[? "jjbamTuskA4"] = STAND.hasAct4;
+            break;
+            case "jjbamD4c":
+                _map[? "jjbamD4cHasArm"] = STAND.hasArm;
+                _map[? "jjbamD4cHasHeart"] = STAND.hasHeart;
+                _map[? "jjbamD4cHasEye"] = STAND.hasEye;
+            break;
         }
     }
     if ("skCustomStands" in objPlayer)
@@ -56,31 +64,52 @@ switch (_standCompatibility)
 }
 switch (_stand)
 {
+    // p3
     case "jjbamTw": GiveTheWorld(); break;
     case "jjbamSp": GiveStarPlatinum(); break;
     case "jjbamSc": GiveSilverChariot(); break;
-    case "jjbamSptw": GiveSPTW(); break;
     case "jjbamAnubis": GiveAnubis(); break;
-    case "jjbamD4c": GiveD4C(); break;
-    case "jjbamD4clt": GiveD4CLT(); break;
-    case "jjbamTwau": GiveTheWorldAU(); break;
     case "jjbamStw":
         GiveShadowTheWorld();
         var _xp = _map[? "jjbamStwXp"];
         if (_xp == undefined)
         {
-            objPlayer.myStand.xp = 0;
+            STAND.xp = 0;
         }
         else
         {
-            objPlayer.myStand.xp = _xp;
+            STAND.xp = _xp;
         }
     break;
+    // p4
+    case "jjbamSptw": GiveSPTW(); break;
     case "jjbamKq": GiveKillerQueen(); break;
     case "jjbamKqbtd": GiveKillerQueenBtD(); break;
-    case "jjbamSw": GiveSpookyWorld(); break;
+    // p5
     case "jjbamSf": GiveStickyFingers(); break;
     case "jjbamGe": GiveGoldExperience(); break;
+    // p6
+    case "jjbamWs": GiveWhiteSnake(); break;
+    case "jjbamCmn": GiveCMoon(); break;
+    // p7
+    case "jjbamD4c":
+        GiveD4C();
+        STAND.hasArm = _map[? "jjbamD4cHasArm"];
+        STAND.hasHeart = _map[? "jjbamD4cHasHeart"];
+        STAND.hasEye = _map[? "jjbamD4cHasEye"];
+    break;
+    case "jjbamD4clt": GiveD4CLT(); break;
+    case "jjbamTwau": GiveTheWorldAU(); break;
+    case "jjbamSpin": GiveSpin(); break;
+    case "jjbamTsk":
+        GiveTusk();
+        STAND.hasAct1 = _map[? "jjbamTuskA1"];
+        STAND.hasAct2 = _map[? "jjbamTuskA2"];
+        STAND.hasAct3 = _map[? "jjbamTuskA3"];
+        STAND.hasAct4 = _map[? "jjbamTuskA4"];
+    break;
+    // other
+    case "jjbamSw": GiveSpookyWorld(); break;
 }
 
 // Trace(_map[? "jjbamAbilitySkills"]);
@@ -133,6 +162,12 @@ return array_clone(class);
 
 #define Main
 
+#macro player objPlayer
+#macro MOBJ objModEmpty
+#macro STAND objPlayer.myStand
+#macro CAM WorldControl
+#macro ENEMY parEnemy
+
 global.timeIsFrozen = false;
 
 // order for loading stuff matters
@@ -163,6 +198,7 @@ if (modTypeExists("loveTrain"))
         _t.hp -= (_t.hpMax * 0.06) + _damage;
         objPlayer.invulFrames = 0;
         LTPunishEffect(_t.x, _t.y);
+        audio_play_sound(global.sndLtPunish, 5, false);
     }
 }
 if (modSubtypeExists("geFrog"))
@@ -178,17 +214,20 @@ if (modSubtypeExists("geFrog"))
 
 #define OnMobDeath(_mob)
 
-if (instance_exists(objPlayer))
+if (instance_exists(player))
 {
-    if ("myStand" in objPlayer)
+    if ("myStand" in player)
     {
-        switch (objPlayer.myStand.name)
+        switch (STAND.name)
         {
             case "Shadow The World":
-                if (objPlayer.myStand.xp < objPlayer.myStand.maxXp)
+                if (STAND.xp < STAND.maxXp)
                 {
-                    objPlayer.myStand.xp += _mob.hpMax;
+                    STAND.xp += _mob.hpMax;
                 }
+            break;
+            case "Tusk":
+                STAND.act4Meter += _mob.hpMax * 0.25;
             break;
         }
     }

@@ -18,7 +18,7 @@ var _skills = StandSkillInit(_stats);
 var sk;
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;
-_skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.02) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 1.5 + (objPlayer.level * 0.02) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 5;

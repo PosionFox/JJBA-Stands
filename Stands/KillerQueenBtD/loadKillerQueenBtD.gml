@@ -1,16 +1,17 @@
 
 #define TripleCoin(method, skill) //attacks
+if (modTypeCount("coinBomb") >= 9)
+{
+    ResetCD(skill);
+    state = StandState.Idle;
+    exit;
+}
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
 audio_play_sound(sndCoin2, 0, false);
 CoinBombCreate(objPlayer.x, objPlayer.y, _dir - 45);
 CoinBombCreate(objPlayer.x, objPlayer.y, _dir);
 CoinBombCreate(objPlayer.x, objPlayer.y, _dir + 45);
-skills[skill, StandSkill.Icon] = global.sprSkillDetonate;
-skills[skill, StandSkill.Skill] = DetonateBomb;
-skills[skill, StandSkill.IconAlt] = global.sprSkillDetonate;
-skills[skill, StandSkill.SkillAlt] = DetonateBomb;
-skills[skill, StandSkill.MaxCooldown] = 2;
 FireCD(skill);
 state = StandState.Idle;
 
@@ -162,29 +163,20 @@ image_xscale = lerp(image_xscale, _xs, 0.1);
 image_yscale = lerp(image_yscale, _ys, 0.1);
 image_alpha = lerp(image_alpha, 0.5, 0.1);
 
+var pd = point_direction(x, y, mouse_x, mouse_y);
+var dd = angle_difference(direction, pd);
+direction -= min(abs(dd), 2) * sign(dd);
+
 life -= 1 / room_speed;
 if (life <= 0)
 {
     instance_destroy(self);
 }
-if (instance_exists(parEnemy))
-{
-    var _near = instance_nearest(x, y, parEnemy);
-    if (distance_to_object(_near) < 64)
-    {
-        var pd = point_direction(x, y, _near.x, _near.y);
-        var dd = angle_difference(direction, pd);
-        direction -= min(abs(dd), 2) * sign(dd);
-    }
-    if (distance_to_object(_near) < 8)
-    {
-        instance_destroy(self);
-    }
-}
 
 #define ScBubbleDestroy
 
 audio_play_sound(global.sndDetonateBomb, 0, false);
+
 with (parEnemy)
 {
     var _p = modTypeFind("ScBubble");
@@ -193,6 +185,7 @@ with (parEnemy)
         hp -= (hpMax * 0.04) + 5;
     }
 }
+
 ExplosionEffect(x, y);
 ExplosionCreate(x, y, 32, true);
 instance_destroy(self);
@@ -351,41 +344,49 @@ _stats[StandStat.BaseSpd] = 0.4;
 var _skills = StandSkillInit(_stats);
 
 var sk;
+sk = StandState.SkillAOff;
+_skills[sk, StandSkill.Skill] = DetonateBomb;
+_skills[sk, StandSkill.Icon] = global.sprSkillDetonate;
+_skills[sk, StandSkill.MaxCooldown] = 2;
+_skills[sk, StandSkill.Desc] = @"detonate bomb:
+explodes any bombs already placed.";
+
+sk = StandState.SkillBOff;
+_skills[sk, StandSkill.Skill] = TripleCoin;
+_skills[sk, StandSkill.Icon] = global.sprSkillCoinBomb;
+_skills[sk, StandSkill.MaxCooldown] = 5;
+_skills[sk, StandSkill.Desc] = @"the wealthy:
+tosses three coins forward, these can be detonated on demand.";
+
+sk = StandState.SkillDOff;
+_skills[sk, StandSkill.Skill] = ShaSummon;
+_skills[sk, StandSkill.Icon] = global.sprSkillSHA;
+_skills[sk, StandSkill.MaxCooldown] = 12;
+_skills[sk, StandSkill.Desc] = @"killer queen's second bomb:
+summons sha in combat, chasing and exploding enemies on its own.";
+
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;
 _skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.02) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = @"barrage:
+launches a barrage of punches.
+dmg: " + DMG;
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = PlaceBomb;
 _skills[sk, StandSkill.Icon] = global.sprSkillFirstBomb;
-_skills[sk, StandSkill.MaxCooldown] = 1;
-_skills[sk, StandSkill.SkillAlt] = TripleCoin;
-_skills[sk, StandSkill.IconAlt] = global.sprSkillCoinBomb;
-_skills[sk, StandSkill.MaxCooldownAlt] = 5;
+_skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.Desc] = @"killer queen's first bomb:
-places a bomb on the nearest enemy or ground.
-
-(hold) the wealthy:
-tosses three coins forward, these can be detonated on demand.
-
-(after cast) detonate bomb:
-explodes any bombs already placed.";
+places a bomb on the nearest enemy or ground.";
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = StrayCat;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrayCat;
 _skills[sk, StandSkill.MaxCooldown] = 12;
-_skills[sk, StandSkill.SkillAlt] = ShaSummon;
-_skills[sk, StandSkill.IconAlt] = global.sprSkillSHA;
-_skills[sk, StandSkill.MaxCooldownAlt] = 12;
 _skills[sk, StandSkill.Desc] = @"stray cat:
-releases a bubble that chases enemies and explodes on contact.
-
-(hold) killer queen's second bomb:
-summons sha in combat, chasing and exploding enemies on its own.";
+releases an explosive bubble that can be controlled.";
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = PlaceThirdBomb;

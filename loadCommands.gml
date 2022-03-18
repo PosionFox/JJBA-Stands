@@ -8,21 +8,29 @@ with (objPlayer) {
     }
 }
 switch (args[0]) {
+    // p3
     case "sp": GiveStarPlatinum(); break;
     case "sc": GiveSilverChariot(); break;
-    case "sptw": GiveSPTW(); break;
     case "tw": GiveTheWorld(); break;
     case "anubis": GiveAnubis(); break;
+    case "stw": GiveShadowTheWorld(); break;
+    // p4
+    case "sptw": GiveSPTW(); break;
+    case "kq": GiveKillerQueen(); break;
+    case "kqbtd": GiveKillerQueenBtD(); break;
+    // p5
+    case "sf": GiveStickyFingers(); break;
+    case "ge": GiveGoldExperience(); break;
+    // p6
+    case "ws": GiveWhiteSnake(); break;
+    case "cm": GiveCMoon(); break;
+    // p7
+    case "spn": GiveSpin(); break;
     case "d4c": GiveD4C(); break;
     case "d4clt": GiveD4CLT(); break;
     case "twau": GiveTheWorldAU(); break;
-    case "stw": GiveShadowTheWorld(); break;
-    case "kq": GiveKillerQueen(); break;
-    case "kqbtd": GiveKillerQueenBtD(); break;
-    case "sf": GiveStickyFingers(); break;
-    case "ge": GiveGoldExperience(); break;
-    case "ws": GiveWhiteSnake(); break;
-    case "cm": GiveCMoon(); break;
+    case "tusk": GiveTusk(); break;
+    default: Trace("not found");
 }
 
 #define TestCommand

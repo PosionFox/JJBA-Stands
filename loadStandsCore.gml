@@ -48,6 +48,7 @@ var _height = display_get_gui_height() - 40;
 //draw_text(128, 128, string(objPlayer.dmg)); // debug
 
 draw_text(168, _height - 160, string_lower(name));
+draw_text(24, _height - 84, "q");
 
 var _start = StandState.SkillAOff;
 var _end = StandState.SkillDOff;
@@ -73,7 +74,8 @@ for (var i = _start; i <= _end; i++)
             draw_sprite_ext(global.sprSkillCooldown, 0, xx, yy, 2, cyy, 0, c_white, 0.8);
             draw_text(xx + 8, yy + 10, string(skills[i, StandSkill.Cooldown]));
         }
-    draw_text(xx + 8, _height - 120, string_lower(skills[i, StandSkill.Key]));
+        
+        draw_text(xx + 8, _height - 120, string_lower(skills[i, StandSkill.Key]));
     }
     // hold
     if (skills[i, StandSkill.SkillAlt] != AttackHandler)
@@ -105,6 +107,24 @@ for (var i = _start; i <= _end; i++)
         draw_set_valign(fa_middle);
     }
 }
+
+#define StandSkillRunCD(s)
+
+for (var i = StandState.LEN - 1; i > 0; i--)
+{
+    if (s[@ i, StandSkill.Cooldown] > 0)
+    {
+        s[@ i, StandSkill.Cooldown] -= 1 / room_speed;
+    }
+    if (s[@ i, StandSkill.CooldownAlt] > 0)
+    {
+        s[@ i, StandSkill.CooldownAlt] -= 1 / room_speed;
+    }
+}
+
+#define StandSkillDefaultCDs
+
+StandSkillRunCD(skills);
 
 #define StandSkillManage
 
@@ -163,12 +183,18 @@ if (state != StandState.Idle)
     }
 }
 
-for (var i = StandState.LEN - 1; i > 0; i--) {
-    if (skills[i, StandSkill.Cooldown] > 0) {
-        skills[i, StandSkill.Cooldown] -= 1 / room_speed;
-    }
-    if (skills[i, StandSkill.CooldownAlt] > 0) {
-        skills[i, StandSkill.CooldownAlt] -= 1 / room_speed;
+script_execute(runCDsMethod);
+
+#define StandDefaultSummon
+
+if (keyboard_check_pressed(ord("Q")) and state == StandState.Idle) {
+    active = !active;
+    if (active)
+    {
+        if (!audio_is_playing(summonSound) and summonSound != noone)
+        {
+            audio_play_sound(summonSound, 0, false);
+        }
     }
 }
 
@@ -182,16 +208,7 @@ yTo = owner.y - 8;
 
 depth = -y;
 
-if (keyboard_check_pressed(ord("Q")) and state == StandState.Idle) {
-    active = !active;
-    if (active)
-    {
-        if (!audio_is_playing(summonSound) and summonSound != noone)
-        {
-            audio_play_sound(summonSound, 0, false);
-        }
-    }
-}
+script_execute(summonMethod);
 
 x = lerp(x, xTo, spd);
 y = lerp(y, yTo, spd);
@@ -264,8 +281,10 @@ var _stand = ModObjectSpawn(objPlayer.x, objPlayer.y, 0);
 with (_stand)
 {
     owner = objPlayer;
+    isShiny = irandom(1);
     type = "stand";
     saveKey = "jjbamStandless";
+    discType = noone;
     name = _name;
     sprite_index = _sprite;
     color = _color;
@@ -273,6 +292,8 @@ with (_stand)
     attackStateTimer = 0;
     summonSound = global.sndStandSummon;
     // state
+    summonMethod = StandDefaultSummon;
+    runCDsMethod = StandSkillDefaultCDs;
     active = false;
     state = StandState.Idle;
     alphaTarget = 0;

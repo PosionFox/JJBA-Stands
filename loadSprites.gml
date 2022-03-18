@@ -48,6 +48,10 @@ global.sprGeScorpion = sprite_add("Resources/Sprites/GeScorpion.png", 2, false, 
 // silver chariot
 global.sprScAttack = sprite_add("Resources/Sprites/SCAttack.png", 1, false, false, 16, 16);
 
+// spin
+global.sprSteelBall = sprite_add("Resources/Sprites/SteelBall.png", 1, false, false, 8, 8);
+global.sprSteelBallProj = sprite_add("Resources/Sprites/SteelBallProj.png", 1, false, false, 8, 8);
+
 #endregion
 
 #region Effects
@@ -171,6 +175,10 @@ global.sprSpookyWorld = sprite_add("Resources/Sprites/SpookyWorld.png", 1, false
 global.sprGoldExperience = sprite_add("Resources/Sprites/GoldExperience.png", 1, false, false, 16, 19);
 global.sprWhiteSnake = sprite_add("Resources/Sprites/Whitesnake.png", 1, false, false, 16, 19);
 global.sprCMoon = sprite_add("Resources/Sprites/CMoon.png", 1, false, false, 16, 19);
+global.sprTuskAct1 = sprite_add("Resources/Sprites/TuskAct1.png", 1, false, false, 16, 19);
+global.sprTuskAct2 = sprite_add("Resources/Sprites/TuskAct2.png", 1, false, false, 16, 19);
+global.sprTuskAct3 = sprite_add("Resources/Sprites/TuskAct3.png", 1, false, false, 16, 19);
+global.sprTuskAct4 = sprite_add("Resources/Sprites/TuskAct4.png", 1, false, false, 16, 19);
 
 #endregion
 

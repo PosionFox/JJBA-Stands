@@ -51,6 +51,6 @@ var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
 with (_s)
 {
     summonSound = global.sndSpSummon;
-    saveKey = "jjbamSp";
-    discType = global.jjbamDiscSp;
+    saveKey = "jjbamCmn";
+    discType = global.jjbamDiscCmn;
 }

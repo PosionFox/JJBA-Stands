@@ -418,7 +418,76 @@ if (instance_exists(target))
     time += 1 / room_speed;
 }
 
+#define SteelBallCreate(_x, _y, _dir, _dmg)
 
+var _o = ProjectileCreate(_x, _y)
+with (_o)
+{
+    type = "steelBall";
+    sprite_index = global.sprSteelBallProj;
+    direction = _dir;
+    destroyOnImpact = false;
+    damage = _dmg;
+    isGuided = false;
+    empowered = false;
+    despawnTime = room_speed * 20;
+    live = 3;
+    
+    state = "chase";
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(SteelBallStep))
+}
+return _o;
 
+#define SteelBallStep
 
+live -= 1 / room_speed;
+if (live <= 0)
+{
+    state = "comeback";
+}
+
+var _c = collision_circle(x, y, 4, MOBJ, false, true);
+if (_c and "type" in _c)
+{
+    if (_c.type == "steelBall" and !empowered)
+    {
+        damage *= 2;
+        empowered = true;
+    }
+}
+
+if (empowered)
+{
+    FireEffect(c_lime, c_yellow);
+}
+
+switch (state)
+{
+    case "chase":
+        if (isGuided)
+        {
+            var pd = point_direction(x, y, mouse_x, mouse_y);
+            var dd = angle_difference(direction, pd);
+            direction -= min(abs(dd), 3) * sign(dd);
+        }
+        if (place_meeting(x, y, parEnemy))
+        {
+            state = "comeback";
+        }
+    break;
+    case "comeback":
+        var pd = point_direction(x, y, STAND.x, STAND.y);
+        var dd = angle_difference(direction, pd);
+        direction -= min(abs(dd), 8) * sign(dd);
+        if (place_meeting(x, y, STAND))
+        {
+            if ("balls" in STAND)
+            {
+                STAND.balls++;
+            }
+            instance_destroy(self);
+        }
+    break;
+}
 

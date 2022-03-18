@@ -28,12 +28,12 @@ if (modTypeExists(_type))
         }
     }
 }
-return false;
+return noone;
 
 #define modTypeFindNearest(_x, _y, _type)
 
 var _list = [];
-with (objModEmpty)
+with (MOBJ)
 {
     if ("type" in self)
     {
@@ -105,3 +105,34 @@ with (objModEmpty)
 }
 return noone;
 
+#define modSubtypeFindNearest(_x, _y, _type)
+
+var _list = [];
+with (MOBJ)
+{
+    if ("subtype" in self)
+    {
+        if (subtype == "clone")
+        {
+            array_push(_list, self);
+        }
+    }
+}
+var _nearest = _list[0];
+for (var i = 0; i < array_length(_list); i++)
+{
+    var _nearestDis;
+    with (_nearest)
+    {
+        _nearestDis = distance_to_point(_x, _y);
+    }
+    
+    with (_list[i])
+    {
+        if (distance_to_point(_x, _y) < _nearestDis)
+        {
+            _nearest = self;
+        }
+    }
+}
+return _nearest;

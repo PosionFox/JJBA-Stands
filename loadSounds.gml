@@ -6,11 +6,16 @@ global.sndStandSummon = audio_create_stream("Resources/Sounds/standSummon.ogg");
 global.sndSpSummon = audio_create_stream("Resources/Sounds/spSummon.ogg");
 global.sndTwSummon = audio_create_stream("Resources/Sounds/twSummon.ogg");
 global.sndD4CSummon = audio_create_stream("Resources/Sounds/d4cSummon.ogg");
+global.sndD4CLTSummon = audio_create_stream("Resources/Sounds/d4cltSummon.ogg");
 global.sndKqSummon = audio_create_stream("Resources/Sounds/kqSummon.ogg");
 global.sndKqbtdSummon = audio_create_stream("Resources/Sounds/kqbtdSummon.ogg");
 global.sndSfSummon = audio_create_stream("Resources/Sounds/sfSummon.ogg");
 global.sndStwSummon = audio_create_stream("Resources/Sounds/stwSummon.ogg");
 global.sndGeSummon = audio_create_stream("Resources/Sounds/geSummon.ogg");
+global.sndTa1Summon = audio_create_stream("Resources/Sounds/ta1Summon.ogg");
+global.sndTa2Summon = audio_create_stream("Resources/Sounds/ta2Summon.ogg");
+global.sndTa3Summon = audio_create_stream("Resources/Sounds/ta3Summon.ogg");
+global.sndTa4Summon = audio_create_stream("Resources/Sounds/ta4Summon.ogg");
 
 // generic
 global.sndPunchAir = audio_create_stream("Resources/Sounds/punchAir.ogg");
@@ -56,6 +61,7 @@ global.sndLoveTrain = audio_create_stream("Resources/Sounds/loveTrain.ogg");
 global.sndLtStart = audio_create_stream("Resources/Sounds/ltStart.ogg");
 global.sndLtLoop = audio_create_stream("Resources/Sounds/ltLoop.ogg");
 global.sndLtEnd = audio_create_stream("Resources/Sounds/ltEnd.ogg");
+global.sndLtPunish = audio_create_stream("Resources/Sounds/ltPunish.ogg");
 
 // sticky fingers
 global.sndSfPunch = audio_create_stream("Resources/Sounds/sfPunch.ogg");

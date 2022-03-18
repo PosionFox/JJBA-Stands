@@ -1,31 +1,46 @@
 
+#define RevolverReload(m, s)
+
+bullets = 6;
+FireCD(s);
+state = StandState.Idle;
+
 #define TrickShot(method, skill)
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
-var _p = ProjectileCreate(objPlayer.x, objPlayer.y);
-with (_p)
+if (bullets > 0)
 {
-    type = "bulletTime";
-    prevSkill = skill;
-    knockback = 2;
-    audio_play_sound(global.sndGunShot, 0, false);
-    baseSpd = 10;
-    sprite_index = global.sprBtdVoidTrace;
-    image_blend = c_yellow;
-    mask_index = global.sprKnife;
-    despawnTime = room_speed * 5;
-    damage = other.skills[skill, StandSkill.Damage];
-    direction = _dir;
-    canMoveInTs = false;
-    GlowOrderCreate(self, 0.1, c_yellow);
-    
-    InstanceAssignMethod(self, "destroy", ScriptWrap(TrickShotDestroy), true);
+    var _p = ProjectileCreate(objPlayer.x, objPlayer.y);
+    with (_p)
+    {
+        type = "bulletTime";
+        prevSkill = skill;
+        knockback = 2;
+        audio_play_sound(global.sndGunShot, 0, false);
+        baseSpd = 10;
+        sprite_index = global.sprBtdVoidTrace;
+        image_blend = c_yellow;
+        mask_index = global.sprKnife;
+        despawnTime = room_speed * 5;
+        damage = other.skills[skill, StandSkill.Damage];
+        direction = _dir;
+        canMoveInTs = false;
+        GlowOrderCreate(self, 0.1, c_yellow);
+        
+        InstanceAssignMethod(self, "destroy", ScriptWrap(TrickShotDestroy), true);
+    }
+    bullets--;
+    skills[skill, StandSkill.Skill] = BulletTime;
+    skills[skill, StandSkill.MaxCooldown] = 0.5;
+    skills[skill, StandSkill.Icon] = global.sprSkillBulletTime;
+    FireCD(skill);
+    state = StandState.Idle;
 }
-skills[skill, StandSkill.Skill] = BulletTime;
-skills[skill, StandSkill.MaxCooldown] = 0.5;
-skills[skill, StandSkill.Icon] = global.sprSkillBulletTime;
-FireCD(skill);
-state = StandState.Idle;
+else
+{
+    ResetCD(skill);
+    state = StandState.Idle;
+}
 
 #define BulletTime(method, skill)
 
@@ -52,24 +67,33 @@ StandDefaultPos();
 
 if (attackStateTimer >= 0.15)
 {
-    var _snd = audio_play_sound(global.sndGunShot, 0, false);
-    audio_sound_pitch(_snd, random_range(0.9, 1.1));
-    audio_sound_gain(_snd, 0.5, 0);
-    var _p = ProjectileCreate(objPlayer.x, objPlayer.y);
-    with (_p)
+    if (bullets > 0)
     {
-        baseSpd = 10;
-        sprite_index = global.sprBtdVoidTrace;
-        image_blend = c_yellow;
-        mask_index = global.sprKnife;
-        despawnTime = room_speed * 5;
-        damage = other.skills[skill, StandSkill.Damage];
-        direction = _dir;
-        canMoveInTs = false;
-        GlowOrderCreate(self, 0.1, c_yellow);
+        var _snd = audio_play_sound(global.sndGunShot, 0, false);
+        audio_sound_pitch(_snd, random_range(0.9, 1.1));
+        audio_sound_gain(_snd, 0.5, 0);
+        var _p = ProjectileCreate(objPlayer.x, objPlayer.y);
+        with (_p)
+        {
+            baseSpd = 10;
+            sprite_index = global.sprBtdVoidTrace;
+            image_blend = c_yellow;
+            mask_index = global.sprKnife;
+            despawnTime = room_speed * 5;
+            damage = other.skills[skill, StandSkill.Damage];
+            direction = _dir;
+            canMoveInTs = false;
+            GlowOrderCreate(self, 0.1, c_yellow);
+        }
+        bullets--;
+        attackStateTimer = 0;
+        attackState++;
     }
-    attackStateTimer = 0;
-    attackState++;
+    else
+    {
+        FireCD(skill);
+        state = StandState.Idle;
+    }
 }
 attackStateTimer += 1 / room_speed;
 if (attackState >= 3)
@@ -113,13 +137,13 @@ yTo = objPlayer.y + lengthdir_y(_dis, _dir);
 
 #define CloneSwap(method, skill)
 
-if (modTypeExists("clone"))
+if (modSubtypeExists("clone"))
 {
-    var _near = modTypeFindNearest(mouse_x, mouse_y, "clone");
-    var prevX = objPlayer.x;
-    var prevY = objPlayer.y;
-    objPlayer.x = _near.x;
-    objPlayer.y = _near.y;
+    var _near = modSubtypeFindNearest(mouse_x, mouse_y, "clone");
+    var prevX = player.x;
+    var prevY = player.y;
+    player.x = _near.x;
+    player.y = _near.y;
     _near.x = prevX;
     _near.y = prevY;
     FireCD(skill);
@@ -222,10 +246,14 @@ switch (attackState)
     break;
     case 2:
         USAflag.visible = false;
-        var _xx = x + lengthdir_x(8, _dir);
-        var _yy = y + lengthdir_y(8, _dir);
-        var _o = CloneCreate(_xx, _yy);
-        _o.damage = skills[skill, StandSkill.Damage];
+        var _clonesMax = ceil(player.level / 10);
+        for (var i = 0; i < _clonesMax; i++)
+        {
+            var _xx = x + lengthdir_x(4 + (4 * i), _dir);
+            var _yy = y + lengthdir_y(4 + (4 * i), _dir);
+            var _o = CloneCreate(_xx, _yy);
+            _o.damage = skills[skill, StandSkill.Damage];
+        }
         FireCD(skill);
         state = StandState.Idle;
     break;
@@ -408,6 +436,12 @@ var _skills = StandSkillInit(_stats);
 
 var sk;
 sk = StandState.SkillAOff;
+_skills[sk, StandSkill.Skill] = RevolverReload;
+_skills[sk, StandSkill.Icon] = global.sprSkillCooldown;
+_skills[sk, StandSkill.MaxCooldown] = 3;
+_skills[sk, StandSkill.Desc] = "reload revolver:\nreloads";
+
+sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = TrickShot;
 _skills[sk, StandSkill.Damage] = 2 + (objPlayer.level * 0.2) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillGunShot;
@@ -419,14 +453,14 @@ fire a projectile forwards.
 redirects the projectile into the nearest enemy.
 dmg: " + DMG;
 
-sk = StandState.SkillBOff;
+sk = StandState.SkillCOff;
 _skills[sk, StandSkill.Skill] = BulletVolley;
 _skills[sk, StandSkill.Damage] = 2 + (objPlayer.level * 0.1) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.Desc] = "bullet volley:\nfire a volley of three projectiles.\ndmg: " + DMG;
 
-sk = StandState.SkillCOff;
+sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = CloneSwap;
 _skills[sk, StandSkill.Icon] = global.sprSkillCloneSwap;
 _skills[sk, StandSkill.MaxCooldown] = 2;
@@ -460,8 +494,9 @@ summons a clone of the enemy you aim at that
 chases the target and explodes on contact.
 
 (hold) clone summon:
-summons a clone of the user to aid them in combat,
-the clone can be either a gunslinger or a fighter.
+summons clones of the user to aid them in combat,
+the amount of clones to summon depends
+on the user's level.
 dmg: " + DMG;
 
 sk = StandState.SkillD;
@@ -481,6 +516,12 @@ with (_s)
     saveKey = "jjbamD4c";
     discType = global.jjbamDiscD4c;
     
+    bullets = 6;
+    
+    hasArm = false;
+    hasHeart = false;
+    hasEye = false;
+    
     USAflag = ModObjectSpawn(x, y, depth);
     with (USAflag)
     {
@@ -488,7 +529,46 @@ with (_s)
         visible = false;
     }
     
-    InstanceAssignMethod(self, "destroy", ScriptWrap(D4Cdestroy), true);
+    InstanceAssignMethod(self, "drawGUI", ScriptWrap(D4CDrawGui));
+    InstanceAssignMethod(self, "destroy", ScriptWrap(D4Cdestroy));
+}
+
+#define D4CEvolveIfCan
+
+if (STAND.hasArm and STAND.hasHeart and STAND.hasEye)
+{
+    GiveD4CLT();
+}
+
+#define D4CDrawGui
+
+var _width = display_get_gui_width();
+var _height = display_get_gui_height() - 40;
+
+var _cArm = c_dkgray;
+var _cHeart = c_dkgray;
+var _cEye = c_dkgray;
+if (hasArm)
+{
+    _cArm = c_white;
+}
+if (hasHeart)
+{
+    _cHeart = c_white;
+}
+if (hasEye)
+{
+    _cEye = c_white;
+}
+draw_sprite_ext(global.sprBtdStare, 0, 320, _height - 104, 2, 2, 0, _cArm, 1);
+draw_sprite_ext(global.sprHeart, 0, 320, (_height - 104) + 16, 2, 2, 0, _cHeart, 1);
+draw_sprite_ext(global.sprEye, 0, 320, (_height - 104) + 32, 2, 2, 0, _cEye, 1);
+
+for (var i = 0; i < bullets; i++)
+{
+    var xx = 425 + lengthdir_x(4, i * 60);
+    var yy = _height - 104 + lengthdir_y(4, i * 60);
+    draw_sprite(global.sprCoin, 0, xx, yy);
 }
 
 #define D4Cdestroy
