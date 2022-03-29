@@ -1,4 +1,87 @@
 
+#define SlashingStrikes(m, s)
+var _dis = point_distance(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+var _dir = DIR_PLAYER_TO_MOUSE;
+
+xTo = objPlayer.x + lengthdir_x(stats[StandStat.AttackRange], _dir + random_range(-4, 4));
+yTo = objPlayer.y + lengthdir_y(stats[StandStat.AttackRange], _dir + random_range(-4, 4));
+image_xscale = mouse_x > objPlayer.x ? 1 : -1;
+
+attackStateTimer += DT;
+if (distance_to_point(xTo, yTo) < 2)
+{
+    if (attackStateTimer >= 0.08)
+    {
+        var _snd = audio_play_sound(global.sndPunchAir, 0, false);
+        audio_sound_pitch(_snd, random_range(0.9, 1.1));
+        var xx = x + random_range(-4, 4);
+        var yy = y + random_range(-8, 8);
+        var ddir = _dir + random_range(-45, 45);
+        var _p = PunchCreate(xx, yy, ddir, skills[s, StandSkill.Damage], 0);
+        _p.onHitSound = global.sndPunchHit;
+        _p.onHitEvent = SlashNearest;
+        InstanceAssignMethod(_p, "step", ScriptWrap(StandBarrageStep), true);
+        attackStateTimer = 0;
+    }
+    skills[s, StandSkill.ExecutionTime] += DT;
+}
+
+if (keyboard_check_pressed(ord(skills[s, StandSkill.Key])))
+{
+    if (skills[s, StandSkill.ExecutionTime] > 0)
+    {
+        FireCD(s);
+    }
+    else
+    {
+        ResetCD(s);
+    }
+    state = StandState.Idle;
+}
+
+#define SlashNearest
+
+if (instance_exists(ENEMY))
+{
+    var _n = instance_nearest(x, y, ENEMY);
+    LastingDamageCreate(_n, 0.001, 3, true);
+}
+
+#define MeleePull(m, s)
+
+switch (attackState)
+{
+    case 0:
+        GrabCreate(0, 0);
+        attackState++;
+    break;
+    case 1:
+        xTo = player.x + lengthdir_x(32, DIR_PLAYER_TO_MOUSE);
+        yTo = player.y + lengthdir_y(32, DIR_PLAYER_TO_MOUSE);
+        if (attackStateTimer > 0.8)
+        {
+            attackState++;
+        }
+    break;
+    case 2:
+        xTo = player.x + lengthdir_x(4, DIR_PLAYER_TO_MOUSE);
+        yTo = player.y + lengthdir_y(4, DIR_PLAYER_TO_MOUSE);
+        if (attackStateTimer > 1)
+        {
+            attackState++;
+        }
+    break;
+    case 3:
+        var _o = modTypeFind("grab");
+        if (instance_exists(_o))
+        {
+            instance_destroy(_o);
+        }
+        EndAtk(s);
+    break;
+}
+attackStateTimer += DT;
+
 #define SuperCloneSummon(m, skill)
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 xTo = objPlayer.x + lengthdir_x(8, _dir);
@@ -165,8 +248,14 @@ var _skills = StandSkillInit(_stats);
 
 var sk;
 sk = StandState.SkillAOff;
+_skills[sk, StandSkill.Skill] = RevolverReload;
+_skills[sk, StandSkill.Icon] = global.sprSkillCooldown;
+_skills[sk, StandSkill.MaxCooldown] = 3;
+_skills[sk, StandSkill.Desc] = "reload revolver:\nreloads";
+
+sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = TrickShot;
-_skills[sk, StandSkill.Damage] = 2 + (objPlayer.level * 0.2) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 4 + (objPlayer.level * 0.2) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillGunShot;
 _skills[sk, StandSkill.MaxCooldown] = 0.5;
 _skills[sk, StandSkill.Desc] = @"trick shot:
@@ -176,26 +265,34 @@ fire a projectile forwards.
 redirects the projectile into the nearest enemy.
 dmg: " + DMG;
 
-sk = StandState.SkillBOff;
+sk = StandState.SkillCOff;
 _skills[sk, StandSkill.Skill] = BulletVolley;
-_skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.1) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.3) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.Desc] = "bullet volley:\nfire a volley of three projectiles.\ndmg: " + DMG;
 
-sk = StandState.SkillCOff;
+sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = CloneSwap;
 _skills[sk, StandSkill.Icon] = global.sprSkillCloneSwap;
 _skills[sk, StandSkill.MaxCooldown] = 2;
 _skills[sk, StandSkill.Desc] = "clone swap:\nswap places with the nearest clone you aim at.";
 
 sk = StandState.SkillA;
-_skills[sk, StandSkill.Skill] = StandBarrage;
+_skills[sk, StandSkill.Skill] = SlashingStrikes;
 _skills[sk, StandSkill.Damage] = 2 + (objPlayer.level * 0.02) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
+_skills[sk, StandSkill.SkillAlt] = MeleePull;
+_skills[sk, StandSkill.IconAlt] = global.sprSkillZipperGrab;
+_skills[sk, StandSkill.MaxCooldownAlt] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
-_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = @"slashing strkes:
+launches a barrage of strikes that inflict bleeding.
+
+(hold) melee pull:
+pulls.
+dmg: " + DMG;
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = DoubleSlap;
@@ -247,6 +344,7 @@ with (_s)
     saveKey = "jjbamD4clt";
     discType = global.jjbamDiscD4clt;
     
+    ammo = 6;
     USAflag = ModObjectSpawn(x, y, depth);
     with (USAflag)
     {
@@ -254,5 +352,23 @@ with (_s)
         visible = false;
     }
     
-    InstanceAssignMethod(self, "destroy", ScriptWrap(D4Cdestroy), true);
+    InstanceAssignMethod(self, "destroy", ScriptWrap(D4Cdestroy));
+    InstanceAssignMethod(self, "drawGUI", ScriptWrap(D4CLTDrawGui));
 }
+
+#define D4CLTDrawGui
+
+var _width = display_get_gui_width();
+var _height = display_get_gui_height() - 40;
+
+draw_set_color(c_dkgray);
+draw_circle(320, _height - 104, 12, false);
+for (var i = 0; i < 6; i++)
+{
+    var xx = 320 + lengthdir_x(8, i * 60);
+    var yy = _height - 104 + lengthdir_y(8, i * 60);
+    var _c = c_black;
+    if (i < ammo) { _c = c_white; }
+    draw_sprite_ext(global.sprCoin, 0, xx, yy, 2, 2, 0, _c, 1);
+}
+draw_set_color(c_white);

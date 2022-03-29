@@ -1,43 +1,3 @@
-enum StandState {
-    Idle,
-    SkillAOff,
-    SkillBOff,
-    SkillCOff,
-    SkillDOff,
-    SkillA,
-    SkillB,
-    SkillC,
-    SkillD,
-    LEN
-}
-enum StandStat {
-    Range,
-    AttackDamage,
-    AttackRange,
-    BaseSpd,
-    LEN
-}
-enum StandSkill {
-    ActiveOnly,
-    Skill,
-    SkillAlt,
-    Key,
-    Desc,
-    Icon,
-    IconAlt,
-    MaxHold,
-    Hold,
-    Damage,
-    MaxCooldown,
-    Cooldown,
-    MaxCooldownAlt,
-    CooldownAlt,
-    MaxExecutionTime,
-    ExecutionTime,
-    LEN
-}
-
-#macro DMG string(_skills[sk, StandSkill.Damage])
 
 #define StandSkillDrawGUI
 
@@ -114,11 +74,11 @@ for (var i = StandState.LEN - 1; i > 0; i--)
 {
     if (s[@ i, StandSkill.Cooldown] > 0)
     {
-        s[@ i, StandSkill.Cooldown] -= 1 / room_speed;
+        s[@ i, StandSkill.Cooldown] -= DT;
     }
     if (s[@ i, StandSkill.CooldownAlt] > 0)
     {
-        s[@ i, StandSkill.CooldownAlt] -= 1 / room_speed;
+        s[@ i, StandSkill.CooldownAlt] -= DT;
     }
 }
 
@@ -163,6 +123,7 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
 
 if (state != StandState.Idle)
 {
+    height = lerp(height, 0, 0.2);
     for (var i = 1; i < StandState.LEN; i++)
     {
         if (state == i)
@@ -221,7 +182,7 @@ if (active)
         image_xscale = mouse_x > owner.x ? 1 : -1;
         alphaTarget = 1;
         script_execute(idlePos);
-        y += sin(current_time / 1000);
+        height = abs(sin(current_time / 1000) * 5);
     }
 }
 else
@@ -235,7 +196,11 @@ StandSkillManage();
 
 #define StandDefaultDraw
 
-draw_self();
+if (active)
+{
+    draw_sprite_ext(sprShadow, 0, x, y + 2, min(1, abs(image_xscale / (height * 0.2))), min(1, abs(image_yscale / (height * 0.2))), 0, c_white, image_alpha * 0.5);
+}
+draw_sprite_ext(sprite_index, image_index, x, y - height, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
 
 #define StandSkillInit(_stats)
 
@@ -303,6 +268,7 @@ with (_stand)
     // position
     xTo = objPlayer.x;
     yTo = objPlayer.y;
+    height = 0;
     // stats
     stats = array_clone(_stats);
     spd = stats[StandStat.BaseSpd];

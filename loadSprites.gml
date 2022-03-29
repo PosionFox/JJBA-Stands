@@ -92,6 +92,9 @@ global.sprSkillHold = sprite_add("Resources/Sprites/SkillHold.png", 1, false, fa
 global.sprSkillBarrage = sprite_add("Resources/Sprites/SkillBarrage.png", 1, false, false, 16, 16);
 global.sprSkillStrongPunch = sprite_add("Resources/Sprites/SkillStrongPunch.png", 1, false, false, 16, 16);
 
+global.sprBulletGUI = sprite_add("Resources/Sprites/BulletGUI.png", 1, false, false, 16, 16);
+global.sprRevCylinderGUI = sprite_add("Resources/Sprites/RevCylinderGUI.png", 1, false, false, 16, 16);
+
 // the world
 global.sprSkillJosephKnife = sprite_add("Resources/Sprites/SkillJosephKnife.png", 1, false, false, 16, 16);
 global.sprSkillStopSign = sprite_add("Resources/Sprites/SkillStopSign.png", 1, false, false, 16, 16);

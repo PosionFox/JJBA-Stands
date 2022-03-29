@@ -1,7 +1,7 @@
 
 #define modTypeExists(_type)
 
-with (objModEmpty)
+with (MOBJ)
 {
     if ("type" in self)
     {
@@ -17,7 +17,7 @@ return false;
 
 if (modTypeExists(_type))
 {
-    with (objModEmpty)
+    with (MOBJ)
     {
         if ("type" in self)
         {
@@ -35,13 +35,14 @@ return noone;
 var _list = [];
 with (MOBJ)
 {
-    if ("type" in self)
+    if ("type" in self and type == _type)
     {
-        if (type == "clone")
-        {
-            array_push(_list, self);
-        }
+        array_push(_list, self);
     }
+}
+if (array_length(_list) == 0)
+{
+    return false;
 }
 var _nearest = _list[0];
 for (var i = 0; i < array_length(_list); i++)
@@ -65,7 +66,7 @@ return _nearest;
 #define modTypeCount(_type)
 
 var _count = 0;
-with (objModEmpty)
+with (MOBJ)
 {
     if ("type" in self)
     {
@@ -77,9 +78,28 @@ with (objModEmpty)
 }
 return _count;
 
+#define modTypeMeeting(_x, _y, _type)
+
+var _colliding = false;
+var _o = instance_place(_x, _y, MOBJ);
+if ("type" in _o and _o.type == _type)
+{
+    _colliding = true;
+}
+return _colliding;
+
+#define modTypePlace(_x, _y, _type)
+
+var _o = instance_place(_x, _y, MOBJ);
+if ("type" in _o and _o.type == _type)
+{
+    return _o;
+}
+return false;
+
 #define modSubtypeExists(_type)
 
-with (objModEmpty)
+with (MOBJ)
 {
     if ("subtype" in self)
     {
@@ -93,7 +113,7 @@ return false;
 
 #define modSubtypeFind(_type)
 
-with (objModEmpty)
+with (MOBJ)
 {
     if ("subtype" in self)
     {
@@ -110,12 +130,9 @@ return noone;
 var _list = [];
 with (MOBJ)
 {
-    if ("subtype" in self)
+    if ("subtype" in self and subtype == _type)
     {
-        if (subtype == "clone")
-        {
-            array_push(_list, self);
-        }
+        array_push(_list, self);
     }
 }
 var _nearest = _list[0];

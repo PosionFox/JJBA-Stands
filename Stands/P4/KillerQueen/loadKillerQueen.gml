@@ -217,10 +217,7 @@ _skills[sk, StandSkill.Icon] = global.sprSkillFirstBomb;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
 _skills[sk, StandSkill.Desc] = @"killer queen's first bomb:
-places a bomb on the nearest enemy or ground.
-
-(after cast) detonate bomb:
-explodes any bombs already placed.";
+places a bomb on the nearest enemy or ground.";
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = CoinBomb;

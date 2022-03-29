@@ -1,14 +1,30 @@
 
 #define RevolverReload(m, s)
 
-bullets = 6;
-FireCD(s);
-state = StandState.Idle;
+switch (attackState)
+{
+    case 0:
+        audio_play_sound(global.sndRevReload, 5, false);
+        attackState++;
+    break;
+    case 1:
+        if (attackStateTimer >= 2)
+        {
+            attackState++;
+        }
+    break;
+    case 2:
+        ammo = 6;
+        FireCD(s);
+        state = StandState.Idle;
+    break;
+}
+attackStateTimer += 1 / room_speed;
 
 #define TrickShot(method, skill)
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
-if (bullets > 0)
+if (ammo > 0)
 {
     var _p = ProjectileCreate(objPlayer.x, objPlayer.y);
     with (_p)
@@ -16,7 +32,10 @@ if (bullets > 0)
         type = "bulletTime";
         prevSkill = skill;
         knockback = 2;
-        audio_play_sound(global.sndGunShot, 0, false);
+        var _snds = [global.sndRevFire1, global.sndRevFire2, global.sndRevFire3, global.sndRevFire4];
+        var _s = audio_play_sound(_snds[irandom(array_length(_snds) - 1)], 5, false);
+        audio_sound_pitch(_s, random_range(0.9, 1.1));
+        audio_sound_gain(_s, 0.5, 0);
         baseSpd = 10;
         sprite_index = global.sprBtdVoidTrace;
         image_blend = c_yellow;
@@ -29,7 +48,7 @@ if (bullets > 0)
         
         InstanceAssignMethod(self, "destroy", ScriptWrap(TrickShotDestroy), true);
     }
-    bullets--;
+    ammo--;
     skills[skill, StandSkill.Skill] = BulletTime;
     skills[skill, StandSkill.MaxCooldown] = 0.5;
     skills[skill, StandSkill.Icon] = global.sprSkillBulletTime;
@@ -67,32 +86,29 @@ StandDefaultPos();
 
 if (attackStateTimer >= 0.15)
 {
-    if (bullets > 0)
+    if (ammo > 0)
     {
-        var _snd = audio_play_sound(global.sndGunShot, 0, false);
-        audio_sound_pitch(_snd, random_range(0.9, 1.1));
-        audio_sound_gain(_snd, 0.5, 0);
-        var _p = ProjectileCreate(objPlayer.x, objPlayer.y);
-        with (_p)
-        {
-            baseSpd = 10;
-            sprite_index = global.sprBtdVoidTrace;
-            image_blend = c_yellow;
-            mask_index = global.sprKnife;
-            despawnTime = room_speed * 5;
-            damage = other.skills[skill, StandSkill.Damage];
-            direction = _dir;
-            canMoveInTs = false;
-            GlowOrderCreate(self, 0.1, c_yellow);
-        }
-        bullets--;
+        var _snds = [global.sndRevFire1, global.sndRevFire2, global.sndRevFire3, global.sndRevFire4];
+        var _s = audio_play_sound(_snds[irandom(array_length(_snds) - 1)], 5, false);
+        audio_sound_pitch(_s, random_range(0.9, 1.1));
+        audio_sound_gain(_s, 0.5, 0);
+        BulletCreate(player.x, player.y, _dir, skills[skill, StandSkill.Damage]);
+        ammo--;
         attackStateTimer = 0;
         attackState++;
     }
     else
     {
-        FireCD(skill);
-        state = StandState.Idle;
+        if (attackState > 0)
+        {
+            FireCD(skill);
+            state = StandState.Idle;
+        }
+        else
+        {
+            ResetCD(skill);
+            state = StandState.Idle;
+        }
     }
 }
 attackStateTimer += 1 / room_speed;
@@ -442,20 +458,8 @@ _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.Desc] = "reload revolver:\nreloads";
 
 sk = StandState.SkillBOff;
-_skills[sk, StandSkill.Skill] = TrickShot;
-_skills[sk, StandSkill.Damage] = 2 + (objPlayer.level * 0.2) + objPlayer.dmg;
-_skills[sk, StandSkill.Icon] = global.sprSkillGunShot;
-_skills[sk, StandSkill.MaxCooldown] = 0.5;
-_skills[sk, StandSkill.Desc] = @"trick shot:
-fire a projectile forwards.
-
-(after cast) bullet time:
-redirects the projectile into the nearest enemy.
-dmg: " + DMG;
-
-sk = StandState.SkillCOff;
 _skills[sk, StandSkill.Skill] = BulletVolley;
-_skills[sk, StandSkill.Damage] = 2 + (objPlayer.level * 0.1) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.2) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.Desc] = "bullet volley:\nfire a volley of three projectiles.\ndmg: " + DMG;
@@ -516,7 +520,7 @@ with (_s)
     saveKey = "jjbamD4c";
     discType = global.jjbamDiscD4c;
     
-    bullets = 6;
+    ammo = 6;
     
     hasArm = false;
     hasHeart = false;
@@ -564,12 +568,17 @@ draw_sprite_ext(global.sprBtdStare, 0, 320, _height - 104, 2, 2, 0, _cArm, 1);
 draw_sprite_ext(global.sprHeart, 0, 320, (_height - 104) + 16, 2, 2, 0, _cHeart, 1);
 draw_sprite_ext(global.sprEye, 0, 320, (_height - 104) + 32, 2, 2, 0, _cEye, 1);
 
-for (var i = 0; i < bullets; i++)
+draw_set_color(c_dkgray);
+draw_circle(425, _height - 104, 12, false);
+for (var i = 0; i < 6; i++)
 {
-    var xx = 425 + lengthdir_x(4, i * 60);
-    var yy = _height - 104 + lengthdir_y(4, i * 60);
-    draw_sprite(global.sprCoin, 0, xx, yy);
+    var xx = 425 + lengthdir_x(8, i * 60);
+    var yy = _height - 104 + lengthdir_y(8, i * 60);
+    var _c = c_black;
+    if (i < ammo) { _c = c_white; }
+    draw_sprite_ext(global.sprCoin, 0, xx, yy, 2, 2, 0, _c, 1);
 }
+draw_set_color(c_white);
 
 #define D4Cdestroy
 

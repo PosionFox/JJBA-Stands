@@ -70,7 +70,7 @@ switch (attackState)
         state = StandState.Idle;
     break;
 }
-attackStateTimer += 1 / room_speed;
+attackStateTimer += DT;
 
 #define ZipperGrab(method, skill)
 var _dir = point_direction(x, y, mouse_x, mouse_y);
@@ -132,7 +132,7 @@ switch (attackState)
         }
     break;
 }
-attackStateTimer += 1 / room_speed;
+attackStateTimer += DT;
 
 #define SfPortal(method, skill)
 var _sc = collision_circle(mouse_x, mouse_y, 16, parSolid, false, true);

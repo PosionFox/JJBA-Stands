@@ -162,30 +162,14 @@ return array_clone(class);
 
 #define Main
 
-#macro player objPlayer
-#macro MOBJ objModEmpty
-#macro STAND objPlayer.myStand
-#macro CAM WorldControl
-#macro ENEMY parEnemy
-
 global.timeIsFrozen = false;
 
-// order for loading stuff matters
-loadUtils();
-loadSounds();
 loadSprites();
-loadEffects();
-loadAttacks();
-loadStandsCore();
-loadActors();
-loadStands();
+loadSounds();
+// loadStands();
 loadItems();
 loadStructures();
 loadCommands();
-
-CommandCreate("jjbamStand", true, ScriptWrap(CheatGiveStand), "name");
-CommandCreate("jjbamTest", false, ScriptWrap(TestCommand));
-CommandCreate("jjbamDebug", true, ScriptWrap(JjbamDebug));
 
 #define OnPlayerDamage(_dodge, _damage)
 

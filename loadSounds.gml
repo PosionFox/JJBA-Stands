@@ -23,6 +23,11 @@ global.sndPunchHit = audio_create_stream("Resources/Sounds/punchHit.ogg");
 global.sndKnifeThrow = audio_create_stream("Resources/Sounds/knifeThrow.ogg");
 global.sndGunShot = audio_create_stream("Resources/Sounds/gunShot.ogg");
 global.sndStrongPunch = audio_create_stream("Resources/Sounds/strongPunch.ogg");
+global.sndRevFire1 = audio_create_stream("Resources/Sounds/revFire1.ogg");
+global.sndRevFire2 = audio_create_stream("Resources/Sounds/revFire2.ogg");
+global.sndRevFire3 = audio_create_stream("Resources/Sounds/revFire3.ogg");
+global.sndRevFire4 = audio_create_stream("Resources/Sounds/revFire4.ogg");
+global.sndRevReload = audio_create_stream("Resources/Sounds/revReload.ogg");
 
 // timestops
 global.sndTwTs = audio_create_stream("Resources/Sounds/twTs.ogg");

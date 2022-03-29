@@ -361,7 +361,7 @@ tosses three coins forward, these can be detonated on demand.";
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = ShaSummon;
 _skills[sk, StandSkill.Icon] = global.sprSkillSHA;
-_skills[sk, StandSkill.MaxCooldown] = 12;
+_skills[sk, StandSkill.MaxCooldown] = 20;
 _skills[sk, StandSkill.Desc] = @"killer queen's second bomb:
 summons sha in combat, chasing and exploding enemies on its own.";
 

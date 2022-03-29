@@ -19,6 +19,17 @@ skills[skill, StandSkill.ExecutionTime] = 0;
 FireCD(skill);
 skills[skill, StandSkill.Cooldown] = 0;
 
+#define EndAtk(skill)
+
+FireCD(skill);
+state = StandState.Idle;
+
+#define ResetAtk(skill)
+
+FireCD(skill);
+skills[skill, StandSkill.Cooldown] = 0;
+state = StandState.Idle;
+
 #define AttackHandler(method, skill)
 
 //ResetCD(skill);
@@ -69,9 +80,11 @@ if (global.timeIsFrozen and canDespawnInTs or !global.timeIsFrozen)
 }
 if (despawnTime <= 0) {
     instance_destroy(self);
+    exit;
 }
 
-if (instance_exists(self)) {
+if (instance_exists(self))
+{
     image_angle = direction;
     image_yscale = sign(dcos(image_angle));
     
@@ -150,6 +163,28 @@ if (instance_exists(self)) {
 #define ProjectileDestroy
 
 
+
+#define BulletCreate(_x, _y, _dir, _dmg)
+
+var _o = ProjectileCreate(_x, _y);
+with (_o)
+{
+    subtype = "bullet";
+    sprite_index = global.sprBullet;
+    mask_index = global.sprBullet;
+    direction = _dir;
+    damage = _dmg
+    baseSpd = 10;
+    canMoveInTs = false;
+    
+    GlowOrderCreate(self, 0.1, c_yellow);
+    InstanceAssignMethod(self, "step", ScriptWrap(BulletStep));
+}
+return _o;
+
+#define BulletStep
+
+image_xscale = max(1, spd);
 
 #define KnockbackCreate(_target, _strength, _direction, _duration)
 
@@ -362,7 +397,7 @@ yTo = _yy;
 switch (attackState)
 {
     case 0:
-        if (attackStateTimer >= 1)
+        if (attackStateTimer >= 0.8)
         {
             attackState++;
         }
@@ -415,7 +450,7 @@ if (instance_exists(target))
         instance_destroy(self);
         exit;
     }
-    time += 1 / room_speed;
+    time += DT;
 }
 
 #define SteelBallCreate(_x, _y, _dir, _dmg)
@@ -489,5 +524,61 @@ switch (state)
             instance_destroy(self);
         }
     break;
+}
+
+#define GrabCreate(_xoffset, _yoffset)
+
+var _o = ModObjectSpawn(STAND.x + _xoffset, STAND.y + _yoffset, 0);
+with (_o)
+{
+    type = "grab";
+    sprite_index = global.sprCoin;
+    image_xscale = 2;
+    image_yscale = 2;
+    visible = false;
+    
+    xoffset = _xoffset;
+    yoffset = _yoffset;
+    life = 100;
+    
+    target = noone;
+    grab = false;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(GrabStep));
+    InstanceAssignMethod(self, "destroy", ScriptWrap(GrabDestroy));
+}
+
+#define GrabStep
+
+if (life <= 0)
+{
+    instance_destroy(self);
+    exit;
+}
+life -= DT;
+
+x = STAND.x + xoffset;
+y = STAND.y + yoffset;
+
+var _hit = instance_place(x, y, ENEMY);
+if (_hit and !grab)
+{
+    audio_play_sound(global.sndPunchAir, 0, false);
+    target = _hit;
+    grab = true;
+}
+
+if (grab and instance_exists(target))
+{
+    target.behaviourEngage = false;
+    target.x = x;
+    target.y = y;
+}
+
+#define GrabDestroy
+
+if (instance_exists(target))
+{
+    target.behaviourEngage = true;
 }
 

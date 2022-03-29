@@ -1,4 +1,8 @@
 
+CommandCreate("jjbamStand", true, ScriptWrap(CheatGiveStand), "name");
+CommandCreate("jjbamTest", false, ScriptWrap(TestCommand));
+CommandCreate("jjbamDebug", true, ScriptWrap(JjbamDebug));
+
 #define CheatGiveStand(args)
 
 with (objPlayer) {
