@@ -269,7 +269,7 @@ sk = StandState.SkillCOff;
 _skills[sk, StandSkill.Skill] = BulletVolley;
 _skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.3) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
-_skills[sk, StandSkill.MaxCooldown] = 5;
+_skills[sk, StandSkill.MaxCooldown] = 1;
 _skills[sk, StandSkill.Desc] = "bullet volley:\nfire a volley of three projectiles.\ndmg: " + DMG;
 
 sk = StandState.SkillDOff;
@@ -326,7 +326,7 @@ _skills[sk, StandSkill.Icon] = global.sprSkillLoveTrain;
 _skills[sk, StandSkill.MaxCooldown] = 45;
 _skills[sk, StandSkill.SkillAlt] = DimensionalHop;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillDimensionalHop;
-_skills[sk, StandSkill.MaxCooldownAlt] = 25;
+_skills[sk, StandSkill.MaxCooldownAlt] = 20;
 _skills[sk, StandSkill.Desc] = @"love train:
 summons a pocket dimension as a wall of light that
 reflects all incoming damage back to the nearest enemy.
@@ -361,14 +361,10 @@ with (_s)
 var _width = display_get_gui_width();
 var _height = display_get_gui_height() - 40;
 
-draw_set_color(c_dkgray);
-draw_circle(320, _height - 104, 12, false);
-for (var i = 0; i < 6; i++)
+draw_sprite_ext(global.sprRevCylinderGUI, 0, 321, _height - 96, 2, 2, 0, c_white, 1);
+for (var i = 0; i < ammo; i++)
 {
-    var xx = 320 + lengthdir_x(8, i * 60);
-    var yy = _height - 104 + lengthdir_y(8, i * 60);
-    var _c = c_black;
-    if (i < ammo) { _c = c_white; }
-    draw_sprite_ext(global.sprCoin, 0, xx, yy, 2, 2, 0, _c, 1);
+    var xx = 320 + lengthdir_x(12, i * 60);
+    var yy = _height - 96 + lengthdir_y(12, i * 60);
+    draw_sprite_ext(global.sprBulletGUI, 0, xx, yy, 2, 2, 0, c_white, 1);
 }
-draw_set_color(c_white);

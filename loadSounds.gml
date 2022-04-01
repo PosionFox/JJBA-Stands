@@ -16,6 +16,7 @@ global.sndTa1Summon = audio_create_stream("Resources/Sounds/ta1Summon.ogg");
 global.sndTa2Summon = audio_create_stream("Resources/Sounds/ta2Summon.ogg");
 global.sndTa3Summon = audio_create_stream("Resources/Sounds/ta3Summon.ogg");
 global.sndTa4Summon = audio_create_stream("Resources/Sounds/ta4Summon.ogg");
+global.sndImposterSummon = audio_create_stream("Resources/Sounds/AmogImposter.ogg");
 
 // generic
 global.sndPunchAir = audio_create_stream("Resources/Sounds/punchAir.ogg");
@@ -81,6 +82,11 @@ global.sndSfTp = audio_create_stream("Resources/Sounds/sfTp.ogg");
 global.sndGeHit = audio_create_stream("Resources/Sounds/geHit.ogg");
 global.sndGePunch = audio_create_stream("Resources/Sounds/gePunch.ogg");
 global.sndGeLife = audio_create_stream("Resources/Sounds/geLife.ogg");
+
+// imposter
+global.sndAmogDead = audio_create_stream("Resources/Sounds/AmogDead.ogg");
+global.sndAmogButton = audio_create_stream("Resources/Sounds/AmogButton.ogg");
+global.sndAmogMurder = audio_create_stream("Resources/Sounds/AmogMurder.ogg");
 
 #endregion
 

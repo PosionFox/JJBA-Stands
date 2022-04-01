@@ -7,6 +7,7 @@ global.sprDisc = sprite_add("Resources/Sprites/Disc.png", 1, false, false, 8, 8)
 global.sprArrowBeetle = sprite_add("Resources/Sprites/ArrowBeetle.png", 1, false, false, 8, 8);
 global.sprHeart = sprite_add("Resources/Sprites/Heart.png", 1, false, false, 8, 8);
 global.sprEye = sprite_add("Resources/Sprites/Eye.png", 1, false, false, 8, 8);
+global.sprLeftArm = sprite_add("Resources/Sprites/LeftArm.png", 1, false, false, 8, 8);
 
 #endregion
 
@@ -157,6 +158,27 @@ global.sprSkillLifeFormScorpion = sprite_add("Resources/Sprites/SkillLifeFormSco
 global.sprSkillLifeFormFrog = sprite_add("Resources/Sprites/SkillLifeFormFrog.png", 1, false, false, 16, 16);
 global.sprSkillSelfHeal = sprite_add("Resources/Sprites/SkillSelfHeal.png", 1, false, false, 16, 16);
 
+// tusk
+global.sprSkillSpinningNail = sprite_add("Resources/Sprites/SkillSpinningNail.png", 1, false, false, 16, 16);
+global.sprSkillScratch = sprite_add("Resources/Sprites/SkillScratch.png", 1, false, false, 16, 16);
+global.sprSkillHerbTea = sprite_add("Resources/Sprites/SkillHerbTea.png", 1, false, false, 16, 16);
+
+global.sprSkillGoldenRectangleNail = sprite_add("Resources/Sprites/SkillGoldenNail.png", 1, false, false, 16, 16);
+global.sprSkillDoubleGoldenRectangleNail = sprite_add("Resources/Sprites/SkillDoubleGoldenNail.png", 1, false, false, 16, 16);
+global.sprSkillNailVoidRedirection = sprite_add("Resources/Sprites/SkillNailVoidRedirection.png", 1, false, false, 16, 16);
+global.sprSkillWormholeNail = sprite_add("Resources/Sprites/SkillWormholeNail.png", 1, false, false, 16, 16);
+
+
+global.sprSkillInfiniteRotation = sprite_add("Resources/Sprites/SkillInfiniteRotation.png", 1, false, false, 16, 16);
+
+
+global.sprNailGUI = sprite_add("Resources/Sprites/NailGUI.png", 1, false, false, 16, 16);
+global.sprNailVoid = sprite_add("Resources/Sprites/NailVoid.png", 1, false, false, 16, 16);
+
+// imposter
+global.sprSkillMeetingCall = sprite_add("Resources/Sprites/SkillMeetingCall.png", 1, false, false, 16, 16);
+global.sprSkillKill = sprite_add("Resources/Sprites/SkillKill.png", 1, false, false, 16, 16);
+
 #endregion
 
 #region Stands
@@ -182,6 +204,7 @@ global.sprTuskAct1 = sprite_add("Resources/Sprites/TuskAct1.png", 1, false, fals
 global.sprTuskAct2 = sprite_add("Resources/Sprites/TuskAct2.png", 1, false, false, 16, 19);
 global.sprTuskAct3 = sprite_add("Resources/Sprites/TuskAct3.png", 1, false, false, 16, 19);
 global.sprTuskAct4 = sprite_add("Resources/Sprites/TuskAct4.png", 1, false, false, 16, 19);
+global.sprImposter = sprite_add("Resources/Sprites/Imposter.png", 11, false, false, 16, 19);
 
 #endregion
 

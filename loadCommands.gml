@@ -34,6 +34,9 @@ switch (args[0]) {
     case "d4clt": GiveD4CLT(); break;
     case "twau": GiveTheWorldAU(); break;
     case "tusk": GiveTusk(); break;
+    case "tusk4": GiveTusk4(); break;
+    // other
+    case "sus": GiveImposter(); break;
     default: Trace("not found");
 }
 

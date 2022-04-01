@@ -210,14 +210,14 @@ var sk;
 sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = RevolverReload;
 _skills[sk, StandSkill.Icon] = global.sprSkillCooldown;
-_skills[sk, StandSkill.MaxCooldown] = 3;
+_skills[sk, StandSkill.MaxCooldown] = 4;
 _skills[sk, StandSkill.Desc] = "reload revolver:\nreloads";
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = BulletVolley;
 _skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.2) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
-_skills[sk, StandSkill.MaxCooldown] = 5;
+_skills[sk, StandSkill.MaxCooldown] = 1;
 _skills[sk, StandSkill.Desc] = "bullet volley:\nfire a volley of three projectiles.\ndmg: " + DMG;
 
 sk = StandState.SkillDOff;
@@ -230,7 +230,8 @@ _skills[sk, StandSkill.MaxCooldownAlt] = 5;
 _skills[sk, StandSkill.Desc] = @"matches:
 tosses a match on the ground.
 
-(hold) oil can:\npours oil on the ground.\ndmg: " + DMG;
+(hold) oil can:
+pours oil on the ground.";
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;
@@ -278,11 +279,11 @@ with (_s)
 var _width = display_get_gui_width();
 var _height = display_get_gui_height() - 40;
 
-draw_sprite_ext(global.sprRevCylinderGUI, 0, 321, _height - 104, 2, 2, 0, c_white, 1);
+draw_sprite_ext(global.sprRevCylinderGUI, 0, 321, _height - 96, 2, 2, 0, c_white, 1);
 for (var i = 0; i < ammo; i++)
 {
     var xx = 320 + lengthdir_x(12, i * 60);
-    var yy = _height - 104 + lengthdir_y(12, i * 60);
+    var yy = _height - 96 + lengthdir_y(12, i * 60);
     draw_sprite_ext(global.sprBulletGUI, 0, xx, yy, 2, 2, 0, c_white, 1);
 }
 

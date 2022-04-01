@@ -110,6 +110,7 @@ switch (_stand)
     break;
     // other
     case "jjbamSw": GiveSpookyWorld(); break;
+    case "jjbamSus": GiveImposter(); break;
 }
 
 // Trace(_map[? "jjbamAbilitySkills"]);
@@ -212,6 +213,9 @@ if (instance_exists(player))
             break;
             case "Tusk":
                 STAND.act4Meter += _mob.hpMax * 0.25;
+            break;
+            case "Imposter":
+                audio_play_sound(global.sndAmogDead, 5, false);
             break;
         }
     }

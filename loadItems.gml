@@ -317,6 +317,22 @@ global.jjbamDiscSw = ItemCreate(
     true
 );
 
+global.jjbamDiscSus = ItemCreate(
+    undefined,
+    "DISC:SUS",
+    "The label says: Imposter",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(GiveImposter),
+    5 * 10,
+    true
+);
+
 #endregion
 
 #endregion
@@ -369,7 +385,7 @@ global.jjbamSteelBall = ItemCreate(
 StructureAddItem(Structure.Forge, global.jjbamArrow);
 StructureAddItem(Structure.Forge, global.jjbamDisc);
 StructureAddItem(Structure.Forge, global.jjbamRequiem);
-StructureAddItem(Structure.Forge, global.jjbamSteelBall);
+//StructureAddItem(Structure.Forge, global.jjbamSteelBall);
 
 global.jjbamHeart = ItemCreate(
     undefined,
@@ -407,7 +423,7 @@ global.jjbamLeftArm = ItemCreate(
     undefined,
     "Left Arm",
     "The left arm of the saint.",
-    global.sprBtdStare,
+    global.sprLeftArm,
     ItemType.Consumable,
     ItemSubType.Potion,
     0,

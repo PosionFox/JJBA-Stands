@@ -75,7 +75,7 @@ if (_o)
     }
 }
 skills[skill, StandSkill.Skill] = TrickShot;
-skills[skill, StandSkill.MaxCooldown] = 5;
+skills[skill, StandSkill.MaxCooldown] = 2;
 skills[skill, StandSkill.Icon] = global.sprSkillGunShot;
 FireCD(skill)
 state = StandState.Idle;
@@ -454,14 +454,14 @@ var sk;
 sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = RevolverReload;
 _skills[sk, StandSkill.Icon] = global.sprSkillCooldown;
-_skills[sk, StandSkill.MaxCooldown] = 3;
+_skills[sk, StandSkill.MaxCooldown] = 4;
 _skills[sk, StandSkill.Desc] = "reload revolver:\nreloads";
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = BulletVolley;
 _skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.2) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
-_skills[sk, StandSkill.MaxCooldown] = 5;
+_skills[sk, StandSkill.MaxCooldown] = 1;
 _skills[sk, StandSkill.Desc] = "bullet volley:\nfire a volley of three projectiles.\ndmg: " + DMG;
 
 sk = StandState.SkillDOff;
@@ -523,7 +523,7 @@ with (_s)
     ammo = 6;
     
     hasArm = false;
-    hasHeart = false;
+    hasHeart = true;
     hasEye = false;
     
     USAflag = ModObjectSpawn(x, y, depth);
@@ -564,21 +564,17 @@ if (hasEye)
 {
     _cEye = c_white;
 }
-draw_sprite_ext(global.sprBtdStare, 0, 320, _height - 104, 2, 2, 0, _cArm, 1);
-draw_sprite_ext(global.sprHeart, 0, 320, (_height - 104) + 16, 2, 2, 0, _cHeart, 1);
-draw_sprite_ext(global.sprEye, 0, 320, (_height - 104) + 32, 2, 2, 0, _cEye, 1);
+draw_sprite_ext(global.sprLeftArm, 0, 368, _height - 96, 2, 2, 0, _cArm, 1);
+draw_sprite_ext(global.sprHeart, 0, 368 + 32, _height - 96, 2, 2, 0, _cHeart, 1);
+draw_sprite_ext(global.sprEye, 0, 368 + 64, _height - 96, 2, 2, 0, _cEye, 1);
 
-draw_set_color(c_dkgray);
-draw_circle(425, _height - 104, 12, false);
-for (var i = 0; i < 6; i++)
+draw_sprite_ext(global.sprRevCylinderGUI, 0, 321, _height - 96, 2, 2, 0, c_white, 1);
+for (var i = 0; i < ammo; i++)
 {
-    var xx = 425 + lengthdir_x(8, i * 60);
-    var yy = _height - 104 + lengthdir_y(8, i * 60);
-    var _c = c_black;
-    if (i < ammo) { _c = c_white; }
-    draw_sprite_ext(global.sprCoin, 0, xx, yy, 2, 2, 0, _c, 1);
+    var xx = 320 + lengthdir_x(12, i * 60);
+    var yy = _height - 96 + lengthdir_y(12, i * 60);
+    draw_sprite_ext(global.sprBulletGUI, 0, xx, yy, 2, 2, 0, c_white, 1);
 }
-draw_set_color(c_white);
 
 #define D4Cdestroy
 
