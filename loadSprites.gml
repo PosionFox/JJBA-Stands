@@ -93,6 +93,7 @@ global.sprSkillHold = sprite_add("Resources/Sprites/SkillHold.png", 1, false, fa
 global.sprSkillBarrage = sprite_add("Resources/Sprites/SkillBarrage.png", 1, false, false, 16, 16);
 global.sprSkillStrongPunch = sprite_add("Resources/Sprites/SkillStrongPunch.png", 1, false, false, 16, 16);
 
+global.sprRevolverReload = sprite_add("Resources/Sprites/SkillRevolverReload.png", 1, false, false, 16, 16);
 global.sprBulletGUI = sprite_add("Resources/Sprites/BulletGUI.png", 1, false, false, 16, 16);
 global.sprRevCylinderGUI = sprite_add("Resources/Sprites/RevCylinderGUI.png", 1, false, false, 16, 16);
 
@@ -122,6 +123,7 @@ global.sprSkillCloneSummon = sprite_add("Resources/Sprites/SkillCloneSummon.png"
 global.sprSkillDimensionalHop = sprite_add("Resources/Sprites/SkillDimensionalHop.png", 1, false, false, 16, 16);
 
 // d4c: love train
+global.sprSkillMeleePull = sprite_add("Resources/Sprites/SkillMeleeGrab.png", 1, false, false, 16, 16);
 global.sprSkillBarrageD4C = sprite_add("Resources/Sprites/SkillBarrageD4C.png", 1, false, false, 16, 16);
 global.sprSkillLoveTrain = sprite_add("Resources/Sprites/SkillLoveTrain.png", 1, false, false, 16, 16);
 

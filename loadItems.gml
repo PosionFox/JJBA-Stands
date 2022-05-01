@@ -466,7 +466,7 @@ var _standPool =
     [GiveKillerQueen, 20],
     [GiveStickyFingers, 20],
     [GiveGoldExperience, 20],
-    [GiveImposter, 20]
+    [GiveImposter, 1]
 ]
 
 var sumWeight = 0;

@@ -453,9 +453,9 @@ var _skills = StandSkillInit(_stats);
 var sk;
 sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = RevolverReload;
-_skills[sk, StandSkill.Icon] = global.sprSkillCooldown;
+_skills[sk, StandSkill.Icon] = global.sprRevolverReload;
 _skills[sk, StandSkill.MaxCooldown] = 4;
-_skills[sk, StandSkill.Desc] = "reload revolver:\nreloads";
+_skills[sk, StandSkill.Desc] = "reload revolver:\nreload your revolver";
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = BulletVolley;

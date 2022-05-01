@@ -249,9 +249,9 @@ var _skills = StandSkillInit(_stats);
 var sk;
 sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = RevolverReload;
-_skills[sk, StandSkill.Icon] = global.sprSkillCooldown;
+_skills[sk, StandSkill.Icon] = global.sprRevolverReload;
 _skills[sk, StandSkill.MaxCooldown] = 3;
-_skills[sk, StandSkill.Desc] = "reload revolver:\nreloads";
+_skills[sk, StandSkill.Desc] = "reload revolver:\nreload your revolver";
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = TrickShot;
@@ -284,14 +284,14 @@ _skills[sk, StandSkill.Damage] = 2 + (objPlayer.level * 0.02) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.SkillAlt] = MeleePull;
-_skills[sk, StandSkill.IconAlt] = global.sprSkillZipperGrab;
+_skills[sk, StandSkill.IconAlt] = global.sprSkillMeleePull;
 _skills[sk, StandSkill.MaxCooldownAlt] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
-_skills[sk, StandSkill.Desc] = @"slashing strkes:
+_skills[sk, StandSkill.Desc] = @"slashing strikes:
 launches a barrage of strikes that inflict bleeding.
 
 (hold) melee pull:
-pulls.
+pulls the enemy towards you.
 dmg: " + DMG;
 
 sk = StandState.SkillB;

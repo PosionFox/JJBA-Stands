@@ -209,9 +209,9 @@ var _skills = StandSkillInit(_stats);
 var sk;
 sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = RevolverReload;
-_skills[sk, StandSkill.Icon] = global.sprSkillCooldown;
+_skills[sk, StandSkill.Icon] = global.sprRevolverReload;
 _skills[sk, StandSkill.MaxCooldown] = 4;
-_skills[sk, StandSkill.Desc] = "reload revolver:\nreloads";
+_skills[sk, StandSkill.Desc] = "reload revolver:\nreload your revolver";
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = BulletVolley;
@@ -220,18 +220,18 @@ _skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
 _skills[sk, StandSkill.MaxCooldown] = 1;
 _skills[sk, StandSkill.Desc] = "bullet volley:\nfire a volley of three projectiles.\ndmg: " + DMG;
 
-sk = StandState.SkillDOff;
-_skills[sk, StandSkill.Skill] = Matches;
-_skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
-_skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.SkillAlt] = OilCan;
-_skills[sk, StandSkill.IconAlt] = global.sprSkillBulletVolley;
-_skills[sk, StandSkill.MaxCooldownAlt] = 5;
-_skills[sk, StandSkill.Desc] = @"matches:
-tosses a match on the ground.
+// sk = StandState.SkillDOff;
+// _skills[sk, StandSkill.Skill] = Matches;
+// _skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
+// _skills[sk, StandSkill.MaxCooldown] = 5;
+// _skills[sk, StandSkill.SkillAlt] = OilCan;
+// _skills[sk, StandSkill.IconAlt] = global.sprSkillBulletVolley;
+// _skills[sk, StandSkill.MaxCooldownAlt] = 5;
+// _skills[sk, StandSkill.Desc] = @"matches:
+// tosses a match on the ground.
 
-(hold) oil can:
-pours oil on the ground.";
+// (hold) oil can:
+// pours oil on the ground.";
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;

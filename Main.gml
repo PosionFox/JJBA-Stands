@@ -244,7 +244,8 @@ if (_x >= 968 and _y <= 1144 and _y >= 200)
         {
             var _pool = [
                 global.jjbamHeart,
-                global.jjbamEye
+                global.jjbamEye,
+                global.jjbamLeftArm
             ]
             
             var _item = irandom(array_length(_pool) - 1);

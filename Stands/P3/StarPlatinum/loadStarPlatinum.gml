@@ -147,8 +147,16 @@ _skills[sk, StandSkill.Skill] = StrongPunch;
 _skills[sk, StandSkill.Damage] = 5 + (objPlayer.level * 0.1) + objPlayer.dmg;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 8;
+_skills[sk, StandSkill.SkillAlt] = MeleePull;
+_skills[sk, StandSkill.IconAlt] = global.sprSkillMeleePull;
+_skills[sk, StandSkill.MaxCooldownAlt] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
-_skills[sk, StandSkill.Desc] = "strong punch:\ncharges and launches a strong punch.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = @"strong punch:
+charges and launches a strong punch.
+
+(hold) melee pull:
+pulls the enemy towards you.
+dmg: " + DMG;
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = StarFinger;
