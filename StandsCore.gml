@@ -7,6 +7,22 @@ var _height = display_get_gui_height() - 40;
 
 //draw_text(128, 128, string(objPlayer.dmg)); // debug
 
+if (isRare)
+{
+    var xx = 168;
+    var yy = _height - 200;
+    var _ss = random_range(0.85, 1.15);
+    
+    draw_sprite_ext(sprStarFragment, 0, xx - 4, yy, _ss, _ss, 0, c_purple, 0.8);
+    
+    var gx = device_mouse_x_to_gui(0);
+    var gy = device_mouse_y_to_gui(0);
+    if (point_in_rectangle(gx, gy, xx - 16, yy - 16, xx + 16, yy + 16))
+    {
+        var txt = "rare";
+        draw_text(gx + 8, gy, txt);
+    }
+}
 draw_text(168, _height - 160, string_lower(name));
 draw_text(24, _height - 84, "q");
 
@@ -54,9 +70,15 @@ for (var i = _start; i <= _end; i++)
     //show tooltip
     var gx = device_mouse_x_to_gui(0);
     var gy = device_mouse_y_to_gui(0);
-    if (point_in_rectangle(gx, gy, xx - 32, yy - 32, xx + 32, yy + 32))
+    if (point_in_rectangle(gx, gy, xx - 32, yy - 32, xx + 32, yy + 32) and skills[i, StandSkill.Desc] != "")
     {
-        var txt = skills[i, StandSkill.Desc];
+        var dmg = skills[i, StandSkill.Damage] + (player.level * skills[i, StandSkill.DamageScale]);
+        var desc = skills[i, StandSkill.Desc];
+        var txt = desc;
+        if (skills[i, StandSkill.Damage] != 0)
+        {
+            txt += "\n\ndmg: " + string(dmg) + " + " + string(player.dmg);
+        }
         draw_set_color(c_dkgray);
         draw_rectangle(gx, (yy - 64) - string_height(txt), gx + string_width(txt), (yy - 64), false);
         draw_set_color(c_white);
@@ -92,7 +114,7 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
 {
     if (state == StandState.Idle and active = skills[i, StandSkill.ActiveOnly])
     {
-        if (keyboard_check(ord(skills[i, StandSkill.Key])))
+        if (!instance_exists(objPlayerMenu) and keyboard_check(ord(skills[i, StandSkill.Key])))
         {
             if (skills[i, StandSkill.CooldownAlt] <= 0 and skills[i, StandSkill.SkillAlt] != AttackHandler)
             {
@@ -106,7 +128,7 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
                 }
             }
         }
-        if (keyboard_check_released(ord(skills[i, StandSkill.Key])))
+        if (!instance_exists(objPlayerMenu) and keyboard_check_released(ord(skills[i, StandSkill.Key])))
         {
             if (!altAttack and skills[i, StandSkill.Cooldown] <= 0)
             {
@@ -169,7 +191,10 @@ yTo = owner.y - 8;
 
 depth = -y;
 
-script_execute(summonMethod);
+if (!instance_exists(objPlayerMenu))
+{
+    script_execute(summonMethod);
+}
 
 x = lerp(x, xTo, spd);
 y = lerp(y, yTo, spd);
@@ -220,6 +245,8 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
     _arr[_s, StandSkill.MaxHold] = 0.5;
     _arr[_s, StandSkill.Hold] = 0;
     _arr[_s, StandSkill.Damage] = 0;
+    _arr[_s, StandSkill.DamageScale] = 0;
+    _arr[_s, StandSkill.DamagePlayerStat] = true;
     _arr[_s, StandSkill.MaxCooldown] = 1;
     _arr[_s, StandSkill.Cooldown] = 0;
     _arr[_s, StandSkill.MaxCooldownAlt] = 1;
@@ -241,34 +268,35 @@ return _arr;
 #define StandBuilder(_name, _sprite, _stats, _skills, _color)
 
 RemoveStand();
+
 // init
-var _stand = ModObjectSpawn(objPlayer.x, objPlayer.y, 0);
+var _stand = ModObjectSpawn(player.x, player.y, 0);
 with (_stand)
 {
-    owner = objPlayer;
-    isShiny = irandom(1);
+    // properties
     type = "stand";
+    name = _name;
+    owner = player;
+    sprite_index = _sprite;
+    xTo = player.x;
+    yTo = player.y;
+    height = 0;
+    isRare = false;
     saveKey = "jjbamStandless";
     discType = noone;
-    name = _name;
-    sprite_index = _sprite;
     color = _color;
-    attackState = 0;
-    attackStateTimer = 0;
     summonSound = global.sndStandSummon;
     // state
-    summonMethod = StandDefaultSummon;
-    runCDsMethod = StandSkillDefaultCDs;
+    attackState = 0;
+    attackStateTimer = 0;
     active = false;
     state = StandState.Idle;
     alphaTarget = 0;
-    idlePos = StandDefaultPos;
     target = noone;
     altAttack = false;
-    // position
-    xTo = objPlayer.x;
-    yTo = objPlayer.y;
-    height = 0;
+    idlePos = StandDefaultPos;
+    summonMethod = StandDefaultSummon;
+    runCDsMethod = StandSkillDefaultCDs;
     // stats
     stats = array_clone(_stats);
     spd = stats[StandStat.BaseSpd];
@@ -278,13 +306,13 @@ with (_stand)
     InstanceAssignMethod(self, "step", ScriptWrap(StandDefaultStep), false);
     InstanceAssignMethod(self, "draw", ScriptWrap(StandDefaultDraw), false);
     InstanceAssignMethod(self, "drawGUI", ScriptWrap(StandSkillDrawGUI), false);
-    objPlayer.myStand = self;
+    STAND = self;
 }
 return _stand;
 
 #define RemoveStand
 
-with (objModEmpty)
+with (MOBJ)
 {
     if ("type" in self)
     {
@@ -294,24 +322,18 @@ with (objModEmpty)
         }
     }
 }
-if (instance_exists(objPlayer))
+if (instance_exists(player) and instance_exists(STAND))
 {
-    with (objPlayer)
+    with (STAND)
     {
-        if (instance_exists(myStand))
+        state = StandState.Idle;
+        for (var i = StandState.SkillAOff; i < StandState.SkillD; i++)
         {
-            with (myStand)
-            {
-                state = StandState.Idle;
-                for (var i = StandState.SkillAOff; i < StandState.SkillD; i++)
-                {
-                    ResetCD(i);
-                }
-            }
-            instance_destroy(myStand);
+            ResetCD(i);
         }
-        myStand = noone;
+        instance_destroy(self);
     }
+    STAND = noone;
 }
 
 

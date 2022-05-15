@@ -1,0 +1,5 @@
+
+#define OnLoad
+
+InitPlayerVariables();
+LoadData();

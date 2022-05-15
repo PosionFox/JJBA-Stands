@@ -33,9 +33,9 @@ if (instance_exists(player))
             break;
         }
     }
-    if ("skCustomStands" in objPlayer)
+    if ("skCustomStands" in player)
     {
-        _map[? "jjbamCustomStands"] = objPlayer.skCustomStands;
+        _map[? "jjbamCustomStands"] = player.skCustomStands;
     }
 }
 
@@ -111,6 +111,8 @@ switch (_stand)
     // other
     case "jjbamSw": GiveSpookyWorld(); break;
     case "jjbamSus": GiveImposter(); break;
+    case "jjbamSpova": GiveSpova(); break;
+    case "jjbamTwova": GiveTwova(); break;
 }
 
 // Trace(_map[? "jjbamAbilitySkills"]);
@@ -122,9 +124,9 @@ switch (_stand)
 if (_custom == true)
 {
     //Trace("custom is: " + string(_custom));
-    if (instance_exists(objPlayer))
+    if (instance_exists(player))
     {
-        if ("skCustomStands" in objPlayer)
+        if ("skCustomStands" in player)
         {
             global.hasCustomStands = true;
             StructureEdit(global.jjbamStandWorkshop, StructureData.Unlocked, true);
@@ -134,26 +136,26 @@ if (_custom == true)
 else
 {
     //Trace("custom is: " + string(_custom));
-    if (instance_exists(objPlayer))
+    if (instance_exists(player))
     {
-        if ("skCustomStands" in objPlayer)
+        if ("skCustomStands" in player)
         {
-            objPlayer.skCustomStands = false;
+            player.skCustomStands = false;
         }
     }
 }
 
 #define InitPlayerVariables
 
-if (instance_exists(objPlayer))
+if (instance_exists(player))
 {
-    if !("myStand" in objPlayer)
+    if !("myStand" in player)
     {
-        objPlayer.myStand = noone;
+        STAND = noone;
     }
-    if !("skCustomStands" in objPlayer)
+    if !("skCustomStands" in player)
     {
-        objPlayer.skCustomStands = false;
+        player.skCustomStands = false;
     }
 }
 
@@ -167,113 +169,13 @@ global.timeIsFrozen = false;
 
 loadSprites();
 loadSounds();
-// loadStands();
 loadItems();
 loadStructures();
 loadCommands();
 
-#define OnPlayerDamage(_dodge, _damage)
 
-if (modTypeExists("loveTrain"))
-{
-    objPlayer.hp += _damage;
-    if (instance_exists(parEnemy))
-    {
-        var _t = instance_nearest(objPlayer.x, objPlayer.y, parEnemy);
-        _t.hp -= (_t.hpMax * 0.06) + _damage;
-        objPlayer.invulFrames = 0;
-        LTPunishEffect(_t.x, _t.y);
-        audio_play_sound(global.sndLtPunish, 5, false);
-    }
-}
-if (modSubtypeExists("geFrog"))
-{
-    objPlayer.hp += _damage;
-    if (instance_exists(parEnemy))
-    {
-        var _t = instance_nearest(objPlayer.x, objPlayer.y, parEnemy);
-        _t.hp -= _damage;
-        objPlayer.invulFrames = 0;
-    }
-}
 
-#define OnMobDeath(_mob)
 
-if (instance_exists(player))
-{
-    if ("myStand" in player)
-    {
-        switch (STAND.name)
-        {
-            case "Shadow The World":
-                if (STAND.xp < STAND.maxXp)
-                {
-                    STAND.xp += _mob.hpMax;
-                }
-            break;
-            case "Tusk":
-                STAND.act4Meter += _mob.hpMax * 0.25;
-            break;
-            case "Imposter":
-                audio_play_sound(global.sndAmogDead, 5, false);
-            break;
-        }
-    }
-}
-
-#define OnStructureInteract(type, structure, inst)
-
-if (structure == global.jjbamStandWorkshop)
-{
-    if ("myStand" in objPlayer)
-    {
-        if (instance_exists(objPlayer))
-        {
-            OpenStandWorkshop();
-        }
-    }
-}
-
-#define OnDig(_x, _y)
-
-if (_x >= 968 and _y <= 1144 and _y >= 200)
-{
-    if (place_meeting(_x, _y, objDigSpot))
-    {
-        if (random(1) < 0.25)
-        {
-            var _pool = [
-                global.jjbamHeart,
-                global.jjbamEye,
-                global.jjbamLeftArm
-            ]
-            
-            var _item = irandom(array_length(_pool) - 1);
-            DropItem(_x, _y, _pool[_item], 1);
-        }
-    }
-}
-
-#define OnNewGame
-
-InitPlayerVariables();
-GiveRandomStand();
-
-#define OnRoomLoad
-
-if (room == rmSkillGrid)
-{
-    //SkillStandWorkshop();
-}
-
-#define OnSave
-
-SaveData();
-
-#define OnLoad
-
-InitPlayerVariables();
-LoadData();
 
 
 

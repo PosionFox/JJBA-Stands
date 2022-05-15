@@ -17,7 +17,7 @@ if (distance_to_point(xTo, yTo) < 2)
         var xx = x + random_range(-4, 4);
         var yy = y + random_range(-8, 8);
         var ddir = _dir + random_range(-45, 45);
-        var _p = PunchCreate(xx, yy, ddir, skills[s, StandSkill.Damage], 0);
+        var _p = PunchCreate(xx, yy, ddir, GetDmg(s), 0);
         _p.onHitSound = global.sndPunchHit;
         _p.onHitEvent = SlashNearest;
         InstanceAssignMethod(_p, "step", ScriptWrap(StandBarrageStep), true);
@@ -120,7 +120,7 @@ switch (attackState)
             var _xx = x + lengthdir_x(4 + (4 * i), _dir);
             var _yy = y + lengthdir_y(4 + (4 * i), _dir);
             var _o = CloneCreate(_xx, _yy);
-            _o.damage = skills[skill, StandSkill.Damage];
+            _o.damage = GetDmg(skill);
         }
         FireCD(skill);
         state = StandState.Idle;
@@ -176,14 +176,15 @@ rotSpeed = lerp(rotSpeed, 100, 0.05);
 range = lerp(range, 24, 0.08);
 circRange = lerp(circRange, 0, 0.2);
 
-if (instance_exists(objPlayer))
+if (instance_exists(player))
 {
-    x = objPlayer.x;
-    y = objPlayer.y;
+    x = player.x;
+    y = player.y;
     for (var i = 0; i < amountRays; i++)
     {
-        rays[i].x = x + lengthdir_x(range, (i * (360 / amountRays)) + current_time / rotSpeed);
-        rays[i].y = y + lengthdir_y(range - 8, (i * (360 / amountRays)) + current_time / rotSpeed);
+        var rr = cos((current_time / 1000) + i) * 2;
+        rays[i].x = x + lengthdir_x(range + rr, (i * (360 / amountRays)) + current_time / rotSpeed);
+        rays[i].y = y + lengthdir_y((range - 8) + rr, (i * (360 / amountRays)) + current_time / rotSpeed);
     }
 }
 
@@ -216,6 +217,7 @@ if (modTypeExists("loveTrain"))
 else
 {
     height *= 0.9;
+    width *= 0.9;
     if (height <= 0)
     {
         instance_destroy(self);
@@ -228,8 +230,9 @@ gpu_set_blendmode(bm_add);
 draw_set_alpha(0.5);
 draw_set_color(c_yellow);
 draw_line_width(x, y, x, y - height, width);
-draw_set_color(image_blend);
-draw_set_alpha(image_alpha);
+draw_circle(x, y, width, false);
+draw_set_color(c_white);
+draw_set_alpha(1);
 gpu_set_blendmode(bm_normal);
 
 #define GiveD4CLT //stand
@@ -255,22 +258,23 @@ _skills[sk, StandSkill.Desc] = "reload revolver:\nreload your revolver";
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = TrickShot;
-_skills[sk, StandSkill.Damage] = 4 + (objPlayer.level * 0.2) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 4;
+_skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.Icon] = global.sprSkillGunShot;
 _skills[sk, StandSkill.MaxCooldown] = 0.5;
 _skills[sk, StandSkill.Desc] = @"trick shot:
 fire a projectile forwards.
 
 (after cast) bullet time:
-redirects the projectile into the nearest enemy.
-dmg: " + DMG;
+redirects the projectile into the nearest enemy.";
 
 sk = StandState.SkillCOff;
 _skills[sk, StandSkill.Skill] = BulletVolley;
-_skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.3) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 3;
+_skills[sk, StandSkill.DamageScale] = 0.3;
 _skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
 _skills[sk, StandSkill.MaxCooldown] = 1;
-_skills[sk, StandSkill.Desc] = "bullet volley:\nfire a volley of three projectiles.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = "bullet volley:\nfire a volley of three projectiles.";
 
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = CloneSwap;
@@ -280,7 +284,8 @@ _skills[sk, StandSkill.Desc] = "clone swap:\nswap places with the nearest clone 
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = SlashingStrikes;
-_skills[sk, StandSkill.Damage] = 2 + (objPlayer.level * 0.02) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 2;
+_skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.SkillAlt] = MeleePull;
@@ -288,22 +293,23 @@ _skills[sk, StandSkill.IconAlt] = global.sprSkillMeleePull;
 _skills[sk, StandSkill.MaxCooldownAlt] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
 _skills[sk, StandSkill.Desc] = @"slashing strikes:
-launches a barrage of strikes that inflict bleeding.
+launches a short barrage of strikes that inflict bleeding.
 
 (hold) melee pull:
-pulls the enemy towards you.
-dmg: " + DMG;
+pulls the enemy towards you.";
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = DoubleSlap;
-_skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.04) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 3;
+_skills[sk, StandSkill.DamageScale] = 0.04;
 _skills[sk, StandSkill.Icon] = global.sprSkillDoubleSlap;
 _skills[sk, StandSkill.MaxCooldown] = 4;
-_skills[sk, StandSkill.Desc] = "double slap:\nhovers forward and slaps the enemies twice.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = "double slap:\nhovers forward and slaps the enemies twice,\nthe second slap deals more damage.";
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = CloneBomb;
-_skills[sk, StandSkill.Damage] = 2 + (objPlayer.level * 0.01) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 2;
+_skills[sk, StandSkill.DamageScale] = 0.01;
 _skills[sk, StandSkill.Icon] = global.sprSkillCloneBomb;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.SkillAlt] = SuperCloneSummon;
@@ -317,8 +323,7 @@ chases the target and explodes on contact.
 summons even more clones of the user
 to aid them in combat,
 the amount of clones to summon depends
-on the user's level.
-dmg: " + DMG;
+on the user's level.";
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = LoveTrain;

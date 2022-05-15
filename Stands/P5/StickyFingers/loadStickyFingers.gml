@@ -17,7 +17,7 @@ if (distance_to_point(xTo, yTo) < 2)
         var xx = x + random_range(-4, 4);
         var yy = y + random_range(-8, 8);
         var ddir = _dir + random_range(-45, 45);
-        var _p = PunchCreate(xx, yy, ddir, skills[skill, StandSkill.Damage], 0);
+        var _p = PunchCreate(xx, yy, ddir, GetDmg(skill), 0);
         with (_p)
         {
             destroyOnImpact = true;
@@ -59,7 +59,7 @@ switch (attackState)
         }
     break;
     case 1:
-        var _p = PunchCreate(x, y, _dir, skills[skill, StandSkill.Damage], 3);
+        var _p = PunchCreate(x, y, _dir, GetDmg(skill), 3);
         with (_p)
         {
             onHitSound = global.sndSfStrong;
@@ -95,7 +95,7 @@ switch (attackState)
         {
             subtype = "sfGrab";
             target = noone;
-            despawnTime = room_speed * 10;
+            despawnTime = 10;
             timer = 0.4;
             grab = false;
             
@@ -352,19 +352,21 @@ var _skills = StandSkillInit(_stats);
 var sk;
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = SfBarrage;
-_skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.01) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 1;
+_skills[sk, StandSkill.DamageScale] = 0.01;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 6;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
-_skills[sk, StandSkill.Desc] = "sticky barrage:\nlaunches a barrage of punches.\ninflicts the enemy with damaging zippers.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = "sticky barrage:\nlaunches a barrage of punches.\ninflicts damaging zippers on the enemy.";
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = ZipperPunch;
-_skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.02) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 2;
+_skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 10;
-_skills[sk, StandSkill.Desc] = "zipper punch:\ncharges and launches a strong punch.\ninflicts the enemy with damaging zippers.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = "zipper punch:\ncharges and launches a strong punch.\ninflicts damaging zippers on the enemy.";
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = ZipperGrab;

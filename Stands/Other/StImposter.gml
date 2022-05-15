@@ -1,6 +1,6 @@
 
 #define MeetingCall(m, s)
-var _dmg = skills[s, StandSkill.Damage];
+var _dmg = GetDmg(s);
 
 if (instance_exists(ENEMY))
 {
@@ -20,7 +20,7 @@ else
 }
 
 #define Kill(m, s)
-var _dmg = skills[s, StandSkill.Damage];
+var _dmg = GetDmg(s);
 
 switch (attackState)
 {
@@ -91,7 +91,8 @@ var sk;
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = KnifeBarrage;
 _skills[sk, StandSkill.Icon] = global.sprSkillTripleKnifeThrow;
-_skills[sk, StandSkill.Damage] = 3 + (player.level * 0.3) + player.dmg;
+_skills[sk, StandSkill.Damage] = 3;
+_skills[sk, StandSkill.DamageScale] = 0.3;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 0.2;
 _skills[sk, StandSkill.Desc] = @"knifes:
@@ -100,7 +101,8 @@ tosses a few knifes.";
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = MeetingCall;
 _skills[sk, StandSkill.Icon] = global.sprSkillMeetingCall;
-_skills[sk, StandSkill.Damage] = 2 + (player.level * 0.5) + player.dmg;
+_skills[sk, StandSkill.Damage] = 2;
+_skills[sk, StandSkill.DamageScale] = 0.5;
 _skills[sk, StandSkill.MaxCooldown] = 10;
 _skills[sk, StandSkill.Desc] = @"meeting call:
 presses a button that damages enemies.";
@@ -108,7 +110,8 @@ presses a button that damages enemies.";
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = Kill;
 _skills[sk, StandSkill.Icon] = global.sprSkillKill;
-_skills[sk, StandSkill.Damage] = (10 * player.level) + player.dmg;
+_skills[sk, StandSkill.Damage] = 1;
+_skills[sk, StandSkill.DamageScale] = 10;
 _skills[sk, StandSkill.MaxCooldown] = 30;
 _skills[sk, StandSkill.Desc] = @"kill:
 teleports to a nearby enemy and heavily damages them.";
@@ -119,7 +122,7 @@ with (_s)
     summonSound = global.sndImposterSummon;
     saveKey = "jjbamSus";
     discType = global.jjbamDiscSus;
-    
+    isRare = true;
     rot = 0;
     
     InstanceAssignMethod(self, "draw", ScriptWrap(ImposterDraw), false);

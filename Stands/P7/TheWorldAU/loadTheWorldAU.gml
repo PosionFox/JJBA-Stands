@@ -137,8 +137,7 @@ if (distance_to_point(_xx, _yy) < 2)
         var _p = ProjectileCreate(xx, yy);
         with (_p)
         {
-            despawnTime = room_speed * 5;
-            damage = other.skills[skill, StandSkill.Damage];
+            damage = GetDmg(skill);
             direction = _dir;
             direction += random_range(-4, 4);
             canMoveInTs = false;
@@ -166,11 +165,11 @@ if (keyboard_check_pressed(ord(skills[skill, StandSkill.Key])))
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
 audio_play_sound(global.sndGunShot, 0, false);
-BulletCreate(player.x, player.y, _dir, skills[skill, StandSkill.Damage]);
+BulletCreate(player.x, player.y, _dir, GetDmg(skill));
 FireCD(skill)
 state = StandState.Idle;
 
-#define TimestopTwAu(method, skill)
+#define TwauTimestop(method, skill)
 
 var _tsExists = modTypeExists("timestop");
 
@@ -182,12 +181,7 @@ if (_tsExists)
 if (!_tsExists)
 {
     audio_play_sound(global.sndTwAuTs, 5, false);
-    var _ts = ModObjectSpawn(x, y, -1000);
-    with (_ts) { TimestopCreate(5); }
-    _ts.owner = self;
-    InstanceAssignMethod(_ts, "step", ScriptWrap(TimestopStep), false);
-    InstanceAssignMethod(_ts, "draw", ScriptWrap(TimestopDraw), false);
-    InstanceAssignMethod(_ts, "destroy", ScriptWrap(TimestopDestroy), false);
+    TimestopCreate(5);
     FireCD(skill);
 }
 state = StandState.Idle;
@@ -215,10 +209,11 @@ _skills[sk, StandSkill.Desc] = "reload revolver:\nreload your revolver";
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = BulletVolley;
-_skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.2) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 3;
+_skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
 _skills[sk, StandSkill.MaxCooldown] = 1;
-_skills[sk, StandSkill.Desc] = "bullet volley:\nfire a volley of three projectiles.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = "bullet volley:\nfire a volley of three projectiles.";
 
 // sk = StandState.SkillDOff;
 // _skills[sk, StandSkill.Skill] = Matches;
@@ -235,29 +230,32 @@ _skills[sk, StandSkill.Desc] = "bullet volley:\nfire a volley of three projectil
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;
-_skills[sk, StandSkill.Damage] = 1.2 + (objPlayer.level * 0.02) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 1.2;
+_skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 4;
-_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.";
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = KnifeBarrage;
-_skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.02) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 1;
+_skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillKnifeBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
-_skills[sk, StandSkill.Desc] = "knife barrage:\nlaunches a barrage of knifes.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = "knife barrage:\nlaunches a barrage of knifes.";
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = StrongPunch;
-_skills[sk, StandSkill.Damage] = 4 + (objPlayer.level * 0.1) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 4;
+_skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 7;
-_skills[sk, StandSkill.Desc] = "strong punch:\ncharges and launches a strong punch.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = "strong punch:\ncharges and launches a strong punch.";
 
 sk = StandState.SkillD;
-_skills[sk, StandSkill.Skill] = TimestopTwAu;
+_skills[sk, StandSkill.Skill] = TwauTimestop;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimestop;
 _skills[sk, StandSkill.MaxCooldown] = 25;
 _skills[sk, StandSkill.Desc] = "it's my time!:\nstops the time, most enemies are not allowed to move\nand makes your projectiles freeze in place.";

@@ -1,0 +1,5 @@
+
+#define OnNewGame
+
+InitPlayerVariables();
+GiveRandomStand();

@@ -3,7 +3,7 @@
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
 if (balls >= 1)
 {
-    SteelBallCreate(x, y, _dir, skills[s, StandSkill.Damage]);
+    SteelBallCreate(x, y, _dir, GetDmg(s));
     balls--;
     FireCD(s);
     state = StandState.Idle;
@@ -19,7 +19,7 @@ else
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
 if (balls >= 1)
 {
-    var _o = SteelBallCreate(x, y, _dir + irandom_range(-25, 25), skills[s, StandSkill.Damage]);
+    var _o = SteelBallCreate(x, y, _dir + irandom_range(-25, 25), GetDmg(s));
     _o.isGuided = true;
     balls--;
     FireCD(s);
@@ -63,17 +63,19 @@ var _skills = StandSkillInit(_stats);
 var sk;
 sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = SteelBall;
-_skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.3) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 3;
+_skills[sk, StandSkill.DamageScale] = 0.3
 _skills[sk, StandSkill.Icon] = global.sprSkillKnifeBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 1;
-_skills[sk, StandSkill.Desc] = "steel ball:\nlaunch a steel ball with spin energy.\nrequires 1 steel ball\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = "steel ball:\nlaunch a steel ball with spin energy.\nrequires 1 steel ball.";
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = GuidedSteelBall;
-_skills[sk, StandSkill.Damage] = 2 + (objPlayer.level * 0.2) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 2;
+_skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.Icon] = global.sprSkillGunShot;
 _skills[sk, StandSkill.MaxCooldown] = 1;
-_skills[sk, StandSkill.Desc] = "guided steel ball:\nlaunch a guided steel ball.\nif two steel balls collide their damage increases.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = "guided steel ball:\nlaunch a guided steel ball.\nif two steel balls collide their damage increases.";
 
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = SkinHarden;

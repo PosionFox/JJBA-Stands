@@ -7,7 +7,7 @@ with (_p)
 {
     var _snd = audio_play_sound(global.sndKnifeThrow, 0, false);
     audio_sound_pitch(_snd, random_range(0.9, 1.1));
-    damage = other.skills[skill, StandSkill.Damage];
+    damage = GetDmg(skill);
     baseSpd = 8;
     onHitEvent = StuckKnife;
     direction = _dir;
@@ -38,7 +38,7 @@ switch (attackState)
         stopSign.image_angle = lerp(stopSign.image_angle, stopSign.direction - 125, 0.1);
         if (attackStateTimer >= 0.5)
         {
-            var _dmg = other.skills[skill, StandSkill.Damage];
+            var _dmg = GetDmg(skill);
             var _p = PunchCreate(objPlayer.x, objPlayer.y, stopSign.direction, _dmg, 3);
             _p.onHitSound = global.sndStopSign;
             _p.image_alpha = 0;
@@ -68,7 +68,40 @@ switch (attackState)
         state = StandState.Idle;
     break;
 }
-attackStateTimer += 1 / room_speed;
+attackStateTimer += DT;
+
+#define TwBloodDrain(method, skill)
+var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
+
+switch (attackState)
+{
+    case 0:
+        //audio_play_sound(global.sndStwNazimuzo, 0, false);
+        attackState++;
+    break;
+    case 1:
+        if (attackStateTimer >= 0.3)
+        {
+            attackState++;
+        }
+    break;
+    case 2:
+        var _p = PunchCreate(x, y, _dir, GetDmg(skill), 0);
+        with (_p)
+        {
+            var _arg = noone;
+            if (instance_exists(parEnemy))
+            {
+                _arg = instance_nearest(x, y, parEnemy);
+            }
+            onHitEvent = StwDivineBloodCreate;
+            onHitEventArg = _arg;
+            destroyOnImpact = true;
+        }
+        EndAtk(skill);
+    break;
+}
+attackStateTimer += DT;
 
 #define TripleKnifeThrow(method, skill)
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
@@ -82,8 +115,7 @@ repeat (5)
     {
         x += lengthdir_x(irandom_range(-8, 8), _dir + 90);
         y += lengthdir_y(irandom_range(-8, 8), _dir + 90);
-        despawnTime = room_speed * 5;
-        damage = other.skills[skill, StandSkill.Damage];
+        damage = GetDmg(skill);
         direction = _dir;
         canMoveInTs = false;
         sprite_index = global.sprKnife;
@@ -92,7 +124,7 @@ repeat (5)
 FireCD(skill);
 state = StandState.Idle;
 
-#define TimestopTw(method, skill)
+#define TwTimestop(method, skill)
 
 var _tsExists = modTypeExists("timestop");
 
@@ -104,12 +136,7 @@ if (_tsExists)
 if (!_tsExists)
 {
     audio_play_sound(global.sndTwTs, 5, false);
-    var _ts = ModObjectSpawn(x, y, -1000);
-    with (_ts) { TimestopCreate(9); }
-    _ts.owner = self;
-    InstanceAssignMethod(_ts, "step", ScriptWrap(TimestopStep), false);
-    InstanceAssignMethod(_ts, "draw", ScriptWrap(TimestopDraw), false);
-    InstanceAssignMethod(_ts, "destroy", ScriptWrap(TimestopDestroy), false);
+    TimestopCreate(9);
     FireCD(skill);
 }
 state = StandState.Idle;
@@ -139,48 +166,53 @@ var _skills = StandSkillInit(_stats);
 var sk;
 sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = JosephKnife;
-_skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.1) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 3;
+_skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillJosephKnife;
 _skills[sk, StandSkill.MaxCooldown] = 6;
-_skills[sk, StandSkill.Desc] = "joseph knife:\nsends out a knife that causes bleed on impact.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = "joseph knife:\nsend out a knife that causes bleed on impact.";
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = StopSign;
-_skills[sk, StandSkill.Damage] = 7 + (objPlayer.level * 0.15) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 7;
+_skills[sk, StandSkill.DamageScale] = 0.15;
 _skills[sk, StandSkill.Icon] = global.sprSkillStopSign;
 _skills[sk, StandSkill.MaxCooldown] = 10;
-_skills[sk, StandSkill.Desc] = "stop sign:\nstrikes with a stop sign.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = "stop sign:\nstrike with a stop sign.";
 
 sk = StandState.SkillCOff;
-_skills[sk, StandSkill.Skill] = StwDivineBlood;
+_skills[sk, StandSkill.Skill] = TwBloodDrain;
 _skills[sk, StandSkill.Icon] = global.sprSkillDivineBlood;
 _skills[sk, StandSkill.MaxCooldown] = 15;
-_skills[sk, StandSkill.Desc] = "divine blood:\ndrains the target's health and heals the user.";
+_skills[sk, StandSkill.Desc] = "health drain:\ndrain the target's health and heals the user.";
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;
-_skills[sk, StandSkill.Damage] = 1.3 + (objPlayer.level * 0.02) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 1.3;
+_skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
-_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.";
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = StrongPunch;
-_skills[sk, StandSkill.Damage] = 5.5 + (objPlayer.level * 0.1) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 5.5;
+_skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 8;
-_skills[sk, StandSkill.Desc] = "strong punch:\ncharges and launches a strong punch.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = "strong punch:\ncharges and launches a strong punch.";
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = TripleKnifeThrow;
-_skills[sk, StandSkill.Damage] = 2 + (objPlayer.level * 0.02) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 2;
+_skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillTripleKnifeThrow;
 _skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.Desc] = "knife wall:\nsends out a burst of knifes.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = "knife wall:\nsends out a burst of knifes.";
 
 sk = StandState.SkillD;
-_skills[sk, StandSkill.Skill] = TimestopTw;
+_skills[sk, StandSkill.Skill] = TwTimestop;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimestop;
 _skills[sk, StandSkill.MaxCooldown] = 30;
 _skills[sk, StandSkill.Desc] = "time, stop!:\nstops the time, most enemies are not allowed to move\nand makes your projectiles freeze in place.";
@@ -201,6 +233,7 @@ with (_s)
     
     InstanceAssignMethod(self, "destroy", ScriptWrap(TheWorldDestroy), true);
 }
+return _s;
 
 #define TheWorldDestroy
 

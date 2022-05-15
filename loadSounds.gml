@@ -6,6 +6,7 @@ var p = ""; // path short
 p = "Resources/Sounds/Generic/Stand/";
 global.sndStandSummon = audio_create_stream(p + "standSummon.ogg");
 global.sndTwTsResume = audio_create_stream(p + "tsResume.ogg");
+global.sndTsOld = audio_create_stream(p + "tsOld.ogg");
 
 #endregion
 
@@ -54,13 +55,19 @@ global.sndStrayCat = audio_create_stream(p + "sndStrayCat.ogg");
 
 p = "Resources/Sounds/STW/";
 global.sndStwSummon = audio_create_stream(p + "stwSummon.ogg");
-global.sndStwTs = audio_create_stream(p + "stwTs.ogg");
-global.sndStwKnifeThrow = audio_create_stream(p + "stwKnifeThrow.ogg");
+global.sndStwKnifeThrow1 = audio_create_stream(p + "stwKnifeThrow1.ogg");
+global.sndStwKnifeThrow2 = audio_create_stream(p + "stwKnifeThrow2.ogg");
 global.sndStwSRSE = audio_create_stream(p + "stwSRSE.ogg");
-global.sndStwUry = audio_create_stream(p + "StwUry.ogg");
-global.sndStwCharisma = audio_create_stream(p + "StwCharisma.ogg");
-global.sndStwDivineBlood = audio_create_stream(p + "StwDivineBlood.ogg");
+global.sndStwUry = audio_create_stream(p + "stwUry.ogg");
+global.sndStwCharisma = audio_create_stream(p + "stwCharisma.ogg");
+global.sndStwDivineBlood = audio_create_stream(p + "stwDivineBlood.ogg");
 global.sndStwEvolve = audio_create_stream(p + "stwEvolve.ogg");
+global.sndStwLaugh1 = audio_create_stream(p + "stwLaugh1.ogg");
+global.sndStwLaugh2 = audio_create_stream(p + "stwLaugh2.ogg");
+global.sndStwNazimuzo = audio_create_stream(p + "stwNazimuzo.ogg");
+global.sndStwTheWorld = audio_create_stream(p + "stwTheWorld.ogg");
+global.sndStwTokiyotomare = audio_create_stream(p + "stwTokiyotomare.ogg");
+global.sndStwTsResume = audio_create_stream(p + "stwTsResume.ogg");
 
 #endregion
 

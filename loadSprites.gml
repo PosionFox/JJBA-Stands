@@ -79,7 +79,6 @@ global.sprHorizontalSlash = sprite_add(p + "HorizontalSlash.png", 1, false, fals
 
 p = "Resources/Sprites/TW/";
 global.sprTheWorld = sprite_add(p + "TheWorld.png", 1, false, false, 16, 19);
-global.sprSpookyWorld = sprite_add(p + "SpookyWorld.png", 1, false, false, 16, 19);
 global.sprTheWorldPunch = sprite_add(p + "TheWorldPunch.png", 1, false, false, 16, 16);
 global.sprStopSign = sprite_add(p + "StopSign.png", 1, false, false, 1, 16);
 
@@ -267,6 +266,15 @@ global.sprWhiteSnake = sprite_add(p + "Whitesnake.png", 1, false, false, 16, 19)
 
     // c-moon
 global.sprCMoon = sprite_add(p + "CMoon.png", 1, false, false, 16, 19);
+
+#endregion
+
+#region Alts
+
+p = "Resources/Sprites/Alts/";
+global.sprSpookyWorld = sprite_add(p + "SpookyWorld.png", 1, false, false, 16, 19);
+global.sprSPOVA = sprite_add(p + "SPOVA.png", 1, false, false, 16, 19);
+global.sprTWOVA = sprite_add(p + "TWOVA.png", 1, false, false, 16, 19);
 
 #endregion
 

@@ -42,7 +42,8 @@ var _skills = StandSkillInit(_stats);
 var sk;
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;
-_skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.02) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 1;
+_skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 2;
@@ -50,14 +51,16 @@ _skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.\ndmg: "
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = GunShot;
-_skills[sk, StandSkill.Damage] = 5 + (objPlayer.level * 0.1) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 5;
+_skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.Desc] = "strong punch:\ncharges and launches a strong punch.\ndmg: " + DMG;
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = AcidicSpit;
-_skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.05) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 3;
+_skills[sk, StandSkill.DamageScale] = 0.05;
 _skills[sk, StandSkill.Icon] = global.sprSkillStarFinger;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.Desc] = "star finger:\nstar platinum stretches their finger hitting enemies in the way.\ndmg: " + DMG;

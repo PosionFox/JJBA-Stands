@@ -40,8 +40,7 @@ if (ammo > 0)
         sprite_index = global.sprBtdVoidTrace;
         image_blend = c_yellow;
         mask_index = global.sprKnife;
-        despawnTime = room_speed * 5;
-        damage = other.skills[skill, StandSkill.Damage];
+        damage = GetDmg(skill);
         direction = _dir;
         canMoveInTs = false;
         GlowOrderCreate(self, 0.1, c_yellow);
@@ -92,7 +91,7 @@ if (attackStateTimer >= 0.15)
         var _s = audio_play_sound(_snds[irandom(array_length(_snds) - 1)], 5, false);
         audio_sound_pitch(_s, random_range(0.9, 1.1));
         audio_sound_gain(_s, 0.5, 0);
-        BulletCreate(player.x, player.y, _dir, skills[skill, StandSkill.Damage]);
+        BulletCreate(player.x, player.y, _dir, GetDmg(skill));
         ammo--;
         attackStateTimer = 0;
         attackState++;
@@ -128,7 +127,7 @@ switch (attackState)
         if (attackStateTimer > 0.5)
         {
             audio_play_sound(global.sndPunchAir, 0, false);
-            PunchCreate(x, y, _dir, skills[skill, StandSkill.Damage], 1);
+            PunchCreate(x, y, _dir, GetDmg(skill), 1);
             attackState++;
         }
     break;
@@ -137,7 +136,7 @@ switch (attackState)
         if (attackStateTimer > 1)
         {
             audio_play_sound(global.sndPunchAir, 0, false);
-            PunchCreate(x, y, _dir, skills[skill, StandSkill.Damage] * 1.5, 2);
+            PunchCreate(x, y, _dir, GetDmg(skill) * 1.5, 2);
             attackState++;
         }
     break;
@@ -223,7 +222,7 @@ switch (attackState)
             _ins = instance_nearest(mouse_x, mouse_y, parEnemy);
         }
         var _o = CloneBombCreate(_xx, _yy, _ins);
-        _o.damage = skills[skill, StandSkill.Damage];
+        _o.damage = GetDmg(skill);
         FireCD(skill);
         state = StandState.Idle;
     break;
@@ -268,7 +267,7 @@ switch (attackState)
             var _xx = x + lengthdir_x(4 + (4 * i), _dir);
             var _yy = y + lengthdir_y(4 + (4 * i), _dir);
             var _o = CloneCreate(_xx, _yy);
-            _o.damage = skills[skill, StandSkill.Damage];
+            _o.damage = GetDmg(skill);
         }
         FireCD(skill);
         state = StandState.Idle;
@@ -459,10 +458,11 @@ _skills[sk, StandSkill.Desc] = "reload revolver:\nreload your revolver";
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = BulletVolley;
-_skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.2) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 3;
+_skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
 _skills[sk, StandSkill.MaxCooldown] = 1;
-_skills[sk, StandSkill.Desc] = "bullet volley:\nfire a volley of three projectiles.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = "bullet volley:\nfire a volley of three projectiles.";
 
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = CloneSwap;
@@ -472,22 +472,25 @@ _skills[sk, StandSkill.Desc] = "clone swap:\nswap places with the nearest clone 
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;
-_skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.02) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 1;
+_skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 5;
-_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.";
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = DoubleSlap;
-_skills[sk, StandSkill.Damage] = 2 + (objPlayer.level * 0.04) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 2;
+_skills[sk, StandSkill.DamageScale] = 0.04;
 _skills[sk, StandSkill.Icon] = global.sprSkillDoubleSlap;
 _skills[sk, StandSkill.MaxCooldown] = 4;
-_skills[sk, StandSkill.Desc] = "double slap:\nhovers forward and slaps the enemies twice.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = "double slap:\nhovers forward and slaps the enemies twice,\nthe second slap deals more damage.";
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = CloneBomb;
-_skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.01) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 1;
+_skills[sk, StandSkill.DamageScale] = 0.01;
 _skills[sk, StandSkill.Icon] = global.sprSkillCloneBomb;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.SkillAlt] = CloneSummon;
@@ -500,8 +503,7 @@ chases the target and explodes on contact.
 (hold) clone summon:
 summons clones of the user to aid them in combat,
 the amount of clones to summon depends
-on the user's level.
-dmg: " + DMG;
+on the user's level.";
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = DimensionalHop;

@@ -30,11 +30,11 @@ if (distance_to_point(xTo, yTo) < 2)
         var xx = x + random_range(-4, 4);
         var yy = y + random_range(-8, 8);
         var ddir = _dir + random_range(-25, 25);
-        var _p = PunchCreate(xx, yy, ddir, skills[skill, StandSkill.Damage], 0);
+        var _p = PunchCreate(xx, yy, ddir, GetDmg(skill), 0);
         with (_p)
         {
             sprite_index = global.sprScAttack;
-            despawnTime = room_speed * 0.15;
+            despawnTime = 0.15;
             onHitSound = global.sndPunchHit;
         }
         attackStateTimer = 0;
@@ -80,27 +80,30 @@ var _skills = StandSkillInit(_stats);
 var sk;
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = ScBarrage;
-_skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.02) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 1;
+_skills[sk, StandSkill.Damage] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 5;
-_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.";
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = StrongPunch;
-_skills[sk, StandSkill.Damage] = 5 + (objPlayer.level * 0.1) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 5;
+_skills[sk, StandSkill.Damage] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
-_skills[sk, StandSkill.Desc] = "strong punch:\ncharges and launches a strong punch.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = "strong punch:\ncharges and launches a strong punch.";
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = StarFinger;
-_skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.05) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 3;
+_skills[sk, StandSkill.DamageScale] = 0.05;
 _skills[sk, StandSkill.Icon] = global.sprSkillStarFinger;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 0.7;
-_skills[sk, StandSkill.Desc] = "star finger:\nstar platinum stretches their finger hitting enemies in the way.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = "star finger:\nstar platinum stretches their finger hitting enemies in the way.";
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = ScFTL;

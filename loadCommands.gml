@@ -37,6 +37,9 @@ switch (args[0]) {
     case "tusk4": GiveTusk4(); break;
     // other
     case "sus": GiveImposter(); break;
+    case "sw": GiveSpookyWorld(); break;
+    case "spova": GiveSpova(); break;
+    case "twova": GiveTwova(); break;
     default: Trace("not found");
 }
 

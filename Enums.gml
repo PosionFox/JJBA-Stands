@@ -31,6 +31,8 @@ enum StandSkill {
     MaxHold,
     Hold,
     Damage,
+    DamageScale,
+    DamagePlayerStat,
     MaxCooldown,
     Cooldown,
     MaxCooldownAlt,

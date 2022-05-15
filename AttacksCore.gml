@@ -35,6 +35,20 @@ state = StandState.Idle;
 //ResetCD(skill);
 state = StandState.Idle;
 
+#define GetDmg(skill)
+
+var _damage = 0;
+with (STAND)
+{
+    _damage += skills[skill, StandSkill.Damage] + (player.level * skills[skill, StandSkill.DamageScale]);
+    if (skills[skill, StandSkill.DamagePlayerStat])
+    {
+        _damage += player.dmg;
+    }
+}
+
+return _damage;
+
 #define ProjectileCreate(_x, _y)
 
 var _o = ModObjectSpawn(_x, _y, 0);
@@ -47,7 +61,8 @@ with (_o)
     type = "projectile";
     subtype = "projectile";
     owner = other;
-    despawnTime = room_speed * 5;
+    despawnFade = true;
+    despawnTime = 5;
     baseSpd = 5;
     spd = baseSpd;
     baseDamage = 0;
@@ -74,11 +89,17 @@ return _o;
 if (!visible) { visible = true; }
 depth = -y;
 
+if (despawnFade)
+{
+    image_alpha = min(1, despawnTime);
+}
+
 if (global.timeIsFrozen and canDespawnInTs or !global.timeIsFrozen)
 {
-    despawnTime--;
+    despawnTime -= DT;
 }
-if (despawnTime <= 0) {
+if (despawnTime <= 0)
+{
     instance_destroy(self);
     exit;
 }
@@ -118,7 +139,7 @@ if (instance_exists(self))
         }
     }
     
-    with (parEnemy)
+    with (ENEMY)
     {
         if (place_meeting(x, y, other) and scale != 0)
         {
@@ -217,14 +238,26 @@ if (instance_exists(target))
 
 #define TimestopCreate(_length)
 
-type = "timestop";
-global.timeIsFrozen = true;
-radiusGrow = true;
-growthTarget = 0;
-growth = 800;
-maxLength = _length;
-length = 0;
-whiteScreen = 0.1;
+var o = ModObjectSpawn(x, y, -1000);
+with (o)
+{
+    type = "timestop";
+    owner = other;
+    global.timeIsFrozen = true;
+    resumeSound = global.sndTwTsResume;
+    
+    radiusGrow = true;
+    growthTarget = 0;
+    growth = 800;
+    maxLength = _length;
+    length = 0;
+    whiteScreen = 0.1;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(TimestopStep));
+    InstanceAssignMethod(self, "draw", ScriptWrap(TimestopDraw));
+    InstanceAssignMethod(self, "destroy", ScriptWrap(TimestopDestroy));
+}
+return o;
 
 #define TimestopStep
 
@@ -289,8 +322,8 @@ else
 
 #define TimestopDestroy
 
-audio_play_sound(global.sndTwTsResume, 5, false);
-with (objModEmpty)
+audio_play_sound(resumeSound, 5, false);
+with (MOBJ)
 {
     if ("type" in self)
     {
@@ -325,10 +358,12 @@ target.hp -= damageStack;
 var _p = ProjectileCreate(_x, _y);
 with (_p)
 {
+    subtype = "punch";
     sprite_index = global.sprAttackPunch;
     image_blend = other.color;
     damage = _dmg;
-    despawnTime = room_speed * 0.1;
+    despawnFade = false;
+    despawnTime = 0.1;
     canDespawnInTs = true;
     destroyOnImpact = false;
     direction = _dir;
@@ -465,7 +500,7 @@ with (_o)
     damage = _dmg;
     isGuided = false;
     empowered = false;
-    despawnTime = room_speed * 20;
+    despawnTime = 20;
     live = 3;
     
     state = "chase";

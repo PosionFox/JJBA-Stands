@@ -9,9 +9,9 @@ if (nails <= 0)
     exit;
 }
 
-var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
 
-var _p = ProjectileCreate(objPlayer.x, objPlayer.y);
+var _p = ProjectileCreate(player.x, player.y);
 with (_p)
 {
     audio_play_sound(global.sndGunShot, 0, false);
@@ -19,8 +19,7 @@ with (_p)
     sprite_index = global.sprBtdVoidTrace;
     image_blend = c_yellow;
     mask_index = global.sprKnife;
-    despawnTime = room_speed * 5;
-    damage = other.skills[s, StandSkill.Damage];
+    damage = GetDmg(s);
     direction = _dir;
     canMoveInTs = false;
     GlowOrderCreate(self, 0.1, c_yellow);
@@ -31,7 +30,7 @@ state = StandState.Idle;
 
 #define NailScratch(m, s)
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-PunchCreate(player.x, player.y, _dir, skills[s, StandSkill.Damage], 1);
+PunchCreate(player.x, player.y, _dir, GetDmg(s), 1);
 FireCD(s);
 state = StandState.Idle;
 
@@ -89,9 +88,8 @@ with (_p)
     sprite_index = global.sprBtdVoidTrace;
     image_blend = c_yellow;
     mask_index = global.sprKnife;
-    despawnTime = room_speed * 5;
     onHitEvent = BulletHole;
-    damage = other.skills[s, StandSkill.Damage];
+    damage = GetDmg(s);
     direction = _dir;
     canMoveInTs = false;
     GlowOrderCreate(self, 0.1, c_yellow);
@@ -120,9 +118,8 @@ if (attackStateTimer >= 0.2)
         sprite_index = global.sprBtdVoidTrace;
         image_blend = c_yellow;
         mask_index = global.sprKnife;
-        despawnTime = room_speed * 5;
         onHitEvent = BulletHole;
-        damage = other.skills[s, StandSkill.Damage];
+        damage = GetDmg(s);
         direction = _dir;
         canMoveInTs = false;
         GlowOrderCreate(self, 0.1, c_yellow);
@@ -170,9 +167,8 @@ with (_p)
     sprite_index = global.sprBtdVoidTrace;
     image_blend = c_fuchsia;
     mask_index = global.sprKnife;
-    despawnTime = room_speed * 5;
     onHitEvent = BulletHole;
-    damage = other.skills[s, StandSkill.Damage];
+    damage = GetDmg(s);
     direction = _dir;
     canMoveInTs = false;
     tpTime = 0;
@@ -275,9 +271,8 @@ with (_p)
     sprite_index = global.sprBtdVoidTrace;
     image_blend = c_yellow;
     mask_index = global.sprKnife;
-    despawnTime = room_speed * 5;
     onHitEvent = BulletHole;
-    damage = other.skills[s, StandSkill.Damage] * other.act4Meter;
+    damage = GetDmg(s) * other.act4Meter;
     direction = _dir;
     canMoveInTs = false;
     GlowOrderCreate(self, 0.1, c_yellow);
@@ -562,14 +557,16 @@ _skills4 = StandSkillInit(_stats);
 
 sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = SteelBall;
-_skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.4) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 3;
+_skills[sk, StandSkill.Damage] = 0.4;
 _skills[sk, StandSkill.Icon] = global.sprSkillGunShot;
 _skills[sk, StandSkill.MaxCooldown] = 2;
 _skills[sk, StandSkill.Desc] = "steel ball:\nlaunch a steel ball with spin energy.\ndmg: " + DMG;
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = GuidedSteelBall;
-_skills[sk, StandSkill.Damage] = 2 + (objPlayer.level * 0.3) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 2;
+_skills[sk, StandSkill.DamageScale] = 0.3;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 2;
 _skills[sk, StandSkill.Desc] = "guided steel ball:\nlaunch a guided steel ball.\ndmg: " + DMG;
@@ -586,13 +583,15 @@ _skills[sk, StandSkill.Desc] = "skin harden!:\nhardens your skin decreasing dama
 
 sk = StandState.SkillA;
 _skills1[sk, StandSkill.Skill] = SpinningNails;
-_skills1[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.1) + objPlayer.dmg;
+_skills1[sk, StandSkill.Damage] = 1;
+_skills1[sk, StandSkill.DamageScale] = 0.1;
 _skills1[sk, StandSkill.Icon] = global.sprSkillSpinningNail;
 _skills1[sk, StandSkill.MaxCooldown] = 0.8;
 
 sk = StandState.SkillB;
 _skills1[sk, StandSkill.Skill] = NailScratch;
-_skills1[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.2) + objPlayer.dmg;
+_skills1[sk, StandSkill.Damage] = 3;
+_skills1[sk, StandSkill.DamageScale] = 0.2;
 _skills1[sk, StandSkill.Icon] = global.sprSkillScratch;
 _skills1[sk, StandSkill.MaxCooldown] = 5;
 
@@ -615,13 +614,15 @@ _skills1[sk, StandSkill.MaxExecutionTime] = 1;
 
 sk = StandState.SkillA;
 _skills2[sk, StandSkill.Skill] = GoldenRectangleNails;
-_skills2[sk, StandSkill.Damage] = 2 + (player.level * 0.1) + player.dmg;
+_skills2[sk, StandSkill.Damage] = 2;
+_skills2[sk, StandSkill.DamageScale] = 0.1;
 _skills2[sk, StandSkill.Icon] = global.sprSkillGoldenRectangleNail;
 _skills2[sk, StandSkill.MaxCooldown] = 0.8;
 
 sk = StandState.SkillB;
 _skills2[sk, StandSkill.Skill] = DoubleGoldenRectangleNails;
-_skills2[sk, StandSkill.Damage] = 2 + (player.level * 0.1) + player.dmg;
+_skills2[sk, StandSkill.Damage] = 2;
+_skills2[sk, StandSkill.DamageScale] = 0.1;
 _skills2[sk, StandSkill.Icon] = global.sprSkillDoubleGoldenRectangleNail;
 _skills2[sk, StandSkill.MaxCooldown] = 1.2;
 
@@ -632,7 +633,8 @@ _skills2[sk, StandSkill.MaxCooldown] = 5;
 
 sk = StandState.SkillD;
 _skills2[sk, StandSkill.Skill] = WormholeNail;
-_skills2[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.2) + objPlayer.dmg;
+_skills2[sk, StandSkill.Damage] = 3;
+_skills2[sk, StandSkill.DamageScale] = 0.2;
 _skills2[sk, StandSkill.Icon] = global.sprSkillWormholeNail;
 _skills2[sk, StandSkill.MaxCooldown] = 10;
 
@@ -642,7 +644,8 @@ _skills2[sk, StandSkill.MaxCooldown] = 10;
 
 sk = StandState.SkillA;
 _skills3[sk, StandSkill.Skill] = WormholeNail;
-_skills3[sk, StandSkill.Damage] = 4 + (objPlayer.level * 0.3) + objPlayer.dmg;
+_skills3[sk, StandSkill.Damage] = 4;
+_skills3[sk, StandSkill.DamageScale] = 0.3;
 _skills3[sk, StandSkill.Icon] = global.sprSkillWormholeNail;
 _skills3[sk, StandSkill.MaxCooldown] = 5;
 _skills3[sk, StandSkill.MaxExecutionTime] = 3;
@@ -663,27 +666,32 @@ _skills3[sk, StandSkill.MaxCooldown] = 8;
 
 sk = StandState.SkillA;
 _skills4[sk, StandSkill.Skill] = StandBarrage;
-_skills4[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.02) + objPlayer.dmg;
+_skills4[sk, StandSkill.Damage] = 1;
+_skills4[sk, StandSkill.DamageScale] = 0.02;
 _skills4[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills4[sk, StandSkill.MaxCooldown] = 5;
 _skills4[sk, StandSkill.MaxExecutionTime] = 3;
 
 sk = StandState.SkillB;
 _skills4[sk, StandSkill.Skill] = StrongPunch;
-_skills4[sk, StandSkill.Damage] = 5 + (objPlayer.level * 0.1) + objPlayer.dmg;
+_skills4[sk, StandSkill.Damage] = 5;
+_skills4[sk, StandSkill.Damage] = 0.1;
 _skills4[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills4[sk, StandSkill.MaxCooldown] = 8;
 
 sk = StandState.SkillC;
 _skills4[sk, StandSkill.Skill] = TripleKnifeThrow;
-_skills4[sk, StandSkill.Damage] = 2 + (objPlayer.level * 0.02) + objPlayer.dmg;
+_skills4[sk, StandSkill.Damage] = 2;
+_skills4[sk, StandSkill.DamageScale] = 0.02;
 _skills4[sk, StandSkill.Icon] = global.sprSkillTripleKnifeThrow;
 _skills4[sk, StandSkill.MaxCooldown] = 5;
 
 sk = StandState.SkillD;
 _skills4[sk, StandSkill.Skill] = InfiniteRotation;
-_skills4[sk, StandSkill.Damage] = ((1 + sqrt(5)) / 2) * player.level;
+_skills4[sk, StandSkill.Damage] = ((1 + sqrt(5)) / 2);
+_skills4[sk, StandSkill.DamageScale] = 1;
 _skills4[sk, StandSkill.Icon] = global.sprSkillInfiniteRotation;
+_skills4[sk, StandSkill.Desc] = "infinite rotation:";
 _skills4[sk, StandSkill.MaxCooldown] = 60;
 
 #endregion

@@ -17,7 +17,7 @@ if (distance_to_point(xTo, yTo) < 2)
         var xx = x + random_range(-4, 4);
         var yy = y + random_range(-8, 8);
         var ddir = _dir + random_range(-45, 45);
-        var _p = PunchCreate(xx, yy, ddir, skills[skill, StandSkill.Damage], 0);
+        var _p = PunchCreate(xx, yy, ddir, GetDmg(skill), 0);
         with (_p)
         {
             onHitSound = global.sndGeHit;
@@ -56,7 +56,7 @@ switch (attackState)
         }
     break;
     case 1:
-        var _p = PunchCreate(x, y, _dir, skills[skill, StandSkill.Damage], 3);
+        var _p = PunchCreate(x, y, _dir, GetDmg(skill), 3);
         with (_p)
         {
             onHitSound = global.sndGePunch;
@@ -92,7 +92,7 @@ switch (attackState)
             var _e = ShrinkingCircleEffect(objPlayer.x, objPlayer.y);
             _e.color = c_lime;
             _e.radius = 8;
-            owner.hp += skills[skill, StandSkill.Damage];
+            owner.hp += GetDmg(skill);
             FireEffect(c_white, c_lime);
             FireCD(skill);
             state = StandState.Idle;
@@ -283,25 +283,29 @@ _skills[sk, StandSkill.Desc] = "lifeform frog:\nsummons a frog that protects and
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = GeBarrage;
-_skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.01) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 1;
+_skills[sk, StandSkill.DamageScale] = 0.01;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 7;
-_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.";
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = LifePunch;
-_skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.02) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 3;
+_skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 8;
-_skills[sk, StandSkill.Desc] = "life punch:\npunches the enemy and pulls their soul out,\nthe soul damages other enemies.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = "life punch:\npunches the enemy and pulls their soul out,\nthe soul damages other enemies.";
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = SelfHeal;
-_skills[sk, StandSkill.Damage] = 1 + floor(objPlayer.level * 0.15);
+_skills[sk, StandSkill.Damage] = 1;
+_skills[sk, StandSkill.DamageScale] = 0.15;
+_skills[sk, StandSkill.DamagePlayerStat] = false;
 _skills[sk, StandSkill.Icon] = global.sprSkillSelfHeal;
 _skills[sk, StandSkill.MaxCooldown] = 15;
-_skills[sk, StandSkill.Desc] = "self heal:\nmends the user's wounds,\nthe effectiveness of the healing is tied to the user's level.\nheal: " + DMG;
+_skills[sk, StandSkill.Desc] = "self heal:\nmends the user's wounds,\nthe effectiveness of the healing is tied to the user's level.";
 
 sk = StandState.SkillD;
 

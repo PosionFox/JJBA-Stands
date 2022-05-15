@@ -27,7 +27,7 @@ switch (attackState)
         attackState++;
     break;
     case 1:
-        attackStateTimer += 1 / room_speed;
+        attackStateTimer += DT;
         if (attackStateTimer >= 0.8)
         {
             attackState++;
@@ -367,12 +367,12 @@ summons sha in combat, chasing and exploding enemies on its own.";
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;
-_skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.02) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 1;
+_skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.Desc] = @"barrage:
-launches a barrage of punches.
-dmg: " + DMG;
+launches a barrage of punches.";
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = PlaceBomb;

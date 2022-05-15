@@ -17,12 +17,13 @@ if (distance_to_point(_xx, _yy) <= 1)
         {
             subtype = "starFinger";
             sprite_index = global.sprStarPlatinumFinger;
-            damage = other.skills[skill, StandSkill.Damage];
+            damage = GetDmg(skill);
             stationary = true;
             canDespawnInTs = true;
             destroyOnImpact = false;
             direction = _dir;
-            despawnTime = room_speed * 0.7;
+            despawnFade = false;
+            despawnTime = 1;
             fingerSize = 0;
             InstanceAssignMethod(self, "draw", ScriptWrap(StarFingerDraw), false);
         }
@@ -84,7 +85,7 @@ if (distance_to_point(_xx, _yy) <= 1)
     skills[skill, StandSkill.ExecutionTime] += 1 / room_speed;
 }
 
-#define TimestopSp(method, skill)
+#define SpTimestop(method, skill)
 
 var _tsExists = modTypeExists("timestop");
 
@@ -96,12 +97,7 @@ if (_tsExists)
 if (!_tsExists)
 {
     audio_play_sound(global.sndSpTs, 5, false);
-    var _ts = ModObjectSpawn(x, y, -1000);
-    with (_ts) { TimestopCreate(5); }
-    _ts.owner = self;
-    InstanceAssignMethod(_ts, "step", ScriptWrap(TimestopStep), false);
-    InstanceAssignMethod(_ts, "draw", ScriptWrap(TimestopDraw), false);
-    InstanceAssignMethod(_ts, "destroy", ScriptWrap(TimestopDestroy), false);
+    var _ts = TimestopCreate(5);
     FireCD(skill);
 }
 state = StandState.Idle;
@@ -109,8 +105,8 @@ state = StandState.Idle;
 #define StarFingerDraw //attacks properties
 
 //draw_set_color(c_purple);
-var ox = objPlayer.myStand.x;
-var oy = objPlayer.myStand.y;
+var ox = STAND.x;
+var oy = STAND.y;
 var w = fingerSize / sprite_get_width(sprite_index);
 
 var xx = ox + lengthdir_x(w, direction);
@@ -136,15 +132,17 @@ var _skills = StandSkillInit(_stats);
 var sk;
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;
-_skills[sk, StandSkill.Damage] = 1 + (objPlayer.level * 0.02) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 1;
+_skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 5;
-_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.";
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = StrongPunch;
-_skills[sk, StandSkill.Damage] = 5 + (objPlayer.level * 0.1) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 5;
+_skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.SkillAlt] = MeleePull;
@@ -155,19 +153,19 @@ _skills[sk, StandSkill.Desc] = @"strong punch:
 charges and launches a strong punch.
 
 (hold) melee pull:
-pulls the enemy towards you.
-dmg: " + DMG;
+pulls the enemy towards you.";
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = StarFinger;
-_skills[sk, StandSkill.Damage] = 3 + (objPlayer.level * 0.05) + objPlayer.dmg;
+_skills[sk, StandSkill.Damage] = 3;
+_skills[sk, StandSkill.DamageScale] = 0.05;
 _skills[sk, StandSkill.Icon] = global.sprSkillStarFinger;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 0.7;
-_skills[sk, StandSkill.Desc] = "star finger:\nstar platinum stretches their finger hitting enemies in the way.\ndmg: " + DMG;
+_skills[sk, StandSkill.Desc] = "star finger:\nstar platinum stretches their finger hitting enemies in the way.";
 
 sk = StandState.SkillD;
-_skills[sk, StandSkill.Skill] = TimestopSp;
+_skills[sk, StandSkill.Skill] = SpTimestop;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimestopSp;
 _skills[sk, StandSkill.MaxCooldown] = 20;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
@@ -180,3 +178,4 @@ with (_s)
     saveKey = "jjbamSp";
     discType = global.jjbamDiscSp;
 }
+return _s;

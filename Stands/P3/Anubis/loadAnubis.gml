@@ -7,7 +7,7 @@ var _p = ProjectileCreate(owner.x, owner.y);
 with (_p)
 {
     sprite_index = global.sprHorizontalSlash;
-    despawnTime = room_speed * 0.1;
+    despawnTime = 0.1;
     distance = 16;
     direction = _dir;
     stationary = true;
@@ -15,6 +15,28 @@ with (_p)
 }
 FireCD(skill);
 state = StandState.Idle;
+
+#define AnubisSummon
+
+if (keyboard_check_pressed(ord("Q")) and state == StandState.Idle) {
+    active = !active;
+    if (active)
+    {
+        if (!audio_is_playing(summonSound) and summonSound != noone)
+        {
+            audio_play_sound(summonSound, 0, false);
+            GainItem(global.jjbamAnubis);
+            ToolbarAdd(global.jjbamAnubis);
+            ToolbarRefresh(true);
+            ToolbarSelect(global.jjbamAnubis);
+        }
+    }
+    else
+    {
+        RemoveItem(global.jjbamAnubis);
+        ToolbarRemove(global.jjbamAnubis);
+    }
+}
 
 #define GiveAnubis //stand
 
@@ -33,5 +55,9 @@ var _skills = StandSkillInit(_stats);
 var sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = HorizontalSlash;
 
-StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
-objPlayer.myStand.saveKey = "jjbamAnubis";
+var s = StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
+with (s)
+{
+    saveKey = "jjbamAnubis";
+    summonMethod = AnubisSummon;
+}

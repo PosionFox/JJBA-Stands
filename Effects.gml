@@ -151,6 +151,7 @@ with (_o)
 {
     radius = 32;
     color = c_white;
+    lerped = true;
     depth = -y - 10;
     
     InstanceAssignMethod(self, "step", ScriptWrap(ShrinkingCircleStep), false);
@@ -165,7 +166,15 @@ if (radius <= 0)
     instance_destroy(self);
     exit;
 }
-radius = lerp(radius, 0, 0.1);
+
+if (lerped)
+{
+    radius = lerp(radius, 0, 0.1);
+}
+else
+{
+    radius -= 0.1 + (radius * 0.1);
+}
 
 #define ShrinkingCircleDraw
 
