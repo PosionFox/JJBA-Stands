@@ -21,11 +21,15 @@ skills[skill, StandSkill.Cooldown] = 0;
 
 #define EndAtk(skill)
 
+angleTarget = 0;
+angleTargetSpd = 0.1;
 FireCD(skill);
 state = StandState.Idle;
 
 #define ResetAtk(skill)
 
+angleTarget = 0;
+angleTargetSpd = 0.1;
 FireCD(skill);
 skills[skill, StandSkill.Cooldown] = 0;
 state = StandState.Idle;
@@ -48,6 +52,40 @@ with (STAND)
 }
 
 return _damage;
+
+#define ProjHitEnemy(enemy)
+
+if (array_find_index(instancesHit, enemy.id) == -1)
+{
+    if (onHitSound != noone)
+    {
+        if (audio_is_playing(onHitSound))
+        {
+            audio_stop_sound(onHitSound);
+        }
+        var _s = audio_play_sound(onHitSound, 0, false);
+        audio_sound_pitch(_s, random_range(0.9, 1.1));
+    }
+    if (onHitEvent != noone)
+    {
+        script_execute(onHitEvent, onHitEventArg, undefined);
+    }
+    PunchEffectCreate(x, y);
+    DustEntityAdd(x, y);
+    var _dir = point_direction(x, y, enemy.x, enemy.y) - 180;
+    // if (other.knockback > 0)
+    // {
+    //     KnockbackCreate(self, other.knockback, other.direction, other.knockbackDuration);
+    // }
+    enemy.h = lengthdir_x(knockback, direction);
+    enemy.v = lengthdir_y(knockback, direction);
+    enemy.hp -= damage;
+    array_push(instancesHit, enemy.id);
+    if (destroyOnImpact)
+    {
+        instance_destroy(self);
+    }
+}
 
 #define ProjectileCreate(_x, _y)
 
@@ -143,39 +181,9 @@ if (instance_exists(self))
     {
         if (place_meeting(x, y, other) and scale != 0)
         {
-            if (array_find_index(other.instancesHit, id) == -1)
+            with (other)
             {
-                if (other.onHitSound != noone)
-                {
-                    if (audio_is_playing(other.onHitSound))
-                    {
-                        audio_stop_sound(other.onHitSound);
-                    }
-                    var _s = audio_play_sound(other.onHitSound, 0, false);
-                    audio_sound_pitch(_s, random_range(0.9, 1.1));
-                }
-                if (other.onHitEvent != noone)
-                {
-                    with (other)
-                    {
-                        script_execute(onHitEvent, onHitEventArg, undefined);
-                    }
-                }
-                PunchEffectCreate(other.x, other.y);
-                DustEntityAdd(other.x, other.y);
-                var _dir = point_direction(x, y, other.x, other.y) - 180;
-                // if (other.knockback > 0)
-                // {
-                //     KnockbackCreate(self, other.knockback, other.direction, other.knockbackDuration);
-                // }
-                h = lengthdir_x(other.knockback, other.direction);
-                v = lengthdir_y(other.knockback, other.direction);
-                hp -= other.damage;
-                array_push(other.instancesHit, id);
-                if (other.destroyOnImpact)
-                {
-                    instance_destroy(other);
-                }
+                ProjHitEnemy(other);
             }
         }
     }
@@ -238,6 +246,13 @@ if (instance_exists(target))
 
 #define TimestopCreate(_length)
 
+var _tsExists = modTypeExists("timestop");
+
+if (_tsExists)
+{
+    instance_destroy(modTypeFind("timestop"));
+}
+
 var o = ModObjectSpawn(x, y, -1000);
 with (o)
 {
@@ -266,7 +281,7 @@ if (whiteScreen > 0)
     whiteScreen -= 1 / room_speed;
 }
 
-with (parEnemy)
+with (ENEMY)
 {
     freeze = 2;
     // var _o = ModObjectSpawn(x, y, depth);
@@ -281,6 +296,14 @@ with (parEnemy)
     // InstanceAssignMethod(_o, "step", ScriptWrap(TsEnemyStep), false);
     // InstanceAssignMethod(_o, "destroy", ScriptWrap(TsEnemyDestroy), false);
     // instance_deactivate_object(self);
+}
+
+if (instance_exists(objArrow))
+{
+    with (objArrow)
+    {
+        speed = lerp(speed, 0, 0.1);
+    }
 }
 
 if (instance_exists(owner))
@@ -321,6 +344,14 @@ else
 }
 
 #define TimestopDestroy
+
+if (instance_exists(objArrow))
+{
+    with (objArrow)
+    {
+        speed = 6;
+    }
+}
 
 audio_play_sound(resumeSound, 5, false);
 with (MOBJ)
@@ -379,7 +410,6 @@ xTo = objPlayer.x + lengthdir_x(stats[StandStat.AttackRange], _dir + random_rang
 yTo = objPlayer.y + lengthdir_y(stats[StandStat.AttackRange], _dir + random_range(-4, 4));
 image_xscale = mouse_x > objPlayer.x ? 1 : -1;
 
-attackStateTimer += 1 / room_speed;
 if (distance_to_point(xTo, yTo) < 2)
 {
     if (attackStateTimer >= 0.08)
@@ -389,12 +419,12 @@ if (distance_to_point(xTo, yTo) < 2)
         var xx = x + random_range(-4, 4);
         var yy = y + random_range(-8, 8);
         var ddir = _dir + random_range(-45, 45);
-        var _p = PunchCreate(xx, yy, ddir, skills[skill, StandSkill.Damage], 0);
+        var _p = PunchCreate(xx, yy, ddir, GetDmg(skill), 0);
         _p.onHitSound = global.sndPunchHit;
         InstanceAssignMethod(_p, "step", ScriptWrap(StandBarrageStep), true);
         attackStateTimer = 0;
     }
-    skills[skill, StandSkill.ExecutionTime] += 1 / room_speed;
+    skills[skill, StandSkill.ExecutionTime] += DT;
 }
 
 if (keyboard_check_pressed(ord(skills[skill, StandSkill.Key])))
@@ -409,6 +439,7 @@ if (keyboard_check_pressed(ord(skills[skill, StandSkill.Key])))
     }
     state = StandState.Idle;
 }
+attackStateTimer += DT;
 
 #define StandBarrageStep
 
@@ -421,11 +452,11 @@ direction -= min(abs(dd), 10) * sign(dd);
 
 #define StrongPunch(method, skill)
 
-var _dis = point_distance(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y)
+var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
+var _dir = point_direction(player.x, player.y, mouse_x, mouse_y)
 
-var _xx = objPlayer.x + lengthdir_x(stats[StandStat.AttackRange], _dir);
-var _yy = objPlayer.y + lengthdir_y(stats[StandStat.AttackRange], _dir);
+var _xx = player.x + lengthdir_x(stats[StandStat.AttackRange], _dir);
+var _yy = player.y + lengthdir_y(stats[StandStat.AttackRange], _dir);
 xTo = _xx;
 yTo = _yy;
 
@@ -438,13 +469,13 @@ switch (attackState)
         }
         break;
     case 1:
-        var _p = PunchCreate(x, y, _dir, skills[skill, StandSkill.Damage], 3);
+        var _p = PunchCreate(x, y, _dir, GetDmg(skill), 3);
         _p.onHitSound = global.sndStrongPunch;
         FireCD(skill);
         state = StandState.Idle;
         break;
 }
-attackStateTimer += 1 / room_speed;
+attackStateTimer += DT;
 
 #define LastingDamageCreate(_target, _dmg, _time, _percentageDamage)
 

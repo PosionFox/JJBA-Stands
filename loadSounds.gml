@@ -34,6 +34,24 @@ global.sndSpTs = audio_create_stream(p + "spTs.ogg");
 
 #endregion
 
+#region star platinum ova
+
+p = "Resources/Sounds/SPOVA/";
+global.sndSpovaOra = audio_create_stream(p + "spovaOra.ogg");
+global.sndSpovaStarPlat = audio_create_stream(p + "spovaStarPlat.ogg");
+global.sndSpovaTokiyotomare = audio_create_stream(p + "spovaTokiyotomare.ogg");
+global.sndSpovaTsResume = audio_create_stream(p + "spovaTsResume.ogg");
+global.sndSpovaZawarudo = audio_create_stream(p + "spovaZawarudo.ogg");
+global.sndSpovaHurt1 = audio_create_stream(p + "spovaHurt1.ogg");
+global.sndSpovaHurt2 = audio_create_stream(p + "spovaHurt2.ogg");
+global.sndSpovaHurt3 = audio_create_stream(p + "spovaHurt3.ogg");
+global.sndSpovaDead = audio_create_stream(p + "spovaDead.ogg");
+global.sndSpovaTs = audio_create_stream(p + "spovaTs.ogg");
+global.sndSpovaStaar = audio_create_stream(p + "spovaStaar.ogg");
+global.sndSpovaFinger = audio_create_stream(p + "spovaFinger.ogg");
+
+#endregion
+
 #region killer queen
 
 p = "Resources/Sounds/KQ/";
@@ -68,6 +86,10 @@ global.sndStwNazimuzo = audio_create_stream(p + "stwNazimuzo.ogg");
 global.sndStwTheWorld = audio_create_stream(p + "stwTheWorld.ogg");
 global.sndStwTokiyotomare = audio_create_stream(p + "stwTokiyotomare.ogg");
 global.sndStwTsResume = audio_create_stream(p + "stwTsResume.ogg");
+global.sndStwHurt1 = audio_create_stream(p + "stwHurt1.ogg");
+global.sndStwHurt2 = audio_create_stream(p + "stwHurt2.ogg");
+global.sndStwHurt3 = audio_create_stream(p + "stwHurt3.ogg");
+global.sndStwDead = audio_create_stream(p + "stwDead.ogg");
 
 #endregion
 
@@ -77,6 +99,21 @@ p = "Resources/Sounds/TW/";
 global.sndTwSummon = audio_create_stream(p + "twSummon.ogg");
 global.sndTwTs = audio_create_stream(p + "twTs.ogg");
 global.sndStopSign = audio_create_stream(p + "stopSign.ogg");
+
+#endregion
+
+#region the world ova
+
+p = "Resources/Sounds/TWOVA/";
+global.sndTwovaSummon = audio_create_stream(p + "twovaSummon.ogg");
+global.sndTwovaTs = audio_create_stream(p + "twovaTs.ogg");
+global.sndTwovaIdle1 = audio_create_stream(p + "twovaIdle1.ogg");
+global.sndTwovaIdle2 = audio_create_stream(p + "twovaIdle2.ogg");
+global.sndTwovaDrain = audio_create_stream(p + "twovaDrain.ogg");
+global.sndTwovaMuda = audio_create_stream(p + "twovaMuda.ogg");
+global.sndTwovaMudada = audio_create_stream(p + "twovaMudada.ogg");
+global.sndTwovaBd1 = audio_create_stream(p + "twovaBd1.ogg");
+global.sndTwovaBd2 = audio_create_stream(p + "twovaBd2.ogg");
 
 #endregion
 

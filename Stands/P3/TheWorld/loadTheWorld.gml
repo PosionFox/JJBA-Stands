@@ -104,13 +104,13 @@ switch (attackState)
 attackStateTimer += DT;
 
 #define TripleKnifeThrow(method, skill)
-var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
 var _snd = audio_play_sound(global.sndKnifeThrow, 0, false);
 audio_sound_pitch(_snd, random_range(0.9, 1.1));
 
 repeat (5)
 {
-    var _p = ProjectileCreate(objPlayer.x, objPlayer.y);
+    var _p = ProjectileCreate(player.x, player.y);
     with (_p)
     {
         x += lengthdir_x(irandom_range(-8, 8), _dir + 90);
@@ -121,8 +121,7 @@ repeat (5)
         sprite_index = global.sprKnife;
     }
 }
-FireCD(skill);
-state = StandState.Idle;
+EndAtk(skill);
 
 #define TwTimestop(method, skill)
 
@@ -136,7 +135,7 @@ if (_tsExists)
 if (!_tsExists)
 {
     audio_play_sound(global.sndTwTs, 5, false);
-    TimestopCreate(9);
+    TimestopCreate(9 + (0.05 * player.level));
     FireCD(skill);
 }
 state = StandState.Idle;
@@ -184,7 +183,7 @@ sk = StandState.SkillCOff;
 _skills[sk, StandSkill.Skill] = TwBloodDrain;
 _skills[sk, StandSkill.Icon] = global.sprSkillDivineBlood;
 _skills[sk, StandSkill.MaxCooldown] = 15;
-_skills[sk, StandSkill.Desc] = "health drain:\ndrain the target's health and heals the user.";
+_skills[sk, StandSkill.Desc] = "blood drain:\ndrain the target's health and heals the user.";
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;

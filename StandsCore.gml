@@ -114,7 +114,7 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
 {
     if (state == StandState.Idle and active = skills[i, StandSkill.ActiveOnly])
     {
-        if (!instance_exists(objPlayerMenu) and keyboard_check(ord(skills[i, StandSkill.Key])))
+        if (player.hp != 0 and !instance_exists(objPlayerMenu) and keyboard_check(ord(skills[i, StandSkill.Key])))
         {
             if (skills[i, StandSkill.CooldownAlt] <= 0 and skills[i, StandSkill.SkillAlt] != AttackHandler)
             {
@@ -128,7 +128,7 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
                 }
             }
         }
-        if (!instance_exists(objPlayerMenu) and keyboard_check_released(ord(skills[i, StandSkill.Key])))
+        if (player.hp != 0 and !instance_exists(objPlayerMenu) and keyboard_check_released(ord(skills[i, StandSkill.Key])))
         {
             if (!altAttack and skills[i, StandSkill.Cooldown] <= 0)
             {
@@ -199,6 +199,7 @@ if (!instance_exists(objPlayerMenu))
 x = lerp(x, xTo, spd);
 y = lerp(y, yTo, spd);
 image_alpha = lerp(image_alpha, alphaTarget, 0.1);
+image_angle = lerp(image_angle, angleTarget * image_xscale, 0.1);
 
 if (active)
 {
@@ -216,6 +217,25 @@ else
     xTo = owner.x;
     yTo = owner.y;
 }
+
+if (soundIdleTimer <= 0)
+{
+    var _sound = soundIdle;
+    if (_sound != undefined)
+    {
+        if (is_array(_sound))
+        {
+            var i = irandom(array_length(_sound) - 1);
+            audio_play_sound(_sound[i], 0, false);
+        }
+        else
+        {
+            audio_play_sound(_sound, 0, false);
+        }
+        soundIdleTimer = irandom_range(60, 120);
+    }
+}
+soundIdleTimer -= DT;
 
 StandSkillManage();
 
@@ -292,8 +312,14 @@ with (_stand)
     active = false;
     state = StandState.Idle;
     alphaTarget = 0;
+    angleTarget = 0;
+    angleTargetSpd = 0.1;
     target = noone;
     altAttack = false;
+    soundIdle = undefined;
+    soundIdleTimer = irandom_range(60, 120);
+    soundWhenHurt = undefined;
+    soundWhenDead = undefined;
     idlePos = StandDefaultPos;
     summonMethod = StandDefaultSummon;
     runCDsMethod = StandSkillDefaultCDs;

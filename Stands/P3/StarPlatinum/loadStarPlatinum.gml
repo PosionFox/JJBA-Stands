@@ -1,22 +1,30 @@
 
 #define StarFinger(method, skill) //attacks
 
-var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
 
-var _xx = objPlayer.x + lengthdir_x(stats[StandStat.AttackRange], _dir);
-var _yy = objPlayer.y + lengthdir_y(stats[StandStat.AttackRange], _dir);
+var _xx = player.x + lengthdir_x(stats[StandStat.AttackRange], _dir);
+var _yy = player.y + lengthdir_y(stats[StandStat.AttackRange], _dir);
 xTo = _xx;
 yTo = _yy;
+image_xscale = mouse_x > player.x ? 1 : -1;
 
-if (distance_to_point(_xx, _yy) <= 1)
+switch (attackState)
 {
-    if (!modSubtypeExists("starFinger"))
-    {
+    case 0:
+        if (attackStateTimer >= 1.15)
+        {
+            attackState++;
+        }
+    break;
+    case 1:
         var _p = ProjectileCreate(x, y);
         with (_p)
         {
             subtype = "starFinger";
+            owner = STAND;
             sprite_index = global.sprStarPlatinumFinger;
+            image_blend = STAND.color;
             damage = GetDmg(skill);
             stationary = true;
             canDespawnInTs = true;
@@ -25,95 +33,53 @@ if (distance_to_point(_xx, _yy) <= 1)
             despawnFade = false;
             despawnTime = 1;
             fingerSize = 0;
+            
+            InstanceAssignMethod(self, "step", ScriptWrap(StarFingerStep), false);
             InstanceAssignMethod(self, "draw", ScriptWrap(StarFingerDraw), false);
         }
-    }
-    else
-    {
-        with (objModEmpty)
+        attackState++;
+    break;
+    case 2:
+        if (attackStateTimer >= 2.2)
         {
-            if ("subtype" in self)
-            {
-                if (subtype == "starFinger")
-                {
-                    fingerSize = lerp(fingerSize, 120, 0.1);
-                    var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-                    direction = _dir;
-                    
-                    var x2 = objPlayer.x + lengthdir_x(fingerSize, direction);
-                    var y2 = objPlayer.y + lengthdir_y(fingerSize, direction);
-                    var _col = collision_line(objPlayer.x, objPlayer.y, x2, y2, parEnemy, false, true);
-                    var _colTs = collision_line(objPlayer.x, objPlayer.y, x2, y2, objModEmpty, false, true);
-                    
-                    if (_col)
-                    {
-                        with (_col)
-                        {
-                            if (array_find_index(other.instancesHit, id) == -1)
-                            {
-                                var _s = audio_play_sound(global.sndPunchHit, 0, false);
-                                audio_sound_pitch(_s, random_range(0.9, 1.1));
-                                var _dir = point_direction(x, y, other.x, other.y) - 180;
-                                h -= lengthdir_x(other.knockback, _dir);
-                                v -= lengthdir_y(other.knockback, _dir);
-                                hp -= other.damage;
-                                array_push(other.instancesHit, id);
-                                if (other.destroyOnImpact)
-                                {
-                                    instance_destroy(other);
-                                }
-                            }
-                        }
-                    }
-                    if (_colTs)
-                    {
-                        with (_colTs)
-                        {
-                            if ("type" in self)
-                            {
-                                if (type == "TsEnemy")
-                                {
-                                    damageStack += 0.1;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            attackState++;
         }
-    }
-    skills[skill, StandSkill.ExecutionTime] += 1 / room_speed;
+    break;
+    case 3:
+        EndAtk(skill);
+    break;
 }
+attackStateTimer += DT;
 
-#define SpTimestop(method, skill)
+#define StarFingerStep
 
-var _tsExists = modTypeExists("timestop");
+fingerSize = lerp(fingerSize, 120, 0.1);
+var _dir = point_direction(STAND.x, STAND.y, mouse_x, mouse_y);
+direction = _dir;
 
-if (_tsExists)
-{
-    instance_destroy(modTypeFind("timestop"));
-}
+var x2 = player.x + lengthdir_x(fingerSize, direction);
+var y2 = player.y + lengthdir_y(fingerSize, direction);
 
-if (!_tsExists)
-{
-    audio_play_sound(global.sndSpTs, 5, false);
-    var _ts = TimestopCreate(5);
-    FireCD(skill);
-}
-state = StandState.Idle;
-
-#define StarFingerDraw //attacks properties
-
-//draw_set_color(c_purple);
-var ox = STAND.x;
-var oy = STAND.y;
 var w = fingerSize / sprite_get_width(sprite_index);
+image_xscale = w;
+x = STAND.x + lengthdir_x(w, direction);
+y = STAND.y + lengthdir_y(w, direction);
 
-var xx = ox + lengthdir_x(w, direction);
-var yy = oy + lengthdir_y(w, direction);
-draw_sprite_ext(sprite_index, 0, xx, yy, w, 1, image_angle, image_blend, image_alpha);
-//draw_line_width(x, y, objPlayer.myStand.x, objPlayer.myStand.y, 2);
-//draw_set_color(image_blend);
+var _col = collision_line(STAND.x, STAND.y, x2, y2, ENEMY, false, true);
+if (_col)
+{
+    ProjHitEnemy(_col);
+}
+
+#define StarFingerDraw
+
+draw_self()
+
+#define SpTimestop(m, s)
+
+audio_play_sound(global.sndSpTs, 5, false);
+TimestopCreate(5 + (0.1 * player.level));
+EndAtk(s);
 
 #define GiveStarPlatinum //stand
 

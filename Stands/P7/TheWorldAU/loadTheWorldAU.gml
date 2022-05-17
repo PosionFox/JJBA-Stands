@@ -171,20 +171,9 @@ state = StandState.Idle;
 
 #define TwauTimestop(method, skill)
 
-var _tsExists = modTypeExists("timestop");
-
-if (_tsExists)
-{
-    instance_destroy(modTypeFind("timestop"));
-}
-
-if (!_tsExists)
-{
-    audio_play_sound(global.sndTwAuTs, 5, false);
-    TimestopCreate(5);
-    FireCD(skill);
-}
-state = StandState.Idle;
+audio_play_sound(global.sndTwAuTs, 5, false);
+TimestopCreate(5 + (0.15 * player.level));
+EndAtk(skill);
 
 #define GiveTheWorldAU //stand
 

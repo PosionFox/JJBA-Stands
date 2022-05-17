@@ -363,7 +363,7 @@ switch (attackState)
     case 2:
         audio_play_sound(global.sndTsOld, 5, false);
         
-        var ts = TimestopCreate(4);
+        var ts = TimestopCreate(2 + (0.05 * player.level));
         ts.resumeSound = global.sndStwTsResume;
         attackState++;
     break;
@@ -452,6 +452,7 @@ if (timer > 0)
 }
 else
 {
+    audio_play_sound(global.sndTwovaDrain, 0, false);
     player.hp++;
     target.hp -= target.hpMax * 0.05;
     timer = 0.8;
@@ -573,6 +574,9 @@ with (_s)
 {
     summonSound = noone;
     idlePos = StwPos;
+    soundWhenHurt = [global.sndStwHurt1, global.sndStwHurt2, global.sndStwHurt3];
+    soundWhenDead = global.sndStwDead;
+    
     saveKey = "jjbamStw";
     discType = global.jjbamDiscStw;
     maxXp = 300;
