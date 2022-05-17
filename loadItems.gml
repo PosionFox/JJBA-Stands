@@ -100,7 +100,7 @@ global.jjbamDiscSpova = ItemCreate(
     0,
     0,
     [],
-    ScriptWrap(GiveStarPlatinum),
+    ScriptWrap(GiveSpova),
     5 * 10,
     true
 );
@@ -549,6 +549,7 @@ var _standPool =
     [GiveKillerQueen, 30],
     [GiveStickyFingers, 30],
     [GiveGoldExperience, 30],
+    [GiveSpookyWorld, 1],
     [GiveImposter, 1],
     [GiveSpova, 1],
     [GiveTwova, 1]
