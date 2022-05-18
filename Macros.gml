@@ -1,5 +1,6 @@
 
 #macro DT 1 / room_speed
+#macro ENTITY parEntity
 #macro player objPlayer
 #macro MOBJ objModEmpty
 #macro STAND objPlayer.myStand

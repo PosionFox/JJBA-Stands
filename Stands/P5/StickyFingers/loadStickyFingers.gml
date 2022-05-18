@@ -172,7 +172,7 @@ switch (attackState)
         state = StandState.Idle;
     break;
 }
-attackStateTimer += 1 / room_speed;
+attackStateTimer += DT;
 
 #define ZipperInjury(_scr, _pos) //attack properties
 
@@ -185,17 +185,17 @@ with (_o)
     image_speed = 0.5;
     
     target = noone;
-    if (instance_exists(parEnemy))
+    if (instance_exists(ENEMY))
     {
         if (random(100) < 50)
         {
             var _s = audio_play_sound(global.sndSfInjury, 0, false);
             audio_sound_pitch(_s, random_range(0.9, 1.1));
         }
-        target = instance_nearest(x, y, parEnemy);
+        target = instance_nearest(x, y, ENEMY);
         with (target)
         {
-            hp -= hpMax * 0.01;
+            hp -= (hpMax * 0.01) * 0.5;
         }
     }
     else
@@ -226,9 +226,9 @@ if (image_alpha <= 0)
 }
 
 #define ZipperGrabStep
-var _dir = point_direction(x, y, objPlayer.myStand.x, objPlayer.myStand.y);
+var _dir = point_direction(x, y, STAND.x, STAND.y);
 
-timer -= 1 / room_speed;
+timer -= DT;
 if (timer <= 0)
 {
     direction = _dir;
@@ -244,7 +244,7 @@ if (timer <= 0)
     // }
 }
 
-var _hit = instance_place(x, y, parEnemy);
+var _hit = instance_place(x, y, ENEMY);
 if (_hit and !grab)
 {
     audio_play_sound(global.sndSfGrabReturn, 0, false);
@@ -263,7 +263,7 @@ if (grab and instance_exists(target))
 #define ZipperGrabDraw
 
 draw_set_color(c_yellow);
-draw_line_width(x, y, objPlayer.myStand.x, objPlayer.myStand.y, 2);
+draw_line_width(x, y, STAND.x, STAND.y, 2);
 draw_set_color(image_blend);
 
 #define SfPortalCreate(_x, _y)
@@ -297,7 +297,7 @@ if (close)
     image_index -= 0.5;
 }
 
-life -= 1 / room_speed;
+life -= DT;
 if (life <= 0)
 {
     close = true;
@@ -308,12 +308,12 @@ if (image_index >= image_number - 1)
 }
 if (cooldown > 0)
 {
-    cooldown -= 1 / room_speed;
+    cooldown -= DT;
 }
 
-if (instance_exists(parEntity))
+if (instance_exists(ENTITY))
 {
-    var _ins = instance_place(x, y, parEntity);
+    var _ins = instance_place(x, y, ENTITY);
     if (_ins and cooldown <= 0)
     {
         var _pt = objPlayer;

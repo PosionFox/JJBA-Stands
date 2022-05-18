@@ -1,11 +1,11 @@
 
 #define SlashingStrikes(m, s)
-var _dis = point_distance(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
 var _dir = DIR_PLAYER_TO_MOUSE;
 
-xTo = objPlayer.x + lengthdir_x(stats[StandStat.AttackRange], _dir + random_range(-4, 4));
-yTo = objPlayer.y + lengthdir_y(stats[StandStat.AttackRange], _dir + random_range(-4, 4));
-image_xscale = mouse_x > objPlayer.x ? 1 : -1;
+xTo = player.x + lengthdir_x(stats[StandStat.AttackRange], _dir + random_range(-4, 4));
+yTo = player.y + lengthdir_y(stats[StandStat.AttackRange], _dir + random_range(-4, 4));
+image_xscale = mouse_x > player.x ? 1 : -1;
 
 attackStateTimer += DT;
 if (distance_to_point(xTo, yTo) < 2)
@@ -44,7 +44,7 @@ if (keyboard_check_pressed(ord(skills[s, StandSkill.Key])))
 if (instance_exists(ENEMY))
 {
     var _n = instance_nearest(x, y, ENEMY);
-    LastingDamageCreate(_n, 0.001, 3, true);
+    LastingDamageCreate(_n, 0.0002, 1, true);
 }
 
 #define MeleePull(m, s)
