@@ -1,4 +1,29 @@
 
+global.jjbamDiscStw = ItemCreate(
+    undefined,
+    "DISC:STW",
+    "The label says: Shadow The World",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(DiscStwUse),
+    5 * 10,
+    true
+);
+
+#define DiscStwUse
+
+if (instance_exists(STAND))
+{
+    GainItem(global.jjbamDiscStw);
+    exit;
+}
+GiveShadowTheWorld();
+
 #define StwPos // core
 
 xTo = objPlayer.x;
@@ -452,9 +477,10 @@ if (timer > 0)
 }
 else
 {
-    audio_play_sound(global.sndTwovaDrain, 0, false);
+    audio_play_sound(global.sndTwrDrain, 0, false);
     player.hp++;
     target.hp -= target.hpMax * 0.05;
+    player.energy += 6;
     timer = 0.8;
 }
 life -= DT;

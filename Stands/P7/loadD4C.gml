@@ -1,4 +1,29 @@
 
+global.jjbamDiscD4c = ItemCreate(
+    undefined,
+    "DISC:D4C",
+    "The label says: Dirty Deeds Done Dirt Cheap",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(DiscD4cUse),
+    5 * 10,
+    true
+);
+
+#define DiscD4cUse
+
+if (instance_exists(STAND))
+{
+    GainItem(global.jjbamDiscD4c);
+    exit;
+}
+GiveD4C();
+
 #define RevolverReload(m, s)
 
 switch (attackState)

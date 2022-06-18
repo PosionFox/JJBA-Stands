@@ -1,4 +1,29 @@
 
+global.jjbamDiscSp = ItemCreate(
+    undefined,
+    "DISC:SP",
+    "The label says: Star Platinum",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(DiscSpUse),
+    5 * 10,
+    true
+);
+
+#define DiscSpUse
+
+if (instance_exists(STAND))
+{
+    GainItem(global.jjbamDiscSp);
+    exit;
+}
+GiveStarPlatinum();
+
 #define StarFinger(method, skill) //attacks
 
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);

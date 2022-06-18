@@ -1,5 +1,29 @@
 
 //wip
+global.jjbamDiscWs = ItemCreate(
+    undefined,
+    "DISC:WS",
+    "The label says: WhiteSnake",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(DiscWsUse),
+    5 * 10,
+    true
+);
+
+#define DiscWsUse
+
+if (instance_exists(STAND))
+{
+    GainItem(global.jjbamDiscWs);
+    exit;
+}
+GiveWhiteSnake();
 
 #define AcidicSpit(m, s)
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);

@@ -1,4 +1,48 @@
 
+global.jjbamDiscTwau = ItemCreate(
+    undefined,
+    "DISC:TWAU",
+    "The label says: The World AU",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(DiscTwauUse),
+    5 * 10,
+    true
+);
+
+#define DiscTwauUse
+
+if (instance_exists(STAND))
+{
+    GainItem(global.jjbamDiscTwau);
+    exit;
+}
+GiveTheWorldAU();
+
+#define TripleKnifeThrow(m, s)
+var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
+var _snd = audio_play_sound(global.sndKnifeThrow, 0, false);
+audio_sound_pitch(_snd, random_range(0.9, 1.1));
+
+for (var i = 0; i < 3; i++)
+{
+    var _p = ProjectileCreate(player.x, player.y);
+    with (_p)
+    {
+        var _d = (_dir - 16) + (i * 16);
+        damage = GetDmg(s);
+        direction = _d;
+        canMoveInTs = false;
+        sprite_index = global.sprKnife;
+    }
+}
+EndAtk(s);
+
 #define OilCan(m, s)
 
 var _c = modTypePlace(x, y, "oil");
@@ -203,6 +247,15 @@ _skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
 _skills[sk, StandSkill.MaxCooldown] = 1;
 _skills[sk, StandSkill.Desc] = "bullet volley:\nfire a volley of three projectiles.";
+
+sk = StandState.SkillCOff;
+_skills[sk, StandSkill.Skill] = TripleKnifeThrow;
+_skills[sk, StandSkill.Damage] = 5;
+_skills[sk, StandSkill.DamageScale] = 0.1;
+_skills[sk, StandSkill.Icon] = global.sprSkillTripleKnifeThrow;
+_skills[sk, StandSkill.MaxCooldown] = 5;
+_skills[sk, StandSkill.Desc] = "triple knife:\ntoss three knifes at once.";
+
 
 // sk = StandState.SkillDOff;
 // _skills[sk, StandSkill.Skill] = Matches;

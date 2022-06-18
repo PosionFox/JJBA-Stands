@@ -111,6 +111,8 @@ switch (_stand)
     // other
     case "jjbamSw": GiveSpookyWorld(); break;
     case "jjbamSus": GiveImposter(); break;
+    case "jjbamSpr": GiveSpr(); break;
+    case "jjbamTwr": GiveTwr(); break;
     case "jjbamSpova": GiveSpova(); break;
     case "jjbamTwova": GiveTwova(); break;
 }
@@ -170,6 +172,7 @@ global.timeIsFrozen = false;
 loadSprites();
 loadSounds();
 loadItems();
+loadStands();
 loadStructures();
 loadCommands();
 

@@ -1,4 +1,29 @@
 
+global.jjbamDiscSus = ItemCreate(
+    undefined,
+    "DISC:SUS",
+    "The label says: Imposter",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(DiscSusUse),
+    5 * 10,
+    true
+);
+
+#define DiscSusUse
+
+if (instance_exists(STAND))
+{
+    GainItem(global.jjbamDiscSus);
+    exit;
+}
+GiveImposter();
+
 #define MeetingCall(m, s)
 var _dmg = GetDmg(s);
 

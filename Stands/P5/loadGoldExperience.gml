@@ -1,4 +1,29 @@
 
+global.jjbamDiscGe = ItemCreate(
+    undefined,
+    "DISC:GE",
+    "The label says: Gold Experience",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(DiscGeUse),
+    5 * 10,
+    true
+);
+
+#define DiscGeUse
+
+if (instance_exists(STAND))
+{
+    GainItem(global.jjbamDiscGe);
+    exit;
+}
+GiveGoldExperience();
+
 #define GeBarrage(method, skill) //attacks
 var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
@@ -279,7 +304,7 @@ sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = LifeFormFrog;
 _skills[sk, StandSkill.Icon] = global.sprSkillLifeFormFrog;
 _skills[sk, StandSkill.MaxCooldown] = 20;
-_skills[sk, StandSkill.Desc] = "lifeform frog:\nsummons a frog that protects and reflects damage.";
+_skills[sk, StandSkill.Desc] = "lifeform frog:\nsummons a frog that protects you and reflects damage.";
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = GeBarrage;

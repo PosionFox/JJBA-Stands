@@ -1,5 +1,30 @@
 
-#define SpovaStrongPunch(method, skill)
+global.jjbamDiscSpr = ItemCreate(
+    undefined,
+    "DISC:SPR",
+    "The label says: Star Platinum Retro",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(DiscSprUse),
+    5 * 10,
+    true
+);
+
+#define DiscSprUse
+
+if (instance_exists(STAND))
+{
+    GainItem(global.jjbamDiscSpr);
+    exit;
+}
+GiveSpr();
+
+#define SprStrongPunch(method, skill)
 
 var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y)
@@ -12,7 +37,7 @@ yTo = _yy;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndSpovaOra, 0, false);
+        audio_play_sound(global.sndSprOra, 0, false);
         attackState++;
     break;
     case 1:
@@ -29,7 +54,7 @@ switch (attackState)
 }
 attackStateTimer += DT;
 
-#define SpovaStarFinger(method, skill) //attacks
+#define SprStarFinger(method, skill) //attacks
 
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
 
@@ -42,7 +67,7 @@ image_xscale = mouse_x > player.x ? 1 : -1;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndSpovaStaar, 0, false);
+        audio_play_sound(global.sndSprStaar, 0, false);
         attackState++;
     break;
     case 1:
@@ -52,7 +77,7 @@ switch (attackState)
         }
     break;
     case 2:
-        audio_play_sound(global.sndSpovaFinger, 0, false);
+        audio_play_sound(global.sndSprFinger, 0, false);
         var _p = ProjectileCreate(x, y);
         with (_p)
         {
@@ -86,7 +111,7 @@ switch (attackState)
 }
 attackStateTimer += DT;
 
-#define SpovaTimestop(method, s)
+#define SprTimestop(method, s)
 
 xTo = player.x;
 yTo = player.y - 16;
@@ -95,7 +120,7 @@ switch (attackState)
 {
     case 0:
         angleTarget = 25;
-        audio_play_sound(global.sndSpovaTs, 5, false);
+        audio_play_sound(global.sndSprTs, 5, false);
         attackState++;
     break;
     case 1:
@@ -109,7 +134,7 @@ switch (attackState)
         angleTarget = -25;
         
         var ts = TimestopCreate(5 + (0.1 * player.level));
-        ts.resumeSound = global.sndSpovaTsResume;
+        ts.resumeSound = global.sndSprTsResume;
         attackState++;
     break;
     case 3:
@@ -118,24 +143,24 @@ switch (attackState)
 }
 attackStateTimer += DT;
 
-#define GiveSpova //stand
+#define GiveSpr //stand
 
 var _s = GiveStarPlatinum();
 with (_s)
 {
-    name = "Star Platinum OVA";
-    sprite_index = global.sprSPOVA;
+    name = "Star Platinum Retro";
+    sprite_index = global.sprSPR;
     color = /*#*/0xe4cd5f;
     isRare = true;
-    saveKey = "jjbamSpova";
-    discType = global.jjbamDiscSpova;
+    saveKey = "jjbamSpr";
+    discType = global.jjbamDiscSpr;
     
-    summonSound = global.sndSpovaStarPlat;
-    soundWhenHurt = [global.sndSpovaHurt1, global.sndSpovaHurt2, global.sndSpovaHurt3];
-    soundWhenDead = global.sndSpovaDead;
+    summonSound = global.sndSprStarPlat;
+    soundWhenHurt = [global.sndSprHurt1, global.sndSprHurt2, global.sndSprHurt3];
+    soundWhenDead = global.sndSprDead;
     
-    skills[StandState.SkillB, StandSkill.Skill] = SpovaStrongPunch;
-    skills[StandState.SkillC, StandSkill.Skill] = SpovaStarFinger;
-    skills[StandState.SkillD, StandSkill.Skill] = SpovaTimestop;
+    skills[StandState.SkillB, StandSkill.Skill] = SprStrongPunch;
+    skills[StandState.SkillC, StandSkill.Skill] = SprStarFinger;
+    skills[StandState.SkillD, StandSkill.Skill] = SprTimestop;
 }
 return _s;

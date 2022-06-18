@@ -36,19 +36,19 @@ global.sndSpTs = audio_create_stream(p + "spTs.ogg");
 
 #region star platinum ova
 
-p = "Resources/Sounds/SPOVA/";
-global.sndSpovaOra = audio_create_stream(p + "spovaOra.ogg");
-global.sndSpovaStarPlat = audio_create_stream(p + "spovaStarPlat.ogg");
-global.sndSpovaTokiyotomare = audio_create_stream(p + "spovaTokiyotomare.ogg");
-global.sndSpovaTsResume = audio_create_stream(p + "spovaTsResume.ogg");
-global.sndSpovaZawarudo = audio_create_stream(p + "spovaZawarudo.ogg");
-global.sndSpovaHurt1 = audio_create_stream(p + "spovaHurt1.ogg");
-global.sndSpovaHurt2 = audio_create_stream(p + "spovaHurt2.ogg");
-global.sndSpovaHurt3 = audio_create_stream(p + "spovaHurt3.ogg");
-global.sndSpovaDead = audio_create_stream(p + "spovaDead.ogg");
-global.sndSpovaTs = audio_create_stream(p + "spovaTs.ogg");
-global.sndSpovaStaar = audio_create_stream(p + "spovaStaar.ogg");
-global.sndSpovaFinger = audio_create_stream(p + "spovaFinger.ogg");
+p = "Resources/Sounds/SPR/";
+global.sndSprOra = audio_create_stream(p + "sprOra.ogg");
+global.sndSprStarPlat = audio_create_stream(p + "sprStarPlat.ogg");
+global.sndSprTokiyotomare = audio_create_stream(p + "sprTokiyotomare.ogg");
+global.sndSprTsResume = audio_create_stream(p + "sprTsResume.ogg");
+global.sndSprZawarudo = audio_create_stream(p + "sprZawarudo.ogg");
+global.sndSprHurt1 = audio_create_stream(p + "sprHurt1.ogg");
+global.sndSprHurt2 = audio_create_stream(p + "sprHurt2.ogg");
+global.sndSprHurt3 = audio_create_stream(p + "sprHurt3.ogg");
+global.sndSprDead = audio_create_stream(p + "sprDead.ogg");
+global.sndSprTs = audio_create_stream(p + "sprTs.ogg");
+global.sndSprStaar = audio_create_stream(p + "sprStaar.ogg");
+global.sndSprFinger = audio_create_stream(p + "sprFinger.ogg");
 
 #endregion
 
@@ -104,16 +104,16 @@ global.sndStopSign = audio_create_stream(p + "stopSign.ogg");
 
 #region the world ova
 
-p = "Resources/Sounds/TWOVA/";
-global.sndTwovaSummon = audio_create_stream(p + "twovaSummon.ogg");
-global.sndTwovaTs = audio_create_stream(p + "twovaTs.ogg");
-global.sndTwovaIdle1 = audio_create_stream(p + "twovaIdle1.ogg");
-global.sndTwovaIdle2 = audio_create_stream(p + "twovaIdle2.ogg");
-global.sndTwovaDrain = audio_create_stream(p + "twovaDrain.ogg");
-global.sndTwovaMuda = audio_create_stream(p + "twovaMuda.ogg");
-global.sndTwovaMudada = audio_create_stream(p + "twovaMudada.ogg");
-global.sndTwovaBd1 = audio_create_stream(p + "twovaBd1.ogg");
-global.sndTwovaBd2 = audio_create_stream(p + "twovaBd2.ogg");
+p = "Resources/Sounds/TWR/";
+global.sndTwrSummon = audio_create_stream(p + "twrSummon.ogg");
+global.sndTwrTs = audio_create_stream(p + "twrTs.ogg");
+global.sndTwrIdle1 = audio_create_stream(p + "twrIdle1.ogg");
+global.sndTwrIdle2 = audio_create_stream(p + "twrIdle2.ogg");
+global.sndTwrDrain = audio_create_stream(p + "twrDrain.ogg");
+global.sndTwrMuda = audio_create_stream(p + "twrMuda.ogg");
+global.sndTwrMudada = audio_create_stream(p + "twrMudada.ogg");
+global.sndTwrBd1 = audio_create_stream(p + "twrBd1.ogg");
+global.sndTwrBd2 = audio_create_stream(p + "twrBd2.ogg");
 
 #endregion
 

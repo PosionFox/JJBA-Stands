@@ -1,5 +1,29 @@
 
 //wip
+global.jjbamDiscCmn = ItemCreate(
+    undefined,
+    "DISC:CMN",
+    "The label says: C-Moon",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(DiscCmnUse),
+    5 * 10,
+    true
+);
+
+#define DiscCmnUse
+
+if (instance_exists(STAND))
+{
+    GainItem(global.jjbamDiscCmn);
+    exit;
+}
+GiveCMoon();
 
 #define GiveCMoon //stand
 

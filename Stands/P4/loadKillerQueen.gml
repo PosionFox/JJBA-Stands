@@ -1,4 +1,29 @@
 
+global.jjbamDiscKq = ItemCreate(
+    undefined,
+    "DISC:KQ",
+    "The label says: Killer Queen",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(DiscKqUse),
+    5 * 10,
+    true
+);
+
+#define DiscKqUse
+
+if (instance_exists(STAND))
+{
+    GainItem(global.jjbamDiscKq);
+    exit;
+}
+GiveKillerQueen();
+
 #define PlaceBomb(method, skill) //attacks
 if (modTypeExists("bomb"))
 {

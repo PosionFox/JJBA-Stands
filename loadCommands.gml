@@ -35,11 +35,15 @@ switch (args[0]) {
     case "twau": GiveTheWorldAU(); break;
     case "tusk": GiveTusk(); break;
     case "tusk4": GiveTusk4(); break;
-    // other
-    case "sus": GiveImposter(); break;
+    // alts
     case "sw": GiveSpookyWorld(); break;
+    case "spr": GiveSpr(); break;
+    case "twr": GiveTwr(); break;
     case "spova": GiveSpova(); break;
     case "twova": GiveTwova(); break;
+    // other
+    case "sus": GiveImposter(); break;
+    
     default: Trace("not found");
 }
 

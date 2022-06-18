@@ -1,4 +1,29 @@
 
+global.jjbamDiscD4clt = ItemCreate(
+    undefined,
+    "DISC:D4CLT",
+    "The label says: D4C Love Train",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(DiscD4cltUse),
+    5 * 10,
+    true
+);
+
+#define DiscD4cltUse
+
+if (instance_exists(STAND))
+{
+    GainItem(global.jjbamDiscD4clt);
+    exit;
+}
+GiveD4CLT();
+
 #define SlashingStrikes(m, s)
 var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
 var _dir = DIR_PLAYER_TO_MOUSE;

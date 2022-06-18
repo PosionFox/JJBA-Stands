@@ -1,4 +1,29 @@
 
+global.jjbamDiscSf = ItemCreate(
+    undefined,
+    "DISC:SF",
+    "The label says: Sticky Fingers",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(DiscSfUse),
+    5 * 10,
+    true
+);
+
+#define DiscSfUse
+
+if (instance_exists(STAND))
+{
+    GainItem(global.jjbamDiscSf);
+    exit;
+}
+GiveStickyFingers();
+
 #define SfBarrage(method, skill) //attacks
 var _dis = point_distance(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);

@@ -1,4 +1,29 @@
 
+global.jjbamDiscTw = ItemCreate(
+    undefined,
+    "DISC:TW",
+    "The label says: The World",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(DiscTwUse),
+    5 * 10,
+    true
+);
+
+#define DiscTwUse
+
+if (instance_exists(STAND))
+{
+    GainItem(global.jjbamDiscTw);
+    exit;
+}
+GiveTheWorld();
+
 #define JosephKnife(method, skill)
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
@@ -103,7 +128,7 @@ switch (attackState)
 }
 attackStateTimer += DT;
 
-#define TripleKnifeThrow(method, skill)
+#define TwKnifeWall(method, skill)
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
 var _snd = audio_play_sound(global.sndKnifeThrow, 0, false);
 audio_sound_pitch(_snd, random_range(0.9, 1.1));
@@ -203,10 +228,10 @@ _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.Desc] = "strong punch:\ncharges and launches a strong punch.";
 
 sk = StandState.SkillC;
-_skills[sk, StandSkill.Skill] = TripleKnifeThrow;
+_skills[sk, StandSkill.Skill] = TwKnifeWall;
 _skills[sk, StandSkill.Damage] = 2;
 _skills[sk, StandSkill.DamageScale] = 0.02;
-_skills[sk, StandSkill.Icon] = global.sprSkillTripleKnifeThrow;
+_skills[sk, StandSkill.Icon] = global.sprSkillKnifeBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.Desc] = "knife wall:\nsends out a burst of knifes.";
 

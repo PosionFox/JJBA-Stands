@@ -1,5 +1,29 @@
-
 // wip
+
+global.jjbamDiscSc = ItemCreate(
+    undefined,
+    "DISC:SC",
+    "The label says: Silver Chariot",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(DiscScUse),
+    5 * 10,
+    true
+);
+
+#define DiscScUse
+
+if (instance_exists(STAND))
+{
+    GainItem(global.jjbamDiscSc);
+    exit;
+}
+GiveSilverChariot();
 
 #define ScBarrage(m, skill)
 var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);

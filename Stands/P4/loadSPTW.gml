@@ -1,5 +1,29 @@
 
 //wip
+global.jjbamDiscSptw = ItemCreate(
+    undefined,
+    "DISC:SPTW",
+    "The label says: Star Platinum: The World",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(DiscSptwUse),
+    5 * 10,
+    true
+);
+
+#define DiscSptwUse
+
+if (instance_exists(STAND))
+{
+    GainItem(global.jjbamDiscSptw);
+    exit;
+}
+GiveSPTW();
 
 #define GiveSPTW //stand
 

@@ -1,11 +1,36 @@
 
+global.jjbamDiscTwova = ItemCreate(
+    undefined,
+    "DISC:TWOVA",
+    "The label says: The World OVA",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(DiscTwovaUse),
+    5 * 10,
+    true
+);
+
+#define DiscTwovaUse
+
+if (instance_exists(STAND))
+{
+    GainItem(global.jjbamDiscTwova);
+    exit;
+}
+GiveTwova();
+
 #define TwovaBloodDrain(method, skill)
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
 
 switch (attackState)
 {
     case 0:
-        var _s = [global.sndTwovaBd1, global.sndTwovaBd2];
+        var _s = [global.sndTwrBd1, global.sndTwrBd2];
         var _i = irandom(array_length(_s) - 1);
         audio_play_sound(_s[_i], 0, false);
         attackState++;
@@ -47,7 +72,7 @@ yTo = _yy;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndTwovaMuda, 0, false);
+        audio_play_sound(global.sndTwrMuda, 0, false);
         attackState++;
     break;
     case 1:
@@ -74,7 +99,7 @@ switch (attackState)
         var _c = random(1);
         if (_c < 0.5)
         {
-            audio_play_sound(global.sndTwovaMudada, 0, false);
+            audio_play_sound(global.sndTwrMudada, 0, false);
         }
         attackState++;
     break;
@@ -131,7 +156,7 @@ switch (attackState)
         }
     break;
     case 2:
-        audio_play_sound(global.sndTwovaTs, 5, false);
+        audio_play_sound(global.sndTwrTs, 5, false);
         
         var ts = TimestopCreate(9 + (0.05 * player.level));
         ts.resumeSound = global.sndStwTsResume;
@@ -156,16 +181,16 @@ var _s = GiveTheWorld();
 with (_s)
 {
     name = "The World OVA";
-    sprite_index = global.sprTWOVA;
+    sprite_index = global.sprTWR;
     color = /*#*/0x66a0d9;
     isRare = true;
     saveKey = "jjbamTwova";
     discType = global.jjbamDiscTwova;
     
-    summonSound = global.sndTwovaSummon;
+    summonSound = global.sndTwrSummon;
     soundWhenHurt = [global.sndStwHurt1, global.sndStwHurt2, global.sndStwHurt3];
     soundWhenDead = global.sndStwDead;
-    soundIdle = [global.sndTwovaIdle1, global.sndTwovaIdle2];
+    soundIdle = [global.sndTwrIdle1, global.sndTwrIdle2];
     
     skills[StandState.SkillCOff, StandSkill.Skill] = TwovaBloodDrain;
     skills[StandState.SkillB, StandSkill.Skill] = TwovaStrongPunch;

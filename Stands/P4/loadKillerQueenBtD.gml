@@ -1,4 +1,29 @@
 
+global.jjbamDiscKqbtd = ItemCreate(
+    undefined,
+    "DISC:KQBTD",
+    "The label says: KQ Bites the Dust",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(DiscKqbtdUse),
+    5 * 10,
+    true
+);
+
+#define DiscKqbtdUse
+
+if (instance_exists(STAND))
+{
+    GainItem(global.jjbamDiscKqbtd);
+    exit;
+}
+GiveKillerQueenBtD();
+
 #define TripleCoin(method, skill) //attacks
 if (modTypeCount("coinBomb") >= 9)
 {

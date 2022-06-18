@@ -338,6 +338,7 @@ switch (state)
                 with (_p)
                 {
                     owner = objPlayer;
+                    sprite_index = global.sprAttackPunch;
                     image_alpha = 0;
                     direction = _dir;
                     damage = 2 + (objPlayer.level * 0.1) + (objPlayer.dmg);

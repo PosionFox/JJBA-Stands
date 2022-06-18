@@ -1,5 +1,29 @@
 
 // wip
+global.jjbamDiscTsk = ItemCreate(
+    undefined,
+    "DISC:TUSK",
+    "The label says: Tusk",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [],
+    ScriptWrap(DiscTskUse),
+    5 * 10,
+    true
+);
+
+#define DiscTskUse
+
+if (instance_exists(STAND))
+{
+    GainItem(global.jjbamDiscTsk);
+    exit;
+}
+GiveTusk();
 
 #define SpinningNails(m, s) // act 1 from here
 if (nails <= 0)

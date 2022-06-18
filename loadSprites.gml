@@ -273,8 +273,8 @@ global.sprCMoon = sprite_add(p + "CMoon.png", 1, false, false, 16, 19);
 
 p = "Resources/Sprites/Alts/";
 global.sprSpookyWorld = sprite_add(p + "SpookyWorld.png", 1, false, false, 16, 19);
-global.sprSPOVA = sprite_add(p + "SPOVA.png", 1, false, false, 16, 19);
-global.sprTWOVA = sprite_add(p + "TWOVA.png", 1, false, false, 16, 19);
+global.sprSPR = sprite_add(p + "SPR.png", 1, false, false, 16, 19);
+global.sprTWR = sprite_add(p + "TWR.png", 1, false, false, 16, 19);
 
 #endregion
 
