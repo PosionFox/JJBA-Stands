@@ -32,7 +32,7 @@ xTo = owner.x + lengthdir_x(8, _dir + random_range(-4, 4));
 yTo = owner.y + lengthdir_y(8, _dir + random_range(-4, 4));
 image_xscale = mouse_x > owner.x ? 1 : -1;
 
-attackStateTimer += 1 / room_speed;
+attackStateTimer += DT;
 if (distance_to_point(xTo, yTo) < 2)
 {
     if (attackStateTimer >= 0.08)
@@ -46,12 +46,13 @@ if (distance_to_point(xTo, yTo) < 2)
         with (_p)
         {
             onHitSound = global.sndGeHit;
+            onHitSoundOverlap = true;
             
             InstanceAssignMethod(self, "step", ScriptWrap(StandBarrageStep), true);
         }
         attackStateTimer = 0;
     }
-    skills[skill, StandSkill.ExecutionTime] += 1 / room_speed;
+    skills[skill, StandSkill.ExecutionTime] += DT;
 }
 
 if (keyboard_check_pressed(ord(skills[skill, StandSkill.Key])))

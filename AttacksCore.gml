@@ -59,7 +59,7 @@ if (array_find_index(instancesHit, enemy.id) == -1)
 {
     if (onHitSound != noone)
     {
-        if (audio_is_playing(onHitSound))
+        if (audio_is_playing(onHitSound) and onHitSoundOverlap == false)
         {
             audio_stop_sound(onHitSound);
         }
@@ -114,6 +114,7 @@ with (_o)
     knockback = 0;
     knockbackDuration = 0.5;
     onHitSound = global.sndPunchHit;
+    onHitSoundOverlap = false;
     onHitEvent = noone;
     onHitEventArg = undefined;
     
@@ -421,6 +422,7 @@ if (distance_to_point(xTo, yTo) < 2)
         var ddir = _dir + random_range(-45, 45);
         var _p = PunchCreate(xx, yy, ddir, GetDmg(skill), 0);
         _p.onHitSound = global.sndPunchHit;
+        _p.onHitSoundOverlap = true;
         InstanceAssignMethod(_p, "step", ScriptWrap(StandBarrageStep), true);
         attackStateTimer = 0;
     }

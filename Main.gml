@@ -165,7 +165,13 @@ if (instance_exists(player))
 
 return array_clone(class);
 
+#define printVersion
+
+Trace("jjbas v0.5.0");
+
 #define Main
+
+printVersion();
 
 global.timeIsFrozen = false;
 

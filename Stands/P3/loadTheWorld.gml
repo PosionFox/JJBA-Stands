@@ -37,7 +37,7 @@ with (_p)
     onHitEvent = StuckKnife;
     direction = _dir;
     canMoveInTs = false;
-    sprite_index = global.sprKnife;
+    sprite_index = other.knifeSprite;
 }
 FireCD(skill);
 state = StandState.Idle;
@@ -143,7 +143,7 @@ repeat (5)
         damage = GetDmg(skill);
         direction = _dir;
         canMoveInTs = false;
-        sprite_index = global.sprKnife;
+        sprite_index = other.knifeSprite;
     }
 }
 EndAtk(skill);
@@ -248,6 +248,7 @@ with (_s)
     saveKey = "jjbamTw";
     discType = global.jjbamDiscTw;
     
+    knifeSprite = global.sprKnife;
     stopSign = ModObjectSpawn(x, y, depth);
     with (stopSign)
     {

@@ -123,7 +123,7 @@ switch (attackState)
                 damage = GetDmg(skill);
                 direction = _dir;
                 canMoveInTs = false;
-                sprite_index = global.sprKnifeStw;
+                sprite_index = other.knifeSprite;
             }
         }
         EndAtk(skill);
@@ -187,6 +187,7 @@ with (_s)
     saveKey = "jjbamTwr";
     discType = global.jjbamDiscTwr;
     
+    knifeSprite = global.sprKnifeStw;
     summonSound = global.sndTwrSummon;
     soundWhenHurt = [global.sndStwHurt1, global.sndStwHurt2, global.sndStwHurt3];
     soundWhenDead = global.sndStwDead;

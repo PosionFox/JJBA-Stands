@@ -297,10 +297,10 @@ if (instance_exists(STAND))
         case "Tusk":
             STAND.hasAct2 = true;
         break;
-        case "D4C":
-            STAND.hasHeart = true;
-            D4CEvolveIfCan();
-        break;
+        // case "D4C":
+        //     STAND.hasHeart = true;
+        //     D4CEvolveIfCan();
+        // break;
         default:
             Trace("The holy part refuses to interact with you");
             GainItem(global.jjbamHeart);
