@@ -8,10 +8,8 @@ if (instance_exists(player))
         switch (STAND.name)
         {
             case "Shadow The World":
-                if (STAND.xp < STAND.maxXp)
-                {
-                    STAND.xp += _mob.hpMax;
-                }
+                STAND.xp += _mob.hpMax;
+                STAND.xp = min(STAND.maxXp, STAND.xp);
             break;
             case "Tusk":
                 STAND.act4Meter += _mob.hpMax * 0.25;

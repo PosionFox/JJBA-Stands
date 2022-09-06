@@ -166,6 +166,13 @@ global.sndGeLife = audio_create_stream(p + "geLife.ogg");
 
 #endregion
 
+#region king crimson
+
+p = "Resources/Sounds/KC/";
+global.sndKcSummon = audio_create_stream(p + "kcSummon.ogg");
+
+#endregion
+
 #region imposter
 
 p = "Resources/Sounds/SUS/";

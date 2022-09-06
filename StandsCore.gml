@@ -23,7 +23,11 @@ if (isRare)
         draw_text(gx + 8, gy, txt);
     }
 }
-draw_text(168, _height - 160, string_lower(name));
+
+draw_set_halign(fa_left);
+draw_text(32, _height - 160, string_lower(name));
+draw_line_color(32, _height - 158, 32 + 255, _height - 158, color, c_black);
+draw_set_halign(fa_center);
 draw_text(24, _height - 84, "q");
 
 var _start = StandState.SkillAOff;

@@ -32,12 +32,14 @@ alphaTarget = 0;
 
 #define StwDrawGui
 
-var _height = display_get_gui_height() - 200;
+var xx = 244;
+var yy = 40;
+var length = 790;
 
-draw_set_color(c_gray);
-draw_line_width(32, _height, 32 + 256, _height, 2);
+draw_set_color(c_black);
+draw_line_width(xx, yy, xx + length, yy, 3);
 draw_set_color(c_yellow);
-draw_line_width(32, _height, 32 + (xp / maxXp) * 256, _height, 2);
+draw_line_width(xx, yy, xx + (xp / maxXp) * length, yy, 3);
 draw_set_color(c_white);
 
 #define StwXXI(method, skill) //attacks

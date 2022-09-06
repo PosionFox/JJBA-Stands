@@ -3,15 +3,25 @@ CommandCreate("jjbamStand", true, ScriptWrap(CheatGiveStand), "name");
 CommandCreate("jjbamTest", false, ScriptWrap(TestCommand));
 CommandCreate("jjbamDebug", true, ScriptWrap(JjbamDebug));
 
+CommandCreate("jjbamSpawnPucci", true, ScriptWrap(jjbamSpawnPucci));
+CommandCreate("jjbamPucciCheck", true, ScriptWrap(jjbamPucciCheck));
+CommandCreate("jjbamKillPucci", true, ScriptWrap(jjbamKillPucci));
+CommandCreate("jjbamKillNPCs", true, ScriptWrap(jjbamKillNPCs));
+
+
+
 #define CheatGiveStand(args)
 
-with (objPlayer) {
-    if (instance_exists(myStand)) {
+with (objPlayer)
+{
+    if (instance_exists(myStand))
+    {
         instance_destroy(myStand);
         myStand = noone;
     }
 }
-switch (args[0]) {
+switch (args[0])
+{
     // p3
     case "sp": GiveStarPlatinum(); break;
     case "sc": GiveSilverChariot(); break;
@@ -25,6 +35,7 @@ switch (args[0]) {
     // p5
     case "sf": GiveStickyFingers(); break;
     case "ge": GiveGoldExperience(); break;
+    case "kc": GiveKingCrimson(); break;
     // p6
     case "ws": GiveWhiteSnake(); break;
     case "cm": GiveCMoon(); break;
@@ -91,6 +102,19 @@ with (all)
     draw_circle(x, y, 1, false);
 }
 
+#define jjbamSpawnPucci
 
+SpawnPucci(room_width / 2, room_height / 2);
 
+#define jjbamPucciCheck
+
+Trace(global.pucciRef.type);
+
+#define jjbamKillPucci
+
+DespawnPucci();
+
+#define jjbamKillNPCs
+
+instance_destroy(MNPC);
 

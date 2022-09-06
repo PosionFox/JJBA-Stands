@@ -39,6 +39,13 @@ if (instance_exists(player))
     }
 }
 
+if (global.pucciSpawned == true)
+{
+    _map[? "jjbamPucciSpawned"] = global.pucciSpawned;
+    _map[? "jjbamPucciX"] = global.pucciRef.x;
+    _map[? "jjbamPucciY"] = global.pucciRef.y;
+}
+
 ModSaveDataSubmit(_map);
 ds_map_destroy(_map);
 
@@ -88,6 +95,7 @@ switch (_stand)
     // p5
     case "jjbamSf": GiveStickyFingers(); break;
     case "jjbamGe": GiveGoldExperience(); break;
+    case "jjbamKc": GiveKingCrimson(); break;
     // p6
     case "jjbamWs": GiveWhiteSnake(); break;
     case "jjbamCmn": GiveCMoon(); break;
@@ -147,6 +155,14 @@ else
     }
 }
 
+// load pucci
+if (_map[? "jjbamPucciSpawned"] == true)
+{
+    var xx = _map[? "jjbamPucciX"];
+    var yy = _map[? "jjbamPucciY"];
+    SpawnPucci(xx, yy);
+}
+
 #define InitPlayerVariables
 
 if (instance_exists(player))
@@ -180,12 +196,8 @@ loadSounds();
 loadItems();
 loadStands();
 loadStructures();
+loadNPCs();
 loadCommands();
-
-
-
-
-
 
 
 

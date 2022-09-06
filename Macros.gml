@@ -3,6 +3,7 @@
 #macro ENTITY parEntity
 #macro player objPlayer
 #macro MOBJ objModEmpty
+#macro MNPC objModNPC
 #macro STAND objPlayer.myStand
 #macro CAM WorldControl
 #macro ENEMY parEnemy

@@ -282,4 +282,40 @@ width -= 0.5;
 
 draw_line_width_color(x, y, x, y - 256, width, c_red, c_yellow);
 
+#define EffectStandAuraCreate(_x, _y, _color)
+
+var o = ModObjectSpawn(_x, _y, 0);
+with (o)
+{
+    sprite_index = global.sprStandParticle;
+    image_blend = _color;
+    life = 20;
+    x += random_range(-6, 6);
+    y += random_range(-10, 2);
+    hspd = random_range(-0.3, 0.3);
+    vspd = -random(0.5);
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(EffectStandAuraStep), false);
+}
+return o;
+
+#define EffectStandAuraStep
+
+x += hspd;
+y += vspd;
+image_alpha = life / 20;
+
+if (life > 0)
+{
+    life--;
+}
+else
+{
+    instance_destroy(self);
+}
+
+
+
+
+
 

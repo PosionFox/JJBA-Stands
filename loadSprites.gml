@@ -19,6 +19,7 @@ p = "Resources/Sprites/Generic/";
 global.sprBulletGUI = sprite_add(p + "BulletGUI.png", 1, false, false, 16, 16);
 global.sprRevCylinderGUI = sprite_add(p + "RevCylinderGUI.png", 1, false, false, 16, 16);
 global.sprPunchEffect = sprite_add(p + "PunchEffect.png", 6, false, false, 8, 8);
+global.sprStandParticle = sprite_add(p + "StandParticle.png", 1, false, false, 1, 1);
 
 // projectiles
 p = "Resources/Sprites/Generic/Projectiles/";
@@ -184,6 +185,21 @@ global.sprSkillLifeFormPlant = sprite_add(p + "SkillLifeFormPlant.png", 1, false
 global.sprSkillLifeFormScorpion = sprite_add(p + "SkillLifeFormScorpion.png", 1, false, false, 16, 16);
 global.sprSkillLifeFormFrog = sprite_add(p + "SkillLifeFormFrog.png", 1, false, false, 16, 16);
 global.sprSkillSelfHeal = sprite_add(p + "SkillSelfHeal.png", 1, false, false, 16, 16);
+
+#endregion
+
+#region king crimson
+
+p = "Resources/Sprites/KC/";
+global.sprKingCrimson = sprite_add(p + "KingCrimson.png", 1, false, false, 16, 19);
+// global.sprGeFrog = sprite_add(p + "GeFrog.png", 1, false, false, 16, 16);
+// global.sprGeScorpion = sprite_add(p + "GeScorpion.png", 2, false, false, 16, 16);
+
+// skills
+// global.sprSkillLifeFormPlant = sprite_add(p + "SkillLifeFormPlant.png", 1, false, false, 16, 16);
+// global.sprSkillLifeFormScorpion = sprite_add(p + "SkillLifeFormScorpion.png", 1, false, false, 16, 16);
+// global.sprSkillLifeFormFrog = sprite_add(p + "SkillLifeFormFrog.png", 1, false, false, 16, 16);
+// global.sprSkillSelfHeal = sprite_add(p + "SkillSelfHeal.png", 1, false, false, 16, 16);
 
 #endregion
 
