@@ -5,7 +5,7 @@ if (instance_exists(MNPC))
 {
     with (MNPC)
     {
-        if (sprite_index == -1)
+        if (npc == noone)
         {
             //sprite_index = sprSmoke;
             instance_destroy(self);

@@ -6,7 +6,9 @@ var p = ""; // path short
 p = "Resources/Sprites/Items/";
 global.sprArrow = sprite_add(p + "Arrow.png", 1, false, false, 8, 8);
 global.sprDisc = sprite_add(p + "Disc.png", 1, false, false, 8, 8);
+global.sprDiscBlueprint = sprite_add(p + "DiscBlueprint.png", 1, false, false, 8, 8);
 global.sprArrowBeetle = sprite_add(p + "ArrowBeetle.png", 1, false, false, 8, 8);
+global.sprEternalArrow = sprite_add(p + "EternalArrow.png", 1, false, false, 8, 8);
 global.sprHeart = sprite_add(p + "Heart.png", 1, false, false, 8, 8);
 global.sprEye = sprite_add(p + "Eye.png", 1, false, false, 8, 8);
 global.sprLeftArm = sprite_add(p + "LeftArm.png", 1, false, false, 8, 8);
@@ -277,6 +279,9 @@ global.sprSkillKill = sprite_add(p + "SkillKill.png", 1, false, false, 16, 16);
 #region Pucci
 
 p = "Resources/Sprites/Pucci/";
+
+    // pucci
+global.sprEnricoPucci = sprite_add(p + "EnricoPucci.png", 4, false, false, 16, 19);
     // whitesnake
 global.sprWhiteSnake = sprite_add(p + "Whitesnake.png", 1, false, false, 16, 19);
 

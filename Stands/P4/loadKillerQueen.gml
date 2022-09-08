@@ -22,7 +22,7 @@ if (instance_exists(STAND))
     GainItem(global.jjbamDiscKq);
     exit;
 }
-GiveKillerQueen();
+GiveKillerQueen(player);
 
 #define PlaceBomb(method, skill) //attacks
 if (modTypeExists("bomb"))
@@ -204,19 +204,9 @@ if (WaterCollision(x, y))
     instance_destroy(self);
 }
 
-#define GiveKillerQueen //stand
+#define GiveKillerQueen(_owner) //stand
 
-var _name = "Killer Queen";
-var _sprite = global.sprKillerQueen;
-var _color = 0xba7bd7;
-
-var _stats;
-_stats[StandStat.Range] = 50;
-_stats[StandStat.AttackDamage] = 4;
-_stats[StandStat.AttackRange] = 10;
-_stats[StandStat.BaseSpd] = 0.4;
-
-var _skills = StandSkillInit(_stats);
+var _skills = StandSkillInit();
 
 var sk;
 sk = StandState.SkillAOff;
@@ -258,9 +248,12 @@ _skills[sk, StandSkill.MaxCooldown] = 40;
 _skills[sk, StandSkill.MaxExecutionTime] = 20;
 _skills[sk, StandSkill.Desc] = "killer queen's second bomb:\nsummons sha in combat, chasing and exploding enemies on its own.";
 
-var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
+var _s = StandBuilder(_owner, _skills);
 with (_s)
 {
+    name = "Killer Queen";
+    sprite_index = global.sprKillerQueen;
+    color = 0xba7bd7;
     summonSound = global.sndKqSummon;
     saveKey = "jjbamKq";
     discType = global.jjbamDiscKq;

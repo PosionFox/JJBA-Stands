@@ -1,18 +1,8 @@
 
 
-#define GiveSakuya //stand
+#define GiveSakuya(_owner) //stand
 
-var _name = "Sakuya Izayoi";
-var _sprite = global.sprKnife;
-var _color = /*#*/0x0000FF;
-
-var _stats;
-_stats[StandStat.Range] = 50;
-_stats[StandStat.AttackDamage] = 5;
-_stats[StandStat.AttackRange] = 10;
-_stats[StandStat.BaseSpd] = 0.6;
-
-var _skills = StandSkillInit(_stats);
+var _skills = StandSkillInit();
 
 var sk;
 sk = StandState.SkillA;
@@ -43,9 +33,12 @@ _skills[sk, StandSkill.MaxCooldown] = 30;
 _skills[sk, StandSkill.Desc] = @"kill:
 teleports to a nearby enemy and heavily damages them.";
 
-var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
+var _s = StandBuilder(_owner, _skills);
 with (_s)
 {
+    name = "Sakuya Izayoi";
+    sprite_index = global.sprKnife;
+    color = /*#*/0x0000FF;
     summonSound = global.sndImposterSummon;
     saveKey = "jjbamSus";
     discType = global.jjbamDiscSus;

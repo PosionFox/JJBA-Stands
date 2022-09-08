@@ -22,7 +22,7 @@ if (instance_exists(STAND))
     GainItem(global.jjbamDiscKc);
     exit;
 }
-GiveKingCrimson();
+GiveKingCrimson(player);
 
 #define KcBarrage(method, skill) //attacks
 var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
@@ -75,21 +75,11 @@ xTo = owner.x - (xPos * 8);
 yTo = owner.y - 8;
 angleTarget = 25 + (cos(current_time / 1000) * 5);
 image_xscale = -xPos;
-EffectStandAuraCreate(x, y - height, color);
 
-#define GiveKingCrimson //stand
 
-var _name = "King Crimson";
-var _sprite = global.sprKingCrimson;
-var _color = 0x3232ac;
+#define GiveKingCrimson(_owner) //stand
 
-var _stats;
-_stats[StandStat.Range] = 50;
-_stats[StandStat.AttackDamage] = 5;
-_stats[StandStat.AttackRange] = 10;
-_stats[StandStat.BaseSpd] = 0.6;
-
-var _skills = StandSkillInit(_stats);
+var _skills = StandSkillInit();
 
 var sk;
 sk = StandState.SkillBOff;
@@ -138,9 +128,12 @@ _skills[sk, StandSkill.Desc] = "self heal:\nmends the user's wounds,\nthe effect
 
 sk = StandState.SkillD;
 
-var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
+var _s = StandBuilder(_owner, _skills);
 with (_s)
 {
+    name = "King Crimson";
+    sprite_index = global.sprKingCrimson;
+    color = 0x3232ac;
     idlePos = KcPos;
     summonSound = global.sndKcSummon;
     saveKey = "jjbamKc";

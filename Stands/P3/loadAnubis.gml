@@ -38,26 +38,19 @@ if (keyboard_check_pressed(ord("Q")) and state == StandState.Idle) {
     }
 }
 
-#define GiveAnubis //stand
+#define GiveAnubis(_owner) //stand
 
-var _name = "Anubis";
-var _sprite = global.sprAnubis;
-var _punchSprite = global.sprTheWorldPunch;
-
-var _stats;
-_stats[StandStat.Range] = 50;
-_stats[StandStat.AttackDamage] = 8;
-_stats[StandStat.AttackRange] = 20;
-_stats[StandStat.BaseSpd] = 0.9;
-
-var _skills = StandSkillInit(_stats);
+var _skills = StandSkillInit();
 
 var sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = HorizontalSlash;
 
-var s = StandBuilder(_name, _sprite, _stats, _skills, _punchSprite);
+var s = StandBuilder(_owner, _skills);
 with (s)
 {
+    name = "Anubis";
+    sprite_index = global.sprAnubis;
+    color = c_purple;
     saveKey = "jjbamAnubis";
     summonMethod = AnubisSummon;
 }

@@ -23,21 +23,15 @@ if (instance_exists(STAND))
     GainItem(global.jjbamDiscCmn);
     exit;
 }
-GiveCMoon();
+GiveCMoon(player);
 
-#define GiveCMoon //stand
+#define GiveCMoon(_owner) //stand
 
 var _name = "C-Moon";
 var _sprite = global.sprCMoon;
 var _color = /*#*/0x30be6a;
 
-var _stats;
-_stats[StandStat.Range] = 50;
-_stats[StandStat.AttackDamage] = 5.5;
-_stats[StandStat.AttackRange] = 10;
-_stats[StandStat.BaseSpd] = 0.5;
-
-var _skills = StandSkillInit(_stats);
+var _skills = StandSkillInit();
 
 var sk;
 sk = StandState.SkillA;
@@ -71,9 +65,12 @@ _skills[sk, StandSkill.MaxCooldown] = 20;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
 _skills[sk, StandSkill.Desc] = "star platinum the world:\nstops the time, most enemies are not allowed to move\nand makes your projectiles freeze in place.";
 
-var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
+var _s = StandBuilder(_owner, _skills);
 with (_s)
 {
+    name = "C-Moon";
+    sprite_index = global.sprCMoon;
+    color = /*#*/0x30be6a;
     summonSound = global.sndSpSummon;
     saveKey = "jjbamCmn";
     discType = global.jjbamDiscCmn;

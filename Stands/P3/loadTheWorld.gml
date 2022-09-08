@@ -22,7 +22,7 @@ if (instance_exists(STAND))
     GainItem(global.jjbamDiscTw);
     exit;
 }
-GiveTheWorld();
+GiveTheWorld(player);
 
 #define JosephKnife(method, skill)
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
@@ -173,19 +173,9 @@ if (instance_exists(parEnemy))
     LastingDamageCreate(_near, 0.001, 3, true);
 }
 
-#define GiveTheWorld //stand
+#define GiveTheWorld(_owner) //stand
 
-var _name = "The World";
-var _sprite = global.sprTheWorld;
-var _color = 0x36f2fb;
-
-var _stats;
-_stats[StandStat.Range] = 50;
-_stats[StandStat.AttackDamage] = 5;
-_stats[StandStat.AttackRange] = 10;
-_stats[StandStat.BaseSpd] = 0.6;
-
-var _skills = StandSkillInit(_stats);
+var _skills = StandSkillInit();
 
 var sk;
 sk = StandState.SkillAOff;
@@ -241,9 +231,12 @@ _skills[sk, StandSkill.Icon] = global.sprSkillTimestop;
 _skills[sk, StandSkill.MaxCooldown] = 30;
 _skills[sk, StandSkill.Desc] = "time, stop!:\nstops the time, most enemies are not allowed to move\nand makes your projectiles freeze in place.";
 
-var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
+var _s = StandBuilder(_owner, _skills);
 with (_s)
 {
+    name = "The World";
+    sprite_index = global.sprTheWorld;
+    color = 0x36f2fb;
     summonSound = global.sndTwSummon;
     saveKey = "jjbamTw";
     discType = global.jjbamDiscTw;

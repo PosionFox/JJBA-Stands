@@ -153,3 +153,50 @@ for (var i = 0; i < array_length(_list); i++)
     }
 }
 return _nearest;
+
+
+#define NPC2QuestControllerCreate(_owner, _lastQuestState, _callback)
+
+var o = ModObjectSpawn(x, y, 0);
+with (o)
+{
+    type = "questController";
+    owner = _owner;
+    lastQuestState = _lastQuestState;
+    questEndCallback = _callback;
+    questStateFinished = false;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(__NPC2QuestControllerStep));
+}
+
+#define __NPC2QuestControllerStep
+
+if (instance_exists(owner))
+{
+    if (owner.state == lastQuestState and !questStateFinished)
+    {
+        questStateFinished = true;
+    }
+    if (questStateFinished and !owner.talking and owner.state == "<noone>")
+    {
+        with (owner)
+        {
+            ScriptCall(other.questEndCallback);
+        }
+        instance_destroy(self);
+    }
+}
+
+#define NPC2Exists(_npc)
+
+var _exists = false;
+
+with (MNPC)
+{
+    if (npc == _npc)
+    {
+        _exists = true;
+    }
+}
+
+return _exists;

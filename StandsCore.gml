@@ -1,6 +1,8 @@
 
 #define StandSkillDrawGUI
 
+if (!runDrawGUI) { exit; }
+
 var _width = display_get_gui_width();
 var _height = display_get_gui_height() - 40;
 
@@ -118,31 +120,34 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
 {
     if (state == StandState.Idle and active = skills[i, StandSkill.ActiveOnly])
     {
-        if (player.hp != 0 and !instance_exists(objPlayerMenu) and keyboard_check(ord(skills[i, StandSkill.Key])))
+        if (player.hp != 0 and !instance_exists(objPlayerMenu))
         {
-            if (skills[i, StandSkill.CooldownAlt] <= 0 and skills[i, StandSkill.SkillAlt] != AttackHandler)
+            if (keyboard_check(ord(skills[i, StandSkill.Key]))/* or InputCheckDown(skills[i, StandSkill.GpBtn])*/)
             {
-                skills[i, StandSkill.Hold] += 1 / room_speed;
-                skills[i, StandSkill.Hold] = clamp(skills[i, StandSkill.Hold], 0, skills[i, StandSkill.MaxHold]);
-                if (skills[i, StandSkill.Hold] >= skills[i, StandSkill.MaxHold] and !altAttack)
+                if (skills[i, StandSkill.CooldownAlt] <= 0 and skills[i, StandSkill.SkillAlt] != AttackHandler)
                 {
-                    altAttack = true;
-                    var _s = audio_play_sound(sndCoin1, 1, false);
-                    audio_sound_pitch(_s, 1.5);
+                    skills[i, StandSkill.Hold] += 1 / room_speed;
+                    skills[i, StandSkill.Hold] = clamp(skills[i, StandSkill.Hold], 0, skills[i, StandSkill.MaxHold]);
+                    if (skills[i, StandSkill.Hold] >= skills[i, StandSkill.MaxHold] and !altAttack)
+                    {
+                        altAttack = true;
+                        var _s = audio_play_sound(sndCoin1, 1, false);
+                        audio_sound_pitch(_s, 1.5);
+                    }
                 }
             }
-        }
-        if (player.hp != 0 and !instance_exists(objPlayerMenu) and keyboard_check_released(ord(skills[i, StandSkill.Key])))
-        {
-            if (!altAttack and skills[i, StandSkill.Cooldown] <= 0)
+            if (keyboard_check_released(ord(skills[i, StandSkill.Key]))/* or InputCheckPressed(skills[i, StandSkill.GpBtn])*/)
             {
-                state = i;
+                if (!altAttack and skills[i, StandSkill.Cooldown] <= 0)
+                {
+                    state = i;
+                }
+                else if (altAttack)
+                {
+                    state = i;
+                }
+                skills[i, StandSkill.Hold] = 0;
             }
-            else if (altAttack)
-            {
-                state = i;
-            }
-            skills[i, StandSkill.Hold] = 0;
         }
     }
 }
@@ -174,22 +179,29 @@ script_execute(runCDsMethod);
 
 #define StandDefaultSummon
 
-if (keyboard_check_pressed(ord("Q")) and state == StandState.Idle) {
-    active = !active;
-    if (active)
+if (state == StandState.Idle)
+{
+    if (keyboard_check_pressed(ord("Q")))
     {
-        if (!audio_is_playing(summonSound) and summonSound != noone)
+        active = !active;
+        if (active)
         {
-            audio_play_sound(summonSound, 0, false);
+            if (!audio_is_playing(summonSound) and summonSound != noone)
+            {
+                audio_play_sound(summonSound, 0, false);
+            }
         }
     }
 }
 
 #define StandDefaultPos
 
-var xPos = mouse_x > owner.x ? 1 : -1;
-xTo = owner.x - (xPos * 16);
-yTo = owner.y - 8;
+var xPos = mouseXSide;
+if (instance_exists(owner))
+{
+    xTo = owner.x - (xPos * 16);
+    yTo = owner.y - 8;
+}
 
 #define StandDefaultStep
 
@@ -200,23 +212,33 @@ if (!instance_exists(objPlayerMenu))
     script_execute(summonMethod);
 }
 
+if (instance_exists(owner))
+{
+    mouseXSide = sign(owner.facing);
+}
+
 x = lerp(x, xTo, spd);
 y = lerp(y, yTo, spd);
 image_alpha = lerp(image_alpha, alphaTarget, 0.1);
 image_angle = lerp(image_angle, angleTarget * image_xscale, 0.1);
+image_xscale = lerp(image_xscale, scaleX, scaleXSpd);
+image_yscale = lerp(image_yscale, scaleY, scaleYSpd);
 
 if (active)
 {
     if (state == StandState.Idle)
     {
-        image_xscale = mouse_x > owner.x ? 1 : -1;
+        scaleX = mouseXSide;
+        image_xscale = mouseXSide;
         alphaTarget = 1;
         script_execute(idlePos);
         height = abs(sin(current_time / 1000) * 5);
     }
+    EffectStandAuraCreate(x, y - height, color);
 }
 else
 {
+    scaleX = 0;
     alphaTarget = 0;
     xTo = owner.x;
     yTo = owner.y;
@@ -251,7 +273,7 @@ if (active)
 }
 draw_sprite_ext(sprite_index, image_index, x, y - height, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
 
-#define StandSkillInit(_stats)
+#define StandSkillInit()
 
 var _arr;
 var _s;
@@ -263,6 +285,7 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
     _arr[_s, StandSkill.Skill] = AttackHandler;
     _arr[_s, StandSkill.SkillAlt] = AttackHandler;
     _arr[_s, StandSkill.Key] = "";
+    _arr[_s, StandSkill.GpBtn] = Input.DPad;
     _arr[_s, StandSkill.Desc] = "";
     _arr[_s, StandSkill.Icon] = global.sprSkillSkip;
     _arr[_s, StandSkill.IconAlt] = global.sprSkillSkip;
@@ -278,6 +301,15 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
     _arr[_s, StandSkill.MaxExecutionTime] = 5;
     _arr[_s, StandSkill.ExecutionTime] = 0;
 }
+_arr[StandState.SkillAOff, StandSkill.GpBtn] = Input.LB;
+_arr[StandState.SkillBOff, StandSkill.GpBtn] = Input.LT;
+_arr[StandState.SkillCOff, StandSkill.GpBtn] = Input.RB;
+_arr[StandState.SkillDOff, StandSkill.GpBtn] = Input.RT;
+_arr[StandState.SkillA, StandSkill.GpBtn] = _arr[StandState.SkillAOff, StandSkill.GpBtn];
+_arr[StandState.SkillB, StandSkill.GpBtn] = _arr[StandState.SkillBOff, StandSkill.GpBtn];
+_arr[StandState.SkillC, StandSkill.GpBtn] = _arr[StandState.SkillCOff, StandSkill.GpBtn];
+_arr[StandState.SkillD, StandSkill.GpBtn] = _arr[StandState.SkillDOff, StandSkill.GpBtn];
+
 _arr[StandState.SkillAOff, StandSkill.Key] = "R";
 _arr[StandState.SkillBOff, StandSkill.Key] = "F";
 _arr[StandState.SkillCOff, StandSkill.Key] = "C";
@@ -289,35 +321,56 @@ _arr[StandState.SkillD, StandSkill.Key] = _arr[StandState.SkillDOff, StandSkill.
 
 return _arr;
 
-#define StandBuilder(_name, _sprite, _stats, _skills, _color)
+#define StandBuilder(_owner, _skills)
 
-RemoveStand();
+if (!instance_exists(_owner))
+{
+    if (instance_exists(player))
+    {
+        _owner = player;
+    }
+    if (instance_exists(STAND))
+    {
+        exit;
+    }
+}
+if !("myStand" in _owner)
+{
+    _owner.myStand = noone;
+}
+
+RemoveStand(_owner);
 
 // init
-var _stand = ModObjectSpawn(player.x, player.y, 0);
+var _stand = ModObjectSpawn(_owner.x, _owner.y, 0);
 with (_stand)
 {
     // properties
     type = "stand";
-    name = _name;
-    owner = player;
-    sprite_index = _sprite;
-    xTo = player.x;
-    yTo = player.y;
+    name = "unknown";
+    owner = _owner;
+    sprite_index = global.sprStarPlatinum;
+    xTo = _owner.x;
+    yTo = _owner.y;
     height = 0;
     isRare = false;
     saveKey = "jjbamStandless";
     discType = noone;
-    color = _color;
+    color = c_white;
     summonSound = global.sndStandSummon;
     // state
     attackState = 0;
     attackStateTimer = 0;
     active = false;
     state = StandState.Idle;
+    mouseXSide = sign(owner.image_xscale);
     alphaTarget = 0;
     angleTarget = 0;
     angleTargetSpd = 0.1;
+    scaleX = 1;
+    scaleXSpd = 0.1;
+    scaleY = 1;
+    scaleYSpd = 0.1;
     target = noone;
     altAttack = false;
     soundIdle = undefined;
@@ -327,20 +380,20 @@ with (_stand)
     idlePos = StandDefaultPos;
     summonMethod = StandDefaultSummon;
     runCDsMethod = StandSkillDefaultCDs;
+    runDrawGUI = true;
     // stats
-    stats = array_clone(_stats);
-    spd = stats[StandStat.BaseSpd];
+    spd = 0.5;
     // skills
     skills = array_clone(_skills);
     
     InstanceAssignMethod(self, "step", ScriptWrap(StandDefaultStep), false);
     InstanceAssignMethod(self, "draw", ScriptWrap(StandDefaultDraw), false);
     InstanceAssignMethod(self, "drawGUI", ScriptWrap(StandSkillDrawGUI), false);
-    STAND = self;
+    _owner.myStand = self;
 }
 return _stand;
 
-#define RemoveStand
+#define RemoveStand(_owner)
 
 with (MOBJ)
 {
@@ -352,9 +405,9 @@ with (MOBJ)
         }
     }
 }
-if (instance_exists(player) and instance_exists(STAND))
+if (instance_exists(_owner) and instance_exists(_owner.myStand))
 {
-    with (STAND)
+    with (_owner.myStand)
     {
         state = StandState.Idle;
         for (var i = StandState.SkillAOff; i < StandState.SkillD; i++)
@@ -363,7 +416,7 @@ if (instance_exists(player) and instance_exists(STAND))
         }
         instance_destroy(self);
     }
-    STAND = noone;
+    _owner.myStand = noone;
 }
 
 

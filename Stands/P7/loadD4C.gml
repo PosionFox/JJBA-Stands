@@ -22,7 +22,7 @@ if (instance_exists(STAND))
     GainItem(global.jjbamDiscD4c);
     exit;
 }
-GiveD4C();
+GiveD4C(player);
 
 #define RevolverReload(m, s)
 
@@ -460,19 +460,9 @@ if (instance_exists(parEnemy))
     }
 }
 
-#define GiveD4C //stand
+#define GiveD4C(_owner) //stand
 
-var _name = "D4C";
-var _sprite = global.sprD4C;
-var _color = 0xe4cd5f;
-
-var _stats;
-_stats[StandStat.Range] = 50;
-_stats[StandStat.AttackDamage] = 5;
-_stats[StandStat.AttackRange] = 20;
-_stats[StandStat.BaseSpd] = 0.4;
-
-var _skills = StandSkillInit(_stats);
+var _skills = StandSkillInit();
 
 var sk;
 sk = StandState.SkillAOff;
@@ -540,9 +530,12 @@ flattening the user and warping them
 into another parallel dimension,
 enemies in range will also be teleported.";
 
-var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
+var _s = StandBuilder(_owner, _skills);
 with (_s)
 {
+    name = "Dirty Deeds Done Dirt Cheap";
+    sprite_index = global.sprD4C;
+    color = 0xe4cd5f;
     summonSound = global.sndD4CSummon;
     saveKey = "jjbamD4c";
     discType = global.jjbamDiscD4c;
@@ -568,7 +561,7 @@ with (_s)
 
 if (STAND.hasArm and STAND.hasHeart and STAND.hasEye)
 {
-    GiveD4CLT();
+    GiveD4CLT(player);
 }
 
 #define D4CDrawGui

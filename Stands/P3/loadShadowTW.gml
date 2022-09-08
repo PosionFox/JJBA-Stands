@@ -22,7 +22,7 @@ if (instance_exists(STAND))
     GainItem(global.jjbamDiscStw);
     exit;
 }
-GiveShadowTheWorld();
+GiveShadowTheWorld(player);
 
 #define StwPos // core
 
@@ -378,7 +378,8 @@ switch (attackState)
             instance_destroy(modTypeFind("timestop"));
         }
         
-        audio_play_sound(global.sndStwTheWorld, 5, false);
+        var s = audio_play_sound(global.sndStwTheWorld, 5, false);
+        
         attackState++;
     break;
     case 1:
@@ -388,7 +389,7 @@ switch (attackState)
         }
     break;
     case 2:
-        audio_play_sound(global.sndTsOld, 5, false);
+        var s = audio_play_sound(global.sndTsOld, 5, false);
         
         var ts = TimestopCreate(2 + (0.05 * player.level));
         ts.resumeSound = global.sndStwTsResume;
@@ -401,7 +402,8 @@ switch (attackState)
         }
     break;
     case 4:
-        audio_play_sound(global.sndStwTokiyotomare, 5, false);
+        var s = audio_play_sound(global.sndStwTokiyotomare, 5, false);
+        
         EndAtk(skill);
     break;
 }
@@ -430,13 +432,13 @@ else
 
 if (instance_exists(STAND))
 {
-    RemoveStand();
+    RemoveStand(player);
 }
 FireEffect(c_white, c_yellow);
 timer -= DT;
 if (timer <= 0)
 {
-    GiveTheWorld();
+    GiveTheWorld(player);
     instance_destroy(self);
 }
 
@@ -512,19 +514,9 @@ if (instance_exists(ENEMY))
     }
 }
 
-#define GiveShadowTheWorld //stand
+#define GiveShadowTheWorld(_owner) //stand
 
-var _name = "Shadow The World";
-var _sprite = global.sprShadowTheWorld;
-var _color = 0xffffff;
-
-var _stats;
-_stats[StandStat.Range] = 50;
-_stats[StandStat.AttackDamage] = 4;
-_stats[StandStat.AttackRange] = 10;
-_stats[StandStat.BaseSpd] = 0.6;
-
-var _skills = StandSkillInit(_stats);
+var _skills = StandSkillInit();
 // off
 var sk;
 sk = StandState.SkillAOff;
@@ -597,9 +589,11 @@ and makes your projectiles freeze in place.
 with enough experience,
 shadow the world evolves into the world.";
 
-var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
+var _s = StandBuilder(_owner, _skills);
 with (_s)
 {
+    name = "Shadow The World";
+    sprite_index = global.sprShadowTheWorld
     summonSound = noone;
     idlePos = StwPos;
     soundWhenHurt = [global.sndStwHurt1, global.sndStwHurt2, global.sndStwHurt3];

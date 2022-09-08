@@ -22,7 +22,7 @@ if (instance_exists(STAND))
     GainItem(global.jjbamDiscSf);
     exit;
 }
-GiveStickyFingers();
+GiveStickyFingers(player);
 
 #define SfBarrage(method, skill) //attacks
 var _dis = point_distance(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
@@ -360,19 +360,9 @@ if (instance_exists(ENTITY))
     }
 }
 
-#define GiveStickyFingers //stand
+#define GiveStickyFingers(_owner) //stand
 
-var _name = "Sticky Fingers";
-var _sprite = global.sprStickyFingers;
-var _color = 0xfcdbcb;
-
-var _stats;
-_stats[StandStat.Range] = 50;
-_stats[StandStat.AttackDamage] = 4;
-_stats[StandStat.AttackRange] = 10;
-_stats[StandStat.BaseSpd] = 0.6;
-
-var _skills = StandSkillInit(_stats);
+var _skills = StandSkillInit();
 
 var sk;
 sk = StandState.SkillA;
@@ -407,9 +397,12 @@ _skills[sk, StandSkill.MaxCooldown] = 20;
 _skills[sk, StandSkill.MaxExecutionTime] = 20;
 _skills[sk, StandSkill.Desc] = "portal through:\nopens two portals, one below the user\nand the other where they are aiming at.";
 
-var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
+var _s = StandBuilder(_owner, _skills);
 with (_s)
 {
+    name = "Sticky Fingers";
+    sprite_index = global.sprStickyFingers;
+    color = 0xfcdbcb;
     summonSound = global.sndSfSummon;
     saveKey = "jjbamSf";
     discType = global.jjbamDiscSf;

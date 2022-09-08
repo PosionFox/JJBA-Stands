@@ -22,7 +22,7 @@ if (instance_exists(STAND))
     GainItem(global.jjbamDiscTwova);
     exit;
 }
-GiveTwova();
+GiveTwova(player);
 
 #define TwovaBloodDrain(method, skill)
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
@@ -64,8 +64,8 @@ attackStateTimer += DT;
 var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y)
 
-var _xx = player.x + lengthdir_x(stats[StandStat.AttackRange], _dir);
-var _yy = player.y + lengthdir_y(stats[StandStat.AttackRange], _dir);
+var _xx = player.x + lengthdir_x(8, _dir);
+var _yy = player.y + lengthdir_y(8, _dir);
 xTo = _xx;
 yTo = _yy;
 
@@ -175,9 +175,9 @@ switch (attackState)
 }
 attackStateTimer += DT;
 
-#define GiveTwova //stand
+#define GiveTwova(_owner) //stand
 
-var _s = GiveTheWorld();
+var _s = GiveTheWorld(_owner);
 with (_s)
 {
     name = "The World OVA";

@@ -22,7 +22,7 @@ if (instance_exists(STAND))
     GainItem(global.jjbamDiscKqbtd);
     exit;
 }
-GiveKillerQueenBtD();
+GiveKillerQueenBtD(player);
 
 #define TripleCoin(method, skill) //attacks
 if (modTypeCount("coinBomb") >= 9)
@@ -354,19 +354,9 @@ draw_set_alpha(rectAlpha);
 draw_rectangle(objPlayer.x- 500, objPlayer.y - 500, objPlayer.x + 500, objPlayer.y + 500, false);
 draw_set_alpha(image_alpha);
 
-#define GiveKillerQueenBtD //stand
+#define GiveKillerQueenBtD(_owner) //stand
 
-var _name = "KQ: Bites The Dust";
-var _sprite = global.sprKillerQueenBtD;
-var _color = 0xba7bd7;
-
-var _stats;
-_stats[StandStat.Range] = 50;
-_stats[StandStat.AttackDamage] = 4;
-_stats[StandStat.AttackRange] = 10;
-_stats[StandStat.BaseSpd] = 0.4;
-
-var _skills = StandSkillInit(_stats);
+var _skills = StandSkillInit();
 
 var sk;
 sk = StandState.SkillAOff;
@@ -428,9 +418,12 @@ where they placed the bomb in the first place while also
 healing the user for the amount of damage lost afterwards.
 ";
 
-var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
+var _s = StandBuilder(_owner, _skills);
 with (_s)
 {
+    name = "KQ: Bites The Dust";
+    sprite_index = global.sprKillerQueenBtD;
+    color = 0xba7bd7;
     summonSound = global.sndKqbtdSummon;
     saveKey = "jjbamKqbtd";
     discType = global.jjbamDiscKqbtd;

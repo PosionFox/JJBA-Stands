@@ -22,15 +22,15 @@ if (instance_exists(STAND))
     GainItem(global.jjbamDiscSpova);
     exit;
 }
-GiveSpova();
+GiveSpova(player);
 
 #define SpovaStrongPunch(method, skill)
 
 var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y)
 
-var _xx = player.x + lengthdir_x(stats[StandStat.AttackRange], _dir);
-var _yy = player.y + lengthdir_y(stats[StandStat.AttackRange], _dir);
+var _xx = player.x + lengthdir_x(8, _dir);
+var _yy = player.y + lengthdir_y(8, _dir);
 xTo = _xx;
 yTo = _yy;
 
@@ -58,8 +58,8 @@ attackStateTimer += DT;
 
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
 
-var _xx = player.x + lengthdir_x(stats[StandStat.AttackRange], _dir);
-var _yy = player.y + lengthdir_y(stats[StandStat.AttackRange], _dir);
+var _xx = player.x + lengthdir_x(8, _dir);
+var _yy = player.y + lengthdir_y(8, _dir);
 xTo = _xx;
 yTo = _yy;
 image_xscale = mouse_x > player.x ? 1 : -1;
@@ -143,9 +143,9 @@ switch (attackState)
 }
 attackStateTimer += DT;
 
-#define GiveSpova //stand
+#define GiveSpova(_owner) //stand
 
-var _s = GiveStarPlatinum();
+var _s = GiveStarPlatinum(_owner);
 with (_s)
 {
     name = "Star Platinum OVA";

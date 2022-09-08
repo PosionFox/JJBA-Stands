@@ -8,6 +8,8 @@ CommandCreate("jjbamPucciCheck", true, ScriptWrap(jjbamPucciCheck));
 CommandCreate("jjbamKillPucci", true, ScriptWrap(jjbamKillPucci));
 CommandCreate("jjbamKillNPCs", true, ScriptWrap(jjbamKillNPCs));
 
+CommandCreate("jjVarSpy", true, ScriptWrap(JjVarSpy), "obj");
+
 
 
 #define CheatGiveStand(args)
@@ -23,37 +25,37 @@ with (objPlayer)
 switch (args[0])
 {
     // p3
-    case "sp": GiveStarPlatinum(); break;
-    case "sc": GiveSilverChariot(); break;
-    case "tw": GiveTheWorld(); break;
-    case "anubis": GiveAnubis(); break;
-    case "stw": GiveShadowTheWorld(); break;
+    case "sp": GiveStarPlatinum(player); break;
+    case "sc": GiveSilverChariot(player); break;
+    case "tw": GiveTheWorld(player); break;
+    case "anubis": GiveAnubis(player); break;
+    case "stw": GiveShadowTheWorld(player); break;
     // p4
-    case "sptw": GiveSPTW(); break;
-    case "kq": GiveKillerQueen(); break;
-    case "kqbtd": GiveKillerQueenBtD(); break;
+    case "sptw": GiveSPTW(player); break;
+    case "kq": GiveKillerQueen(player); break;
+    case "kqbtd": GiveKillerQueenBtD(player); break;
     // p5
-    case "sf": GiveStickyFingers(); break;
-    case "ge": GiveGoldExperience(); break;
-    case "kc": GiveKingCrimson(); break;
+    case "sf": GiveStickyFingers(player); break;
+    case "ge": GiveGoldExperience(player); break;
+    case "kc": GiveKingCrimson(player); break;
     // p6
-    case "ws": GiveWhiteSnake(); break;
-    case "cm": GiveCMoon(); break;
+    case "ws": GiveWhiteSnake(player); break;
+    case "cm": GiveCMoon(player); break;
     // p7
-    case "spn": GiveSpin(); break;
-    case "d4c": GiveD4C(); break;
-    case "d4clt": GiveD4CLT(); break;
-    case "twau": GiveTheWorldAU(); break;
-    case "tusk": GiveTusk(); break;
+    case "spn": GiveSpin(player); break;
+    case "d4c": GiveD4C(player); break;
+    case "d4clt": GiveD4CLT(player); break;
+    case "twau": GiveTheWorldAU(player); break;
+    case "tusk": GiveTusk(player); break;
     case "tusk4": GiveTusk4(); break;
     // alts
-    case "sw": GiveSpookyWorld(); break;
-    case "spr": GiveSpr(); break;
-    case "twr": GiveTwr(); break;
-    case "spova": GiveSpova(); break;
-    case "twova": GiveTwova(); break;
+    case "sw": GiveSpookyWorld(player); break;
+    case "spr": GiveSpr(player); break;
+    case "twr": GiveTwr(player); break;
+    case "spova": GiveSpova(player); break;
+    case "twova": GiveTwova(player); break;
     // other
-    case "sus": GiveImposter(); break;
+    case "sus": GiveImposter(player); break;
     
     default: Trace("not found");
 }
@@ -61,6 +63,18 @@ switch (args[0])
 #define TestCommand
 
 Trace("hello");
+
+#define JjVarSpy(args)
+
+var _obj = asset_get_index(args[0]);
+
+var _list = ds_list_create();
+variable_instance_get_names(_obj, _list);
+for (var i = 0, n = ds_list_size(_list); i < n; i++)
+{
+    Trace(_list[| i]);
+}
+ds_list_destroy(_list);
 
 #define JjbamDebug
 

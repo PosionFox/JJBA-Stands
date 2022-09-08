@@ -22,11 +22,11 @@ if (instance_exists(STAND))
     GainItem(global.jjbamDiscSw);
     exit;
 }
-GiveSpookyWorld();
+GiveSpookyWorld(player);
 
-#define GiveSpookyWorld //stand
+#define GiveSpookyWorld(_owner) //stand
 
-var _s = GiveTheWorld();
+var _s = GiveTheWorld(_owner);
 with (_s)
 {
     name = "Spooky World";

@@ -23,7 +23,7 @@ if (instance_exists(STAND))
     GainItem(global.jjbamDiscTsk);
     exit;
 }
-GiveTusk();
+GiveTusk(player);
 
 #define SpinningNails(m, s) // act 1 from here
 if (nails <= 0)
@@ -556,26 +556,16 @@ StandSkillRunCD(act2Moveset);
 StandSkillRunCD(act3Moveset);
 StandSkillRunCD(act4Moveset);
 
-#define GiveTusk //stand
-
-var _name = "Tusk";
-var _sprite = global.sprTuskAct1;
-var _color = /*#*/0xba7bd7;
-
-var _stats;
-_stats[StandStat.Range] = 50;
-_stats[StandStat.AttackDamage] = 5.5;
-_stats[StandStat.AttackRange] = 10;
-_stats[StandStat.BaseSpd] = 0.5;
+#define GiveTusk(_owner) //stand
 
 var _skills, _skills1, _skills2, _skills3, _skills4;
 var sk;
 
-_skills = StandSkillInit(_stats);
-_skills1 = StandSkillInit(_stats);
-_skills2 = StandSkillInit(_stats);
-_skills3 = StandSkillInit(_stats);
-_skills4 = StandSkillInit(_stats);
+_skills = StandSkillInit();
+_skills1 = StandSkillInit();
+_skills2 = StandSkillInit();
+_skills3 = StandSkillInit();
+_skills4 = StandSkillInit();
 
 #region standless moveset
 
@@ -720,9 +710,12 @@ _skills4[sk, StandSkill.MaxCooldown] = 60;
 
 #endregion
 
-var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
+var _s = StandBuilder(_owner, _skills);
 with (_s)
 {
+    name = "Tusk";
+    sprite_index = global.sprTuskAct1;
+    color = /*#*/0xba7bd7;
     summonSound = global.sndTa1Summon;
     saveKey = "jjbamTsk";
     discType = global.jjbamDiscTsk;
@@ -758,7 +751,7 @@ return _s;
 
 #define GiveTusk4
 
-var _s = GiveTusk();
+var _s = GiveTusk(player);
 with (_s)
 {
     hasAct2 = true;

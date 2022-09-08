@@ -22,7 +22,7 @@ if (instance_exists(STAND))
     GainItem(global.jjbamDiscTwau);
     exit;
 }
-GiveTheWorldAU();
+GiveTheWorldAU(player);
 
 #define TripleKnifeThrow(m, s)
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
@@ -45,16 +45,25 @@ EndAtk(s);
 
 #define OilCan(m, s)
 
-var _c = modTypePlace(x, y, "oil");
-if (!instance_exists(_c))
+var xx = ((x div 16) * 16) + 8;
+var yy = ((y div 16) * 16) + 8;
+
+var _c = modTypePlace(xx, yy, "oil");
+var _c2 = modTypePlace(xx, yy, "burningOil");
+if (instance_exists(_c) or instance_exists(_c2))
 {
-    OilCreate(x, y);
+    
 }
+else
+{
+    OilCreate(xx, yy);
+    attackStateTimer += 0.1;
+}
+
 if (attackStateTimer > 1)
 {
     EndAtk(s);
 }
-attackStateTimer += DT;
 
 #define OilCreate(_x, _y)
 
@@ -66,6 +75,7 @@ with (_o)
     image_blend = c_black;
     
     life = 10;
+    burn = false;
     
     InstanceAssignMethod(self, "step", ScriptWrap(OilStep));
 }
@@ -73,8 +83,21 @@ return _o;
 
 #define OilStep
 
-image_xscale = lerp(image_xscale, 1.5, 0.02);
-image_yscale = lerp(image_yscale, 1.2, 0.02);
+image_xscale = lerp(image_xscale, 2.5, 0.02);
+image_yscale = lerp(image_yscale, 2.2, 0.02);
+
+image_alpha = min(0.5, life);
+
+// var _n = modTypeFindNearest(x, y, "burningOil");
+// if (instance_exists(_n))
+// {
+//     if (distance_to_object(_n) < 16)
+//     {
+//         BurningOilCreate(x, y);
+//         ExplosionCreate(x, y, 4, true);
+//         instance_destroy(self);
+//     }
+// }
 
 if (life <= 0)
 {
@@ -82,17 +105,6 @@ if (life <= 0)
     exit;
 }
 life -= DT;
-image_alpha = min(0.5, life);
-
-var _n = modTypeFindNearest(x, y, "burningOil");
-if (instance_exists(_n))
-{
-    if (distance_to_object(_n) < 8)
-    {
-        BurningOilCreate(x, y);
-        instance_destroy(self);
-    }
-}
 
 #define BurningOilCreate(_x, _y)
 
@@ -111,14 +123,25 @@ return _o;
 
 #define BurningOilStep
 
+FireEffect(c_red, c_yellow);
+
+if (modTypeExists("oil"))
+{
+    var _n = modTypeFindNearest(x, y, "oil");
+    if (distance_to_object(_n) < 16)
+    {
+        BurningOilCreate(_n.x, _n.y);
+        instance_destroy(_n);
+    }
+}
+
 if (life <= 0)
 {
+    ExplosionCreate(x, y, 32, true);
     instance_destroy(self);
     exit;
 }
 life -= DT;
-
-FireEffect(c_red, c_yellow);
 
 #define Matches(m, s)
 
@@ -141,13 +164,7 @@ with (_o)
 
 #define MatchStep
 
-if (life <= 0)
-{
-    instance_destroy(self);
-    exit;
-}
-life -= DT;
-
+FireEffect(c_red, c_yellow);
 speed *= 0.95;
 
 var _c = modTypePlace(x, y, "oil");
@@ -157,13 +174,20 @@ if (instance_exists(_c))
     instance_destroy(_c);
 }
 
+if (life <= 0)
+{
+    instance_destroy(self);
+    exit;
+}
+life -= DT;
+
 #define KnifeBarrage(method, skill) //attacks
 
 var _dis = point_distance(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
-var _xx = objPlayer.x + lengthdir_x(stats[StandStat.AttackRange], _dir);
-var _yy = objPlayer.y + lengthdir_y(stats[StandStat.AttackRange], _dir);
+var _xx = objPlayer.x + lengthdir_x(8, _dir);
+var _yy = objPlayer.y + lengthdir_y(8, _dir);
 xTo = _xx;
 yTo = _yy;
 image_xscale = mouse_x > objPlayer.x ? 1 : -1;
@@ -219,19 +243,9 @@ audio_play_sound(global.sndTwAuTs, 5, false);
 TimestopCreate(5 + (0.15 * player.level));
 EndAtk(skill);
 
-#define GiveTheWorldAU //stand
+#define GiveTheWorldAU(_owner) //stand
 
-var _name = "The World AU";
-var _sprite = global.sprTheWorldAU;
-var _color = 0x36c7fb;
-
-var _stats;
-_stats[StandStat.Range] = 50;
-_stats[StandStat.AttackDamage] = 4.0;
-_stats[StandStat.AttackRange] = 20;
-_stats[StandStat.BaseSpd] = 0.5;
-
-var _skills = StandSkillInit(_stats);
+var _skills = StandSkillInit();
 
 var sk;
 sk = StandState.SkillAOff;
@@ -256,19 +270,18 @@ _skills[sk, StandSkill.Icon] = global.sprSkillTripleKnifeThrow;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.Desc] = "triple knife:\ntoss three knifes at once.";
 
+sk = StandState.SkillDOff;
+_skills[sk, StandSkill.Skill] = Matches;
+_skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
+_skills[sk, StandSkill.MaxCooldown] = 5;
+_skills[sk, StandSkill.SkillAlt] = OilCan;
+_skills[sk, StandSkill.IconAlt] = global.sprSkillBulletVolley;
+_skills[sk, StandSkill.MaxCooldownAlt] = 5;
+_skills[sk, StandSkill.Desc] = @"matches:
+tosses a match on the ground.
 
-// sk = StandState.SkillDOff;
-// _skills[sk, StandSkill.Skill] = Matches;
-// _skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
-// _skills[sk, StandSkill.MaxCooldown] = 5;
-// _skills[sk, StandSkill.SkillAlt] = OilCan;
-// _skills[sk, StandSkill.IconAlt] = global.sprSkillBulletVolley;
-// _skills[sk, StandSkill.MaxCooldownAlt] = 5;
-// _skills[sk, StandSkill.Desc] = @"matches:
-// tosses a match on the ground.
-
-// (hold) oil can:
-// pours oil on the ground.";
+(hold) oil can:
+pours oil on the ground.";
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;
@@ -302,9 +315,12 @@ _skills[sk, StandSkill.Icon] = global.sprSkillTimestop;
 _skills[sk, StandSkill.MaxCooldown] = 25;
 _skills[sk, StandSkill.Desc] = "it's my time!:\nstops the time, most enemies are not allowed to move\nand makes your projectiles freeze in place.";
 
-var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
+var _s = StandBuilder(_owner, _skills);
 with (_s)
 {
+    name = "The World AU";
+    sprite_index = global.sprTheWorldAU;
+    color = 0x36c7fb;
     summonSound = global.sndTwSummon;
     saveKey = "jjbamTwau";
     discType = global.jjbamDiscTwau;

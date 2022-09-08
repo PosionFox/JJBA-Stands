@@ -22,7 +22,7 @@ if (instance_exists(STAND))
     GainItem(global.jjbamDiscGe);
     exit;
 }
-GiveGoldExperience();
+GiveGoldExperience(player);
 
 #define GeBarrage(method, skill) //attacks
 var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
@@ -274,19 +274,9 @@ if (image_alpha <= 0)
 }
 image_alpha -= 0.04;
 
-#define GiveGoldExperience //stand
+#define GiveGoldExperience(_owner) //stand
 
-var _name = "Gold Experience";
-var _sprite = global.sprGoldExperience;
-var _color = 0x36f2fb;
-
-var _stats;
-_stats[StandStat.Range] = 50;
-_stats[StandStat.AttackDamage] = 5;
-_stats[StandStat.AttackRange] = 10;
-_stats[StandStat.BaseSpd] = 0.6;
-
-var _skills = StandSkillInit(_stats);
+var _skills = StandSkillInit();
 
 var sk;
 sk = StandState.SkillBOff;
@@ -335,9 +325,12 @@ _skills[sk, StandSkill.Desc] = "self heal:\nmends the user's wounds,\nthe effect
 
 sk = StandState.SkillD;
 
-var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
+var _s = StandBuilder(_owner, _skills);
 with (_s)
 {
+    name = "Gold Experience";
+    sprite_index = global.sprGoldExperience;
+    color = 0x36f2fb;
     summonSound = global.sndGeSummon;
     saveKey = "jjbamGe";
     discType = global.jjbamDiscGe;

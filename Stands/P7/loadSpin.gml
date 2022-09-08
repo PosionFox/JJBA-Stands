@@ -46,19 +46,9 @@ for (var i = 0; i < balls; i++)
     draw_sprite_ext(global.sprSteelBall, 0, 320 + (32 * i), _height - 88, 2, 2, 0, c_white, 1);
 }
 
-#define GiveSpin //stand
+#define GiveSpin(_owner) //stand
 
-var _name = "Spin";
-var _sprite = global.sprSteelBallProj;
-var _color = 0x36c76a;
-
-var _stats;
-_stats[StandStat.Range] = 50;
-_stats[StandStat.AttackDamage] = 4.0;
-_stats[StandStat.AttackRange] = 20;
-_stats[StandStat.BaseSpd] = 0.5;
-
-var _skills = StandSkillInit(_stats);
+var _skills = StandSkillInit();
 
 var sk;
 sk = StandState.SkillAOff;
@@ -83,9 +73,12 @@ _skills[sk, StandSkill.Icon] = global.sprSkillTimestop;
 _skills[sk, StandSkill.MaxCooldown] = 20;
 _skills[sk, StandSkill.Desc] = "skin harden!:\nhardens your skin decreasing damage taken.";
 
-var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
+var _s = StandBuilder(_owner, _skills);
 with (_s)
 {
+    name = "Spin";
+    sprite_index = global.sprSteelBall;
+    color = 0x36c76a;
     saveKey = "jjbamSpin";
     
     balls = 2;

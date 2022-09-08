@@ -25,6 +25,7 @@ enum StandSkill {
     Skill,
     SkillAlt,
     Key,
+    GpBtn,
     Desc,
     Icon,
     IconAlt,

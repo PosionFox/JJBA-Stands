@@ -22,14 +22,14 @@ if (instance_exists(STAND))
     GainItem(global.jjbamDiscSp);
     exit;
 }
-GiveStarPlatinum();
+GiveStarPlatinum(player);
 
 #define StarFinger(method, skill) //attacks
 
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
 
-var _xx = player.x + lengthdir_x(stats[StandStat.AttackRange], _dir);
-var _yy = player.y + lengthdir_y(stats[StandStat.AttackRange], _dir);
+var _xx = player.x + lengthdir_x(8, _dir);
+var _yy = player.y + lengthdir_y(8, _dir);
 xTo = _xx;
 yTo = _yy;
 image_xscale = mouse_x > player.x ? 1 : -1;
@@ -106,19 +106,9 @@ audio_play_sound(global.sndSpTs, 5, false);
 TimestopCreate(5 + (0.1 * player.level));
 EndAtk(s);
 
-#define GiveStarPlatinum //stand
+#define GiveStarPlatinum(_owner) //stand
 
-var _name = "Star Platinum";
-var _sprite = global.sprStarPlatinum;
-var _color = 0x8a4276;
-
-var _stats;
-_stats[StandStat.Range] = 50;
-_stats[StandStat.AttackDamage] = 5.5;
-_stats[StandStat.AttackRange] = 10;
-_stats[StandStat.BaseSpd] = 0.5;
-
-var _skills = StandSkillInit(_stats);
+var _skills = StandSkillInit();
 
 var sk;
 sk = StandState.SkillA;
@@ -162,9 +152,12 @@ _skills[sk, StandSkill.MaxCooldown] = 20;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
 _skills[sk, StandSkill.Desc] = "time stop:\nstops the time, most enemies are not allowed to move\nand makes your projectiles freeze in place.";
 
-var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
+var _s = StandBuilder(_owner, _skills);
 with (_s)
 {
+    name = "Star Platinum";
+    sprite_index = global.sprStarPlatinum;
+    color = 0x8a4276;
     summonSound = global.sndSpSummon;
     saveKey = "jjbamSp";
     discType = global.jjbamDiscSp;

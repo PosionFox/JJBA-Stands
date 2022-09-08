@@ -22,14 +22,14 @@ if (instance_exists(STAND))
     GainItem(global.jjbamDiscD4clt);
     exit;
 }
-GiveD4CLT();
+GiveD4CLT(player);
 
 #define SlashingStrikes(m, s)
 var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
 var _dir = DIR_PLAYER_TO_MOUSE;
 
-xTo = player.x + lengthdir_x(stats[StandStat.AttackRange], _dir + random_range(-4, 4));
-yTo = player.y + lengthdir_y(stats[StandStat.AttackRange], _dir + random_range(-4, 4));
+xTo = player.x + lengthdir_x(8, _dir + random_range(-4, 4));
+yTo = player.y + lengthdir_y(8, _dir + random_range(-4, 4));
 image_xscale = mouse_x > player.x ? 1 : -1;
 
 attackStateTimer += DT;
@@ -260,19 +260,9 @@ draw_set_color(c_white);
 draw_set_alpha(1);
 gpu_set_blendmode(bm_normal);
 
-#define GiveD4CLT //stand
+#define GiveD4CLT(_owner) //stand
 
-var _name = "D4C: Love Train";
-var _sprite = global.sprD4CLT;
-var _color = 0xe4cd5f;
-
-var _stats;
-_stats[StandStat.Range] = 50;
-_stats[StandStat.AttackDamage] = 5;
-_stats[StandStat.AttackRange] = 20;
-_stats[StandStat.BaseSpd] = 0.4;
-
-var _skills = StandSkillInit(_stats);
+var _skills = StandSkillInit();
 
 var sk;
 sk = StandState.SkillAOff;
@@ -367,9 +357,12 @@ flattening the user and warping them
 into another parallel dimension,
 enemies in range will also be teleported.";
 
-var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
+var _s = StandBuilder(_owner, _skills);
 with (_s)
 {
+    name = "D4C: Love Train";
+    sprite_index = global.sprD4CLT;
+    color = 0xe4cd5f;
     summonSound = global.sndD4CLTSummon;
     saveKey = "jjbamD4clt";
     discType = global.jjbamDiscD4clt;

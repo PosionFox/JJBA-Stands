@@ -15,32 +15,9 @@ global.jjbamArrow = ItemCreate(
         Item.StarFragment, 1
     ],
     ScriptWrap(SusArrowUse),
-    5 * 10,
+    60 * 2,
     true
 );
-
-#region discs
-
-global.jjbamDisc = ItemCreate(
-    undefined,
-    "DISC",
-    "A disc to remove and store data.",
-    global.sprDisc,
-    ItemType.Consumable,
-    ItemSubType.Potion,
-    0,
-    0,
-    0,
-    [
-        Item.Glass, 2,
-    ],
-    ScriptWrap(DiscUse),
-    5 * 10,
-    true
-);
-// stand discs were moved to their stand files
-
-#endregion
 
 global.jjbamRequiem = ItemCreate(
     undefined,
@@ -53,13 +30,68 @@ global.jjbamRequiem = ItemCreate(
     0,
     0,
     [
-        Item.Wood, 1,
-        Item.StarFragment, 1,
+        global.jjbamArrow, 1,
         Item.CosmicSteel, 1
     ],
     ScriptWrap(VerySusArrowUse),
-    5 * 20,
+    60 * 10,
     true
+);
+
+global.jjbamEternalArrow = ItemCreate(
+    undefined,
+    "Eternal Arrow",
+    "Looks like a suspicious arrow but more ominous.",
+    global.sprEternalArrow,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [
+        global.jjbamArrow, 1,
+        Item.LegendaryGem, 1,
+        Item.OnyxRelic, 1
+    ],
+    ScriptWrap(EternalArrowUse),
+    60 * 20,
+    true
+);
+
+global.jjDiscBlueprint = ItemCreate(
+    undefined,
+    "Disc Blueprint",
+    "Contains information needed to craft synthetic stand discs in a factory without a whitesnake.",
+    global.sprDiscBlueprint,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    undefined,
+    ScriptWrap(DiscBlueprintUse),
+    60 * 4,
+    true
+);
+
+// stand discs were moved to their stand files
+global.jjbamDisc = ItemCreate(
+    undefined,
+    "DISC",
+    "A disc to remove and store data.",
+    global.sprDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    0,
+    0,
+    0,
+    [
+        Item.GoldIngot, 1,
+        Item.Plastic, 1,
+    ],
+    ScriptWrap(DiscUse),
+    60 * 4,
+    false
 );
 
 global.jjbamSteelBall = ItemCreate(
@@ -77,7 +109,7 @@ global.jjbamSteelBall = ItemCreate(
         Item.RoyalSteel, 1
     ],
     ScriptWrap(GiveSpin),
-    5 * 20,
+    60 * 20,
     true
 );
 
@@ -105,8 +137,10 @@ global.jjbamAnubis = ItemCreate(
 // StructureEdit(Structure.Forge, StructureData.Items, _newArray);
 
 StructureAddItem(Structure.Forge, global.jjbamArrow);
-StructureAddItem(Structure.Forge, global.jjbamDisc);
 StructureAddItem(Structure.Forge, global.jjbamRequiem);
+StructureAddItem(Structure.Forge, global.jjbamEternalArrow);
+
+StructureAddItem(Structure.Factory, global.jjbamDisc);
 //StructureAddItem(Structure.Forge, global.jjbamSteelBall);
 
 #region holy parts
@@ -191,6 +225,23 @@ else
     GainItem(global.jjbamArrow);
 }
 
+#define EternalArrowUse
+
+if (!instance_exists(STAND))
+{
+    DmgPlayer(1, false);
+    GiveRandomStand();
+    var _c = random(1);
+    if (_c > 0.02)
+    {
+        GainItem(global.jjbamEternalArrow);
+    }
+}
+else
+{
+    GainItem(global.jjbamEternalArrow);
+}
+
 #define VerySusArrowUse
 
 if (instance_exists(STAND))
@@ -199,8 +250,8 @@ if (instance_exists(STAND))
     switch (STAND.name)
     {
         case "Killer Queen":
-            RemoveStand();
-            GiveKillerQueenBtD();
+            RemoveStand(player);
+            GiveKillerQueenBtD(player);
         break;
         default:
             Trace("Nothing happens...");
@@ -238,7 +289,7 @@ for(var i = 0; i < array_length(_standPool); i++)
 {
     if (rnd < _standPool[i, 1])
     {
-        script_execute(_standPool[i, 0]);
+        script_execute(_standPool[i, 0], player);
         exit;
     }
     rnd -= _standPool[i, 1];
@@ -255,13 +306,17 @@ if (instance_exists(STAND))
     {
         DmgPlayer(1, false);
         GainItem(STAND.discType);
-        RemoveStand();
+        RemoveStand(player);
     }
 }
 else
 {
     GainItem(global.jjbamDisc);
 }
+
+#define DiscBlueprintUse
+
+ItemEdit(global.jjbamDisc, ItemData.Unlocked, true);
 
 #define LeftArmUse
 
@@ -270,7 +325,7 @@ if (instance_exists(STAND))
     switch (STAND.name)
     {
         case "Spin":
-            GiveTusk();
+            GiveTusk(player);
         break;
         case "D4C":
             STAND.hasArm = true;
@@ -309,7 +364,7 @@ if (instance_exists(STAND))
 }
 else
 {
-    GiveD4C();
+    GiveD4C(player);
 }
 
 #define EyeUse
@@ -339,6 +394,6 @@ if (instance_exists(STAND))
 }
 else
 {
-    GiveTheWorldAU();
+    GiveTheWorldAU(player);
 }
 

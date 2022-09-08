@@ -23,21 +23,11 @@ if (instance_exists(STAND))
     GainItem(global.jjbamDiscSptw);
     exit;
 }
-GiveSPTW();
+GiveSPTW(player);
 
-#define GiveSPTW //stand
+#define GiveSPTW(_owner) //stand
 
-var _name = "Star Platinum: The World";
-var _sprite = global.sprSptw;
-var _color = /*#*/0xff9b63;
-
-var _stats;
-_stats[StandStat.Range] = 50;
-_stats[StandStat.AttackDamage] = 5.5;
-_stats[StandStat.AttackRange] = 10;
-_stats[StandStat.BaseSpd] = 0.5;
-
-var _skills = StandSkillInit(_stats);
+var _skills = StandSkillInit();
 
 var sk;
 sk = StandState.SkillA;
@@ -74,9 +64,12 @@ _skills[sk, StandSkill.MaxCooldown] = 20;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
 _skills[sk, StandSkill.Desc] = "star platinum the world:\nstops the time, most enemies are not allowed to move\nand makes your projectiles freeze in place.";
 
-var _s = StandBuilder(_name, _sprite, _stats, _skills, _color);
+var _s = StandBuilder(_owner, _skills);
 with (_s)
 {
+    name = "Star Platinum: The World";
+    sprite_index = global.sprSptw;
+    color = /*#*/0xff9b63;
     summonSound = global.sndSpSummon;
     saveKey = "jjbamSptw";
     discType = global.jjbamDiscSptw;

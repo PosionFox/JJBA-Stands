@@ -407,8 +407,8 @@ return _p;
 var _dis = point_distance(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
-xTo = objPlayer.x + lengthdir_x(stats[StandStat.AttackRange], _dir + random_range(-4, 4));
-yTo = objPlayer.y + lengthdir_y(stats[StandStat.AttackRange], _dir + random_range(-4, 4));
+xTo = objPlayer.x + lengthdir_x(8, _dir + random_range(-4, 4));
+yTo = objPlayer.y + lengthdir_y(8, _dir + random_range(-4, 4));
 image_xscale = mouse_x > objPlayer.x ? 1 : -1;
 
 if (distance_to_point(xTo, yTo) < 2)
@@ -457,8 +457,8 @@ direction -= min(abs(dd), 10) * sign(dd);
 var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y)
 
-var _xx = player.x + lengthdir_x(stats[StandStat.AttackRange], _dir);
-var _yy = player.y + lengthdir_y(stats[StandStat.AttackRange], _dir);
+var _xx = player.x + lengthdir_x(8, _dir);
+var _yy = player.y + lengthdir_y(8, _dir);
 xTo = _xx;
 yTo = _yy;
 

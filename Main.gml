@@ -42,8 +42,11 @@ if (instance_exists(player))
 if (global.pucciSpawned == true)
 {
     _map[? "jjbamPucciSpawned"] = global.pucciSpawned;
-    _map[? "jjbamPucciX"] = global.pucciRef.x;
-    _map[? "jjbamPucciY"] = global.pucciRef.y;
+    if (instance_exists(global.pucciRef))
+    {
+        _map[? "jjbamPucciX"] = global.pucciRef.x;
+        _map[? "jjbamPucciY"] = global.pucciRef.y;
+    }
 }
 
 ModSaveDataSubmit(_map);
@@ -60,24 +63,24 @@ var _custom = _map[? "jjbamCustomStands"];
 
 switch (_standCompatibility)
 {
-    case "tw": GiveTheWorld(); break;
-    case "sp": GiveStarPlatinum(); break;
-    case "anubis": GiveAnubis(); break;
-    case "d4clt": GiveD4CLT(); break;
-    case "twau": GiveTheWorldAU(); break;
-    case "stw": GiveShadowTheWorld(); break;
-    case "kq": GiveKillerQueen(); break;
-    case "kqbtd": GiveKillerQueenBtD(); break;
+    case "tw": GiveTheWorld(player); break;
+    case "sp": GiveStarPlatinum(player); break;
+    case "anubis": GiveAnubis(player); break;
+    case "d4clt": GiveD4CLT(player); break;
+    case "twau": GiveTheWorldAU(player); break;
+    case "stw": GiveShadowTheWorld(player); break;
+    case "kq": GiveKillerQueen(player); break;
+    case "kqbtd": GiveKillerQueenBtD(player); break;
 }
 switch (_stand)
 {
     // p3
-    case "jjbamTw": GiveTheWorld(); break;
-    case "jjbamSp": GiveStarPlatinum(); break;
-    case "jjbamSc": GiveSilverChariot(); break;
-    case "jjbamAnubis": GiveAnubis(); break;
+    case "jjbamTw": GiveTheWorld(player); break;
+    case "jjbamSp": GiveStarPlatinum(player); break;
+    case "jjbamSc": GiveSilverChariot(player); break;
+    case "jjbamAnubis": GiveAnubis(player); break;
     case "jjbamStw":
-        GiveShadowTheWorld();
+        GiveShadowTheWorld(player);
         var _xp = _map[? "jjbamStwXp"];
         if (_xp == undefined)
         {
@@ -89,40 +92,40 @@ switch (_stand)
         }
     break;
     // p4
-    case "jjbamSptw": GiveSPTW(); break;
-    case "jjbamKq": GiveKillerQueen(); break;
-    case "jjbamKqbtd": GiveKillerQueenBtD(); break;
+    case "jjbamSptw": GiveSPTW(player); break;
+    case "jjbamKq": GiveKillerQueen(player); break;
+    case "jjbamKqbtd": GiveKillerQueenBtD(player); break;
     // p5
-    case "jjbamSf": GiveStickyFingers(); break;
-    case "jjbamGe": GiveGoldExperience(); break;
-    case "jjbamKc": GiveKingCrimson(); break;
+    case "jjbamSf": GiveStickyFingers(player); break;
+    case "jjbamGe": GiveGoldExperience(player); break;
+    case "jjbamKc": GiveKingCrimson(player); break;
     // p6
-    case "jjbamWs": GiveWhiteSnake(); break;
-    case "jjbamCmn": GiveCMoon(); break;
+    case "jjbamWs": GiveWhiteSnake(player); break;
+    case "jjbamCmn": GiveCMoon(player); break;
     // p7
     case "jjbamD4c":
-        GiveD4C();
+        GiveD4C(player);
         STAND.hasArm = _map[? "jjbamD4cHasArm"];
         STAND.hasHeart = _map[? "jjbamD4cHasHeart"];
         STAND.hasEye = _map[? "jjbamD4cHasEye"];
     break;
-    case "jjbamD4clt": GiveD4CLT(); break;
-    case "jjbamTwau": GiveTheWorldAU(); break;
-    case "jjbamSpin": GiveSpin(); break;
+    case "jjbamD4clt": GiveD4CLT(player); break;
+    case "jjbamTwau": GiveTheWorldAU(player); break;
+    case "jjbamSpin": GiveSpin(player); break;
     case "jjbamTsk":
-        GiveTusk();
+        GiveTusk(player);
         STAND.hasAct1 = _map[? "jjbamTuskA1"];
         STAND.hasAct2 = _map[? "jjbamTuskA2"];
         STAND.hasAct3 = _map[? "jjbamTuskA3"];
         STAND.hasAct4 = _map[? "jjbamTuskA4"];
     break;
     // other
-    case "jjbamSw": GiveSpookyWorld(); break;
-    case "jjbamSus": GiveImposter(); break;
-    case "jjbamSpr": GiveSpr(); break;
-    case "jjbamTwr": GiveTwr(); break;
-    case "jjbamSpova": GiveSpova(); break;
-    case "jjbamTwova": GiveTwova(); break;
+    case "jjbamSw": GiveSpookyWorld(player); break;
+    case "jjbamSus": GiveImposter(player); break;
+    case "jjbamSpr": GiveSpr(player); break;
+    case "jjbamTwr": GiveTwr(player); break;
+    case "jjbamSpova": GiveSpova(player); break;
+    case "jjbamTwova": GiveTwova(player); break;
 }
 
 // Trace(_map[? "jjbamAbilitySkills"]);
