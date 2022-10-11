@@ -7,7 +7,7 @@ global.jjbamArrow = ItemCreate(
     global.sprArrow,
     ItemType.Consumable,
     ItemSubType.Potion,
-    0,
+    58,
     0,
     0,
     [
@@ -26,15 +26,15 @@ global.jjbamRequiem = ItemCreate(
     global.sprArrowBeetle,
     ItemType.Consumable,
     ItemSubType.Potion,
-    0,
+    3489,
     0,
     0,
     [
-        global.jjbamArrow, 1,
+        Item.Wood, 1,
         Item.CosmicSteel, 1
     ],
     ScriptWrap(VerySusArrowUse),
-    60 * 10,
+    60 * 20,
     true
 );
 
@@ -45,7 +45,7 @@ global.jjbamEternalArrow = ItemCreate(
     global.sprEternalArrow,
     ItemType.Consumable,
     ItemSubType.Potion,
-    0,
+    756,
     0,
     0,
     [
@@ -54,7 +54,7 @@ global.jjbamEternalArrow = ItemCreate(
         Item.OnyxRelic, 1
     ],
     ScriptWrap(EternalArrowUse),
-    60 * 20,
+    60 * 10,
     true
 );
 
@@ -65,7 +65,7 @@ global.jjDiscBlueprint = ItemCreate(
     global.sprDiscBlueprint,
     ItemType.Consumable,
     ItemSubType.Potion,
-    0,
+    5,
     0,
     0,
     undefined,
@@ -82,7 +82,7 @@ global.jjbamDisc = ItemCreate(
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
-    0,
+    333,
     0,
     0,
     [
@@ -101,7 +101,7 @@ global.jjbamSteelBall = ItemCreate(
     global.sprSteelBall,
     ItemType.Consumable,
     ItemSubType.Potion,
-    0,
+    273,
     0,
     0,
     [
@@ -137,8 +137,8 @@ global.jjbamAnubis = ItemCreate(
 // StructureEdit(Structure.Forge, StructureData.Items, _newArray);
 
 StructureAddItem(Structure.Forge, global.jjbamArrow);
-StructureAddItem(Structure.Forge, global.jjbamRequiem);
 StructureAddItem(Structure.Forge, global.jjbamEternalArrow);
+StructureAddItem(Structure.Forge, global.jjbamRequiem);
 
 StructureAddItem(Structure.Factory, global.jjbamDisc);
 //StructureAddItem(Structure.Forge, global.jjbamSteelBall);
@@ -152,7 +152,7 @@ global.jjbamHeart = ItemCreate(
     global.sprHeart,
     ItemType.Consumable,
     ItemSubType.Potion,
-    0,
+    50,
     0,
     0,
     undefined,
@@ -168,7 +168,7 @@ global.jjbamEye = ItemCreate(
     global.sprEye,
     ItemType.Consumable,
     ItemSubType.Potion,
-    0,
+    50,
     0,
     0,
     undefined,
@@ -184,7 +184,7 @@ global.jjbamLeftArm = ItemCreate(
     global.sprLeftArm,
     ItemType.Consumable,
     ItemSubType.Potion,
-    0,
+    50,
     0,
     0,
     undefined,
@@ -275,8 +275,9 @@ var _standPool =
     [GiveGoldExperience, 30],
     [GiveSpookyWorld, 1],
     [GiveImposter, 1],
-    [GiveSpova, 1],
-    [GiveTwova, 1]
+    [GiveSpr, 1],
+    [GiveTwr, 1],
+    [GiveShadow, 1]
 ]
 
 var sumWeight = 0;
@@ -317,6 +318,7 @@ else
 #define DiscBlueprintUse
 
 ItemEdit(global.jjbamDisc, ItemData.Unlocked, true);
+global.questPucciBlueprintCompleted = true;
 
 #define LeftArmUse
 

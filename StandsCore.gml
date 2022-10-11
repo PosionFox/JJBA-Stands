@@ -9,19 +9,24 @@ var _height = display_get_gui_height() - 40;
 
 //draw_text(128, 128, string(objPlayer.dmg)); // debug
 
-if (isRare)
+if (isRare or isUnobtainable)
 {
     var xx = 168;
     var yy = _height - 200;
     var _ss = random_range(0.85, 1.15);
+    var _spr = sprStarFragment;
+    var _c = c_purple;
+    if (isUnobtainable) { _spr = sprLegendaryGem; }
+    if (isUnobtainable) { _c = c_red; }
     
-    draw_sprite_ext(sprStarFragment, 0, xx - 4, yy, _ss, _ss, 0, c_purple, 0.8);
+    draw_sprite_ext(_spr, 0, xx - 4, yy, _ss, _ss, 0, _c, 0.8);
     
     var gx = device_mouse_x_to_gui(0);
     var gy = device_mouse_y_to_gui(0);
     if (point_in_rectangle(gx, gy, xx - 16, yy - 16, xx + 16, yy + 16))
     {
         var txt = "rare";
+        if (isUnobtainable) { txt = "unobtainable"; }
         draw_text(gx + 8, gy, txt);
     }
 }
@@ -186,7 +191,7 @@ if (state == StandState.Idle)
         active = !active;
         if (active)
         {
-            if (!audio_is_playing(summonSound) and summonSound != noone)
+            if (!audio_is_playing(summonSound) and summonSound != noone and playSummonSound == true)
             {
                 audio_play_sound(summonSound, 0, false);
             }
@@ -354,10 +359,12 @@ with (_stand)
     yTo = _owner.y;
     height = 0;
     isRare = false;
+    isUnobtainable = false;
     saveKey = "jjbamStandless";
     discType = noone;
     color = c_white;
     summonSound = global.sndStandSummon;
+    playSummonSound = true;
     // state
     attackState = 0;
     attackStateTimer = 0;

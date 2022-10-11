@@ -6,7 +6,7 @@ global.jjbamDiscSpova = ItemCreate(
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
-    0,
+    1248,
     0,
     0,
     [],
@@ -151,7 +151,7 @@ with (_s)
     name = "Star Platinum OVA";
     sprite_index = global.sprSPR;
     color = /*#*/0xe4cd5f;
-    isRare = true;
+    isUnobtainable = true;
     saveKey = "jjbamSpova";
     discType = global.jjbamDiscSpova;
     

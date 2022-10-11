@@ -155,13 +155,13 @@ for (var i = 0; i < array_length(_list); i++)
 return _nearest;
 
 
-#define NPC2QuestControllerCreate(_owner, _lastQuestState, _callback)
+#define NPC2QuestControllerCreate(_instance, _lastQuestState, _callback)
 
 var o = ModObjectSpawn(x, y, 0);
 with (o)
 {
     type = "questController";
-    owner = _owner;
+    owner = _instance;
     lastQuestState = _lastQuestState;
     questEndCallback = _callback;
     questStateFinished = false;

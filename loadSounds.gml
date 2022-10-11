@@ -73,6 +73,8 @@ global.sndStrayCat = audio_create_stream(p + "sndStrayCat.ogg");
 
 p = "Resources/Sounds/STW/";
 global.sndStwSummon = audio_create_stream(p + "stwSummon.ogg");
+global.sndStw2Summon = audio_create_stream(p + "stw2Summon.ogg");
+global.sndStw2Desummon = audio_create_stream(p + "stw2Desummon.ogg");
 global.sndStwKnifeThrow1 = audio_create_stream(p + "stwKnifeThrow1.ogg");
 global.sndStwKnifeThrow2 = audio_create_stream(p + "stwKnifeThrow2.ogg");
 global.sndStwSRSE = audio_create_stream(p + "stwSRSE.ogg");

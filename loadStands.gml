@@ -49,6 +49,7 @@ SPR();
 TWR();
 SPOVA();
 TWOVA();
+Shadow();
 
 #endregion
 

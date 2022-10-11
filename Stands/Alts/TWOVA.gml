@@ -6,7 +6,7 @@ global.jjbamDiscTwova = ItemCreate(
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
-    0,
+    1248,
     0,
     0,
     [],
@@ -183,7 +183,7 @@ with (_s)
     name = "The World OVA";
     sprite_index = global.sprTWR;
     color = /*#*/0x66a0d9;
-    isRare = true;
+    isUnobtainable = true;
     saveKey = "jjbamTwova";
     discType = global.jjbamDiscTwova;
     

@@ -6,7 +6,7 @@ global.jjbamDiscStw = ItemCreate(
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
-    0,
+    416,
     0,
     0,
     [],
@@ -50,10 +50,10 @@ alphaTarget = 1;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndStwSummon, 0, false);
+        audio_play_sound(summonSound, 0, false);
         var _snd = audio_play_sound(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
-        PunchCreate(x, y, _dir, GetDmg(skill), 0);
+        PunchSwingCreate(x, y, _dir, 45, GetDmg(skill));
         attackState++;
     break;
     case 1:
@@ -65,7 +65,7 @@ switch (attackState)
     case 2:
         var _snd = audio_play_sound(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
-        PunchCreate(x, y, _dir, GetDmg(skill), 0);
+        PunchSwingCreate(x, y, _dir, 45, GetDmg(skill));
         attackState++;
     break;
     case 3:
@@ -78,7 +78,8 @@ switch (attackState)
         _dis = 16;
         var _snd = audio_play_sound(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
-        PunchCreate(x, y, _dir, GetDmg(skill) * 2, 2);
+        PunchSwingCreate(x, y, _dir, 45, GetDmg(skill) * 2);
+        audio_play_sound(global.sndStw2Desummon, 0, false);
         FireCD(skill);
         state = StandState.Idle;
     break;
@@ -96,7 +97,7 @@ alphaTarget = 1;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndStwSummon, 0, false);
+        audio_play_sound(summonSound, 0, false);
         attackState++;
     break;
     case 1:
@@ -111,9 +112,11 @@ switch (attackState)
         var _p = PunchCreate(x, y, _dir, GetDmg(skill), 2);
         with (_p)
         {
+            knifeSprite = other.knifeSprite;
             onHitEvent = KnifeCoffin;
             destroyOnImpact = true;
         }
+        audio_play_sound(global.sndStw2Desummon, 0, false);
         FireCD(skill);
         state = StandState.Idle;
     break;
@@ -150,7 +153,7 @@ for (var i = 0; i <= _k; i++)
         damage = _dmg;
         direction = _dir;
         canMoveInTs = false;
-        sprite_index = global.sprKnifeStw;
+        sprite_index = other.knifeSprite;
     }
 }
 
@@ -160,6 +163,7 @@ var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
 switch (attackState)
 {
     case 0:
+        audio_play_sound(summonSound, 0, false);
         var _snd = audio_play_sound(global.sndStwKnifeThrow1, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         var i = 0;
@@ -171,7 +175,7 @@ switch (attackState)
                 damage = GetDmg(skill);
                 direction = (_dir - (i * 2)) - 4;
                 canMoveInTs = false;
-                sprite_index = global.sprKnifeStw;
+                sprite_index = other.knifeSprite;
                 x += lengthdir_x(4 * i, direction - 90);
                 y += lengthdir_y(4 * i, direction - 90);
             }
@@ -197,7 +201,7 @@ switch (attackState)
                 damage = GetDmg(skill);
                 direction = (_dir + (i * 2)) + 4;
                 canMoveInTs = false;
-                sprite_index = global.sprKnifeStw;
+                sprite_index = other.knifeSprite;
                 x += lengthdir_x(4 * i, direction + 90);
                 y += lengthdir_y(4 * i, direction + 90);
             }
@@ -593,11 +597,13 @@ var _s = StandBuilder(_owner, _skills);
 with (_s)
 {
     name = "Shadow The World";
-    sprite_index = global.sprShadowTheWorld
-    summonSound = noone;
+    sprite_index = global.sprShadowTheWorld;
+    summonSound = global.sndStwSummon;
+    playSummonSound = false;
     idlePos = StwPos;
     soundWhenHurt = [global.sndStwHurt1, global.sndStwHurt2, global.sndStwHurt3];
     soundWhenDead = global.sndStwDead;
+    knifeSprite = global.sprKnifeStw;
     
     saveKey = "jjbamStw";
     discType = global.jjbamDiscStw;
@@ -606,4 +612,4 @@ with (_s)
     
     InstanceAssignMethod(self, "drawGUI", ScriptWrap(StwDrawGui), true);
 }
-
+return _s;

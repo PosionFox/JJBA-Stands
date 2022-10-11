@@ -22,6 +22,9 @@ global.sprBulletGUI = sprite_add(p + "BulletGUI.png", 1, false, false, 16, 16);
 global.sprRevCylinderGUI = sprite_add(p + "RevCylinderGUI.png", 1, false, false, 16, 16);
 global.sprPunchEffect = sprite_add(p + "PunchEffect.png", 6, false, false, 8, 8);
 global.sprStandParticle = sprite_add(p + "StandParticle.png", 1, false, false, 1, 1);
+global.sprHitbox8x8 = sprite_add(p + "Hitbox8x8.png", 1, false, false, 4, 4);
+global.sprHitbox16x16 = sprite_add(p + "Hitbox16x16.png", 1, false, false, 8, 8);
+global.sprHitbox32x32 = sprite_add(p + "Hitbox32x32.png", 1, false, false, 16, 16);
 
 // projectiles
 p = "Resources/Sprites/Generic/Projectiles/";
@@ -54,6 +57,7 @@ global.sprSkillTimestop = sprite_add(p + "SkillTimestop.png", 1, false, false, 1
 p = "Resources/Sprites/STW/";
 global.sprShadowTheWorld = sprite_add(p + "ShadowTheWorld.png", 1, false, false, 16, 19);
 global.sprKnifeStw = sprite_add(p + "KnifeStw.png", 1, false, false, 8, 8);
+global.sprKnifeShad = sprite_add(p + "KnifeShad.png", 1, false, false, 8, 8);
 global.sprStwPunch = sprite_add(p + "StwPunch.png", 1, false, false, 16, 16);
 global.sprStwCharisma = sprite_add(p + "StwCharisma.png", 2, false, false, 8, 8);
 

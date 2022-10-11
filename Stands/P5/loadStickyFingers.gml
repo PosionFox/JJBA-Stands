@@ -6,7 +6,7 @@ global.jjbamDiscSf = ItemCreate(
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
-    0,
+    416,
     0,
     0,
     [],
@@ -41,16 +41,13 @@ if (distance_to_point(xTo, yTo) < 2)
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         var xx = x + random_range(-4, 4);
         var yy = y + random_range(-8, 8);
-        var ddir = _dir + random_range(-45, 45);
-        var _p = PunchCreate(xx, yy, ddir, GetDmg(skill), 0);
+        var _p = PunchSwingCreate(xx, yy, _dir, 45, GetDmg(skill));
         with (_p)
         {
             destroyOnImpact = true;
             onHitSound = global.sndSfPunch;
             onHitEvent = ZipperInjury;
             onHitEventArg = [x, y];
-            
-            InstanceAssignMethod(self, "step", ScriptWrap(StandBarrageStep), true);
         }
         attackStateTimer = 0;
     }
@@ -235,8 +232,8 @@ with (_o)
 
 if (instance_exists(target))
 {
-    x = target.x + irandom_range(-1, 1);
-    y = target.y + irandom_range(-1, 1);
+    x = target.x + irandom_range(-0.5, 0.5);
+    y = target.y + irandom_range(-0.5, 0.5);
     depth = target.depth - 1;
 }
 if (image_index >= image_number - 1)

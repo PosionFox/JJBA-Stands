@@ -93,6 +93,7 @@ var _o = ModObjectSpawn(_x, _y, 0);
 with (_o)
 {
     sprite_index = global.sprBullet;
+    mask_index = global.sprHitbox16x16;
     baseAnimSpd = 1;
     image_speed = baseAnimSpd;
     visible = false;
@@ -419,11 +420,7 @@ if (distance_to_point(xTo, yTo) < 2)
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         var xx = x + random_range(-4, 4);
         var yy = y + random_range(-8, 8);
-        var ddir = _dir + random_range(-45, 45);
-        var _p = PunchCreate(xx, yy, ddir, GetDmg(skill), 0);
-        _p.onHitSound = global.sndPunchHit;
-        _p.onHitSoundOverlap = true;
-        InstanceAssignMethod(_p, "step", ScriptWrap(StandBarrageStep), true);
+        PunchSwingCreate(xx, yy, _dir, 45, GetDmg(skill));
         attackStateTimer = 0;
     }
     skills[skill, StandSkill.ExecutionTime] += DT;
@@ -443,14 +440,28 @@ if (keyboard_check_pressed(ord(skills[skill, StandSkill.Key])))
 }
 attackStateTimer += DT;
 
-#define StandBarrageStep
+#define PunchSwingCreate(_x, _y, _dir, _ang, _dmg)
+
+var _p = PunchCreate(_x, _y, _dir, _dmg, _dmg);
+with (_p)
+{
+    direction += random_range(-_ang, _ang);
+    onHitSound = global.sndPunchHit;
+    onHitSoundOverlap = true;
+    swingSpd = 10;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(PunchSwingStep), true);
+}
+return _p;
+
+#define PunchSwingStep
 
 var pd = point_direction(x, y, mouse_x, mouse_y);
-var xx = objPlayer.x + lengthdir_x(32, pd);
-var yy = objPlayer.y + lengthdir_y(32, pd);
+var xx = player.x + lengthdir_x(32, pd);
+var yy = player.y + lengthdir_y(32, pd);
 pd = point_direction(x, y, xx, yy);
 var dd = angle_difference(direction, pd);
-direction -= min(abs(dd), 10) * sign(dd);
+direction -= min(abs(dd), swingSpd) * sign(dd);
 
 #define StrongPunch(method, skill)
 

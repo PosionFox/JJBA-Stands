@@ -6,7 +6,7 @@ global.jjbamDiscD4clt = ItemCreate(
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
-    0,
+    832,
     0,
     0,
     [],
@@ -40,12 +40,14 @@ if (distance_to_point(xTo, yTo) < 2)
         var _snd = audio_play_sound(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         var xx = x + random_range(-4, 4);
-        var yy = y + random_range(-8, 8);
-        var ddir = _dir + random_range(-45, 45);
-        var _p = PunchCreate(xx, yy, ddir, GetDmg(s), 0);
-        _p.onHitSound = global.sndPunchHit;
-        _p.onHitEvent = SlashNearest;
-        InstanceAssignMethod(_p, "step", ScriptWrap(StandBarrageStep), true);
+        var yy = y + random_range(-6, 6);
+        var _p = PunchSwingCreate(xx, yy, _dir, 90, GetDmg(s));
+        with (_p)
+        {
+            onHitSound = global.sndPunchHit;
+            onHitEvent = SlashNearest;
+            swingSpd = 20;
+        }
         attackStateTimer = 0;
     }
     skills[s, StandSkill.ExecutionTime] += DT;
@@ -306,7 +308,7 @@ _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.SkillAlt] = MeleePull;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillMeleePull;
 _skills[sk, StandSkill.MaxCooldownAlt] = 5;
-_skills[sk, StandSkill.MaxExecutionTime] = 1;
+_skills[sk, StandSkill.MaxExecutionTime] = 0.5;
 _skills[sk, StandSkill.Desc] = @"slashing strikes:
 launches a short barrage of strikes that inflict bleeding.
 

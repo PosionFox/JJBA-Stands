@@ -7,7 +7,7 @@ if (room = rmGame)
     {
         if (!NPC2Exists(global.npcPucci))
         {
-            SpawnPucci("", "");
+            SpawnPucci(undefined, undefined);
         }
     }
 }
