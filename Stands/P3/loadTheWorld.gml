@@ -17,7 +17,7 @@ global.jjbamDiscTw = ItemCreate(
 
 #define DiscTwUse
 
-if (instance_exists(STAND))
+if (instance_exists(STAND) or room != rmGame)
 {
     GainItem(global.jjbamDiscTw);
     exit;
@@ -238,7 +238,6 @@ with (_s)
     sprite_index = global.sprTheWorld;
     color = 0x36f2fb;
     summonSound = global.sndTwSummon;
-    saveKey = "jjbamTw";
     discType = global.jjbamDiscTw;
     
     knifeSprite = global.sprKnife;
@@ -248,7 +247,7 @@ with (_s)
         sprite_index = global.sprStopSign;
         visible = false;
     }
-    
+    saveKey = "jjbamTw";
     InstanceAssignMethod(self, "destroy", ScriptWrap(TheWorldDestroy), true);
 }
 return _s;

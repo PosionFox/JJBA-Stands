@@ -50,6 +50,7 @@ TWR();
 SPOVA();
 TWOVA();
 Shadow();
+KCM();
 
 #endregion
 

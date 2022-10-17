@@ -17,7 +17,7 @@ global.jjbamDiscKqbtd = ItemCreate(
 
 #define DiscKqbtdUse
 
-if (instance_exists(STAND))
+if (instance_exists(STAND) or room != rmGame)
 {
     GainItem(global.jjbamDiscKqbtd);
     exit;
@@ -425,6 +425,6 @@ with (_s)
     sprite_index = global.sprKillerQueenBtD;
     color = 0xba7bd7;
     summonSound = global.sndKqbtdSummon;
-    saveKey = "jjbamKqbtd";
     discType = global.jjbamDiscKqbtd;
+    saveKey = "jjbamKqbtd";
 }

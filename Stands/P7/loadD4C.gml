@@ -17,7 +17,7 @@ global.jjbamDiscD4c = ItemCreate(
 
 #define DiscD4cUse
 
-if (instance_exists(STAND))
+if (instance_exists(STAND) or room != rmGame)
 {
     GainItem(global.jjbamDiscD4c);
     exit;

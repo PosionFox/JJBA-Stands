@@ -55,6 +55,7 @@ switch (args[0])
     case "spova": GiveSpova(player); break;
     case "twova": GiveTwova(player); break;
     case "shadow": GiveShadow(player); break;
+    case "kcm": GiveKcm(player); break;
     // other
     case "sus": GiveImposter(player); break;
     

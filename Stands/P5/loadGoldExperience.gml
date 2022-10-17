@@ -17,7 +17,7 @@ global.jjbamDiscGe = ItemCreate(
 
 #define DiscGeUse
 
-if (instance_exists(STAND))
+if (instance_exists(STAND) or room != rmGame)
 {
     GainItem(global.jjbamDiscGe);
     exit;
@@ -329,6 +329,6 @@ with (_s)
     sprite_index = global.sprGoldExperience;
     color = 0x36f2fb;
     summonSound = global.sndGeSummon;
-    saveKey = "jjbamGe";
     discType = global.jjbamDiscGe;
+    savekey = "jjbamGe";
 }

@@ -17,7 +17,7 @@ global.jjbamDiscSpr = ItemCreate(
 
 #define DiscSprUse
 
-if (instance_exists(STAND))
+if (instance_exists(STAND) or room != rmGame)
 {
     GainItem(global.jjbamDiscSpr);
     exit;

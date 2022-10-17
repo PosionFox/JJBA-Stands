@@ -172,6 +172,14 @@ global.sndGeLife = audio_create_stream(p + "geLife.ogg");
 
 p = "Resources/Sounds/KC/";
 global.sndKcSummon = audio_create_stream(p + "kcSummon.ogg");
+global.sndKcTp = audio_create_stream(p + "kcTp.ogg");
+global.sndKcArmChop = audio_create_stream(p + "kcArmChop.ogg");
+global.sndKcGrowl = audio_create_stream(p + "kcGrowl.ogg");
+global.sndKcAttack1 = audio_create_stream(p + "kcAttack1.ogg");
+global.sndKcAttack2 = audio_create_stream(p + "kcAttack2.ogg");
+global.sndKcAttack3 = audio_create_stream(p + "kcAttack3.ogg");
+global.sndKcAttack4 = audio_create_stream(p + "kcAttack4.ogg");
+global.sndKcAttack5 = audio_create_stream(p + "kcAttack5.ogg");
 
 #endregion
 

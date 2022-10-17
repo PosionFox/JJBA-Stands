@@ -17,7 +17,7 @@ global.jjbamDiscShadow = ItemCreate(
 
 #define DiscShadowUse
 
-if (instance_exists(STAND))
+if (instance_exists(STAND) or room != rmGame)
 {
     GainItem(global.jjbamDiscShadow);
     exit;

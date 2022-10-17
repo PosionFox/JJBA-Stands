@@ -115,33 +115,91 @@ draw_circle(x, y, size, false);
 draw_set_color(image_blend);
 gpu_set_blendmode(bm_normal);
 
-#define GrowingCircleEffect(_x, _y)
+#define EffectCircleLerpCreate(_x, _y, _r, _t)
 
 var _o = ModObjectSpawn(_x, _y, 0);
 with (_o)
 {
     radius = 0;
+    radiusMax = _r;
+    thickness = _t;
+    growingSpd = 0.1;
     color = c_white;
+    life = 1;
+    lifeMulti = 1;
     
-    InstanceAssignMethod(self, "step", ScriptWrap(GrowingCircleStep), false);
-    InstanceAssignMethod(self, "draw", ScriptWrap(GrowingCircleDraw), false);
+    InstanceAssignMethod(self, "step", ScriptWrap(EffectCircleLerpStep), false);
+    InstanceAssignMethod(self, "draw", ScriptWrap(EffectCircleLerpDraw), false);
 }
+return _o;
 
-#define GrowingCircleStep
+#define EffectCircleLerpStep
 
 depth = -y;
-radius = lerp(radius, 32, 0.1);
-image_alpha -= 0.02;
-if (image_alpha <= 0)
+radius = lerp(radius, radiusMax, growingSpd);
+image_alpha = min(1, life);
+life -= DT * lifeMulti;
+if (life <= 0)
 {
     instance_destroy(self);
 }
 
-#define GrowingCircleDraw
+#define EffectCircleLerpDraw
 
 draw_set_alpha(image_alpha);
 draw_set_color(color);
-draw_circle(x, y, radius, false);
+if (thickness == 0)
+{
+    draw_circle(x, y, radius, false);
+}
+else
+{
+    draw_circle_thick(x, y, radius, thickness);
+}
+gpu_set_blendmode(bm_normal);
+draw_set_color(image_blend);
+
+#define EffectCircleCreate(_x, _y, _r, _t)
+
+var _o = ModObjectSpawn(_x, _y, 0);
+with (_o)
+{
+    radius = 0;
+    thickness = _t;
+    growingSpd = 1;
+    color = c_white;
+    life = 1;
+    lifeMulti = 1;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(EffectCircleStep), false);
+    InstanceAssignMethod(self, "draw", ScriptWrap(EffectCircleDraw), false);
+}
+return _o;
+
+#define EffectCircleStep
+
+depth = -y;
+radius += growingSpd;
+image_alpha = min(1, life);
+life -= DT * lifeMulti;
+if (life <= 0)
+{
+    instance_destroy(self);
+}
+
+#define EffectCircleDraw
+
+draw_set_alpha(image_alpha);
+draw_set_color(color);
+if (thickness == 0)
+{
+    draw_circle(x, y, radius, false);
+}
+else
+{
+    draw_circle_thick(x, y, radius, 4);
+}
+gpu_set_blendmode(bm_normal);
 draw_set_color(image_blend);
 
 #define ShrinkingCircleEffect(_x, _y)
@@ -314,8 +372,113 @@ else
     instance_destroy(self);
 }
 
+#define EffectTimeSkipCreate
 
+var o = ModObjectSpawn(0, 0, 0);
+with (o)
+{
+    lineX = 0;
+    lineW = 128;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(EffectTimeSkipStep), false);
+    InstanceAssignMethod(self, "drawGUI", ScriptWrap(EffectTimeSkipDrawGUI), false);
+}
+return o;
 
+#define EffectTimeSkipStep
 
+lineX += 128;
+if (lineX - lineW * 4 > display_get_gui_width())
+{
+    instance_destroy(self);
+}
+
+#define EffectTimeSkipDrawGUI
+
+draw_line_width_color(lineX, 0 - 32, lineX - 128, display_get_gui_height() + 32, lineW, c_fuchsia, c_red);
+draw_set_alpha(0.75);
+draw_line_width_color(lineX - lineW * 1, 0 - 32, (lineX - 128) - lineW * 1, display_get_gui_height() + 32, lineW, c_fuchsia, c_red);
+draw_set_alpha(0.5);
+draw_line_width_color(lineX - lineW * 2, 0 - 32, (lineX - 128) - lineW * 2, display_get_gui_height() + 32, lineW, c_fuchsia, c_red);
+draw_set_alpha(0.25);
+draw_line_width_color(lineX - lineW * 3, 0 - 32, (lineX - 128) - lineW * 3, display_get_gui_height() + 32, lineW, c_fuchsia, c_red);
+draw_set_alpha(1);
+
+#define EffectPlayerAfterimageCreate(_x, _y)
+
+var o = ModObjectSpawn(_x, _y, 0);
+with (o)
+{
+    sprIdle = objPlayer.sprIdle;
+    sprWalk = objPlayer.sprWalk;
+    sprHatIdle = objPlayer.sprHatIdle;
+    sprBackIdle = objPlayer.sprBackIdle;
+    sprWingsIdle = objPlayer.sprWingsIdle;
+    sprHatWalk = objPlayer.sprHatWalk;
+    sprBackWalk = objPlayer.sprBackWalk;
+    sprWingsWalk = objPlayer.sprWingsWalk;
+    sprite_index = player.sprite_index;
+    image_index = player.image_index;
+    image_speed = 0;
+    image_blend = c_fuchsia;
+    image_angle = player.angle;
+    image_xscale = player.facing;
+    image_yscale = player.yscale;
+    life = 2;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(EffectPlayerAfterimageStep), false);
+    InstanceAssignMethod(self, "draw", ScriptWrap(EffectPlayerAfterimageDraw), false);
+}
+return o;
+
+#define EffectPlayerAfterimageStep(_x, _y)
+
+image_alpha = min(0.5, life);
+life -= DT;
+if (life <= 0)
+{
+    instance_destroy(self);
+}
+
+#define EffectPlayerAfterimageDraw(_x, _y)
+
+if (sprWingsIdle != noone)
+{
+    draw_sprite_ext(sprWingsIdle, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
+}
+if (sprBackIdle != noone)
+{
+    draw_sprite_ext(sprBackIdle, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
+}
+draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
+if (sprHatIdle != noone)
+{
+    draw_sprite_ext(sprHatIdle, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
+}
+
+#define EffectArmChopCreate(_x, _y)
+
+var o = ModObjectSpawn(_x, _y, 0);
+with (o)
+{
+    sprite_index = global.sprStandParticle;
+    image_blend = c_red;
+    speed = random_range(1, 2);
+    direction = random(360);
+    life = 1;
+    lifeMulti = 1;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(EffectArmChopStep), false);
+}
+return o;
+
+#define EffectArmChopStep
+
+life -= DT * lifeMulti;
+image_alpha = min(1, life);
+if (life < 0)
+{
+    instance_destroy(self);
+}
 
 

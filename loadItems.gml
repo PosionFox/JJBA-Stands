@@ -215,6 +215,12 @@ GainItem(global.jjbamAnubis);
 
 #define SusArrowUse
 
+if (room != rmGame)
+{
+    GainItem(global.jjbamArrow);
+    exit;
+}
+
 if (!instance_exists(STAND))
 {
     DmgPlayer(1, false);
@@ -226,6 +232,12 @@ else
 }
 
 #define EternalArrowUse
+
+if (room != rmGame)
+{
+    GainItem(global.jjbamEternalArrow);
+    exit;
+}
 
 if (!instance_exists(STAND))
 {
@@ -243,6 +255,12 @@ else
 }
 
 #define VerySusArrowUse
+
+if (room != rmGame)
+{
+    GainItem(global.jjbamRequiem);
+    exit;
+}
 
 if (instance_exists(STAND))
 {
@@ -301,6 +319,12 @@ for(var i = 0; i < array_length(_standPool); i++)
 
 #define DiscUse
 
+if (room != rmGame)
+{
+    GainItem(global.jjbamDisc);
+    exit;
+}
+
 if (instance_exists(STAND))
 {
     if (STAND.discType != noone)
@@ -321,6 +345,12 @@ ItemEdit(global.jjbamDisc, ItemData.Unlocked, true);
 global.questPucciBlueprintCompleted = true;
 
 #define LeftArmUse
+
+if (room != rmGame)
+{
+    GainItem(global.jjbamLeftArm);
+    exit;
+}
 
 if (instance_exists(STAND))
 {
@@ -346,6 +376,11 @@ else
 }
 
 #define HeartUse
+if (room != rmGame)
+{
+    GainItem(global.jjbamHeart);
+    exit;
+}
 
 if (instance_exists(STAND))
 {
@@ -370,6 +405,12 @@ else
 }
 
 #define EyeUse
+
+if (room != rmGame)
+{
+    GainItem(global.jjbamEye);
+    exit;
+}
 
 if (instance_exists(STAND))
 {

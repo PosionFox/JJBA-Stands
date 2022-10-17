@@ -17,7 +17,7 @@ global.jjbamDiscSus = ItemCreate(
 
 #define DiscSusUse
 
-if (instance_exists(STAND))
+if (instance_exists(STAND) or room != rmGame)
 {
     GainItem(global.jjbamDiscSus);
     exit;

@@ -6,15 +6,18 @@ This is a mod that tries to incorporate the entities of JoJo's Bizarre Adventure
 You can try any of the following options:
 [list]
 [*]Start a new game
-[*]Craft and use a Suspicious arrow
+[*]Craft a Suspicious arrow in a forge and use it
 [*]Dig up(digging spot) and use a Holy part from the desert
 [/list]
-you can also craft and use a special Disc to remove and store your current Stand
 
 
 [h1]How to use your Stand[/h1]
-You can summon or dismiss your Stand by pressing Q, some abilities can only be executed with you Stand being active and some others not.
+You can summon or dismiss your Stand by pressing Q, some abilities can only be executed with your Stand being active and some others not.
 The keybinds for using your Stand's abilities are: R, F, C and G; some Stands have abilities that can be performed by holding the respective ability keybind.
+
+
+[h1]How to get more Stands[/h1]
+You can't own more than one Stand at a time, to get more Stands you first need to finish Pucci's first quest, he will randomly spawn at the center of the map, once you do so he will reward you with a blueprint for crafting empty Stand discs, these discs will remove and store your current Stand inside it allowing you to get new Stands. After using the disc blueprint Pucci will have a new quest available.
 
 
 [h1]How to evolve your Stand[/h1]
@@ -35,9 +38,10 @@ Some Stands are capable of evolving into a stronger form:
 [*]Sticky Fingers
 [b][i]Rare:[/i][/b]
 [*]Spooky World
-[*]Star Platinum OVA
-[*]The World OVA
+[*]Star Platinum Retro
+[*]The World Retro
 [*]Imposter
+[*]Shadow
 [/list]
 rare stands have a weight of 1 instead of 30.
 

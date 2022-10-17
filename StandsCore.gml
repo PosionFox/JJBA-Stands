@@ -32,7 +32,7 @@ if (isRare or isUnobtainable)
 }
 
 draw_set_halign(fa_left);
-draw_text(32, _height - 160, string_lower(name));
+draw_text(32, _height - 160, string_lower(string(name)));
 draw_line_color(32, _height - 158, 32 + 255, _height - 158, color, c_black);
 draw_set_halign(fa_center);
 draw_text(24, _height - 84, "q");
@@ -237,7 +237,7 @@ if (active)
         image_xscale = mouseXSide;
         alphaTarget = 1;
         script_execute(idlePos);
-        height = abs(sin(current_time / 1000) * 5);
+        height = 2 + (cos(current_time / 1000) * 2);
     }
     EffectStandAuraCreate(x, y - height, color);
 }
@@ -287,24 +287,30 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
 {
     _s = i;
     _arr[_s, StandSkill.ActiveOnly] = i > StandState.SkillDOff;
+    // tap
     _arr[_s, StandSkill.Skill] = AttackHandler;
-    _arr[_s, StandSkill.SkillAlt] = AttackHandler;
-    _arr[_s, StandSkill.Key] = "";
-    _arr[_s, StandSkill.GpBtn] = Input.DPad;
-    _arr[_s, StandSkill.Desc] = "";
     _arr[_s, StandSkill.Icon] = global.sprSkillSkip;
-    _arr[_s, StandSkill.IconAlt] = global.sprSkillSkip;
-    _arr[_s, StandSkill.MaxHold] = 0.5;
-    _arr[_s, StandSkill.Hold] = 0;
     _arr[_s, StandSkill.Damage] = 0;
     _arr[_s, StandSkill.DamageScale] = 0;
     _arr[_s, StandSkill.DamagePlayerStat] = true;
     _arr[_s, StandSkill.MaxCooldown] = 1;
     _arr[_s, StandSkill.Cooldown] = 0;
+    // hold
+    _arr[_s, StandSkill.SkillAlt] = AttackHandler;
+    _arr[_s, StandSkill.IconAlt] = global.sprSkillSkip;
+    _arr[_s, StandSkill.DamageAlt] = 0;
+    _arr[_s, StandSkill.DamageScaleAlt] = 0;
+    _arr[_s, StandSkill.DamagePlayerStatAlt] = true;
     _arr[_s, StandSkill.MaxCooldownAlt] = 1;
     _arr[_s, StandSkill.CooldownAlt] = 0;
+    // both
+    _arr[_s, StandSkill.Key] = "";
+    _arr[_s, StandSkill.GpBtn] = Input.DPad;
+    _arr[_s, StandSkill.MaxHold] = 0.5;
+    _arr[_s, StandSkill.Hold] = 0;
     _arr[_s, StandSkill.MaxExecutionTime] = 5;
     _arr[_s, StandSkill.ExecutionTime] = 0;
+    _arr[_s, StandSkill.Desc] = "";
 }
 _arr[StandState.SkillAOff, StandSkill.GpBtn] = Input.LB;
 _arr[StandState.SkillBOff, StandSkill.GpBtn] = Input.LT;
@@ -425,6 +431,4 @@ if (instance_exists(_owner) and instance_exists(_owner.myStand))
     }
     _owner.myStand = noone;
 }
-
-
 

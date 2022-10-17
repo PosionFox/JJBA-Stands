@@ -200,3 +200,17 @@ with (MNPC)
 }
 
 return _exists;
+
+#define draw_circle_thick(_x, _y, _radius, _thickness)
+
+var inner_radius = _radius;
+var thickness = _thickness;
+var segments = 20;
+var jadd = 360 / segments;
+draw_primitive_begin(pr_trianglestrip);
+for (var j = 0; j <= 360; j += jadd)
+{
+    draw_vertex(x + lengthdir_x(inner_radius, j), y + lengthdir_y(inner_radius, j));
+    draw_vertex(x + lengthdir_x(inner_radius + thickness , j), y + lengthdir_y(inner_radius + thickness, j));
+}
+draw_primitive_end();

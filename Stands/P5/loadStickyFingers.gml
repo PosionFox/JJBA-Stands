@@ -17,7 +17,7 @@ global.jjbamDiscSf = ItemCreate(
 
 #define DiscSfUse
 
-if (instance_exists(STAND))
+if (instance_exists(STAND) or room != rmGame)
 {
     GainItem(global.jjbamDiscSf);
     exit;
@@ -401,6 +401,6 @@ with (_s)
     sprite_index = global.sprStickyFingers;
     color = 0xfcdbcb;
     summonSound = global.sndSfSummon;
-    saveKey = "jjbamSf";
     discType = global.jjbamDiscSf;
+    saveKey = "jjbamSf";
 }

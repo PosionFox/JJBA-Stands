@@ -17,7 +17,7 @@ global.jjbamDiscTwova = ItemCreate(
 
 #define DiscTwovaUse
 
-if (instance_exists(STAND))
+if (instance_exists(STAND) or room != rmGame)
 {
     GainItem(global.jjbamDiscTwova);
     exit;

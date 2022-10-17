@@ -44,6 +44,7 @@ repeat (2)
     var _c = irandom(array_length(_p) - 1);
     DropItem(x, y, _p[_c], 1);
 }
+DropItem(x, y, global.jjbamDisc, 1);
 repeat (10) { FireEffect(c_white, c_purple); }
 DespawnPucci();
 

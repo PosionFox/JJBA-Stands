@@ -17,7 +17,7 @@ global.jjbamDiscStw = ItemCreate(
 
 #define DiscStwUse
 
-if (instance_exists(STAND))
+if (instance_exists(STAND) or room != rmGame)
 {
     GainItem(global.jjbamDiscStw);
     exit;
@@ -324,7 +324,7 @@ switch (attackState)
 {
     case 0:
         audio_play_sound(global.sndStwCharisma, 1, false);
-        GrowingCircleEffect(x, y);
+        EffectCircleLerpCreate(x, y, 32, 0);
         with (ENEMY)
         {
             if (distance_to_object(player) < 32)
@@ -604,12 +604,11 @@ with (_s)
     soundWhenHurt = [global.sndStwHurt1, global.sndStwHurt2, global.sndStwHurt3];
     soundWhenDead = global.sndStwDead;
     knifeSprite = global.sprKnifeStw;
-    
-    saveKey = "jjbamStw";
     discType = global.jjbamDiscStw;
     maxXp = 300;
     xp = 0;
     
+    saveKey = "jjbamStw";
     InstanceAssignMethod(self, "drawGUI", ScriptWrap(StwDrawGui), true);
 }
 return _s;

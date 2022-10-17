@@ -2,7 +2,7 @@
 global.jjbamDiscTwau = ItemCreate(
     undefined,
     "DISC:TWAU",
-    "The label says: The World AU",
+    "The label says: The World Alternate Universe",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -17,7 +17,7 @@ global.jjbamDiscTwau = ItemCreate(
 
 #define DiscTwauUse
 
-if (instance_exists(STAND))
+if (instance_exists(STAND) or room != rmGame)
 {
     GainItem(global.jjbamDiscTwau);
     exit;
@@ -269,7 +269,7 @@ _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillTripleKnifeThrow;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.Desc] = "triple knife:\ntoss three knifes at once.";
-
+/*
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = Matches;
 _skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
@@ -282,7 +282,7 @@ tosses a match on the ground.
 
 (hold) oil can:
 pours oil on the ground.";
-
+*/
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;
 _skills[sk, StandSkill.Damage] = 1.2;
@@ -318,7 +318,7 @@ _skills[sk, StandSkill.Desc] = "it's my time!:\nstops the time, most enemies are
 var _s = StandBuilder(_owner, _skills);
 with (_s)
 {
-    name = "The World AU";
+    name = "The World Alternate Universe";
     sprite_index = global.sprTheWorldAU;
     color = 0x36c7fb;
     summonSound = global.sndTwSummon;

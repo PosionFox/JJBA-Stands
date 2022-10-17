@@ -198,6 +198,13 @@ global.sprSkillSelfHeal = sprite_add(p + "SkillSelfHeal.png", 1, false, false, 1
 
 p = "Resources/Sprites/KC/";
 global.sprKingCrimson = sprite_add(p + "KingCrimson.png", 1, false, false, 16, 19);
+global.sprKingCrimsonManga = sprite_add(p + "KingCrimsonM.png", 1, false, false, 16, 19);
+global.sprScalpelSwing = sprite_add(p + "ScalpelAttack.png", 5, false, false, 16, 16);
+global.sprScalpel = sprite_add(p + "KcScalpel.png", 1, false, false, 8, 8);
+global.sprSkillScalpelSlash = sprite_add(p + "SkillScalpelSlash.png", 1, false, false, 16, 16);
+global.sprSkillScalpelThrow = sprite_add(p + "SkillScalpelThrow.png", 1, false, false, 16, 16);
+global.sprSkillHeavyChop = sprite_add(p + "SkillHeavyChop.png", 1, false, false, 16, 16);
+global.sprSkillTimeSkip = sprite_add(p + "SkillTimeSkip.png", 1, false, false, 16, 16);
 // global.sprGeFrog = sprite_add(p + "GeFrog.png", 1, false, false, 16, 16);
 // global.sprGeScorpion = sprite_add(p + "GeScorpion.png", 2, false, false, 16, 16);
 

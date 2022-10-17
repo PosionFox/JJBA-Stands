@@ -18,7 +18,7 @@ global.jjbamDiscCmn = ItemCreate(
 
 #define DiscCmnUse
 
-if (instance_exists(STAND))
+if (instance_exists(STAND) or room != rmGame)
 {
     GainItem(global.jjbamDiscCmn);
     exit;

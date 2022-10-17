@@ -53,6 +53,20 @@ with (STAND)
 
 return _damage;
 
+#define GetDmgAlt(skill)
+
+var _damage = 0;
+with (STAND)
+{
+    _damage += skills[skill, StandSkill.DamageAlt] + (player.level * skills[skill, StandSkill.DamageScaleAlt]);
+    if (skills[skill, StandSkill.DamagePlayerStatAlt])
+    {
+        _damage += player.dmg;
+    }
+}
+
+return _damage;
+
 #define ProjHitEnemy(enemy)
 
 if (array_find_index(instancesHit, enemy.id) == -1)
@@ -114,7 +128,7 @@ with (_o)
     canDespawnInTs = false;
     knockback = 0;
     knockbackDuration = 0.5;
-    onHitSound = global.sndPunchHit;
+    onHitSound = sndHitMeat;
     onHitSoundOverlap = false;
     onHitEvent = noone;
     onHitEventArg = undefined;
@@ -446,7 +460,7 @@ var _p = PunchCreate(_x, _y, _dir, _dmg, _dmg);
 with (_p)
 {
     direction += random_range(-_ang, _ang);
-    onHitSound = global.sndPunchHit;
+    //onHitSound = global.sndPunchHit;
     onHitSoundOverlap = true;
     swingSpd = 10;
     

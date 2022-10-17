@@ -17,7 +17,7 @@ global.jjbamDiscSp = ItemCreate(
 
 #define DiscSpUse
 
-if (instance_exists(STAND))
+if (instance_exists(STAND) or room != rmGame)
 {
     GainItem(global.jjbamDiscSp);
     exit;
@@ -159,7 +159,7 @@ with (_s)
     sprite_index = global.sprStarPlatinum;
     color = 0x8a4276;
     summonSound = global.sndSpSummon;
-    saveKey = "jjbamSp";
     discType = global.jjbamDiscSp;
+    saveKey = "jjbamSp";
 }
 return _s;
