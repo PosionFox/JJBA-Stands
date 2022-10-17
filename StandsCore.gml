@@ -32,8 +32,10 @@ if (isRare or isUnobtainable)
 }
 
 draw_set_halign(fa_left);
-draw_text(32, _height - 160, string_lower(string(name)));
-draw_line_color(32, _height - 158, 32 + 255, _height - 158, color, c_black);
+draw_set_valign(fa_bottom);
+draw_text(32, _height - 138, string_lower(string(name)));
+draw_line_color(32, _height - 144, 32 + 255, _height - 144, color, c_black);
+draw_set_valign(fa_middle);
 draw_set_halign(fa_center);
 draw_text(24, _height - 84, "q");
 
@@ -53,7 +55,9 @@ for (var i = _start; i <= _end; i++)
     // tap
     if (skills[i, StandSkill.Skill] != AttackHandler)
     {
-        draw_sprite_ext(global.sprSkillTemplate, 0, xx, yy, 2, 2, 0, c_white, 1);
+        var _s = global.sprSkillTemplate;
+        if (color_get_value(color) < 80) { _s = global.sprSkillTemplateWhite; }
+        draw_sprite_ext(_s, 0, xx, yy, 2, 2, 0, c_white, 1);
         draw_sprite_ext(skills[i, StandSkill.Icon], 0, xx, yy, 2, 2, 0, color, 1);
         if (skills[i, StandSkill.Cooldown] > 0)
         {
@@ -67,6 +71,8 @@ for (var i = _start; i <= _end; i++)
     // hold
     if (skills[i, StandSkill.SkillAlt] != AttackHandler)
     {
+        var _s = global.sprSkillHoldTemplate;
+        if (color_get_value(color) < 80) { _s = global.sprSkillHoldTemplateWhite; }
         draw_sprite_ext(global.sprSkillHoldTemplate, 0, xx, yy + 64, 2, 2, 0, c_white, 1);
         draw_sprite_ext(skills[i, StandSkill.IconAlt], 0, xx, yy + 64, 2, 2, 0, color, 1);
         var _hold = (skills[i, StandSkill.Hold] / skills[i, StandSkill.MaxHold]) * 2;
@@ -239,7 +245,7 @@ if (active)
         script_execute(idlePos);
         height = 2 + (cos(current_time / 1000) * 2);
     }
-    EffectStandAuraCreate(x, y - height, color);
+    EffectStandAuraCreate(x, y - height, auraParticleSprite, color);
 }
 else
 {
@@ -371,6 +377,7 @@ with (_stand)
     color = c_white;
     summonSound = global.sndStandSummon;
     playSummonSound = true;
+    auraParticleSprite = global.sprStandParticle;
     // state
     attackState = 0;
     attackStateTimer = 0;

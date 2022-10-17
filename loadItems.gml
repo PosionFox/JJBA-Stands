@@ -269,7 +269,11 @@ if (instance_exists(STAND))
     {
         case "Killer Queen":
             RemoveStand(player);
-            GiveKillerQueenBtD(player);
+            var _stands = [
+                [GiveKillerQueenBtD, 30],
+                [GiveSQBTD, 1]
+            ]
+            script_execute(random_weight(_stands), player);
         break;
         default:
             Trace("Nothing happens...");
@@ -291,28 +295,12 @@ var _standPool =
     [GiveKillerQueen, 30],
     [GiveStickyFingers, 30],
     [GiveGoldExperience, 30],
-    [GiveSpookyWorld, 1],
     [GiveImposter, 1],
     [GiveSpr, 1],
-    [GiveTwr, 1],
     [GiveShadow, 1]
 ]
 
-var sumWeight = 0;
-for(var i = 0; i < array_length(_standPool); i++)
-{
-    sumWeight += _standPool[i, 1];
-}
-var rnd = random(sumWeight);
-for(var i = 0; i < array_length(_standPool); i++)
-{
-    if (rnd < _standPool[i, 1])
-    {
-        script_execute(_standPool[i, 0], player);
-        exit;
-    }
-    rnd -= _standPool[i, 1];
-}
+script_execute(random_weight(_standPool), player);
 
 //var _c = irandom(array_length(_standPool) - 1);
 //script_execute(_standPool[_c]);

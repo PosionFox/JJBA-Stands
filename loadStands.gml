@@ -1,4 +1,6 @@
 
+// scripts for loading mostly items
+
 #region p3
 
 loadStarPlatinum();
@@ -51,6 +53,7 @@ SPOVA();
 TWOVA();
 Shadow();
 KCM();
+SQBTD();
 
 #endregion
 

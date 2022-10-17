@@ -22,7 +22,7 @@ if (instance_exists(STAND) or room != rmGame)
     GainItem(global.jjbamDiscKcm);
     exit;
 }
-GiveShadowTheWorld(player);
+GiveKcm(player);
 
 #define GiveKcm(_owner) //stand
 

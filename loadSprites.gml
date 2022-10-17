@@ -22,6 +22,7 @@ global.sprBulletGUI = sprite_add(p + "BulletGUI.png", 1, false, false, 16, 16);
 global.sprRevCylinderGUI = sprite_add(p + "RevCylinderGUI.png", 1, false, false, 16, 16);
 global.sprPunchEffect = sprite_add(p + "PunchEffect.png", 6, false, false, 8, 8);
 global.sprStandParticle = sprite_add(p + "StandParticle.png", 1, false, false, 1, 1);
+global.sprStandParticle2 = sprite_add(p + "StandParticle2.png", 1, false, false, 1, 1);
 global.sprHitbox8x8 = sprite_add(p + "Hitbox8x8.png", 1, false, false, 4, 4);
 global.sprHitbox16x16 = sprite_add(p + "Hitbox16x16.png", 1, false, false, 8, 8);
 global.sprHitbox32x32 = sprite_add(p + "Hitbox32x32.png", 1, false, false, 16, 16);
@@ -35,8 +36,10 @@ global.sprAttackPunch = sprite_add(p + "AttackPunch.png", 1, false, false, 16, 1
 // skills
 p = "Resources/Sprites/Generic/Skills/";
 global.sprSkillTemplate = sprite_add(p + "SkillTemplate.png", 1, false, false, 16, 16);
+global.sprSkillTemplateWhite = sprite_add(p + "SkillTemplateWhite.png", 1, false, false, 16, 16);
 global.sprSkillSkip = sprite_add(p + "SkillSkip.png", 1, false, false, 16, 16);
 global.sprSkillHoldTemplate = sprite_add(p + "SkillHoldTemplate.png", 1, false, false, 16, 16);
+global.sprSkillHoldTemplateWhite = sprite_add(p + "SkillHoldTemplateWhite.png", 1, false, false, 16, 16);
 global.sprSkillCooldown = sprite_add(p + "SkillCooldown.png", 1, false, false, 16, 16);
 global.sprSkillHold = sprite_add(p + "SkillHold.png", 1, false, false, 16, 16);
 
@@ -56,6 +59,7 @@ global.sprSkillTimestop = sprite_add(p + "SkillTimestop.png", 1, false, false, 1
 
 p = "Resources/Sprites/STW/";
 global.sprShadowTheWorld = sprite_add(p + "ShadowTheWorld.png", 1, false, false, 16, 19);
+global.sprShadow = sprite_add(p + "Shadow.png", 1, false, false, 16, 19);
 global.sprKnifeStw = sprite_add(p + "KnifeStw.png", 1, false, false, 8, 8);
 global.sprKnifeShad = sprite_add(p + "KnifeShad.png", 1, false, false, 8, 8);
 global.sprStwPunch = sprite_add(p + "StwPunch.png", 1, false, false, 16, 16);
@@ -168,6 +172,7 @@ global.sprSkillSHA = sprite_add(p + "SkillSHA.png", 1, false, false, 16, 16);
     // bites the dust
 p = "Resources/Sprites/KQ/BTD/";
 global.sprKillerQueenBtD = sprite_add(p + "KillerQueenBtD.png", 1, false, false, 16, 19);
+global.sprSQBTD = sprite_add(p + "ShadowQueenBtD.png", 1, false, false, 16, 19);
 global.sprScBubble = sprite_add(p + "Bubble.png", 1, false, false, 16, 16);
 global.sprBtdStare = sprite_add(p + "BtDStare.png", 1, false, false, 16, 16);
 global.sprBtdVoidTrace = sprite_add(p + "BtDVoidTrace.png", 1, false, false, 16, 1);

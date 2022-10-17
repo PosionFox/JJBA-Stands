@@ -421,10 +421,11 @@ healing the user for the amount of damage lost afterwards.
 var _s = StandBuilder(_owner, _skills);
 with (_s)
 {
-    name = "KQ: Bites The Dust";
+    name = "Killer Queen:\nBites The Dust";
     sprite_index = global.sprKillerQueenBtD;
     color = 0xba7bd7;
     summonSound = global.sndKqbtdSummon;
     discType = global.jjbamDiscKqbtd;
     saveKey = "jjbamKqbtd";
 }
+return _s;

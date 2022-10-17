@@ -340,12 +340,12 @@ width -= 0.5;
 
 draw_line_width_color(x, y, x, y - 256, width, c_red, c_yellow);
 
-#define EffectStandAuraCreate(_x, _y, _color)
+#define EffectStandAuraCreate(_x, _y, _sprite, _color)
 
 var o = ModObjectSpawn(_x, _y, 0);
 with (o)
 {
-    sprite_index = global.sprStandParticle;
+    sprite_index = _sprite;
     image_blend = _color;
     life = 20;
     x += random_range(-6, 6);

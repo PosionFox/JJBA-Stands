@@ -318,7 +318,7 @@ _skills[sk, StandSkill.Desc] = "it's my time!:\nstops the time, most enemies are
 var _s = StandBuilder(_owner, _skills);
 with (_s)
 {
-    name = "The World Alternate Universe";
+    name = "The World\nAlternate Universe";
     sprite_index = global.sprTheWorldAU;
     color = 0x36c7fb;
     summonSound = global.sndTwSummon;

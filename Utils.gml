@@ -214,3 +214,22 @@ for (var j = 0; j <= 360; j += jadd)
     draw_vertex(x + lengthdir_x(inner_radius + thickness , j), y + lengthdir_y(inner_radius + thickness, j));
 }
 draw_primitive_end();
+
+#define random_weight(_array)
+// [item, weight]
+
+var sumWeight = 0;
+for(var i = 0; i < array_length(_array); i++)
+{
+    sumWeight += _array[i, 1];
+}
+var rnd = random(sumWeight);
+for(var i = 0; i < array_length(_array); i++)
+{
+    if (rnd < _array[i, 1])
+    {
+        return _array[i, 0];
+        exit;
+    }
+    rnd -= _array[i, 1];
+}

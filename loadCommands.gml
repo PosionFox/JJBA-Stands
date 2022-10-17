@@ -56,6 +56,7 @@ switch (args[0])
     case "twova": GiveTwova(player); break;
     case "shadow": GiveShadow(player); break;
     case "kcm": GiveKcm(player); break;
+    case "sqbtd": GiveSQBTD(player); break;
     // other
     case "sus": GiveImposter(player); break;
     

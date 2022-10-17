@@ -442,7 +442,12 @@ FireEffect(c_white, c_yellow);
 timer -= DT;
 if (timer <= 0)
 {
-    GiveTheWorld(player);
+    var _standPool =
+    [
+        [GiveTheWorld, 30],
+        [GiveSpookyWorld, 1]
+    ]
+    script_execute(random_weight(_standPool), player);
     instance_destroy(self);
 }
 
