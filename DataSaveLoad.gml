@@ -71,9 +71,10 @@ var _map = ds_map_create();
 
 if (instance_exists(player))
 {
-    if ("myStand" in player and instance_exists(STAND))
+    if (instance_exists(STAND))
     {
         _map[? "jjbamAbility"] = STAND.saveKey; // save stand
+        //Trace("saving stand: " + string(STAND.saveKey));
         // _map[? "jjbamAbilitySkills"] = string(array_clone(objPlayer.myStand.skills)); // save stand skills
         // Trace(_map[? "jjbamAbilitySkills"]);
         
@@ -124,7 +125,7 @@ var _map = ModSaveDataFetch();
 var _standCompatibility = _map[? "pAbility"];
 var _stand = _map[? "jjbamAbility"];
 var _custom = _map[? "jjbamCustomStands"];
-//Trace(_custom);
+//Trace("loading stand: " + string(_stand));
 
 switch (_standCompatibility)
 {

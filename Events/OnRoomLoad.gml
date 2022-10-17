@@ -15,6 +15,7 @@ if (room != rmGame)
 {
     if (instance_exists(player))
     {
+        InitPlayerVariables();
         LoadStand();
     }
 }

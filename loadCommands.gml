@@ -64,7 +64,7 @@ switch (args[0])
 
 #define TestCommand
 
-Trace("hello");
+Trace(STAND.saveKey);
 
 #define JjVarSpy(args)
 

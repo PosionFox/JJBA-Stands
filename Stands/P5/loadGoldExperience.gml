@@ -271,7 +271,7 @@ if (image_alpha <= 0)
 }
 image_alpha -= 0.04;
 
-#define GiveGoldExperience(_owner) //stand
+#define GiveGoldExperience(_owner)
 
 var _skills = StandSkillInit();
 
@@ -330,5 +330,7 @@ with (_s)
     color = 0x36f2fb;
     summonSound = global.sndGeSummon;
     discType = global.jjbamDiscGe;
-    savekey = "jjbamGe";
+    saveKey = "jjbamGe";
 }
+return _s;
+
