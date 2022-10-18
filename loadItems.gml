@@ -295,9 +295,11 @@ var _standPool =
     [GiveKillerQueen, 30],
     [GiveStickyFingers, 30],
     [GiveGoldExperience, 30],
+    [GiveKingCrimson, 30],
     [GiveImposter, 1],
     [GiveSpr, 1],
-    [GiveShadow, 1]
+    [GiveShadow, 1],
+    [GiveKcm, 1]
 ]
 
 script_execute(random_weight(_standPool), player);
