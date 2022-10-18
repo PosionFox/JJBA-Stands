@@ -65,7 +65,8 @@ switch (args[0])
 
 #define TestCommand
 
-Trace(STAND.saveKey);
+Trace(display_get_gui_width());
+Trace(display_get_gui_height());
 
 #define JjVarSpy(args)
 

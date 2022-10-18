@@ -456,7 +456,7 @@ attackStateTimer += DT;
 
 #define PunchSwingCreate(_x, _y, _dir, _ang, _dmg)
 
-var _p = PunchCreate(_x, _y, _dir, _dmg, _dmg);
+var _p = PunchCreate(_x, _y, _dir, _dmg, 1);
 with (_p)
 {
     direction += random_range(-_ang, _ang);

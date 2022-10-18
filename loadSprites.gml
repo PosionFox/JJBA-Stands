@@ -210,6 +210,7 @@ global.sprSkillScalpelSlash = sprite_add(p + "SkillScalpelSlash.png", 1, false, 
 global.sprSkillScalpelThrow = sprite_add(p + "SkillScalpelThrow.png", 1, false, false, 16, 16);
 global.sprSkillHeavyChop = sprite_add(p + "SkillHeavyChop.png", 1, false, false, 16, 16);
 global.sprSkillTimeSkip = sprite_add(p + "SkillTimeSkip.png", 1, false, false, 16, 16);
+global.sprSkillTimeErase = sprite_add(p + "SkillTimeErase.png", 1, false, false, 16, 16);
 // global.sprGeFrog = sprite_add(p + "GeFrog.png", 1, false, false, 16, 16);
 // global.sprGeScorpion = sprite_add(p + "GeScorpion.png", 2, false, false, 16, 16);
 

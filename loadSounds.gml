@@ -180,6 +180,9 @@ global.sndKcAttack2 = audio_create_stream(p + "kcAttack2.ogg");
 global.sndKcAttack3 = audio_create_stream(p + "kcAttack3.ogg");
 global.sndKcAttack4 = audio_create_stream(p + "kcAttack4.ogg");
 global.sndKcAttack5 = audio_create_stream(p + "kcAttack5.ogg");
+global.sndKcTe = audio_create_stream(p + "kcTe.ogg");
+global.sndKcTeBass = audio_create_stream(p + "kcTeBass.ogg");
+global.sndKcTeEnd = audio_create_stream(p + "kcTeEnd.ogg");
 
 #endregion
 

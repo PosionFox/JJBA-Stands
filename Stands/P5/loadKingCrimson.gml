@@ -38,6 +38,7 @@ with (o)
     stationary = true;
     distance = 16;
     destroyOnImpact = false;
+    onHitEvent = SlashNearest;
     
     InstanceAssignMethod(self, "step", ScriptWrap(ScalpelSlashStep));
 }
@@ -94,7 +95,7 @@ attackStateTimer += DT;
 
 #define TimeSkip(m, s)
 
-if (!WaterCollision(mouse_x, mouse_y))
+if (!WaterCollision(mouse_x, mouse_y) and !modTypeExists("timeErase"))
 {
     audio_play_sound(global.sndKcTp, 5, false);
     EffectPlayerAfterimageCreate(owner.x, owner.y);
@@ -302,6 +303,119 @@ switch (attackState)
 }
 attackStateTimer += DT;
 
+#define TimeErase(m, s)
+
+xTo = owner.x;
+yTo = owner.y - 8;
+
+switch (attackState)
+{
+    case 0:
+        audio_play_sound(global.sndKcTe, 5, false);
+        attackState++;
+    break;
+    case 1:
+        WorldControl.x += random_range(-2, 2);
+        WorldControl.y += random_range(-2, 2);
+        if (attackStateTimer >= 1)
+        {
+            attackState++;
+        }
+    break;
+    case 2:
+        EffectTimeSkipCreate();
+        var o = ModObjectSpawn(x, y, -100000);
+        with (o)
+        {
+            type = "timeErase";
+            daBass = audio_play_sound(global.sndKcTeBass, 5, false);
+            surf = 0;
+            
+            xscale = 1;
+            yscale = 1;
+            color = c_fuchsia;
+            alpha = 1;
+            life = 13;
+            
+            InstanceAssignMethod(self, "step", ScriptWrap(TimeEraseStep));
+            InstanceAssignMethod(self, "draw", ScriptWrap(TimeEraseDraw));
+        }
+        EndAtk(s);
+    break;
+}
+attackStateTimer += DT;
+
+#define TimeEraseStep
+
+if (!surface_exists(surf) and surface_exists(application_surface))
+{
+    surf = surface_create(1280, 720);
+    surface_set_target(surf)
+    draw_surface(application_surface, 0, 0);
+    surface_reset_target();
+    //tex = surface_get_texture(surf);
+}
+
+if (instance_exists(player))
+{
+    player.invulFrames = 10;
+}
+if (instance_exists(STAND))
+{
+    if (STAND.state != StandState.Idle)
+    {
+        life = 0;
+    }
+}
+if (instance_exists(ENEMY))
+{
+    with (ENEMY)
+    {
+        stateCurrent = 0;
+        h *= 0.5;
+        v *= 0.5;
+    }
+}
+
+EffectStandAuraCreate(random_range(player.x - 128, player.x + 128), random_range(player.y - 128, player.x + 128), global.sprStandParticle2, c_black);
+//xscale = lerp(xscale, 0.5, 0.1);
+//yscale = lerp(yscale, 0.5, 0.1);
+alpha = lerp(alpha, 0, 0.02);
+life -= DT;
+if (life <= 0)
+{
+    audio_play_sound(global.sndKcTeEnd, 5, false);
+    EffectTimeSkipCreate();
+    if (surface_exists(surf))
+    {
+        surface_free(surf);
+    }
+    if (audio_is_playing(daBass))
+    {
+        audio_stop_sound(daBass);
+    }
+    instance_destroy(self);
+}
+
+#define TimeEraseDraw
+
+gpu_set_blendmode_ext(bm_inv_dest_color, bm_inv_src_alpha);
+draw_set_color(c_fuchsia);
+draw_rectangle(WorldControl.x - 640, WorldControl.y - 360, WorldControl.x + 640, WorldControl.y + 360, false);
+draw_set_color(c_white);
+gpu_set_blendmode(bm_normal);
+
+if (surface_exists(surf))
+{
+    draw_surface_ext(surf, (WorldControl.x - 640), (WorldControl.y - 360), xscale, yscale, 0, color, alpha);
+}
+// draw_primitive_begin_texture(pr_trianglestrip, tex);
+// draw_vertex_texture(player.x, player.y, 0, 0);
+// draw_vertex_texture(player.x + 640, player.y, 1, 0);
+// draw_vertex_texture(player.x, player.y + 480, 0, 1);
+// draw_vertex_texture(player.x + 640, player.y + 480, 1, 1);
+// draw_primitive_end();
+
 #define KcPos
 
 var xPos = mouse_x > owner.x ? 1 : -1;
@@ -318,60 +432,60 @@ var _skills = StandSkillInit();
 var sk;
 sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = ScalpelSlash;
-_skills[sk, StandSkill.Icon] = global.sprSkillTemplate;
+_skills[sk, StandSkill.Icon] = global.sprSkillScalpelSlash;
 _skills[sk, StandSkill.Damage] = 2;
 _skills[sk, StandSkill.DamageScale] = 0.1;
-_skills[sk, StandSkill.MaxCooldown] = 1;
-_skills[sk, StandSkill.Desc] = "scalpel slash:\nslash.";
+_skills[sk, StandSkill.MaxCooldown] = 6;
+_skills[sk, StandSkill.Desc] = "scalpel slash:\ncarve your enemies and make them bleed.";
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = ScalpelThrow;
 _skills[sk, StandSkill.Icon] = global.sprSkillScalpelThrow;
-_skills[sk, StandSkill.Damage] = 1.6;
-_skills[sk, StandSkill.DamageScale] = 0.3;
-_skills[sk, StandSkill.MaxCooldown] = 1;
-_skills[sk, StandSkill.Desc] = "scalpel throw:\nthrow.";
+_skills[sk, StandSkill.Damage] = 1.5;
+_skills[sk, StandSkill.DamageScale] = 0.2;
+_skills[sk, StandSkill.MaxCooldown] = 5;
+_skills[sk, StandSkill.Desc] = "scalpel throw:\nthrow two scalpels forward.";
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = KcBarrage;
 _skills[sk, StandSkill.Damage] = 1.5;
-_skills[sk, StandSkill.DamageScale] = 0.01;
+_skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
-_skills[sk, StandSkill.MaxCooldown] = 1;
+_skills[sk, StandSkill.MaxCooldown] = 6;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
-_skills[sk, StandSkill.Desc] = "skip barrage:\nlaunches a barrage of punches.";
+_skills[sk, StandSkill.Desc] = @"skip barrage:
+skips time into the nearest enemy
+releasing a series of fatal blows.";
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = KcChop;
 _skills[sk, StandSkill.Damage] = 3;
 _skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
-_skills[sk, StandSkill.MaxCooldown] = 1;
+_skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.SkillAlt] = KcHeavyChop;
-_skills[sk, StandSkill.DamageAlt] = 10;
-_skills[sk, StandSkill.DamageScaleAlt] = 0.12;
-_skills[sk, StandSkill.IconAlt] = global.sprSkillTemplate;
-_skills[sk, StandSkill.MaxCooldownAlt] = 1;
+_skills[sk, StandSkill.DamageAlt] = 15;
+_skills[sk, StandSkill.DamageScaleAlt] = 0.15;
+_skills[sk, StandSkill.IconAlt] = global.sprSkillHeavyChop;
+_skills[sk, StandSkill.MaxCooldownAlt] = 15;
 _skills[sk, StandSkill.Desc] = @"chop:
-chop.
+chops the enemy for moderate damage.
 
-arm chop:
-chops arm";
+heavy chop:
+winds up a terrible strike that is bound to
+seriously harm even the toughest opponent.";
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = TimeSkip;
-_skills[sk, StandSkill.Damage] = 1;
-_skills[sk, StandSkill.DamageScale] = 0.15;
-_skills[sk, StandSkill.DamagePlayerStat] = false;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimeSkip;
-_skills[sk, StandSkill.MaxCooldown] = 1;
-_skills[sk, StandSkill.Desc] = "time skip:\nskip time.";
+_skills[sk, StandSkill.MaxCooldown] = 3;
+_skills[sk, StandSkill.Desc] = "time skip:\nskips time forward into a new position in space.";
 
 sk = StandState.SkillD;
-_skills[sk, StandSkill.Skill] = TimeSkip;
-_skills[sk, StandSkill.MaxCooldown] = 1;
-_skills[sk, StandSkill.Icon] = global.sprSkillTimeSkip;
-_skills[sk, StandSkill.Desc] = "time erasure:\nerase.";
+_skills[sk, StandSkill.Skill] = TimeErase;
+_skills[sk, StandSkill.MaxCooldown] = 35;
+_skills[sk, StandSkill.Icon] = global.sprSkillTimeErase;
+_skills[sk, StandSkill.Desc] = "time erase:\nerases a frame of time, nobody will know what happened.";
 
 
 var _s = StandBuilder(_owner, _skills);
@@ -380,7 +494,7 @@ with (_s)
     name = "King Crimson";
     sprite_index = global.sprKingCrimson;
     color = 0x3232ac;
-    timeSkipCD = 0;
+    dmgStack = 0;
     armChopRange = 72;
     armChopShow = false;
     
@@ -391,14 +505,15 @@ with (_s)
     saveKey = "jjbamKc";
     InstanceAssignMethod(self, "step", ScriptWrap(KingCrimsonStep));
     InstanceAssignMethod(self, "draw", ScriptWrap(KingCrimsonDraw), false);
+    InstanceAssignMethod(self, "drawGUI", ScriptWrap(KingCrimsonDrawGUI), false);
 }
 return _s;
 
 #define KingCrimsonStep
 
-if (timeSkipCD > 0)
+if (dmgStack < 1)
 {
-    timeSkipCD -= DT / 2;
+    dmgStack += DT / 3;
 }
 
 #define KingCrimsonDraw
@@ -411,3 +526,10 @@ if (armChopShow == true)
     draw_set_alpha(1);
     draw_set_color(c_white);
 }
+
+#define KingCrimsonDrawGUI
+
+var _h = display_get_gui_height();
+//draw_sprite_ext(global.sprSteelBall, 0, 320, _h - 136, dmgStack * 2, dmgStack * 2, cos(current_time / 1000) * 5, color, 1);
+
+
