@@ -1,4 +1,3 @@
-# JJBA-Stands
 This is a mod that tries to incorporate the entities of JoJo's Bizarre Adventures known as "Stands" into Forager.
 
 
@@ -17,14 +16,16 @@ The keybinds for using your Stand's abilities are: R, F, C and G; some Stands ha
 
 
 [h1]How to get more Stands[/h1]
-You can't own more than one Stand at a time, to get more Stands you first need to finish Pucci's first quest, he will randomly spawn at the center of the map, once you do so he will reward you with a blueprint for crafting empty Stand discs, these discs will remove and store your current Stand inside it allowing you to get new Stands. After using the disc blueprint Pucci will have a new quest available.
+You can't own more than one Stand at a time, to get more Stands you first need to finish Pucci's first quest, he will rarely spawn at the center of the map, once you do so he will reward you with a blueprint for crafting empty Stand discs, these discs will remove and store your current Stand inside it allowing you to get new Stands. After using the disc blueprint Pucci will have a new quest available.
 
 
 [h1]How to evolve your Stand[/h1]
 Some Stands are capable of evolving into a stronger form:
 [list]
-[*]Shadow The World can evolve into The World with enough experience gained
-[*]Killer Queen can evolve into Killer Queen: Bites the Dust upon using a Requiem arrow
+[*]Shadow The World can evolve into The World or Spooky World(rare) with enough experience gained
+[*]Shadow can evolve into The World Retro
+[*]Killer Queen can evolve into Killer Queen: Bites the Dust or Shadow Queen: Bites the Dust(rare) upon using a Requiem arrow
+[*]Gold Experience can evolve into Requiem upon using a Requiem arrow
 [*]Dirty Deeds Done Dirt Cheap can evolve into D4C: Love Train by collecting and using the missing Holy parts
 [/list]
 
@@ -36,12 +37,12 @@ Some Stands are capable of evolving into a stronger form:
 [*]Killer Queen
 [*]Gold Experience
 [*]Sticky Fingers
+[*]King Crimson
 [b][i]Rare:[/i][/b]
-[*]Spooky World
 [*]Star Platinum Retro
-[*]The World Retro
 [*]Imposter
 [*]Shadow
+[*]King Crimson Manga
 [/list]
 rare stands have a weight of 1 instead of 30.
 
@@ -50,3 +51,6 @@ rare stands have a weight of 1 instead of 30.
 [*]The World Alternate Universe (Eye)
 [*]Dirty Deeds Done Dirt Cheap (Heart)
 [/list]
+
+
+Repository: https://github.com/PosionFox/JJBA-Stands
