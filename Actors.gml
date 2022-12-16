@@ -373,8 +373,9 @@ with (_o)
 {
     subtype = "geFrog";
     sprite_index = global.sprGeFrog;
-    life = 5;
+    life = 10;
     canCollide = false;
+    state = "guard";
 
     InstanceAssignMethod(self, "step", ScriptWrap(FrogStep), true);
 }
@@ -391,12 +392,27 @@ if (life <= 0)
     }
 }
 
-var _xs = mouse_x > objPlayer.x ? 1 : -1;
-x = objPlayer.x + (_xs * 2);
-y = objPlayer.y;
-depth = objPlayer.depth - 1;
-image_yscale = -_xs;
-image_angle = 90;
+
+
+switch (state)
+{
+    case "guard":
+        var _xs = mouse_x > objPlayer.x ? 1 : -1;
+        x = objPlayer.x + (_xs * 2);
+        y = objPlayer.y;
+        depth = objPlayer.depth - 1;
+        image_yscale = -_xs;
+        image_angle = 90;
+        if (life <= 5)
+        {
+            state = "roam";
+            y += 4;
+        }
+    break;
+    case "roam":
+        image_angle = lerp(image_angle, 0, 0.1);
+    break;
+}
 
 #define CloneCreate(_x, _y)
 

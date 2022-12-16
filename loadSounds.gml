@@ -165,6 +165,13 @@ global.sndGeSummon = audio_create_stream(p + "geSummon.ogg");
 global.sndGeHit = audio_create_stream(p + "geHit.ogg");
 global.sndGePunch = audio_create_stream(p + "gePunch.ogg");
 global.sndGeLife = audio_create_stream(p + "geLife.ogg");
+global.sndGeStab = audio_create_stream(p + "geStab.ogg");
+global.sndGeBreak = audio_create_stream(p + "geBreak.ogg");
+global.sndGeRequiem = audio_create_stream(p + "geRequiem.ogg");
+// requiem
+global.sndGerSummon = audio_create_stream(p + "gerSummon.ogg");
+global.sndGerBarrage = audio_create_stream(p + "gerBarrage.ogg");
+global.sndGerTaunt = audio_create_stream(p + "gerTaunt.ogg");
 
 #endregion
 

@@ -37,11 +37,15 @@ if (modTypeExists("loveTrain"))
 }
 if (modSubtypeExists("geFrog"))
 {
-    player.hp += _damage;
-    if (instance_exists(ENEMY))
+    var _frog = modSubtypeFind("geFrog");
+    if (_frog.state == "guard")
     {
-        var _t = instance_nearest(player.x, player.y, ENEMY);
-        _t.hp -= _damage;
-        player.invulFrames = 0;
+        player.hp += _damage;
+        if (instance_exists(ENEMY))
+        {
+            var _t = instance_nearest(player.x, player.y, ENEMY);
+            _t.hp -= _damage;
+            player.invulFrames = 0;
+        }
     }
 }

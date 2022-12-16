@@ -481,4 +481,109 @@ if (life < 0)
     instance_destroy(self);
 }
 
+#define EffectNullCreate(_x, _y)
+
+var o = ModObjectSpawn(_x, _y, 0);
+with (o)
+{
+    sprite_index = global.sprStandParticle;
+    image_alpha = 0.5;
+    image_xscale = 1;
+    image_blend = c_lime;
+    image_angle = random(360);
+    increase = irandom(3)
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(EffectNullStep), false);
+    InstanceAssignMethod(self, "draw", ScriptWrap(EffectNullDraw), false);
+}
+return o;
+
+#define EffectNullStep
+
+image_xscale += increase;
+image_yscale -= DT;
+if (image_yscale <= 0)
+{
+    instance_destroy(self);
+}
+
+#define EffectNullDraw
+
+gpu_set_blendmode(bm_add);
+draw_self();
+gpu_set_blendmode(bm_normal);
+
+#define EffectGeParticleCreate(_x, _y, _c)
+
+var o = ModObjectSpawn(_x, _y, 0);
+with (o)
+{
+    sprite_index = global.sprStandParticle;
+    image_blend = _c;
+    z = 0;
+    zGrav = 4;
+    zSpdMax = random_range(10, 15);
+    zSpd = zSpdMax;
+    speed = random(2);
+    direction = random(360);
+    life = 5;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(EffectGeParticleStep));
+    InstanceAssignMethod(self, "draw", ScriptWrap(EffectGeParticleDraw), false);
+}
+return o;
+
+#define EffectGeParticleStep
+
+if (life <= 0)
+{
+    instance_destroy(self);
+    exit;
+}
+life -= DT;
+image_alpha = min(life, 1);
+
+speed *= 0.98;
+z += zSpd - zGrav;
+zSpd *= 0.9;
+
+if (z <= 0)
+{
+    zSpdMax *= 0.9;
+    zSpd = zSpdMax;
+    if (WaterCollision(x, y))
+    {
+        instance_destroy(self);
+        exit;
+    }
+}
+z = clamp(z, 0, 99999);
+
+#define EffectGeParticleDraw
+
+draw_sprite_ext(
+    sprShadow,
+    0,
+    x,
+    y,
+    min(0.5, abs(image_xscale / (z * 0.2))),
+    min(0.5, abs(image_yscale / (z * 0.2))),
+    0,
+    c_white,
+    image_alpha * 0.5
+);
+
+draw_sprite_ext(
+    sprite_index,
+    image_index,
+    x,
+    y - z,
+    image_xscale,
+    image_yscale,
+    image_angle,
+    image_blend,
+    image_alpha
+);
+
+
 

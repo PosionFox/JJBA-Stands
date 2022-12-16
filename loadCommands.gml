@@ -37,6 +37,7 @@ switch (args[0])
     // p5
     case "sf": GiveStickyFingers(player); break;
     case "ge": GiveGoldExperience(player); break;
+    case "ger": GiveGer(player); break;
     case "kc": GiveKingCrimson(player); break;
     // p6
     case "ws": GiveWhiteSnake(player); break;

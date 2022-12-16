@@ -264,6 +264,7 @@ attackStateTimer += 1 / room_speed;
 switch (attackState)
 {
     case 0:
+        flagWave = 100
         USAflag.visible = true;
         USAflag.x = x;
         USAflag.y = y;
@@ -274,7 +275,8 @@ switch (attackState)
     break;
     case 1:
         var _ang = _dir;
-        _ang -= cos(current_time / 100) * 2;
+        _ang -= cos(flagWave / 5) * 2;
+        flagWave = lerp(flagWave, 0, 0.02);
         USAflag.x = x + lengthdir_x(18, _ang);
         USAflag.y = y + lengthdir_y(18, _ang);
         USAflag.image_xscale = lerp(USAflag.image_xscale, 1, 0.1);
@@ -546,6 +548,7 @@ with (_s)
     hasHeart = true;
     hasEye = false;
     
+    flagWave = 10000;
     USAflag = ModObjectSpawn(x, y, depth);
     with (USAflag)
     {

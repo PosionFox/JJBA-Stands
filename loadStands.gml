@@ -22,6 +22,7 @@ loadKillerQueenBtD();
 #region p5
 
 loadGoldExperience();
+GER();
 loadStickyFingers();
 loadKingCrimson();
 

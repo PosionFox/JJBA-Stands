@@ -274,6 +274,12 @@ if (instance_exists(STAND))
                 [GiveSQBTD, 1]
             ]
             script_execute(random_weight(_stands), player);
+            Trace("The arrow merges with the stand!");
+        break;
+        case "Gold Experience":
+            RemoveStand(player);
+            GiveGer(player);
+            Trace("The arrow reacts with the stand!");
         break;
         default:
             Trace("Nothing happens...");

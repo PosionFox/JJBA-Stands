@@ -29,6 +29,7 @@ switch (_stand)
     // p5
     case "jjbamSf": GiveStickyFingers(player); break;
     case "jjbamGe": GiveGoldExperience(player); break;
+    case "jjbamGer": GiveGer(player); break;
     case "jjbamKc": GiveKingCrimson(player); break;
     // p6
     case "jjbamWs": GiveWhiteSnake(player); break;

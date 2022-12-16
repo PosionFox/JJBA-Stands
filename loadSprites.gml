@@ -197,6 +197,12 @@ global.sprSkillLifeFormScorpion = sprite_add(p + "SkillLifeFormScorpion.png", 1,
 global.sprSkillLifeFormFrog = sprite_add(p + "SkillLifeFormFrog.png", 1, false, false, 16, 16);
 global.sprSkillSelfHeal = sprite_add(p + "SkillSelfHeal.png", 1, false, false, 16, 16);
 
+// requiem
+p = "Resources/Sprites/GE/Requiem/";
+global.sprGER = sprite_add(p + "GER.png", 1, false, false, 16, 19);
+
+global.sprSkillRequiem = sprite_add(p + "SkillRequiem.png", 1, false, false, 16, 16);
+
 #endregion
 
 #region king crimson
