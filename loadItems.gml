@@ -355,7 +355,7 @@ if (instance_exists(STAND))
         case "Spin":
             GiveTusk(player);
         break;
-        case "D4C":
+        case "Dirty Deeds Done Dirt Cheap":
             STAND.hasArm = true;
             D4CEvolveIfCan();
         break;
@@ -421,7 +421,7 @@ if (instance_exists(STAND))
                 STAND.nails += 5;
             }
         exit;
-        case "D4C":
+        case "Dirty Deeds Done Dirt Cheap":
             STAND.hasEye = true;
             D4CEvolveIfCan();
         break;
