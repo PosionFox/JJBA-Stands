@@ -195,6 +195,38 @@ global.jjbamLeftArm = ItemCreate(
 
 #endregion
 
+global.jjPrayerBeads = ItemCreate(
+    undefined,
+    "Prayer Beads",
+    "Summons Enrico Pucci.",
+    global.sprPrayerBeads,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    815,
+    0,
+    0,
+    [
+        Item.SpiritOrb, 1,
+        Item.RoyalSteel, 5,
+        Item.Thread, 1
+    ],
+    ScriptWrap(PrayerBeadsUse),
+    5 * 60,
+    true
+)
+StructureAddItem(Structure.Forge, global.jjPrayerBeads);
+
+#define PrayerBeadsUse
+
+if (global.pucciSpawned == false)
+{
+    SpawnPucci("", "");
+}
+else
+{
+    GainItem(global.jjPrayerBeads);
+}
+
 #define AnubisUse
 
 var _dir = point_direction(x, y, mouse_x, mouse_y);

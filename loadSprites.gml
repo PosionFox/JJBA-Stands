@@ -12,6 +12,7 @@ global.sprEternalArrow = sprite_add(p + "EternalArrow.png", 1, false, false, 8, 
 global.sprHeart = sprite_add(p + "Heart.png", 1, false, false, 8, 8);
 global.sprEye = sprite_add(p + "Eye.png", 1, false, false, 8, 8);
 global.sprLeftArm = sprite_add(p + "LeftArm.png", 1, false, false, 8, 8);
+global.sprPrayerBeads = sprite_add(p + "PrayerBeads.png", 1, false, false, 8, 8);
 
 #endregion
 
