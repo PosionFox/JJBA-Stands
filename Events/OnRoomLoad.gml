@@ -16,8 +16,8 @@ if (room != rmGame)
     if (instance_exists(player))
     {
         InitPlayerVariables();
-        var _map = ModSaveDataFetch();
-        LoadStand(_map);
-        ds_map_destroy(_map);
+        //var _map = ModSaveDataFetch();
+        //LoadStand(_map);
+        LoadData();
     }
 }

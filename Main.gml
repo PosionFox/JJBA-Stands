@@ -15,6 +15,11 @@ if (instance_exists(player))
     {
         player.skCustomStands = false;
     }
+    if !bool("summonKeybind" in player) { player.summonKeybind = "Q" }
+    if !bool("abilityKeybind1" in player) { player.abilityKeybind1 = "R" }
+    if !bool("abilityKeybind2" in player) { player.abilityKeybind2 = "F" }
+    if !bool("abilityKeybind3" in player) { player.abilityKeybind3 = "C" }
+    if !bool("abilityKeybind4" in player) { player.abilityKeybind4 = "G" }
 }
 
 #define newClass(class)

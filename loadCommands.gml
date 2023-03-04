@@ -10,7 +10,38 @@ CommandCreate("jjbamKillNPCs", true, ScriptWrap(jjbamKillNPCs));
 
 CommandCreate("jjVarSpy", true, ScriptWrap(JjVarSpy), "obj");
 
+CommandCreate("jjRemapKeybind", false, ScriptWrap(jjRemapKeybind), "summon/ability", "key");
 
+#define jjRemapKeybind(args)
+
+var _key = string_upper(args[1]);
+
+switch (args[0])
+{
+    case "summon":
+        player.summonKeybind = _key;
+    break;
+    case "ability1":
+        player.abilityKeybind1 = _key;
+        STAND.skills[StandState.SkillAOff, StandSkill.Key] = _key;
+        STAND.skills[StandState.SkillA, StandSkill.Key] = _key;
+    break;
+    case "ability2":
+        player.abilityKeybind2 = _key;
+        STAND.skills[StandState.SkillBOff, StandSkill.Key] = _key;
+        STAND.skills[StandState.SkillB, StandSkill.Key] = _key;
+    break;
+    case "ability3":
+        player.abilityKeybind3 = _key;
+        STAND.skills[StandState.SkillCOff, StandSkill.Key] = _key;
+        STAND.skills[StandState.SkillC, StandSkill.Key] = _key;
+    break;
+    case "ability4":
+        player.abilityKeybind4 = _key;
+        STAND.skills[StandState.SkillDOff, StandSkill.Key] = _key;
+        STAND.skills[StandState.SkillD, StandSkill.Key] = _key;
+    break;
+}
 
 #define CheatGiveStand(args)
 

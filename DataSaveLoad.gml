@@ -112,6 +112,11 @@ if (instance_exists(player))
     {
         _map[? "jjbamCustomStands"] = player.skCustomStands;
     }
+    _map[? "jjSummonKeybind"] = player.summonKeybind;
+    _map[? "jjAbilityKeybind1"] = player.abilityKeybind1;
+    _map[? "jjAbilityKeybind2"] = player.abilityKeybind2;
+    _map[? "jjAbilityKeybind3"] = player.abilityKeybind3;
+    _map[? "jjAbilityKeybind4"] = player.abilityKeybind4;
 }
 
 _map[? "jjQuestPucciBlueprintCompleted"] = global.questPucciBlueprintCompleted;
@@ -151,6 +156,26 @@ switch (_standCompatibility)
     case "kqbtd": GiveKillerQueenBtD(player); break;
 }
 LoadStand(_map);
+
+if (instance_exists(player))
+{
+    if (_map[? "jjSummonKeybind"] != undefined) { player.summonKeybind = _map[? "jjSummonKeybind"]; }
+    if (_map[? "jjAbilityKeybind1"] != undefined) { player.abilityKeybind1 = _map[? "jjAbilityKeybind1"]; }
+    if (_map[? "jjAbilityKeybind2"] != undefined) { player.abilityKeybind2 = _map[? "jjAbilityKeybind2"]; }
+    if (_map[? "jjAbilityKeybind3"] != undefined) { player.abilityKeybind3 = _map[? "jjAbilityKeybind3"]; }
+    if (_map[? "jjAbilityKeybind4"] != undefined) { player.abilityKeybind4 = _map[? "jjAbilityKeybind4"]; }
+}
+if (instance_exists(STAND))
+{
+    STAND.skills[StandState.SkillAOff, StandSkill.Key] = player.abilityKeybind1;
+    STAND.skills[StandState.SkillA, StandSkill.Key] = player.abilityKeybind1;
+    STAND.skills[StandState.SkillBOff, StandSkill.Key] = player.abilityKeybind2;
+    STAND.skills[StandState.SkillB, StandSkill.Key] = player.abilityKeybind2;
+    STAND.skills[StandState.SkillCOff, StandSkill.Key] = player.abilityKeybind3;
+    STAND.skills[StandState.SkillC, StandSkill.Key] = player.abilityKeybind3;
+    STAND.skills[StandState.SkillDOff, StandSkill.Key] = player.abilityKeybind4;
+    STAND.skills[StandState.SkillD, StandSkill.Key] = player.abilityKeybind4;
+}
 
 // Trace(_map[? "jjbamAbilitySkills"]);
 // if (_map[? "jjbamAbilitySkills"] != undefined)

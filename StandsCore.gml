@@ -37,7 +37,7 @@ draw_text(32, _height - 138, string_lower(string(name)));
 draw_line_color(32, _height - 144, 32 + 255, _height - 144, color, c_black);
 draw_set_valign(fa_middle);
 draw_set_halign(fa_center);
-draw_text(24, _height - 84, "q");
+draw_text(24, _height - 84, string_lower(player.summonKeybind));
 
 var _start = StandState.SkillAOff;
 var _end = StandState.SkillDOff;
@@ -192,7 +192,7 @@ script_execute(runCDsMethod);
 
 if (state == StandState.Idle)
 {
-    if (keyboard_check_pressed(ord("Q")))
+    if (keyboard_check_pressed(ord(player.summonKeybind)))
     {
         active = !active;
         if (active)
@@ -327,10 +327,10 @@ _arr[StandState.SkillB, StandSkill.GpBtn] = _arr[StandState.SkillBOff, StandSkil
 _arr[StandState.SkillC, StandSkill.GpBtn] = _arr[StandState.SkillCOff, StandSkill.GpBtn];
 _arr[StandState.SkillD, StandSkill.GpBtn] = _arr[StandState.SkillDOff, StandSkill.GpBtn];
 
-_arr[StandState.SkillAOff, StandSkill.Key] = "R";
-_arr[StandState.SkillBOff, StandSkill.Key] = "F";
-_arr[StandState.SkillCOff, StandSkill.Key] = "C";
-_arr[StandState.SkillDOff, StandSkill.Key] = "G";
+_arr[StandState.SkillAOff, StandSkill.Key] = player.abilityKeybind1;
+_arr[StandState.SkillBOff, StandSkill.Key] = player.abilityKeybind2;
+_arr[StandState.SkillCOff, StandSkill.Key] = player.abilityKeybind3;
+_arr[StandState.SkillDOff, StandSkill.Key] = player.abilityKeybind4;
 _arr[StandState.SkillA, StandSkill.Key] = _arr[StandState.SkillAOff, StandSkill.Key];
 _arr[StandState.SkillB, StandSkill.Key] = _arr[StandState.SkillBOff, StandSkill.Key];
 _arr[StandState.SkillC, StandSkill.Key] = _arr[StandState.SkillCOff, StandSkill.Key];
