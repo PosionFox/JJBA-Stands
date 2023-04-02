@@ -38,7 +38,7 @@ for (var i = 0; i < 3; i++)
         damage = GetDmg(s);
         direction = _d;
         canMoveInTs = false;
-        sprite_index = global.sprKnife;
+        sprite_index = other.sprKnife;
     }
 }
 EndAtk(s);
@@ -209,7 +209,7 @@ if (distance_to_point(_xx, _yy) < 2)
             direction = _dir;
             direction += random_range(-4, 4);
             canMoveInTs = false;
-            sprite_index = global.sprKnife;
+            sprite_index = other.sprKnife;
         }
         attackStateTimer = 0;
     }
@@ -322,6 +322,7 @@ with (_s)
     sprite_index = global.sprTheWorldAU;
     color = 0x36c7fb;
     summonSound = global.sndTwSummon;
+    sprKnife = global.sprKnife;
     saveKey = "jjbamTwau";
     discType = global.jjbamDiscTwau;
     
@@ -329,6 +330,7 @@ with (_s)
     
     InstanceAssignMethod(self, "drawGUI", ScriptWrap(TWAUDrawGui));
 }
+return _s;
 
 #define TWAUDrawGui
 

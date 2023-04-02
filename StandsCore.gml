@@ -113,11 +113,11 @@ for (var i = StandState.LEN - 1; i > 0; i--)
 {
     if (s[@ i, StandSkill.Cooldown] > 0)
     {
-        s[@ i, StandSkill.Cooldown] -= DT;
+        s[@ i, StandSkill.Cooldown] -= DT * CDMultiplier;
     }
     if (s[@ i, StandSkill.CooldownAlt] > 0)
     {
-        s[@ i, StandSkill.CooldownAlt] -= DT;
+        s[@ i, StandSkill.CooldownAlt] -= DT * CDMultiplier;
     }
 }
 
@@ -379,6 +379,7 @@ with (_stand)
     playSummonSound = true;
     auraParticleSprite = global.sprStandParticle;
     // state
+    CDMultiplier = 1;
     attackState = 0;
     attackStateTimer = 0;
     active = false;

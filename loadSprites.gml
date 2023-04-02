@@ -23,7 +23,8 @@ global.sprBulletGUI = sprite_add(p + "BulletGUI.png", 1, false, false, 16, 16);
 global.sprRevCylinderGUI = sprite_add(p + "RevCylinderGUI.png", 1, false, false, 16, 16);
 global.sprPunchEffect = sprite_add(p + "PunchEffect.png", 6, false, false, 8, 8);
 global.sprStandParticle = sprite_add(p + "StandParticle.png", 1, false, false, 1, 1);
-global.sprStandParticle2 = sprite_add(p + "StandParticle2.png", 1, false, false, 1, 1);
+global.sprStandParticle2 = sprite_add(p + "StandParticle2.png", 1, false, false, 2, 2);
+global.sprStandParticle3 = sprite_add(p + "StandParticle3.png", 1, false, false, 3, 1);
 global.sprHitbox8x8 = sprite_add(p + "Hitbox8x8.png", 1, false, false, 4, 4);
 global.sprHitbox16x16 = sprite_add(p + "Hitbox16x16.png", 1, false, false, 8, 8);
 global.sprHitbox32x32 = sprite_add(p + "Hitbox32x32.png", 1, false, false, 16, 16);
@@ -105,6 +106,8 @@ global.sprSkillTripleKnifeThrow = sprite_add(p + "SkillTripleKnifeThrow.png", 1,
 
 p = "Resources/Sprites/TWAU/";
 global.sprTheWorldAU = sprite_add(p + "TheWorldAU.png", 1, false, false, 16, 19);
+global.sprTheWorldNeo = sprite_add(p + "NEO.png", 1, false, false, 16, 19);
+global.sprNeoKnife = sprite_add(p + "NeoKnife.png", 1, false, false, 8, 8);
 
 // skills
 global.sprSkillKnifeBarrage = sprite_add(p + "SkillKnifeBarrage.png", 1, false, false, 16, 16);
@@ -233,8 +236,13 @@ global.sprSkillTimeErase = sprite_add(p + "SkillTimeErase.png", 1, false, false,
 
 p = "Resources/Sprites/SC/";
 global.sprSilverChariot = sprite_add(p + "SilverChariot.png", 1, false, false, 16, 19);
+global.sprSilverChariotOVA = sprite_add(p + "SilverChariotOVA.png", 1, false, false, 16, 19);
 global.sprSCarmorless = sprite_add(p + "SilverChariotArmorless.png", 1, false, false, 16, 19);
 global.sprScAttack = sprite_add(p + "SCAttack.png", 1, false, false, 16, 16);
+global.sprSkillScBarrage = sprite_add(p + "SkillScBarrage.png", 1, false, false, 16, 16);
+global.sprSkillScLunge = sprite_add(p + "SkillScLunge.png", 1, false, false, 16, 16);
+global.sprSkillScSweep = sprite_add(p + "SkillScSweep.png", 1, false, false, 16, 16);
+global.sprSkillScFtl = sprite_add(p + "SkillScFtl.png", 1, false, false, 16, 16);
 
 #endregion
 

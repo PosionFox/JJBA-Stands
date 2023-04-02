@@ -334,10 +334,12 @@ var _standPool =
     [GiveStickyFingers, 30],
     [GiveGoldExperience, 30],
     [GiveKingCrimson, 30],
+    [GiveSilverChariot, 30],
     [GiveImposter, 1],
     [GiveSpr, 1],
     [GiveShadow, 1],
-    [GiveKcm, 1]
+    [GiveKcm, 1],
+    [GiveScova, 1]
 ]
 
 script_execute(random_weight(_standPool), player);
@@ -465,6 +467,11 @@ if (instance_exists(STAND))
 }
 else
 {
-    GiveTheWorldAU(player);
+    var _standPool =
+    [
+        [GiveTheWorldAU, 30],
+        [GiveNeo, 1]
+    ]
+    script_execute(random_weight(_standPool), player);
 }
 

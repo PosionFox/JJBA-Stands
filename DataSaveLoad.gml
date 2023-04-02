@@ -72,6 +72,8 @@ switch (_stand)
     break;
     case "jjbamSqbtd": GiveSQBTD(player); break;
     case "jjbamKcm": GiveKcm(player); break;
+    case "jjbamScova": GiveScova(player); break;
+    case "jjbamNeo": GiveNeo(player); break;
 }
 
 #define SaveData

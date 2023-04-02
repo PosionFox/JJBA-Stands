@@ -55,6 +55,8 @@ TWOVA();
 Shadow();
 KCM();
 SQBTD();
+SCOVA();
+NEO();
 
 #endregion
 

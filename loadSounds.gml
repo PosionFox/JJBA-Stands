@@ -52,6 +52,18 @@ global.sndSprFinger = audio_create_stream(p + "sprFinger.ogg");
 
 #endregion
 
+#region silver chariot
+
+p = "Resources/Sounds/SC/";
+global.sndScSummon = audio_create_stream(p + "scSummon.ogg");
+global.sndScBarrage = audio_create_stream(p + "scBarrage.ogg");
+global.sndScLunge = audio_create_stream(p + "scLunge.ogg");
+global.sndScSweep = audio_create_stream(p + "scSweep.ogg");
+global.sndScArmorOff = audio_create_stream(p + "scArmorOff.ogg");
+global.sndScBladeOff = audio_create_stream(p + "scBladeOff.ogg");
+
+#endregion
+
 #region killer queen
 
 p = "Resources/Sounds/KQ/";
