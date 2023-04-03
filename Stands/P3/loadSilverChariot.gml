@@ -178,7 +178,7 @@ _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillScBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 4;
-_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.";
+_skills[sk, StandSkill.Desc] = "stab barrage:\nlaunches a barrage of thursts.";
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = ScLunge;
@@ -187,7 +187,7 @@ _skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.Icon] = global.sprSkillScLunge;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
-_skills[sk, StandSkill.Desc] = "lunge:\ncharges and launches a strong punch.";
+_skills[sk, StandSkill.Desc] = "lunge:\nleaps forward with a strong stab.";
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = ScSweep;
@@ -195,7 +195,7 @@ _skills[sk, StandSkill.Damage] = 5;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillScSweep;
 _skills[sk, StandSkill.MaxCooldown] = 4;
-_skills[sk, StandSkill.Desc] = "sweep:\nstar platinum stretches their finger hitting enemies in the way.";
+_skills[sk, StandSkill.Desc] = "sweep:\nslashes forward with a raking attack.";
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = ScFTL;
@@ -203,8 +203,8 @@ _skills[sk, StandSkill.Icon] = global.sprSkillScFtl;
 _skills[sk, StandSkill.MaxCooldown] = 60;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
 _skills[sk, StandSkill.Desc] = @"faster than light:
-stops the time, most enemies are not allowed to move
-and makes your projectiles freeze in place.";
+silver chariot removes its armor, providing high attack speed
+and shorter cooldowns.";
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)
