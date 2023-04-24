@@ -242,7 +242,10 @@ if (active)
         scaleX = mouseXSide;
         image_xscale = mouseXSide;
         alphaTarget = 1;
-        script_execute(idlePos);
+        if (runIdlePos)
+        {
+            script_execute(idlePos);
+        }
         height = 2 + (cos(current_time / 1000) * 2);
     }
     EffectStandAuraCreate(x, y - height, auraParticleSprite, color);
@@ -398,6 +401,7 @@ with (_stand)
     soundIdleTimer = irandom_range(60, 120);
     soundWhenHurt = undefined;
     soundWhenDead = undefined;
+    runIdlePos = true;
     idlePos = StandDefaultPos;
     summonMethod = StandDefaultSummon;
     runCDsMethod = StandSkillDefaultCDs;

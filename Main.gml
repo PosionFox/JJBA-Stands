@@ -28,7 +28,7 @@ return array_clone(class);
 
 #define printVersion
 
-Trace("jjbas v0.6.0b");
+Trace("jjbas v0.6.0");
 
 #define Main
 

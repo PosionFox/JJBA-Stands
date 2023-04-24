@@ -225,4 +225,13 @@ global.sndTa4Summon = audio_create_stream(p + "ta4Summon.ogg");
 
 #endregion
 
+#region whitesnake
 
+p = "Resources/Sounds/Pucci/WS/";
+global.sndWsSummon = audio_create_stream(p + "wsSummon.ogg");
+global.sndAcidicSpit = audio_create_stream(p + "wsAcidicSpit.ogg");
+global.sndMeltYourHeart = audio_create_stream(p + "wsMeltYourHeart.ogg");
+global.sndWsDiscSteal = audio_create_stream(p + "wsDiscSteal.ogg");
+
+
+#endregion

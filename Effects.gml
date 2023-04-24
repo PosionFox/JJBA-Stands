@@ -522,6 +522,7 @@ with (o)
     image_blend = _c;
     z = 0;
     zGrav = 4;
+    bouncy = 0.9;
     zSpdMax = random_range(10, 15);
     zSpd = zSpdMax;
     speed = random(2);
@@ -545,11 +546,11 @@ image_alpha = min(life, 1);
 
 speed *= 0.98;
 z += zSpd - zGrav;
-zSpd *= 0.9;
+zSpd *= bouncy;
 
 if (z <= 0)
 {
-    zSpdMax *= 0.9;
+    zSpdMax *= bouncy;
     zSpd = zSpdMax;
     if (WaterCollision(x, y))
     {
