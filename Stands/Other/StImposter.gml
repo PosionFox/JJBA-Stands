@@ -142,6 +142,7 @@ with (_s)
     discType = global.jjbamDiscSus;
     isRare = true;
     rot = 0;
+    sprKnife = global.sprKnife;
     
     InstanceAssignMethod(self, "draw", ScriptWrap(ImposterDraw), false);
 }

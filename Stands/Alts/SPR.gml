@@ -162,5 +162,6 @@ with (_s)
     skills[StandState.SkillB, StandSkill.Skill] = SprStrongPunch;
     skills[StandState.SkillC, StandSkill.Skill] = SprStarFinger;
     skills[StandState.SkillD, StandSkill.Skill] = SprTimestop;
+    skills[StandState.SkillD, StandSkill.SkillAlt] = AttackHandler;
 }
 return _s;

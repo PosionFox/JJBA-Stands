@@ -31,10 +31,11 @@ global.sndRevReload = audio_create_stream(p + "revReload.ogg");
 p = "Resources/Sounds/SP/";
 global.sndSpSummon = audio_create_stream(p + "spSummon.ogg");
 global.sndSpTs = audio_create_stream(p + "spTs.ogg");
+global.sndSpOpenSoda = audio_create_stream(p + "spOpenSoda.ogg");
 
 #endregion
 
-#region star platinum ova
+#region star platinum retro
 
 p = "Resources/Sounds/SPR/";
 global.sndSprOra = audio_create_stream(p + "sprOra.ogg");
@@ -49,6 +50,13 @@ global.sndSprDead = audio_create_stream(p + "sprDead.ogg");
 global.sndSprTs = audio_create_stream(p + "sprTs.ogg");
 global.sndSprStaar = audio_create_stream(p + "sprStaar.ogg");
 global.sndSprFinger = audio_create_stream(p + "sprFinger.ogg");
+
+#endregion
+
+#region star platinum the world
+
+p = "Resources/Sounds/SPTW/";
+global.sndSptwTp = audio_create_stream(p + "sptwTp.ogg");
 
 #endregion
 

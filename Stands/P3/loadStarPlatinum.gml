@@ -24,6 +24,13 @@ if (instance_exists(STAND) or room != rmGame)
 }
 GiveStarPlatinum(player);
 
+#define Soda(m, s)
+
+player.hp += 2;
+audio_play_sound(global.sndSpOpenSoda, 5, false);
+EffectSodaCreate(player);
+EndAtk(s);
+
 #define StarFinger(method, skill) //attacks
 
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
@@ -106,11 +113,54 @@ audio_play_sound(global.sndSpTs, 5, false);
 TimestopCreate(5 + (0.1 * player.level));
 EndAtk(s);
 
+#define SpEvolveToSptw(m, s)
+
+if (xp >= maxXp)
+{
+    audio_play_sound(global.sndStwEvolve, 5, false);
+    var _o = ModObjectSpawn(x, y, 0);
+    with (_o)
+    {
+        timer = 1;
+        
+        InstanceAssignMethod(self, "step", ScriptWrap(SpEvolveToSptwStep), false);
+    }
+}
+else
+{
+    ResetAtk(s);
+}
+
+#define SpEvolveToSptwStep
+
+if (instance_exists(STAND))
+{
+    RemoveStand(player);
+}
+FireEffect(c_purple, c_white);
+timer -= DT;
+if (timer <= 0)
+{
+    var _standPool =
+    [
+        [GiveSPTW, 30],
+        [GiveSPTW, 1]
+    ]
+    script_execute(random_weight(_standPool), player);
+    instance_destroy(self);
+}
+
 #define GiveStarPlatinum(_owner) //stand
 
 var _skills = StandSkillInit();
 
 var sk;
+sk = StandState.SkillAOff;
+_skills[sk, StandSkill.Skill] = JosephKnife;
+_skills[sk, StandSkill.Icon] = global.sprSkillJosephKnife;
+_skills[sk, StandSkill.MaxCooldown] = 10;
+_skills[sk, StandSkill.Desc] = "dio's knife:\ntoss one of dio's knife.";
+
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;
 _skills[sk, StandSkill.Damage] = 1;
@@ -148,9 +198,13 @@ _skills[sk, StandSkill.Desc] = "star finger:\nstar platinum stretches their fing
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = SpTimestop;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimestopSp;
-_skills[sk, StandSkill.MaxCooldown] = 20;
-_skills[sk, StandSkill.MaxExecutionTime] = 1;
-_skills[sk, StandSkill.Desc] = "time stop:\nstops the time, most enemies are not allowed to move\nand makes your projectiles freeze in place.";
+_skills[sk, StandSkill.MaxCooldown] = 25;
+_skills[sk, StandSkill.SkillAlt] = SpEvolveToSptw;
+_skills[sk, StandSkill.IconAlt] = global.sprSkillStwTw;
+_skills[sk, StandSkill.MaxHold] = 2;
+_skills[sk, StandSkill.Desc] = @"time stop:
+stops the time, most enemies are not allowed to move
+and makes your projectiles freeze in place.";
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)
@@ -161,5 +215,11 @@ with (_s)
     summonSound = global.sndSpSummon;
     discType = global.jjbamDiscSp;
     saveKey = "jjbamSp";
+    
+    maxXp = 1000;
+    xp = 0;
+    knifeSprite = global.sprKnife;
+    
+    InstanceAssignMethod(self, "drawGUI", ScriptWrap(StwDrawGui), true);
 }
 return _s;

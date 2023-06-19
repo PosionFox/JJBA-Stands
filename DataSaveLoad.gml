@@ -7,7 +7,18 @@ switch (_stand)
 {
     // p3
     case "jjbamTw": GiveTheWorld(player); break;
-    case "jjbamSp": GiveStarPlatinum(player); break;
+    case "jjbamSp":
+        GiveStarPlatinum(player);
+        var _xp = _map[? "jjbamSpXp"];
+        if (_xp == undefined)
+        {
+            STAND.xp = 0;
+        }
+        else
+        {
+            STAND.xp = _xp;
+        }
+    break;
     case "jjbamSc": GiveSilverChariot(player); break;
     case "jjbamAnubis": GiveAnubis(player); break;
     case "jjbamStw":
@@ -93,6 +104,9 @@ if (instance_exists(player))
         {
             case "jjbamStw": // save stw xp
                 _map[? "jjbamStwXp"] = STAND.xp;
+            break;
+            case "jjbamSp":
+                _map[? "jjbamSpXp"] = STAND.xp;
             break;
             case "jjbamShadow":
                 _map[? "jjbamShadowXp"] = STAND.xp;

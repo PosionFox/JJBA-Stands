@@ -586,5 +586,77 @@ draw_sprite_ext(
     image_alpha
 );
 
+#define EffectSodaCreate(_id)
 
+var _o = ModObjectSpawn(_id.x, _id.y, _id.depth - 1);
+with (_o)
+{
+    target = _id;
+    sprite_index = global.sprSoda;
+    image_xscale = 0;
+    life = 2;
+    z = 0;
+    state = "lower";
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(EffectSodaStep));
+    InstanceAssignMethod(self, "draw", ScriptWrap(EffectSodaDraw), false);
+}
 
+#define EffectSodaStep
+
+life -= DT;
+if (life <= 0)
+{
+    image_alpha -= 0.1;
+    if (image_alpha <= 0)
+    {
+        instance_destroy(self);
+        exit;
+    }
+}
+
+image_xscale = lerp(image_xscale, 1, 0.1);
+switch (state)
+{
+    case "lower":
+        x = target.x + (5 * player.facing);
+        y = target.y;
+        z = 0;
+        if (life <= 1)
+        {
+            state = "upper";
+        }
+    break;
+    case "upper":
+        x = target.x + (5 * player.facing);
+        y = target.y;
+        z = lerp(z, 4, 0.1);
+        image_angle = lerp(image_angle, 45 * player.facing, 0.1)
+    break;
+}
+
+#define EffectSodaDraw
+
+draw_sprite_ext(
+    sprShadow,
+    0,
+    x,
+    y,
+    min(0.5, abs(image_xscale / (z * 0.2))),
+    min(0.5, abs(image_yscale / (z * 0.2))),
+    0,
+    c_white,
+    image_alpha * 0.5
+);
+
+draw_sprite_ext(
+    sprite_index,
+    image_index,
+    x,
+    y - z,
+    image_xscale,
+    image_yscale,
+    image_angle,
+    image_blend,
+    image_alpha
+);

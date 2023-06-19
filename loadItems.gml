@@ -335,6 +335,7 @@ var _standPool =
     [GiveGoldExperience, 30],
     [GiveKingCrimson, 30],
     [GiveSilverChariot, 30],
+    [GiveWhiteSnake, 30],
     [GiveImposter, 1],
     [GiveSpr, 1],
     [GiveShadow, 1],

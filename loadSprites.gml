@@ -121,6 +121,7 @@ p = "Resources/Sprites/SP/";
 global.sprStarPlatinum = sprite_add(p + "StarPlatinum.png", 1, false, false, 16, 19);
 global.sprStarPlatinumPunch = sprite_add(p + "StarPlatinumPunch.png", 1, false, false, 16, 16);
 global.sprStarPlatinumFinger = sprite_add(p + "StarPlatinumFinger.png", 1, false, false, 1, 1);
+global.sprSoda = sprite_add(p + "Soda.png", 1, false, false, 4, 4);
 
 // skills
 global.sprSkillBarrageSp = sprite_add(p + "SkillBarrageSp.png", 1, false, false, 16, 16);
@@ -129,8 +130,9 @@ global.sprSkillStarFinger = sprite_add(p + "SkillStarFinger.png", 1, false, fals
 global.sprSkillTimestopSp = sprite_add(p + "SkillTimestopSp.png", 1, false, false, 16, 16);
 
     // star platinum the world
-p = "Resources/Sprites/SP/SPTW/";
+p = "Resources/Sprites/SPTW/";
 global.sprSptw = sprite_add(p + "SPTW.png", 1, false, false, 16, 19);
+global.sprSkillSoda = sprite_add(p + "SkillSoda.png", 1, false, false, 16, 16);
 
 #endregion
 

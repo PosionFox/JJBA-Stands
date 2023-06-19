@@ -7,6 +7,10 @@ if (instance_exists(player))
     {
         switch (STAND.saveKey)
         {
+            case "jjbamSp":
+                STAND.xp += _mob.hpMax;
+                STAND.xp = min(STAND.maxXp, STAND.xp);
+            break;
             case "jjbamStw":
                 STAND.xp += _mob.hpMax;
                 STAND.xp = min(STAND.maxXp, STAND.xp);

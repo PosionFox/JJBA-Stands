@@ -370,11 +370,12 @@ attackStateTimer += DT;
 #define StwTimestop(method, skill)
 
 xTo = player.x;
-yTo = player.y;
+yTo = player.y - 8;
 
 switch (attackState)
 {
     case 0:
+        alphaTarget = 1;
         var _tsExists = modTypeExists("timestop");
 
         if (_tsExists)
@@ -407,7 +408,7 @@ switch (attackState)
     break;
     case 4:
         var s = audio_play_sound(global.sndStwTokiyotomare, 5, false);
-        
+        alphaTarget = 0;
         EndAtk(skill);
     break;
 }
@@ -585,7 +586,7 @@ _skills[sk, StandSkill.Desc] = "throwing knifes:\nthrows two bursts of knifes.";
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = StwTimestop;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimestopStw;
-_skills[sk, StandSkill.MaxCooldown] = 22;
+_skills[sk, StandSkill.MaxCooldown] = 20;
 _skills[sk, StandSkill.SkillAlt] = StwTheWorld;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillStwTw;
 _skills[sk, StandSkill.MaxHold] = 2;
@@ -610,7 +611,7 @@ with (_s)
     soundWhenDead = global.sndStwDead;
     knifeSprite = global.sprKnifeStw;
     discType = global.jjbamDiscStw;
-    maxXp = 300;
+    maxXp = 1000;
     xp = 0;
     
     saveKey = "jjbamStw";
