@@ -12,6 +12,15 @@ CommandCreate("jjVarSpy", true, ScriptWrap(jjVarSpy), "obj");
 
 CommandCreate("jjRemapKeybind", false, ScriptWrap(jjRemapKeybind), "summon/ability", "key");
 
+CommandCreate("jjMaxExp", true, ScriptWrap(jjMaxExp))
+
+#define jjMaxExp
+
+if (instance_exists(STAND) and "xp" in STAND)
+{
+    STAND.xp += 100000000;
+}
+
 #define jjRemapKeybind(args)
 
 var _key = string_upper(args[1]);
@@ -85,6 +94,8 @@ switch (args[0])
     case "sqbtd": GiveSQBTD(player); break;
     case "scova": GiveScova(player); break;
     case "neo": GiveNeo(player); break;
+    case "te": GiveTe(player); break;
+    case "bs": GiveBs(player); break;
     // other
     case "sus": GiveImposter(player); break;
     

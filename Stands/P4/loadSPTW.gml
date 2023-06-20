@@ -131,3 +131,4 @@ with (_s)
     
     knifeSprite = global.sprKnife;
 }
+return _s;

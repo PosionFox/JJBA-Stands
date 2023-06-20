@@ -248,7 +248,8 @@ if (active)
         }
         height = 2 + (cos(current_time / 1000) * 2);
     }
-    EffectStandAuraCreate(x, y - height, auraParticleSprite, color);
+    var _e = EffectStandAuraCreate(x, y - height, auraParticleSprite, color);
+    _e.rotation = auraParticleRotation;
 }
 else
 {
@@ -381,6 +382,7 @@ with (_stand)
     summonSound = global.sndStandSummon;
     playSummonSound = true;
     auraParticleSprite = global.sprStandParticle;
+    auraParticleRotation = 0;
     // state
     CDMultiplier = 1;
     attackState = 0;

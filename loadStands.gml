@@ -57,6 +57,8 @@ KCM();
 SQBTD();
 SCOVA();
 NEO();
+TimeEmperor();
+BS();
 
 #endregion
 

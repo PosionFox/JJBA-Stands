@@ -348,6 +348,7 @@ with (o)
     sprite_index = _sprite;
     image_blend = _color;
     life = 20;
+    rotation = 0;
     x += random_range(-6, 6);
     y += random_range(-10, 2);
     hspd = random_range(-0.3, 0.3);
@@ -362,6 +363,7 @@ return o;
 x += hspd;
 y += vspd;
 image_alpha = life / 20;
+image_angle += rotation;
 
 if (life > 0)
 {

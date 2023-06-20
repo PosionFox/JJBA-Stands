@@ -340,7 +340,8 @@ var _standPool =
     [GiveSpr, 1],
     [GiveShadow, 1],
     [GiveKcm, 1],
-    [GiveScova, 1]
+    [GiveScova, 1],
+    [GiveBs, 1]
 ]
 
 script_execute(random_weight(_standPool), player);

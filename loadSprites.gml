@@ -25,6 +25,9 @@ global.sprPunchEffect = sprite_add(p + "PunchEffect.png", 6, false, false, 8, 8)
 global.sprStandParticle = sprite_add(p + "StandParticle.png", 1, false, false, 1, 1);
 global.sprStandParticle2 = sprite_add(p + "StandParticle2.png", 1, false, false, 2, 2);
 global.sprStandParticle3 = sprite_add(p + "StandParticle3.png", 1, false, false, 3, 1);
+global.sprStandParticle4 = sprite_add(p + "StandParticle4.png", 1, false, false, 4, 4);
+global.sprStandParticle5 = sprite_add(p + "StandParticle5.png", 1, false, false, 4, 4);
+global.sprStandParticle6 = sprite_add(p + "StandParticle6.png", 1, false, false, 8, 8);
 global.sprHitbox8x8 = sprite_add(p + "Hitbox8x8.png", 1, false, false, 4, 4);
 global.sprHitbox16x16 = sprite_add(p + "Hitbox16x16.png", 1, false, false, 8, 8);
 global.sprHitbox32x32 = sprite_add(p + "Hitbox32x32.png", 1, false, false, 16, 16);
@@ -133,6 +136,8 @@ global.sprSkillTimestopSp = sprite_add(p + "SkillTimestopSp.png", 1, false, fals
 p = "Resources/Sprites/SPTW/";
 global.sprSptw = sprite_add(p + "SPTW.png", 1, false, false, 16, 19);
 global.sprSkillSoda = sprite_add(p + "SkillSoda.png", 1, false, false, 16, 16);
+
+global.sprTimeEmperor = sprite_add(p + "TimeEmperor.png", 1, false, false, 16, 19);
 
 #endregion
 
@@ -325,6 +330,8 @@ global.sprSkillExplosiveSurprise = sprite_add(p + "WS/SkillExplosiveSurprise.png
 global.sprSkillMeltYourHeart = sprite_add(p + "WS/SkillMeltYourHeart.png", 1, false, false, 16, 16);
 global.sprSKillAcidicSpit = sprite_add(p + "WS/SkillAcidicSpit.png", 1, false, false, 16, 16);
 global.sprSKillDiscSteal = sprite_add(p + "WS/SkillDiscSteal.png", 1, false, false, 16, 16);
+
+global.sprBlackSnake = sprite_add(p + "WS/Blacksnake.png", 1, false, false, 16, 19);
 
     // c-moon
 global.sprCMoon = sprite_add(p + "CMoon/CMoon.png", 1, false, false, 16, 19);

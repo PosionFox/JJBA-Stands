@@ -144,7 +144,7 @@ if (timer <= 0)
     var _standPool =
     [
         [GiveSPTW, 30],
-        [GiveSPTW, 1]
+        [GiveTe, 1]
     ]
     script_execute(random_weight(_standPool), player);
     instance_destroy(self);
