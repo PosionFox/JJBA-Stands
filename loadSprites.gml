@@ -327,9 +327,10 @@ global.sprEnricoPucci = sprite_add(p + "EnricoPucci.png", 4, false, false, 16, 1
 global.sprWhiteSnake = sprite_add(p + "WS/Whitesnake.png", 1, false, false, 16, 19);
 global.sprAcidicPool = sprite_add(p + "WS/AcidicPool.png", 1, false, false, 32, 32);
 global.sprSkillExplosiveSurprise = sprite_add(p + "WS/SkillExplosiveSurprise.png", 1, false, false, 16, 16);
+global.sprSkillDiscProduce = sprite_add(p + "WS/SkillDiscProduce.png", 1, false, false, 16, 16);
 global.sprSkillMeltYourHeart = sprite_add(p + "WS/SkillMeltYourHeart.png", 1, false, false, 16, 16);
-global.sprSKillAcidicSpit = sprite_add(p + "WS/SkillAcidicSpit.png", 1, false, false, 16, 16);
-global.sprSKillDiscSteal = sprite_add(p + "WS/SkillDiscSteal.png", 1, false, false, 16, 16);
+global.sprSkillAcidicSpit = sprite_add(p + "WS/SkillAcidicSpit.png", 1, false, false, 16, 16);
+global.sprSkillDiscSteal = sprite_add(p + "WS/SkillDiscSteal.png", 1, false, false, 16, 16);
 
 global.sprBlackSnake = sprite_add(p + "WS/Blacksnake.png", 1, false, false, 16, 19);
 

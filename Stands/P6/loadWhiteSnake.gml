@@ -60,6 +60,11 @@ if (_near != noone)
     ExplosionCreate(_near.x, _near.y, 16, true);
 }
 
+#define DiscProduce(m, s)
+
+DropItem(x, y, global.jjbamDisc, 1);
+EndAtk(s);
+
 #define WsBarrage(method, skill) //attacks
 var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
 var _dir = DIR_PLAYER_TO_MOUSE;
@@ -349,10 +354,17 @@ _skills[sk, StandSkill.Skill] = ExplosiveSurprise;
 _skills[sk, StandSkill.Damage] = 1;
 _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillExplosiveSurprise;
-_skills[sk, StandSkill.MaxCooldown] = 5;
+_skills[sk, StandSkill.MaxCooldown] = 7;
 _skills[sk, StandSkill.MaxExecutionTime] = 2;
 _skills[sk, StandSkill.Desc] = @"explosive surprise:
 toss an explosive disc forward.";
+
+sk = StandState.SkillCOff;
+_skills[sk, StandSkill.Skill] = DiscProduce;
+_skills[sk, StandSkill.Icon] = global.sprSkillDiscProduce;
+_skills[sk, StandSkill.MaxCooldown] = 20;
+_skills[sk, StandSkill.Desc] = @"disc produce:
+whitesnake produces a new blank disc.";
 
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = MeltYourHeart;
@@ -383,7 +395,7 @@ sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = AcidicSpit;
 _skills[sk, StandSkill.Damage] = 1;
 _skills[sk, StandSkill.DamageScale] = 0.05;
-_skills[sk, StandSkill.Icon] = global.sprSKillAcidicSpit;
+_skills[sk, StandSkill.Icon] = global.sprSkillAcidicSpit;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.Desc] = "acidic spit:\nspits a projectile forwards that deals damage over time.";
 
@@ -391,8 +403,8 @@ sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = DiscSteal;
 _skills[sk, StandSkill.Damage] = 1;
 _skills[sk, StandSkill.DamageScale] = 0.05;
-_skills[sk, StandSkill.Icon] = global.sprSKillDiscSteal;
-_skills[sk, StandSkill.MaxCooldown] = 12;
+_skills[sk, StandSkill.Icon] = global.sprSkillDiscSteal;
+_skills[sk, StandSkill.MaxCooldown] = 16;
 _skills[sk, StandSkill.Desc] = "disc steal:\nsteals your target's memory disc rendering them useless.";
 
 var _s = StandBuilder(_owner, _skills);

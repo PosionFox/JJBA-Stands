@@ -9,7 +9,7 @@ if (instance_exists(player))
 {
     if !("myStand" in player)
     {
-        STAND = noone;
+        player.myStand = noone;
     }
     if !("skCustomStands" in player)
     {
