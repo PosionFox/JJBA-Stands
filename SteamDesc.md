@@ -13,10 +13,13 @@ You can try any of the following options:
 [h1]How to use your Stand[/h1]
 You can summon or dismiss your Stand by pressing Q, some abilities can only be executed with your Stand being active and some others not.
 The keybinds for using your Stand's abilities are: R, F, C and G; some Stands have abilities that can be performed by holding the respective ability keybind.
+You can remap your keybinds with the jjRemapKeybind command, examples:
+/jjRemapKeybind summon z (changes your summon keybind to z)
+/jjRemapKeybind ability3 h (changes your third ability keybind to h)
 
 
 [h1]How to get more Stands[/h1]
-You can't own more than one Stand at a time, to get more Stands you first need to finish Pucci's first quest, he will rarely spawn at the center of the map, once you do so he will reward you with a blueprint for crafting empty Stand discs, these discs will remove and store your current Stand inside it allowing you to get new Stands. After using the disc blueprint Pucci will have a new quest available.
+You can't own more than one Stand at a time, to get more Stands you first need to either find a rokakaka tree and chop it down(eat it's fruit, this will remove your Stand) or finish Pucci's first quest, he will rarely spawn at the center of the map, once you do so he will reward you with a blueprint for crafting empty Stand discs, these discs will remove and store your current Stand inside it allowing you to get new Stands. After using the disc blueprint Pucci will have a new quest available.
 
 
 [h1]How to evolve your Stand[/h1]
@@ -27,6 +30,7 @@ Some Stands are capable of evolving into a stronger form:
 [*]Killer Queen can evolve into Killer Queen: Bites the Dust or Shadow Queen: Bites the Dust(rare) upon using a Requiem arrow
 [*]Gold Experience can evolve into Requiem upon using a Requiem arrow
 [*]Dirty Deeds Done Dirt Cheap can evolve into D4C: Love Train by collecting and using the missing Holy parts
+[*]Star Platinum can evolve into Star Platinum: The World with enough experience gained or Time Emperor(rare)
 [/list]
 
 
@@ -38,11 +42,15 @@ Some Stands are capable of evolving into a stronger form:
 [*]Gold Experience
 [*]Sticky Fingers
 [*]King Crimson
+[*]Silver Chariot
+[*]WhiteSnake
 [b][i]Rare:[/i][/b]
 [*]Star Platinum Retro
 [*]Imposter
 [*]Shadow
 [*]King Crimson Manga
+[*]Silver Chariot OVA
+[*]BlackSnake
 [/list]
 rare stands have a weight of 1 instead of 30.
 
