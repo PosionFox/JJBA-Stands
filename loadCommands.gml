@@ -83,6 +83,8 @@ switch (args[0])
     case "twau": GiveTheWorldAU(player); break;
     case "tusk": GiveTusk(player); break;
     case "tusk4": GiveTusk4(); break;
+    //p8
+    case "snw": GiveSoftAndWet(player); break;
     // alts
     case "sw": GiveSpookyWorld(player); break;
     case "spr": GiveSpr(player); break;
@@ -96,6 +98,7 @@ switch (args[0])
     case "neo": GiveNeo(player); break;
     case "te": GiveTe(player); break;
     case "bs": GiveBs(player); break;
+    case "snwg": GiveSnwg(player); break;
     // other
     case "sus": GiveImposter(player); break;
     

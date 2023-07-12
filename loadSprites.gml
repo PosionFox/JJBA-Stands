@@ -5,6 +5,8 @@ var p = ""; // path short
 
 p = "Resources/Sprites/Items/";
 global.sprArrow = sprite_add(p + "Arrow.png", 1, false, false, 8, 8);
+global.sprRokakaka = sprite_add(p + "Rokakaka.png", 1, false, false, 8, 8);
+global.sprRokakakaTree = sprite_add(p + "RokakakaTree.png", 1, false, false, 8, 31);
 global.sprDisc = sprite_add(p + "Disc.png", 1, false, false, 8, 8);
 global.sprDiscBlueprint = sprite_add(p + "DiscBlueprint.png", 1, false, false, 8, 8);
 global.sprArrowBeetle = sprite_add(p + "ArrowBeetle.png", 1, false, false, 8, 8);
@@ -336,6 +338,16 @@ global.sprBlackSnake = sprite_add(p + "WS/Blacksnake.png", 1, false, false, 16, 
 
     // c-moon
 global.sprCMoon = sprite_add(p + "CMoon/CMoon.png", 1, false, false, 16, 19);
+
+#endregion
+
+#region soft and wet
+
+p = "Resources/Sprites/SnW/";
+
+global.sprSoftAndWet = sprite_add(p + "SnW.png", 1, false, false, 16, 19);
+global.sprSoftAndWetGolden = sprite_add(p + "SnWG.png", 1, false, false, 16, 19);
+global.sprBubble = sprite_add(p + "Bubble.png", 1, false, false, 4, 4);
 
 #endregion
 

@@ -241,5 +241,12 @@ global.sndAcidicSpit = audio_create_stream(p + "wsAcidicSpit.ogg");
 global.sndMeltYourHeart = audio_create_stream(p + "wsMeltYourHeart.ogg");
 global.sndWsDiscSteal = audio_create_stream(p + "wsDiscSteal.ogg");
 
+#endregion
+
+#region soft and wet
+
+p = "Resources/Sounds/SnW/";
+global.sndBubble = audio_create_stream(p + "snwBubble.ogg");
+global.sndBubblePop = audio_create_stream(p + "snwBubblePop.ogg");
 
 #endregion

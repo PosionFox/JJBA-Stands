@@ -39,6 +39,7 @@ global.timeIsFrozen = false;
 loadSprites();
 loadSounds();
 loadItems();
+loadSpawns();
 loadStands();
 loadStructures();
 loadNPCs();

@@ -35,6 +35,7 @@ with (_s)
     name = "Silver Chariot OVA";
     color = 0x36f2fb;
     isRare = true;
+    powerMultiplier = 5;
     saveKey = "jjbamScova";
     discType = global.jjbamDiscScova;
 }

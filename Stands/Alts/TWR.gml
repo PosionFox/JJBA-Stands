@@ -184,6 +184,7 @@ with (_s)
     sprite_index = global.sprTWR;
     color = /*#*/0x66a0d9;
     isRare = true;
+    powerMultiplier = 5;
     saveKey = "jjbamTwr";
     discType = global.jjbamDiscTwr;
     

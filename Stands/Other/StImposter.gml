@@ -141,6 +141,7 @@ with (_s)
     saveKey = "jjbamSus";
     discType = global.jjbamDiscSus;
     isRare = true;
+    powerMultiplier = 5;
     rot = 0;
     sprKnife = global.sprKnife;
     

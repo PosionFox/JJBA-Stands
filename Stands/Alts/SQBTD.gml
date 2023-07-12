@@ -33,6 +33,7 @@ with (_s)
     name = "Shadow Queen:\nBites the Dust";
     color = 0x3c2845;
     isRare = true;
+    powerMultiplier = 10;
     auraParticleSprite = global.sprStandParticle2;
     saveKey = "jjbamSqbtd";
     discType = global.jjbamDiscSQBTD;

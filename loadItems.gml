@@ -19,6 +19,22 @@ global.jjbamArrow = ItemCreate(
     true
 );
 
+global.jjbamRokakaka = ItemCreate(
+    undefined,
+    "Rokakaka",
+    "A spiky looking fruit.",
+    global.sprRokakaka,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    100,
+    0,
+    0,
+    undefined,
+    ScriptWrap(RokakakaUse),
+    60 * 2,
+    true
+);
+
 global.jjbamRequiem = ItemCreate(
     undefined,
     "Requiem Arrow",
@@ -215,6 +231,27 @@ global.jjPrayerBeads = ItemCreate(
     true
 )
 StructureAddItem(Structure.Forge, global.jjPrayerBeads);
+
+#define RokakakaUse
+
+if (room != rmGame)
+{
+    GainItem(global.jjbamRokakaka);
+    exit;
+}
+
+if (instance_exists(STAND))
+{
+    if (STAND.discType != noone)
+    {
+        DmgPlayer(1, false);
+        RemoveStand(player);
+    }
+}
+else
+{
+    GainItem(global.jjbamRokakaka);
+}
 
 #define PrayerBeadsUse
 

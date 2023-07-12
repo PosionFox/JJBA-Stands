@@ -49,6 +49,7 @@ with (STAND)
     {
         _damage += player.dmg;
     }
+    _damage = _damage * powerMultiplier;
 }
 
 return _damage;

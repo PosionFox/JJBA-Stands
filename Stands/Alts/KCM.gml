@@ -33,6 +33,7 @@ with (_s)
     name = "King Crimson Manga";
     color = 0xba7bd7;
     isRare = true;
+    powerMultiplier = 5;
     saveKey = "jjbamKcm";
     discType = global.jjbamDiscKcm;
 }

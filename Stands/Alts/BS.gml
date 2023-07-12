@@ -33,6 +33,7 @@ with (_s)
     sprite_index = global.sprBlackSnake;
     color = /*#*/0x342022;
     isRare = true;
+    powerMultiplier = 5;
     auraParticleSprite = global.sprStandParticle4;
     saveKey = "jjbamBs";
     discType = global.jjbamDiscBs;

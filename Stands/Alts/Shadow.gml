@@ -66,6 +66,7 @@ with (_s)
     sprite_index = global.sprShadow;
     color = 0x36f2fb;
     isRare = true;
+    powerMultiplier = 5;
     summonSound = global.sndStw2Summon;
     saveKey = "jjbamShadow";
     discType = global.jjbamDiscShadow;

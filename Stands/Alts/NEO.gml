@@ -33,6 +33,7 @@ with (_s)
     name = "The World Neo";
     color = 0xff9b63;
     isRare = true;
+    powerMultiplier = 7.5;
     auraParticleSprite = global.sprStandParticle3;
     sprKnife = global.sprNeoKnife;
     saveKey = "jjbamNeo";

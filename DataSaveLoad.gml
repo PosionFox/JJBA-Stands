@@ -62,6 +62,8 @@ switch (_stand)
         STAND.hasAct3 = _map[? "jjbamTuskA3"];
         STAND.hasAct4 = _map[? "jjbamTuskA4"];
     break;
+    // p8
+    case "jjbamSnw": GiveSoftAndWet(player); break;
     // other
     case "jjbamSw": GiveSpookyWorld(player); break;
     case "jjbamSus": GiveImposter(player); break;
@@ -87,6 +89,7 @@ switch (_stand)
     case "jjbamNeo": GiveNeo(player); break;
     case "jjbamTe": GiveTe(player); break;
     case "jjbamBs": GiveBs(player); break;
+    case "jjbamSnwg": GiveSnwg(player); break;
 }
 
 #define SaveData

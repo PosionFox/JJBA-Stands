@@ -152,6 +152,7 @@ with (_s)
     sprite_index = global.sprSPR;
     color = /*#*/0xe4cd5f;
     isRare = true;
+    powerMultiplier = 5;
     saveKey = "jjbamSpr";
     discType = global.jjbamDiscSpr;
     

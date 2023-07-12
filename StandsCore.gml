@@ -409,6 +409,7 @@ with (_stand)
     runCDsMethod = StandSkillDefaultCDs;
     runDrawGUI = true;
     // stats
+    powerMultiplier = 1;
     spd = 0.5;
     // skills
     skills = array_clone(_skills);
