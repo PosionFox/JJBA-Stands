@@ -3,7 +3,7 @@
 
 var _c = irandom(100);
 
-if (_c <= 1)
+if (_c <= 3)
 {
     if (_ins.object_index == objTree)
     {
