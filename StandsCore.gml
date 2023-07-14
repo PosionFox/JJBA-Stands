@@ -9,26 +9,21 @@ var _height = display_get_gui_height() - 40;
 
 //draw_text(128, 128, string(objPlayer.dmg)); // debug
 
-if (isRare or isUnobtainable)
+var xx = 168;
+var yy = _height - 200;
+var _ss = random_range(0.85, 1.15);
+var _spr = global.sprStarTier;
+var _c = tier.color;
+if (isUnobtainable) { _spr = sprLegendaryGem; }
+if (isUnobtainable) { _c = c_red; }
+
+draw_sprite_ext(_spr, 0, xx - 4, yy, _ss, _ss, 0, _c, 0.8);
+
+var gx = device_mouse_x_to_gui(0);
+var gy = device_mouse_y_to_gui(0);
+if (point_in_rectangle(gx, gy, xx - 16, yy - 16, xx + 16, yy + 16))
 {
-    var xx = 168;
-    var yy = _height - 200;
-    var _ss = random_range(0.85, 1.15);
-    var _spr = sprStarFragment;
-    var _c = c_purple;
-    if (isUnobtainable) { _spr = sprLegendaryGem; }
-    if (isUnobtainable) { _c = c_red; }
-    
-    draw_sprite_ext(_spr, 0, xx - 4, yy, _ss, _ss, 0, _c, 0.8);
-    
-    var gx = device_mouse_x_to_gui(0);
-    var gy = device_mouse_y_to_gui(0);
-    if (point_in_rectangle(gx, gy, xx - 16, yy - 16, xx + 16, yy + 16))
-    {
-        var txt = "rare";
-        if (isUnobtainable) { txt = "unobtainable"; }
-        draw_text(gx + 8, gy, txt);
-    }
+    draw_text(gx + 8, gy, tier.name);
 }
 
 draw_set_halign(fa_left);
@@ -376,6 +371,10 @@ with (_stand)
     height = 0;
     isRare = false;
     isUnobtainable = false;
+    tier = {
+        name : "common",
+        color : c_white
+    }
     saveKey = "jjbamStandless";
     discType = noone;
     color = c_white;

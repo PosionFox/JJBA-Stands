@@ -34,6 +34,7 @@ global.sprHitbox8x8 = sprite_add(p + "Hitbox8x8.png", 1, false, false, 4, 4);
 global.sprHitbox16x16 = sprite_add(p + "Hitbox16x16.png", 1, false, false, 8, 8);
 global.sprHitbox32x32 = sprite_add(p + "Hitbox32x32.png", 1, false, false, 16, 16);
 global.sprGun = sprite_add(p + "Gun.png", 1, false, false, 4, 4);
+global.sprStarTier = sprite_add(p + "StarTier.png", 1, false, false, 8, 8);
 
 // projectiles
 p = "Resources/Sprites/Generic/Projectiles/";

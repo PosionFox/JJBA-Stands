@@ -151,7 +151,10 @@ with (_s)
     name = "Star Platinum OVA";
     sprite_index = global.sprSPR;
     color = /*#*/0xe4cd5f;
-    isUnobtainable = true;
+    tier = {
+        name : "unobtainable",
+        color : c_orange
+    }
     saveKey = "jjbamSpova";
     discType = global.jjbamDiscSpova;
     

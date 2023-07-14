@@ -65,7 +65,10 @@ with (_s)
     name = "Shadow";
     sprite_index = global.sprShadow;
     color = 0x36f2fb;
-    isRare = true;
+    tier = {
+        name : "rare",
+        color : c_blue
+    }
     powerMultiplier = 5;
     summonSound = global.sndStw2Summon;
     saveKey = "jjbamShadow";

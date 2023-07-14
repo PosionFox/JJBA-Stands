@@ -224,7 +224,10 @@ with (_s)
     name = "The World Retro";
     sprite_index = global.sprTWR;
     color = /*#*/0x66a0d9;
-    isRare = true;
+    tier = {
+        name : "rare",
+        color : c_blue
+    }
     powerMultiplier = 5;
     saveKey = "jjbamTwr";
     discType = global.jjbamDiscTwr;

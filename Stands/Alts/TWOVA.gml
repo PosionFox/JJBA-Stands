@@ -183,7 +183,10 @@ with (_s)
     name = "The World OVA";
     sprite_index = global.sprTWR;
     color = /*#*/0x66a0d9;
-    isUnobtainable = true;
+    tier = {
+        name : "unobtainable",
+        color : c_orange
+    }
     saveKey = "jjbamTwova";
     discType = global.jjbamDiscTwova;
     

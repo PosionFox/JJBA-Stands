@@ -32,8 +32,11 @@ with (_s)
     name = "The World Greatest High";
     sprite_index = global.sprTWGH;
     color = /*#*/0x743f3f;
-    isRare = true;
-    powerMultiplier = 5;
+    tier = {
+        name : "legendary",
+        color : c_yellow
+    }
+    powerMultiplier = 15;
     saveKey = "jjbamTwgh";
     discType = global.jjbamDiscTwgh;
 }

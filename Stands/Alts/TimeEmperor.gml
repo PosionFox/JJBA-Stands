@@ -33,6 +33,10 @@ with (_s)
     sprite_index = global.sprTimeEmperor;
     color = /*#*/0xe16e5b;
     isRare = true;
+    tier = {
+        name : "epic",
+        color : c_purple
+    }
     powerMultiplier = 10;
     auraParticleSprite = global.sprStandParticle6;
     auraParticleRotation = 4;

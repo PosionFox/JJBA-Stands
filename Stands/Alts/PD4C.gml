@@ -47,8 +47,11 @@ with (_s)
     sprite_index = global.sprPD4C;
     name = "Patriot D4C";
     color = /*#*/0xff9b63;
-    isRare = true;
-    powerMultiplier = 7.5;
+    tier = {
+        name : "epic",
+        color : c_purple
+    }
+    powerMultiplier = 10;
     auraParticleSprite = global.sprStandParticle3;
     saveKey = "jjbamPd4c";
     discType = global.jjbamDiscPd4c;

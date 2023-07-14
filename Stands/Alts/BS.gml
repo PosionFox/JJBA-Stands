@@ -32,7 +32,10 @@ with (_s)
     name = "BlackSnake"
     sprite_index = global.sprBlackSnake;
     color = /*#*/0x342022;
-    isRare = true;
+    tier = {
+        name : "rare",
+        color : c_blue
+    }
     powerMultiplier = 5;
     auraParticleSprite = global.sprStandParticle4;
     saveKey = "jjbamBs";

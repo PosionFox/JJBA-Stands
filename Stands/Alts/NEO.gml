@@ -50,8 +50,11 @@ with (_s)
     sprite_index = global.sprTheWorldNeo;
     name = "The World Neo";
     color = 0xff9b63;
-    isRare = true;
-    powerMultiplier = 7.5;
+    tier = {
+        name : "epic",
+        color : c_purple
+    }
+    powerMultiplier = 10;
     auraParticleSprite = global.sprStandParticle3;
     sprKnife = global.sprNeoKnife;
     saveKey = "jjbamNeo";

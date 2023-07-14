@@ -32,8 +32,11 @@ with (_s)
     sprite_index = global.sprPD4CLT;
     name = "Patriot D4C: Love Train";
     color = /*#*/0xff9b63;
-    isRare = true;
-    powerMultiplier = 7.5;
+    tier = {
+        name : "epic",
+        color : c_purple
+    }
+    powerMultiplier = 10;
     auraParticleSprite = global.sprStandParticle4;
     saveKey = "jjbamPd4clt";
     discType = global.jjbamDiscPd4clt;

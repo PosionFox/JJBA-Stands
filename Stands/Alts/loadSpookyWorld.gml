@@ -32,7 +32,10 @@ with (_s)
     name = "Spooky World";
     sprite_index = global.sprSpookyWorld;
     color = 0x322022;
-    isRare = true;
+    tier = {
+        name : "epic",
+        color : c_yellow
+    }
     powerMultiplier = 10;
     auraParticleSprite = global.sprStandParticle2;
     saveKey = "jjbamSw";

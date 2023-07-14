@@ -32,7 +32,10 @@ with (_s)
     name = "Soft and Wet Golden"
     sprite_index = global.sprSoftAndWetGolden;
     color = 0x36f2fb;
-    isRare = true;
+    tier = {
+        name : "rare",
+        color : c_blue
+    }
     powerMultiplier = 5;
     auraParticleSprite = global.sprStandParticle5;
     saveKey = "jjbamSnwg";

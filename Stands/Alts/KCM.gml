@@ -32,7 +32,10 @@ with (_s)
     sprite_index = global.sprKingCrimsonManga;
     name = "King Crimson Manga";
     color = 0xba7bd7;
-    isRare = true;
+    tier = {
+        name : "rare",
+        color : c_blue
+    }
     powerMultiplier = 5;
     saveKey = "jjbamKcm";
     discType = global.jjbamDiscKcm;
