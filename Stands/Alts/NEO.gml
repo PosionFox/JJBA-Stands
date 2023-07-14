@@ -24,6 +24,24 @@ if (instance_exists(STAND) or room != rmGame)
 }
 GiveNeo(player);
 
+#define NeoTs(m, s)
+
+var _tsExists = modTypeExists("timestop");
+
+if (_tsExists)
+{
+    instance_destroy(modTypeFind("timestop"));
+}
+
+if (!_tsExists)
+{
+    audio_play_sound(global.sndNeoTs, 5, false);
+    var _t = TimestopCreate(5 + (0.15 * player.level));
+    _t.resumeSound = global.sndNeoTsResume;
+    FireCD(s);
+}
+state = StandState.Idle;
+
 #define GiveNeo(_owner) //stand
 
 var _s = GiveTheWorldAU(_owner);
@@ -38,5 +56,7 @@ with (_s)
     sprKnife = global.sprNeoKnife;
     saveKey = "jjbamNeo";
     discType = global.jjbamDiscNeo;
+    
+    skills[StandState.SkillD, StandSkill.Skill] = NeoTs;
 }
 return _s;

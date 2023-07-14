@@ -432,6 +432,10 @@ if (instance_exists(STAND))
             STAND.hasArm = true;
             D4CEvolveIfCan();
         break;
+        case "Patriot D4C":
+            STAND.hasArm = true;
+            PD4CEvolveIfCan();
+        break;
         default:
             Trace("The holy part refuses to interact with you");
             GainItem(global.jjbamLeftArm);
@@ -470,7 +474,12 @@ if (instance_exists(STAND))
 }
 else
 {
-    GiveD4C(player);
+    var _standPool =
+    [
+        [GiveD4C, 30],
+        [GivePd4c, 1]
+    ]
+    script_execute(random_weight(_standPool), player);
 }
 
 #define EyeUse
@@ -497,6 +506,10 @@ if (instance_exists(STAND))
         case "Dirty Deeds Done Dirt Cheap":
             STAND.hasEye = true;
             D4CEvolveIfCan();
+        break;
+        case "Patriot D4C":
+            STAND.hasEye = true;
+            PD4CEvolveIfCan();
         break;
         default:
             Trace("The holy part refuses to interact with you");

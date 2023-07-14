@@ -121,13 +121,15 @@ p = "Resources/Sounds/TW/";
 global.sndTwSummon = audio_create_stream(p + "twSummon.ogg");
 global.sndTwTs = audio_create_stream(p + "twTs.ogg");
 global.sndStopSign = audio_create_stream(p + "stopSign.ogg");
+global.sndTwBarrage = audio_create_stream(p + "twBarrage.ogg");
 
 #endregion
 
-#region the world ova
+#region the world retro
 
 p = "Resources/Sounds/TWR/";
 global.sndTwrSummon = audio_create_stream(p + "twrSummon.ogg");
+global.sndTwrBarrage = audio_create_stream(p + "twrBarrage.ogg");
 global.sndTwrTs = audio_create_stream(p + "twrTs.ogg");
 global.sndTwrIdle1 = audio_create_stream(p + "twrIdle1.ogg");
 global.sndTwrIdle2 = audio_create_stream(p + "twrIdle2.ogg");
@@ -143,6 +145,16 @@ global.sndTwrBd2 = audio_create_stream(p + "twrBd2.ogg");
 
 p = "Resources/Sounds/TWAU/";
 global.sndTwAuTs = audio_create_stream(p + "twauTs.ogg");
+global.sndTwAuTsPanic = audio_create_stream(p + "twauTsPanic.ogg");
+global.sndTwAuTsResume = audio_create_stream(p + "twauTsResume.ogg");
+
+#endregion
+
+#region neo
+
+p = "Resources/Sounds/NEO/";
+global.sndNeoTs = audio_create_stream(p + "neoTs.ogg");
+global.sndNeoTsResume = audio_create_stream(p + "neoTsResume.ogg");
 
 #endregion
 

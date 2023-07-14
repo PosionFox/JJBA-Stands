@@ -90,6 +90,10 @@ switch (_stand)
     case "jjbamTe": GiveTe(player); break;
     case "jjbamBs": GiveBs(player); break;
     case "jjbamSnwg": GiveSnwg(player); break;
+    case "jjbamPd4c": GivePd4c(player); break;
+    case "jjbamPd4clt": GivePd4clt(player); break;
+    case "jjbamEg": GiveEg(player); break;
+    case "jjbamTwgh": GiveTwgh(player); break;
 }
 
 #define SaveData

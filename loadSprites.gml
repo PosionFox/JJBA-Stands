@@ -98,6 +98,7 @@ global.sprHorizontalSlash = sprite_add(p + "HorizontalSlash.png", 1, false, fals
 
 p = "Resources/Sprites/TW/";
 global.sprTheWorld = sprite_add(p + "TheWorld.png", 1, false, false, 16, 19);
+global.sprTWGH = sprite_add(p + "TheWorldGreatestHigh.png", 1, false, false, 16, 19);
 global.sprTheWorldPunch = sprite_add(p + "TheWorldPunch.png", 1, false, false, 16, 16);
 global.sprStopSign = sprite_add(p + "StopSign.png", 1, false, false, 1, 16);
 
@@ -147,6 +148,8 @@ global.sprTimeEmperor = sprite_add(p + "TimeEmperor.png", 1, false, false, 16, 1
 
 p = "Resources/Sprites/D4C/";
 global.sprD4C = sprite_add(p + "D4C.png", 1, false, false, 16, 19);
+global.sprPD4C = sprite_add(p + "PD4C.png", 1, false, false, 16, 19);
+
 global.sprD4CPunch = sprite_add(p + "D4CPunch.png", 1, false, false, 16, 16);
 global.sprD4CFlag = sprite_add(p + "D4CFlag.png", 1, false, false, 16, 16);
 
@@ -160,6 +163,8 @@ global.sprSkillDimensionalHop = sprite_add(p + "SkillDimensionalHop.png", 1, fal
     // love train
 p = "Resources/Sprites/D4C/LT/";
 global.sprD4CLT = sprite_add(p + "D4CLT.png", 1, false, false, 16, 19);
+global.sprPD4CLT = sprite_add(p + "PD4CLT.png", 1, false, false, 16, 19);
+global.sprEvergreen = sprite_add(p + "Evergreen.png", 1, false, false, 16, 19);
 
 // skills
 global.sprSkillBulletTime = sprite_add(p + "SkillBulletTime.png", 1, false, false, 16, 16);
@@ -348,6 +353,7 @@ p = "Resources/Sprites/SnW/";
 global.sprSoftAndWet = sprite_add(p + "SnW.png", 1, false, false, 16, 19);
 global.sprSoftAndWetGolden = sprite_add(p + "SnWG.png", 1, false, false, 16, 19);
 global.sprBubble = sprite_add(p + "Bubble.png", 1, false, false, 4, 4);
+global.sprBubbleShield = sprite_add(p + "BubbleShield.png", 1, false, false, 8, 12);
 
 #endregion
 

@@ -559,6 +559,7 @@ with (_s)
     InstanceAssignMethod(self, "drawGUI", ScriptWrap(D4CDrawGui));
     InstanceAssignMethod(self, "destroy", ScriptWrap(D4Cdestroy));
 }
+return _s;
 
 #define D4CEvolveIfCan
 

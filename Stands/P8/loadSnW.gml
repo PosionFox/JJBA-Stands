@@ -49,6 +49,7 @@ switch (attackState)
                 var _p = ProjectileCreate(xx, yy);
                 with (_p)
                 {
+                    baseSpd = 2;
                     damage = GetDmg(s);
                     direction = _dir;
                     direction += random_range(-4, 4);
@@ -74,9 +75,81 @@ switch (attackState)
 }
 attackStateTimer += DT;
 
-#define spawntest(m, s)
+#define ScrewsAndNuts(m, s)
 
+var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
+var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+
+xTo = owner.x + lengthdir_x(8, _dir + random_range(-4, 4));
+yTo = owner.y + lengthdir_y(8, _dir + random_range(-4, 4));
+image_xscale = mouse_x > owner.x ? 1 : -1;
+
+switch (attackState)
+{
+    case 0:
+        if (attackStateTimer >= 0.5) attackState++;
+    break;
+    case 1:
+        var xx = x + random_range(-4, 4);
+        var yy = y + random_range(-8, 8);
+        var _p = ProjectileCreate(xx, yy);
+        with (_p)
+        {
+            baseSpd = 2;
+            damage = GetDmg(s);
+            direction = _dir;
+            direction += random_range(-4, 4);
+            canMoveInTs = false;
+            sprite_index = global.sprBubble;
+            onHitSound = global.sndBubblePop;
+            onHitEvent = BubbleExplode;
+            onHitEventArg = GetDmg(s);
+        }
+        EndAtk(s);
+    break;
+}
+attackStateTimer += DT;
+
+#define BubbleExplode(_, _args)
+
+for (var i = 0; i < 16; i++)
+{
+    BulletCreate(x, y, i * 22.5, _args);
+}
+
+#define BubbleShield(m, s)
+
+BubbleShieldCreate(player);
 EndAtk(s);
+
+#define BubbleShieldCreate(_owner)
+
+var _o = ModObjectSpawn(_owner.x, _owner.y, 0);
+with (_o)
+{
+    owner = _owner
+    sprite_index = global.sprBubbleShield;
+    life = 10;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(BubbleShieldStep));
+}
+
+#define BubbleShieldStep
+
+if (life <= 0)
+{
+    audio_play_sound(global.sndBubblePop, 10, false);
+    instance_destroy(self);
+    exit;
+}
+life -= DT;
+
+image_xscale = (1 + abs(cos(current_time / 1000)));
+image_yscale = (1 + abs(sin(current_time / 1000)));
+
+owner.invulFrames = 10;
+x = owner.x;
+y = owner.y;
 
 #define GiveSoftAndWet(_owner)
 
@@ -84,7 +157,7 @@ var _skills = StandSkillInit();
 
 var sk;
 sk = StandState.SkillAOff;
-_skills[sk, StandSkill.Skill] = spawntest;
+_skills[sk, StandSkill.Skill] = GeBarrage;
 _skills[sk, StandSkill.Damage] = 3;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillJosephKnife;
@@ -123,15 +196,15 @@ _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.Desc] = "strong punch:\ncharges and launches a strong punch.";
 
 sk = StandState.SkillC;
-_skills[sk, StandSkill.Skill] = TwKnifeWall;
+_skills[sk, StandSkill.Skill] = ScrewsAndNuts;
 _skills[sk, StandSkill.Damage] = 2;
 _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillKnifeBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.Desc] = "knife wall:\nsends out a burst of knifes.";
+_skills[sk, StandSkill.Desc] = "screws and nuts:\nsends out a burst of knifes.";
 
 sk = StandState.SkillD;
-_skills[sk, StandSkill.Skill] = TwTimestop;
+_skills[sk, StandSkill.Skill] = BubbleShield;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimestop;
 _skills[sk, StandSkill.MaxCooldown] = 30;
 _skills[sk, StandSkill.Desc] = "time, stop!:\nstops the time, most enemies are not allowed to move\nand makes your projectiles freeze in place.";

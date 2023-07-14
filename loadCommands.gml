@@ -99,6 +99,10 @@ switch (args[0])
     case "te": GiveTe(player); break;
     case "bs": GiveBs(player); break;
     case "snwg": GiveSnwg(player); break;
+    case "pd4c": GivePd4c(player); break;
+    case "pd4clt": GivePd4clt(player); break;
+    case "eg": GiveEg(player); break;
+    case "twgh": GiveTwgh(player); break;
     // other
     case "sus": GiveImposter(player); break;
     

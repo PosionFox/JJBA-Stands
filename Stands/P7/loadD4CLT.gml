@@ -158,7 +158,7 @@ switch (attackState)
 
 if (!modTypeExists("loveTrain"))
 {
-    LoveTrainCreate(15);
+    LoveTrainCreate(GetDmg(skill));
     FireCD(skill);
     state = StandState.Idle;
 }
@@ -346,6 +346,8 @@ sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = LoveTrain;
 _skills[sk, StandSkill.Icon] = global.sprSkillLoveTrain;
 _skills[sk, StandSkill.MaxCooldown] = 45;
+_skills[sk, StandSkill.Damage] = 15;
+_skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.SkillAlt] = DimensionalHop;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillDimensionalHop;
 _skills[sk, StandSkill.MaxCooldownAlt] = 20;
@@ -380,6 +382,7 @@ with (_s)
     InstanceAssignMethod(self, "destroy", ScriptWrap(D4Cdestroy));
     InstanceAssignMethod(self, "drawGUI", ScriptWrap(D4CLTDrawGui));
 }
+return _s;
 
 #define D4CLTDrawGui
 

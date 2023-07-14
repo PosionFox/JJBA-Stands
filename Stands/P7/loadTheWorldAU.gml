@@ -239,8 +239,9 @@ state = StandState.Idle;
 
 #define TwauTimestop(method, skill)
 
-audio_play_sound(global.sndTwAuTs, 5, false);
-TimestopCreate(5 + (0.15 * player.level));
+audio_play_sound(global.sndTwAuTsPanic, 5, false);
+var _t = TimestopCreate(5 + (0.15 * player.level));
+_t.resumeSound = global.sndTwAuTsResume;
 EndAtk(skill);
 
 #define GiveTheWorldAU(_owner) //stand

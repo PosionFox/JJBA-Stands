@@ -72,6 +72,9 @@ NEO();
 TimeEmperor();
 BS();
 SnWG();
+PD4C();
+PD4CLT();
+EG();
 
 #endregion
 
