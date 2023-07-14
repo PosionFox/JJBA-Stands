@@ -1,9 +1,8 @@
 
-//wip
 global.jjbamDiscSptw = ItemCreate(
     undefined,
-    "DISC:SPTW",
-    "The label says: Star Platinum: The World",
+    Localize("standDiscName") + "SPTW",
+    Localize("standDiscDescription") + "Star Platinum: The World",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

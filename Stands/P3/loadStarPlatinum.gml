@@ -1,8 +1,8 @@
 
 global.jjbamDiscSp = ItemCreate(
     undefined,
-    "DISC:SP",
-    "The label says: Star Platinum",
+    Localize("standDiscName") + "SP",
+    Localize("standDiscDescription") + "Star Platinum",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -159,7 +159,7 @@ sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = JosephKnife;
 _skills[sk, StandSkill.Icon] = global.sprSkillJosephKnife;
 _skills[sk, StandSkill.MaxCooldown] = 10;
-_skills[sk, StandSkill.Desc] = "dio's knife:\ntoss one of dio's knife.";
+_skills[sk, StandSkill.Desc] = Localize("diosKnifeDesc");
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;
@@ -168,7 +168,7 @@ _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 5;
-_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.";
+_skills[sk, StandSkill.Desc] = Localize("barrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = StrongPunch;
@@ -180,11 +180,7 @@ _skills[sk, StandSkill.SkillAlt] = MeleePull;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillMeleePull;
 _skills[sk, StandSkill.MaxCooldownAlt] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
-_skills[sk, StandSkill.Desc] = @"strong punch:
-charges and launches a strong punch.
-
-(hold) melee pull:
-pulls the enemy towards you.";
+_skills[sk, StandSkill.Desc] = Localize("spStrongPunchDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = StarFinger;
@@ -193,7 +189,7 @@ _skills[sk, StandSkill.DamageScale] = 0.05;
 _skills[sk, StandSkill.Icon] = global.sprSkillStarFinger;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 0.7;
-_skills[sk, StandSkill.Desc] = "star finger:\nstar platinum stretches their finger hitting enemies in the way.";
+_skills[sk, StandSkill.Desc] = Localize("starFingerDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = SpTimestop;
@@ -202,9 +198,7 @@ _skills[sk, StandSkill.MaxCooldown] = 25;
 _skills[sk, StandSkill.SkillAlt] = SpEvolveToSptw;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillStwTw;
 _skills[sk, StandSkill.MaxHold] = 2;
-_skills[sk, StandSkill.Desc] = @"time stop:
-stops the time, most enemies are not allowed to move
-and makes your projectiles freeze in place.";
+_skills[sk, StandSkill.Desc] = Localize("spTimestopDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)

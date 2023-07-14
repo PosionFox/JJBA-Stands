@@ -1,8 +1,8 @@
 
 global.jjbamDiscD4c = ItemCreate(
     undefined,
-    "DISC:D4C",
-    "The label says: Dirty Deeds Done Dirt Cheap",
+    Localize("standDiscName") + "D4C",
+    Localize("standDiscDescription") + "Dirty Deeds Done Dirt Cheap",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

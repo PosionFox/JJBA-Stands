@@ -1,8 +1,8 @@
 
 global.jjbamDiscGer = ItemCreate(
     undefined,
-    "DISC:GER",
-    "The label says: Gold Experience Requiem",
+    Localize("standDiscName") + "GER",
+    Localize("standDiscDescription") + "Gold Experience Requiem",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

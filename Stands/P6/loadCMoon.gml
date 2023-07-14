@@ -2,8 +2,8 @@
 //wip
 global.jjbamDiscCmn = ItemCreate(
     undefined,
-    "DISC:CMN",
-    "The label says: C-Moon",
+    Localize("standDiscName") + "CMN",
+    Localize("standDiscDescription") + "C-Moon",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

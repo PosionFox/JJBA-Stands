@@ -1,8 +1,8 @@
 
 global.jjbamDiscTe = ItemCreate(
     undefined,
-    "DISC:TE",
-    "The label says: Time Emperor",
+    Localize("standDiscName") + "TE",
+    Localize("standDiscDescription") + "Time Emperor",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

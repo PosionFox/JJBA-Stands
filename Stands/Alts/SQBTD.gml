@@ -1,8 +1,8 @@
 
 global.jjbamDiscSQBTD = ItemCreate(
     undefined,
-    "DISC:SQBTD",
-    "The label says: Shadow Queen: Bites the Dust",
+    Localize("standDiscName") + "SQBTD",
+    Localize("standDiscDescription") + "Shadow Queen: Bites the Dust",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

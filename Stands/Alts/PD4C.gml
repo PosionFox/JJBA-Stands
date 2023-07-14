@@ -1,8 +1,8 @@
 
 global.jjbamDiscPd4c = ItemCreate(
     undefined,
-    "DISC:PD4C",
-    "The label says: Patriot D4C",
+    Localize("standDiscName") + "PD4C",
+    Localize("standDiscDescription") + "Patriot D4C",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

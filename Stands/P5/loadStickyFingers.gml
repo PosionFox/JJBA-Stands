@@ -1,8 +1,8 @@
 
 global.jjbamDiscSf = ItemCreate(
     undefined,
-    "DISC:SF",
-    "The label says: Sticky Fingers",
+    Localize("standDiscName") + "SF",
+    Localize("standDiscDescription") + "Sticky Fingers",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

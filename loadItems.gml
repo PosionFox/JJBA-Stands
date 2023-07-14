@@ -2,8 +2,8 @@
 
 global.jjbamArrow = ItemCreate(
     undefined,
-    "Suspicious Arrow",
-    "Looks like a normal arrow.",
+    Localize("susArrowName"),
+    Localize("susArrowDescription"),
     global.sprArrow,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -21,8 +21,8 @@ global.jjbamArrow = ItemCreate(
 
 global.jjbamRokakaka = ItemCreate(
     undefined,
-    "Rokakaka",
-    "A spiky looking fruit.",
+    Localize("rokakakaName"),
+    Localize("rokakakaDescription"),
     global.sprRokakaka,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -37,8 +37,8 @@ global.jjbamRokakaka = ItemCreate(
 
 global.jjbamRequiem = ItemCreate(
     undefined,
-    "Requiem Arrow",
-    "An arrow with a fancy beetle design.",
+    Localize("requiemArrowName"),
+    Localize("requiemArrowDescription"),
     global.sprArrowBeetle,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -56,8 +56,8 @@ global.jjbamRequiem = ItemCreate(
 
 global.jjbamEternalArrow = ItemCreate(
     undefined,
-    "Eternal Arrow",
-    "Looks like a suspicious arrow but more ominous.",
+    Localize("eternalArrowName"),
+    Localize("eternalArrowDescription"),
     global.sprEternalArrow,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -76,8 +76,8 @@ global.jjbamEternalArrow = ItemCreate(
 
 global.jjDiscBlueprint = ItemCreate(
     undefined,
-    "Disc Blueprint",
-    "Contains information needed to craft synthetic stand discs in a factory without a whitesnake.",
+    Localize("discBlueprintName"),
+    Localize("discBlueprintDescription"),
     global.sprDiscBlueprint,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -93,8 +93,8 @@ global.jjDiscBlueprint = ItemCreate(
 // stand discs were moved to their stand files
 global.jjbamDisc = ItemCreate(
     undefined,
-    "DISC",
-    "A disc to remove and store data.",
+    Localize("discName"),
+    Localize("discDescription"),
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -112,8 +112,8 @@ global.jjbamDisc = ItemCreate(
 
 global.jjbamSteelBall = ItemCreate(
     undefined,
-    "Steel Ball",
-    "Learn the ways of spin.",
+    Localize("steelBallName"),
+    Localize("steelBallDescription"),
     global.sprSteelBall,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -131,8 +131,8 @@ global.jjbamSteelBall = ItemCreate(
 
 global.jjbamAnubis = ItemCreate(
     undefined,
-    "Anubis",
-    "Anubis is the strongest stand!",
+    Localize("anubisName"),
+    Localize("anubisDescription"),
     global.sprAnubis,
     ItemType.Consumable,
     ItemSubType.None,
@@ -163,8 +163,8 @@ StructureAddItem(Structure.Factory, global.jjbamDisc);
 
 global.jjbamHeart = ItemCreate(
     undefined,
-    "Heart",
-    "The heart of the saint.",
+    Localize("heartName"),
+    Localize("heartDescription"),
     global.sprHeart,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -179,8 +179,8 @@ global.jjbamHeart = ItemCreate(
 
 global.jjbamEye = ItemCreate(
     undefined,
-    "Eye",
-    "The eye of the saint.",
+    Localize("eyeName"),
+    Localize("eyeDescription"),
     global.sprEye,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -195,8 +195,8 @@ global.jjbamEye = ItemCreate(
 
 global.jjbamLeftArm = ItemCreate(
     undefined,
-    "Left Arm",
-    "The left arm of the saint.",
+    Localize("leftArmName"),
+    Localize("leftArmDescription"),
     global.sprLeftArm,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -213,8 +213,8 @@ global.jjbamLeftArm = ItemCreate(
 
 global.jjPrayerBeads = ItemCreate(
     undefined,
-    "Prayer Beads",
-    "Summons Enrico Pucci.",
+    Localize("prayerBeadsName"),
+    Localize("prayerBeadsDescription"),
     global.sprPrayerBeads,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -343,15 +343,15 @@ if (instance_exists(STAND))
                 [GiveSQBTD, 1]
             ]
             script_execute(random_weight(_stands), player);
-            Trace("The arrow merges with the stand!");
+            Trace(Localize("requiemArrowMerge"));
         break;
         case "Gold Experience":
             RemoveStand(player);
             GiveGer(player);
-            Trace("The arrow reacts with the stand!");
+            Trace(Localize("requiemArrowMerge"));
         break;
         default:
-            Trace("Nothing happens...");
+            Trace(Localize("requiemArrowRefuse"));
             GainItem(global.jjbamRequiem);
         break;
     }
@@ -437,14 +437,14 @@ if (instance_exists(STAND))
             PD4CEvolveIfCan();
         break;
         default:
-            Trace("The holy part refuses to interact with you");
+            Trace(Localize("holyPartRefuse"));
             GainItem(global.jjbamLeftArm);
         break;
     }
 }
 else
 {
-    Trace("The holy part refuses to interact with you");
+    Trace(Localize("holyPartRefuse"));
     GainItem(global.jjbamLeftArm);
 }
 
@@ -467,7 +467,7 @@ if (instance_exists(STAND))
         //     D4CEvolveIfCan();
         // break;
         default:
-            Trace("The holy part refuses to interact with you");
+            Trace(Localize("holyPartRefuse"));
             GainItem(global.jjbamHeart);
         break;
     }
@@ -512,7 +512,7 @@ if (instance_exists(STAND))
             PD4CEvolveIfCan();
         break;
         default:
-            Trace("The holy part refuses to interact with you");
+            Trace(Localize("holyPartRefuse"));
             GainItem(global.jjbamEye);
         break;
     }

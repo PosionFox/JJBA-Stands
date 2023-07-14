@@ -1,8 +1,8 @@
 
 global.jjbamDiscTwgh = ItemCreate(
     undefined,
-    "DISC:TWGH",
-    "The label says: The World Greatest High",
+    Localize("standDiscName") + "TWGH",
+    Localize("standDiscDescription") + "The World Greatest High",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

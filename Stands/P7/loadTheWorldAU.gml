@@ -1,8 +1,8 @@
 
 global.jjbamDiscTwau = ItemCreate(
     undefined,
-    "DISC:TWAU",
-    "The label says: The World Alternate Universe",
+    Localize("standDiscName") + "TWAU",
+    Localize("standDiscDescription") + "The World Alternate Universe",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

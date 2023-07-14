@@ -1,8 +1,8 @@
 
 global.jjbamDiscTwr = ItemCreate(
     undefined,
-    "DISC:TWR",
-    "The label says: The World Retro",
+    Localize("standDiscName") + "TWR",
+    Localize("standDiscDescription") + "The World Retro",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

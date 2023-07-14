@@ -36,6 +36,8 @@ printVersion();
 
 global.timeIsFrozen = false;
 
+localizationEnglish();
+localizationSpanish();
 loadSprites();
 loadSounds();
 loadItems();

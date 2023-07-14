@@ -2,8 +2,8 @@
 
 global.jjbamDiscSc = ItemCreate(
     undefined,
-    "DISC:SC",
-    "The label says: Silver Chariot",
+    Localize("standDiscName") + "SC",
+    Localize("standDiscDescription") + "Silver Chariot",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -178,7 +178,7 @@ _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillScBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 4;
-_skills[sk, StandSkill.Desc] = "stab barrage:\nlaunches a barrage of thursts.";
+_skills[sk, StandSkill.Desc] = Localize("scBarrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = ScLunge;
@@ -187,7 +187,7 @@ _skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.Icon] = global.sprSkillScLunge;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
-_skills[sk, StandSkill.Desc] = "lunge:\nleaps forward with a strong stab.";
+_skills[sk, StandSkill.Desc] = Localize("scLungeDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = ScSweep;
@@ -195,16 +195,14 @@ _skills[sk, StandSkill.Damage] = 5;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillScSweep;
 _skills[sk, StandSkill.MaxCooldown] = 4;
-_skills[sk, StandSkill.Desc] = "sweep:\nslashes forward with a raking attack.";
+_skills[sk, StandSkill.Desc] = Localize("scSweepDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = ScFTL;
 _skills[sk, StandSkill.Icon] = global.sprSkillScFtl;
 _skills[sk, StandSkill.MaxCooldown] = 60;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
-_skills[sk, StandSkill.Desc] = @"faster than light:
-silver chariot removes its armor, providing high attack speed
-and shorter cooldowns.";
+_skills[sk, StandSkill.Desc] = Localize("ftlDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)

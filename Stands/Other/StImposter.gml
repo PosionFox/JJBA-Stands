@@ -1,8 +1,8 @@
 
 global.jjbamDiscSus = ItemCreate(
     undefined,
-    "DISC:SUS",
-    "The label says: Imposter",
+    Localize("standDiscName") + "SUS",
+    Localize("standDiscDescription") + "Imposter",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

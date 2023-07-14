@@ -1,8 +1,8 @@
 
 global.jjbamDiscShadow = ItemCreate(
     undefined,
-    "DISC:SHADOW",
-    "The label says: Shadow",
+    Localize("standDiscName") + "SHADOW",
+    Localize("standDiscDescription") + "Shadow",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

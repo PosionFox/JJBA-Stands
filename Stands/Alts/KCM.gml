@@ -1,8 +1,8 @@
 
 global.jjbamDiscKcm = ItemCreate(
     undefined,
-    "DISC:KCM",
-    "The label says: King Crimson Manga",
+    Localize("standDiscName") + "KCM",
+    Localize("standDiscDescription") + "King Crimson Manga",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

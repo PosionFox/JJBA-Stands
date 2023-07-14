@@ -1,8 +1,8 @@
 
 global.jjbamDiscKq = ItemCreate(
     undefined,
-    "DISC:KQ",
-    "The label says: Killer Queen",
+    Localize("standDiscName") + "KQ",
+    Localize("standDiscDescription") + "Killer Queen",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

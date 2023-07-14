@@ -1,8 +1,8 @@
 
 global.jjbamDiscSnwg = ItemCreate(
     undefined,
-    "DISC:SnWG",
-    "The label says: Soft and Wet Golden",
+    Localize("standDiscName") + "SnWG",
+    Localize("standDiscDescription") + "Soft and Wet Golden",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

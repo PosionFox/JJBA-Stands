@@ -2,8 +2,8 @@
 //wip
 global.jjbamDiscWs = ItemCreate(
     undefined,
-    "DISC:WS",
-    "The label says: WhiteSnake",
+    Localize("standDiscName") + "WS",
+    Localize("standDiscDescription") + "WhiteSnake",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

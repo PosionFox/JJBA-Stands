@@ -1,8 +1,8 @@
 
 global.jjbamDiscD4clt = ItemCreate(
     undefined,
-    "DISC:D4CLT",
-    "The label says: D4C Love Train",
+    Localize("standDiscName") + "D4CLT",
+    Localize("standDiscDescription") + "D4C Love Train",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

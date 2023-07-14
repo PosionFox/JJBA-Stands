@@ -6,21 +6,21 @@ global.pucciRef = noone;
 global.questPucciBlueprintCompleted = false;
 NPCQuestCreate(global.npcPucci, "PucciQuestBlueprint");
 NPCQuestAddState(global.npcPucci, "PucciQuestBlueprint", "FetchBones",
-    ["i came here for research purposes", "i need you to collect something for me"],
+    [Localize("questPucci1Talk1"), Localize("questPucci1Talk2")],
     "PucciReward", undefined, undefined
 );
 NPCQuestAddState(global.npcPucci, "PucciQuestBlueprint", "PucciReward",
-    ["good job", "take this, i don't need it anymore"],
+    [Localize("questPucci1Talk3"), Localize("questPucci1Talk4")],
     undefined, [Item.Bone, 24], undefined
 );
 
 NPCQuestCreate(global.npcPucci, "PucciQuestDiscs");
 NPCQuestAddState(global.npcPucci, "PucciQuestDiscs", "FetchBones",
-    ["i'm back", "i need more samples"],
+    [Localize("questPucci2Talk1"), Localize("questPucci2Talk2")],
     "PucciReward", undefined, undefined
 );
 NPCQuestAddState(global.npcPucci, "PucciQuestDiscs", "PucciReward",
-    ["well done", "here's your reward"],
+    [Localize("questPucci2Talk3"), Localize("questPucci2Talk4")],
     undefined, [Item.Bone, 100], undefined
 );
 
@@ -38,6 +38,8 @@ var _p = [
     global.jjbamDiscKq,
     global.jjbamDiscSf,
     global.jjbamDiscGe,
+    global.jjbamDiscKc,
+    global.jjbamDiscSc
 ];
 repeat (2)
 {
