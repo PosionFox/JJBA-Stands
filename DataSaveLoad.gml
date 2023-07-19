@@ -103,6 +103,7 @@ switch (_stand)
     case "jjbamSfg": GiveSfg(player); break;
     case "jjbamSfr": GiveSfr(player); break;
     case "jjbamKcg": GiveKcg(player); break;
+    case "jjbamGm": GiveGm(player); break;
 }
 
 #define SaveData

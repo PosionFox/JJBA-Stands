@@ -554,7 +554,15 @@ return _s;
 
 if (STAND.hasArm and STAND.hasHeart and STAND.hasEye)
 {
-    GiveD4CLT(player);
+    var _c = irandom(100);
+    if (_c <= 1)
+    {
+        GiveGm(player);
+    }
+    else
+    {
+        GiveD4CLT(player);
+    }
 }
 
 #define D4CDrawGui

@@ -118,6 +118,7 @@ switch (args[0])
     case "sfg": GiveSfg(player); break;
     case "sfr": GiveSfr(player); break;
     case "kcg": GiveKcg(player); break;
+    case "gm": GiveGm(player); break;
     // other
     case "sus": GiveImposter(player); break;
     

@@ -170,6 +170,7 @@ p = "Resources/Sprites/D4C/LT/";
 global.sprD4CLT = sprite_add(p + "D4CLT.png", 1, false, false, 16, 19);
 global.sprPD4CLT = sprite_add(p + "PD4CLT.png", 1, false, false, 16, 19);
 global.sprEvergreen = sprite_add(p + "Evergreen.png", 1, false, false, 16, 19);
+global.sprGloomist = sprite_add(p + "Gloomist.png", 1, false, false, 16, 19);
 
 // skills
 global.sprSkillBulletTime = sprite_add(p + "SkillBulletTime.png", 1, false, false, 16, 16);
