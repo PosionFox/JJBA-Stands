@@ -388,7 +388,6 @@ var _standPool =
     [GiveKingCrimson, 100],
     [GiveSilverChariot, 100],
     [GiveWhiteSnake, 100],
-    [GiveSoftAndWet, 100],
     [GiveSpg, 50],
     [GiveSfg, 50],
     [GiveSfr, 50],
@@ -396,7 +395,6 @@ var _standPool =
     [GiveScova, 25],
     [GiveKca, 25],
     [GiveBs, 12],
-    [GiveSnwg, 12],
     [GiveImposter, 5],
     [GiveKcmo, 5],
     [GiveSpr, 1],
@@ -467,8 +465,12 @@ if (instance_exists(STAND))
 }
 else
 {
-    Trace(Localize("holyPartRefuse"));
-    GainItem(global.jjbamLeftArm);
+    var _standPool =
+    [
+        [GiveSoftAndWet, 100],
+        [GiveSnwg, 5]
+    ]
+    script_execute(random_weight(_standPool), player);
 }
 
 #define HeartUse
