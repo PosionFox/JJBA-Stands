@@ -364,6 +364,13 @@ global.sprSoftAndWet = sprite_add(p + "SnW.png", 1, false, false, 16, 19);
 global.sprSoftAndWetGolden = sprite_add(p + "SnWG.png", 1, false, false, 16, 19);
 global.sprBubble = sprite_add(p + "Bubble.png", 1, false, false, 4, 4);
 global.sprBubbleShield = sprite_add(p + "BubbleShield.png", 1, false, false, 8, 12);
+global.sprShovel = sprite_add(p + "Shovel.png", 1, false, false, 1, 16);
+global.sprSkillMoisturePlunder = sprite_add(p + "SkillMoisturePlunder.png", 1, false, false, 16, 16);
+global.sprSkillShovel = sprite_add(p + "SkillShovel.png", 1, false, false, 16, 16);
+global.sprSkillBubbleShield = sprite_add(p + "SkillBubbleShield.png", 1, false, false, 16, 16);
+global.sprSkillBubbleBarrage = sprite_add(p + "SkillBubbleBarrage.png", 1, false, false, 16, 16);
+global.sprSkillScrewsAndNuts = sprite_add(p + "SkillScrewsAndNuts.png", 1, false, false, 16, 16);
+global.sprSkillBubbleTrap = sprite_add(p + "SkillBubbleTrap.png", 1, false, false, 16, 16);
 
 #endregion
 

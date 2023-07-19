@@ -224,6 +224,14 @@ and makes your projectiles freeze in place.
 the user starts to panic due to low health
 and performs a longer time stop.");
 
+// snw
+LocalizationAddKey(_map, "moisturePlunderDesc", "moisture plunder:\ncreate a barrier of bubble around you\nthe bubbles damage enemies that touch them.");
+LocalizationAddKey(_map, "shovelDesc", "shovel:\npull out a shovel and whack them with it!.");
+LocalizationAddKey(_map, "bubbleShieldDesc", "bubble shield:\ncreate a bubble shield that protects\nyou from any damage.");
+LocalizationAddKey(_map, "bubbleBarrageDesc", "bubble barrage:\nlaunches a barrage of bubble forward.");
+LocalizationAddKey(_map, "screwsAndNutsDesc", "screws and nuts:\nlaunches a bubble filled with screws and nuts\nthat explodes on contact.");
+LocalizationAddKey(_map, "bubbleTrapDesc", "bubble trap:\nlaunches a bubble that traps the enemies on impact.");
+
 #endregion
 
 #region npcs and quests

@@ -313,7 +313,7 @@ _skills[sk, StandSkill.Desc] = Localize("knifeBarrageDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = StrongPunch;
-_skills[sk, StandSkill.Damage] = 4;
+_skills[sk, StandSkill.Damage] = 20;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 7;

@@ -498,7 +498,7 @@ _skills[sk, StandSkill.Desc] = Localize("barrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = DoubleSlap;
-_skills[sk, StandSkill.Damage] = 2;
+_skills[sk, StandSkill.Damage] = 3;
 _skills[sk, StandSkill.DamageScale] = 0.04;
 _skills[sk, StandSkill.Icon] = global.sprSkillDoubleSlap;
 _skills[sk, StandSkill.MaxCooldown] = 4;

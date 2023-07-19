@@ -229,7 +229,7 @@ _skills[sk, StandSkill.Desc] = Localize("josephKnifeDesc");
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = StopSign;
-_skills[sk, StandSkill.Damage] = 7;
+_skills[sk, StandSkill.Damage] = 30;
 _skills[sk, StandSkill.DamageScale] = 0.15;
 _skills[sk, StandSkill.Icon] = global.sprSkillStopSign;
 _skills[sk, StandSkill.MaxCooldown] = 10;
@@ -243,7 +243,7 @@ _skills[sk, StandSkill.Desc] = Localize("bloodDrainDesc");
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = TwBarrage;
-_skills[sk, StandSkill.Damage] = 1.3;
+_skills[sk, StandSkill.Damage] = 1.5;
 _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
@@ -252,7 +252,7 @@ _skills[sk, StandSkill.Desc] = Localize("barrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = StrongPunch;
-_skills[sk, StandSkill.Damage] = 5.5;
+_skills[sk, StandSkill.Damage] = 25;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 8;

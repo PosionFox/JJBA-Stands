@@ -341,7 +341,7 @@ var _skills = StandSkillInit();
 var sk;
 sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = SuddenStrike;
-_skills[sk, StandSkill.Damage] = 8;
+_skills[sk, StandSkill.Damage] = 15;
 _skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.Icon] = global.sprSkillUry;
 _skills[sk, StandSkill.MaxCooldown] = 5;

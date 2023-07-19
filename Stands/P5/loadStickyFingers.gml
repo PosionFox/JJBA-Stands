@@ -373,7 +373,7 @@ _skills[sk, StandSkill.Desc] = Localize("sfBarrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = ZipperPunch;
-_skills[sk, StandSkill.Damage] = 2;
+_skills[sk, StandSkill.Damage] = 20;
 _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 3;

@@ -262,7 +262,11 @@ global.sndWsDiscSteal = audio_create_stream(p + "wsDiscSteal.ogg");
 #region soft and wet
 
 p = "Resources/Sounds/SnW/";
-global.sndBubble = audio_create_stream(p + "snwBubble.ogg");
-global.sndBubblePop = audio_create_stream(p + "snwBubblePop.ogg");
+global.sndSnwSummon = audio_create_stream(p + "snwSummon.ogg");
+global.sndSnwBubble = audio_create_stream(p + "snwBubble.ogg");
+global.sndSnwBubblePop = audio_create_stream(p + "snwBubblePop.ogg");
+global.sndSnwBubbleBigPop = audio_create_stream(p + "snwBubbleBigPop.ogg");
+global.sndSnwBubbleSummon = audio_create_stream(p + "snwBubbleSummon.ogg");
+global.sndSnwBubbleThrow = audio_create_stream(p + "snwBubbleThrow.ogg");
 
 #endregion

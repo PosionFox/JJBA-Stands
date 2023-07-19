@@ -224,6 +224,14 @@ y tus proyectiles se congelaran donde están.
 el usuario entra en pánico debido a su salud baja
 y realiza una parada de tiempo más larga.");
 
+// snw
+LocalizationAddKey(_map, "moisturePlunderDesc", "saqueo de humedad:\ncrea una barrera de burbujas a tu alrededor\nlas burbujas dañan a los enemigos que las tocan.");
+LocalizationAddKey(_map, "shovelDesc", "pala:\nsaca una pala y golpealos con ella!.");
+LocalizationAddKey(_map, "bubbleShieldDesc", "burbuja escudo:\ncrea un escudo burbuja que\nte protege de cualquier daño.");
+LocalizationAddKey(_map, "bubbleBarrageDesc", "bombardeo de burbujas:\nlanza un bombardeo de burbujas adelante.");
+LocalizationAddKey(_map, "screwsAndNutsDesc", "tornillos y tuercas:\nlanza una burbuja llena de tornillos y tuercas\nque explota al contacto.");
+LocalizationAddKey(_map, "bubbleTrapDesc", "trampa burbuja:\nlanza una barba que atrapa a los enemigos al impactar.");
+
 #endregion
 
 #region npcs and quests

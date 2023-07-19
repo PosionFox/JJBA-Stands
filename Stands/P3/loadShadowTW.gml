@@ -534,7 +534,7 @@ var _skills = StandSkillInit();
 var sk;
 sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = StwUry;
-_skills[sk, StandSkill.Damage] = 4;
+_skills[sk, StandSkill.Damage] = 10;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillUry;
 _skills[sk, StandSkill.MaxCooldown] = 8;
