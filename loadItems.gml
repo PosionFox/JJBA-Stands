@@ -255,6 +255,12 @@ else
 
 #define PrayerBeadsUse
 
+if (room != rmGame)
+{
+    GainItem(global.jjPrayerBeads);
+    exit;
+}
+
 if (global.pucciSpawned == false)
 {
     SpawnPucci("", "");
@@ -363,22 +369,37 @@ else
 
 #define GiveRandomStand
 
+/*
+    100 = common
+    50 = uncommon
+    25 = rare
+    12 = epic
+    5 = legendary
+    1 = mythical
+*/
+
 var _standPool =
 [
-    [GiveStarPlatinum, 30],
-    [GiveShadowTheWorld, 30],
-    [GiveKillerQueen, 30],
-    [GiveStickyFingers, 30],
-    [GiveGoldExperience, 30],
-    [GiveKingCrimson, 30],
-    [GiveSilverChariot, 30],
-    [GiveWhiteSnake, 30],
-    [GiveImposter, 1],
+    [GiveStarPlatinum, 100],
+    [GiveShadowTheWorld, 100],
+    [GiveKillerQueen, 100],
+    [GiveStickyFingers, 100],
+    [GiveGoldExperience, 100],
+    [GiveKingCrimson, 100],
+    [GiveSilverChariot, 100],
+    [GiveWhiteSnake, 100],
+    [GiveSpg, 50],
+    [GiveSfg, 50],
+    [GiveSfr, 50],
+    [GiveKcg, 50],
+    [GiveScova, 25],
+    [GiveKca, 25],
+    [GiveBs, 12],
+    [GiveImposter, 5],
+    [GiveKcmo, 5],
     [GiveSpr, 1],
     [GiveShadow, 1],
-    [GiveKcm, 1],
-    [GiveScova, 1],
-    [GiveBs, 1]
+    [GiveKcm, 1]
 ]
 
 script_execute(random_weight(_standPool), player);
@@ -476,8 +497,8 @@ else
 {
     var _standPool =
     [
-        [GiveD4C, 30],
-        [GivePd4c, 1]
+        [GiveD4C, 100],
+        [GivePd4c, 12]
     ]
     script_execute(random_weight(_standPool), player);
 }
@@ -521,8 +542,9 @@ else
 {
     var _standPool =
     [
-        [GiveTheWorldAU, 30],
-        [GiveNeo, 1]
+        [GiveTheWorldAU, 100],
+        [GiveNeo, 12],
+        [GiveTwau3000, 5]
     ]
     script_execute(random_weight(_standPool), player);
 }

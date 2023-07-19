@@ -369,7 +369,7 @@ _skills[sk, StandSkill.DamageScale] = 0.01;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 6;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
-_skills[sk, StandSkill.Desc] = "sticky barrage:\nlaunches a barrage of punches.\ninflicts damaging zippers on the enemy.";
+_skills[sk, StandSkill.Desc] = Localize("sfBarrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = ZipperPunch;
@@ -378,21 +378,21 @@ _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 10;
-_skills[sk, StandSkill.Desc] = "zipper punch:\ncharges and launches a strong punch.\ninflicts damaging zippers on the enemy.";
+_skills[sk, StandSkill.Desc] = Localize("zipperPunchDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = ZipperGrab;
 _skills[sk, StandSkill.Icon] = global.sprSkillZipperGrab;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
-_skills[sk, StandSkill.Desc] = "zipper grab:\ndisjoints and launches their arm forwards\ngrabbing and pulling the first enemy it touches.";
+_skills[sk, StandSkill.Desc] = Localize("zipperGrabDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = SfPortal;
 _skills[sk, StandSkill.Icon] = global.sprSkillZipPortal;
 _skills[sk, StandSkill.MaxCooldown] = 20;
 _skills[sk, StandSkill.MaxExecutionTime] = 20;
-_skills[sk, StandSkill.Desc] = "portal through:\nopens two portals, one below the user\nand the other where they are aiming at.";
+_skills[sk, StandSkill.Desc] = Localize("portalThroughDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)
@@ -404,3 +404,4 @@ with (_s)
     discType = global.jjbamDiscSf;
     saveKey = "jjbamSf";
 }
+return _s;

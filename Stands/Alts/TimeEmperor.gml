@@ -32,12 +32,7 @@ with (_s)
     name = "Time Emperor"
     sprite_index = global.sprTimeEmperor;
     color = /*#*/0xe16e5b;
-    isRare = true;
-    tier = {
-        name : "epic",
-        color : c_purple
-    }
-    powerMultiplier = 10;
+    UpdateRarity(Rarity.Epic);
     auraParticleSprite = global.sprStandParticle6;
     auraParticleRotation = 4;
     saveKey = "jjbamTe";

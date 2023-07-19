@@ -34,11 +34,7 @@ with (_s)
     sprArmorless = sprite_index;
     name = "Silver Chariot OVA";
     color = 0x36f2fb;
-    tier = {
-        name : "rare",
-        color : c_blue
-    }
-    powerMultiplier = 5;
+    UpdateRarity(Rarity.Rare);
     saveKey = "jjbamScova";
     discType = global.jjbamDiscScova;
 }

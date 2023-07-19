@@ -65,11 +65,7 @@ with (_s)
     name = "Shadow";
     sprite_index = global.sprShadow;
     color = 0x36f2fb;
-    tier = {
-        name : "rare",
-        color : c_blue
-    }
-    powerMultiplier = 5;
+    UpdateRarity(Rarity.Mythical);
     summonSound = global.sndStw2Summon;
     saveKey = "jjbamShadow";
     discType = global.jjbamDiscShadow;

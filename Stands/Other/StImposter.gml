@@ -140,11 +140,7 @@ with (_s)
     summonSound = global.sndImposterSummon;
     saveKey = "jjbamSus";
     discType = global.jjbamDiscSus;
-    tier = {
-        name : "rare",
-        color : c_blue
-    }
-    powerMultiplier = 5;
+    UpdateRarity(Rarity.Legendary);
     rot = 0;
     sprKnife = global.sprKnife;
     

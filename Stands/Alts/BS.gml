@@ -32,11 +32,7 @@ with (_s)
     name = "BlackSnake"
     sprite_index = global.sprBlackSnake;
     color = /*#*/0x342022;
-    tier = {
-        name : "rare",
-        color : c_blue
-    }
-    powerMultiplier = 5;
+    UpdateRarity(Rarity.Epic);
     auraParticleSprite = global.sprStandParticle4;
     saveKey = "jjbamBs";
     discType = global.jjbamDiscBs;

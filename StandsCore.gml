@@ -13,9 +13,7 @@ var xx = 168;
 var yy = _height - 200;
 var _ss = random_range(0.85, 1.15);
 var _spr = global.sprStarTier;
-var _c = tier.color;
-if (isUnobtainable) { _spr = sprLegendaryGem; }
-if (isUnobtainable) { _c = c_red; }
+var _c = rarity.color;
 
 draw_sprite_ext(_spr, 0, xx - 4, yy, _ss, _ss, 0, _c, 0.8);
 
@@ -23,7 +21,7 @@ var gx = device_mouse_x_to_gui(0);
 var gy = device_mouse_y_to_gui(0);
 if (point_in_rectangle(gx, gy, xx - 16, yy - 16, xx + 16, yy + 16))
 {
-    draw_text(gx + 8, gy, tier.name);
+    draw_text(gx + 8, gy, rarity.name);
 }
 
 draw_set_halign(fa_left);
@@ -350,7 +348,7 @@ if (!instance_exists(_owner))
         exit;
     }
 }
-if !("myStand" in _owner)
+if !bool("myStand" in _owner)
 {
     _owner.myStand = noone;
 }
@@ -369,12 +367,11 @@ with (_stand)
     xTo = _owner.x;
     yTo = _owner.y;
     height = 0;
-    isRare = false;
-    isUnobtainable = false;
-    tier = {
+    rarity = {
+        tier : Rarity.Common,
         name : "common",
         color : c_white
-    }
+    };
     saveKey = "jjbamStandless";
     discType = noone;
     color = c_white;
@@ -408,7 +405,7 @@ with (_stand)
     runCDsMethod = StandSkillDefaultCDs;
     runDrawGUI = true;
     // stats
-    powerMultiplier = 1;
+    powerMultiplier = GetPowerMultiplier(rarity.tier);
     spd = 0.5;
     // skills
     skills = array_clone(_skills);
@@ -420,11 +417,60 @@ with (_stand)
 }
 return _stand;
 
+#define GetPowerMultiplier(_rarity)
+
+switch(_rarity)
+{
+    case Rarity.Common: return 1; break;
+    case Rarity.Uncommon: return 2; break;
+    case Rarity.Rare: return 4; break;
+    case Rarity.Epic: return 8; break;
+    case Rarity.Legendary: return 16; break;
+    case Rarity.Mythical: return 32; break;
+    case Rarity.Ascended: return 64; break;
+    case Rarity.Ultimate: return 128; break;
+}
+
+#define GetRarityName(_rarity)
+
+switch(_rarity)
+{
+    case Rarity.Common: return "common"; break;
+    case Rarity.Uncommon: return "uncommon"; break;
+    case Rarity.Rare: return "rare"; break;
+    case Rarity.Epic: return "epic"; break;
+    case Rarity.Legendary: return "legendary"; break;
+    case Rarity.Mythical: return "mythical"; break;
+    case Rarity.Ascended: return "ascended"; break;
+    case Rarity.Ultimate: return "ultimate"; break;
+}
+
+#define GetRarityColor(_rarity)
+
+switch(_rarity)
+{
+    case Rarity.Common: return c_white; break;
+    case Rarity.Uncommon: return c_lime; break;
+    case Rarity.Rare: return c_blue; break;
+    case Rarity.Epic: return c_purple; break;
+    case Rarity.Legendary: return c_yellow; break;
+    case Rarity.Mythical: return c_red; break;
+    case Rarity.Ascended: return c_orange; break;
+    case Rarity.Ultimate: return c_fuchsia; break;
+}
+
+#define UpdateRarity(_rarity)
+
+rarity.tier = _rarity;
+powerMultiplier = GetPowerMultiplier(_rarity);
+rarity.name = GetRarityName(_rarity)
+rarity.color = GetRarityColor(_rarity)
+
 #define RemoveStand(_owner)
 
 with (MOBJ)
 {
-    if ("type" in self)
+    if bool("type" in self)
     {
         if (type == "timestop")
         {

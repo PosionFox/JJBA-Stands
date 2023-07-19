@@ -445,8 +445,11 @@ if (timer <= 0)
 {
     var _standPool =
     [
-        [GiveTheWorld, 30],
-        [GiveSpookyWorld, 1]
+        [GiveTheWorld, 100],
+        [GiveTwg, 50],
+        [GiveSpookyWorld, 25],
+        [GiveTwgh, 5],
+        [GiveTwru, 1]
     ]
     script_execute(random_weight(_standPool), player);
     instance_destroy(self);

@@ -29,7 +29,7 @@ GivePd4c(player);
 if (STAND.hasArm and STAND.hasHeart and STAND.hasEye)
 {
     var _c = irandom(100);
-    if (_c <= 2)
+    if (_c <= 1)
     {
         GiveEg(player);
     }
@@ -47,11 +47,7 @@ with (_s)
     sprite_index = global.sprPD4C;
     name = "Patriot D4C";
     color = /*#*/0xff9b63;
-    tier = {
-        name : "epic",
-        color : c_purple
-    }
-    powerMultiplier = 10;
+    UpdateRarity(Rarity.Epic);
     auraParticleSprite = global.sprStandParticle3;
     saveKey = "jjbamPd4c";
     discType = global.jjbamDiscPd4c;

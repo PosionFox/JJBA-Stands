@@ -94,6 +94,15 @@ switch (_stand)
     case "jjbamPd4clt": GivePd4clt(player); break;
     case "jjbamEg": GiveEg(player); break;
     case "jjbamTwgh": GiveTwgh(player); break;
+    case "jjbamTwg": GiveTwg(player); break;
+    case "jjbamKcmo": GiveKcmo(player); break;
+    case "jjbamKca": GiveKca(player); break;
+    case "jjbamTwru": GiveTwru(player); break;
+    case "jjbamSpg": GiveSpg(player); break;
+    case "jjbamTwau3000": GiveTwau3000(player); break;
+    case "jjbamSfg": GiveSfg(player); break;
+    case "jjbamSfr": GiveSfr(player); break;
+    case "jjbamKcg": GiveKcg(player); break;
 }
 
 #define SaveData

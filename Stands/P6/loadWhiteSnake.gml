@@ -346,8 +346,7 @@ _skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.Icon] = global.sprSkillUry;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 2;
-_skills[sk, StandSkill.Desc] = @"sudden strike:
-launch a surpise attack.";
+_skills[sk, StandSkill.Desc] = Localize("suddenStrikeDesc");
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = ExplosiveSurprise;
@@ -356,23 +355,19 @@ _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillExplosiveSurprise;
 _skills[sk, StandSkill.MaxCooldown] = 7;
 _skills[sk, StandSkill.MaxExecutionTime] = 2;
-_skills[sk, StandSkill.Desc] = @"explosive surprise:
-toss an explosive disc forward.";
+_skills[sk, StandSkill.Desc] = Localize("explosiveSurpriseDesc");
 
 sk = StandState.SkillCOff;
 _skills[sk, StandSkill.Skill] = DiscProduce;
 _skills[sk, StandSkill.Icon] = global.sprSkillDiscProduce;
 _skills[sk, StandSkill.MaxCooldown] = 20;
-_skills[sk, StandSkill.Desc] = @"disc produce:
-whitesnake produces a new blank disc.";
+_skills[sk, StandSkill.Desc] = Localize("discProduceDesc");
 
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = MeltYourHeart;
 _skills[sk, StandSkill.Icon] = global.sprSkillMeltYourHeart;
 _skills[sk, StandSkill.MaxCooldown] = 40;
-_skills[sk, StandSkill.Desc] = @"melt your heart:
-release an illusory pool of acid.";
-
+_skills[sk, StandSkill.Desc] = Localize("meltYourHeartDesc");
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = WsBarrage;
@@ -381,7 +376,7 @@ _skills[sk, StandSkill.DamageScale] = 0.01;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 4;
 _skills[sk, StandSkill.MaxExecutionTime] = 2;
-_skills[sk, StandSkill.Desc] = "acidic barrage:\nlaunches a ranged barrage of acidic punches.";
+_skills[sk, StandSkill.Desc] = Localize("wsBarrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = WsGun;
@@ -389,7 +384,7 @@ _skills[sk, StandSkill.Damage] = 5;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
 _skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.Desc] = "quick disposal:\nunloads a volley of bullets forward.";
+_skills[sk, StandSkill.Desc] = Localize("quickDisposalDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = AcidicSpit;
@@ -397,15 +392,15 @@ _skills[sk, StandSkill.Damage] = 1;
 _skills[sk, StandSkill.DamageScale] = 0.05;
 _skills[sk, StandSkill.Icon] = global.sprSkillAcidicSpit;
 _skills[sk, StandSkill.MaxCooldown] = 8;
-_skills[sk, StandSkill.Desc] = "acidic spit:\nspits a projectile forwards that deals damage over time.";
+_skills[sk, StandSkill.Desc] = Localize("acidicSpitDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = DiscSteal;
 _skills[sk, StandSkill.Damage] = 1;
 _skills[sk, StandSkill.DamageScale] = 0.05;
 _skills[sk, StandSkill.Icon] = global.sprSkillDiscSteal;
-_skills[sk, StandSkill.MaxCooldown] = 16;
-_skills[sk, StandSkill.Desc] = "disc steal:\nsteals your target's memory disc rendering them useless.";
+_skills[sk, StandSkill.MaxCooldown] = 35;
+_skills[sk, StandSkill.Desc] = Localize("discStealDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)

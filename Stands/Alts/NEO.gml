@@ -26,21 +26,19 @@ GiveNeo(player);
 
 #define NeoTs(m, s)
 
-var _tsExists = modTypeExists("timestop");
-
-if (_tsExists)
+var _length = 5 + (0.15 * player.level);
+if (player.hp <= player.maxHp / 2)
 {
-    instance_destroy(modTypeFind("timestop"));
+    audio_play_sound(global.sndTwAuTsPanic, 5, false);
+    _length = 8 + (0.2 * player.level);
 }
-
-if (!_tsExists)
+else
 {
     audio_play_sound(global.sndNeoTs, 5, false);
-    var _t = TimestopCreate(5 + (0.15 * player.level));
-    _t.resumeSound = global.sndNeoTsResume;
-    FireCD(s);
 }
-state = StandState.Idle;
+var _t = TimestopCreate(_length);
+_t.resumeSound = global.sndNeoTsResume;
+EndAtk(s);
 
 #define GiveNeo(_owner) //stand
 
@@ -48,13 +46,9 @@ var _s = GiveTheWorldAU(_owner);
 with (_s)
 {
     sprite_index = global.sprTheWorldNeo;
-    name = "The World Neo";
+    name = "The World Neo\nAlternate Universe";
     color = 0xff9b63;
-    tier = {
-        name : "epic",
-        color : c_purple
-    }
-    powerMultiplier = 10;
+    UpdateRarity(Rarity.Epic);
     auraParticleSprite = global.sprStandParticle3;
     sprKnife = global.sprNeoKnife;
     saveKey = "jjbamNeo";

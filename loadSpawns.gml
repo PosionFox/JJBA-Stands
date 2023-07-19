@@ -1,10 +1,11 @@
 
-//global.enemyRokakaka = EnemyCreate(undefined, "Roka", EnemyType.Raider, 1, 1, 200, 200, 1, 1, ScriptWrap(RokaInit));
-//global.spawnRokakaka = SpawnCreate(undefined, SpawnType.Enemy, global.enemyRokakaka, ScriptWrap(RokakakaEligible));
+global.spawnDio = SpawnCreate(undefined, SpawnType.Enemy, global.enemyDio, ScriptWrap(SpawnDioEligible));
 
 
-#define RokakakaEligible
+#define SpawnDioEligible
 
+#define SpawnDio
 
-#define RokaInit
-sprIdle = global.sprRokakaka;
+var _snapshotGrid = ResourceSnapshot();
+ResourceSpawn(_snapshotGrid, global.spawnDio);
+ds_grid_destroy(_snapshotGrid);

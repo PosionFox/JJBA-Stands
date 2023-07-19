@@ -363,22 +363,19 @@ sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = DetonateBomb;
 _skills[sk, StandSkill.Icon] = global.sprSkillDetonate;
 _skills[sk, StandSkill.MaxCooldown] = 2;
-_skills[sk, StandSkill.Desc] = @"detonate bomb:
-explodes any bombs already placed.";
+_skills[sk, StandSkill.Desc] = Localize("detonateBombDesc");
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = TripleCoin;
 _skills[sk, StandSkill.Icon] = global.sprSkillCoinBomb;
 _skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.Desc] = @"the wealthy:
-tosses three coins forward, these can be detonated on demand.";
+_skills[sk, StandSkill.Desc] = Localize("theWealthyDesc");
 
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = ShaSummon;
 _skills[sk, StandSkill.Icon] = global.sprSkillSHA;
 _skills[sk, StandSkill.MaxCooldown] = 20;
-_skills[sk, StandSkill.Desc] = @"killer queen's second bomb:
-summons sha in combat, chasing and exploding enemies on its own.";
+_skills[sk, StandSkill.Desc] = Localize("shaSummonDesc");
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;
@@ -386,37 +383,26 @@ _skills[sk, StandSkill.Damage] = 1;
 _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.Desc] = @"barrage:
-launches a barrage of punches.";
+_skills[sk, StandSkill.Desc] = Localize("barrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = PlaceBomb;
 _skills[sk, StandSkill.Icon] = global.sprSkillFirstBomb;
 _skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.Desc] = @"killer queen's first bomb:
-places a bomb on the nearest enemy or ground.";
+_skills[sk, StandSkill.Desc] = Localize("placeBombDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = StrayCat;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrayCat;
 _skills[sk, StandSkill.MaxCooldown] = 12;
-_skills[sk, StandSkill.Desc] = @"stray cat:
-releases an explosive bubble that can be controlled.";
+_skills[sk, StandSkill.Desc] = Localize("strayCatDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = PlaceThirdBomb;
 _skills[sk, StandSkill.Icon] = global.sprSkillThirdBomb;
 _skills[sk, StandSkill.MaxCooldown] = 2;
 _skills[sk, StandSkill.MaxExecutionTime] = 20;
-_skills[sk, StandSkill.Desc] = @"killer queen's third bomb:
-places a special bomb on the ground.
-
-(after cast) bites the dust:
-detonates the special bomb damaging all enemies nearby,
-returns the user to the original position
-where they placed the bomb in the first place while also
-healing the user for the amount of damage lost afterwards.
-";
+_skills[sk, StandSkill.Desc] = Localize("thirdBombDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)

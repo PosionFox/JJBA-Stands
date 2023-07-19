@@ -183,10 +183,7 @@ with (_s)
     name = "The World OVA";
     sprite_index = global.sprTWR;
     color = /*#*/0x66a0d9;
-    tier = {
-        name : "unobtainable",
-        color : c_orange
-    }
+    UpdateRarity(Rarity.Mythical);
     saveKey = "jjbamTwova";
     discType = global.jjbamDiscTwova;
     

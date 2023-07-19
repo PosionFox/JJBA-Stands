@@ -100,6 +100,8 @@ global.sprHorizontalSlash = sprite_add(p + "HorizontalSlash.png", 1, false, fals
 p = "Resources/Sprites/TW/";
 global.sprTheWorld = sprite_add(p + "TheWorld.png", 1, false, false, 16, 19);
 global.sprTWGH = sprite_add(p + "TheWorldGreatestHigh.png", 1, false, false, 16, 19);
+global.sprTWG = sprite_add(p + "TWGray.png", 1, false, false, 16, 19);
+global.sprTWRu = sprite_add(p + "TWRu.png", 1, false, false, 16, 19);
 global.sprTheWorldPunch = sprite_add(p + "TheWorldPunch.png", 1, false, false, 16, 16);
 global.sprStopSign = sprite_add(p + "StopSign.png", 1, false, false, 1, 16);
 
@@ -115,6 +117,7 @@ global.sprSkillTripleKnifeThrow = sprite_add(p + "SkillTripleKnifeThrow.png", 1,
 p = "Resources/Sprites/TWAU/";
 global.sprTheWorldAU = sprite_add(p + "TheWorldAU.png", 1, false, false, 16, 19);
 global.sprTheWorldNeo = sprite_add(p + "NEO.png", 1, false, false, 16, 19);
+global.sprTWAU3000 = sprite_add(p + "TWAU3000.png", 1, false, false, 16, 19);
 global.sprNeoKnife = sprite_add(p + "NeoKnife.png", 1, false, false, 8, 8);
 
 // skills
@@ -126,6 +129,7 @@ global.sprSkillKnifeBarrage = sprite_add(p + "SkillKnifeBarrage.png", 1, false, 
 
 p = "Resources/Sprites/SP/";
 global.sprStarPlatinum = sprite_add(p + "StarPlatinum.png", 1, false, false, 16, 19);
+global.sprSPG = sprite_add(p + "SPGray.png", 1, false, false, 16, 19);
 global.sprStarPlatinumPunch = sprite_add(p + "StarPlatinumPunch.png", 1, false, false, 16, 16);
 global.sprStarPlatinumFinger = sprite_add(p + "StarPlatinumFinger.png", 1, false, false, 1, 1);
 global.sprSoda = sprite_add(p + "Soda.png", 1, false, false, 4, 4);
@@ -230,6 +234,9 @@ global.sprSkillRequiem = sprite_add(p + "SkillRequiem.png", 1, false, false, 16,
 p = "Resources/Sprites/KC/";
 global.sprKingCrimson = sprite_add(p + "KingCrimson.png", 1, false, false, 16, 19);
 global.sprKingCrimsonManga = sprite_add(p + "KingCrimsonM.png", 1, false, false, 16, 19);
+global.sprKingCrimsonMono = sprite_add(p + "KCMonochrome.png", 1, false, false, 16, 19);
+global.sprKingCrimsonAqua = sprite_add(p + "KCAqua.png", 1, false, false, 16, 19);
+global.sprKCG = sprite_add(p + "KCGray.png", 1, false, false, 16, 19);
 global.sprScalpelSwing = sprite_add(p + "ScalpelAttack.png", 5, false, false, 16, 16);
 global.sprScalpel = sprite_add(p + "KcScalpel.png", 1, false, false, 8, 8);
 global.sprSkillScalpelSlash = sprite_add(p + "SkillScalpelSlash.png", 1, false, false, 16, 16);
@@ -274,6 +281,8 @@ global.sprSteelBallProj = sprite_add(p + "SteelBallProj.png", 1, false, false, 8
 
 p = "Resources/Sprites/SF/";
 global.sprStickyFingers = sprite_add(p + "StickyFingers.png", 1, false, false, 16, 19);
+global.sprSFG = sprite_add(p + "SFGray.png", 1, false, false, 16, 19);
+global.sprSFR = sprite_add(p + "SFR.png", 1, false, false, 16, 19);
 global.sprSfZipper = sprite_add(p + "SfZipper.png", 4, false, false, 16, 16);
 global.sprSfPortal = sprite_add(p + "SfPortal.png", 4, false, false, 16, 16);
 

@@ -1,6 +1,9 @@
 
 var p = ""; // path short
 
+p = "Resources/Sounds/DIO/";
+global.sndDioSpawn = audio_create_stream(p + "dioSpawn.ogg");
+
 #region generic stand
 
 p = "Resources/Sounds/Generic/Stand/";
@@ -145,6 +148,7 @@ global.sndTwrBd2 = audio_create_stream(p + "twrBd2.ogg");
 
 p = "Resources/Sounds/TWAU/";
 global.sndTwAuTs = audio_create_stream(p + "twauTs.ogg");
+global.sndTwAuDiegoTs = audio_create_stream(p + "twauDiegoTs.ogg");
 global.sndTwAuTsPanic = audio_create_stream(p + "twauTsPanic.ogg");
 global.sndTwAuTsResume = audio_create_stream(p + "twauTsResume.ogg");
 

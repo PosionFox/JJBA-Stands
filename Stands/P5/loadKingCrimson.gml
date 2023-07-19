@@ -436,7 +436,7 @@ _skills[sk, StandSkill.Icon] = global.sprSkillScalpelSlash;
 _skills[sk, StandSkill.Damage] = 2;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.MaxCooldown] = 6;
-_skills[sk, StandSkill.Desc] = "scalpel slash:\ncarve your enemies and make them bleed.";
+_skills[sk, StandSkill.Desc] = Localize("scalpelSlashDesc");
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = ScalpelThrow;
@@ -444,7 +444,7 @@ _skills[sk, StandSkill.Icon] = global.sprSkillScalpelThrow;
 _skills[sk, StandSkill.Damage] = 1.5;
 _skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.Desc] = "scalpel throw:\nthrow two scalpels forward.";
+_skills[sk, StandSkill.Desc] = Localize("scalpelThrowDesc");
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = KcBarrage;
@@ -453,9 +453,7 @@ _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 6;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
-_skills[sk, StandSkill.Desc] = @"skip barrage:
-skips time into the nearest enemy
-releasing a series of fatal blows.";
+_skills[sk, StandSkill.Desc] = Localize("kcBarrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = KcChop;
@@ -468,24 +466,19 @@ _skills[sk, StandSkill.DamageAlt] = 15;
 _skills[sk, StandSkill.DamageScaleAlt] = 0.15;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillHeavyChop;
 _skills[sk, StandSkill.MaxCooldownAlt] = 15;
-_skills[sk, StandSkill.Desc] = @"chop:
-chops the enemy for moderate damage.
-
-heavy chop:
-winds up a terrible strike that is bound to
-seriously harm even the toughest opponent.";
+_skills[sk, StandSkill.Desc] = Localize("chopDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = TimeSkip;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimeSkip;
 _skills[sk, StandSkill.MaxCooldown] = 3;
-_skills[sk, StandSkill.Desc] = "time skip:\nskips time forward into a new position in space.";
+_skills[sk, StandSkill.Desc] = Localize("timeSkipDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = TimeErase;
 _skills[sk, StandSkill.MaxCooldown] = 35;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimeErase;
-_skills[sk, StandSkill.Desc] = "time erase:\nerases a frame of time, nobody will know what happened.";
+_skills[sk, StandSkill.Desc] = Localize("timeEraseDesc");
 
 
 var _s = StandBuilder(_owner, _skills);

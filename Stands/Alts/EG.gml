@@ -32,11 +32,7 @@ with (_s)
     sprite_index = global.sprEvergreen;
     name = "Evergreen";
     color = /*#*/0x50e599;
-    tier = {
-        name : "mythical",
-        color : c_red
-    }
-    powerMultiplier = 20;
+    UpdateRarity(Rarity.Ascended);
     auraParticleSprite = global.sprStandParticle6;
     saveKey = "jjbamEg";
     discType = global.jjbamDiscEg;

@@ -213,8 +213,7 @@ sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = DetonateBomb;
 _skills[sk, StandSkill.Icon] = global.sprSkillDetonate;
 _skills[sk, StandSkill.MaxCooldown] = 2;
-_skills[sk, StandSkill.Desc] = @"detonate bomb:
-explodes any bombs already placed.";
+_skills[sk, StandSkill.Desc] = Localize("detonateBombDesc");
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;
@@ -223,30 +222,28 @@ _skills[sk, StandSkill.DamageScale] = 0.01;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 4;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
-_skills[sk, StandSkill.Desc] = @"barrage:
-launches a barrage of punches.";
+_skills[sk, StandSkill.Desc] = Localize("barrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = PlaceBomb;
 _skills[sk, StandSkill.Icon] = global.sprSkillFirstBomb;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
-_skills[sk, StandSkill.Desc] = @"killer queen's first bomb:
-places a bomb on the nearest enemy or ground.";
+_skills[sk, StandSkill.Desc] = Localize("placeBombDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = CoinBomb;
 _skills[sk, StandSkill.Icon] = global.sprSkillCoinBomb;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
-_skills[sk, StandSkill.Desc] = "coin bomb:\ntosses a coin that can be detonated on demand.";
+_skills[sk, StandSkill.Desc] = Localize("coinBombDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = ShaSummon;
 _skills[sk, StandSkill.Icon] = global.sprSkillSHA;
 _skills[sk, StandSkill.MaxCooldown] = 40;
 _skills[sk, StandSkill.MaxExecutionTime] = 20;
-_skills[sk, StandSkill.Desc] = "killer queen's second bomb:\nsummons sha in combat, chasing and exploding enemies on its own.";
+_skills[sk, StandSkill.Desc] = Localize("shaSummonDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)

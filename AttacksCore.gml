@@ -323,6 +323,55 @@ if (instance_exists(objArrow))
         speed = lerp(speed, 0, 0.1);
     }
 }
+if (instance_exists(objBallistaArrow))
+{
+    with (objBallistaArrow)
+    {
+        speed = lerp(speed, 0, 0.1);
+    }
+}
+if (instance_exists(objIceBolt))
+{
+    with (objIceBolt)
+    {
+        speed = lerp(speed, 0, 0.1);
+    }
+}
+if (instance_exists(objDarkBeetProjectile))
+{
+    with (objDarkBeetProjectile)
+    {
+        speed = lerp(speed, 0, 0.1);
+    }
+}
+if (instance_exists(objSkeletonBoomerang))
+{
+    with (objSkeletonBoomerang)
+    {
+        speed = lerp(speed, 0, 0.1);
+    }
+}
+if (instance_exists(objToxicProjectile))
+{
+    with (objToxicProjectile)
+    {
+        speed = lerp(speed, 0, 0.1);
+    }
+}
+if (instance_exists(objFireball))
+{
+    with (objFireball)
+    {
+        speed = lerp(speed, 0, 0.1);
+    }
+}
+if (instance_exists(objVenomBolt))
+{
+    with (objVenomBolt)
+    {
+        speed = lerp(speed, 0, 0.1);
+    }
+}
 
 if (instance_exists(owner))
 {
@@ -370,11 +419,60 @@ if (instance_exists(objArrow))
         speed = 6;
     }
 }
+if (instance_exists(objBallistaArrow))
+{
+    with (objBallistaArrow)
+    {
+        speed = 5;
+    }
+}
+if (instance_exists(objIceBolt))
+{
+    with (objIceBolt)
+    {
+        speed = 2;
+    }
+}
+if (instance_exists(objDarkBeetProjectile))
+{
+    with (objDarkBeetProjectile)
+    {
+        speed = 3;
+    }
+}
+if (instance_exists(objSkeletonBoomerang))
+{
+    with (objSkeletonBoomerang)
+    {
+        speed = 2;
+    }
+}
+if (instance_exists(objToxicProjectile))
+{
+    with (objToxicProjectile)
+    {
+        speed = 2;
+    }
+}
+if (instance_exists(objFireball))
+{
+    with (objFireball)
+    {
+        speed = 3;
+    }
+}
+if (instance_exists(objVenomBolt))
+{
+    with (objVenomBolt)
+    {
+        speed = 2;
+    }
+}
 
 audio_play_sound(resumeSound, 5, false);
 with (MOBJ)
 {
-    if ("type" in self)
+    if bool("type" in self)
     {
         if (type == "TsEnemy")
         {

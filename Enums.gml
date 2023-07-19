@@ -45,3 +45,14 @@ enum StandSkill {
     ExecutionTime,
     LEN
 }
+
+enum Rarity {
+    Common,
+    Uncommon,
+    Rare,
+    Epic,
+    Legendary,
+    Mythical,
+    Ascended,
+    Ultimate
+}

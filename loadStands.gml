@@ -76,6 +76,15 @@ PD4C();
 PD4CLT();
 EG();
 TWGH();
+TWGray();
+KCMo();
+KCA();
+TWRu();
+SPG();
+TWAU3000();
+SFG();
+SFR();
+KCGray();
 
 #endregion
 

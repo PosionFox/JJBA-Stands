@@ -32,11 +32,7 @@ with (_s)
     sprite_index = global.sprSQBTD;
     name = "Shadow Queen:\nBites the Dust";
     color = 0x3c2845;
-    tier = {
-        name : "epic",
-        color : c_purple
-    }
-    powerMultiplier = 10;
+    UpdateRarity(Rarity.Epic);
     auraParticleSprite = global.sprStandParticle2;
     saveKey = "jjbamSqbtd";
     discType = global.jjbamDiscSQBTD;

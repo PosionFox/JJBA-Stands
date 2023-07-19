@@ -29,14 +29,10 @@ GiveTwgh(player);
 var _s = GiveTheWorld(_owner);
 with (_s)
 {
-    name = "The World Greatest High";
+    name = "The World\nGreatest High";
     sprite_index = global.sprTWGH;
     color = /*#*/0x743f3f;
-    tier = {
-        name : "legendary",
-        color : c_yellow
-    }
-    powerMultiplier = 15;
+    UpdateRarity(Rarity.Legendary);
     saveKey = "jjbamTwgh";
     discType = global.jjbamDiscTwgh;
 }

@@ -182,19 +182,19 @@ sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = LifeFormPlant;
 _skills[sk, StandSkill.Icon] = global.sprSkillLifeFormPlant;
 _skills[sk, StandSkill.MaxCooldown] = 15;
-_skills[sk, StandSkill.Desc] = "lifeform plant:\nsummons a random plant.";
+_skills[sk, StandSkill.Desc] = Localize("lifeformPlantDesc");
 
 sk = StandState.SkillCOff;
 _skills[sk, StandSkill.Skill] = LifeFormScorpion;
 _skills[sk, StandSkill.Icon] = global.sprSkillLifeFormScorpion;
 _skills[sk, StandSkill.MaxCooldown] = 20;
-_skills[sk, StandSkill.Desc] = "lifeform scorpion:\nsummons a scorpion that attacks nearby enemies.";
+_skills[sk, StandSkill.Desc] = Localize("lifeformScorpionDesc");
 
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = LifeFormFrog;
 _skills[sk, StandSkill.Icon] = global.sprSkillLifeFormFrog;
 _skills[sk, StandSkill.MaxCooldown] = 20;
-_skills[sk, StandSkill.Desc] = "lifeform frog:\nsummons a frog that protects you and reflects damage.";
+_skills[sk, StandSkill.Desc] = Localize("lifeformFrogDesc");
 
 
 sk = StandState.SkillA;
@@ -204,7 +204,7 @@ _skills[sk, StandSkill.DamageScale] = 0.01;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 7;
-_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.";
+_skills[sk, StandSkill.Desc] = Localize("barrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = LifePunch;
@@ -212,7 +212,7 @@ _skills[sk, StandSkill.Damage] = 3;
 _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 8;
-_skills[sk, StandSkill.Desc] = "life punch:\npunches the enemy and pulls their soul out,\nthe soul damages other enemies.";
+_skills[sk, StandSkill.Desc] = Localize("lifePunchDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = SelfHeal;
@@ -221,13 +221,13 @@ _skills[sk, StandSkill.DamageScale] = 0.15;
 _skills[sk, StandSkill.DamagePlayerStat] = false;
 _skills[sk, StandSkill.Icon] = global.sprSkillSelfHeal;
 _skills[sk, StandSkill.MaxCooldown] = 15;
-_skills[sk, StandSkill.Desc] = "self heal:\nmends the user's wounds,\nthe effectiveness of the healing is tied to the user's level.";
+_skills[sk, StandSkill.Desc] = Localize("selfHealDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = TransformIntoGer;
 _skills[sk, StandSkill.Icon] = global.sprSkillRequiem;
 _skills[sk, StandSkill.MaxCooldown] = 60;
-_skills[sk, StandSkill.Desc] = "requiem:\nawaken your stand.";
+_skills[sk, StandSkill.Desc] = Localize("requiemDesc");
 
 #endregion
 
@@ -237,7 +237,7 @@ sk = StandState.SkillAOff;
 _skillsGer[sk, StandSkill.Skill] = RequiemTaunt;
 _skillsGer[sk, StandSkill.Icon] = global.sprSkillSkip;
 _skillsGer[sk, StandSkill.MaxCooldown] = 10;
-_skillsGer[sk, StandSkill.Desc] = "requiem taunt";
+_skillsGer[sk, StandSkill.Desc] = "requiem";
 
 sk = StandState.SkillA;
 _skillsGer[sk, StandSkill.Skill] = GerBarrage;
@@ -246,7 +246,7 @@ _skillsGer[sk, StandSkill.DamageScale] = 0.4;
 _skillsGer[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skillsGer[sk, StandSkill.MaxCooldown] = 3;
 _skillsGer[sk, StandSkill.MaxExecutionTime] = 9;
-_skillsGer[sk, StandSkill.Desc] = "null barrage:\nlaunches a destructive barrage of punches.";
+_skillsGer[sk, StandSkill.Desc] = Localize("gerBarrageDesc");
 
 sk = StandState.SkillB;
 _skillsGer[sk, StandSkill.Skill] = LifePunch;
@@ -254,13 +254,13 @@ _skillsGer[sk, StandSkill.Damage] = 10;
 _skillsGer[sk, StandSkill.DamageScale] = 0.2;
 _skillsGer[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skillsGer[sk, StandSkill.MaxCooldown] = 4;
-_skillsGer[sk, StandSkill.Desc] = "life punch:\npunches the enemy and pulls their soul out,\nthe soul damages other enemies.";
+_skillsGer[sk, StandSkill.Desc] = Localize("lifePunchDesc");
 
 sk = StandState.SkillC;
 _skillsGer[sk, StandSkill.Skill] = ScorpionToss;
 _skillsGer[sk, StandSkill.Icon] = global.sprSkillLifeFormScorpion;
 _skillsGer[sk, StandSkill.MaxCooldown] = 5;
-_skillsGer[sk, StandSkill.Desc] = "scorpion toss:\ntosses a rock foward which\ntransforms into a scorpion on impact.";
+_skillsGer[sk, StandSkill.Desc] = Localize("scorpionTossDesc");
 
 sk = StandState.SkillD;
 _skillsGer[sk, StandSkill.Skill] = SelfHeal;
@@ -269,7 +269,7 @@ _skillsGer[sk, StandSkill.DamageScale] = 0.15;
 _skillsGer[sk, StandSkill.DamagePlayerStat] = false;
 _skillsGer[sk, StandSkill.Icon] = global.sprSkillSelfHeal;
 _skillsGer[sk, StandSkill.MaxCooldown] = 6;
-_skillsGer[sk, StandSkill.Desc] = "self heal:\nmends the user's wounds,\nthe effectiveness of the healing is tied to the user's level.";
+_skillsGer[sk, StandSkill.Desc] = Localize("selfHealDesc");
 
 
 #endregion

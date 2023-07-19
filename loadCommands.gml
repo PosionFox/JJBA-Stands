@@ -14,6 +14,12 @@ CommandCreate("jjRemapKeybind", false, ScriptWrap(jjRemapKeybind), "summon/abili
 
 CommandCreate("jjMaxExp", true, ScriptWrap(jjMaxExp))
 
+CommandCreate("jjSpawnDio", true, ScriptWrap(jjSpawnDio))
+
+#define jjSpawnDio
+
+SpawnDio();
+
 #define jjMaxExp
 
 if (instance_exists(STAND) and "xp" in STAND)
@@ -103,6 +109,15 @@ switch (args[0])
     case "pd4clt": GivePd4clt(player); break;
     case "eg": GiveEg(player); break;
     case "twgh": GiveTwgh(player); break;
+    case "twg": GiveTwg(player); break;
+    case "kcmo": GiveKcmo(player); break;
+    case "kca": GiveKca(player); break;
+    case "twru": GiveTwru(player); break;
+    case "spg": GiveSpg(player); break;
+    case "twau3000": GiveTwau3000(player); break;
+    case "sfg": GiveSfg(player); break;
+    case "sfr": GiveSfr(player); break;
+    case "kcg": GiveKcg(player); break;
     // other
     case "sus": GiveImposter(player); break;
     
