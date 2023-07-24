@@ -70,6 +70,7 @@ global.sprSkillTimestop = sprite_add(p + "SkillTimestop.png", 1, false, false, 1
 p = "Resources/Sprites/STW/";
 global.sprShadowTheWorld = sprite_add(p + "ShadowTheWorld.png", 1, false, false, 16, 19);
 global.sprShadow = sprite_add(p + "Shadow.png", 1, false, false, 16, 19);
+global.sprDW = sprite_add(p + "DarkWorld.png", 1, false, false, 16, 19);
 global.sprKnifeStw = sprite_add(p + "KnifeStw.png", 1, false, false, 8, 8);
 global.sprKnifeShad = sprite_add(p + "KnifeShad.png", 1, false, false, 8, 8);
 global.sprStwPunch = sprite_add(p + "StwPunch.png", 1, false, false, 16, 16);
