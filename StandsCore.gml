@@ -379,6 +379,7 @@ with (_stand)
     saveKey = "jjbamStandless";
     discType = noone;
     color = c_white;
+    colorAlt = c_white;
     summonSound = global.sndStandSummon;
     playSummonSound = true;
     auraParticleSprite = global.sprStandParticle;

@@ -400,7 +400,7 @@ if (life <= 0)
 #define TimeEraseDraw
 
 gpu_set_blendmode_ext(bm_inv_dest_color, bm_inv_src_alpha);
-draw_set_color(c_fuchsia);
+draw_set_color(STAND.color);
 draw_rectangle(WorldControl.x - 640, WorldControl.y - 360, WorldControl.x + 640, WorldControl.y + 360, false);
 draw_set_color(c_white);
 gpu_set_blendmode(bm_normal);
@@ -487,6 +487,7 @@ with (_s)
     name = "King Crimson";
     sprite_index = global.sprKingCrimson;
     color = 0x3232ac;
+    colorAlt = c_fuchsia;
     dmgStack = 0;
     armChopRange = 72;
     armChopShow = false;

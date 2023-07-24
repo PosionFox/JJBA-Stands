@@ -8,6 +8,7 @@ loadSilverChariot();
 loadAnubis();
 loadShadowTW();
 loadTheWorld();
+SPP();
 
 #endregion
 
@@ -87,6 +88,7 @@ SFR();
 KCGray();
 Gm();
 TWROH();
+TWRuOH();
 DW();
 
 #endregion

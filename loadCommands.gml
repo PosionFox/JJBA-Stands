@@ -70,6 +70,7 @@ switch (args[0])
     case "tw": GiveTheWorld(player); break;
     case "anubis": GiveAnubis(player); break;
     case "stw": GiveShadowTheWorld(player); break;
+    case "spp": GiveSpp(player); break;
     // p4
     case "sptw": GiveSPTW(player); break;
     case "kq": GiveKillerQueen(player); break;
@@ -121,6 +122,7 @@ switch (args[0])
     case "gm": GiveGm(player); break;
     case "twroh": GiveTwroh(player); break;
     case "dw": GiveDw(player); break;
+    case "twruoh": GiveTwruoh(player); break;
     // other
     case "sus": GiveImposter(player); break;
     case "twoh": GiveTWOH(player); break;

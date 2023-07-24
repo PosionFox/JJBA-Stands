@@ -7,6 +7,7 @@ switch (_stand)
 {
     // p3
     case "jjbamTw": GiveTheWorld(player); break;
+    case "jjbamSpp": GiveSpp(player); break;
     case "jjbamSp":
         GiveStarPlatinum(player);
         var _xp = _map[? "jjbamSpXp"];
@@ -106,6 +107,7 @@ switch (_stand)
     case "jjbamGm": GiveGm(player); break;
     case "jjbamTwoh": GiveTWOH(player); break;
     case "jjbamTwroh": GiveTwroh(player); break;
+    case "jjbamTwruoh": GiveTwruoh(player); break;
     case "jjbamDw": GiveDw(player); break;
 }
 

@@ -440,6 +440,7 @@ var _standPool =
     [GiveImposter, 5],
     [GiveKcmo, 5],
     [GiveDw, 5],
+    [GiveSpp, 5],
     [GiveSpr, 1],
     [GiveShadow, 1],
     [GiveKcm, 1]

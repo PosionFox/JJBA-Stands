@@ -73,7 +73,7 @@ _skills[sk, StandSkill.MaxCooldown] = 7;
 _skills[sk, StandSkill.Desc] = Localize("bearingShotDesc");
 
 sk = StandState.SkillDOff;
-_skills[sk, StandSkill.Skill] = TimeStopTeleport;
+_skills[sk, StandSkill.Skill] = TwohTsTp;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimeSkip;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.Desc] = Localize("tsTpDesc");

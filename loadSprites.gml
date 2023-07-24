@@ -119,6 +119,7 @@ global.sprSkillTripleKnifeThrow = sprite_add(p + "SkillTripleKnifeThrow.png", 1,
 p = "Resources/Sprites/TWOH/";
 global.sprTWOH = sprite_add(p + "TheWorldOverHeaven.png", 1, false, false, 16, 19);
 global.sprTWROH = sprite_add(p + "TWROH.png", 1, false, false, 16, 19);
+global.sprTWRuOH = sprite_add(p + "TWRuOH.png", 1, false, false, 16, 19);
 
 #endregion
 
@@ -140,6 +141,7 @@ global.sprSkillKnifeBarrage = sprite_add(p + "SkillKnifeBarrage.png", 1, false, 
 p = "Resources/Sprites/SP/";
 global.sprStarPlatinum = sprite_add(p + "StarPlatinum.png", 1, false, false, 16, 19);
 global.sprSPG = sprite_add(p + "SPGray.png", 1, false, false, 16, 19);
+global.sprSPP = sprite_add(p + "StarPlatinumPrime.png", 1, false, false, 16, 19);
 global.sprStarPlatinumPunch = sprite_add(p + "StarPlatinumPunch.png", 1, false, false, 16, 16);
 global.sprStarPlatinumFinger = sprite_add(p + "StarPlatinumFinger.png", 1, false, false, 1, 1);
 global.sprSoda = sprite_add(p + "Soda.png", 1, false, false, 4, 4);

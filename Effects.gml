@@ -397,13 +397,13 @@ if (lineX - lineW * 4 > display_get_gui_width())
 
 #define EffectTimeSkipDrawGUI
 
-draw_line_width_color(lineX, 0 - 32, lineX - 128, display_get_gui_height() + 32, lineW, c_fuchsia, c_red);
+draw_line_width_color(lineX, 0 - 32, lineX - 128, display_get_gui_height() + 32, lineW, STAND.color, STAND.colorAlt);
 draw_set_alpha(0.75);
-draw_line_width_color(lineX - lineW * 1, 0 - 32, (lineX - 128) - lineW * 1, display_get_gui_height() + 32, lineW, c_fuchsia, c_red);
+draw_line_width_color(lineX - lineW * 1, 0 - 32, (lineX - 128) - lineW * 1, display_get_gui_height() + 32, lineW, STAND.color, STAND.colorAlt);
 draw_set_alpha(0.5);
-draw_line_width_color(lineX - lineW * 2, 0 - 32, (lineX - 128) - lineW * 2, display_get_gui_height() + 32, lineW, c_fuchsia, c_red);
+draw_line_width_color(lineX - lineW * 2, 0 - 32, (lineX - 128) - lineW * 2, display_get_gui_height() + 32, lineW, STAND.color, STAND.colorAlt);
 draw_set_alpha(0.25);
-draw_line_width_color(lineX - lineW * 3, 0 - 32, (lineX - 128) - lineW * 3, display_get_gui_height() + 32, lineW, c_fuchsia, c_red);
+draw_line_width_color(lineX - lineW * 3, 0 - 32, (lineX - 128) - lineW * 3, display_get_gui_height() + 32, lineW, STAND.color, STAND.colorAlt);
 draw_set_alpha(1);
 
 #define EffectPlayerAfterimageCreate(_x, _y)
@@ -422,7 +422,7 @@ with (o)
     sprite_index = player.sprite_index;
     image_index = player.image_index;
     image_speed = 0;
-    image_blend = c_fuchsia;
+    image_blend = STAND.color;
     image_angle = player.angle;
     image_xscale = player.facing;
     image_yscale = player.yscale;
