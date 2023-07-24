@@ -241,6 +241,12 @@ _skills[sk, StandSkill.Icon] = global.sprSkillDivineBlood;
 _skills[sk, StandSkill.MaxCooldown] = 15;
 _skills[sk, StandSkill.Desc] = Localize("bloodDrainDesc");
 
+sk = StandState.SkillDOff;
+_skills[sk, StandSkill.Skill] = TimeStopTeleport;
+_skills[sk, StandSkill.Icon] = global.sprSkillTimeSkip;
+_skills[sk, StandSkill.MaxCooldown] = 3;
+_skills[sk, StandSkill.Desc] = Localize("tsTpDesc");
+
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = TwBarrage;
 _skills[sk, StandSkill.Damage] = 1.5;

@@ -50,38 +50,40 @@ alphaTarget = 1;
 switch (attackState)
 {
     case 0:
+        if (attackStateTimer >= 0.1) attackState++;
+    break;
+    case 1:
         audio_play_sound(summonSound, 0, false);
         var _snd = audio_play_sound(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         PunchSwingCreate(x, y, _dir, 45, GetDmg(skill));
         attackState++;
     break;
-    case 1:
+    case 2:
         if (attackStateTimer >= 0.3)
         {
             attackState++;
         }
     break;
-    case 2:
+    case 3:
         var _snd = audio_play_sound(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         PunchSwingCreate(x, y, _dir, 45, GetDmg(skill));
         attackState++;
     break;
-    case 3:
+    case 4:
         if (attackStateTimer >= 0.8)
         {
             attackState++;
         }
     break;
-    case 4:
+    case 5:
         _dis = 16;
         var _snd = audio_play_sound(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         PunchSwingCreate(x, y, _dir, 45, GetDmg(skill) * 2);
-        audio_play_sound(global.sndStw2Desummon, 0, false);
-        FireCD(skill);
-        state = StandState.Idle;
+        audio_play_sound(desummonSound, 0, false);
+        EndAtk(skill);
     break;
 }
 xTo = objPlayer.x + lengthdir_x(_dis, _dir);
@@ -139,6 +141,8 @@ if (c < 0.5)
     audio_play_sound(_s, 0, false);
 }
 
+EffectWhiteScreen(0.1);
+audio_play_sound(global.sndTwohTp, 5, false);
 var _snd = audio_play_sound(global.sndStwKnifeThrow2, 0, false);
 audio_sound_pitch(_snd, random_range(0.9, 1.1));
 var _k = 8;
@@ -601,6 +605,7 @@ with (_s)
     name = "Shadow The World";
     sprite_index = global.sprShadowTheWorld;
     summonSound = global.sndStwSummon;
+    desummonSound = global.sndStw2Desummon;
     playSummonSound = false;
     idlePos = StwPos;
     soundWhenHurt = [global.sndStwHurt1, global.sndStwHurt2, global.sndStwHurt3];

@@ -18,3 +18,11 @@ if (_x >= 968 and _y <= 1144 and _y >= 200)
         }
     }
 }
+
+if (place_meeting(_x, _y, objDigSpot))
+{
+    if (irandom(100) <= 1)
+    {
+        DropItem(_x, _y, global.jjDiosDiary, 1);
+    }
+}

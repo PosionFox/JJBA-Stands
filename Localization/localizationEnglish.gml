@@ -39,9 +39,11 @@ LocalizationAddKey(_map, "leftArmDescription", "the left arm of the saint.");
 LocalizationAddKey(_map, "prayerBeadsName", "prayer beads");
 LocalizationAddKey(_map, "prayerBeadsDescription", "summons enrico pucci.");
 
-
 LocalizationAddKey(_map, "standDiscName", "disc:");
 LocalizationAddKey(_map, "standDiscDescription", "the disc reads: ");
+
+LocalizationAddKey(_map, "diosDiaryName", "dio's diary:");
+LocalizationAddKey(_map, "diosDiaryDescription", "contains the secrets of ascension.");
 
 
 LocalizationAddKey(_map, "requiemArrowMerge", "the arrow merges with the stand!");
@@ -61,8 +63,8 @@ LocalizationAddKey(_map, "srseDesc", "space ripper stingy eyes:\nfire two pierci
 LocalizationAddKey(_map, "divineBloodDesc", "divine blood:\ndrains the target's health and heals the user.");
 LocalizationAddKey(_map, "charismaDesc", "charisma:\nrelease vampiric spores that chase enemies around.");
 LocalizationAddKey(_map, "xxiDesc", "xxi:\nexecutes a combo of two punches and a strong final punch.");
-LocalizationAddKey(_map, "punishmentDesc", "punishment:\ncharges an attack that upon impact surrounds the enemy with knifes.");
-LocalizationAddKey(_map, "throwingKnifesDesc", "throwing knifes:\nthrows two bursts of knifes.");
+LocalizationAddKey(_map, "punishmentDesc", "punishment:\ncharges an attack that upon impact surrounds the enemy with knives.");
+LocalizationAddKey(_map, "throwingKnifesDesc", "throwing knives:\nthrows two bursts of knives.");
 LocalizationAddKey(_map, "stwTimestopDesc", @"the world's secret power:
 stops the time for a brief moment,
 most enemies are not allowed to move
@@ -108,7 +110,7 @@ LocalizationAddKey(_map, "josephKnifeDesc", "joseph knife:\nsend out a knife tha
 LocalizationAddKey(_map, "stopSignDesc", "stop sign:\nstrike with a stop sign.");
 LocalizationAddKey(_map, "bloodDrainDesc", "blood drain:\ndrain the target's health and heals the user.");
 LocalizationAddKey(_map, "strongPunchDesc", "strong punch:\ncharges and launches a strong punch.");
-LocalizationAddKey(_map, "knifeWallDesc", "knife wall:\nsends out a wall of knifes.");
+LocalizationAddKey(_map, "knifeWallDesc", "knife wall:\nsends out a wall of knives.");
 LocalizationAddKey(_map, "twTimestopDesc", "time, stop!:\nstops the time, most enemies are not allowed to move\nand makes your projectiles freeze in place.");
 
 // kq
@@ -214,8 +216,8 @@ into another parallel dimension,
 enemies in range will also be teleported.");
 
 // twau
-LocalizationAddKey(_map, "tripleKnifeDesc", "triple knife:\ntoss three knifes at once.");
-LocalizationAddKey(_map, "knifeBarrageDesc", "knife barrage:\nlaunches a barrage of knifes.");
+LocalizationAddKey(_map, "tripleKnifeDesc", "triple knife:\ntoss three knives at once.");
+LocalizationAddKey(_map, "knifeBarrageDesc", "knife barrage:\nlaunches a barrage of knives.");
 LocalizationAddKey(_map, "twauTimestopDesc", @"it's my time!:
 stops the time, most enemies are not allowed to move
 and makes your projectiles freeze in place.
@@ -231,6 +233,31 @@ LocalizationAddKey(_map, "bubbleShieldDesc", "bubble shield:\ncreate a bubble sh
 LocalizationAddKey(_map, "bubbleBarrageDesc", "bubble barrage:\nlaunches a barrage of bubble forward.");
 LocalizationAddKey(_map, "screwsAndNutsDesc", "screws and nuts:\nlaunches a bubble filled with screws and nuts\nthat explodes on contact.");
 LocalizationAddKey(_map, "bubbleTrapDesc", "bubble trap:\nlaunches a bubble that traps the enemies on impact.");
+
+// twoh
+LocalizationAddKey(_map, "realityHealDesc", "reality heal:\nreverses your injuries to a previous state.");
+LocalizationAddKey(_map, "twohBarrageDesc", @"ascended barrage:
+launches a barrage of ascended punches.
+
+(hold) thunderous wave:
+release an explosive wave forward.");
+LocalizationAddKey(_map, "meleeComboDesc", @"melee combo:
+launches a flurry of strikes.
+
+(hold) reality overwrite punch:
+winds up a heavy blow that does
+percentage damage.");
+LocalizationAddKey(_map, "lightningKnifesDesc", @"lightning knives:
+tosses three knives forward that
+shock the enemies struck.
+
+(hold) knife buryal:
+surround the nearest enemy
+of deadly knives.");
+LocalizationAddKey(_map, "twohTimestopDesc", @"ascended time stop:
+stops the time, most enemies are not allowed to move
+and makes your projectiles freeze in place,
+stop and resume at will.");
 
 #endregion
 

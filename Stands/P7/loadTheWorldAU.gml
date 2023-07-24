@@ -240,7 +240,7 @@ state = StandState.Idle;
 #define TwauTimestop(m, s)
 
 var _length = 5 + (0.15 * player.level);
-if (player.hp <= player.maxHp / 2)
+if (player.hp <= player.hpMax * 0.5)
 {
     audio_play_sound(global.sndTwAuTsPanic, 5, false);
     _length = 8 + (0.2 * player.level);

@@ -128,6 +128,17 @@ global.sndTwBarrage = audio_create_stream(p + "twBarrage.ogg");
 
 #endregion
 
+#region the world over heaven
+
+p = "Resources/Sounds/TWOH/";
+global.sndTwohTs = audio_create_stream(p + "twohTs.ogg");
+global.sndTwohHeal = audio_create_stream(p + "twohHeal.ogg");
+global.sndTwohWave = audio_create_stream(p + "twohWave.ogg");
+global.sndTwohTp = audio_create_stream(p + "twohTp.ogg");
+global.sndTwohRealityOverwrite = audio_create_stream(p + "twohRealityOverwrite.ogg");
+
+#endregion
+
 #region the world retro
 
 p = "Resources/Sounds/TWR/";

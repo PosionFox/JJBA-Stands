@@ -146,6 +146,22 @@ global.jjbamAnubis = ItemCreate(
     5
 );
 
+global.jjDiosDiary = ItemCreate(
+    undefined,
+    Localize("diosDiaryName"),
+    Localize("diosDiaryDescription"),
+    global.sprDiosDiary,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    1000,
+    0,
+    0,
+    undefined,
+    ScriptWrap(DiosDiaryUse),
+    60 * 4,
+    false
+);
+
 // var _newArray = StructureGet(Structure.Forge, StructureData.Items);
 // array_push(_newArray, global.jjbamArrow);
 // array_push(_newArray, global.jjbamDisc);
@@ -231,6 +247,32 @@ global.jjPrayerBeads = ItemCreate(
     true
 )
 StructureAddItem(Structure.Forge, global.jjPrayerBeads);
+
+#define DiosDiaryUse
+
+if (room != rmGame)
+{
+    GainItem(global.jjDiosDiary);
+    exit;
+}
+
+if (instance_exists(STAND))
+{
+    switch (STAND.name)
+    {
+        case "The World":
+            GiveTWOH(player);
+        break;
+        case "The World Retro":
+            GiveTwroh(player);
+        break;
+        default: GainItem(global.jjDiosDiary); break;
+    }
+}
+else
+{
+    GainItem(global.jjDiosDiary);
+}
 
 #define RokakakaUse
 

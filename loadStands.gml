@@ -86,6 +86,7 @@ SFG();
 SFR();
 KCGray();
 Gm();
+TWROH();
 
 #endregion
 
@@ -93,6 +94,7 @@ Gm();
 
 StImposter();
 AbSakuya();
+TWOH();
 
 #endregion
 

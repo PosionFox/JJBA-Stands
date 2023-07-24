@@ -91,7 +91,7 @@ switch (attackState)
         state = StandState.Idle;
     break;
 }
-attackStateTimer += 1 / room_speed;
+attackStateTimer += DT;
 
 #define SelfHeal(method, skill)
 var _dir = point_direction(x, y, mouse_x, mouse_y);
@@ -122,7 +122,7 @@ switch (attackState)
         }
     break;
 }
-attackStateTimer += 1 / room_speed;
+attackStateTimer += DT;
 
 #define LifeFormScorpion(method, skill)
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);

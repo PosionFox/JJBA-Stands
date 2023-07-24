@@ -23,6 +23,7 @@ skills[skill, StandSkill.Cooldown] = 0;
 
 angleTarget = 0;
 angleTargetSpd = 0.1;
+attackStateTimer = 0;
 FireCD(skill);
 state = StandState.Idle;
 

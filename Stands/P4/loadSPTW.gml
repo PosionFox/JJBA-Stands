@@ -36,6 +36,7 @@ EndAtk(s);
 
 if (!WaterCollision(mouse_x, mouse_y))
 {
+    EffectWhiteScreen(0.1);
     audio_play_sound(global.sndSptwTp, 5, false);
     player.x = mouse_x;
     player.y = mouse_y;
@@ -74,7 +75,7 @@ _skills[sk, StandSkill.Desc] = Localize("bearingShotDesc");
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = TimeStopTeleport;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimeSkip;
-_skills[sk, StandSkill.MaxCooldown] = 5;
+_skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.Desc] = Localize("tsTpDesc");
 
 sk = StandState.SkillA;
@@ -88,7 +89,7 @@ _skills[sk, StandSkill.Desc] = Localize("barrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = StrongPunch;
-_skills[sk, StandSkill.Damage] = 10;
+_skills[sk, StandSkill.Damage] = 15;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 8;

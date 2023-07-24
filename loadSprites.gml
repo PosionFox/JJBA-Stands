@@ -15,6 +15,7 @@ global.sprHeart = sprite_add(p + "Heart.png", 1, false, false, 8, 8);
 global.sprEye = sprite_add(p + "Eye.png", 1, false, false, 8, 8);
 global.sprLeftArm = sprite_add(p + "LeftArm.png", 1, false, false, 8, 8);
 global.sprPrayerBeads = sprite_add(p + "PrayerBeads.png", 1, false, false, 8, 8);
+global.sprDiosDiary = sprite_add(p + "DiosDiary.png", 1, false, false, 8, 8);
 
 #endregion
 
@@ -109,6 +110,14 @@ global.sprStopSign = sprite_add(p + "StopSign.png", 1, false, false, 1, 16);
 global.sprSkillJosephKnife = sprite_add(p + "SkillJosephKnife.png", 1, false, false, 16, 16);
 global.sprSkillStopSign = sprite_add(p + "SkillStopSign.png", 1, false, false, 16, 16);
 global.sprSkillTripleKnifeThrow = sprite_add(p + "SkillTripleKnifeThrow.png", 1, false, false, 16, 16);
+
+#endregion
+
+#region the world over heaven
+
+p = "Resources/Sprites/TWOH/";
+global.sprTWOH = sprite_add(p + "TheWorldOverHeaven.png", 1, false, false, 16, 19);
+global.sprTWROH = sprite_add(p + "TWROH.png", 1, false, false, 16, 19);
 
 #endregion
 

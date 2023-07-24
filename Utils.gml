@@ -233,3 +233,14 @@ for(var i = 0; i < array_length(_array); i++)
     }
     rnd -= _array[i, 1];
 }
+
+#define get_nearest_enemy(_x, _y)
+
+if (instance_exists(ENEMY))
+{
+    return instance_nearest(_x, _y, ENEMY);
+}
+else
+{
+    return noone;
+}

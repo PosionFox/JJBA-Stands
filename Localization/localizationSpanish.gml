@@ -39,9 +39,11 @@ LocalizationAddKey(_map, "leftArmDescription", "el brazo izquierdo del santo.");
 LocalizationAddKey(_map, "prayerBeadsName", "rosario");
 LocalizationAddKey(_map, "prayerBeadsDescription", "invoca a enrico pucci.");
 
-
 LocalizationAddKey(_map, "standDiscName", "disco:");
 LocalizationAddKey(_map, "standDiscDescription", "el disco dice: ");
+
+LocalizationAddKey(_map, "diosDiaryName", "diario de dio:");
+LocalizationAddKey(_map, "diosDiaryDescription", "contiene los secretos de la ascensión.");
 
 
 LocalizationAddKey(_map, "requiemArrowMerge", "la flecha se fusiona con el stand!");
@@ -231,6 +233,31 @@ LocalizationAddKey(_map, "bubbleShieldDesc", "burbuja escudo:\ncrea un escudo bu
 LocalizationAddKey(_map, "bubbleBarrageDesc", "bombardeo de burbujas:\nlanza un bombardeo de burbujas adelante.");
 LocalizationAddKey(_map, "screwsAndNutsDesc", "tornillos y tuercas:\nlanza una burbuja llena de tornillos y tuercas\nque explota al contacto.");
 LocalizationAddKey(_map, "bubbleTrapDesc", "trampa burbuja:\nlanza una barba que atrapa a los enemigos al impactar.");
+
+// twoh
+LocalizationAddKey(_map, "realityHealDesc", "curación de realidad:\nrevierte tus heridas a un estado anterior.");
+LocalizationAddKey(_map, "twohBarrageDesc", @"bombardeo ascendido:
+lanza un bombardeo de golpes ascendidos.
+
+(mantener) ola estruendosa:
+libera una ola explosiva adelante.");
+LocalizationAddKey(_map, "meleeComboDesc", @"combo melé:
+lanza una ráfaga de golpes.
+
+(mantener) golpe que sobreescribe la realidad:
+carga un ataque pesado que hace
+daño porcentual.");
+LocalizationAddKey(_map, "lightningKnifesDesc", @"cuchillos relámpago:
+lanza tres cuchillos adelante que
+electrocutan a los enemigos golpeados.
+
+(mantener) entierro de cuchillos:
+rodea al enemigo más cercano
+de cuchillos letales.");
+LocalizationAddKey(_map, "twohTimestopDesc", @"parada de tiempo ascendida:
+detiene el tiempo, la mayoria de los enemigos no pueden moverse
+y tus proyectiles se congelaran donde están,
+detiene y reanuda a voluntad.");
 
 #endregion
 

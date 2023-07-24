@@ -662,3 +662,37 @@ draw_sprite_ext(
     image_blend,
     image_alpha
 );
+
+#define EffectWhiteScreen(_time)
+
+var _o = ModObjectSpawn(player.x, player.y, -1000);
+with (_o)
+{
+    whiteScreen = _time;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(EffectWhiteScreenStep));
+    InstanceAssignMethod(self, "draw", ScriptWrap(EffectWhiteScreenDraw));
+}
+
+#define EffectWhiteScreenStep
+
+if (whiteScreen > 0)
+{
+    whiteScreen -= DT;
+}
+else
+{
+    instance_destroy(self);
+}
+
+#define EffectWhiteScreenDraw
+
+draw_circle(x, y, 1000, false);
+
+
+
+
+
+
+
+

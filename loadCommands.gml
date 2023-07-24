@@ -119,8 +119,10 @@ switch (args[0])
     case "sfr": GiveSfr(player); break;
     case "kcg": GiveKcg(player); break;
     case "gm": GiveGm(player); break;
+    case "twroh": GiveTwroh(player); break;
     // other
     case "sus": GiveImposter(player); break;
+    case "twoh": GiveTWOH(player); break;
     
     default: Trace("not found");
 }
