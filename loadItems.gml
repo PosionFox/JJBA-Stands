@@ -266,6 +266,9 @@ if (instance_exists(STAND))
         case "The World Retro":
             GiveTwroh(player);
         break;
+        case "The World Runic":
+            GiveTwruoh(player);
+        break;
         default: GainItem(global.jjDiosDiary); break;
     }
 }
