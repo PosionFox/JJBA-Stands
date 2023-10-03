@@ -9,6 +9,9 @@ LocalizationAddKey(_map, "susArrowDescription", "looks like a normal arrow.");
 LocalizationAddKey(_map, "rokakakaName", "rokakaka");
 LocalizationAddKey(_map, "rokakakaDescription", "a spiky looking fruit.");
 
+LocalizationAddKey(_map, "rokakakaStewName", "rokakaka stew");
+LocalizationAddKey(_map, "rokakakaStewDescription", "a spicy looking stew.");
+
 LocalizationAddKey(_map, "requiemArrowName", "requiem arrow");
 LocalizationAddKey(_map, "requiemArrowDescription", "an arrow with a fancy beetle design.");
 

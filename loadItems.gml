@@ -35,6 +35,27 @@ global.jjbamRokakaka = ItemCreate(
     true
 );
 
+global.jjRokakakaStew = ItemCreate(
+    undefined,
+    Localize("rokakakaStewName"),
+    Localize("rokakakaStewDescription"),
+    global.sprRokakakaStew,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    100,
+    0,
+    0,
+    [
+        global.jjbamRokakaka, 1,
+        Item.HotPepper, 1,
+        Item.Egg, 2,
+        Item.Beet, 5
+    ],
+    ScriptWrap(RokakakaStewUse),
+    60 * 20,
+    true
+);
+
 global.jjbamRequiem = ItemCreate(
     undefined,
     Localize("requiemArrowName"),
@@ -175,6 +196,8 @@ StructureAddItem(Structure.Forge, global.jjbamRequiem);
 StructureAddItem(Structure.Factory, global.jjbamDisc);
 //StructureAddItem(Structure.Forge, global.jjbamSteelBall);
 
+StructureAddItem(Structure.Cookpot, global.jjRokakakaStew);
+
 #region holy parts
 
 global.jjbamHeart = ItemCreate(
@@ -247,6 +270,32 @@ global.jjPrayerBeads = ItemCreate(
     true
 )
 StructureAddItem(Structure.Forge, global.jjPrayerBeads);
+
+#define RokakakaStewUse
+
+if (room != rmGame)
+{
+    GainItem(global.jjRokakakaStew);
+    exit;
+}
+
+if (instance_exists(STAND))
+{
+    if (STAND.discType != noone)
+    {
+        DmgPlayer(1, false);
+        RemoveStand(player);
+        var _c = random(1);
+        if (_c > 0.04)
+        {
+            GainItem(global.jjRokakakaStew);
+        }
+    }
+}
+else
+{
+    GainItem(global.jjRokakakaStew);
+}
 
 #define DiosDiaryUse
 

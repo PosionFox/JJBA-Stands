@@ -9,6 +9,9 @@ LocalizationAddKey(_map, "susArrowDescription", "parece una flecha normal.");
 LocalizationAddKey(_map, "rokakakaName", "rokakaka");
 LocalizationAddKey(_map, "rokakakaDescription", "una fruta puntiaguda.");
 
+LocalizationAddKey(_map, "rokakakaStewName", "estofado de rokakaka");
+LocalizationAddKey(_map, "rokakakaStewDescription", "un estofado picante.");
+
 LocalizationAddKey(_map, "requiemArrowName", "flecha requiem");
 LocalizationAddKey(_map, "requiemArrowDescription", "una flecha con un diseño bonito de un escarabajo.");
 
