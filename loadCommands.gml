@@ -18,7 +18,7 @@ CommandCreate("jjSpawnDio", true, ScriptWrap(jjSpawnDio))
 
 #define jjSpawnDio
 
-SpawnDio();
+EnemyDioCreate(room_width / 2 - 32, room_height / 2);
 
 #define jjMaxExp
 

@@ -520,8 +520,8 @@ with (_p)
 return _p;
 
 #define StandBarrage(method, skill)
-var _dis = point_distance(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+
+var _dir = owner.attack_direction;
 
 xTo = objPlayer.x + lengthdir_x(8, _dir + random_range(-4, 4));
 yTo = objPlayer.y + lengthdir_y(8, _dir + random_range(-4, 4));
@@ -571,17 +571,16 @@ return _p;
 
 #define PunchSwingStep
 
-var pd = point_direction(x, y, mouse_x, mouse_y);
-var xx = player.x + lengthdir_x(32, pd);
-var yy = player.y + lengthdir_y(32, pd);
+var pd = player.attack_direction;
+var xx = owner.x + lengthdir_x(32, pd);
+var yy = owner.y + lengthdir_y(32, pd);
 pd = point_direction(x, y, xx, yy);
 var dd = angle_difference(direction, pd);
 direction -= min(abs(dd), swingSpd) * sign(dd);
 
 #define StrongPunch(method, skill)
 
-var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
-var _dir = point_direction(player.x, player.y, mouse_x, mouse_y)
+var _dir = owner.attack_direction;
 
 var _xx = player.x + lengthdir_x(8, _dir);
 var _yy = player.y + lengthdir_y(8, _dir);
@@ -696,7 +695,7 @@ switch (state)
     case "chase":
         if (isGuided)
         {
-            var pd = point_direction(x, y, mouse_x, mouse_y);
+            var pd = owner.attack_direction;
             var dd = angle_difference(direction, pd);
             direction -= min(abs(dd), 3) * sign(dd);
         }

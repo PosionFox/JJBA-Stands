@@ -25,9 +25,9 @@ if (instance_exists(STAND) or room != rmGame)
 GiveTheWorld(player);
 
 #define JosephKnife(method, skill)
-var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+var _dir = owner.attack_direction;
 
-var _p = ProjectileCreate(objPlayer.x, objPlayer.y);
+var _p = ProjectileCreate(owner.x, owner.y);
 with (_p)
 {
     var _snd = audio_play_sound(global.sndKnifeThrow, 0, false);
@@ -43,13 +43,13 @@ FireCD(skill);
 state = StandState.Idle;
 
 #define StopSign(method, skill)
-var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+var _dir = owner.attack_direction;
 
 switch (attackState)
 {
     case 0:
-        stopSign.x = objPlayer.x;
-        stopSign.y = objPlayer.y;
+        stopSign.x = owner.x;
+        stopSign.y = owner.y;
         stopSign.visible = true;
         stopSign.image_angle = _dir;
         stopSign.direction = _dir;
@@ -58,13 +58,13 @@ switch (attackState)
     break;
     case 1:
         stopSign.image_xscale = lerp(stopSign.image_xscale, 1, 0.2);
-        stopSign.x = objPlayer.x;
-        stopSign.y = objPlayer.y;
+        stopSign.x = owner.x;
+        stopSign.y = owner.y;
         stopSign.image_angle = lerp(stopSign.image_angle, stopSign.direction - 125, 0.1);
         if (attackStateTimer >= 0.5)
         {
             var _dmg = GetDmg(skill);
-            var _p = PunchCreate(objPlayer.x, objPlayer.y, stopSign.direction, _dmg, 3);
+            var _p = PunchCreate(owner.x, owner.y, stopSign.direction, _dmg, 3);
             _p.onHitSound = global.sndStopSign;
             _p.image_alpha = 0;
             _p.mask_index = global.sprHorizontalSlash;
@@ -72,8 +72,8 @@ switch (attackState)
         }
     break;
     case 2:
-        stopSign.x = objPlayer.x;
-        stopSign.y = objPlayer.y;
+        stopSign.x = owner.x;
+        stopSign.y = owner.y;
         stopSign.image_angle = lerp(stopSign.image_angle, stopSign.direction + 90, 0.5);
         if (attackStateTimer >= 0.8)
         {
@@ -96,7 +96,7 @@ switch (attackState)
 attackStateTimer += DT;
 
 #define TwBloodDrain(method, skill)
-var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
+var _dir = owner.attack_direction;
 
 switch (attackState)
 {
@@ -130,8 +130,7 @@ attackStateTimer += DT;
 
 #define TwBarrage(m, s)
 
-var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+var _dir = owner.attack_direction;
 
 xTo = owner.x + lengthdir_x(8, _dir + random_range(-4, 4));
 yTo = owner.y + lengthdir_y(8, _dir + random_range(-4, 4));
@@ -170,13 +169,14 @@ switch (attackState)
 attackStateTimer += DT;
 
 #define TwKnifeWall(method, skill)
-var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
+
+var _dir = owner.attack_direction;
 var _snd = audio_play_sound(global.sndKnifeThrow, 0, false);
 audio_sound_pitch(_snd, random_range(0.9, 1.1));
 
 repeat (5)
 {
-    var _p = ProjectileCreate(player.x, player.y);
+    var _p = ProjectileCreate(owner.x, owner.y);
     with (_p)
     {
         x += lengthdir_x(irandom_range(-8, 8), _dir + 90);
@@ -201,7 +201,7 @@ if (_tsExists)
 if (!_tsExists)
 {
     audio_play_sound(global.sndTwTs, 5, false);
-    TimestopCreate(9 + (0.05 * player.level));
+    TimestopCreate(9 + (0.05 * owner.level));
     FireCD(skill);
 }
 state = StandState.Idle;

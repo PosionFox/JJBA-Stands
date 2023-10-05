@@ -98,6 +98,14 @@ global.sprHorizontalSlash = sprite_add(p + "HorizontalSlash.png", 1, false, fals
 
 #endregion
 
+#region DIO
+
+p = "Resources/Sprites/DIO/";
+global.sprDIO = sprite_add(p + "DIO_idle.png", 4, false, false, 16, 19);
+global.sprDIOMoving = sprite_add(p + "DIO_moving.png", 4, false, false, 16, 19);
+
+#endregion
+
 #region the world
 
 p = "Resources/Sprites/TW/";

@@ -98,7 +98,7 @@ depth = -y;
 
 #define ActorDraw
 
-draw_sprite_ext(sprShadow, 0, x, y, image_xscale, image_yscale, 0, c_white, 0.5);
+draw_sprite_ext(sprShadow, 0, x, y + 3, image_xscale, image_yscale, 0, c_white, 0.5);
 draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
 
 #define ShaCreate(_x, _y)
