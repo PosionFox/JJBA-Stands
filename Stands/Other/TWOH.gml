@@ -32,11 +32,12 @@ audio_sound_pitch(_snd, random_range(0.9, 1.1));
 
 for (var i = 0; i < 3; i++)
 {
+    var _dmg = GetDmg(s);
     var _p = ProjectileCreate(player.x, player.y);
     with (_p)
     {
         var _d = (_dir - 16) + (i * 16);
-        damage = GetDmg(s);
+        damage = _dmg;
         direction = _d;
         canMoveInTs = false;
         sprite_index = other.knifeSprite;
@@ -66,10 +67,11 @@ for (var i = 0; i <= _k; i++)
     var _xx = _target.x + lengthdir_x(128, i * (360 / _k));
     var _yy = _target.y + lengthdir_y(128, i * (360 / _k));
     var _p = ProjectileCreate(_xx, _yy);
+    var _dmg = GetDmg(s);
     with (_p)
     {
         var _dir = (i * (360 / _k)) - 180;
-        damage = GetDmg(s);
+        damage = _dmg;
         direction = _dir;
         canMoveInTs = false;
         sprite_index = other.knifeSprite;
@@ -100,13 +102,9 @@ switch (attackState)
             var _s2 = audio_play_sound(global.sndTwohHeal, 0, false);
             audio_sound_pitch(_s, random_range(0.8, 1.2));
             audio_sound_pitch(_s2, random_range(0.8, 1.2));
-            var _e = ShrinkingCircleEffect(player.x, player.y);
-            _e.color = c_lime;
-            _e.radius = 8;
             owner.hp += 1 + owner.hpMax / 2;
             player.energy += 25;
             SpawnNullEffect();
-            FireEffect(c_white, c_lime);
             EndAtk(s)
         }
     break;
@@ -146,10 +144,11 @@ switch (attackState)
     break;
     case 1:
         audio_play_sound(global.sndTwohWave, 0, false);
+        var _dmg = GetDmg(s);
         var _p = ProjectileCreate(x, y);
         with (_p)
         {
-            damage = GetDmg(s);
+            damage = _dmg;
             canMoveInTs = true;
             canDespawnInTs = true;
             explosionTimer = 0.1;

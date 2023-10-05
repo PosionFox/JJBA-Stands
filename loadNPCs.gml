@@ -61,6 +61,7 @@ with (o)
     repeat (10) { FireEffect(c_white, c_purple); }
     type = "npc";
     subtype = "pucci";
+    hp = 100;
     sprite_index = global.sprEnricoPucci;
     image_speed = 0.35;
     

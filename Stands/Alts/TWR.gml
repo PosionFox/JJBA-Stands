@@ -156,12 +156,13 @@ switch (attackState)
         
         repeat (5)
         {
+            var _dmg = GetDmg(skill);
             var _p = ProjectileCreate(player.x, player.y);
             with (_p)
             {
                 x += lengthdir_x(irandom_range(-8, 8), _dir + 90);
                 y += lengthdir_y(irandom_range(-8, 8), _dir + 90);
-                damage = GetDmg(skill);
+                damage = _dmg;
                 direction = _dir;
                 canMoveInTs = false;
                 sprite_index = other.knifeSprite;

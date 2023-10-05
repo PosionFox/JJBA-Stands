@@ -7,11 +7,11 @@
 
 if (instance_exists(player))
 {
-    if !("myStand" in player)
+    if !bool("myStand" in player)
     {
         player.myStand = noone;
     }
-    if !("skCustomStands" in player)
+    if !bool("skCustomStands" in player)
     {
         player.skCustomStands = false;
     }

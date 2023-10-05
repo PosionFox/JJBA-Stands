@@ -128,10 +128,11 @@ switch (attackState)
     break;
     case 1:
         audio_play_sound(global.sndScSweep, 5, false);
+        var _dmg = GetDmg(s);
         var o = ProjectileCreate(owner.x, owner.y);
         with (o)
         {
-            damage = GetDmg(s);
+            damage = _dmg;
             sprite_index = global.sprScalpelSwing;
             mask_index = global.sprHitbox32x32;
             direction = _dir;

@@ -3,6 +3,7 @@ var p = ""; // path short
 
 p = "Resources/Sounds/DIO/";
 global.sndDioSpawn = audio_create_stream(p + "dioSpawn.ogg");
+global.sndDioDeath = audio_create_stream(p + "dio_death.ogg");
 
 #region generic stand
 
@@ -237,6 +238,13 @@ global.sndKcAttack5 = audio_create_stream(p + "kcAttack5.ogg");
 global.sndKcTe = audio_create_stream(p + "kcTe.ogg");
 global.sndKcTeBass = audio_create_stream(p + "kcTeBass.ogg");
 global.sndKcTeEnd = audio_create_stream(p + "kcTeEnd.ogg");
+
+// kcm
+p = "Resources/Sounds/KC/KCM/";
+global.sndKcmSummon = audio_create_stream(p + "kcmSummon.ogg");
+global.sndKcmTe = audio_create_stream(p + "kcmTe.ogg");
+global.sndKcmTeBass = audio_create_stream(p + "kcmTeBass.ogg");
+global.sndKcmTeEnd = audio_create_stream(p + "kcmTeEnd.ogg");
 
 #endregion
 

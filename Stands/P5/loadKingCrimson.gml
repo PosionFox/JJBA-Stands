@@ -28,10 +28,11 @@ GiveKingCrimson(player);
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
 
 audio_play_sound(global.sndKnifeThrow, 5, false);
+var _dmg = GetDmg(s);
 var o = ProjectileCreate(owner.x, owner.y);
 with (o)
 {
-    damage = GetDmg(s);
+    damage = _dmg;
     sprite_index = global.sprScalpelSwing;
     mask_index = global.sprHitbox32x32;
     direction = _dir;
@@ -60,10 +61,11 @@ switch (attackState)
     case 0:
         var _snd = audio_play_sound(global.sndKnifeThrow, 5, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
+        var _dmg = GetDmg(s);
         var _p = ProjectileCreate(owner.x, owner.y);
         with (_p)
         {
-            damage = GetDmg(s);
+            damage = _dmg;
             baseSpd = 7;
             direction = _dir;
             direction += random_range(-4, 4);
@@ -78,10 +80,11 @@ switch (attackState)
     case 2:
         var _snd = audio_play_sound(global.sndKnifeThrow, 5, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
+        var _dmg = GetDmg(s);
         var _p = ProjectileCreate(owner.x, owner.y);
         with (_p)
         {
-            damage = GetDmg(s);
+            damage = _dmg;
             baseSpd = 7;
             direction = _dir;
             direction += random_range(-4, 4);
@@ -311,7 +314,7 @@ yTo = owner.y - 8;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndKcTe, 5, false);
+        audio_play_sound(teSound, 5, false);
         attackState++;
     break;
     case 1:
@@ -328,7 +331,8 @@ switch (attackState)
         with (o)
         {
             type = "timeErase";
-            daBass = audio_play_sound(global.sndKcTeBass, 5, false);
+            daBass = audio_play_sound(other.teBassSound, 5, false);
+            endSound = other.teEndSound;
             surf = 0;
             
             xscale = 1;
@@ -384,7 +388,7 @@ alpha = lerp(alpha, 0, 0.02);
 life -= DT;
 if (life <= 0)
 {
-    audio_play_sound(global.sndKcTeEnd, 5, false);
+    audio_play_sound(endSound, 5, false);
     EffectTimeSkipCreate();
     if (surface_exists(surf))
     {
@@ -495,6 +499,9 @@ with (_s)
     idlePos = KcPos;
     summonSound = global.sndKcSummon;
     discType = global.jjbamDiscKc;
+    teSound = global.sndKcTe;
+    teBassSound = global.sndKcTeBass;
+    teEndSound = global.sndKcTeEnd;
     
     saveKey = "jjbamKc";
     InstanceAssignMethod(self, "step", ScriptWrap(KingCrimsonStep));

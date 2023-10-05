@@ -6,34 +6,152 @@ var _o = ActorCreate(_x, _y);
 with (_o)
 {
     type = "Enemy";
+    targetableFlag = true;
     sprite_index = global.sprDIO;
     image_speed = 0.35;
     level = 65;
-    maxSpd = 1;
+    hpMax = 8000;
+    hp = hpMax;
     life = 120;
-    facing = 1;
-    attack_direction = point_direction(x, y, player.x, player.y);
+    attack_direction = 0;
+    attack_cooldown = 0;
+    dying_timer = 0;
     
-    var _s = GiveTheWorld(self);
-    _s.summonMethod = EventHandler;
-    _s.active = true;
-    _s.runDrawGUI = false;
+    myStand = GiveTheWorld(self);
+    with (myStand)
+    {
+        targets = [player];
+        summonMethod = EventHandler;
+        active = true;
+        runDrawGUI = false;
+        for (var i = 0; i < array_length(skills); i++)
+        {
+            skills[i, StandSkill.Key] = "null";
+        }
+    }
+    
     InstanceAssignMethod(self, "step", ScriptWrap(EnemyDioStep), true);
+    InstanceAssignMethod(self, "drawGUI", ScriptWrap(EnemyDioDrawGUI), true);
 }
 return _o;
 
 #define EnemyDioStep
 
-facing = player.x > x ? 1 : -1;
-image_xscale = facing;
-attack_direction = point_direction(x, y, player.x, player.y);
+if (attack_cooldown > 0)
+{
+    attack_cooldown -= DT;
+    if (instance_exists(myStand))
+    {
+        for (var i = 0; i < array_length(myStand.skills); i++)
+        {
+            myStand.skills[i, StandSkill.Key] = "null";
+        }
+    }
+}
 
-if (distance_to_object(player) > 16)
+if (freeze > 0)
 {
-    sprite_index = global.sprDIOMoving;
-    mp_potential_step_object(player.x, player.y, maxSpd, parSolid);
+    state = "freeze";
 }
-else
+
+if (hp <= 0 and state != "dying")
 {
-    sprite_index = global.sprDIO;
+    audio_play_sound(global.sndDioDeath, 5, false);
+    state = "dying";
 }
+hp = clamp(hp, 0, hpMax);
+
+switch (state)
+{
+    case "idle":
+        sprite_index = global.sprDIO;
+        image_speed = 0.35;
+        if (distance_to_object(player) < 128)
+        {
+            state = "chase"
+        }
+    break;
+    case "chase":
+        if (distance_to_object(player) > 16)
+        {
+            sprite_index = global.sprDIOMoving;
+            mp_potential_step_object(player.x, player.y, maxSpd, parSolid);
+        }
+        else
+        {
+            state = "attack";
+        }
+    break;
+    case "attack":
+        sprite_index = global.sprDIO;
+        attack_direction = point_direction(x, y, player.x, player.y);
+        facing = player.x > x ? 1 : -1;
+        if (attack_cooldown <= 0)
+        {
+            for (var i = 0; i < array_length(myStand.skills); i++)
+            {
+                myStand.skills[i, StandSkill.Key] = "";
+            }
+            attack_cooldown = 1;
+        }
+        if (distance_to_object(player) > 16)
+        {
+            state = "chase";
+        }
+    break;
+    case "freeze":
+        image_speed = 0;
+        image_blend = c_aqua;
+        for (var i = 0; i < array_length(myStand.skills); i++)
+        {
+            myStand.skills[i, StandSkill.Key] = "null";
+        }
+        if (freeze <= 0)
+        {
+            image_blend = c_white;
+            state = "idle";
+        }
+    break;
+    case "dying":
+        RemoveStand(self);
+        image_angle = 90;
+        image_speed = 0.1;
+        EffectArmChopCreate(x, y);
+        dying_timer += DT;
+        if (dying_timer > 7)
+        {
+            var _c = EffectCircleCreate(x, y, 32, 4);
+            _c.color = c_red;
+            _c.lifeMulti = 2;
+            DropItem(x, y, global.jjDiosDiary, 1);
+            instance_destroy(self);
+            exit;
+        }
+    break;
+}
+
+h = lerp(h, 0, 0.1);
+v = lerp(v, 0, 0.1);
+image_xscale = facing;
+
+if (place_meeting(x, y, objSwordCollision))
+{
+    hp -= player.dmg;
+}
+if (place_meeting(x, y, objArrow))
+{
+    hp -= player.dmg;
+}
+
+#define EnemyDioDrawGUI
+
+var xx = 372;
+var yy = display_get_gui_height() - 128;
+var length = 534;
+
+draw_set_color(c_black);
+draw_line_width(xx, yy, xx + length, yy, 8);
+draw_set_color(c_red);
+draw_line_width(xx, yy, xx + (hp / hpMax) * length, yy, 8);
+draw_set_color(c_white);
+draw_text(xx + (length / 2), yy, "dio");

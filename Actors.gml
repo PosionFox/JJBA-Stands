@@ -8,10 +8,17 @@ with (_o)
     type = "Actor";
     sprite_index = sprPlayerIdle;
     
+    level = 1;
     maxSpd = 1;
+    dmg = 1;
+    hpMax = 100;
+    hp = hpMax;
     spd = 0;
     h = 0;
     v = 0;
+    scale = 1;
+    facing = 1;
+    freeze = 0;
     
     attackCD = 0;
     life = 60;
@@ -36,6 +43,11 @@ if (life > 0)
 if (attackCD > 0)
 {
     attackCD -= 1 / room_speed;
+}
+
+if (freeze > 0)
+{
+    freeze -= DT;
 }
 
 if (canCollide)
@@ -423,6 +435,7 @@ with (_o)
     owner = other;
     state = "idle";
     color = c_white;
+    targets = [ENEMY, MOBJ];
     target = noone;
     sprIdle = objPlayer.sprIdle;
     sprWalk = objPlayer.sprWalk;

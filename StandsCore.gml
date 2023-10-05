@@ -126,15 +126,15 @@ StandSkillRunCD(skills);
 
 for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
 {
-    if (state == StandState.Idle and active = skills[i, StandSkill.ActiveOnly])
+    if (state == StandState.Idle and active == skills[i, StandSkill.ActiveOnly])
     {
-        if (player.hp != 0 and !instance_exists(objPlayerMenu))
+        if (owner.hp != 0 and !instance_exists(objPlayerMenu))
         {
             if (keyboard_check(ord(skills[i, StandSkill.Key]))/* or InputCheckDown(skills[i, StandSkill.GpBtn])*/)
             {
                 if (skills[i, StandSkill.CooldownAlt] <= 0 and skills[i, StandSkill.SkillAlt] != AttackHandler)
                 {
-                    skills[i, StandSkill.Hold] += 1 / room_speed;
+                    skills[i, StandSkill.Hold] += DT;
                     skills[i, StandSkill.Hold] = clamp(skills[i, StandSkill.Hold], 0, skills[i, StandSkill.MaxHold]);
                     if (skills[i, StandSkill.Hold] >= skills[i, StandSkill.MaxHold] and !altAttack)
                     {
@@ -189,7 +189,7 @@ script_execute(runCDsMethod);
 
 if (state == StandState.Idle)
 {
-    if (keyboard_check_pressed(ord(player.summonKeybind)))
+    if (keyboard_check_pressed(ord(player.summonKeybind)) and owner.freeze < 1)
     {
         active = !active;
         if (active)
@@ -275,7 +275,10 @@ if (soundIdleTimer <= 0)
 }
 soundIdleTimer -= DT;
 
-StandSkillManage();
+if (owner.freeze < 1)
+{
+    StandSkillManage();
+}
 
 #define StandDefaultDraw
 
@@ -367,6 +370,7 @@ with (_stand)
     type = "stand";
     name = "unknown";
     owner = _owner;
+    targets = [ENEMY, MOBJ];
     sprite_index = global.sprStarPlatinum;
     xTo = _owner.x;
     yTo = _owner.y;
@@ -394,6 +398,7 @@ with (_stand)
     alphaTarget = 0;
     angleTarget = 0;
     angleTargetSpd = 0.1;
+    scale = 1;
     scaleX = 1;
     scaleXSpd = 0.1;
     scaleY = 1;

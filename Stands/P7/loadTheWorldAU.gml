@@ -31,11 +31,12 @@ audio_sound_pitch(_snd, random_range(0.9, 1.1));
 
 for (var i = 0; i < 3; i++)
 {
+    var _dmg = GetDmg(s);
     var _p = ProjectileCreate(player.x, player.y);
     with (_p)
     {
         var _d = (_dir - 16) + (i * 16);
-        damage = GetDmg(s);
+        damage = _dmg;
         direction = _d;
         canMoveInTs = false;
         sprite_index = other.sprKnife;
@@ -202,10 +203,11 @@ if (distance_to_point(_xx, _yy) < 2)
         var xx = x + random_range(-8, 8);
         var yy = y + random_range(-8, 8);
         var ddir = _dir + random_range(-2, 2);
+        var _dmg = GetDmg(skill);
         var _p = ProjectileCreate(xx, yy);
         with (_p)
         {
-            damage = GetDmg(skill);
+            damage = _dmg;
             direction = _dir;
             direction += random_range(-4, 4);
             canMoveInTs = false;

@@ -51,6 +51,7 @@ var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
 if (ammo > 0)
 {
+    var _dmg = GetDmg(skill);
     var _p = ProjectileCreate(objPlayer.x, objPlayer.y);
     with (_p)
     {
@@ -65,7 +66,7 @@ if (ammo > 0)
         sprite_index = global.sprBtdVoidTrace;
         image_blend = c_yellow;
         mask_index = global.sprKnife;
-        damage = GetDmg(skill);
+        damage = _dmg;
         direction = _dir;
         canMoveInTs = false;
         GlowOrderCreate(self, 0.1, c_yellow);

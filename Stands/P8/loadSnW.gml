@@ -31,12 +31,13 @@ for (var i = 0; i < 8; i++)
 {
     var xx = x + lengthdir_x(8, 0 + (i * 45));
     var yy = y + lengthdir_y(8, 0 + (i * 45));
+    var _dmg = GetDmg(s);
     var _p = ProjectileCreate(xx, yy);
     with (_p)
     {
         baseSpd = 0;
         despawnTime = 15;
-        damage = GetDmg(s);
+        damage = _dmg;
         canMoveInTs = false;
         sprite_index = global.sprBubble;
         onHitSound = global.sndSnwBubblePop;
@@ -66,11 +67,12 @@ switch (attackState)
             {
                 var xx = x + random_range(-4, 4);
                 var yy = y + random_range(-8, 8);
+                var _dmg = GetDmg(s);
                 var _p = ProjectileCreate(xx, yy);
                 with (_p)
                 {
                     baseSpd = 2;
-                    damage = GetDmg(s);
+                    damage = _dmg;
                     direction = _dir;
                     direction += random_range(-4, 4);
                     canMoveInTs = false;
@@ -113,18 +115,19 @@ switch (attackState)
         audio_play_sound(global.sndSnwBubbleThrow, 5, false);
         var xx = x + random_range(-4, 4);
         var yy = y + random_range(-8, 8);
+        var _dmg = GetDmg(s);
         var _p = ProjectileCreate(xx, yy);
         with (_p)
         {
             baseSpd = 2;
-            damage = GetDmg(s);
+            damage = _dmg;
             direction = _dir;
             direction += random_range(-4, 4);
             canMoveInTs = false;
             sprite_index = global.sprBubble;
             onHitSound = global.sndSnwBubblePop;
             onHitEvent = BubbleExplode;
-            onHitEventArg = GetDmg(s);
+            onHitEventArg = _dmg;
         }
         EndAtk(s);
     break;
@@ -191,11 +194,12 @@ switch (attackState)
         audio_play_sound(global.sndSnwBubbleThrow, 5, false);
         var xx = x + random_range(-4, 4);
         var yy = y + random_range(-8, 8);
+        var _dmg = GetDmg(s);
         var _p = ProjectileCreate(xx, yy);
         with (_p)
         {
             baseSpd = 2;
-            damage = GetDmg(s);
+            damage = _dmg;
             direction = _dir;
             direction += random_range(-4, 4);
             canMoveInTs = false;

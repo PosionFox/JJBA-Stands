@@ -173,10 +173,11 @@ switch (attackState)
         var i = 0;
         repeat (4)
         {
+            var _dmg = GetDmg(skill);
             var _p = ProjectileCreate(player.x, player.y);
             with (_p)
             {
-                damage = GetDmg(skill);
+                damage = _dmg;
                 direction = (_dir - (i * 2)) - 4;
                 canMoveInTs = false;
                 sprite_index = other.knifeSprite;
@@ -199,10 +200,11 @@ switch (attackState)
         var i = 0;
         repeat (4)
         {
+            var _dmg = GetDmg(skill);
             var _p = ProjectileCreate(player.x, player.y);
             with (_p)
             {
-                damage = GetDmg(skill);
+                damage = _dmg;
                 direction = (_dir + (i * 2)) + 4;
                 canMoveInTs = false;
                 sprite_index = other.knifeSprite;
@@ -256,11 +258,12 @@ var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
 player.h = lengthdir_x(1, _dir + 180);
 player.v = lengthdir_y(1, _dir + 180);
 audio_play_sound(global.sndStwSRSE, 0, false);
+var _dmg = GetDmg(skill);
 var _p = ProjectileCreate(player.x, player.y - 4);
 with (_p)
 {
     baseSpd = 10;
-    damage = GetDmg(skill);
+    damage = _dmg;
     direction = _dir;
     canMoveInTs = false;
     destroyOnImpact = false;
@@ -274,7 +277,7 @@ var _p = ProjectileCreate(player.x, player.y - 4);
 with (_p)
 {
     baseSpd = 10;
-    damage = GetDmg(skill);
+    damage = _dmg;
     direction = _dir;
     canMoveInTs = false;
     destroyOnImpact = false;
@@ -349,10 +352,11 @@ switch (attackState)
     case 2:
         for (var i = 0; i < 5; i++)
         {
+            var _dmg = GetDmg(skill);
             var _o = ProjectileCreate(x + lengthdir_x(16, 45 * i), y + lengthdir_y(16, 45 * i));
             with (_o)
             {
-                damage = GetDmg(skill);
+                damage = _dmg;
                 canMoveInTs = false;
                 baseSpd = 0.1;
                 direction = random(360);

@@ -27,12 +27,13 @@ GiveTheWorld(player);
 #define JosephKnife(method, skill)
 var _dir = owner.attack_direction;
 
+var _dmg = GetDmg(skill);
 var _p = ProjectileCreate(owner.x, owner.y);
 with (_p)
 {
     var _snd = audio_play_sound(global.sndKnifeThrow, 0, false);
     audio_sound_pitch(_snd, random_range(0.9, 1.1));
-    damage = GetDmg(skill);
+    damage = _dmg;
     baseSpd = 8;
     onHitEvent = StuckKnife;
     direction = _dir;
@@ -176,12 +177,13 @@ audio_sound_pitch(_snd, random_range(0.9, 1.1));
 
 repeat (5)
 {
+    var _dmg = GetDmg(skill);
     var _p = ProjectileCreate(owner.x, owner.y);
     with (_p)
     {
         x += lengthdir_x(irandom_range(-8, 8), _dir + 90);
         y += lengthdir_y(irandom_range(-8, 8), _dir + 90);
-        damage = GetDmg(skill);
+        damage = _dmg;
         direction = _dir;
         canMoveInTs = false;
         sprite_index = other.knifeSprite;

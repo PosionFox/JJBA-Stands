@@ -43,36 +43,30 @@ state = StandState.Idle;
 #define GetDmg(skill)
 
 var _damage = 0;
-with (STAND)
+_damage += skills[skill, StandSkill.Damage] + (owner.level * skills[skill, StandSkill.DamageScale]);
+if (skills[skill, StandSkill.DamagePlayerStat])
 {
-    _damage += skills[skill, StandSkill.Damage] + (player.level * skills[skill, StandSkill.DamageScale]);
-    if (skills[skill, StandSkill.DamagePlayerStat])
-    {
-        _damage += player.dmg;
-    }
-    _damage = _damage * powerMultiplier;
+    _damage += owner.dmg;
 }
+_damage = _damage * powerMultiplier;
 
 return _damage;
 
 #define GetDmgAlt(skill)
 
 var _damage = 0;
-with (STAND)
+_damage += skills[skill, StandSkill.DamageAlt] + (owner.level * skills[skill, StandSkill.DamageScaleAlt]);
+if (skills[skill, StandSkill.DamagePlayerStatAlt])
 {
-    _damage += skills[skill, StandSkill.DamageAlt] + (player.level * skills[skill, StandSkill.DamageScaleAlt]);
-    if (skills[skill, StandSkill.DamagePlayerStatAlt])
-    {
-        _damage += player.dmg;
-    }
-    _damage = _damage * powerMultiplier;
+    _damage += owner.dmg;
 }
+_damage = _damage * powerMultiplier;
 
 return _damage;
 
-#define ProjHitEnemy(enemy)
+#define ProjHitTarget(_target)
 
-if (array_find_index(instancesHit, enemy.id) == -1)
+if (array_find_index(instancesHit, _target.id) == -1)
 {
     if (onHitSound != noone)
     {
@@ -89,15 +83,22 @@ if (array_find_index(instancesHit, enemy.id) == -1)
     }
     PunchEffectCreate(x, y);
     DustEntityAdd(x, y);
-    var _dir = point_direction(x, y, enemy.x, enemy.y) - 180;
+    var _dir = point_direction(x, y, _target.x, _target.y) - 180;
     // if (other.knockback > 0)
     // {
     //     KnockbackCreate(self, other.knockback, other.direction, other.knockbackDuration);
     // }
-    enemy.h = lengthdir_x(knockback, direction);
-    enemy.v = lengthdir_y(knockback, direction);
-    enemy.hp -= damage;
-    array_push(instancesHit, enemy.id);
+    _target.h = lengthdir_x(knockback, direction);
+    _target.v = lengthdir_y(knockback, direction);
+    if (_target.object_index == player)
+    {
+        DmgPlayer(damage / 10, true);
+    }
+    else
+    {
+        _target.hp -= damage;
+    }
+    array_push(instancesHit, _target.id);
     if (destroyOnImpact)
     {
         instance_destroy(self);
@@ -117,6 +118,8 @@ with (_o)
     type = "projectile";
     subtype = "projectile";
     owner = other;
+    targets = other.targets;
+    scale = 1;
     despawnFade = true;
     despawnTime = 5;
     baseSpd = 5;
@@ -196,15 +199,41 @@ if (instance_exists(self))
         }
     }
     
-    with (ENEMY)
+    try
     {
-        if (place_meeting(x, y, other) and scale != 0)
+        for (var i = 0; i < array_length(targets); i++)
         {
-            with (other)
+            if (targets[i] = MOBJ)
             {
-                ProjHitEnemy(other);
+                with (targets[i])
+                {
+                    if (place_meeting(x, y, other) and bool("targetableFlag" in self))
+                    {
+                        with (other)
+                        {
+                            ProjHitTarget(other);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                with (targets[i])
+                {
+                    if (place_meeting(x, y, other) and scale != 0)
+                    {
+                        with (other)
+                        {
+                            ProjHitTarget(other);
+                        }
+                    }
+                }
             }
         }
+    }
+    catch (e)
+    {
+        //Trace("error");
     }
 }
 
@@ -277,6 +306,7 @@ with (o)
 {
     type = "timestop";
     owner = other;
+    targets = owner.targets;
     global.timeIsFrozen = true;
     resumeSound = global.sndTwTsResume;
     
@@ -300,21 +330,12 @@ if (whiteScreen > 0)
     whiteScreen -= 1 / room_speed;
 }
 
-with (ENEMY)
+for (var i = 0; i < array_length(targets); i++)
 {
-    freeze = 2;
-    // var _o = ModObjectSpawn(x, y, depth);
-    // _o.type = "TsEnemy";
-    // _o.target = self;
-    // _o.sprite_index = sprite_index;
-    // _o.image_speed = 0;
-    // _o.image_index = image_index;
-    // _o.image_xscale = -image_xscale;
-    // _o.image_yscale = image_yscale;
-    // _o.damageStack = 0;
-    // InstanceAssignMethod(_o, "step", ScriptWrap(TsEnemyStep), false);
-    // InstanceAssignMethod(_o, "destroy", ScriptWrap(TsEnemyDestroy), false);
-    // instance_deactivate_object(self);
+    with (targets[i])
+    {
+        freeze = 5;
+    }
 }
 
 if (instance_exists(objArrow))
@@ -572,18 +593,29 @@ return _p;
 #define PunchSwingStep
 
 var pd = player.attack_direction;
-var xx = owner.x + lengthdir_x(32, pd);
-var yy = owner.y + lengthdir_y(32, pd);
+var xx = x;
+var yy = y;
+if (instance_exists(owner))
+{
+    xx = owner.x + lengthdir_x(32, pd);
+    yy = owner.y + lengthdir_y(32, pd);
+}
 pd = point_direction(x, y, xx, yy);
 var dd = angle_difference(direction, pd);
 direction -= min(abs(dd), swingSpd) * sign(dd);
 
 #define StrongPunch(method, skill)
 
-var _dir = owner.attack_direction;
-
-var _xx = player.x + lengthdir_x(8, _dir);
-var _yy = player.y + lengthdir_y(8, _dir);
+var _dir = 0;
+var _xx = x;
+var _yy = y;
+if (instance_exists(owner))
+{
+    _dir = owner.attack_direction;
+    
+    _xx = owner.x + lengthdir_x(8, _dir);
+    _yy = owner.y + lengthdir_y(8, _dir);
+}
 xTo = _xx;
 yTo = _yy;
 

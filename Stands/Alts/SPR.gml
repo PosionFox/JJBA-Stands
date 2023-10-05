@@ -78,6 +78,7 @@ switch (attackState)
     break;
     case 2:
         audio_play_sound(global.sndSprFinger, 0, false);
+        var _dmg = GetDmg(skill);
         var _p = ProjectileCreate(x, y);
         with (_p)
         {
@@ -85,7 +86,7 @@ switch (attackState)
             owner = STAND;
             sprite_index = global.sprStarPlatinumFinger;
             image_blend = STAND.color;
-            damage = GetDmg(skill);
+            damage = _dmg;
             stationary = true;
             canDespawnInTs = true;
             destroyOnImpact = false;

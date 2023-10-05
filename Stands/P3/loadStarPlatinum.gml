@@ -50,6 +50,7 @@ switch (attackState)
         }
     break;
     case 1:
+        var _dmg = GetDmg(skill);
         var _p = ProjectileCreate(x, y);
         with (_p)
         {
@@ -57,7 +58,7 @@ switch (attackState)
             owner = STAND;
             sprite_index = global.sprStarPlatinumFinger;
             image_blend = STAND.color;
-            damage = GetDmg(skill);
+            damage = _dmg;
             stationary = true;
             canDespawnInTs = true;
             destroyOnImpact = false;
@@ -100,7 +101,7 @@ y = STAND.y + lengthdir_y(w, direction);
 var _col = collision_line(STAND.x, STAND.y, x2, y2, ENEMY, false, true);
 if (_col)
 {
-    ProjHitEnemy(_col);
+    ProjHitTarget(_col);
 }
 
 #define StarFingerDraw

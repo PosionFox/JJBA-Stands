@@ -35,5 +35,9 @@ with (_s)
     UpdateRarity(Rarity.Mythical);
     saveKey = "jjbamKcm";
     discType = global.jjbamDiscKcm;
+    summonSound = global.sndKcmSummon;
+    teSound = global.sndKcmTe;
+    //teBassSound = global.sndKcmTeBass;
+    teEndSound = global.sndKcmTeEnd;
 }
 return _s;
