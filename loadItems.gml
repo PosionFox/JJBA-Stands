@@ -201,19 +201,20 @@ global.jjDiosBone = ItemCreate(
 
 global.jjEgyptianCrown = ItemCreate(
     undefined,
-    Localize("diosBoneName"),
-    Localize("diosBoneDescription"),
-    global.sprDiosBone,
+    Localize("egyptianCrownName"),
+    Localize("egyptianCrownDescription"),
+    global.sprEgyptianCrown,
     ItemType.Consumable,
     ItemSubType.Potion,
     500,
     0,
     0,
     [
-        Item.GoldIngot, 32
+        Item.GoldIngot, 100,
+        Item.Topaz, 2
     ],
     ScriptWrap(EgyptianCrownUse),
-    60 * 4,
+    60 * 30,
     true
 );
 
@@ -307,11 +308,25 @@ StructureAddItem(Structure.Forge, global.jjPrayerBeads);
 
 #define EgyptianCrownUse
 
-
+if (TimeControl.lightState == 0 or TimeControl.lightState == 3)
+{
+    if (modSubtypeExists("DIO"))
+    {
+        GainItem(global.jjEgyptianCrown, 1);
+    }
+    else
+    {
+        EnemyDioSpawn();
+    }
+}
+else
+{
+    GainItem(global.jjEgyptianCrown, 1);
+}
 
 #define DiosBoneUse
 
-
+GainItem(global.jjDiosBone, 1);
 
 #define RokakakaStewUse
 

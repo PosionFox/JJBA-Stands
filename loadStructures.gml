@@ -18,13 +18,14 @@ global.jjbamStandWorkshop = StructureCreate(
 
 global.jjStructureDiosCoffin = StructureCreate(
     undefined,
-    "Dio's Coffin",
-    "Awaken the vampire",
+    Localize("diosCoffinName"),
+    Localize("diosCoffinDescription"),
     StructureType.Base,
     global.sprDiosCoffin,
     undefined,
     [
-        Item.Wood, 100
+        Item.Wood, 100,
+        Item.OnyxRelic, 10
     ],
     2,
     true,

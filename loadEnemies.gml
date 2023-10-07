@@ -178,8 +178,13 @@ draw_text(xx + (length / 2), yy, "dio");
 
 #define EnemyDioSpawn
 
-var _xx = room_width / 2 - 32;
+var _xx = room_width / 2;
 var _yy = room_height / 2;
+if (instance_exists(player))
+{
+    _xx = player.x;
+    _yy = player.y;
+}
 ExplosionCreate(_xx, _yy, 32, false);
 EnemyDioCreate(_xx, _yy);
 global.enemyDioSpawned = true;

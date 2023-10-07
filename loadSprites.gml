@@ -18,6 +18,7 @@ global.sprPrayerBeads = sprite_add(p + "PrayerBeads.png", 1, false, false, 8, 8)
 global.sprDiosDiary = sprite_add(p + "DiosDiary.png", 1, false, false, 8, 8);
 global.sprRokakakaStew = sprite_add(p + "RokakakaStew.png", 1, false, false, 8, 8);
 global.sprDiosBone = sprite_add(p + "DiosBone.png", 1, false, false, 8, 8);
+global.sprEgyptianCrown = sprite_add(p + "EgyptianCrown.png", 1, false, false, 8, 8);
 
 #endregion
 

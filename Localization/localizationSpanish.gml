@@ -42,20 +42,30 @@ LocalizationAddKey(_map, "leftArmDescription", "el brazo izquierdo del santo.");
 LocalizationAddKey(_map, "prayerBeadsName", "rosario");
 LocalizationAddKey(_map, "prayerBeadsDescription", "invoca a enrico pucci.");
 
-LocalizationAddKey(_map, "standDiscName", "disco:");
+LocalizationAddKey(_map, "standDiscName", "disco");
 LocalizationAddKey(_map, "standDiscDescription", "el disco dice: ");
 
-LocalizationAddKey(_map, "diosDiaryName", "diario de dio:");
+LocalizationAddKey(_map, "diosDiaryName", "diario de dio");
 LocalizationAddKey(_map, "diosDiaryDescription", "contiene los secretos de la ascensión.");
 
-LocalizationAddKey(_map, "diosBoneName", "hueso de dio:");
+LocalizationAddKey(_map, "diosBoneName", "hueso de dio");
 LocalizationAddKey(_map, "diosBoneDescription", "un antiguo hueso de un difunto vampiro.");
+
+LocalizationAddKey(_map, "egyptianCrownName", "corona egipcia");
+LocalizationAddKey(_map, "egyptianCrownDescription", "invoca a dio durante la noche.");
 
 
 LocalizationAddKey(_map, "requiemArrowMerge", "la flecha se fusiona con el stand!");
 LocalizationAddKey(_map, "requiemArrowRefuse", "no pasa nada...");
 
 LocalizationAddKey(_map, "holyPartRefuse", "la parte sagrada se rehusa a interactuar contigo");
+
+#endregion
+
+#region estructuras
+
+LocalizationAddKey(_map, "diosCoffinName", "ataúd de dio");
+LocalizationAddKey(_map, "diosCoffinDescription", "despierta al vampiro");
 
 #endregion
 
