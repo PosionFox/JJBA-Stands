@@ -171,6 +171,15 @@ if (global.pucciSpawned == true)
     }
 }
 
+_map[? "jjEnemyDioSpawned"] = global.enemyDioSpawned;
+if (_map[? "jjEnemyDioSpawned"] == true)
+{
+    var _dio = modSubtypeFind("DIO");
+    _map[? "jjEnemyDioX"] = _dio.x;
+    _map[? "jjEnemyDioY"] = _dio.y;
+    _map[? "jjEnemyDioHp"] = _dio.hp;
+}
+
 ModSaveDataSubmit(_map);
 ds_map_destroy(_map);
 
@@ -262,6 +271,19 @@ if (_map[? "jjbamPucciSpawned"] == true)
     var xx = _map[? "jjbamPucciX"];
     var yy = _map[? "jjbamPucciY"];
     SpawnPucci(xx, yy);
+}
+
+#endregion
+
+#region enemies
+
+if (_map[? "jjEnemyDioSpawned"])
+{
+    EnemyDioSpawn();
+    var _dio = modSubtypeFind("DIO");
+    if ds_map_exists(_map, "jjEnemyDioX") _dio.x = _map[? "jjEnemyDioX"];
+    if ds_map_exists(_map, "jjEnemyDioY") _dio.y = _map[? "jjEnemyDioY"];
+    if ds_map_exists(_map, "jjEnemyDioHp") _dio.hp = _map[? "jjEnemyDioHp"];
 }
 
 #endregion

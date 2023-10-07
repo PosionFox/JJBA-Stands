@@ -275,9 +275,12 @@ if (soundIdleTimer <= 0)
 }
 soundIdleTimer -= DT;
 
-if (owner.freeze < 1)
+if (instance_exists(owner))
 {
-    StandSkillManage();
+    if (owner.freeze < 1)
+    {
+        StandSkillManage();
+    }
 }
 
 #define StandDefaultDraw

@@ -1,4 +1,6 @@
 
+global.enemyDioSpawned = false;
+
 #define EnemyDioCreate(_x, _y)
 
 audio_play_sound(global.sndDioSpawn, 1, false);
@@ -160,3 +162,11 @@ draw_set_color(c_red);
 draw_line_width(xx, yy, xx + (hp / hpMax) * length, yy, 8);
 draw_set_color(c_white);
 draw_text(xx + (length / 2), yy, "dio");
+
+#define EnemyDioSpawn
+
+var _xx = room_width / 2 - 32;
+var _yy = room_height / 2;
+ExplosionCreate(_xx, _yy, 32, false);
+EnemyDioCreate(_xx, _yy);
+global.enemyDioSpawned = true;
