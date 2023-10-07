@@ -107,6 +107,8 @@ switch (state)
     case "freeze":
         image_speed = 0;
         image_blend = c_aqua;
+        h = 0;
+        v = 0;
         for (var i = 0; i < array_length(myStand.skills); i++)
         {
             myStand.skills[i, StandSkill.Key] = "null";
