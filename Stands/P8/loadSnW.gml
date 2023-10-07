@@ -214,9 +214,9 @@ attackStateTimer += DT;
 
 #define TrapEnemyBubble
 
-if (instance_exists(ENEMY))
+if (enemy_instance_exists())
 {
-    var _target = instance_nearest(x,  y, ENEMY);
+    var _target = get_nearest_enemy(x,  y);
     BubbleTrapCreate(_target)
 }
 

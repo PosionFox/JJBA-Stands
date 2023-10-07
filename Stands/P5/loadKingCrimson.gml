@@ -117,9 +117,9 @@ else
 switch (attackState)
 {
     case 0:
-        if (instance_exists(ENEMY))
+        if (enemy_instance_exists())
         {
-            var _n = instance_nearest(mouse_x, mouse_y, ENEMY);
+            var _n = get_nearest_enemy(mouse_x, mouse_y);
             if (distance_to_object(_n) < 64)
             {
                 audio_play_sound(global.sndKcTp, 5, false);
@@ -143,9 +143,9 @@ switch (attackState)
         var _target = noone;
         var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
         var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-        if (instance_exists(ENEMY))
+        if (enemy_instance_exists())
         {
-            _target = instance_nearest(owner.x, owner.y, ENEMY);
+            _target = get_nearest_enemy(owner.x, owner.y);
             _dis = point_distance(owner.x, owner.y, _target.x, _target.y);
             _dir = point_direction(owner.x, owner.y, _target.x, _target.y);
         }
@@ -232,9 +232,9 @@ attackStateTimer += DT;
 switch (attackState)
 {
     case 0:
-        if (instance_exists(ENEMY))
+        if (enemy_instance_exists())
         {
-            var _n = instance_nearest(mouse_x, mouse_y, ENEMY);
+            var _n = get_nearest_enemy(mouse_x, mouse_y);
             if (distance_to_object(_n) < 64)
             {
                 x = _n.x;
@@ -255,9 +255,9 @@ switch (attackState)
     case 1:
         var _t = owner;
         armChopShow = true;
-        if (instance_exists(ENEMY))
+        if (enemy_instance_exists())
         {
-            _t = instance_nearest(x, y, ENEMY);
+            _t = get_nearest_enemy(x, y);
         }
         else
         {
@@ -378,6 +378,17 @@ if (instance_exists(ENEMY))
         stateCurrent = 0;
         h *= 0.5;
         v *= 0.5;
+    }
+}
+if (instance_exists(MOBJ))
+{
+    with (MOBJ)
+    {
+        if (bool("type" in self) and type == "Enemy")
+        {
+            h *= 0.5;
+            v *= 0.5;
+        }
     }
 }
 

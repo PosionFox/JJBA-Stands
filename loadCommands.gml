@@ -18,11 +18,14 @@ CommandCreate("jjSpawnDio", true, ScriptWrap(jjSpawnDio))
 
 #define jjSpawnDio
 
-EnemyDioCreate(room_width / 2 - 32, room_height / 2);
+var _xx = room_width / 2 - 32;
+var _yy = room_height / 2;
+ExplosionCreate(_xx, _yy, 32, false);
+EnemyDioCreate(_xx, _yy);
 
 #define jjMaxExp
 
-if (instance_exists(STAND) and "xp" in STAND)
+if (instance_exists(STAND) and bool("xp" in STAND))
 {
     STAND.xp += 100000000;
 }
@@ -71,10 +74,13 @@ switch (args[0])
     case "anubis": GiveAnubis(player); break;
     case "stw": GiveShadowTheWorld(player); break;
     case "spp": GiveSpp(player); break;
+    case "mr": GiveMagiciansRed(player); break;
+    case "hg": GiveHierophantGreen(player); break;
     // p4
     case "sptw": GiveSPTW(player); break;
     case "kq": GiveKillerQueen(player); break;
     case "kqbtd": GiveKillerQueenBtD(player); break;
+    case "hd": GiveHeavensDoor(player); break;
     // p5
     case "sf": GiveStickyFingers(player); break;
     case "ge": GiveGoldExperience(player); break;

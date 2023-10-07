@@ -47,7 +47,7 @@ if (attackCD > 0)
 
 if (freeze > 0)
 {
-    freeze -= DT;
+    freeze -= 1;
 }
 
 if (canCollide)
@@ -145,9 +145,9 @@ switch (state)
                 state = "follow";
             }
         }
-        if (instance_exists(parEnemy))
+        if (enemy_instance_exists())
         {
-            var _near = instance_nearest(x, y, parEnemy);
+            var _near = get_nearest_enemy(x, y);
             var _dis = distance_to_point(_near.x, _near.y);
             
             if (_dis < 128)
@@ -176,9 +176,9 @@ switch (state)
                 state = "followSuper";
             }
         }
-        if (instance_exists(parEnemy))
+        if (enemy_instance_exists())
         {
-            var _near = instance_nearest(x, y, parEnemy);
+            var _near = get_nearest_enemy(x, y);
             if (distance_to_object(_near) < 128)
             {
                 state = "attack";
@@ -186,9 +186,9 @@ switch (state)
         }
     break;
     case "chase":
-        if (instance_exists(parEnemy))
+        if (enemy_instance_exists())
         {
-            var _near = instance_nearest(x, y, parEnemy);
+            var _near = get_nearest_enemy(x, y);
             var _dir = point_direction(x, y, _near.x, _near.y);
             var _dis = distance_to_point(_near.x, _near.y);
             
@@ -210,9 +210,9 @@ switch (state)
         }
     break;
     case "attack":
-        if (instance_exists(parEnemy))
+        if (enemy_instance_exists())
         {
-            var _near = instance_nearest(x, y, parEnemy);
+            var _near = get_nearest_enemy(x, y);
             var _dir = point_direction(x, y, _near.x, _near.y);
             var _dis = distance_to_object(_near);
             
@@ -301,9 +301,9 @@ switch (state)
         h = lengthdir_x(spd, 0);
         v = lengthdir_y(spd, 0);
         spd = lerp(spd, 0, 0.1);
-        if (instance_exists(parEnemy))
+        if (enemy_instance_exists())
         {
-            var _near = instance_nearest(x, y, parEnemy);
+            var _near = get_nearest_enemy(x, y);
             var _dis = distance_to_point(_near.x, _near.y);
             
             if (_dis < 64)
@@ -313,9 +313,9 @@ switch (state)
         }
     break;
     case "chase":
-        if (instance_exists(parEnemy))
+        if (enemy_instance_exists())
         {
-            var _near = instance_nearest(x, y, parEnemy);
+            var _near = get_nearest_enemy(x, y);
             var _dir = point_direction(x, y, _near.x, _near.y);
             var _dis = distance_to_point(_near.x, _near.y);
             
@@ -334,9 +334,9 @@ switch (state)
         }
     break;
     case "attack":
-        if (instance_exists(parEnemy))
+        if (enemy_instance_exists())
         {
-            var _near = instance_nearest(x, y, parEnemy);
+            var _near = get_nearest_enemy(x, y);
             var _dir = point_direction(x, y, _near.x, _near.y);
             var _dis = distance_to_point(_near.x, _near.y);
             
@@ -495,9 +495,9 @@ switch (state)
         h = lerp(h, 0, 0.1);
         v = lerp(v, 0, 0.1);
         
-        if (instance_exists(parEnemy))
+        if (enemy_instance_exists())
         {
-            var _near = instance_nearest(x, y, parEnemy);
+            var _near = get_nearest_enemy(x, y);
             if (distance_to_object(_near) < 200 and _near.scale != 0)
             {
                 target = _near;
@@ -595,9 +595,9 @@ switch (state)
         h = lerp(h, 0, 0.1);
         v = lerp(v, 0, 0.1);
         
-        if (instance_exists(parEnemy))
+        if (enemy_instance_exists())
         {
-            var _near = instance_nearest(x, y, parEnemy);
+            var _near = get_nearest_enemy(x, y);
             if (distance_to_object(_near) < 256)
             {
                 target = _near;

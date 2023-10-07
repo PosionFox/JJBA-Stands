@@ -17,6 +17,7 @@ global.sprLeftArm = sprite_add(p + "LeftArm.png", 1, false, false, 8, 8);
 global.sprPrayerBeads = sprite_add(p + "PrayerBeads.png", 1, false, false, 8, 8);
 global.sprDiosDiary = sprite_add(p + "DiosDiary.png", 1, false, false, 8, 8);
 global.sprRokakakaStew = sprite_add(p + "RokakakaStew.png", 1, false, false, 8, 8);
+global.sprDiosBone = sprite_add(p + "DiosBone.png", 1, false, false, 8, 8);
 
 #endregion
 
@@ -393,6 +394,27 @@ global.sprSkillBubbleShield = sprite_add(p + "SkillBubbleShield.png", 1, false, 
 global.sprSkillBubbleBarrage = sprite_add(p + "SkillBubbleBarrage.png", 1, false, false, 16, 16);
 global.sprSkillScrewsAndNuts = sprite_add(p + "SkillScrewsAndNuts.png", 1, false, false, 16, 16);
 global.sprSkillBubbleTrap = sprite_add(p + "SkillBubbleTrap.png", 1, false, false, 16, 16);
+
+#endregion
+
+#region magicians red
+
+p = "Resources/Sprites/MR/";
+global.sprMagiciansRed = sprite_add(p + "MagiciansRed.png", 1, false, false, 16, 19);
+
+#endregion
+
+#region hierophant green
+
+p = "Resources/Sprites/HG/";
+global.sprHierophantGreen = sprite_add(p + "HierophantGreen.png", 1, false, false, 16, 19);
+
+#endregion
+
+#region heavens door
+
+p = "Resources/Sprites/HD/";
+global.sprHeavensDoor = sprite_add(p + "HeavensDoor.png", 1, false, false, 16, 19);
 
 #endregion
 

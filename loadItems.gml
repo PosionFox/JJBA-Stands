@@ -183,6 +183,22 @@ global.jjDiosDiary = ItemCreate(
     false
 );
 
+global.jjDiosBone = ItemCreate(
+    undefined,
+    Localize("diosBoneName"),
+    Localize("diosBoneDescription"),
+    global.sprDiosBone,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    1000,
+    0,
+    0,
+    undefined,
+    ScriptWrap(DiosBoneUse),
+    60 * 4,
+    false
+);
+
 // var _newArray = StructureGet(Structure.Forge, StructureData.Items);
 // array_push(_newArray, global.jjbamArrow);
 // array_push(_newArray, global.jjbamDisc);
@@ -270,6 +286,10 @@ global.jjPrayerBeads = ItemCreate(
     true
 )
 StructureAddItem(Structure.Forge, global.jjPrayerBeads);
+
+#define DiosBoneUse
+
+
 
 #define RokakakaStewUse
 

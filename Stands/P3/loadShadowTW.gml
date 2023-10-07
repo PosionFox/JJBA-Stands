@@ -130,9 +130,9 @@ var _dmg = 2 + (player.level * 0.2) + player.dmg;
 //var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 var _target = player;
 alphaTarget = 1;
-if (instance_exists(ENEMY))
+if (enemy_instance_exists())
 {
-    _target = instance_nearest(x, y, ENEMY);
+    _target = get_nearest_enemy(x, y);
 }
 var c = random(1);
 if (c < 0.5)
@@ -239,9 +239,9 @@ switch (attackState)
         with (_p)
         {
             var _arg = noone;
-            if (instance_exists(ENEMY))
+            if (enemy_instance_exists())
             {
-                _arg = instance_nearest(x, y, ENEMY);
+                _arg = get_nearest_enemy(x, y);
             }
             onHitEvent = StwDivineBloodCreate;
             onHitEventArg = _arg;
@@ -524,9 +524,9 @@ if (life <= 0)
 #define StwCharismaStep
 
 baseSpd *= 1.02;
-if (instance_exists(ENEMY))
+if (enemy_instance_exists())
 {
-    var _near = instance_nearest(x, y, ENEMY);
+    var _near = get_nearest_enemy(x, y);
     if (distance_to_object(_near) < 128)
     {
         var pd = point_direction(x, y, _near.x, _near.y);

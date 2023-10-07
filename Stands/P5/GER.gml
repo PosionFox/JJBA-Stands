@@ -99,9 +99,9 @@ attackStateTimer += DT;
 
 #define ScorpionTossSpawn
 
-if (instance_exists(ENEMY))
+if (enemy_instance_exists())
 {
-    var _n = instance_nearest(x, y, ENEMY)
+    var _n = get_nearest_enemy(x, y);
     var _e = ShrinkingCircleEffect(_n.x, _n.y);
     _e.color = c_lime;
     _e.radius = 8;

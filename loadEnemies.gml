@@ -6,8 +6,11 @@ var _o = ActorCreate(_x, _y);
 with (_o)
 {
     type = "Enemy";
+    subtype = "DIO";
     targetableFlag = true;
-    sprite_index = global.sprDIO;
+    sprIdle = global.sprDIO;
+    sprWalk = global.sprDIOMoving;
+    sprite_index = sprIdle;
     image_speed = 0.35;
     level = 65;
     hpMax = 8000;
@@ -64,7 +67,7 @@ hp = clamp(hp, 0, hpMax);
 switch (state)
 {
     case "idle":
-        sprite_index = global.sprDIO;
+        sprite_index = sprIdle;
         image_speed = 0.35;
         if (distance_to_object(player) < 128)
         {
@@ -74,7 +77,7 @@ switch (state)
     case "chase":
         if (distance_to_object(player) > 16)
         {
-            sprite_index = global.sprDIOMoving;
+            sprite_index = sprWalk;
             mp_potential_step_object(player.x, player.y, maxSpd, parSolid);
         }
         else
@@ -83,7 +86,7 @@ switch (state)
         }
     break;
     case "attack":
-        sprite_index = global.sprDIO;
+        sprite_index = sprIdle;
         attack_direction = point_direction(x, y, player.x, player.y);
         facing = player.x > x ? 1 : -1;
         if (attack_cooldown <= 0)
@@ -123,7 +126,9 @@ switch (state)
             var _c = EffectCircleCreate(x, y, 32, 4);
             _c.color = c_red;
             _c.lifeMulti = 2;
-            DropItem(x, y, global.jjDiosDiary, 1);
+            var _drops = [global.jjDiosDiary, global.jjDiosBone];
+            var _item = irandom(array_length(_drops) - 1);
+            DropItem(x, y, _drops[_item], 1);
             instance_destroy(self);
             exit;
         }

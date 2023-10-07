@@ -27,7 +27,7 @@ GiveImposter(player);
 #define MeetingCall(m, s)
 var _dmg = GetDmg(s);
 
-if (instance_exists(ENEMY))
+if (enemy_instance_exists())
 {
     audio_play_sound(global.sndAmogButton, 5, false);
     with (ENEMY)
@@ -35,6 +35,16 @@ if (instance_exists(ENEMY))
         with (other)
         {
             PunchCreate(other.x, other.y, random(360), _dmg, 10);
+        }
+    }
+    with (MOBJ)
+    {
+        if (bool("type" in self) and type == "Enemy")
+        {
+            with (other)
+            {
+                PunchCreate(other.x, other.y, random(360), _dmg, 10);
+            }
         }
     }
     EndAtk(s);
@@ -50,9 +60,9 @@ var _dmg = GetDmg(s);
 switch (attackState)
 {
     case 0:
-        if (instance_exists(ENEMY))
+        if (enemy_instance_exists())
         {
-            var _n = instance_nearest(x, y, ENEMY);
+            var _n = get_nearest_enemy(x, y);
             if (distance_to_object(_n) < 64)
             {
                 audio_play_sound(global.sndAmogMurder, 5, false);
@@ -77,9 +87,9 @@ switch (attackState)
         }
     break;
     case 2:
-        if (instance_exists(ENEMY))
+        if (enemy_instance_exists())
         {
-            var _n = instance_nearest(x, y, ENEMY);
+            var _n = get_nearest_enemy(x, y);
             if (distance_to_object(_n) < 64)
             {
                 _n.hp -= _dmg;

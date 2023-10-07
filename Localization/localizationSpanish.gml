@@ -48,6 +48,9 @@ LocalizationAddKey(_map, "standDiscDescription", "el disco dice: ");
 LocalizationAddKey(_map, "diosDiaryName", "diario de dio:");
 LocalizationAddKey(_map, "diosDiaryDescription", "contiene los secretos de la ascensión.");
 
+LocalizationAddKey(_map, "diosBoneName", "hueso de dio:");
+LocalizationAddKey(_map, "diosBoneDescription", "un antiguo hueso de un difunto vampiro.");
+
 
 LocalizationAddKey(_map, "requiemArrowMerge", "la flecha se fusiona con el stand!");
 LocalizationAddKey(_map, "requiemArrowRefuse", "no pasa nada...");

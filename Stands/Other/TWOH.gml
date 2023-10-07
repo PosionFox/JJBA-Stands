@@ -49,9 +49,9 @@ EndAtk(s);
 #define LightningKnifesEvent
 
 var _near = self;
-if (instance_exists(ENEMY))
+if (enemy_instance_exists())
 {
-    _near = instance_nearest(x, y, ENEMY);
+    _near = get_nearest_enemy(x, y);
     instance_create_depth(_near.x, _near.y, _near.depth, objLightning);
     ZapSpawn(_near);
 }
@@ -104,6 +104,7 @@ switch (attackState)
             audio_sound_pitch(_s2, random_range(0.8, 1.2));
             owner.hp += 1 + owner.hpMax / 2;
             player.energy += 25;
+            SpawnNullEffect();
             SpawnNullEffect();
             EndAtk(s)
         }
@@ -303,7 +304,10 @@ attackStateTimer += DT;
 #define OverwriteHealth
 
 var _e = get_nearest_enemy(x, y);
-_e.hp -= _e.hp * 0.2;
+if (_e != self)
+{
+    _e.hp -= _e.hp * 0.2;
+}
 repeat (5)
 {
     SpawnNullEffect();

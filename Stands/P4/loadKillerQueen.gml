@@ -139,9 +139,9 @@ if (instance_exists(parObject))
         _target = _nearest;
     }
 }
-if (instance_exists(parEnemy))
+if (enemy_instance_exists())
 {
-    _nearest = instance_nearest(x, y, parEnemy);
+    _nearest = get_nearest_enemy(x, y);
     if (distance_to_object(_nearest) <= 8)
     {
         _target = _nearest;

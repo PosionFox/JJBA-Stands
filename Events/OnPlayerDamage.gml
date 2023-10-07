@@ -26,14 +26,11 @@ if (instance_exists(STAND) and !_dodge)
 if (modTypeExists("loveTrain"))
 {
     player.hp += _damage;
-    if (instance_exists(ENEMY))
-    {
-        var _t = instance_nearest(player.x, player.y, ENEMY);
-        _t.hp -= (_t.hpMax * 0.02) + _damage;
-        player.invulFrames = 0;
-        LTPunishEffect(_t.x, _t.y);
-        audio_play_sound(global.sndLtPunish, 5, false);
-    }
+    var _t = get_nearest_enemy(player.x, player.y);
+    _t.hp -= (_t.hpMax * 0.02) + _damage;
+    player.invulFrames = 0;
+    LTPunishEffect(_t.x, _t.y);
+    audio_play_sound(global.sndLtPunish, 5, false);
 }
 if (modSubtypeExists("geFrog"))
 {
@@ -41,11 +38,8 @@ if (modSubtypeExists("geFrog"))
     if (_frog.state == "guard")
     {
         player.hp += _damage;
-        if (instance_exists(ENEMY))
-        {
-            var _t = instance_nearest(player.x, player.y, ENEMY);
-            _t.hp -= _damage;
-            player.invulFrames = 0;
-        }
+        var _t = get_nearest_enemy(player.x, player.y);
+        _t.hp -= _damage;
+        player.invulFrames = 0;
     }
 }

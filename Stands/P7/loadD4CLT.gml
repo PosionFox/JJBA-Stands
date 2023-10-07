@@ -68,9 +68,9 @@ if (keyboard_check_pressed(ord(skills[s, StandSkill.Key])))
 
 #define SlashNearest
 
-if (instance_exists(ENEMY))
+if (enemy_instance_exists())
 {
-    var _n = instance_nearest(x, y, ENEMY);
+    var _n = get_nearest_enemy(x, y);
     LastingDamageCreate(_n, 0.0002, 1, true);
 }
 

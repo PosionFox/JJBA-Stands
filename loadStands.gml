@@ -9,6 +9,8 @@ loadAnubis();
 loadShadowTW();
 loadTheWorld();
 SPP();
+MagiciansRed();
+HierophantGreen();
 
 #endregion
 
@@ -17,6 +19,7 @@ SPP();
 loadSPTW();
 loadKillerQueen();
 loadKillerQueenBtD();
+HeavensDoor();
 
 #endregion
 

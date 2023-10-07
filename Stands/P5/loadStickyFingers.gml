@@ -207,14 +207,14 @@ with (_o)
     image_speed = 0.5;
     
     target = noone;
-    if (instance_exists(ENEMY))
+    if (enemy_instance_exists())
     {
         if (random(100) < 50)
         {
             var _s = audio_play_sound(global.sndSfInjury, 0, false);
             audio_sound_pitch(_s, random_range(0.9, 1.1));
         }
-        target = instance_nearest(x, y, ENEMY);
+        target = get_nearest_enemy(x, y);
         with (target)
         {
             hp -= (hpMax * 0.01) * 0.5;

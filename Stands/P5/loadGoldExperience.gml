@@ -240,9 +240,9 @@ var _p = ProjectileCreate(x, y);
 with (_p)
 {
     target = noone
-    if (instance_exists(parEnemy))
+    if (enemy_instance_exists())
     {
-        target = instance_nearest(x, y, parEnemy);
+        target = get_nearest_enemy(x, y);
         sprite_index = target.sprite_index;
         image_speed = 0;
     }

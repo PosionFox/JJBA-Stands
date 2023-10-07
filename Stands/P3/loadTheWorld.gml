@@ -116,9 +116,9 @@ switch (attackState)
         with (_p)
         {
             var _arg = noone;
-            if (instance_exists(parEnemy))
+            if (enemy_instance_exists())
             {
-                _arg = instance_nearest(x, y, parEnemy);
+                _arg = get_nearest_enemy(x, y);
             }
             onHitEvent = StwDivineBloodCreate;
             onHitEventArg = _arg;
@@ -128,6 +128,21 @@ switch (attackState)
     break;
 }
 attackStateTimer += DT;
+
+#define TwTsTp(m, s)
+
+if (!WaterCollision(mouse_x, mouse_y))
+{
+    EffectWhiteScreen(0.1);
+    audio_play_sound(global.sndTwohTp, 5, false);
+    player.x = mouse_x;
+    player.y = mouse_y;
+    EndAtk(s);
+}
+else
+{
+    ResetAtk(s);
+}
 
 #define TwBarrage(m, s)
 
@@ -210,9 +225,9 @@ state = StandState.Idle;
 
 #define StuckKnife //attack properties
 
-if (instance_exists(parEnemy))
+if (enemy_instance_exists())
 {
-    var _near = instance_nearest(x, y, parEnemy);
+    var _near = get_nearest_enemy(x, y);
     LastingDamageCreate(_near, 0.001, 3, true);
 }
 
@@ -244,7 +259,7 @@ _skills[sk, StandSkill.MaxCooldown] = 15;
 _skills[sk, StandSkill.Desc] = Localize("bloodDrainDesc");
 
 sk = StandState.SkillDOff;
-_skills[sk, StandSkill.Skill] = TimeStopTeleport;
+_skills[sk, StandSkill.Skill] = TwTsTp;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimeSkip;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.Desc] = Localize("tsTpDesc");

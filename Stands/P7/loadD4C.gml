@@ -91,11 +91,11 @@ else
 var _o = modTypeFind("bulletTime");
 if (_o)
 {
-    if (instance_exists(parEnemy))
+    if (enemy_instance_exists())
     {
         var _e = ShrinkingCircleEffect(_o.x, _o.y);
         _e.color = c_aqua;
-        var _near = instance_nearest(_o.x, _o.y, parEnemy);
+        var _near = get_nearest_enemy(_o.x, _o.y);
         _o.direction = point_direction(_o.x, _o.y, _near.x, _near.y);
     }
 }
@@ -243,9 +243,9 @@ switch (attackState)
         var _xx = x + lengthdir_x(8, _dir);
         var _yy = y + lengthdir_y(8, _dir);
         var _ins = noone;
-        if (instance_exists(parEnemy))
+        if (enemy_instance_exists())
         {
-            _ins = instance_nearest(mouse_x, mouse_y, parEnemy);
+            _ins = get_nearest_enemy(mouse_x, mouse_y);
         }
         var _o = CloneBombCreate(_xx, _yy, _ins);
         _o.damage = GetDmg(skill);

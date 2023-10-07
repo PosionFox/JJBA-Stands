@@ -51,9 +51,9 @@ EndAtk(s);
 #define ExplodeProjectile(_, _args)
 
 var _near = noone;
-if (instance_exists(ENEMY))
+if (enemy_instance_exists())
 {
-    _near = instance_nearest(x, y, ENEMY);
+    _near = get_nearest_enemy(x, y);
 }
 if (_near != noone)
 {
@@ -290,9 +290,9 @@ attackStateTimer += DT;
 #define DiscStolen
 
 var _near = noone;
-if (instance_exists(ENEMY))
+if (enemy_instance_exists())
 {
-    _near = instance_nearest(x, y, ENEMY);
+    _near = get_nearest_enemy(x, y);
 }
 if (_near != noone)
 {
