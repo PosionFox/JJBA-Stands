@@ -1,5 +1,6 @@
 This is a mod that tries to incorporate the entities of JoJo's Bizarre Adventures known as "Stands" into Forager.
 
+I highly suggest downloading Cave's Scrollable Structure List: https://steamcommunity.com/sharedfiles/filedetails/?id=1985510486
 
 [h1]How to get a Stand[/h1]
 You can try any of the following options:
@@ -19,23 +20,29 @@ You can remap your keybinds with the jjRemapKeybind command, examples:
 
 
 [h1]How to get more Stands[/h1]
-You can't own more than one Stand at a time, to get more Stands you first need to either find a rokakaka tree and chop it down(eat it's fruit, this will remove your Stand) or finish Pucci's first quest, he will rarely spawn at the center of the map, once you do so he will reward you with a blueprint for crafting empty Stand discs, these discs will remove and store your current Stand inside it allowing you to get new Stands. After using the disc blueprint Pucci will have a new quest available.
+You can't own more than one Stand at a time, to get more Stands you first need to either find a rokakaka tree and chop it down(eat it's fruit, this will remove your Stand) or finish Pucci's first quest, he will rarely spawn at the center of the map, once you do so he will reward you with a blueprint for crafting empty Stand discs, these discs will remove and store your current Stand inside it allowing you to get new Stands. After using the disc blueprint Pucci will have a new quest available. Also, owning a WhiteSnake Stand allows you to generate your own empty discs.
 
 
 [h1]How to evolve your Stand[/h1]
 Some Stands are capable of evolving into a stronger form:
 [list]
-[*]Shadow The World can evolve into The World or Spooky World(rare) with enough experience gained
+[*]Shadow The World can evolve into The World, The World Gray(uncommon), Spooky World(rare), The World Greatest High(legendary) or The World Runic(mythical) with enough experience gained
 [*]Shadow can evolve into The World Retro
-[*]Killer Queen can evolve into Killer Queen: Bites the Dust or Shadow Queen: Bites the Dust(rare) upon using a Requiem arrow
+[*]Killer Queen can evolve into Killer Queen: Bites the Dust or Shadow Queen: Bites the Dust(epic) upon using a Requiem arrow
 [*]Gold Experience can evolve into Requiem upon using a Requiem arrow
 [*]Dirty Deeds Done Dirt Cheap can evolve into D4C: Love Train by collecting and using the missing Holy parts
-[*]Star Platinum can evolve into Star Platinum: The World with enough experience gained or Time Emperor(rare)
+[*]Patriot D4C can evolve into Patriot D4C: Love Train or Evergreen(ascended)
+[*]Star Platinum can evolve into Star Platinum: The World with enough experience gained or Time Emperor(epic)
+[*]The World can evolve into The World Over Heaven by using a DIO's diary(DIO drops it)
 [/list]
+
+[h1]Fighting DIO[/h1]
+DIO is a strong boss which can be fought by summoning him during night time using an egyptian crown, such item can be crafted in DIO's coffin, a new structure in the magic category, upon defeat, DIO will drop either a DIO's diary or a DIO's bone(does nothing at the moment), if DIO is not defeated before sunrise, he will despawn.
 
 
 [u]Stands you can get from a Suspicious arrow:[/u]
 [list]
+[b][i]Common:[/i][/b]
 [*]Star Platinum
 [*]Shadow The World
 [*]Killer Queen
@@ -44,20 +51,38 @@ Some Stands are capable of evolving into a stronger form:
 [*]King Crimson
 [*]Silver Chariot
 [*]WhiteSnake
+[b][i]Uncommon:[/i][/b]
+[*]Star Platinum Gray
+[*]Sticky Fingers Gray
+[*]Sticky Fingers Red
+[*]King Crimson Gray
 [b][i]Rare:[/i][/b]
-[*]Star Platinum Retro
-[*]Imposter
-[*]Shadow
-[*]King Crimson Manga
 [*]Silver Chariot OVA
+[*]King Crimson Aqua
+[b][i]Epic:[/i][/b]
 [*]BlackSnake
+[b][i]Legendary:[/i][/b]
+[*]Imposter
+[*]King Crimson Monochrome
+[*]Dark World
+[b][i]Mythical:[/i][/b]
+[*]Star Platinum Retro
+[*]King Crimson Manga
+[*]Shadow
 [/list]
-rare stands have a weight of 1 instead of 30.
 
 [u]Stands you can get from Holy parts:[/u]
 [list]
-[*]The World Alternate Universe (Eye)
-[*]Dirty Deeds Done Dirt Cheap (Heart)
+[b][i]Eye:[/i][/b]
+[*]The World Alternate Universe (Common)
+[*]The World Neo Alternate Universe (Epic)
+[*]The World 3000 Alternate Universe (Legendary)
+[b][i]Heart:[/i][/b]
+[*]Dirty Deeds Done Dirt Cheap (Common)
+[*]Patriot D4C (Epic)
+[b][i]Left Arm:[/i][/b]
+[*]Soft and Wet (Common)
+[*]Soft and Wet Golden (Legendary)
 [/list]
 
 
