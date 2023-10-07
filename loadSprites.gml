@@ -6,7 +6,7 @@ var p = ""; // path short
 p = "Resources/Sprites/Items/";
 global.sprArrow = sprite_add(p + "Arrow.png", 1, false, false, 8, 8);
 global.sprRokakaka = sprite_add(p + "Rokakaka.png", 1, false, false, 8, 8);
-global.sprRokakakaTree = sprite_add(p + "RokakakaTree.png", 1, false, false, 8, 31);
+
 global.sprDisc = sprite_add(p + "Disc.png", 1, false, false, 8, 8);
 global.sprDiscBlueprint = sprite_add(p + "DiscBlueprint.png", 1, false, false, 8, 8);
 global.sprArrowBeetle = sprite_add(p + "ArrowBeetle.png", 1, false, false, 8, 8);
@@ -18,6 +18,14 @@ global.sprPrayerBeads = sprite_add(p + "PrayerBeads.png", 1, false, false, 8, 8)
 global.sprDiosDiary = sprite_add(p + "DiosDiary.png", 1, false, false, 8, 8);
 global.sprRokakakaStew = sprite_add(p + "RokakakaStew.png", 1, false, false, 8, 8);
 global.sprDiosBone = sprite_add(p + "DiosBone.png", 1, false, false, 8, 8);
+
+#endregion
+
+#region structures
+
+p = "Resources/Sprites/Structures/";
+global.sprRokakakaTree = sprite_add(p + "RokakakaTree.png", 1, false, false, 8, 31);
+global.sprDiosCoffin = sprite_add(p + "DiosCoffin.png", 1, false, false, 16, 8);
 
 #endregion
 

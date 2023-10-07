@@ -7,7 +7,9 @@ var _width = display_get_gui_width();
 var _height = display_get_gui_height() - 40;
 
 
-//draw_text(128, 128, string(objPlayer.dmg)); // debug
+//draw_text(128, 160, string(TimeControl.timer)); // debug
+//draw_text(128, 192, string(TimeControl.lightState)); // debug
+// 3 is night and 0 is dawn
 
 var xx = 168;
 var yy = _height - 200;

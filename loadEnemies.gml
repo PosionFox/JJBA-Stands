@@ -42,6 +42,16 @@ return _o;
 
 #define EnemyDioStep
 
+if (TimeControl.lightState == 1 or TimeControl.lightState == 2)
+{
+    var _c = EffectCircleCreate(x, y, 32, 4);
+    _c.lifeMulti = 2;
+    RemoveStand(self);
+    global.enemyDioSpawned = false;
+    instance_destroy(self);
+    exit;
+}
+
 if (attack_cooldown > 0)
 {
     attack_cooldown -= DT;

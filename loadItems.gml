@@ -199,6 +199,24 @@ global.jjDiosBone = ItemCreate(
     false
 );
 
+global.jjEgyptianCrown = ItemCreate(
+    undefined,
+    Localize("diosBoneName"),
+    Localize("diosBoneDescription"),
+    global.sprDiosBone,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    500,
+    0,
+    0,
+    [
+        Item.GoldIngot, 32
+    ],
+    ScriptWrap(EgyptianCrownUse),
+    60 * 4,
+    true
+);
+
 // var _newArray = StructureGet(Structure.Forge, StructureData.Items);
 // array_push(_newArray, global.jjbamArrow);
 // array_push(_newArray, global.jjbamDisc);
@@ -286,6 +304,10 @@ global.jjPrayerBeads = ItemCreate(
     true
 )
 StructureAddItem(Structure.Forge, global.jjPrayerBeads);
+
+#define EgyptianCrownUse
+
+
 
 #define DiosBoneUse
 

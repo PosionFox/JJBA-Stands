@@ -14,7 +14,28 @@ global.jjbamStandWorkshop = StructureCreate(
     BuildMenuCategory.Magical,
     undefined,
     false
-)
+);
+
+global.jjStructureDiosCoffin = StructureCreate(
+    undefined,
+    "Dio's Coffin",
+    "Awaken the vampire",
+    StructureType.Base,
+    global.sprDiosCoffin,
+    undefined,
+    [
+        Item.Wood, 100
+    ],
+    2,
+    true,
+    [
+        global.jjEgyptianCrown
+    ],
+    true,
+    BuildMenuCategory.Magical,
+    undefined,
+    false
+);
 
 #define SkillStandWorkshop
 
