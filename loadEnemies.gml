@@ -131,6 +131,7 @@ switch (state)
             var _drops = [global.jjDiosDiary, global.jjDiosBone];
             var _item = irandom(array_length(_drops) - 1);
             DropItem(x, y, _drops[_item], 1);
+            global.enemyDioSpawned = false;
             instance_destroy(self);
             exit;
         }
