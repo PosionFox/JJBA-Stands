@@ -30,6 +30,16 @@ global.sprDiosCoffin = sprite_add(p + "DiosCoffin.png", 1, false, false, 16, 8);
 
 #endregion
 
+#region runes
+
+p = "Resources/Sprites/Runes/";
+global.sprRuneRemover = sprite_add(p + "RuneRemover.png", 1, false, false, 8, 8);
+global.sprMissingRune = sprite_add(p + "MissingRune.png", 1, false, false, 8, 8);
+global.sprRuneStandMight = sprite_add(p + "RuneStandMight.png", 1, false, false, 8, 8);
+global.sprRuneBriefRaspite = sprite_add(p + "RuneBriefRaspite.png", 1, false, false, 8, 8);
+
+#endregion
+
 #region Generic
 
 p = "Resources/Sprites/Generic/";

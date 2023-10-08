@@ -34,6 +34,8 @@ with (_o)
             skills[i, StandSkill.Key] = "null";
         }
     }
+    RuneEquip(self, ConstructRuneStandMight());
+    RuneEquip(self, ConstructRuneBriefRaspite());
     
     InstanceAssignMethod(self, "step", ScriptWrap(EnemyDioStep), true);
     InstanceAssignMethod(self, "drawGUI", ScriptWrap(EnemyDioDrawGUI), true);

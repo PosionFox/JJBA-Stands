@@ -7,6 +7,11 @@ if (instance_exists(player))
     {
         attack_direction = point_direction(x, y, mouse_x, mouse_y);
     }
+    
+    if (instance_exists(STAND))
+    {
+        RunRunesUpdate();
+    }
 }
 
 // destroy spriteless npcs

@@ -26,6 +26,19 @@ if (point_in_rectangle(gx, gy, xx - 16, yy - 16, xx + 16, yy + 16))
     draw_text(gx + 8, gy, rarity.name);
 }
 
+var _rlen = array_length(runes);
+for (var i = 0; i < _rlen; i++)
+{
+    if (runes[i] == noone)
+    {
+        draw_circle_color(xx - 128 + (32 * i), yy - 32, 8, c_black, c_black, false);
+    }
+    else
+    {
+        draw_sprite(runes[i].sprite, 0, xx - 128 + (32 * i), yy - 32);
+    }
+}
+
 draw_set_halign(fa_left);
 draw_set_valign(fa_bottom);
 draw_text(32, _height - 138, string_lower(string(name)));
@@ -422,6 +435,7 @@ with (_stand)
     // stats
     powerMultiplier = GetPowerMultiplier(rarity.tier);
     spd = 0.5;
+    runes = [noone, noone, noone];
     // skills
     skills = array_clone(_skills);
     
@@ -495,6 +509,7 @@ with (MOBJ)
 }
 if (instance_exists(_owner) and instance_exists(_owner.myStand))
 {
+    RunesRemove(_owner);
     with (_owner.myStand)
     {
         state = StandState.Idle;

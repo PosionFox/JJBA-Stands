@@ -158,7 +158,7 @@ if (instance_exists(player))
     _map[? "jjAbilityKeybind3"] = player.abilityKeybind3;
     _map[? "jjAbilityKeybind4"] = player.abilityKeybind4;
 }
-
+// npcs
 _map[? "jjQuestPucciBlueprintCompleted"] = global.questPucciBlueprintCompleted;
 
 if (global.pucciSpawned == true)
@@ -170,7 +170,7 @@ if (global.pucciSpawned == true)
         _map[? "jjbamPucciY"] = global.pucciRef.y;
     }
 }
-
+// enemies
 _map[? "jjEnemyDioSpawned"] = global.enemyDioSpawned;
 if (_map[? "jjEnemyDioSpawned"] == true)
 {
@@ -178,6 +178,13 @@ if (_map[? "jjEnemyDioSpawned"] == true)
     _map[? "jjEnemyDioX"] = _dio.x;
     _map[? "jjEnemyDioY"] = _dio.y;
     _map[? "jjEnemyDioHp"] = _dio.hp;
+}
+// runes
+if (instance_exists(player) and instance_exists(STAND))
+{
+    if (STAND.runes[0] != noone) _map[? "jjRune0"] = STAND.runes[0].save_key;
+    if (STAND.runes[1] != noone) _map[? "jjRune1"] = STAND.runes[1].save_key;
+    if (STAND.runes[2] != noone) _map[? "jjRune2"] = STAND.runes[2].save_key;
 }
 
 ModSaveDataSubmit(_map);
@@ -288,5 +295,43 @@ if (_map[? "jjEnemyDioSpawned"])
 
 #endregion
 
+#region runes
+
+if (instance_exists(player) and instance_exists(STAND))
+{
+    LoadRunes(_map);
+}
+
+#endregion
+
 ds_map_destroy(_map);
 
+#define LoadRunes(_map)
+
+var _rune_keys = [noone, noone, noone];
+if ds_map_exists(_map, "jjRune0") _rune_keys[0] = _map[? "jjRune0"];
+if ds_map_exists(_map, "jjRune1") _rune_keys[1] = _map[? "jjRune1"];
+if ds_map_exists(_map, "jjRune2") _rune_keys[2] = _map[? "jjRune2"];
+
+var _len = array_length(_rune_keys);
+for (var i = 0; i < _len; i++)
+{
+    if (_rune_keys[i] != noone)
+    {
+        switch (_rune_keys[i])
+        {
+            case "skMissing":
+                RuneEquip(player, ConstructRuneBase());
+            break;
+            case "skRuneStandMight":
+                RuneEquip(player, ConstructRuneStandMight());
+            break;
+            case "skRuneBriefRaspite":
+                RuneEquip(player, ConstructRuneBriefRaspite());
+            break;
+            default:
+                RuneEquip(player, ConstructRuneBase());
+            break;
+        }
+    }
+}

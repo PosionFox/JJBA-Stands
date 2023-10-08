@@ -48,9 +48,9 @@ if (skills[skill, StandSkill.DamagePlayerStat])
 {
     _damage += owner.dmg;
 }
-_damage = _damage * powerMultiplier;
+var _final_damage = _damage * powerMultiplier * GetRuneDamage();
 
-return _damage;
+return _final_damage;
 
 #define GetDmgAlt(skill)
 
@@ -60,9 +60,9 @@ if (skills[skill, StandSkill.DamagePlayerStatAlt])
 {
     _damage += owner.dmg;
 }
-_damage = _damage * powerMultiplier;
+var _final_damage = _damage * powerMultiplier * GetRuneDamage();
 
-return _damage;
+return _final_damage;
 
 #define ProjHitTarget(_target)
 

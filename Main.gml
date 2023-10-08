@@ -41,6 +41,7 @@ localizationSpanish();
 loadSprites();
 loadSounds();
 loadItems();
+Runes();
 loadEnemies();
 loadSpawns();
 loadStands();
