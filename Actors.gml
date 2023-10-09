@@ -163,9 +163,8 @@ switch (state)
             var _dis = distance_to_point(objPlayer.x, objPlayer.y);
             
             image_xscale = sign(dcos(_dir)) * 0.5;
-            h = lengthdir_x(spd, _dir);
-            v = lengthdir_y(spd, _dir);
             spd = lerp(spd, maxSpd, 0.1);
+            mp_potential_step_object(player.x, player.y, spd, parSolid);
             
             if (_dis < 16)
             {
@@ -195,9 +194,8 @@ switch (state)
             if (_dis > 8)
             {
                 image_xscale = sign(dcos(_dir)) * 0.5;
-                h = lengthdir_x(spd, _dir);
-                v = lengthdir_y(spd, _dir);
                 spd = lerp(spd, maxSpd, 0.1);
+                mp_potential_step_object(_near.x, _near.y, spd, parSolid);
             }
             else if (_dis < 8)
             {
@@ -216,9 +214,8 @@ switch (state)
             var _dir = point_direction(x, y, _near.x, _near.y);
             var _dis = distance_to_object(_near);
             
-            h = lengthdir_x(spd, _dir);
-            v = lengthdir_y(spd, _dir);
             spd = lerp(spd, 0, 0.1);
+            
             if (attackCD <= 0)
             {
                 ExplosionCreate(x, y, 32, false);
@@ -514,8 +511,8 @@ switch (state)
             {
                 image_xscale = target.x > x ? 1 : -1;
                 var _dir = point_direction(x, y, target.x, target.y);
-                h = lengthdir_x(1.2, _dir);
-                v = lengthdir_y(1.2, _dir);
+                spd = lerp(spd, maxSpd, 0.1);
+                mp_potential_step_object(target.x, target.y, spd, parSolid);
             }
             else
             {

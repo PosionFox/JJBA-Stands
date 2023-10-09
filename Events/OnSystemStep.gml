@@ -3,7 +3,7 @@
 
 if (instance_exists(player))
 {
-    if (instance_exists(STAND))
+    if (bool("myStand" in player) and instance_exists(player.myStand))
     {
         RunRunesUpdateTick();
     }

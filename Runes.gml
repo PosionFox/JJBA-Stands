@@ -1,4 +1,9 @@
 
+// load runes
+RunesStandMight();
+RunesBriefRaspite();
+RunesWoundMending();
+
 global.jjRuneRemover = ItemCreate(
     undefined,
     "rune remover",
@@ -22,75 +27,10 @@ global.jjRuneRemover = ItemCreate(
 )
 StructureAddItem(Structure.Forge, global.jjRuneRemover);
 
-global.jjRuneStandMight = ItemCreate(
-    undefined,
-    "rune of stand might",
-    "increases damage by 33%.",
-    global.sprRuneStandMight,
-    ItemType.Consumable,
-    ItemSubType.Potion,
-    512,
-    0,
-    0,
-    undefined,
-    ScriptWrap(RuneStandMightUse),
-    5 * 60,
-    true
-)
-
-global.jjRuneBriefRaspite = ItemCreate(
-    undefined,
-    "rune of brief raspite",
-    "heals slowly.",
-    global.sprRuneBriefRaspite,
-    ItemType.Consumable,
-    ItemSubType.Potion,
-    512,
-    0,
-    0,
-    undefined,
-    ScriptWrap(RuneBriefRaspiteUse),
-    5 * 60,
-    true
-)
-
 #define RuneRemoverUse
 
 RunesRemove(player);
 GainItem(global.jjRuneRemover, 1);
-
-#define RuneStandMightUse
-
-RuneEquip(player, ConstructRuneStandMight());
-
-#define ConstructRuneStandMight
-
-var _rune = ConstructRuneBase();
-_rune.sprite = global.sprRuneStandMight;
-_rune.item_id = global.jjRuneStandMight;
-_rune.save_key = "skRuneStandMight";
-_rune.damage = 0.33;
-return _rune
-
-#define RuneBriefRaspiteUse
-
-RuneEquip(player, ConstructRuneBriefRaspite());
-
-#define ConstructRuneBriefRaspite
-
-var _rune = ConstructRuneBase();
-_rune.sprite = global.sprRuneBriefRaspite;
-_rune.item_id = global.jjRuneBriefRaspite;
-_rune.save_key = "skRuneBriefRaspite";
-_rune.update = ScriptWrap(RuneBriefRaspiteUpdate);
-return _rune
-
-#define RuneBriefRaspiteUpdate
-
-if (instance_exists(player))
-{
-    player.hp += 0.001;
-}
 
 #define ConstructRuneBase
 
@@ -161,7 +101,22 @@ if (instance_exists(_user) and instance_exists(_stand))
     {
         if (_stand.runes[i] != noone)
         {
-            DropItem(_stand.x, _stand.y, _stand.runes[i].item_id, 1);
+            var _rune = _stand.runes[i];
+            DropItem(_stand.x, _stand.y, _rune.item_id, 1);
+            _stand.runes[i] = noone;
+        }
+    }
+}
+
+#define RunesErase(_user)
+
+var _stand = _user.myStand;
+if (instance_exists(_user) and instance_exists(_stand))
+{
+    for (var i = 0; i < array_length(_stand.runes); i++)
+    {
+        if (_stand.runes[i] != noone)
+        {
             _stand.runes[i] = noone;
         }
     }

@@ -320,18 +320,17 @@ for (var i = 0; i < _len; i++)
     {
         switch (_rune_keys[i])
         {
-            case "skMissing":
-                RuneEquip(player, ConstructRuneBase());
-            break;
-            case "skRuneStandMight":
-                RuneEquip(player, ConstructRuneStandMight());
-            break;
-            case "skRuneBriefRaspite":
-                RuneEquip(player, ConstructRuneBriefRaspite());
-            break;
-            default:
-                RuneEquip(player, ConstructRuneBase());
-            break;
+            case "skMissing": RuneEquip(player, ConstructRuneBase()); break;
+            case "skRuneStandMight1": RuneEquip(player, ConstructRuneStandMight1()); break;
+            case "skRuneStandMight2": RuneEquip(player, ConstructRuneStandMight2()); break;
+            case "skRuneStandMight3": RuneEquip(player, ConstructRuneStandMight3()); break;
+            case "skRuneStandMight4": RuneEquip(player, ConstructRuneStandMight4()); break;
+            case "skRuneStandMight5": RuneEquip(player, ConstructRuneStandMight5()); break;
+            case "skRuneStandMight6": RuneEquip(player, ConstructRuneStandMight6()); break;
+            case "skRuneStandMight7": RuneEquip(player, ConstructRuneStandMight7()); break;
+            case "skRuneStandMight8": RuneEquip(player, ConstructRuneStandMight8()); break;
+            case "skRuneBriefRaspite": RuneEquip(player, ConstructRuneBriefRaspite()); break;
+            default: RuneEquip(player, ConstructRuneBase()); break;
         }
     }
 }

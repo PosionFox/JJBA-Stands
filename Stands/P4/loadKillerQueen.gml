@@ -192,17 +192,59 @@ with (_o)
     sprite_index = global.sprCoin;
     direction = _dir;
     speed = 5;
+    z = 0;
+    zGrav = 4;
+    bouncy = 0.75;
+    zSpdMax = random_range(10, 15);
+    zSpd = zSpdMax;
     
     InstanceAssignMethod(self, "step", ScriptWrap(CoinBombStep), false);
+    InstanceAssignMethod(self, "draw", ScriptWrap(CoinBombDraw), false);
 }
 
 #define CoinBombStep
 
 speed = lerp(speed, 0, 0.1);
-if (WaterCollision(x, y))
+z += zSpd - zGrav;
+zSpd *= bouncy;
+
+if (z <= 0)
 {
-    instance_destroy(self);
+    zSpdMax *= bouncy;
+    zSpd = zSpdMax;
+    if (WaterCollision(x, y))
+    {
+        instance_destroy(self);
+        exit;
+    }
 }
+z = clamp(z, 0, 99999);
+
+#define CoinBombDraw
+
+draw_sprite_ext(
+    sprShadow,
+    0,
+    x,
+    y,
+    min(0.5, abs(image_xscale / (z * 0.2))),
+    min(0.5, abs(image_yscale / (z * 0.2))),
+    0,
+    c_white,
+    image_alpha * 0.5
+);
+
+draw_sprite_ext(
+    sprite_index,
+    image_index,
+    x,
+    y - z,
+    image_xscale,
+    image_yscale,
+    image_angle,
+    image_blend,
+    image_alpha
+);
 
 #define GiveKillerQueen(_owner) //stand
 

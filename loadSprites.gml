@@ -35,7 +35,14 @@ global.sprDiosCoffin = sprite_add(p + "DiosCoffin.png", 1, false, false, 16, 8);
 p = "Resources/Sprites/Runes/";
 global.sprRuneRemover = sprite_add(p + "RuneRemover.png", 1, false, false, 8, 8);
 global.sprMissingRune = sprite_add(p + "MissingRune.png", 1, false, false, 8, 8);
-global.sprRuneStandMight = sprite_add(p + "RuneStandMight.png", 1, false, false, 8, 8);
+global.sprRuneStandMight1 = sprite_add(p + "RuneStandMight1.png", 1, false, false, 8, 8);
+global.sprRuneStandMight2 = sprite_add(p + "RuneStandMight2.png", 1, false, false, 8, 8);
+global.sprRuneStandMight3 = sprite_add(p + "RuneStandMight3.png", 1, false, false, 8, 8);
+global.sprRuneStandMight4 = sprite_add(p + "RuneStandMight4.png", 1, false, false, 8, 8);
+global.sprRuneStandMight5 = sprite_add(p + "RuneStandMight5.png", 1, false, false, 8, 8);
+global.sprRuneStandMight6 = sprite_add(p + "RuneStandMight6.png", 1, false, false, 8, 8);
+global.sprRuneStandMight7 = sprite_add(p + "RuneStandMight7.png", 1, false, false, 8, 8);
+global.sprRuneStandMight8 = sprite_add(p + "RuneStandMight8.png", 1, false, false, 8, 8);
 global.sprRuneBriefRaspite = sprite_add(p + "RuneBriefRaspite.png", 1, false, false, 8, 8);
 
 #endregion

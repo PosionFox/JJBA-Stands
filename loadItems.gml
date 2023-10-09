@@ -206,7 +206,7 @@ global.jjEgyptianCrown = ItemCreate(
     global.sprEgyptianCrown,
     ItemType.Consumable,
     ItemSubType.Potion,
-    500,
+    812,
     0,
     0,
     [

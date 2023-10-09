@@ -34,8 +34,24 @@ with (_o)
             skills[i, StandSkill.Key] = "null";
         }
     }
-    RuneEquip(self, ConstructRuneStandMight());
-    RuneEquip(self, ConstructRuneBriefRaspite());
+    
+    var _pool =
+    [
+        [ConstructRuneStandMight1, 128],
+        [ConstructRuneStandMight2, 64],
+        [ConstructRuneStandMight3, 32],
+        [ConstructRuneStandMight4, 16],
+        [ConstructRuneStandMight5, 8],
+        [ConstructRuneStandMight6, 4],
+        [ConstructRuneStandMight7, 2],
+        [ConstructRuneStandMight8, 1],
+    ]
+    
+    repeat (3)
+    {
+        var _rune = random_weight(_pool);
+        RuneEquip(self, script_execute(_rune));
+    }
     
     InstanceAssignMethod(self, "step", ScriptWrap(EnemyDioStep), true);
     InstanceAssignMethod(self, "drawGUI", ScriptWrap(EnemyDioDrawGUI), true);
@@ -48,6 +64,7 @@ if (TimeControl.lightState == 1 or TimeControl.lightState == 2)
 {
     var _c = EffectCircleCreate(x, y, 32, 4);
     _c.lifeMulti = 2;
+    RunesErase(self);
     RemoveStand(self);
     global.enemyDioSpawned = false;
     instance_destroy(self);

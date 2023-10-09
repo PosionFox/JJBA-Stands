@@ -291,3 +291,11 @@ LocalizationAddKey(_map, "questPucci2Talk4", "aqui está tu recompensa");
 
 #endregion
 
+#region runes
+
+LocalizationAddKey(_map, "runeOf", "runa de");
+
+LocalizationAddKey(_map, "runeStandMightName", "poderío stand");
+LocalizationAddKey(_map, "runeStandMightDesc", "incrementa el daño en un");
+
+#endregion
