@@ -2,6 +2,7 @@ This is a mod that tries to incorporate the entities of JoJo's Bizarre Adventure
 
 I highly suggest downloading Cave's Scrollable Structure List: https://steamcommunity.com/sharedfiles/filedetails/?id=1985510486
 
+
 [h1]How to get a Stand[/h1]
 You can try any of the following options:
 [list]
@@ -36,8 +37,13 @@ Some Stands are capable of evolving into a stronger form:
 [*]The World can evolve into The World Over Heaven by using a DIO's diary(DIO drops it)
 [/list]
 
+
 [h1]Fighting DIO[/h1]
 DIO is a strong boss which can be fought by summoning him during night time using an egyptian crown, such item can be crafted in DIO's coffin, a new structure in the magic category, upon defeat, DIO will drop either a DIO's diary or a DIO's bone(does nothing at the moment), if DIO is not defeated before sunrise, he will despawn.
+
+
+[h1]Upgrading your Stand[/h1]
+With the Rune system you can upgrade your Stand or yourself by equipping runes in rune slots, you can equip a maximum of 3 runes at a time, runes can be obtained in a number of ways(currently only DIO drops runes) and provide certain effects like increasing your Stand damage or healing over time, if you feel like your Stand is too weak for some reason or you just don't have a mythic, you can equip runes and upgrade instantly.
 
 
 [u]Stands you can get from a Suspicious arrow:[/u]
