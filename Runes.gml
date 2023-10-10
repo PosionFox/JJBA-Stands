@@ -2,7 +2,8 @@
 // load runes
 RunesStandMight();
 RunesBriefRaspite();
-RunesWoundMending();
+RunesMending();
+RunesReach();
 
 global.jjRuneRemover = ItemCreate(
     undefined,
@@ -40,6 +41,7 @@ var _base_rune = {
     save_key : "skMissing",
     damage : 0, // multiplier
     healing : 0,
+    stand_reach : 0,  // multiplier
     update : ScriptWrap(RuneBaseUpdate),
     update_tick : ScriptWrap(RuneBaseUpdateTick)
 }
@@ -68,6 +70,17 @@ for (var i = 0; i < _len; i++)
     if (STAND.runes[i] != noone)
     {
         ScriptCall(STAND.runes[i].update_tick);
+    }
+}
+
+#define RunRunesHealing
+
+var _len = array_length(STAND.runes);
+for (var i = 0; i < _len; i++)
+{
+    if (STAND.runes[i] != noone)
+    {
+        player.hp += STAND.runes[i].healing;
     }
 }
 
@@ -122,14 +135,28 @@ if (instance_exists(_user) and instance_exists(_stand))
     }
 }
 
-#define GetRuneDamage
+#define GetRunesDamage
 
 var _total_damage = 0;
 for (var i = 0; i < array_length(STAND.runes); i++)
 {
-    if (STAND.runes[i] != noone)
+    var _rune = STAND.runes[i];
+    if (_rune != noone)
     {
-        _total_damage += STAND.runes[i].damage;
+        _total_damage += _rune.damage;
     }
 }
 return  (1 + _total_damage);
+
+#define GetRunesStandReach
+
+var _total_range = 0;
+for (var i = 0; i < array_length(STAND.runes); i++)
+{
+    var _rune = STAND.runes[i];
+    if (_rune != noone)
+    {
+        _total_range += _rune.stand_reach;
+    }
+}
+return  (1 + _total_range);

@@ -329,6 +329,22 @@ for (var i = 0; i < _len; i++)
             case "skRuneStandMight6": RuneEquip(player, ConstructRuneStandMight6()); break;
             case "skRuneStandMight7": RuneEquip(player, ConstructRuneStandMight7()); break;
             case "skRuneStandMight8": RuneEquip(player, ConstructRuneStandMight8()); break;
+            case "skRuneReach1": RuneEquip(player, ConstructRuneReach1()); break;
+            case "skRuneReach2": RuneEquip(player, ConstructRuneReach2()); break;
+            case "skRuneReach3": RuneEquip(player, ConstructRuneReach3()); break;
+            case "skRuneReach4": RuneEquip(player, ConstructRuneReach4()); break;
+            case "skRuneReach5": RuneEquip(player, ConstructRuneReach5()); break;
+            case "skRuneReach6": RuneEquip(player, ConstructRuneReach6()); break;
+            case "skRuneReach7": RuneEquip(player, ConstructRuneReach7()); break;
+            case "skRuneReach8": RuneEquip(player, ConstructRuneReach8()); break;
+            case "skRuneMending1": RuneEquip(player, ConstructRuneMending1()); break;
+            case "skRuneMending2": RuneEquip(player, ConstructRuneMending2()); break;
+            case "skRuneMending3": RuneEquip(player, ConstructRuneMending3()); break;
+            case "skRuneMending4": RuneEquip(player, ConstructRuneMending4()); break;
+            case "skRuneMending5": RuneEquip(player, ConstructRuneMending5()); break;
+            case "skRuneMending6": RuneEquip(player, ConstructRuneMending6()); break;
+            case "skRuneMending7": RuneEquip(player, ConstructRuneMending7()); break;
+            case "skRuneMending8": RuneEquip(player, ConstructRuneMending8()); break;
             case "skRuneBriefRaspite": RuneEquip(player, ConstructRuneBriefRaspite()); break;
             default: RuneEquip(player, ConstructRuneBase()); break;
         }

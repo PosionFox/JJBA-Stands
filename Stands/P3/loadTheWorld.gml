@@ -148,8 +148,8 @@ else
 
 var _dir = owner.attack_direction;
 
-xTo = owner.x + lengthdir_x(8, _dir + random_range(-4, 4));
-yTo = owner.y + lengthdir_y(8, _dir + random_range(-4, 4));
+xTo = owner.x + lengthdir_x(GetStandReach(), _dir + random_range(-4, 4));
+yTo = owner.y + lengthdir_y(GetStandReach(), _dir + random_range(-4, 4));
 image_xscale = mouse_x > owner.x ? 1 : -1;
 
 switch (attackState)
@@ -187,8 +187,16 @@ attackStateTimer += DT;
 #define TwKnifeWall(method, skill)
 
 var _dir = owner.attack_direction;
-var _snd = audio_play_sound(global.sndKnifeThrow, 0, false);
-audio_sound_pitch(_snd, random_range(0.9, 1.1));
+if modTypeExists("timestop")
+{
+    var _snd = audio_play_sound(global.sndKnifeThrow, 5, false);
+    audio_sound_pitch(_snd, random_range(0.9, 1.1));
+}
+else
+{
+    audio_play_sound(global.sndTwohTp, 0, false);
+    EffectWhiteScreen(0.1);
+}
 
 repeat (5)
 {

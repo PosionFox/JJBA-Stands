@@ -18,6 +18,7 @@ with (_o)
     hpMax = 8000;
     hp = hpMax;
     life = 120;
+    sun_immunity = false;
     attack_direction = 0;
     attack_cooldown = 0;
     dying_timer = 0;
@@ -45,6 +46,22 @@ with (_o)
         [ConstructRuneStandMight6, 4],
         [ConstructRuneStandMight7, 2],
         [ConstructRuneStandMight8, 1],
+        [ConstructRuneReach1, 128],
+        [ConstructRuneReach2, 64],
+        [ConstructRuneReach3, 32],
+        [ConstructRuneReach4, 16],
+        [ConstructRuneReach5, 8],
+        [ConstructRuneReach6, 4],
+        [ConstructRuneReach7, 2],
+        [ConstructRuneReach8, 1],
+        [ConstructRuneMending1, 128],
+        [ConstructRuneMending2, 64],
+        [ConstructRuneMending3, 32],
+        [ConstructRuneMending4, 16],
+        [ConstructRuneMending5, 8],
+        [ConstructRuneMending6, 4],
+        [ConstructRuneMending7, 2],
+        [ConstructRuneMending8, 1]
     ]
     
     repeat (3)
@@ -60,15 +77,18 @@ return _o;
 
 #define EnemyDioStep
 
-if (TimeControl.lightState == 1 or TimeControl.lightState == 2)
+if (sun_immunity == false)
 {
-    var _c = EffectCircleCreate(x, y, 32, 4);
-    _c.lifeMulti = 2;
-    RunesErase(self);
-    RemoveStand(self);
-    global.enemyDioSpawned = false;
-    instance_destroy(self);
-    exit;
+    if (TimeControl.lightState == 1 or TimeControl.lightState == 2)
+    {
+        var _c = EffectCircleCreate(x, y, 32, 4);
+        _c.lifeMulti = 2;
+        RunesErase(self);
+        RemoveStand(self);
+        global.enemyDioSpawned = false;
+        instance_destroy(self);
+        exit;
+    }
 }
 
 if (attack_cooldown > 0)
@@ -205,5 +225,6 @@ if (instance_exists(player))
     _yy = player.y;
 }
 ExplosionCreate(_xx, _yy, 32, false);
-EnemyDioCreate(_xx, _yy);
+var _d = EnemyDioCreate(_xx, _yy);
 global.enemyDioSpawned = true;
+return _d;

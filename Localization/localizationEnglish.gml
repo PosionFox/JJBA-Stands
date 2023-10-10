@@ -71,6 +71,19 @@ LocalizationAddKey(_map, "diosCoffinDescription", "awaken the vampire");
 
 LocalizationAddKey(_map, "dmgDisplay", "damage");
 
+#region tiers
+
+LocalizationAddKey(_map, "commonName", "common");
+LocalizationAddKey(_map, "uncommonName", "uncommon");
+LocalizationAddKey(_map, "rareName", "rare");
+LocalizationAddKey(_map, "epicName", "epic");
+LocalizationAddKey(_map, "legendaryName", "legendary");
+LocalizationAddKey(_map, "mythicalName", "mythical");
+LocalizationAddKey(_map, "ascendedName", "ascended");
+LocalizationAddKey(_map, "ultimateName", "ultimate");
+
+#endregion
+
 #region stand abilities
 
 // stw
@@ -297,6 +310,19 @@ LocalizationAddKey(_map, "runeOf", "rune of");
 
 LocalizationAddKey(_map, "runeStandMightName", "stand might");
 LocalizationAddKey(_map, "runeStandMightDesc", "increases damage by");
+
+LocalizationAddKey(_map, "runeReachName", "reach");
+LocalizationAddKey(_map, "runeReachDesc", "increases stand reach by");
+
+LocalizationAddKey(_map, "runeMendingName", "mending");
+LocalizationAddKey(_map, "runeMending1Desc", "heals incredibly slowly.");
+LocalizationAddKey(_map, "runeMending2Desc", "heals very slowly.");
+LocalizationAddKey(_map, "runeMending3Desc", "heals slowly.");
+LocalizationAddKey(_map, "runeMending4Desc", "heals moderately.");
+LocalizationAddKey(_map, "runeMending5Desc", "heals slightly faster.");
+LocalizationAddKey(_map, "runeMending6Desc", "heals faster.");
+LocalizationAddKey(_map, "runeMending7Desc", "heals very quickly.");
+LocalizationAddKey(_map, "runeMending8Desc", "heals incredibly quickly.");
 
 #endregion
 

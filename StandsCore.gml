@@ -435,6 +435,9 @@ with (_stand)
     // stats
     powerMultiplier = GetPowerMultiplier(rarity.tier);
     spd = 0.5;
+    stand_reach = 8;
+    attack_reach = 1;
+    crit_chance = 0;
     runes = [noone, noone, noone];
     // skills
     skills = array_clone(_skills);
@@ -464,14 +467,14 @@ switch(_rarity)
 
 switch(_rarity)
 {
-    case Rarity.Common: return "common"; break;
-    case Rarity.Uncommon: return "uncommon"; break;
-    case Rarity.Rare: return "rare"; break;
-    case Rarity.Epic: return "epic"; break;
-    case Rarity.Legendary: return "legendary"; break;
-    case Rarity.Mythical: return "mythical"; break;
-    case Rarity.Ascended: return "ascended"; break;
-    case Rarity.Ultimate: return "ultimate"; break;
+    case Rarity.Common: return Localize("commonName"); break;
+    case Rarity.Uncommon: return Localize("uncommonName"); break;
+    case Rarity.Rare: return Localize("rareName"); break;
+    case Rarity.Epic: return Localize("epicName"); break;
+    case Rarity.Legendary: return Localize("legendaryName"); break;
+    case Rarity.Mythical: return Localize("mythicalName"); break;
+    case Rarity.Ascended: return Localize("ascendedName"); break;
+    case Rarity.Ultimate: return Localize("ultimateName"); break;
 }
 
 #define GetRarityColor(_rarity)
@@ -522,3 +525,6 @@ if (instance_exists(_owner) and instance_exists(_owner.myStand))
     _owner.myStand = noone;
 }
 
+#define GetStandReach
+
+return (stand_reach * GetRunesStandReach());

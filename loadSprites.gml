@@ -44,6 +44,22 @@ global.sprRuneStandMight6 = sprite_add(p + "RuneStandMight6.png", 1, false, fals
 global.sprRuneStandMight7 = sprite_add(p + "RuneStandMight7.png", 1, false, false, 8, 8);
 global.sprRuneStandMight8 = sprite_add(p + "RuneStandMight8.png", 1, false, false, 8, 8);
 global.sprRuneBriefRaspite = sprite_add(p + "RuneBriefRaspite.png", 1, false, false, 8, 8);
+global.sprRuneReach1 = sprite_add(p + "RuneReach1.png", 1, false, false, 8, 8);
+global.sprRuneReach2 = sprite_add(p + "RuneReach2.png", 1, false, false, 8, 8);
+global.sprRuneReach3 = sprite_add(p + "RuneReach3.png", 1, false, false, 8, 8);
+global.sprRuneReach4 = sprite_add(p + "RuneReach4.png", 1, false, false, 8, 8);
+global.sprRuneReach5 = sprite_add(p + "RuneReach5.png", 1, false, false, 8, 8);
+global.sprRuneReach6 = sprite_add(p + "RuneReach6.png", 1, false, false, 8, 8);
+global.sprRuneReach7 = sprite_add(p + "RuneReach7.png", 1, false, false, 8, 8);
+global.sprRuneReach8 = sprite_add(p + "RuneReach8.png", 1, false, false, 8, 8);
+global.sprRuneMending1 = sprite_add(p + "RuneMending1.png", 1, false, false, 8, 8);
+global.sprRuneMending2 = sprite_add(p + "RuneMending2.png", 1, false, false, 8, 8);
+global.sprRuneMending3 = sprite_add(p + "RuneMending3.png", 1, false, false, 8, 8);
+global.sprRuneMending4 = sprite_add(p + "RuneMending4.png", 1, false, false, 8, 8);
+global.sprRuneMending5 = sprite_add(p + "RuneMending5.png", 1, false, false, 8, 8);
+global.sprRuneMending6 = sprite_add(p + "RuneMending6.png", 1, false, false, 8, 8);
+global.sprRuneMending7 = sprite_add(p + "RuneMending7.png", 1, false, false, 8, 8);
+global.sprRuneMending8 = sprite_add(p + "RuneMending8.png", 1, false, false, 8, 8);
 
 #endregion
 

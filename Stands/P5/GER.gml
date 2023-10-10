@@ -33,8 +33,8 @@ EndAtk(s);
 var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
 
-xTo = owner.x + lengthdir_x(8, _dir + random_range(-4, 4));
-yTo = owner.y + lengthdir_y(8, _dir + random_range(-4, 4));
+xTo = owner.x + lengthdir_x(GetStandReach(), _dir + random_range(-4, 4));
+yTo = owner.y + lengthdir_y(GetStandReach(), _dir + random_range(-4, 4));
 image_xscale = mouse_x > owner.x ? 1 : -1;
 
 switch (attackState)
@@ -79,8 +79,8 @@ var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
 switch(attackState)
 {
     case 0:
-        xTo = player.x + lengthdir_x(4, _dir);
-        yTo = player.y + lengthdir_y(4, _dir);
+        xTo = player.x + lengthdir_x(GetStandReach() / 2, _dir);
+        yTo = player.y + lengthdir_y(GetStandReach() / 2, _dir);
         if (attackStateTimer >= 0.2) attackState++;
     break;
     case 1:

@@ -1,7 +1,7 @@
 
 global.jjRuneStandMight1 = ItemCreate(
     undefined,
-    Localize("runeOf") + " " + Localize("runeStandMightName") + " i",
+    Localize("runeOf") + " " + Localize("runeStandMightName") + " " + Localize("commonName"),
     Localize("runeStandMightDesc") + " 1%.",
     global.sprRuneStandMight1,
     ItemType.Consumable,
@@ -17,7 +17,7 @@ global.jjRuneStandMight1 = ItemCreate(
 
 global.jjRuneStandMight2 = ItemCreate(
     undefined,
-    Localize("runeOf") + " " + Localize("runeStandMightName") + " ii",
+    Localize("runeOf") + " " + Localize("runeStandMightName") + " " + Localize("uncommonName"),
     Localize("runeStandMightDesc") + " 2%.",
     global.sprRuneStandMight2,
     ItemType.Consumable,
@@ -33,7 +33,7 @@ global.jjRuneStandMight2 = ItemCreate(
 
 global.jjRuneStandMight3 = ItemCreate(
     undefined,
-    Localize("runeOf") + " " + Localize("runeStandMightName") + " iii",
+    Localize("runeOf") + " " + Localize("runeStandMightName") + " " + Localize("rareName"),
     Localize("runeStandMightDesc") + " 4%.",
     global.sprRuneStandMight3,
     ItemType.Consumable,
@@ -49,7 +49,7 @@ global.jjRuneStandMight3 = ItemCreate(
 
 global.jjRuneStandMight4 = ItemCreate(
     undefined,
-    Localize("runeOf") + " " + Localize("runeStandMightName") + " iv",
+    Localize("runeOf") + " " + Localize("runeStandMightName") + " " + Localize("epicName"),
     Localize("runeStandMightDesc") + " 8%.",
     global.sprRuneStandMight4,
     ItemType.Consumable,
@@ -65,7 +65,7 @@ global.jjRuneStandMight4 = ItemCreate(
 
 global.jjRuneStandMight5 = ItemCreate(
     undefined,
-    Localize("runeOf") + " " + Localize("runeStandMightName") + " v",
+    Localize("runeOf") + " " + Localize("runeStandMightName") + " " + Localize("legendaryName"),
     Localize("runeStandMightDesc") + " 16%.",
     global.sprRuneStandMight5,
     ItemType.Consumable,
@@ -81,7 +81,7 @@ global.jjRuneStandMight5 = ItemCreate(
 
 global.jjRuneStandMight6 = ItemCreate(
     undefined,
-    Localize("runeOf") + " " + Localize("runeStandMightName") + " vi",
+    Localize("runeOf") + " " + Localize("runeStandMightName") + " " + Localize("mythicalName"),
     Localize("runeStandMightDesc") + " 32%.",
     global.sprRuneStandMight6,
     ItemType.Consumable,
@@ -97,7 +97,7 @@ global.jjRuneStandMight6 = ItemCreate(
 
 global.jjRuneStandMight7 = ItemCreate(
     undefined,
-    Localize("runeOf") + " " + Localize("runeStandMightName") + " vii",
+    Localize("runeOf") + " " + Localize("runeStandMightName") + " " + Localize("ascendedName"),
     Localize("runeStandMightDesc") + " 64%.",
     global.sprRuneStandMight7,
     ItemType.Consumable,
@@ -113,7 +113,7 @@ global.jjRuneStandMight7 = ItemCreate(
 
 global.jjRuneStandMight8 = ItemCreate(
     undefined,
-    Localize("runeOf") + " " + Localize("runeStandMightName") + " viii",
+    Localize("runeOf") + " " + Localize("runeStandMightName") + " " + Localize("ultimateName"),
     Localize("runeStandMightDesc") + " 128%.",
     global.sprRuneStandMight8,
     ItemType.Consumable,

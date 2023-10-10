@@ -63,8 +63,8 @@ attackStateTimer += DT;
 var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
 
-xTo = owner.x + lengthdir_x(8, _dir + random_range(-4, 4));
-yTo = owner.y + lengthdir_y(8, _dir + random_range(-4, 4));
+xTo = owner.x + lengthdir_x(GetStandReach(), _dir + random_range(-4, 4));
+yTo = owner.y + lengthdir_y(GetStandReach(), _dir + random_range(-4, 4));
 image_xscale = mouse_x > owner.x ? 1 : -1;
 
 switch (attackState)
@@ -104,8 +104,8 @@ attackStateTimer += DT;
 var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y)
 
-var _xx = player.x + lengthdir_x(8, _dir);
-var _yy = player.y + lengthdir_y(8, _dir);
+var _xx = player.x + lengthdir_x(GetStandReach(), _dir);
+var _yy = player.y + lengthdir_y(GetStandReach(), _dir);
 xTo = _xx;
 yTo = _yy;
 
@@ -150,8 +150,16 @@ switch (attackState)
         }
     break;
     case 2:
-        var _snd = audio_play_sound(global.sndStwKnifeThrow2, 0, false);
-        audio_sound_pitch(_snd, random_range(0.9, 1.1));
+        if modTypeExists("timestop")
+        {
+            var _snd = audio_play_sound(global.sndKnifeThrow, 5, false);
+            audio_sound_pitch(_snd, random_range(0.9, 1.1));
+        }
+        else
+        {
+            audio_play_sound(global.sndTwohTp, 0, false);
+            EffectWhiteScreen(0.1);
+        }
         
         repeat (5)
         {

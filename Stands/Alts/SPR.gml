@@ -29,8 +29,8 @@ GiveSpr(player);
 var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y)
 
-var _xx = player.x + lengthdir_x(8, _dir);
-var _yy = player.y + lengthdir_y(8, _dir);
+var _xx = player.x + lengthdir_x(GetStandReach(), _dir);
+var _yy = player.y + lengthdir_y(GetStandReach(), _dir);
 xTo = _xx;
 yTo = _yy;
 
@@ -58,8 +58,8 @@ attackStateTimer += DT;
 
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
 
-var _xx = player.x + lengthdir_x(8, _dir);
-var _yy = player.y + lengthdir_y(8, _dir);
+var _xx = player.x + lengthdir_x(GetStandReach(), _dir);
+var _yy = player.y + lengthdir_y(GetStandReach(), _dir);
 xTo = _xx;
 yTo = _yy;
 image_xscale = mouse_x > player.x ? 1 : -1;

@@ -70,8 +70,8 @@ var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
 var _dir = DIR_PLAYER_TO_MOUSE;
 
 var _exdir = skills[skill, StandSkill.ExecutionTime] * 20;
-xTo = owner.x + lengthdir_x(8 + _exdir, _dir + random_range(-2, 2));
-yTo = owner.y + lengthdir_y(8 + _exdir, _dir + random_range(-2, 2));
+xTo = owner.x + lengthdir_x(GetStandReach() + _exdir, _dir + random_range(-2, 2));
+yTo = owner.y + lengthdir_y(GetStandReach() + _exdir, _dir + random_range(-2, 2));
 image_xscale = mouse_x > owner.x ? 1 : -1;
 
 attackStateTimer += DT;
@@ -105,8 +105,8 @@ if (keyboard_check_pressed(ord(skills[skill, StandSkill.Key])))
 #define WsGun(m, s)
 var _dir = point_direction(x, y, mouse_x, mouse_y);
 
-xTo = owner.x + lengthdir_x(8, _dir);
-yTo = owner.y + lengthdir_y(8, _dir);
+xTo = owner.x + lengthdir_x(GetStandReach(), _dir);
+yTo = owner.y + lengthdir_y(GetStandReach(), _dir);
 
 switch (attackState)
 {
@@ -150,8 +150,8 @@ attackStateTimer += DT;
 #define AcidicSpit(m, s)
 var _dir = point_direction(x, y, mouse_x, mouse_y);
 
-xTo = owner.x + lengthdir_x(8, _dir);
-yTo = owner.y + lengthdir_y(8, _dir);
+xTo = owner.x + lengthdir_x(GetStandReach(), _dir);
+yTo = owner.y + lengthdir_y(GetStandReach(), _dir);
 
 switch (attackState)
 {

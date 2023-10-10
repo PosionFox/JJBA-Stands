@@ -26,7 +26,7 @@ global.jjbamRokakaka = ItemCreate(
     global.sprRokakaka,
     ItemType.Consumable,
     ItemSubType.Potion,
-    100,
+    32,
     0,
     0,
     undefined,
@@ -42,7 +42,7 @@ global.jjRokakakaStew = ItemCreate(
     global.sprRokakakaStew,
     ItemType.Consumable,
     ItemSubType.Potion,
-    100,
+    61,
     0,
     0,
     [

@@ -32,8 +32,8 @@ if (modTypeExists("bomb"))
     exit;
 }
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-xTo = objPlayer.x + lengthdir_x(8, _dir);
-yTo = objPlayer.y + lengthdir_y(8, _dir);
+xTo = objPlayer.x + lengthdir_x(GetStandReach(), _dir);
+yTo = objPlayer.y + lengthdir_y(GetStandReach(), _dir);
 
 switch (attackState)
 {

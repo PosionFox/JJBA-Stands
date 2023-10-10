@@ -29,8 +29,8 @@ GiveSilverChariot(player);
 var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
 
-xTo = owner.x + lengthdir_x(8, _dir + random_range(-4, 4));
-yTo = owner.y + lengthdir_y(8, _dir + random_range(-4, 4));
+xTo = owner.x + lengthdir_x(GetStandReach(), _dir + random_range(-4, 4));
+yTo = owner.y + lengthdir_y(GetStandReach(), _dir + random_range(-4, 4));
 image_xscale = mouse_x > owner.x ? 1 : -1;
 
 switch (attackState)
@@ -76,8 +76,8 @@ attackStateTimer += 1 / room_speed;
 #define ScLunge(m, s)
 
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
-xTo = player.x + lengthdir_x(8, _dir);
-yTo = player.y + lengthdir_y(8, _dir);
+xTo = player.x + lengthdir_x(GetStandReach(), _dir);
+yTo = player.y + lengthdir_y(GetStandReach(), _dir);
 
 switch (attackState)
 {
@@ -115,8 +115,8 @@ attackStateTimer += DT * (1 + (isFtl * 2));
 #define ScSweep(m, s)
 
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-xTo = owner.x + lengthdir_x(16, _dir);
-yTo = owner.y + lengthdir_y(16, _dir);
+xTo = owner.x + lengthdir_x(GetStandReach() * 2, _dir);
+yTo = owner.y + lengthdir_y(GetStandReach() * 2, _dir);
 
 switch (attackState)
 {

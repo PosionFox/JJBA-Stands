@@ -18,7 +18,8 @@ CommandCreate("jjSpawnDio", true, ScriptWrap(jjSpawnDio))
 
 #define jjSpawnDio
 
-EnemyDioSpawn();
+var _d = EnemyDioSpawn();
+_d.sun_immunity = true;
 
 #define jjMaxExp
 
