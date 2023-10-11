@@ -34,7 +34,7 @@ EndAtk(s);
 
 #define TimeStopTeleport(m, s)
 
-if (!WaterCollision(mouse_x, mouse_y))
+if (!WaterCollision(mouse_x, mouse_y) and !modTypeExists("timestop"))
 {
     EffectWhiteScreen(0.1);
     audio_play_sound(global.sndSptwTp, 5, false);

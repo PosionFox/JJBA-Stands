@@ -85,6 +85,7 @@ switch (attackState)
             subtype = "starFinger";
             owner = STAND;
             sprite_index = global.sprStarPlatinumFinger;
+            image_xscale = 0;
             image_blend = STAND.color;
             damage = _dmg;
             stationary = true;
@@ -93,10 +94,8 @@ switch (attackState)
             direction = _dir;
             despawnFade = false;
             despawnTime = 1;
-            fingerSize = 0;
             
-            InstanceAssignMethod(self, "step", ScriptWrap(StarFingerStep), false);
-            InstanceAssignMethod(self, "draw", ScriptWrap(StarFingerDraw), false);
+            InstanceAssignMethod(self, "step", ScriptWrap(StarFingerStep));
         }
         attackState++;
     break;

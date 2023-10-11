@@ -57,6 +57,7 @@ switch (attackState)
             subtype = "starFinger";
             owner = STAND;
             sprite_index = global.sprStarPlatinumFinger;
+            image_xscale = 0;
             image_blend = STAND.color;
             damage = _dmg;
             stationary = true;
@@ -65,10 +66,8 @@ switch (attackState)
             direction = _dir;
             despawnFade = false;
             despawnTime = 1;
-            fingerSize = 0;
             
-            InstanceAssignMethod(self, "step", ScriptWrap(StarFingerStep), false);
-            InstanceAssignMethod(self, "draw", ScriptWrap(StarFingerDraw), false);
+            InstanceAssignMethod(self, "step", ScriptWrap(StarFingerStep));
         }
         attackState++;
     break;
@@ -86,27 +85,28 @@ attackStateTimer += DT;
 
 #define StarFingerStep
 
-fingerSize = lerp(fingerSize, 120, 0.1);
 var _dir = point_direction(STAND.x, STAND.y, mouse_x, mouse_y);
 direction = _dir;
 
-var x2 = player.x + lengthdir_x(fingerSize, direction);
-var y2 = player.y + lengthdir_y(fingerSize, direction);
-
-var w = fingerSize / sprite_get_width(sprite_index);
-image_xscale = w;
+image_xscale = lerp(image_xscale, 1, 0.1);
+var w = image_xscale * (sprite_width / 2);
 x = STAND.x + lengthdir_x(w, direction);
 y = STAND.y + lengthdir_y(w, direction);
 
-var _col = collision_line(STAND.x, STAND.y, x2, y2, ENEMY, false, true);
-if (_col)
+var _col1 = collision_line(owner.x, owner.y, owner.x + lengthdir_x(w, direction), owner.y + lengthdir_y(w, direction), ENEMY, false, true); 
+if (_col1)
 {
-    ProjHitTarget(_col);
+    ProjHitTarget(_col1);
 }
 
-#define StarFingerDraw
-
-draw_self()
+var _col2 = collision_line(owner.x, owner.y, owner.x + lengthdir_x(w, direction), owner.y + lengthdir_y(w, direction), MOBJ, false, true); 
+if (_col2)
+{
+    if bool("hp" in _col2)
+    {
+        ProjHitTarget(_col2);
+    }
+}
 
 #define SpTimestop(m, s)
 

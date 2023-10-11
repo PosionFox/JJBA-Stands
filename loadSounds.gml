@@ -76,6 +76,13 @@ global.sndScBladeOff = audio_create_stream(p + "scBladeOff.ogg");
 
 #endregion
 
+#region hierophant green
+
+p = "Resources/Sounds/HG/";
+global.sndHgEmeraldSplash = audio_create_stream(p + "hgEmeraldSplash.ogg");
+
+#endregion
+
 #region killer queen
 
 p = "Resources/Sounds/KQ/";

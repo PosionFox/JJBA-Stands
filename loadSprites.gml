@@ -83,9 +83,9 @@ global.sprStarTier = sprite_add(p + "StarTier.png", 1, false, false, 8, 8);
 
 // projectiles
 p = "Resources/Sprites/Generic/Projectiles/";
-global.sprKnife = sprite_add(p + "Knife.png", 1, false, false, 8, 8);
+global.sprKnife = sprite_add(p + "Knife.png", 1, false, false, 8, 2);
 global.sprBullet = sprite_add(p + "Bullet.png", 1, false, false, 1, 1);
-global.sprAttackPunch = sprite_add(p + "AttackPunch.png", 1, false, false, 16, 16);
+global.sprAttackPunch = sprite_add(p + "AttackPunch.png", 1, false, false, 6, 2);
 
 // skills
 p = "Resources/Sprites/Generic/Skills/";
@@ -195,7 +195,7 @@ global.sprStarPlatinum = sprite_add(p + "StarPlatinum.png", 1, false, false, 16,
 global.sprSPG = sprite_add(p + "SPGray.png", 1, false, false, 16, 19);
 global.sprSPP = sprite_add(p + "StarPlatinumPrime.png", 1, false, false, 16, 19);
 global.sprStarPlatinumPunch = sprite_add(p + "StarPlatinumPunch.png", 1, false, false, 16, 16);
-global.sprStarPlatinumFinger = sprite_add(p + "StarPlatinumFinger.png", 1, false, false, 1, 1);
+global.sprStarPlatinumFinger = sprite_add(p + "StarPlatinumFinger.png", 1, false, false, 64, 2);
 global.sprSoda = sprite_add(p + "Soda.png", 1, false, false, 4, 4);
 
 // skills
@@ -450,6 +450,11 @@ global.sprMagiciansRed = sprite_add(p + "MagiciansRed.png", 1, false, false, 16,
 
 p = "Resources/Sprites/HG/";
 global.sprHierophantGreen = sprite_add(p + "HierophantGreen.png", 1, false, false, 16, 19);
+global.sprHierophantBarrier = sprite_add(p + "HierophantBarrier.png", 1, false, false, 64, 2);
+global.sprHierophantGreenEmerald = sprite_add(p + "HierophantGreenEmerald.png", 1, false, false, 4, 2);
+// skins
+global.sprHierophantRed = sprite_add(p + "HierophantRed.png", 1, false, false, 16, 19);
+global.sprHierophantBlack = sprite_add(p + "HierophantBlack.png", 1, false, false, 16, 19);
 
 #endregion
 

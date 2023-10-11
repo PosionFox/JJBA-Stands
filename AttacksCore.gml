@@ -249,9 +249,9 @@ if (shadow_enabled)
         0,
         x,
         y,
-        min(0.5, abs(image_xscale / (z * 0.2))),
-        min(0.5, abs(image_yscale / (z * 0.2))),
-        0,
+        sprite_width / sprite_get_width(sprShadow),
+        sprite_height / sprite_get_height(sprShadow),
+        image_angle,
         c_white,
         image_alpha * 0.5
     );

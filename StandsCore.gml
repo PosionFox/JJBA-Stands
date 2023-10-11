@@ -395,7 +395,7 @@ with (_stand)
     height = 0;
     rarity = {
         tier : Rarity.Common,
-        name : "common",
+        name : Localize("commonName"),
         color : c_white
     };
     saveKey = "jjbamStandless";

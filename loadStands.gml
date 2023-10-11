@@ -93,6 +93,8 @@ Gm();
 TWROH();
 TWRuOH();
 DW();
+HR();
+HB();
 
 #endregion
 

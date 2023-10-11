@@ -131,7 +131,7 @@ attackStateTimer += DT;
 
 #define TwTsTp(m, s)
 
-if (!WaterCollision(mouse_x, mouse_y))
+if (!WaterCollision(mouse_x, mouse_y) and !modTypeExists("timestop"))
 {
     EffectWhiteScreen(0.1);
     audio_play_sound(global.sndTwohTp, 5, false);

@@ -127,6 +127,8 @@ switch (args[0])
     case "twroh": GiveTwroh(player); break;
     case "dw": GiveDw(player); break;
     case "twruoh": GiveTwruoh(player); break;
+    case "hr": GiveHr(player); break;
+    case "hb": GiveHb(player); break;
     // other
     case "sus": GiveImposter(player); break;
     case "twoh": GiveTWOH(player); break;
