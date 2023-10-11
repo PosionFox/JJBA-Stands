@@ -86,6 +86,8 @@ LocalizationAddKey(_map, "ultimateName", "supremo");
 
 #region stand abilities
 
+#region part 3
+
 // stw
 LocalizationAddKey(_map, "uryDesc", "uryyy:\nembiste hacia adelante golpeando enemigos en el camino.");
 LocalizationAddKey(_map, "srseDesc", "ojos picadores de destripacion espacial:\ndispara dos láseres perforantes a gran velocidad.");
@@ -112,6 +114,12 @@ silver chariot se quita su armadura,
 proporcionandole una gran velocidad de ataque
 y tiempos de enfriamentos más cortos.");
 
+// hg
+LocalizationAddKey(_map, "emeraldSplashDesc", "emerald splash:\nshoots out a short barrage of emeralds forward.");
+LocalizationAddKey(_map, "hierophantBarrierDesc", "hierophant barrier:\ncreates a barrier around the user\ndeals damage on contact.");
+LocalizationAddKey(_map, "emeraldSplash20MetersDesc", "20 meter emerald splash:\nshoots out a powerful barrage of emeralds forward.");
+
+
 // sp
 LocalizationAddKey(_map, "diosKnifeDesc", "cuchillo de dio:\nlanza uno de los cuchillos de dio.");
 LocalizationAddKey(_map, "barrageDesc", "bombardeo:\nlanza un bombardeo de golpes.");
@@ -129,12 +137,6 @@ y tus proyectiles se congelaran donde están.
 con suficiente experiencia,
 star platinum evoluciona a star platinum: the world.");
 
-// sptw
-LocalizationAddKey(_map, "sodaDesc", "soda:\nbebe de una refrescante lata de soda.");
-LocalizationAddKey(_map, "bearingShotDesc", "tiro:\nlanza un proyectil hacia adelante.");
-LocalizationAddKey(_map, "tsTpDesc", "teleportación de parada de tiempo:\nteletransportate a donde esta tu cursor.");
-LocalizationAddKey(_map, "sptwTimestopDesc", "estrella platinada: el mundo!:\ndetiene el tiempo, la mayoria de los enemigos no pueden moverse\ny tus proyectiles se congelaran donde están.");
-
 // tw
 LocalizationAddKey(_map, "josephKnifeDesc", "cuchillo de joseph:\nlanza un cuchillo que causa sangrado al impactar.");
 LocalizationAddKey(_map, "stopSignDesc", "señal de pare:\ngolpea con una señal de pare.");
@@ -142,6 +144,17 @@ LocalizationAddKey(_map, "bloodDrainDesc", "drenado de sangre:\ndrena la vida de
 LocalizationAddKey(_map, "strongPunchDesc", "puñetazo fuerte:\ncarga y libera un golpe fuerte.");
 LocalizationAddKey(_map, "knifeWallDesc", "pared de cuchillos:\nlanza una pared de cuchillos.");
 LocalizationAddKey(_map, "twTimestopDesc", "tiempo, detente!:\ndetiene el tiempo, la mayoria de los enemigos no pueden moverse\ny tus proyectiles se congelaran donde están.");
+
+#endregion
+
+#region part 4
+
+// sptw
+LocalizationAddKey(_map, "sodaDesc", "soda:\nbebe de una refrescante lata de soda.");
+LocalizationAddKey(_map, "bearingShotDesc", "tiro:\nlanza un proyectil hacia adelante.");
+LocalizationAddKey(_map, "tsTpDesc", "teleportación de parada de tiempo:\nteletransportate a donde esta tu cursor.");
+LocalizationAddKey(_map, "sptwTimestopDesc", "estrella platinada: el mundo!:\ndetiene el tiempo, la mayoria de los enemigos no pueden moverse\ny tus proyectiles se congelaran donde están.");
+
 
 // kq
 LocalizationAddKey(_map, "detonateBombDesc", "detonar bomba:\nexplota cualquier bomba ya colocada.");
@@ -161,6 +174,10 @@ devuelve al usuario a la posicion original
 donde colocaron la bomba en primer lugar mientras que
 cura al usuario por la cantidad de salud perdida.
 ");
+
+#endregion
+
+#region part 5
 
 // ge
 LocalizationAddKey(_map, "lifeformPlantDesc", "forma de vida, planta:\ninvoca una planta aleatoria.");
@@ -195,6 +212,10 @@ LocalizationAddKey(_map, "zipperPunchDesc", "puñetazo cremallera:\ncarga y libe
 LocalizationAddKey(_map, "zipperGrabDesc", "agarre de cremallera:\ndesarticula y lanza su brazo hacia adelante\nagarrando y tirando del primer enemigo que toca.");
 LocalizationAddKey(_map, "portalThroughDesc", "portal a través:\nabre dos portales, uno debajo del usuario\ny el otro a donde esta apuntando.");
 
+#endregion
+
+#region part 6
+
 // ws
 LocalizationAddKey(_map, "suddenStrikeDesc", "golpe súbito:\nlanza un ataque sorpresa.");
 LocalizationAddKey(_map, "explosiveSurpriseDesc", "sorpresa explosiva:\nlanza un disco explosivo hacia adelante.");
@@ -204,6 +225,10 @@ LocalizationAddKey(_map, "wsBarrageDesc", "bombardeo ácido:\nlanza un bombardeo
 LocalizationAddKey(_map, "quickDisposalDesc", "desecho rápido:\ndescarga un voleo de balas hacia adelante.");
 LocalizationAddKey(_map, "acidicSpitDesc", "escupitajo ácido:\nescupe un proyectil hacia adelante que inflige daño con el tiempo.");
 LocalizationAddKey(_map, "discStealDesc", "robo de disco:\nroba el disco de memoria del objetivo volviéndolos inútiles.");
+
+#endregion
+
+#region part 7
 
 // d4c
 LocalizationAddKey(_map, "revolverReloadDesc", "recargar revolver:\nrecarga tu revolver.");
@@ -255,6 +280,10 @@ y tus proyectiles se congelaran donde están.
 el usuario entra en pánico debido a su salud baja
 y realiza una parada de tiempo más larga.");
 
+#endregion
+
+#region part 8
+
 // snw
 LocalizationAddKey(_map, "moisturePlunderDesc", "saqueo de humedad:\ncrea una barrera de burbujas a tu alrededor\nlas burbujas dañan a los enemigos que las tocan.");
 LocalizationAddKey(_map, "shovelDesc", "pala:\nsaca una pala y golpealos con ella!.");
@@ -262,6 +291,10 @@ LocalizationAddKey(_map, "bubbleShieldDesc", "burbuja escudo:\ncrea un escudo bu
 LocalizationAddKey(_map, "bubbleBarrageDesc", "bombardeo de burbujas:\nlanza un bombardeo de burbujas adelante.");
 LocalizationAddKey(_map, "screwsAndNutsDesc", "tornillos y tuercas:\nlanza una burbuja llena de tornillos y tuercas\nque explota al contacto.");
 LocalizationAddKey(_map, "bubbleTrapDesc", "trampa burbuja:\nlanza una barba que atrapa a los enemigos al impactar.");
+
+#endregion
+
+#region other
 
 // twoh
 LocalizationAddKey(_map, "realityHealDesc", "curación de realidad:\nrevierte tus heridas a un estado anterior.");
@@ -281,12 +314,22 @@ lanza tres cuchillos adelante que
 electrocutan a los enemigos golpeados.
 
 (mantener) entierro de cuchillos:
-rodea al enemigo más cercano
-de cuchillos letales.");
+rodea al enemigo más cercano de tu cursor
+con cuchillos letales.");
 LocalizationAddKey(_map, "twohTimestopDesc", @"parada de tiempo ascendida:
 detiene el tiempo, la mayoria de los enemigos no pueden moverse
 y tus proyectiles se congelaran donde están,
 detiene y reanuda a voluntad.");
+
+// sus
+LocalizationAddKey(_map, "knifesDesc", @"cuchillos:
+lanza algunos cuchillos.");
+LocalizationAddKey(_map, "meetingCallDesc", @"llamada de reunión:
+presiona un botón que daña enemigos.");
+LocalizationAddKey(_map, "killDesc", @"matar:
+se teletransporta a un enemigo cercano y los daña gravemente.");
+
+#endregion
 
 #endregion
 

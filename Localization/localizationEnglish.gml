@@ -86,6 +86,8 @@ LocalizationAddKey(_map, "ultimateName", "ultimate");
 
 #region stand abilities
 
+#region part 3
+
 // stw
 LocalizationAddKey(_map, "uryDesc", "uryyy:\nlunge forward striking enemies on the way.");
 LocalizationAddKey(_map, "srseDesc", "space ripper stingy eyes:\nfire two piercing lasers at high speeds.");
@@ -111,6 +113,11 @@ LocalizationAddKey(_map, "ftlDesc", @"faster than light:
 silver chariot removes its armor, providing high attack speed
 and shorter cooldowns.");
 
+// hg
+LocalizationAddKey(_map, "emeraldSplashDesc", "emerald splash:\nshoots out a short barrage of emeralds forward.");
+LocalizationAddKey(_map, "hierophantBarrierDesc", "hierophant barrier:\ncreates a barrier around the user\ndeals damage on contact.");
+LocalizationAddKey(_map, "emeraldSplash20MetersDesc", "20 meter emerald splash:\nshoots out a powerful barrage of emeralds forward.");
+
 // sp
 LocalizationAddKey(_map, "diosKnifeDesc", "dio's knife:\ntoss one of dio's knife.");
 LocalizationAddKey(_map, "barrageDesc", "barrage:\nlaunches a barrage of punches.");
@@ -128,12 +135,6 @@ and makes your projectiles freeze in place.
 with enough experience,
 star platinum evolves into star platinum: the world.");
 
-// sptw
-LocalizationAddKey(_map, "sodaDesc", "soda:\ndrink from a fresh can of soda.");
-LocalizationAddKey(_map, "bearingShotDesc", "bearing shot:\ntoss a projectile forward.");
-LocalizationAddKey(_map, "tsTpDesc", "time stop teleport:\nteleport where you cursor is at.");
-LocalizationAddKey(_map, "sptwTimestopDesc", "star platinum the world:\nstops the time, most enemies are not allowed to move\nand makes your projectiles freeze in place.");
-
 // tw
 LocalizationAddKey(_map, "josephKnifeDesc", "joseph knife:\nsend out a knife that causes bleed on impact.");
 LocalizationAddKey(_map, "stopSignDesc", "stop sign:\nstrike with a stop sign.");
@@ -141,6 +142,17 @@ LocalizationAddKey(_map, "bloodDrainDesc", "blood drain:\ndrain the target's hea
 LocalizationAddKey(_map, "strongPunchDesc", "strong punch:\ncharges and launches a strong punch.");
 LocalizationAddKey(_map, "knifeWallDesc", "knife wall:\nsends out a wall of knives.");
 LocalizationAddKey(_map, "twTimestopDesc", "time, stop!:\nstops the time, most enemies are not allowed to move\nand makes your projectiles freeze in place.");
+
+#endregion
+
+#region part 4
+
+// sptw
+LocalizationAddKey(_map, "sodaDesc", "soda:\ndrink from a fresh can of soda.");
+LocalizationAddKey(_map, "bearingShotDesc", "bearing shot:\ntoss a projectile forward.");
+LocalizationAddKey(_map, "tsTpDesc", "time stop teleport:\nteleport where you cursor is at.");
+LocalizationAddKey(_map, "sptwTimestopDesc", "star platinum the world:\nstops the time, most enemies are not allowed to move\nand makes your projectiles freeze in place.");
+
 
 // kq
 LocalizationAddKey(_map, "detonateBombDesc", "detonate bomb:\nexplodes any bombs already placed.");
@@ -160,6 +172,10 @@ returns the user to the original position
 where they placed the bomb in the first place while also
 healing the user for the amount of damage lost afterwards.
 ");
+
+#endregion
+
+#region part 5
 
 // ge
 LocalizationAddKey(_map, "lifeformPlantDesc", "lifeform plant:\nsummons a random plant.");
@@ -194,6 +210,10 @@ LocalizationAddKey(_map, "zipperPunchDesc", "zipper punch:\ncharges and launches
 LocalizationAddKey(_map, "zipperGrabDesc", "zipper grab:\ndisjoints and launches their arm forwards\ngrabbing and pulling the first enemy it touches.");
 LocalizationAddKey(_map, "portalThroughDesc", "portal through:\nopens two portals, one below the user\nand the other where they are aiming at.");
 
+#endregion
+
+#region part 6
+
 // ws
 LocalizationAddKey(_map, "suddenStrikeDesc", "sudden strike:\nlaunch a surpise attack.");
 LocalizationAddKey(_map, "explosiveSurpriseDesc", "explosive surprise:\ntoss an explosive disc forward.");
@@ -203,6 +223,10 @@ LocalizationAddKey(_map, "wsBarrageDesc", "acidic barrage:\nlaunches a ranged ba
 LocalizationAddKey(_map, "quickDisposalDesc", "quick disposal:\nunloads a volley of bullets forward.");
 LocalizationAddKey(_map, "acidicSpitDesc", "acidic spit:\nspits a projectile forwards that deals damage over time.");
 LocalizationAddKey(_map, "discStealDesc", "disc steal:\nsteals your target's memory disc rendering them useless.");
+
+#endregion
+
+#region part 7
 
 // d4c
 LocalizationAddKey(_map, "revolverReloadDesc", "revolver reload:\nreload your revolver.");
@@ -255,6 +279,10 @@ and makes your projectiles freeze in place.
 the user starts to panic due to low health
 and performs a longer time stop.");
 
+#endregion
+
+#region part 8
+
 // snw
 LocalizationAddKey(_map, "moisturePlunderDesc", "moisture plunder:\ncreate a barrier of bubble around you\nthe bubbles damage enemies that touch them.");
 LocalizationAddKey(_map, "shovelDesc", "shovel:\npull out a shovel and whack them with it!.");
@@ -262,6 +290,10 @@ LocalizationAddKey(_map, "bubbleShieldDesc", "bubble shield:\ncreate a bubble sh
 LocalizationAddKey(_map, "bubbleBarrageDesc", "bubble barrage:\nlaunches a barrage of bubble forward.");
 LocalizationAddKey(_map, "screwsAndNutsDesc", "screws and nuts:\nlaunches a bubble filled with screws and nuts\nthat explodes on contact.");
 LocalizationAddKey(_map, "bubbleTrapDesc", "bubble trap:\nlaunches a bubble that traps the enemies on impact.");
+
+#endregion
+
+#region other
 
 // twoh
 LocalizationAddKey(_map, "realityHealDesc", "reality heal:\nreverses your injuries to a previous state.");
@@ -281,12 +313,22 @@ tosses three knives forward that
 shock the enemies struck.
 
 (hold) knife buryal:
-surround the nearest enemy
-of deadly knives.");
+surround the nearest enemy to your cursor
+with deadly knives.");
 LocalizationAddKey(_map, "twohTimestopDesc", @"ascended time stop:
 stops the time, most enemies are not allowed to move
 and makes your projectiles freeze in place,
 stop and resume at will.");
+
+// sus
+LocalizationAddKey(_map, "knifesDesc", @"knifes:
+tosses a few knifes.");
+LocalizationAddKey(_map, "meetingCallDesc", @"meeting call:
+presses a button that damages enemies.");
+LocalizationAddKey(_map, "killDesc", @"kill:
+teleports to a nearby enemy and heavily damages them.");
+
+#endregion
 
 #endregion
 

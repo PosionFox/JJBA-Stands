@@ -182,7 +182,7 @@ _skills[sk, StandSkill.DamageScale] = 0.03;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
-_skills[sk, StandSkill.Desc] = Localize("barrageDesc");
+_skills[sk, StandSkill.Desc] = Localize("emeraldSplashDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = StrongPunch;
@@ -198,7 +198,7 @@ _skills[sk, StandSkill.Damage] = 2;
 _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillKnifeBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 15;
-_skills[sk, StandSkill.Desc] = Localize("knifeWallDesc");
+_skills[sk, StandSkill.Desc] = Localize("hierophantBarrierDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = EmeraldSplash20Meters;
@@ -207,7 +207,7 @@ _skills[sk, StandSkill.DamageScale] = 0.03;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimestop;
 _skills[sk, StandSkill.MaxCooldown] = 30;
 _skills[sk, StandSkill.MaxExecutionTime] = 5;
-_skills[sk, StandSkill.Desc] = Localize("twTimestopDesc");
+_skills[sk, StandSkill.Desc] = Localize("emeraldSplash20MetersDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)
