@@ -119,6 +119,8 @@ with (_o)
     subtype = "projectile";
     owner = other;
     targets = other.targets;
+    z = 5;
+    shadow_enabled = true;
     scale = 1;
     despawnFade = true;
     despawnTime = 5;
@@ -140,6 +142,7 @@ with (_o)
     onHitEventArg = undefined;
     
     InstanceAssignMethod(self, "step", ScriptWrap(ProjectileStep), false);
+    InstanceAssignMethod(self, "draw", ScriptWrap(ProjectileDraw), false);
     InstanceAssignMethod(self, "destroy", ScriptWrap(ProjectileDestroy), false);
 }
 return _o;
@@ -236,6 +239,35 @@ if (instance_exists(self))
         //Trace("error");
     }
 }
+
+#define ProjectileDraw
+
+if (shadow_enabled)
+{
+    draw_sprite_ext(
+        sprShadow,
+        0,
+        x,
+        y,
+        min(0.5, abs(image_xscale / (z * 0.2))),
+        min(0.5, abs(image_yscale / (z * 0.2))),
+        0,
+        c_white,
+        image_alpha * 0.5
+    );
+}
+
+draw_sprite_ext(
+    sprite_index,
+    image_index,
+    x,
+    y - z,
+    image_xscale,
+    image_yscale,
+    image_angle,
+    image_blend,
+    image_alpha
+);
 
 #define ProjectileDestroy
 

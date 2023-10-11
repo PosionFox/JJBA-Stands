@@ -41,9 +41,15 @@ for (var i = 0; i < 8; i++)
         canMoveInTs = false;
         sprite_index = global.sprBubble;
         onHitSound = global.sndSnwBubblePop;
+        
+        InstanceAssignMethod(self, "step", ScriptWrap(MoisturePlunderStep));
     }
 }
 EndAtk(s);
+
+#define MoisturePlunderStep
+
+z = 5 + cos((current_time / 1000) + x);
 
 #define BubbleBarrage(m, s)
 
