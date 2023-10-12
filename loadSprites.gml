@@ -451,7 +451,10 @@ global.sprMagiciansRed = sprite_add(p + "MagiciansRed.png", 1, false, false, 16,
 p = "Resources/Sprites/HG/";
 global.sprHierophantGreen = sprite_add(p + "HierophantGreen.png", 1, false, false, 16, 19);
 global.sprHierophantBarrier = sprite_add(p + "HierophantBarrier.png", 1, false, false, 64, 2);
-global.sprHierophantGreenEmerald = sprite_add(p + "HierophantGreenEmerald.png", 1, false, false, 4, 2);
+global.sprHierophantGreenEmerald = sprite_add(p + "HierophantGreenEmerald.png", 1, false, false, 4, 3);
+global.sprSkillEmeraldSplash = sprite_add(p + "SkillEmeraldSplash.png", 1, false, false, 16, 16);
+global.sprSkillHierophantBarrier = sprite_add(p + "SkillHierophantBarrier.png", 1, false, false, 16, 16);
+global.sprSkillEmeraldSplash20Meters = sprite_add(p + "SkillEmeraldSplash20Meters.png", 1, false, false, 16, 16);
 // skins
 global.sprHierophantRed = sprite_add(p + "HierophantRed.png", 1, false, false, 16, 19);
 global.sprHierophantBlack = sprite_add(p + "HierophantBlack.png", 1, false, false, 16, 19);

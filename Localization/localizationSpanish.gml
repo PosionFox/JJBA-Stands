@@ -115,10 +115,9 @@ proporcionandole una gran velocidad de ataque
 y tiempos de enfriamentos más cortos.");
 
 // hg
-LocalizationAddKey(_map, "emeraldSplashDesc", "emerald splash:\nshoots out a short barrage of emeralds forward.");
-LocalizationAddKey(_map, "hierophantBarrierDesc", "hierophant barrier:\ncreates a barrier around the user\ndeals damage on contact.");
-LocalizationAddKey(_map, "emeraldSplash20MetersDesc", "20 meter emerald splash:\nshoots out a powerful barrage of emeralds forward.");
-
+LocalizationAddKey(_map, "emeraldSplashDesc", "salpicadura esmeralda:\ndispara un corto bombardeo de esmeraldas adelante.");
+LocalizationAddKey(_map, "hierophantBarrierDesc", "barrera hierofante:\ncrea una barrera alrededor del usuario\ndaña al contacto.");
+LocalizationAddKey(_map, "emeraldSplash20MetersDesc", "salpicadura esmeralda de 20 metros:\ndispara un potente bombardeo de esmeraldas adelante.");
 
 // sp
 LocalizationAddKey(_map, "diosKnifeDesc", "cuchillo de dio:\nlanza uno de los cuchillos de dio.");
