@@ -276,7 +276,7 @@ global.questPucciBlueprintCompleted = _map[? "jjQuestPucciBlueprintCompleted"];
 #region npcs
 
 // load pucci
-if (_map[? "jjbamPucciSpawned"] == true)
+if (room == rmGame and _map[? "jjbamPucciSpawned"] == true)
 {
     var xx = _map[? "jjbamPucciX"];
     var yy = _map[? "jjbamPucciY"];
