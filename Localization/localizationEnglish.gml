@@ -366,6 +366,9 @@ LocalizationAddKey(_map, "runeMending6Desc", "heals faster.");
 LocalizationAddKey(_map, "runeMending7Desc", "heals very quickly.");
 LocalizationAddKey(_map, "runeMending8Desc", "heals incredibly quickly.");
 
+LocalizationAddKey(_map, "runeEnergizeName", "energize");
+LocalizationAddKey(_map, "runeEnergizeDesc", "allows you to use energy instead of cooldowns, this rune contains the following energy:");
+
 #endregion
 
 

@@ -2,13 +2,27 @@
 #define FireCD(skill)
 
 attackState = 0;
-if (altAttack)
+if (uses_energy)
 {
-    skills[skill, StandSkill.CooldownAlt] = skills[skill, StandSkill.MaxCooldownAlt];
+    if (altAttack)
+    {
+        skills[skill, StandSkill.CooldownAlt] = 0.1;
+    }
+    else
+    {
+        skills[skill, StandSkill.Cooldown] = 0.1;
+    }
 }
 else
 {
-    skills[skill, StandSkill.Cooldown] = skills[skill, StandSkill.MaxCooldown];
+    if (altAttack)
+    {
+        skills[skill, StandSkill.CooldownAlt] = skills[skill, StandSkill.MaxCooldownAlt];
+    }
+    else
+    {
+        skills[skill, StandSkill.Cooldown] = skills[skill, StandSkill.MaxCooldown];
+    }
 }
 attackStateTimer = 0;
 altAttack = false;

@@ -26,6 +26,7 @@ if (point_in_rectangle(gx, gy, xx - 16, yy - 16, xx + 16, yy + 16))
     draw_text(gx + 8, gy, rarity.name);
 }
 
+// draw runes
 var _rlen = array_length(runes);
 for (var i = 0; i < _rlen; i++)
 {
@@ -119,6 +120,15 @@ for (var i = _start; i <= _end; i++)
     }
 }
 
+xx = 168;
+yy = _height - 200;
+// draw energy bar
+if (uses_energy)
+{
+    var _color = make_color_rgb(0, abs(sin(current_time / 1000)) * 254, abs(sin(current_time / 1000)) * 254);
+    draw_line_width_color(xx - 134, yy + 134, (xx - 134) + ((energy / max_energy) * 250), yy + 134, abs(sin(current_time / 1000)) * 5, _color, _color);
+}
+
 #define StandSkillRunCD(s)
 
 for (var i = StandState.LEN - 1; i > 0; i--)
@@ -147,29 +157,65 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
         {
             if (keyboard_check(ord(skills[i, StandSkill.Key]))/* or InputCheckDown(skills[i, StandSkill.GpBtn])*/)
             {
-                if (skills[i, StandSkill.CooldownAlt] <= 0 and skills[i, StandSkill.SkillAlt] != AttackHandler)
+                if (uses_energy)
                 {
-                    skills[i, StandSkill.Hold] += DT;
-                    skills[i, StandSkill.Hold] = clamp(skills[i, StandSkill.Hold], 0, skills[i, StandSkill.MaxHold]);
-                    if (skills[i, StandSkill.Hold] >= skills[i, StandSkill.MaxHold] and !altAttack)
+                    if (energy >= skills[i, StandSkill.EnergyCost] and skills[i, StandSkill.SkillAlt] != AttackHandler)
                     {
-                        altAttack = true;
-                        var _s = audio_play_sound(sndCoin1, 1, false);
-                        audio_sound_pitch(_s, 1.5);
+                        skills[i, StandSkill.Hold] += DT;
+                        skills[i, StandSkill.Hold] = clamp(skills[i, StandSkill.Hold], 0, skills[i, StandSkill.MaxHold]);
+                        if (skills[i, StandSkill.Hold] >= skills[i, StandSkill.MaxHold] and !altAttack)
+                        {
+                            altAttack = true;
+                            var _s = audio_play_sound(sndCoin1, 1, false);
+                            audio_sound_pitch(_s, 1.5);
+                        }
+                    }
+                }
+                else
+                {
+                    if (skills[i, StandSkill.CooldownAlt] <= 0 and skills[i, StandSkill.SkillAlt] != AttackHandler)
+                    {
+                        skills[i, StandSkill.Hold] += DT;
+                        skills[i, StandSkill.Hold] = clamp(skills[i, StandSkill.Hold], 0, skills[i, StandSkill.MaxHold]);
+                        if (skills[i, StandSkill.Hold] >= skills[i, StandSkill.MaxHold] and !altAttack)
+                        {
+                            altAttack = true;
+                            var _s = audio_play_sound(sndCoin1, 1, false);
+                            audio_sound_pitch(_s, 1.5);
+                        }
                     }
                 }
             }
             if (keyboard_check_released(ord(skills[i, StandSkill.Key]))/* or InputCheckPressed(skills[i, StandSkill.GpBtn])*/)
             {
-                if (!altAttack and skills[i, StandSkill.Cooldown] <= 0)
+                if (uses_energy)
                 {
-                    state = i;
+                    if (energy >= skills[i, StandSkill.EnergyCost])
+                    {
+                        if (!altAttack and skills[i, StandSkill.Cooldown] <= 0)
+                        {
+                            state = i;
+                        }
+                        else if (altAttack)
+                        {
+                            state = i;
+                        }
+                        skills[i, StandSkill.Hold] = 0;
+                        energy -= skills[i, StandSkill.EnergyCost];
+                    }
                 }
-                else if (altAttack)
+                else
                 {
-                    state = i;
+                    if (!altAttack and skills[i, StandSkill.Cooldown] <= 0)
+                    {
+                        state = i;
+                    }
+                    else if (altAttack)
+                    {
+                        state = i;
+                    }
+                    skills[i, StandSkill.Hold] = 0;
                 }
-                skills[i, StandSkill.Hold] = 0;
             }
         }
     }
@@ -298,6 +344,12 @@ if (instance_exists(owner))
     }
 }
 
+if (uses_energy)
+{
+    energy += max_energy * 0.0005;
+    energy = clamp(energy, 0, max_energy);
+}
+
 #define StandDefaultDraw
 
 if (active)
@@ -357,6 +409,15 @@ _arr[StandState.SkillA, StandSkill.Key] = _arr[StandState.SkillAOff, StandSkill.
 _arr[StandState.SkillB, StandSkill.Key] = _arr[StandState.SkillBOff, StandSkill.Key];
 _arr[StandState.SkillC, StandSkill.Key] = _arr[StandState.SkillCOff, StandSkill.Key];
 _arr[StandState.SkillD, StandSkill.Key] = _arr[StandState.SkillDOff, StandSkill.Key];
+
+_arr[StandState.SkillAOff, StandSkill.EnergyCost] = 25;
+_arr[StandState.SkillBOff, StandSkill.EnergyCost] = 50;
+_arr[StandState.SkillCOff, StandSkill.EnergyCost] = 75;
+_arr[StandState.SkillDOff, StandSkill.EnergyCost] = 100;
+_arr[StandState.SkillA, StandSkill.EnergyCost] = 25;
+_arr[StandState.SkillB, StandSkill.EnergyCost] = 50;
+_arr[StandState.SkillC, StandSkill.EnergyCost] = 75;
+_arr[StandState.SkillD, StandSkill.EnergyCost] = 100;
 
 return _arr;
 
@@ -439,6 +500,9 @@ with (_stand)
     attack_reach = 1;
     crit_chance = 0;
     runes = [noone, noone, noone];
+    uses_energy = false;
+    max_energy = 100;
+    energy = max_energy;
     // skills
     skills = array_clone(_skills);
     

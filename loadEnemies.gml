@@ -61,7 +61,15 @@ with (_o)
         [ConstructRuneMending5, 8],
         [ConstructRuneMending6, 4],
         [ConstructRuneMending7, 2],
-        [ConstructRuneMending8, 1]
+        [ConstructRuneMending8, 1],
+        [ConstructRuneEnergize1, 128],
+        [ConstructRuneEnergize2, 64],
+        [ConstructRuneEnergize3, 32],
+        [ConstructRuneEnergize4, 16],
+        [ConstructRuneEnergize5, 8],
+        [ConstructRuneEnergize6, 4],
+        [ConstructRuneEnergize7, 2],
+        [ConstructRuneEnergize8, 1]
     ]
     
     repeat (3)

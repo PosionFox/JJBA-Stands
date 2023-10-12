@@ -332,6 +332,7 @@ for (var i = 0; i < _len; i++)
             case "skRuneStandMight6": RuneEquip(player, ConstructRuneStandMight6()); break;
             case "skRuneStandMight7": RuneEquip(player, ConstructRuneStandMight7()); break;
             case "skRuneStandMight8": RuneEquip(player, ConstructRuneStandMight8()); break;
+            
             case "skRuneReach1": RuneEquip(player, ConstructRuneReach1()); break;
             case "skRuneReach2": RuneEquip(player, ConstructRuneReach2()); break;
             case "skRuneReach3": RuneEquip(player, ConstructRuneReach3()); break;
@@ -340,6 +341,7 @@ for (var i = 0; i < _len; i++)
             case "skRuneReach6": RuneEquip(player, ConstructRuneReach6()); break;
             case "skRuneReach7": RuneEquip(player, ConstructRuneReach7()); break;
             case "skRuneReach8": RuneEquip(player, ConstructRuneReach8()); break;
+            
             case "skRuneMending1": RuneEquip(player, ConstructRuneMending1()); break;
             case "skRuneMending2": RuneEquip(player, ConstructRuneMending2()); break;
             case "skRuneMending3": RuneEquip(player, ConstructRuneMending3()); break;
@@ -348,6 +350,16 @@ for (var i = 0; i < _len; i++)
             case "skRuneMending6": RuneEquip(player, ConstructRuneMending6()); break;
             case "skRuneMending7": RuneEquip(player, ConstructRuneMending7()); break;
             case "skRuneMending8": RuneEquip(player, ConstructRuneMending8()); break;
+            
+            case "skRuneEnergize1": RuneEquip(player, ConstructRuneEnergize1()); break;
+            case "skRuneEnergize2": RuneEquip(player, ConstructRuneEnergize2()); break;
+            case "skRuneEnergize3": RuneEquip(player, ConstructRuneEnergize3()); break;
+            case "skRuneEnergize4": RuneEquip(player, ConstructRuneEnergize4()); break;
+            case "skRuneEnergize5": RuneEquip(player, ConstructRuneEnergize5()); break;
+            case "skRuneEnergize6": RuneEquip(player, ConstructRuneEnergize6()); break;
+            case "skRuneEnergize7": RuneEquip(player, ConstructRuneEnergize7()); break;
+            case "skRuneEnergize8": RuneEquip(player, ConstructRuneEnergize8()); break;
+            
             case "skRuneBriefRaspite": RuneEquip(player, ConstructRuneBriefRaspite()); break;
             default: RuneEquip(player, ConstructRuneBase()); break;
         }

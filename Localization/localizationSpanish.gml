@@ -366,4 +366,7 @@ LocalizationAddKey(_map, "runeMending6Desc", "cura rápido.");
 LocalizationAddKey(_map, "runeMending7Desc", "cura muy rápido.");
 LocalizationAddKey(_map, "runeMending8Desc", "cura increiblemente rápido.");
 
+LocalizationAddKey(_map, "runeEnergizeName", "energizar");
+LocalizationAddKey(_map, "runeEnergizeDesc", "te permite utilizar energía en lugar de enfriamientos, esta runa contiene la siguiente energía:");
+
 #endregion

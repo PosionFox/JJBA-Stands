@@ -28,3 +28,12 @@ if (instance_exists(player))
         }
     }
 }
+
+if (STAND.uses_energy)
+{
+    var _c = random(1);
+    if (_c <= 0.5)
+    {
+        CreateEnergyOrb(_mob.x, _mob.y);
+    }
+}

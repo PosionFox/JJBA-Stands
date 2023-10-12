@@ -4,6 +4,7 @@ RunesStandMight();
 RunesBriefRaspite();
 RunesMending();
 RunesReach();
+RunesEnergize();
 
 global.jjRuneRemover = ItemCreate(
     undefined,
@@ -43,13 +44,19 @@ var _base_rune = {
     healing : 0,
     stand_reach : 0,  // multiplier
     update : ScriptWrap(RuneBaseUpdate),
-    update_tick : ScriptWrap(RuneBaseUpdateTick)
+    update_tick : ScriptWrap(RuneBaseUpdateTick),
+    on_equip : ScriptWrap(RuneBaseOnEquip),
+    on_remove : ScriptWrap(RuneBaseOnRemove)
 }
 return _base_rune;
 
 #define RuneBaseUpdate
 
 #define RuneBaseUpdateTick
+
+#define RuneBaseOnEquip
+
+#define RuneBaseOnRemove
 
 #define RunRunesUpdate
 
@@ -84,7 +91,7 @@ for (var i = 0; i < _len; i++)
     }
 }
 
-#define RuneEquip(_user, _rune)
+#define RuneEquip(_user, _new_rune)
 
 var _stand = _user.myStand;
 if (instance_exists(_user) and instance_exists(_stand))
@@ -94,15 +101,17 @@ if (instance_exists(_user) and instance_exists(_stand))
     {
         if (_stand.runes[i] == noone)
         {
-            _stand.runes[i] = _rune;
+            var _rune = _stand.runes[i];
+            _stand.runes[i] = _new_rune;
+            ScriptCall(_new_rune.on_equip);
             exit;
         }
     }
-    GainItem(_rune.item_id, 1);
+    GainItem(_new_rune.item_id, 1);
 }
 else
 {
-    GainItem(_rune.item_id, 1);
+    GainItem(_new_rune.item_id, 1);
 }
 
 #define RunesRemove(_user)
@@ -116,6 +125,7 @@ if (instance_exists(_user) and instance_exists(_stand))
         {
             var _rune = _stand.runes[i];
             DropItem(_stand.x, _stand.y, _rune.item_id, 1);
+            ScriptCall(_rune.on_remove);
             _stand.runes[i] = noone;
         }
     }
@@ -160,3 +170,27 @@ for (var i = 0; i < array_length(STAND.runes); i++)
     }
 }
 return  (1 + _total_range);
+
+#define CreateEnergyOrb(_x, _y)
+
+var _o = ModObjectSpawn(_x, _y, 0);
+with (_o)
+{
+    sprite_index = global.sprEnergyOrb;
+    energy_reward = 25;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(EnergyOrbStep));
+}
+
+#define EnergyOrbStep
+
+if (STAND.energy < STAND.max_energy and distance_to_object(player) < 16)
+{
+    mp_linear_step(player.x, player.y, 4, false);
+}
+
+if (STAND.energy < STAND.max_energy and place_meeting(x, y, player))
+{
+    STAND.energy += energy_reward;
+    instance_destroy(self);
+}

@@ -43,6 +43,7 @@ enum StandSkill {
     CooldownAlt,
     MaxExecutionTime,
     ExecutionTime,
+    EnergyCost,
     LEN
 }
 

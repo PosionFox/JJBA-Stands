@@ -35,6 +35,7 @@ global.sprDiosCoffin = sprite_add(p + "DiosCoffin.png", 1, false, false, 16, 8);
 p = "Resources/Sprites/Runes/";
 global.sprRuneRemover = sprite_add(p + "RuneRemover.png", 1, false, false, 8, 8);
 global.sprMissingRune = sprite_add(p + "MissingRune.png", 1, false, false, 8, 8);
+global.sprEnergyOrb = sprite_add(p + "EnergyOrb.png", 1, false, false, 8, 8);
 global.sprRuneStandMight1 = sprite_add(p + "RuneStandMight1.png", 1, false, false, 8, 8);
 global.sprRuneStandMight2 = sprite_add(p + "RuneStandMight2.png", 1, false, false, 8, 8);
 global.sprRuneStandMight3 = sprite_add(p + "RuneStandMight3.png", 1, false, false, 8, 8);
@@ -60,6 +61,14 @@ global.sprRuneMending5 = sprite_add(p + "RuneMending5.png", 1, false, false, 8, 
 global.sprRuneMending6 = sprite_add(p + "RuneMending6.png", 1, false, false, 8, 8);
 global.sprRuneMending7 = sprite_add(p + "RuneMending7.png", 1, false, false, 8, 8);
 global.sprRuneMending8 = sprite_add(p + "RuneMending8.png", 1, false, false, 8, 8);
+global.sprRuneEnergize1 = sprite_add(p + "RuneEnergize1.png", 1, false, false, 8, 8);
+global.sprRuneEnergize2 = sprite_add(p + "RuneEnergize2.png", 1, false, false, 8, 8);
+global.sprRuneEnergize3 = sprite_add(p + "RuneEnergize3.png", 1, false, false, 8, 8);
+global.sprRuneEnergize4 = sprite_add(p + "RuneEnergize4.png", 1, false, false, 8, 8);
+global.sprRuneEnergize5 = sprite_add(p + "RuneEnergize5.png", 1, false, false, 8, 8);
+global.sprRuneEnergize6 = sprite_add(p + "RuneEnergize6.png", 1, false, false, 8, 8);
+global.sprRuneEnergize7 = sprite_add(p + "RuneEnergize7.png", 1, false, false, 8, 8);
+global.sprRuneEnergize8 = sprite_add(p + "RuneEnergize8.png", 1, false, false, 8, 8);
 
 #endregion
 
