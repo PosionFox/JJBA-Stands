@@ -54,6 +54,10 @@ LocalizationAddKey(_map, "diosBoneDescription", "un antiguo hueso de un difunto 
 LocalizationAddKey(_map, "egyptianCrownName", "corona egipcia");
 LocalizationAddKey(_map, "egyptianCrownDescription", "invoca a dio durante la noche.");
 
+LocalizationAddKey(_map, "runeRemoverName", "removedor de runas");
+LocalizationAddKey(_map, "runeRemoverDescription", "remueve tus runas.");
+
+
 
 LocalizationAddKey(_map, "requiemArrowMerge", "la flecha se fusiona con el stand!");
 LocalizationAddKey(_map, "requiemArrowRefuse", "no pasa nada...");

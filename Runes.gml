@@ -8,8 +8,8 @@ RunesEnergize();
 
 global.jjRuneRemover = ItemCreate(
     undefined,
-    "rune remover",
-    "removes your runes.",
+    Localize("runeRemoverName"),
+    Localize("runeRemoverDescription"),
     global.sprRuneRemover,
     ItemType.Consumable,
     ItemSubType.Potion,

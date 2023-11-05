@@ -54,6 +54,9 @@ LocalizationAddKey(_map, "diosBoneDescription", "an ancient bone of a deceased v
 LocalizationAddKey(_map, "egyptianCrownName", "egyptian crown");
 LocalizationAddKey(_map, "egyptianCrownDescription", "summons dio during night.");
 
+LocalizationAddKey(_map, "runeRemoverName", "rune remover");
+LocalizationAddKey(_map, "runeRemoverDescription", "removes your runes.");
+
 
 LocalizationAddKey(_map, "requiemArrowMerge", "the arrow merges with the stand!");
 LocalizationAddKey(_map, "requiemArrowRefuse", "nothing happens...");
