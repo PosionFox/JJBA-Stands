@@ -34,6 +34,7 @@ switch (_stand)
             STAND.xp = _xp;
         }
     break;
+    case "jjbamMr": GiveMagiciansRed(player); break;
     case "jjbamHg": GiveHierophantGreen(player); break;
     // p4
     case "jjbamSptw": GiveSPTW(player); break;

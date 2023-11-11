@@ -24,13 +24,41 @@ if (instance_exists(STAND) or room != rmGame)
 }
 GiveMagiciansRed(player);
 
+#define BurningKnife(_, s)
+
+var _dir = owner.attack_direction;
+
+var _dmg = GetDmg(s);
+var _p = ProjectileCreate(owner.x, owner.y);
+with (_p)
+{
+    var _snd = audio_play_sound(global.sndKnifeThrow, 0, false);
+    audio_sound_pitch(_snd, random_range(0.9, 1.1));
+    damage = _dmg;
+    baseSpd = 8;
+    onHitEvent = KnifeBurn;
+    direction = _dir;
+    canMoveInTs = false;
+    sprite_index = other.knifeSprite;
+}
+EndAtk(s);
+
+#define KnifeBurn
+
+if (enemy_instance_exists())
+{
+    var _near = get_nearest_enemy(x, y);
+    LastingDamageCreate(_near, 0.002, 3, true);
+    FireEffect(c_red, c_yellow);
+}
+
 #define GiveMagiciansRed(_owner) //stand
 
 var _skills = StandSkillInit();
 
 var sk;
 sk = StandState.SkillAOff;
-_skills[sk, StandSkill.Skill] = JosephKnife;
+_skills[sk, StandSkill.Skill] = BurningKnife;
 _skills[sk, StandSkill.Damage] = 3;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillJosephKnife;
@@ -97,6 +125,7 @@ with (_s)
     summonSound = global.sndTwSummon;
     discType = global.jjbamDiscMr;
     saveKey = "jjbamMr";
+    knifeSprite = global.sprKnife;
 }
 return _s;
 
