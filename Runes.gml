@@ -37,12 +37,14 @@ GainItem(global.jjRuneRemover, 1);
 #define ConstructRuneBase
 
 var _base_rune = {
+    stand_user : noone,
     sprite : global.sprMissingRune,
     item_id : Item.Wood,
     save_key : "skMissing",
     damage : 0, // multiplier
     healing : 0,
     stand_reach : 0,  // multiplier
+    max_energy : 0,
     update : ScriptWrap(RuneBaseUpdate),
     update_tick : ScriptWrap(RuneBaseUpdateTick),
     on_equip : ScriptWrap(RuneBaseOnEquip),
@@ -103,6 +105,7 @@ if (instance_exists(_user) and instance_exists(_stand))
         {
             var _rune = _stand.runes[i];
             _stand.runes[i] = _new_rune;
+            _stand.runes[i].stand_user = _user;
             ScriptCall(_new_rune.on_equip);
             exit;
         }
@@ -148,7 +151,8 @@ if (instance_exists(_user) and instance_exists(_stand))
 #define GetRunesDamage
 
 var _total_damage = 0;
-for (var i = 0; i < array_length(STAND.runes); i++)
+var _len = array_length(STAND.runes);
+for (var i = 0; i < _len; i++)
 {
     var _rune = STAND.runes[i];
     if (_rune != noone)
@@ -161,7 +165,8 @@ return  (1 + _total_damage);
 #define GetRunesStandReach
 
 var _total_range = 0;
-for (var i = 0; i < array_length(STAND.runes); i++)
+var _len = array_length(STAND.runes);
+for (var i = 0; i < _len; i++)
 {
     var _rune = STAND.runes[i];
     if (_rune != noone)
@@ -170,6 +175,20 @@ for (var i = 0; i < array_length(STAND.runes); i++)
     }
 }
 return  (1 + _total_range);
+
+#define GetRunesMaxEnergy
+
+var _total_energy = 0;
+var _len = array_length(STAND.runes);
+for (var i = 0; i < _len; i++)
+{
+    var _rune = STAND.runes[i];
+    if (_rune != noone)
+    {
+        _total_energy += _rune.max_energy;
+    }
+}
+return _total_energy;
 
 #define CreateEnergyOrb(_x, _y)
 

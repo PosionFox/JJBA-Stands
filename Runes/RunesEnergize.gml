@@ -166,8 +166,7 @@ var _rune = ConstructRuneBase();
 _rune.sprite = global.sprRuneEnergize1;
 _rune.item_id = global.jjRuneEnergize1;
 _rune.save_key = "skRuneEnergize1";
-_rune.on_equip = ScriptWrap(RuneEnergize1OnEquip);
-_rune.on_remove = ScriptWrap(RuneEnergizeOnRemove);
+_rune.max_energy = 100;
 return _rune
 
 #define ConstructRuneEnergize2
@@ -176,8 +175,7 @@ var _rune = ConstructRuneBase();
 _rune.sprite = global.sprRuneEnergize2;
 _rune.item_id = global.jjRuneEnergize2;
 _rune.save_key = "skRuneEnergize2";
-_rune.on_equip = ScriptWrap(RuneEnergize2OnEquip);
-_rune.on_remove = ScriptWrap(RuneEnergizeOnRemove);
+_rune.max_energy = 200;
 return _rune
 
 #define ConstructRuneEnergize3
@@ -186,8 +184,7 @@ var _rune = ConstructRuneBase();
 _rune.sprite = global.sprRuneEnergize3;
 _rune.item_id = global.jjRuneEnergize3;
 _rune.save_key = "skRuneEnergize3";
-_rune.on_equip = ScriptWrap(RuneEnergize3OnEquip);
-_rune.on_remove = ScriptWrap(RuneEnergizeOnRemove);
+_rune.max_energy = 400;
 return _rune
 
 #define ConstructRuneEnergize4
@@ -196,8 +193,7 @@ var _rune = ConstructRuneBase();
 _rune.sprite = global.sprRuneEnergize4;
 _rune.item_id = global.jjRuneEnergize4;
 _rune.save_key = "skRuneEnergize4";
-_rune.on_equip = ScriptWrap(RuneEnergize4OnEquip);
-_rune.on_remove = ScriptWrap(RuneEnergizeOnRemove);
+_rune.max_energy = 800;
 return _rune
 
 #define ConstructRuneEnergize5
@@ -206,8 +202,7 @@ var _rune = ConstructRuneBase();
 _rune.sprite = global.sprRuneEnergize5;
 _rune.item_id = global.jjRuneEnergize5;
 _rune.save_key = "skRuneEnergize5";
-_rune.on_equip = ScriptWrap(RuneEnergize5OnEquip);
-_rune.on_remove = ScriptWrap(RuneEnergizeOnRemove);
+_rune.max_energy = 1600;
 return _rune
 
 #define ConstructRuneEnergize6
@@ -216,8 +211,7 @@ var _rune = ConstructRuneBase();
 _rune.sprite = global.sprRuneEnergize6;
 _rune.item_id = global.jjRuneEnergize6;
 _rune.save_key = "skRuneEnergize6";
-_rune.on_equip = ScriptWrap(RuneEnergize6OnEquip);
-_rune.on_remove = ScriptWrap(RuneEnergizeOnRemove);
+_rune.max_energy = 3200;
 return _rune
 
 #define ConstructRuneEnergize7
@@ -226,8 +220,7 @@ var _rune = ConstructRuneBase();
 _rune.sprite = global.sprRuneEnergize7;
 _rune.item_id = global.jjRuneEnergize7;
 _rune.save_key = "skRuneEnergize7";
-_rune.on_equip = ScriptWrap(RuneEnergize7OnEquip);
-_rune.on_remove = ScriptWrap(RuneEnergizeOnRemove);
+_rune.max_energy = 6400;
 return _rune
 
 #define ConstructRuneEnergize8
@@ -236,51 +229,5 @@ var _rune = ConstructRuneBase();
 _rune.sprite = global.sprRuneEnergize8;
 _rune.item_id = global.jjRuneEnergize8;
 _rune.save_key = "skRuneEnergize8";
-_rune.on_equip = ScriptWrap(RuneEnergize8OnEquip);
-_rune.on_remove = ScriptWrap(RuneEnergizeOnRemove);
+_rune.max_energy = 12800;
 return _rune
-
-#define RuneEnergize1OnEquip
-
-STAND.uses_energy = true;
-STAND.max_energy = 100;
-
-#define RuneEnergize2OnEquip
-
-STAND.uses_energy = true;
-STAND.max_energy = 200;
-
-#define RuneEnergize3OnEquip
-
-STAND.uses_energy = true;
-STAND.max_energy = 400;
-
-#define RuneEnergize4OnEquip
-
-STAND.uses_energy = true;
-STAND.max_energy = 800;
-
-#define RuneEnergize5OnEquip
-
-STAND.uses_energy = true;
-STAND.max_energy = 1600;
-
-#define RuneEnergize6OnEquip
-
-STAND.uses_energy = true;
-STAND.max_energy = 3200;
-
-#define RuneEnergize7OnEquip
-
-STAND.uses_energy = true;
-STAND.max_energy = 6400;
-
-#define RuneEnergize8OnEquip
-
-STAND.uses_energy = true;
-STAND.max_energy = 12800;
-
-#define RuneEnergizeOnRemove
-
-STAND.uses_energy = false;
-STAND.max_energy = 100;

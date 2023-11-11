@@ -123,7 +123,7 @@ for (var i = _start; i <= _end; i++)
 xx = 168;
 yy = _height - 200;
 // draw energy bar
-if (uses_energy)
+if (max_energy > 0)
 {
     var _color = make_color_rgb(0, abs(sin(current_time / 1000)) * 254, abs(sin(current_time / 1000)) * 254);
     draw_line_width_color(xx - 134, yy + 134, (xx - 134) + ((energy / max_energy) * 250), yy + 134, abs(sin(current_time / 1000)) * 5, _color, _color);
@@ -157,7 +157,7 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
         {
             if (keyboard_check(ord(skills[i, StandSkill.Key]))/* or InputCheckDown(skills[i, StandSkill.GpBtn])*/)
             {
-                if (uses_energy)
+                if (max_energy > 0)
                 {
                     if (energy >= skills[i, StandSkill.EnergyCost] and skills[i, StandSkill.SkillAlt] != AttackHandler)
                     {
@@ -188,7 +188,7 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
             }
             if (keyboard_check_released(ord(skills[i, StandSkill.Key]))/* or InputCheckPressed(skills[i, StandSkill.GpBtn])*/)
             {
-                if (uses_energy)
+                if (max_energy > 0)
                 {
                     if (energy >= skills[i, StandSkill.EnergyCost])
                     {
@@ -344,7 +344,8 @@ if (instance_exists(owner))
     }
 }
 
-if (uses_energy)
+max_energy = GetRunesMaxEnergy();
+if (max_energy > 0)
 {
     energy += max_energy * 0.0005;
     energy = clamp(energy, 0, max_energy);
@@ -500,8 +501,7 @@ with (_stand)
     attack_reach = 1;
     crit_chance = 0;
     runes = [noone, noone, noone];
-    uses_energy = false;
-    max_energy = 100;
+    max_energy = 0;
     energy = max_energy;
     // skills
     skills = array_clone(_skills);

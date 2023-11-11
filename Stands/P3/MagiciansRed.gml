@@ -36,21 +36,320 @@ with (_p)
     audio_sound_pitch(_snd, random_range(0.9, 1.1));
     damage = _dmg;
     baseSpd = 8;
-    onHitEvent = KnifeBurn;
+    onHitEvent = Burning;
     direction = _dir;
     canMoveInTs = false;
     sprite_index = other.knifeSprite;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(BurningProjectileStep));
 }
 EndAtk(s);
 
-#define KnifeBurn
+#define BurningProjectileStep
+
+FireEffect(c_yellow, c_red);
+
+#define Burning
 
 if (enemy_instance_exists())
 {
     var _near = get_nearest_enemy(x, y);
-    LastingDamageCreate(_near, 0.002, 3, true);
-    FireEffect(c_red, c_yellow);
+    BurnDamageCreate(_near, 0.002, 3, true);
 }
+
+#define LesserBurning
+
+if (enemy_instance_exists())
+{
+    var _near = get_nearest_enemy(x, y);
+    BurnDamageCreate(_near, 0.00002, 3, true);
+}
+
+#define MrBarrage(m, s)
+
+var _dir = owner.attack_direction;
+
+xTo = owner.x + lengthdir_x(GetStandReach(), _dir + random_range(-4, 4));
+yTo = owner.y + lengthdir_y(GetStandReach(), _dir + random_range(-4, 4));
+image_xscale = mouse_x > owner.x ? 1 : -1;
+
+switch (attackState)
+{
+    case 0:
+        //audio_play_sound(global.sndTwBarrage, 10, false);
+        attackState++;
+    break;
+    case 1:
+        if (distance_to_point(xTo, yTo) < 2)
+        {
+            if (attackStateTimer >= 0.08)
+            {
+                var xx = x + random_range(-4, 4);
+                var yy = y + random_range(-8, 8);
+                var _p = PunchSwingCreate(xx, yy, _dir, 45, GetDmg(s));
+                _p.onHitEvent = LesserBurning;
+                InstanceAssignMethod(_p, "step", ScriptWrap(BurningProjectileStep));
+                attackStateTimer = 0;
+            }
+            skills[s, StandSkill.ExecutionTime] += DT;
+        }
+        
+        if (keyboard_check_pressed(ord(skills[s, StandSkill.Key])))
+        {
+            //audio_stop_sound(global.sndTwBarrage);
+            EndAtk(s);
+        }
+        if (skills[s, StandSkill.ExecutionTime] >= skills[s, StandSkill.MaxExecutionTime])
+        {
+            //audio_stop_sound(global.sndTwBarrage);
+        }
+    break;
+}
+attackStateTimer += DT;
+
+#define HeavyBurningPunch(method, skill)
+
+var _dir = 0;
+var _xx = x;
+var _yy = y;
+if (instance_exists(owner))
+{
+    _dir = owner.attack_direction;
+    
+    _xx = owner.x + lengthdir_x(GetStandReach(), _dir);
+    _yy = owner.y + lengthdir_y(GetStandReach(), _dir);
+}
+xTo = _xx;
+yTo = _yy;
+
+switch (attackState)
+{
+    case 0:
+        if (attackStateTimer >= 0.8)
+        {
+            attackState++;
+        }
+        break;
+    case 1:
+        var _p = PunchSwingCreate(x, y, _dir, 4, GetDmg(skill));
+        _p.onHitSound = global.sndHeavyPunch;
+        _p.onHitEvent = Burning;
+        EndAtk(skill);
+        break;
+}
+attackStateTimer += DT;
+
+#define RedBindPull(_, skill)
+
+var _dir = owner.attack_direction;
+xTo = owner.x + lengthdir_x(GetStandReach(), _dir);
+yTo = owner.y + lengthdir_y(GetStandReach(), _dir);
+
+switch (attackState)
+{
+    case 0:
+        //audio_play_sound(global.sndSfGrab, 0, false);
+        attackState++;
+    break;
+    case 1:
+        if (attackStateTimer >= 0.8)
+        {
+            attackState++;
+        }
+    break;
+    case 2:
+        var _p = PunchCreate(x, y, _dir, 3, 1);
+        with (_p)
+        {
+            subtype = "redBindPull";
+            target = noone;
+            despawnTime = 10;
+            timer = 0.4;
+            grab = false;
+            knockback = 0;
+            
+            InstanceAssignMethod(self, "step", ScriptWrap(RedBindPullStep), true);
+            InstanceAssignMethod(self, "draw", ScriptWrap(RedBindDraw), true);
+        }
+        attackState++;
+    break;
+    case 3:
+        if (attackStateTimer >= 1)
+        {
+            attackState++;
+        }
+    break;
+    case 4:
+        var _o = modSubtypeFind("redBindPull");
+        if (_o == noone)
+        {
+            EndAtk(skill);
+        }
+        if (instance_place(x, y, _o))
+        {
+            with (_o)
+            {
+                if (instance_exists(target))
+                {
+                    target.behaviourEngage = true;
+                }
+                instance_destroy(self);
+            }
+            EndAtk(skill);
+        }
+    break;
+}
+attackStateTimer += DT;
+
+#define RedBindPullStep
+var _dir = point_direction(x, y, STAND.x, STAND.y);
+
+timer -= DT;
+if (timer <= 0)
+{
+    direction = _dir;
+}
+
+var _hit = instance_place(x, y, ENEMY);
+if (_hit and !grab)
+{
+    //audio_play_sound(global.sndSfGrabReturn, 0, false);
+    target = _hit;
+    grab = true;
+    timer = 0;
+}
+
+if (grab and instance_exists(target))
+{
+    target.behaviourEngage = false;
+    target.x = x;
+    target.y = y;
+}
+
+#define RedBindDraw
+
+draw_set_color(c_red);
+draw_line_width(x, y, STAND.x, STAND.y, 2);
+draw_line_width(x, y - 4, STAND.x, STAND.y - 4, 2);
+draw_set_color(image_blend);
+
+#define RedBindRestrain(_, skill)
+
+var _dir = owner.attack_direction;
+xTo = owner.x + lengthdir_x(GetStandReach(), _dir);
+yTo = owner.y + lengthdir_y(GetStandReach(), _dir);
+
+switch (attackState)
+{
+    case 0:
+        //audio_play_sound(global.sndSfGrab, 0, false);
+        attackState++;
+    break;
+    case 1:
+        if (attackStateTimer >= 0.8)
+        {
+            attackState++;
+        }
+    break;
+    case 2:
+        var _p = PunchCreate(x, y, _dir, 3, 1);
+        with (_p)
+        {
+            subtype = "redBindRestrain";
+            target = noone;
+            despawnTime = 10;
+            timer = 0.4;
+            grab = false;
+            
+            InstanceAssignMethod(self, "step", ScriptWrap(RedBindRestrainStep), true);
+            InstanceAssignMethod(self, "draw", ScriptWrap(RedBindDraw), true);
+        }
+        attackState++;
+    break;
+    case 3:
+        if (attackStateTimer >= 1)
+        {
+            attackState++;
+        }
+    break;
+    case 4:
+        var _o = modSubtypeFind("redBindRestrain");
+        if (_o == noone)
+        {
+            EndAtk(skill);
+        }
+        if (instance_place(x, y, _o))
+        {
+            with (_o)
+            {
+                if (instance_exists(target))
+                {
+                    target.behaviourEngage = true;
+                }
+                instance_destroy(self);
+            }
+            EndAtk(skill);
+        }
+    break;
+}
+attackStateTimer += DT;
+
+#define RedBindRestrainStep
+var _dir = point_direction(x, y, STAND.x, STAND.y);
+
+timer -= DT;
+if (timer <= 0)
+{
+    direction = _dir;
+}
+
+var _hit = instance_place(x, y, ENEMY);
+if (_hit and !grab)
+{
+    //audio_play_sound(global.sndSfGrabReturn, 0, false);
+    target = _hit;
+    grab = true;
+    timer = 0;
+}
+
+if (grab and instance_exists(target))
+{
+    RestrainCreate(target);
+}
+
+#define RestrainCreate(_target)
+
+var _o = ModObjectSpawn(_target.x, _target.y, _target.depth - 1);
+with (_o)
+{
+    type = "restrain";
+    target = _target;
+    life = 5;
+    sprite_index = global.sprRestrains;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(RestrainStep));
+    InstanceAssignMethod(self, "draw", ScriptWrap(RestrainDraw));
+}
+
+#define RestrainStep
+
+if (life <= 0)
+{
+    instance_destroy(self);
+    exit;
+}
+life -= DT;
+
+image_xscale = max(1, cos(current_time / 100) * 1.2);
+
+if (instance_exists(target))
+{
+    target.freeze = 5;
+}
+
+#define RestrainDraw
+
+//draw_sprite(global.sprRestrains, 0, x, y);
 
 #define GiveMagiciansRed(_owner) //stand
 
@@ -86,8 +385,8 @@ _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.Desc] = Localize("tsTpDesc");
 
 sk = StandState.SkillA;
-_skills[sk, StandSkill.Skill] = TwBarrage;
-_skills[sk, StandSkill.Damage] = 1.5;
+_skills[sk, StandSkill.Skill] = MrBarrage;
+_skills[sk, StandSkill.Damage] = 1;
 _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
@@ -95,19 +394,20 @@ _skills[sk, StandSkill.MaxExecutionTime] = 5;
 _skills[sk, StandSkill.Desc] = Localize("barrageDesc");
 
 sk = StandState.SkillB;
-_skills[sk, StandSkill.Skill] = StrongPunch;
-_skills[sk, StandSkill.Damage] = 25;
-_skills[sk, StandSkill.DamageScale] = 0.1;
+_skills[sk, StandSkill.Skill] = HeavyBurningPunch;
+_skills[sk, StandSkill.Damage] = 20;
+_skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.Desc] = Localize("strongPunchDesc");
 
 sk = StandState.SkillC;
-_skills[sk, StandSkill.Skill] = TwKnifeWall;
-_skills[sk, StandSkill.Damage] = 2;
-_skills[sk, StandSkill.DamageScale] = 0.02;
+_skills[sk, StandSkill.Skill] = RedBindPull;
 _skills[sk, StandSkill.Icon] = global.sprSkillKnifeBarrage;
-_skills[sk, StandSkill.MaxCooldown] = 5;
+_skills[sk, StandSkill.MaxCooldown] = 10;
+_skills[sk, StandSkill.SkillAlt] = RedBindRestrain;
+_skills[sk, StandSkill.IconAlt] = global.sprSkillKnifeBarrage;
+_skills[sk, StandSkill.MaxCooldownAlt] = 10;
 _skills[sk, StandSkill.Desc] = Localize("knifeWallDesc");
 
 sk = StandState.SkillD;
@@ -123,9 +423,10 @@ with (_s)
     sprite_index = global.sprMagiciansRed;
     color = 0x3232ac;
     summonSound = global.sndTwSummon;
+    auraParticleSprite = global.sprStandParticle7;
     discType = global.jjbamDiscMr;
     saveKey = "jjbamMr";
-    knifeSprite = global.sprKnife;
+    knifeSprite = global.sprBurningKnife;
 }
 return _s;
 

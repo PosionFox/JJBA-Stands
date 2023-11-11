@@ -22,6 +22,7 @@ global.sndPunchHit = audio_create_stream(p + "punchHit.ogg");
 global.sndKnifeThrow = audio_create_stream(p + "knifeThrow.ogg");
 global.sndGunShot = audio_create_stream(p + "gunShot.ogg");
 global.sndStrongPunch = audio_create_stream(p + "strongPunch.ogg");
+global.sndHeavyPunch = audio_create_stream(p + "heavyPunch.ogg");
 global.sndRevFire1 = audio_create_stream(p + "revFire1.ogg");
 global.sndRevFire2 = audio_create_stream(p + "revFire2.ogg");
 global.sndRevFire3 = audio_create_stream(p + "revFire3.ogg");

@@ -251,9 +251,12 @@ if (life <= 0)
 image_xscale = (1 + abs(cos(current_time / 1000)));
 image_yscale = (1 + abs(sin(current_time / 1000)));
 
-target.freeze = 2;
-x = target.x;
-y = target.y;
+if (instance_exists(target))
+{
+    target.freeze = 2;
+    x = target.x;
+    y = target.y;
+}
 
 #define GiveSoftAndWet(_owner)
 

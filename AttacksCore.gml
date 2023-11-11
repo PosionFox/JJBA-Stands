@@ -2,7 +2,7 @@
 #define FireCD(skill)
 
 attackState = 0;
-if (uses_energy)
+if (max_energy > 0)
 {
     if (altAttack)
     {
@@ -32,6 +32,10 @@ skills[skill, StandSkill.ExecutionTime] = 0;
 
 FireCD(skill);
 skills[skill, StandSkill.Cooldown] = 0;
+if (max_energy > 0)
+{
+    energy += skills[skill, StandSkill.EnergyCost];
+}
 
 #define EndAtk(skill)
 
@@ -45,8 +49,7 @@ state = StandState.Idle;
 
 angleTarget = 0;
 angleTargetSpd = 0.1;
-FireCD(skill);
-skills[skill, StandSkill.Cooldown] = 0;
+ResetCD(skill);
 state = StandState.Idle;
 
 #define AttackHandler(method, skill)
@@ -703,6 +706,49 @@ if (instance_exists(target))
 {
     x = target.x;
     y = target.y;
+    
+    if bool("hp" in target)
+    {
+        if (percentageDamage)
+        {
+            target.hp -= target.hpMax * damage;
+        }
+        else
+        {
+            target.hp -= damage;
+        }
+    }
+    
+    if (time >= timeMax)
+    {
+        instance_destroy(self);
+        exit;
+    }
+    time += DT;
+}
+
+#define BurnDamageCreate(_target, _dmg, _time, _percentageDamage)
+
+var _o = ModObjectSpawn(_target.x, _target.y, _target.depth);
+with (_o)
+{
+    target = _target;
+    damage = _dmg;
+    timeMax = _time;
+    time = 0;
+    percentageDamage = _percentageDamage;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(BurnDamageStep), false);
+}
+return _o;
+
+#define BurnDamageStep
+
+if (instance_exists(target))
+{
+    x = target.x;
+    y = target.y;
+    FireEffect(c_red, c_yellow);
     
     if bool("hp" in target)
     {

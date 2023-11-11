@@ -84,6 +84,7 @@ global.sprStandParticle3 = sprite_add(p + "StandParticle3.png", 1, false, false,
 global.sprStandParticle4 = sprite_add(p + "StandParticle4.png", 1, false, false, 4, 4);
 global.sprStandParticle5 = sprite_add(p + "StandParticle5.png", 1, false, false, 4, 4);
 global.sprStandParticle6 = sprite_add(p + "StandParticle6.png", 1, false, false, 8, 8);
+global.sprStandParticle7 = sprite_add(p + "StandParticle7.png", 1, false, false, 2, 3);
 global.sprHitbox8x8 = sprite_add(p + "Hitbox8x8.png", 1, false, false, 4, 4);
 global.sprHitbox16x16 = sprite_add(p + "Hitbox16x16.png", 1, false, false, 8, 8);
 global.sprHitbox32x32 = sprite_add(p + "Hitbox32x32.png", 1, false, false, 16, 16);
@@ -335,7 +336,7 @@ p = "Resources/Sprites/SC/";
 global.sprSilverChariot = sprite_add(p + "SilverChariot.png", 1, false, false, 16, 19);
 global.sprSilverChariotOVA = sprite_add(p + "SilverChariotOVA.png", 1, false, false, 16, 19);
 global.sprSCarmorless = sprite_add(p + "SilverChariotArmorless.png", 1, false, false, 16, 19);
-global.sprScAttack = sprite_add(p + "SCAttack.png", 1, false, false, 16, 16);
+global.sprScAttack = sprite_add(p + "SCAttack.png", 1, false, false, 6, 2);
 global.sprSkillScBarrage = sprite_add(p + "SkillScBarrage.png", 1, false, false, 16, 16);
 global.sprSkillScLunge = sprite_add(p + "SkillScLunge.png", 1, false, false, 16, 16);
 global.sprSkillScSweep = sprite_add(p + "SkillScSweep.png", 1, false, false, 16, 16);
@@ -452,6 +453,8 @@ global.sprSkillBubbleTrap = sprite_add(p + "SkillBubbleTrap.png", 1, false, fals
 
 p = "Resources/Sprites/MR/";
 global.sprMagiciansRed = sprite_add(p + "MagiciansRed.png", 1, false, false, 16, 19);
+global.sprBurningKnife = sprite_add(p + "BurningKnife.png", 1, false, false, 8, 4);
+global.sprRestrains = sprite_add(p + "Restrains.png", 1, false, false, 8, 16);
 
 #endregion
 
