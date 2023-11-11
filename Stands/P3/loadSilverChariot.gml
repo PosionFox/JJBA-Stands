@@ -2,8 +2,8 @@
 
 global.jjbamDiscSc = ItemCreate(
     undefined,
-    "DISC:SC",
-    "The label says: Silver Chariot",
+    Localize("standDiscName") + "SC",
+    Localize("standDiscDescription") + "Silver Chariot",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -29,63 +29,143 @@ GiveSilverChariot(player);
 var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
 
-xTo = owner.x + lengthdir_x(8, _dir + random_range(-4, 4));
-yTo = owner.y + lengthdir_y(8, _dir + random_range(-4, 4));
+xTo = owner.x + lengthdir_x(GetStandReach(), _dir + random_range(-4, 4));
+yTo = owner.y + lengthdir_y(GetStandReach(), _dir + random_range(-4, 4));
 image_xscale = mouse_x > owner.x ? 1 : -1;
 
-attackStateTimer += 1 / room_speed;
-if (distance_to_point(xTo, yTo) < 2)
+switch (attackState)
 {
-    var _cd = 0.08;
-    if (isFtl)
-    {
-        _cd = 0.04;
-    }
-    if (attackStateTimer >= _cd)
-    {
-        var _sndSrc = global.sndKnifeThrow;
-        if (audio_is_playing(_sndSrc))
+    case 0:
+        audio_play_sound(global.sndScBarrage, 10, false);
+        attackState++;
+    break;
+    case 1:
+        if (distance_to_point(xTo, yTo) < 2)
         {
-            audio_stop_sound(_sndSrc);
+            var _cd = 0.08;
+            if (isFtl)
+            {
+                _cd = 0.04;
+            }
+            if (attackStateTimer >= _cd)
+            {
+                var xx = x + random_range(-4, 4);
+                var yy = y + random_range(-8, 8);
+                var ddir = _dir + random_range(-25, 25);
+                var _p = PunchCreate(xx, yy, ddir, GetDmg(skill), 0);
+                with (_p)
+                {
+                    sprite_index = global.sprScAttack;
+                    despawnTime = 0.15;
+                    onHitSound = global.sndPunchHit;
+                }
+                attackStateTimer = 0;
+            }
+            skills[skill, StandSkill.ExecutionTime] += 1 / room_speed;
         }
-        var _snd = audio_play_sound(_sndSrc, 0, false);
-        audio_sound_pitch(_snd, random_range(0.9, 1.1));
         
-        var xx = x + random_range(-4, 4);
-        var yy = y + random_range(-8, 8);
-        var ddir = _dir + random_range(-25, 25);
-        var _p = PunchCreate(xx, yy, ddir, GetDmg(skill), 0);
+        if (keyboard_check_pressed(ord(skills[skill, StandSkill.Key])))
+        {
+            audio_stop_sound(global.sndScBarrage);
+            EndAtk(skill);
+        }
+    break;
+}
+attackStateTimer += 1 / room_speed;
+
+#define ScLunge(m, s)
+
+var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
+xTo = player.x + lengthdir_x(GetStandReach(), _dir);
+yTo = player.y + lengthdir_y(GetStandReach(), _dir);
+
+switch (attackState)
+{
+    case 0:
+        player.h += lengthdir_x(3, _dir);
+        player.v += lengthdir_y(3, _dir);
+        attackState++;
+    break;
+    case 1:
+        if (attackStateTimer >= 0.3)
+        {
+            attackState++;
+        }
+    break;
+    case 2:
+        audio_play_sound(global.sndKnifeThrow, 0, false);
+        repeat (5)
+        {
+            var _e = EffectArmChopCreate(x, y);
+            _e.image_blend = c_white;
+            _e.direction = _dir + random_range(-5, 5);
+        }
+        var _p = PunchCreate(x, y, _dir, GetDmg(s), 4);
         with (_p)
         {
             sprite_index = global.sprScAttack;
             despawnTime = 0.15;
-            onHitSound = global.sndPunchHit;
+            onHitSound = global.sndScLunge;
         }
-        attackStateTimer = 0;
-    }
-    skills[skill, StandSkill.ExecutionTime] += 1 / room_speed;
+        EndAtk(s);
+    break;
 }
+attackStateTimer += DT * (1 + (isFtl * 2));
 
-if (keyboard_check_pressed(ord(skills[skill, StandSkill.Key])))
+#define ScSweep(m, s)
+
+var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+xTo = owner.x + lengthdir_x(GetStandReach() * 2, _dir);
+yTo = owner.y + lengthdir_y(GetStandReach() * 2, _dir);
+
+switch (attackState)
 {
-    if (skills[skill, StandSkill.ExecutionTime] > 0)
-    {
-        FireCD(skill);
-    }
-    else
-    {
-        ResetCD(skill);
-    }
-    state = StandState.Idle;
+    case 0:
+        if (attackStateTimer >= 0.3)
+        {
+            attackState++;
+        }
+    break;
+    case 1:
+        audio_play_sound(global.sndScSweep, 5, false);
+        var _dmg = GetDmg(s);
+        var o = ProjectileCreate(owner.x, owner.y);
+        with (o)
+        {
+            damage = _dmg;
+            sprite_index = global.sprScalpelSwing;
+            mask_index = global.sprHitbox32x32;
+            direction = _dir;
+            stationary = true;
+            distance = 16;
+            destroyOnImpact = false;
+            
+            InstanceAssignMethod(self, "step", ScriptWrap(ScalpelSlashStep));
+        }
+        attackState++;
+    break;
+    case 2:
+        if (attackStateTimer >= 0.8)
+        {
+            EndAtk(s);
+        }
+    break;
 }
+attackStateTimer += DT * (1 + (isFtl * 2));
 
 #define ScFTL(m, skill)
 
-sprite_index = global.sprSCarmorless;
+sprite_index = sprArmorless;
 ExplosionEffect(x, y);
+audio_play_sound(global.sndScArmorOff, 0, false);
 isFtl = true;
-FireCD(skill);
-state = StandState.Idle;
+CDMultiplier = 2;
+repeat (5)
+{
+    EffectGeParticleCreate(x, y, color);
+}
+FtlCD = 20;
+EndAtk(skill);
 
 #define GiveSilverChariot(_owner) //stand
 
@@ -95,48 +175,78 @@ var sk;
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = ScBarrage;
 _skills[sk, StandSkill.Damage] = 1;
-_skills[sk, StandSkill.Damage] = 0.02;
-_skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
+_skills[sk, StandSkill.DamageScale] = 0.02;
+_skills[sk, StandSkill.Icon] = global.sprSkillScBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.MaxExecutionTime] = 5;
-_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.";
+_skills[sk, StandSkill.MaxExecutionTime] = 4;
+_skills[sk, StandSkill.Desc] = Localize("scBarrageDesc");
 
 sk = StandState.SkillB;
-_skills[sk, StandSkill.Skill] = StrongPunch;
-_skills[sk, StandSkill.Damage] = 5;
-_skills[sk, StandSkill.Damage] = 0.1;
-_skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
-_skills[sk, StandSkill.MaxCooldown] = 8;
+_skills[sk, StandSkill.Skill] = ScLunge;
+_skills[sk, StandSkill.Damage] = 3;
+_skills[sk, StandSkill.DamageScale] = 0.2;
+_skills[sk, StandSkill.Icon] = global.sprSkillScLunge;
+_skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
-_skills[sk, StandSkill.Desc] = "strong punch:\ncharges and launches a strong punch.";
+_skills[sk, StandSkill.Desc] = Localize("scLungeDesc");
 
 sk = StandState.SkillC;
-_skills[sk, StandSkill.Skill] = StarFinger;
-_skills[sk, StandSkill.Damage] = 3;
-_skills[sk, StandSkill.DamageScale] = 0.05;
-_skills[sk, StandSkill.Icon] = global.sprSkillStarFinger;
-_skills[sk, StandSkill.MaxCooldown] = 3;
-_skills[sk, StandSkill.MaxExecutionTime] = 0.7;
-_skills[sk, StandSkill.Desc] = "star finger:\nstar platinum stretches their finger hitting enemies in the way.";
+_skills[sk, StandSkill.Skill] = ScSweep;
+_skills[sk, StandSkill.Damage] = 5;
+_skills[sk, StandSkill.DamageScale] = 0.1;
+_skills[sk, StandSkill.Icon] = global.sprSkillScSweep;
+_skills[sk, StandSkill.MaxCooldown] = 4;
+_skills[sk, StandSkill.Desc] = Localize("scSweepDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = ScFTL;
-_skills[sk, StandSkill.Icon] = global.sprSkillTimestopSp;
-_skills[sk, StandSkill.MaxCooldown] = 20;
+_skills[sk, StandSkill.Icon] = global.sprSkillScFtl;
+_skills[sk, StandSkill.MaxCooldown] = 60;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
-_skills[sk, StandSkill.Desc] = @"faster than light:
-stops the time, most enemies are not allowed to move
-and makes your projectiles freeze in place.";
+_skills[sk, StandSkill.Desc] = Localize("ftlDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)
 {
     name = "Silver Chariot";
     sprite_index = global.sprSilverChariot;
+    sprArmored = sprite_index;
+    sprArmorless = global.sprSCarmorless;
     color = /*#*/0x877e84;
-    summonSound = global.sndSpSummon;
+    summonSound = global.sndScSummon;
     saveKey = "jjbamSc";
     discType = global.jjbamDiscSc;
     
     isFtl = false;
+    FtlCD = 0;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(SilverChariotStep));
+    InstanceAssignMethod(self, "draw", ScriptWrap(SilverChariotDraw), false);
+}
+return _s;
+
+#define SilverChariotStep
+
+if (isFtl)
+{
+    FtlCD -= DT;
+    if (FtlCD <= 0)
+    {
+        CDMultiplier = 1;
+        sprite_index = sprArmored;
+        ShrinkingCircleEffect(x, y);
+        isFtl = false;
+    }
+}
+
+#define SilverChariotDraw
+
+if (isFtl)
+{
+    var xx = x + random_range(-0.2, 0.2) + (sin(current_time / 1000));
+    var yy = (y - height) + random_range(-0.2, 0.2);
+    draw_sprite_ext(sprite_index, image_index, xx - 16, yy, image_xscale, image_yscale, image_angle, image_blend, 0.25);
+    draw_sprite_ext(sprite_index, image_index, xx - 8, yy, image_xscale, image_yscale, image_angle, image_blend, 0.5);
+    draw_sprite_ext(sprite_index, image_index, xx + 8, yy, image_xscale, image_yscale, image_angle, image_blend, 0.5);
+    draw_sprite_ext(sprite_index, image_index, xx + 16, yy, image_xscale, image_yscale, image_angle, image_blend, 0.25);
 }

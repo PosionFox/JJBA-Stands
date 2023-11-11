@@ -5,6 +5,8 @@ var p = ""; // path short
 
 p = "Resources/Sprites/Items/";
 global.sprArrow = sprite_add(p + "Arrow.png", 1, false, false, 8, 8);
+global.sprRokakaka = sprite_add(p + "Rokakaka.png", 1, false, false, 8, 8);
+
 global.sprDisc = sprite_add(p + "Disc.png", 1, false, false, 8, 8);
 global.sprDiscBlueprint = sprite_add(p + "DiscBlueprint.png", 1, false, false, 8, 8);
 global.sprArrowBeetle = sprite_add(p + "ArrowBeetle.png", 1, false, false, 8, 8);
@@ -13,6 +15,60 @@ global.sprHeart = sprite_add(p + "Heart.png", 1, false, false, 8, 8);
 global.sprEye = sprite_add(p + "Eye.png", 1, false, false, 8, 8);
 global.sprLeftArm = sprite_add(p + "LeftArm.png", 1, false, false, 8, 8);
 global.sprPrayerBeads = sprite_add(p + "PrayerBeads.png", 1, false, false, 8, 8);
+global.sprDiosDiary = sprite_add(p + "DiosDiary.png", 1, false, false, 8, 8);
+global.sprRokakakaStew = sprite_add(p + "RokakakaStew.png", 1, false, false, 8, 8);
+global.sprDiosBone = sprite_add(p + "DiosBone.png", 1, false, false, 8, 8);
+global.sprEgyptianCrown = sprite_add(p + "EgyptianCrown.png", 1, false, false, 8, 8);
+
+#endregion
+
+#region structures
+
+p = "Resources/Sprites/Structures/";
+global.sprRokakakaTree = sprite_add(p + "RokakakaTree.png", 1, false, false, 8, 31);
+global.sprDiosCoffin = sprite_add(p + "DiosCoffin.png", 1, false, false, 16, 8);
+
+#endregion
+
+#region runes
+
+p = "Resources/Sprites/Runes/";
+global.sprRuneRemover = sprite_add(p + "RuneRemover.png", 1, false, false, 8, 8);
+global.sprMissingRune = sprite_add(p + "MissingRune.png", 1, false, false, 8, 8);
+global.sprEnergyOrb = sprite_add(p + "EnergyOrb.png", 1, false, false, 8, 8);
+global.sprRuneStandMight1 = sprite_add(p + "RuneStandMight1.png", 1, false, false, 8, 8);
+global.sprRuneStandMight2 = sprite_add(p + "RuneStandMight2.png", 1, false, false, 8, 8);
+global.sprRuneStandMight3 = sprite_add(p + "RuneStandMight3.png", 1, false, false, 8, 8);
+global.sprRuneStandMight4 = sprite_add(p + "RuneStandMight4.png", 1, false, false, 8, 8);
+global.sprRuneStandMight5 = sprite_add(p + "RuneStandMight5.png", 1, false, false, 8, 8);
+global.sprRuneStandMight6 = sprite_add(p + "RuneStandMight6.png", 1, false, false, 8, 8);
+global.sprRuneStandMight7 = sprite_add(p + "RuneStandMight7.png", 1, false, false, 8, 8);
+global.sprRuneStandMight8 = sprite_add(p + "RuneStandMight8.png", 1, false, false, 8, 8);
+global.sprRuneBriefRaspite = sprite_add(p + "RuneBriefRaspite.png", 1, false, false, 8, 8);
+global.sprRuneReach1 = sprite_add(p + "RuneReach1.png", 1, false, false, 8, 8);
+global.sprRuneReach2 = sprite_add(p + "RuneReach2.png", 1, false, false, 8, 8);
+global.sprRuneReach3 = sprite_add(p + "RuneReach3.png", 1, false, false, 8, 8);
+global.sprRuneReach4 = sprite_add(p + "RuneReach4.png", 1, false, false, 8, 8);
+global.sprRuneReach5 = sprite_add(p + "RuneReach5.png", 1, false, false, 8, 8);
+global.sprRuneReach6 = sprite_add(p + "RuneReach6.png", 1, false, false, 8, 8);
+global.sprRuneReach7 = sprite_add(p + "RuneReach7.png", 1, false, false, 8, 8);
+global.sprRuneReach8 = sprite_add(p + "RuneReach8.png", 1, false, false, 8, 8);
+global.sprRuneMending1 = sprite_add(p + "RuneMending1.png", 1, false, false, 8, 8);
+global.sprRuneMending2 = sprite_add(p + "RuneMending2.png", 1, false, false, 8, 8);
+global.sprRuneMending3 = sprite_add(p + "RuneMending3.png", 1, false, false, 8, 8);
+global.sprRuneMending4 = sprite_add(p + "RuneMending4.png", 1, false, false, 8, 8);
+global.sprRuneMending5 = sprite_add(p + "RuneMending5.png", 1, false, false, 8, 8);
+global.sprRuneMending6 = sprite_add(p + "RuneMending6.png", 1, false, false, 8, 8);
+global.sprRuneMending7 = sprite_add(p + "RuneMending7.png", 1, false, false, 8, 8);
+global.sprRuneMending8 = sprite_add(p + "RuneMending8.png", 1, false, false, 8, 8);
+global.sprRuneEnergize1 = sprite_add(p + "RuneEnergize1.png", 1, false, false, 8, 8);
+global.sprRuneEnergize2 = sprite_add(p + "RuneEnergize2.png", 1, false, false, 8, 8);
+global.sprRuneEnergize3 = sprite_add(p + "RuneEnergize3.png", 1, false, false, 8, 8);
+global.sprRuneEnergize4 = sprite_add(p + "RuneEnergize4.png", 1, false, false, 8, 8);
+global.sprRuneEnergize5 = sprite_add(p + "RuneEnergize5.png", 1, false, false, 8, 8);
+global.sprRuneEnergize6 = sprite_add(p + "RuneEnergize6.png", 1, false, false, 8, 8);
+global.sprRuneEnergize7 = sprite_add(p + "RuneEnergize7.png", 1, false, false, 8, 8);
+global.sprRuneEnergize8 = sprite_add(p + "RuneEnergize8.png", 1, false, false, 8, 8);
 
 #endregion
 
@@ -23,16 +79,23 @@ global.sprBulletGUI = sprite_add(p + "BulletGUI.png", 1, false, false, 16, 16);
 global.sprRevCylinderGUI = sprite_add(p + "RevCylinderGUI.png", 1, false, false, 16, 16);
 global.sprPunchEffect = sprite_add(p + "PunchEffect.png", 6, false, false, 8, 8);
 global.sprStandParticle = sprite_add(p + "StandParticle.png", 1, false, false, 1, 1);
-global.sprStandParticle2 = sprite_add(p + "StandParticle2.png", 1, false, false, 1, 1);
+global.sprStandParticle2 = sprite_add(p + "StandParticle2.png", 1, false, false, 2, 2);
+global.sprStandParticle3 = sprite_add(p + "StandParticle3.png", 1, false, false, 3, 1);
+global.sprStandParticle4 = sprite_add(p + "StandParticle4.png", 1, false, false, 4, 4);
+global.sprStandParticle5 = sprite_add(p + "StandParticle5.png", 1, false, false, 4, 4);
+global.sprStandParticle6 = sprite_add(p + "StandParticle6.png", 1, false, false, 8, 8);
+global.sprStandParticle7 = sprite_add(p + "StandParticle7.png", 1, false, false, 2, 3);
 global.sprHitbox8x8 = sprite_add(p + "Hitbox8x8.png", 1, false, false, 4, 4);
 global.sprHitbox16x16 = sprite_add(p + "Hitbox16x16.png", 1, false, false, 8, 8);
 global.sprHitbox32x32 = sprite_add(p + "Hitbox32x32.png", 1, false, false, 16, 16);
+global.sprGun = sprite_add(p + "Gun.png", 1, false, false, 4, 4);
+global.sprStarTier = sprite_add(p + "StarTier.png", 1, false, false, 8, 8);
 
 // projectiles
 p = "Resources/Sprites/Generic/Projectiles/";
-global.sprKnife = sprite_add(p + "Knife.png", 1, false, false, 8, 8);
+global.sprKnife = sprite_add(p + "Knife.png", 1, false, false, 8, 2);
 global.sprBullet = sprite_add(p + "Bullet.png", 1, false, false, 1, 1);
-global.sprAttackPunch = sprite_add(p + "AttackPunch.png", 1, false, false, 16, 16);
+global.sprAttackPunch = sprite_add(p + "AttackPunch.png", 1, false, false, 6, 2);
 
 // skills
 p = "Resources/Sprites/Generic/Skills/";
@@ -61,6 +124,7 @@ global.sprSkillTimestop = sprite_add(p + "SkillTimestop.png", 1, false, false, 1
 p = "Resources/Sprites/STW/";
 global.sprShadowTheWorld = sprite_add(p + "ShadowTheWorld.png", 1, false, false, 16, 19);
 global.sprShadow = sprite_add(p + "Shadow.png", 1, false, false, 16, 19);
+global.sprDW = sprite_add(p + "DarkWorld.png", 1, false, false, 16, 19);
 global.sprKnifeStw = sprite_add(p + "KnifeStw.png", 1, false, false, 8, 8);
 global.sprKnifeShad = sprite_add(p + "KnifeShad.png", 1, false, false, 8, 8);
 global.sprStwPunch = sprite_add(p + "StwPunch.png", 1, false, false, 16, 16);
@@ -87,10 +151,21 @@ global.sprHorizontalSlash = sprite_add(p + "HorizontalSlash.png", 1, false, fals
 
 #endregion
 
+#region DIO
+
+p = "Resources/Sprites/DIO/";
+global.sprDIO = sprite_add(p + "DIO_idle.png", 4, false, false, 16, 19);
+global.sprDIOMoving = sprite_add(p + "DIO_moving.png", 4, false, false, 16, 19);
+
+#endregion
+
 #region the world
 
 p = "Resources/Sprites/TW/";
 global.sprTheWorld = sprite_add(p + "TheWorld.png", 1, false, false, 16, 19);
+global.sprTWGH = sprite_add(p + "TheWorldGreatestHigh.png", 1, false, false, 16, 19);
+global.sprTWG = sprite_add(p + "TWGray.png", 1, false, false, 16, 19);
+global.sprTWRu = sprite_add(p + "TWRu.png", 1, false, false, 16, 19);
 global.sprTheWorldPunch = sprite_add(p + "TheWorldPunch.png", 1, false, false, 16, 16);
 global.sprStopSign = sprite_add(p + "StopSign.png", 1, false, false, 1, 16);
 
@@ -101,10 +176,22 @@ global.sprSkillTripleKnifeThrow = sprite_add(p + "SkillTripleKnifeThrow.png", 1,
 
 #endregion
 
+#region the world over heaven
+
+p = "Resources/Sprites/TWOH/";
+global.sprTWOH = sprite_add(p + "TheWorldOverHeaven.png", 1, false, false, 16, 19);
+global.sprTWROH = sprite_add(p + "TWROH.png", 1, false, false, 16, 19);
+global.sprTWRuOH = sprite_add(p + "TWRuOH.png", 1, false, false, 16, 19);
+
+#endregion
+
 #region the world alternate universe
 
 p = "Resources/Sprites/TWAU/";
 global.sprTheWorldAU = sprite_add(p + "TheWorldAU.png", 1, false, false, 16, 19);
+global.sprTheWorldNeo = sprite_add(p + "NEO.png", 1, false, false, 16, 19);
+global.sprTWAU3000 = sprite_add(p + "TWAU3000.png", 1, false, false, 16, 19);
+global.sprNeoKnife = sprite_add(p + "NeoKnife.png", 1, false, false, 8, 8);
 
 // skills
 global.sprSkillKnifeBarrage = sprite_add(p + "SkillKnifeBarrage.png", 1, false, false, 16, 16);
@@ -115,8 +202,11 @@ global.sprSkillKnifeBarrage = sprite_add(p + "SkillKnifeBarrage.png", 1, false, 
 
 p = "Resources/Sprites/SP/";
 global.sprStarPlatinum = sprite_add(p + "StarPlatinum.png", 1, false, false, 16, 19);
+global.sprSPG = sprite_add(p + "SPGray.png", 1, false, false, 16, 19);
+global.sprSPP = sprite_add(p + "StarPlatinumPrime.png", 1, false, false, 16, 19);
 global.sprStarPlatinumPunch = sprite_add(p + "StarPlatinumPunch.png", 1, false, false, 16, 16);
-global.sprStarPlatinumFinger = sprite_add(p + "StarPlatinumFinger.png", 1, false, false, 1, 1);
+global.sprStarPlatinumFinger = sprite_add(p + "StarPlatinumFinger.png", 1, false, false, 64, 2);
+global.sprSoda = sprite_add(p + "Soda.png", 1, false, false, 4, 4);
 
 // skills
 global.sprSkillBarrageSp = sprite_add(p + "SkillBarrageSp.png", 1, false, false, 16, 16);
@@ -125,8 +215,11 @@ global.sprSkillStarFinger = sprite_add(p + "SkillStarFinger.png", 1, false, fals
 global.sprSkillTimestopSp = sprite_add(p + "SkillTimestopSp.png", 1, false, false, 16, 16);
 
     // star platinum the world
-p = "Resources/Sprites/SP/SPTW/";
+p = "Resources/Sprites/SPTW/";
 global.sprSptw = sprite_add(p + "SPTW.png", 1, false, false, 16, 19);
+global.sprSkillSoda = sprite_add(p + "SkillSoda.png", 1, false, false, 16, 16);
+
+global.sprTimeEmperor = sprite_add(p + "TimeEmperor.png", 1, false, false, 16, 19);
 
 #endregion
 
@@ -134,6 +227,8 @@ global.sprSptw = sprite_add(p + "SPTW.png", 1, false, false, 16, 19);
 
 p = "Resources/Sprites/D4C/";
 global.sprD4C = sprite_add(p + "D4C.png", 1, false, false, 16, 19);
+global.sprPD4C = sprite_add(p + "PD4C.png", 1, false, false, 16, 19);
+
 global.sprD4CPunch = sprite_add(p + "D4CPunch.png", 1, false, false, 16, 16);
 global.sprD4CFlag = sprite_add(p + "D4CFlag.png", 1, false, false, 16, 16);
 
@@ -147,6 +242,9 @@ global.sprSkillDimensionalHop = sprite_add(p + "SkillDimensionalHop.png", 1, fal
     // love train
 p = "Resources/Sprites/D4C/LT/";
 global.sprD4CLT = sprite_add(p + "D4CLT.png", 1, false, false, 16, 19);
+global.sprPD4CLT = sprite_add(p + "PD4CLT.png", 1, false, false, 16, 19);
+global.sprEvergreen = sprite_add(p + "Evergreen.png", 1, false, false, 16, 19);
+global.sprGloomist = sprite_add(p + "Gloomist.png", 1, false, false, 16, 19);
 
 // skills
 global.sprSkillBulletTime = sprite_add(p + "SkillBulletTime.png", 1, false, false, 16, 16);
@@ -211,6 +309,9 @@ global.sprSkillRequiem = sprite_add(p + "SkillRequiem.png", 1, false, false, 16,
 p = "Resources/Sprites/KC/";
 global.sprKingCrimson = sprite_add(p + "KingCrimson.png", 1, false, false, 16, 19);
 global.sprKingCrimsonManga = sprite_add(p + "KingCrimsonM.png", 1, false, false, 16, 19);
+global.sprKingCrimsonMono = sprite_add(p + "KCMonochrome.png", 1, false, false, 16, 19);
+global.sprKingCrimsonAqua = sprite_add(p + "KCAqua.png", 1, false, false, 16, 19);
+global.sprKCG = sprite_add(p + "KCGray.png", 1, false, false, 16, 19);
 global.sprScalpelSwing = sprite_add(p + "ScalpelAttack.png", 5, false, false, 16, 16);
 global.sprScalpel = sprite_add(p + "KcScalpel.png", 1, false, false, 8, 8);
 global.sprSkillScalpelSlash = sprite_add(p + "SkillScalpelSlash.png", 1, false, false, 16, 16);
@@ -233,8 +334,13 @@ global.sprSkillTimeErase = sprite_add(p + "SkillTimeErase.png", 1, false, false,
 
 p = "Resources/Sprites/SC/";
 global.sprSilverChariot = sprite_add(p + "SilverChariot.png", 1, false, false, 16, 19);
+global.sprSilverChariotOVA = sprite_add(p + "SilverChariotOVA.png", 1, false, false, 16, 19);
 global.sprSCarmorless = sprite_add(p + "SilverChariotArmorless.png", 1, false, false, 16, 19);
-global.sprScAttack = sprite_add(p + "SCAttack.png", 1, false, false, 16, 16);
+global.sprScAttack = sprite_add(p + "SCAttack.png", 1, false, false, 6, 2);
+global.sprSkillScBarrage = sprite_add(p + "SkillScBarrage.png", 1, false, false, 16, 16);
+global.sprSkillScLunge = sprite_add(p + "SkillScLunge.png", 1, false, false, 16, 16);
+global.sprSkillScSweep = sprite_add(p + "SkillScSweep.png", 1, false, false, 16, 16);
+global.sprSkillScFtl = sprite_add(p + "SkillScFtl.png", 1, false, false, 16, 16);
 
 #endregion
 
@@ -250,6 +356,8 @@ global.sprSteelBallProj = sprite_add(p + "SteelBallProj.png", 1, false, false, 8
 
 p = "Resources/Sprites/SF/";
 global.sprStickyFingers = sprite_add(p + "StickyFingers.png", 1, false, false, 16, 19);
+global.sprSFG = sprite_add(p + "SFGray.png", 1, false, false, 16, 19);
+global.sprSFR = sprite_add(p + "SFR.png", 1, false, false, 16, 19);
 global.sprSfZipper = sprite_add(p + "SfZipper.png", 4, false, false, 16, 16);
 global.sprSfPortal = sprite_add(p + "SfPortal.png", 4, false, false, 16, 16);
 
@@ -306,11 +414,69 @@ p = "Resources/Sprites/Pucci/";
 
     // pucci
 global.sprEnricoPucci = sprite_add(p + "EnricoPucci.png", 4, false, false, 16, 19);
+
     // whitesnake
-global.sprWhiteSnake = sprite_add(p + "Whitesnake.png", 1, false, false, 16, 19);
+global.sprWhiteSnake = sprite_add(p + "WS/Whitesnake.png", 1, false, false, 16, 19);
+global.sprAcidicPool = sprite_add(p + "WS/AcidicPool.png", 1, false, false, 32, 32);
+global.sprSkillExplosiveSurprise = sprite_add(p + "WS/SkillExplosiveSurprise.png", 1, false, false, 16, 16);
+global.sprSkillDiscProduce = sprite_add(p + "WS/SkillDiscProduce.png", 1, false, false, 16, 16);
+global.sprSkillMeltYourHeart = sprite_add(p + "WS/SkillMeltYourHeart.png", 1, false, false, 16, 16);
+global.sprSkillAcidicSpit = sprite_add(p + "WS/SkillAcidicSpit.png", 1, false, false, 16, 16);
+global.sprSkillDiscSteal = sprite_add(p + "WS/SkillDiscSteal.png", 1, false, false, 16, 16);
+
+global.sprBlackSnake = sprite_add(p + "WS/Blacksnake.png", 1, false, false, 16, 19);
 
     // c-moon
-global.sprCMoon = sprite_add(p + "CMoon.png", 1, false, false, 16, 19);
+global.sprCMoon = sprite_add(p + "CMoon/CMoon.png", 1, false, false, 16, 19);
+
+#endregion
+
+#region soft and wet
+
+p = "Resources/Sprites/SnW/";
+
+global.sprSoftAndWet = sprite_add(p + "SnW.png", 1, false, false, 16, 19);
+global.sprSoftAndWetGolden = sprite_add(p + "SnWG.png", 1, false, false, 16, 19);
+global.sprBubble = sprite_add(p + "Bubble.png", 1, false, false, 4, 4);
+global.sprBubbleShield = sprite_add(p + "BubbleShield.png", 1, false, false, 8, 12);
+global.sprShovel = sprite_add(p + "Shovel.png", 1, false, false, 1, 16);
+global.sprSkillMoisturePlunder = sprite_add(p + "SkillMoisturePlunder.png", 1, false, false, 16, 16);
+global.sprSkillShovel = sprite_add(p + "SkillShovel.png", 1, false, false, 16, 16);
+global.sprSkillBubbleShield = sprite_add(p + "SkillBubbleShield.png", 1, false, false, 16, 16);
+global.sprSkillBubbleBarrage = sprite_add(p + "SkillBubbleBarrage.png", 1, false, false, 16, 16);
+global.sprSkillScrewsAndNuts = sprite_add(p + "SkillScrewsAndNuts.png", 1, false, false, 16, 16);
+global.sprSkillBubbleTrap = sprite_add(p + "SkillBubbleTrap.png", 1, false, false, 16, 16);
+
+#endregion
+
+#region magicians red
+
+p = "Resources/Sprites/MR/";
+global.sprMagiciansRed = sprite_add(p + "MagiciansRed.png", 1, false, false, 16, 19);
+global.sprBurningKnife = sprite_add(p + "BurningKnife.png", 1, false, false, 8, 4);
+global.sprRestrains = sprite_add(p + "Restrains.png", 1, false, false, 8, 16);
+
+#endregion
+
+#region hierophant green
+
+p = "Resources/Sprites/HG/";
+global.sprHierophantGreen = sprite_add(p + "HierophantGreen.png", 1, false, false, 16, 19);
+global.sprHierophantBarrier = sprite_add(p + "HierophantBarrier.png", 1, false, false, 64, 2);
+global.sprHierophantGreenEmerald = sprite_add(p + "HierophantGreenEmerald.png", 1, false, false, 4, 3);
+global.sprSkillEmeraldSplash = sprite_add(p + "SkillEmeraldSplash.png", 1, false, false, 16, 16);
+global.sprSkillHierophantBarrier = sprite_add(p + "SkillHierophantBarrier.png", 1, false, false, 16, 16);
+global.sprSkillEmeraldSplash20Meters = sprite_add(p + "SkillEmeraldSplash20Meters.png", 1, false, false, 16, 16);
+// skins
+global.sprHierophantRed = sprite_add(p + "HierophantRed.png", 1, false, false, 16, 19);
+global.sprHierophantBlack = sprite_add(p + "HierophantBlack.png", 1, false, false, 16, 19);
+
+#endregion
+
+#region heavens door
+
+p = "Resources/Sprites/HD/";
+global.sprHeavensDoor = sprite_add(p + "HeavensDoor.png", 1, false, false, 16, 19);
 
 #endregion
 

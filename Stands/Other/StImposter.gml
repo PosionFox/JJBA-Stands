@@ -1,8 +1,8 @@
 
 global.jjbamDiscSus = ItemCreate(
     undefined,
-    "DISC:SUS",
-    "The label says: Imposter",
+    Localize("standDiscName") + "SUS",
+    Localize("standDiscDescription") + "Imposter",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -27,7 +27,7 @@ GiveImposter(player);
 #define MeetingCall(m, s)
 var _dmg = GetDmg(s);
 
-if (instance_exists(ENEMY))
+if (enemy_instance_exists())
 {
     audio_play_sound(global.sndAmogButton, 5, false);
     with (ENEMY)
@@ -35,6 +35,16 @@ if (instance_exists(ENEMY))
         with (other)
         {
             PunchCreate(other.x, other.y, random(360), _dmg, 10);
+        }
+    }
+    with (MOBJ)
+    {
+        if (bool("type" in self) and type == "Enemy")
+        {
+            with (other)
+            {
+                PunchCreate(other.x, other.y, random(360), _dmg, 10);
+            }
         }
     }
     EndAtk(s);
@@ -50,9 +60,9 @@ var _dmg = GetDmg(s);
 switch (attackState)
 {
     case 0:
-        if (instance_exists(ENEMY))
+        if (enemy_instance_exists())
         {
-            var _n = instance_nearest(x, y, ENEMY);
+            var _n = get_nearest_enemy(x, y);
             if (distance_to_object(_n) < 64)
             {
                 audio_play_sound(global.sndAmogMurder, 5, false);
@@ -77,9 +87,9 @@ switch (attackState)
         }
     break;
     case 2:
-        if (instance_exists(ENEMY))
+        if (enemy_instance_exists())
         {
-            var _n = instance_nearest(x, y, ENEMY);
+            var _n = get_nearest_enemy(x, y);
             if (distance_to_object(_n) < 64)
             {
                 _n.hp -= _dmg;
@@ -110,8 +120,7 @@ _skills[sk, StandSkill.Damage] = 3;
 _skills[sk, StandSkill.DamageScale] = 0.3;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 0.2;
-_skills[sk, StandSkill.Desc] = @"knifes:
-tosses a few knifes.";
+_skills[sk, StandSkill.Desc] = Localize("knifesDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = MeetingCall;
@@ -119,8 +128,7 @@ _skills[sk, StandSkill.Icon] = global.sprSkillMeetingCall;
 _skills[sk, StandSkill.Damage] = 2;
 _skills[sk, StandSkill.DamageScale] = 0.5;
 _skills[sk, StandSkill.MaxCooldown] = 10;
-_skills[sk, StandSkill.Desc] = @"meeting call:
-presses a button that damages enemies.";
+_skills[sk, StandSkill.Desc] = Localize("meetingCallDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = Kill;
@@ -128,8 +136,7 @@ _skills[sk, StandSkill.Icon] = global.sprSkillKill;
 _skills[sk, StandSkill.Damage] = 1;
 _skills[sk, StandSkill.DamageScale] = 10;
 _skills[sk, StandSkill.MaxCooldown] = 30;
-_skills[sk, StandSkill.Desc] = @"kill:
-teleports to a nearby enemy and heavily damages them.";
+_skills[sk, StandSkill.Desc] = Localize("killDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)
@@ -140,8 +147,9 @@ with (_s)
     summonSound = global.sndImposterSummon;
     saveKey = "jjbamSus";
     discType = global.jjbamDiscSus;
-    isRare = true;
+    UpdateRarity(Rarity.Legendary);
     rot = 0;
+    sprKnife = global.sprKnife;
     
     InstanceAssignMethod(self, "draw", ScriptWrap(ImposterDraw), false);
 }

@@ -348,6 +348,7 @@ with (o)
     sprite_index = _sprite;
     image_blend = _color;
     life = 20;
+    rotation = 0;
     x += random_range(-6, 6);
     y += random_range(-10, 2);
     hspd = random_range(-0.3, 0.3);
@@ -362,6 +363,7 @@ return o;
 x += hspd;
 y += vspd;
 image_alpha = life / 20;
+image_angle += rotation;
 
 if (life > 0)
 {
@@ -395,13 +397,13 @@ if (lineX - lineW * 4 > display_get_gui_width())
 
 #define EffectTimeSkipDrawGUI
 
-draw_line_width_color(lineX, 0 - 32, lineX - 128, display_get_gui_height() + 32, lineW, c_fuchsia, c_red);
+draw_line_width_color(lineX, 0 - 32, lineX - 128, display_get_gui_height() + 32, lineW, STAND.color, STAND.colorAlt);
 draw_set_alpha(0.75);
-draw_line_width_color(lineX - lineW * 1, 0 - 32, (lineX - 128) - lineW * 1, display_get_gui_height() + 32, lineW, c_fuchsia, c_red);
+draw_line_width_color(lineX - lineW * 1, 0 - 32, (lineX - 128) - lineW * 1, display_get_gui_height() + 32, lineW, STAND.color, STAND.colorAlt);
 draw_set_alpha(0.5);
-draw_line_width_color(lineX - lineW * 2, 0 - 32, (lineX - 128) - lineW * 2, display_get_gui_height() + 32, lineW, c_fuchsia, c_red);
+draw_line_width_color(lineX - lineW * 2, 0 - 32, (lineX - 128) - lineW * 2, display_get_gui_height() + 32, lineW, STAND.color, STAND.colorAlt);
 draw_set_alpha(0.25);
-draw_line_width_color(lineX - lineW * 3, 0 - 32, (lineX - 128) - lineW * 3, display_get_gui_height() + 32, lineW, c_fuchsia, c_red);
+draw_line_width_color(lineX - lineW * 3, 0 - 32, (lineX - 128) - lineW * 3, display_get_gui_height() + 32, lineW, STAND.color, STAND.colorAlt);
 draw_set_alpha(1);
 
 #define EffectPlayerAfterimageCreate(_x, _y)
@@ -420,7 +422,7 @@ with (o)
     sprite_index = player.sprite_index;
     image_index = player.image_index;
     image_speed = 0;
-    image_blend = c_fuchsia;
+    image_blend = STAND.color;
     image_angle = player.angle;
     image_xscale = player.facing;
     image_yscale = player.yscale;
@@ -522,6 +524,7 @@ with (o)
     image_blend = _c;
     z = 0;
     zGrav = 4;
+    bouncy = 0.9;
     zSpdMax = random_range(10, 15);
     zSpd = zSpdMax;
     speed = random(2);
@@ -545,11 +548,11 @@ image_alpha = min(life, 1);
 
 speed *= 0.98;
 z += zSpd - zGrav;
-zSpd *= 0.9;
+zSpd *= bouncy;
 
 if (z <= 0)
 {
-    zSpdMax *= 0.9;
+    zSpdMax *= bouncy;
     zSpd = zSpdMax;
     if (WaterCollision(x, y))
     {
@@ -584,6 +587,112 @@ draw_sprite_ext(
     image_blend,
     image_alpha
 );
+
+#define EffectSodaCreate(_id)
+
+var _o = ModObjectSpawn(_id.x, _id.y, _id.depth - 1);
+with (_o)
+{
+    target = _id;
+    sprite_index = global.sprSoda;
+    image_xscale = 0;
+    life = 2;
+    z = 0;
+    state = "lower";
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(EffectSodaStep));
+    InstanceAssignMethod(self, "draw", ScriptWrap(EffectSodaDraw), false);
+}
+
+#define EffectSodaStep
+
+life -= DT;
+if (life <= 0)
+{
+    image_alpha -= 0.1;
+    if (image_alpha <= 0)
+    {
+        instance_destroy(self);
+        exit;
+    }
+}
+
+image_xscale = lerp(image_xscale, 1, 0.1);
+switch (state)
+{
+    case "lower":
+        x = target.x + (5 * player.facing);
+        y = target.y;
+        z = 0;
+        if (life <= 1)
+        {
+            state = "upper";
+        }
+    break;
+    case "upper":
+        x = target.x + (5 * player.facing);
+        y = target.y;
+        z = lerp(z, 4, 0.1);
+        image_angle = lerp(image_angle, 45 * player.facing, 0.1)
+    break;
+}
+
+#define EffectSodaDraw
+
+draw_sprite_ext(
+    sprShadow,
+    0,
+    x,
+    y,
+    min(0.5, abs(image_xscale / (z * 0.2))),
+    min(0.5, abs(image_yscale / (z * 0.2))),
+    0,
+    c_white,
+    image_alpha * 0.5
+);
+
+draw_sprite_ext(
+    sprite_index,
+    image_index,
+    x,
+    y - z,
+    image_xscale,
+    image_yscale,
+    image_angle,
+    image_blend,
+    image_alpha
+);
+
+#define EffectWhiteScreen(_time)
+
+var _o = ModObjectSpawn(player.x, player.y, -1000);
+with (_o)
+{
+    whiteScreen = _time;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(EffectWhiteScreenStep));
+    InstanceAssignMethod(self, "draw", ScriptWrap(EffectWhiteScreenDraw));
+}
+
+#define EffectWhiteScreenStep
+
+if (whiteScreen > 0)
+{
+    whiteScreen -= DT;
+}
+else
+{
+    instance_destroy(self);
+}
+
+#define EffectWhiteScreenDraw
+
+draw_circle(x, y, 1000, false);
+
+
+
+
+
 
 
 

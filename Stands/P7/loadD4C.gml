@@ -1,8 +1,8 @@
 
 global.jjbamDiscD4c = ItemCreate(
     undefined,
-    "DISC:D4C",
-    "The label says: Dirty Deeds Done Dirt Cheap",
+    Localize("standDiscName") + "D4C",
+    Localize("standDiscDescription") + "Dirty Deeds Done Dirt Cheap",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -51,6 +51,7 @@ var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
 if (ammo > 0)
 {
+    var _dmg = GetDmg(skill);
     var _p = ProjectileCreate(objPlayer.x, objPlayer.y);
     with (_p)
     {
@@ -65,7 +66,7 @@ if (ammo > 0)
         sprite_index = global.sprBtdVoidTrace;
         image_blend = c_yellow;
         mask_index = global.sprKnife;
-        damage = GetDmg(skill);
+        damage = _dmg;
         direction = _dir;
         canMoveInTs = false;
         GlowOrderCreate(self, 0.1, c_yellow);
@@ -90,11 +91,11 @@ else
 var _o = modTypeFind("bulletTime");
 if (_o)
 {
-    if (instance_exists(parEnemy))
+    if (enemy_instance_exists())
     {
         var _e = ShrinkingCircleEffect(_o.x, _o.y);
         _e.color = c_aqua;
-        var _near = instance_nearest(_o.x, _o.y, parEnemy);
+        var _near = get_nearest_enemy(_o.x, _o.y);
         _o.direction = point_direction(_o.x, _o.y, _near.x, _near.y);
     }
 }
@@ -144,7 +145,7 @@ if (attackState >= 3)
 
 #define DoubleSlap(method, skill)
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-var _dis = 16;
+var _dis = GetStandReach();
 
 switch (attackState)
 {
@@ -157,7 +158,7 @@ switch (attackState)
         }
     break;
     case 1:
-        _dis = 24;
+        _dis = GetStandReach() * 1.5;
         if (attackStateTimer > 1)
         {
             audio_play_sound(global.sndPunchAir, 0, false);
@@ -209,8 +210,8 @@ if (!instance_exists(parEnemy))
 }
 
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-xTo = objPlayer.x + lengthdir_x(8, _dir);
-yTo = objPlayer.y + lengthdir_y(8, _dir);
+xTo = objPlayer.x + lengthdir_x(GetStandReach(), _dir);
+yTo = objPlayer.y + lengthdir_y(GetStandReach(), _dir);
 image_xscale = sign(dcos(_dir));
 
 attackStateTimer += 1 / room_speed;
@@ -242,9 +243,9 @@ switch (attackState)
         var _xx = x + lengthdir_x(8, _dir);
         var _yy = y + lengthdir_y(8, _dir);
         var _ins = noone;
-        if (instance_exists(parEnemy))
+        if (enemy_instance_exists())
         {
-            _ins = instance_nearest(mouse_x, mouse_y, parEnemy);
+            _ins = get_nearest_enemy(mouse_x, mouse_y);
         }
         var _o = CloneBombCreate(_xx, _yy, _ins);
         _o.damage = GetDmg(skill);
@@ -256,8 +257,8 @@ switch (attackState)
 
 #define CloneSummon(method, skill)
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-xTo = objPlayer.x + lengthdir_x(8, _dir);
-yTo = objPlayer.y + lengthdir_y(8, _dir);
+xTo = objPlayer.x + lengthdir_x(GetStandReach(), _dir);
+yTo = objPlayer.y + lengthdir_y(GetStandReach(), _dir);
 image_xscale = sign(dcos(_dir));
 
 attackStateTimer += 1 / room_speed;
@@ -471,7 +472,7 @@ sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = RevolverReload;
 _skills[sk, StandSkill.Icon] = global.sprRevolverReload;
 _skills[sk, StandSkill.MaxCooldown] = 4;
-_skills[sk, StandSkill.Desc] = "reload revolver:\nreload your revolver";
+_skills[sk, StandSkill.Desc] = Localize("revolverReloadDesc");
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = BulletVolley;
@@ -479,13 +480,13 @@ _skills[sk, StandSkill.Damage] = 3;
 _skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
 _skills[sk, StandSkill.MaxCooldown] = 1;
-_skills[sk, StandSkill.Desc] = "bullet volley:\nfire a volley of three projectiles.";
+_skills[sk, StandSkill.Desc] = Localize("bulletVolleyDesc");
 
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = CloneSwap;
 _skills[sk, StandSkill.Icon] = global.sprSkillCloneSwap;
 _skills[sk, StandSkill.MaxCooldown] = 2;
-_skills[sk, StandSkill.Desc] = "clone swap:\nswap places with the nearest clone you aim at.";
+_skills[sk, StandSkill.Desc] = Localize("cloneSwapDesc");
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;
@@ -494,15 +495,15 @@ _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 5;
-_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.";
+_skills[sk, StandSkill.Desc] = Localize("barrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = DoubleSlap;
-_skills[sk, StandSkill.Damage] = 2;
+_skills[sk, StandSkill.Damage] = 3;
 _skills[sk, StandSkill.DamageScale] = 0.04;
 _skills[sk, StandSkill.Icon] = global.sprSkillDoubleSlap;
 _skills[sk, StandSkill.MaxCooldown] = 4;
-_skills[sk, StandSkill.Desc] = "double slap:\nhovers forward and slaps the enemies twice,\nthe second slap deals more damage.";
+_skills[sk, StandSkill.Desc] = Localize("doubleSlapDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = CloneBomb;
@@ -513,24 +514,13 @@ _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.SkillAlt] = CloneSummon;
 _skills[sk, StandSkill.MaxCooldownAlt] = 6.5;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillCloneSummon;
-_skills[sk, StandSkill.Desc] = @"clone bomb:
-summons a clone of the enemy you aim at that
-chases the target and explodes on contact.
-
-(hold) clone summon:
-summons clones of the user to aid them in combat,
-the amount of clones to summon depends
-on the user's level.";
+_skills[sk, StandSkill.Desc] = Localize("clonesDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = DimensionalHop;
 _skills[sk, StandSkill.Icon] = global.sprSkillDimensionalHop;
 _skills[sk, StandSkill.MaxCooldown] = 25;
-_skills[sk, StandSkill.Desc] = @"dimensional hop:
-pulls out the flag and waves it
-flattening the user and warping them
-into another parallel dimension,
-enemies in range will also be teleported.";
+_skills[sk, StandSkill.Desc] = Localize("dimensionalHopDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)
@@ -541,6 +531,7 @@ with (_s)
     summonSound = global.sndD4CSummon;
     saveKey = "jjbamD4c";
     discType = global.jjbamDiscD4c;
+    attack_range = 16;
     
     ammo = 6;
     
@@ -559,12 +550,21 @@ with (_s)
     InstanceAssignMethod(self, "drawGUI", ScriptWrap(D4CDrawGui));
     InstanceAssignMethod(self, "destroy", ScriptWrap(D4Cdestroy));
 }
+return _s;
 
 #define D4CEvolveIfCan
 
 if (STAND.hasArm and STAND.hasHeart and STAND.hasEye)
 {
-    GiveD4CLT(player);
+    var _c = irandom(100);
+    if (_c <= 1)
+    {
+        GiveGm(player);
+    }
+    else
+    {
+        GiveD4CLT(player);
+    }
 }
 
 #define D4CDrawGui

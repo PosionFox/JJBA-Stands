@@ -1,8 +1,8 @@
 
 global.jjbamDiscKq = ItemCreate(
     undefined,
-    "DISC:KQ",
-    "The label says: Killer Queen",
+    Localize("standDiscName") + "KQ",
+    Localize("standDiscDescription") + "Killer Queen",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -32,8 +32,8 @@ if (modTypeExists("bomb"))
     exit;
 }
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-xTo = objPlayer.x + lengthdir_x(8, _dir);
-yTo = objPlayer.y + lengthdir_y(8, _dir);
+xTo = objPlayer.x + lengthdir_x(GetStandReach(), _dir);
+yTo = objPlayer.y + lengthdir_y(GetStandReach(), _dir);
 
 switch (attackState)
 {
@@ -139,9 +139,9 @@ if (instance_exists(parObject))
         _target = _nearest;
     }
 }
-if (instance_exists(parEnemy))
+if (enemy_instance_exists())
 {
-    _nearest = instance_nearest(x, y, parEnemy);
+    _nearest = get_nearest_enemy(x, y);
     if (distance_to_object(_nearest) <= 8)
     {
         _target = _nearest;
@@ -192,17 +192,59 @@ with (_o)
     sprite_index = global.sprCoin;
     direction = _dir;
     speed = 5;
+    z = 0;
+    zGrav = 4;
+    bouncy = 0.75;
+    zSpdMax = random_range(10, 15);
+    zSpd = zSpdMax;
     
     InstanceAssignMethod(self, "step", ScriptWrap(CoinBombStep), false);
+    InstanceAssignMethod(self, "draw", ScriptWrap(CoinBombDraw), false);
 }
 
 #define CoinBombStep
 
 speed = lerp(speed, 0, 0.1);
-if (WaterCollision(x, y))
+z += zSpd - zGrav;
+zSpd *= bouncy;
+
+if (z <= 0)
 {
-    instance_destroy(self);
+    zSpdMax *= bouncy;
+    zSpd = zSpdMax;
+    if (WaterCollision(x, y))
+    {
+        instance_destroy(self);
+        exit;
+    }
 }
+z = clamp(z, 0, 99999);
+
+#define CoinBombDraw
+
+draw_sprite_ext(
+    sprShadow,
+    0,
+    x,
+    y,
+    min(0.5, abs(image_xscale / (z * 0.2))),
+    min(0.5, abs(image_yscale / (z * 0.2))),
+    0,
+    c_white,
+    image_alpha * 0.5
+);
+
+draw_sprite_ext(
+    sprite_index,
+    image_index,
+    x,
+    y - z,
+    image_xscale,
+    image_yscale,
+    image_angle,
+    image_blend,
+    image_alpha
+);
 
 #define GiveKillerQueen(_owner) //stand
 
@@ -213,8 +255,7 @@ sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = DetonateBomb;
 _skills[sk, StandSkill.Icon] = global.sprSkillDetonate;
 _skills[sk, StandSkill.MaxCooldown] = 2;
-_skills[sk, StandSkill.Desc] = @"detonate bomb:
-explodes any bombs already placed.";
+_skills[sk, StandSkill.Desc] = Localize("detonateBombDesc");
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;
@@ -223,30 +264,28 @@ _skills[sk, StandSkill.DamageScale] = 0.01;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 4;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
-_skills[sk, StandSkill.Desc] = @"barrage:
-launches a barrage of punches.";
+_skills[sk, StandSkill.Desc] = Localize("barrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = PlaceBomb;
 _skills[sk, StandSkill.Icon] = global.sprSkillFirstBomb;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
-_skills[sk, StandSkill.Desc] = @"killer queen's first bomb:
-places a bomb on the nearest enemy or ground.";
+_skills[sk, StandSkill.Desc] = Localize("placeBombDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = CoinBomb;
 _skills[sk, StandSkill.Icon] = global.sprSkillCoinBomb;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
-_skills[sk, StandSkill.Desc] = "coin bomb:\ntosses a coin that can be detonated on demand.";
+_skills[sk, StandSkill.Desc] = Localize("coinBombDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = ShaSummon;
 _skills[sk, StandSkill.Icon] = global.sprSkillSHA;
 _skills[sk, StandSkill.MaxCooldown] = 40;
 _skills[sk, StandSkill.MaxExecutionTime] = 20;
-_skills[sk, StandSkill.Desc] = "killer queen's second bomb:\nsummons sha in combat, chasing and exploding enemies on its own.";
+_skills[sk, StandSkill.Desc] = Localize("shaSummonDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)

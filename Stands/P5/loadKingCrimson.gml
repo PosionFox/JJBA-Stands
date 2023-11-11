@@ -1,8 +1,8 @@
 
 global.jjbamDiscKc = ItemCreate(
     undefined,
-    "DISC:KC",
-    "The label says: King Crimson",
+    Localize("standDiscName") + "KC",
+    Localize("standDiscDescription") + "King Crimson",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -28,10 +28,11 @@ GiveKingCrimson(player);
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
 
 audio_play_sound(global.sndKnifeThrow, 5, false);
+var _dmg = GetDmg(s);
 var o = ProjectileCreate(owner.x, owner.y);
 with (o)
 {
-    damage = GetDmg(s);
+    damage = _dmg;
     sprite_index = global.sprScalpelSwing;
     mask_index = global.sprHitbox32x32;
     direction = _dir;
@@ -60,10 +61,11 @@ switch (attackState)
     case 0:
         var _snd = audio_play_sound(global.sndKnifeThrow, 5, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
+        var _dmg = GetDmg(s);
         var _p = ProjectileCreate(owner.x, owner.y);
         with (_p)
         {
-            damage = GetDmg(s);
+            damage = _dmg;
             baseSpd = 7;
             direction = _dir;
             direction += random_range(-4, 4);
@@ -78,10 +80,11 @@ switch (attackState)
     case 2:
         var _snd = audio_play_sound(global.sndKnifeThrow, 5, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
+        var _dmg = GetDmg(s);
         var _p = ProjectileCreate(owner.x, owner.y);
         with (_p)
         {
-            damage = GetDmg(s);
+            damage = _dmg;
             baseSpd = 7;
             direction = _dir;
             direction += random_range(-4, 4);
@@ -114,9 +117,9 @@ else
 switch (attackState)
 {
     case 0:
-        if (instance_exists(ENEMY))
+        if (enemy_instance_exists())
         {
-            var _n = instance_nearest(mouse_x, mouse_y, ENEMY);
+            var _n = get_nearest_enemy(mouse_x, mouse_y);
             if (distance_to_object(_n) < 64)
             {
                 audio_play_sound(global.sndKcTp, 5, false);
@@ -140,9 +143,9 @@ switch (attackState)
         var _target = noone;
         var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
         var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-        if (instance_exists(ENEMY))
+        if (enemy_instance_exists())
         {
-            _target = instance_nearest(owner.x, owner.y, ENEMY);
+            _target = get_nearest_enemy(owner.x, owner.y);
             _dis = point_distance(owner.x, owner.y, _target.x, _target.y);
             _dir = point_direction(owner.x, owner.y, _target.x, _target.y);
         }
@@ -192,8 +195,8 @@ switch (attackState)
 var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y)
 
-var _xx = player.x + lengthdir_x(8, _dir);
-var _yy = player.y + lengthdir_y(8, _dir);
+var _xx = player.x + lengthdir_x(GetStandReach(), _dir);
+var _yy = player.y + lengthdir_y(GetStandReach(), _dir);
 xTo = _xx;
 yTo = _yy;
 image_xscale = mouseXSide;
@@ -229,9 +232,9 @@ attackStateTimer += DT;
 switch (attackState)
 {
     case 0:
-        if (instance_exists(ENEMY))
+        if (enemy_instance_exists())
         {
-            var _n = instance_nearest(mouse_x, mouse_y, ENEMY);
+            var _n = get_nearest_enemy(mouse_x, mouse_y);
             if (distance_to_object(_n) < 64)
             {
                 x = _n.x;
@@ -252,9 +255,9 @@ switch (attackState)
     case 1:
         var _t = owner;
         armChopShow = true;
-        if (instance_exists(ENEMY))
+        if (enemy_instance_exists())
         {
-            _t = instance_nearest(x, y, ENEMY);
+            _t = get_nearest_enemy(x, y);
         }
         else
         {
@@ -311,7 +314,7 @@ yTo = owner.y - 8;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndKcTe, 5, false);
+        audio_play_sound(teSound, 5, false);
         attackState++;
     break;
     case 1:
@@ -328,7 +331,8 @@ switch (attackState)
         with (o)
         {
             type = "timeErase";
-            daBass = audio_play_sound(global.sndKcTeBass, 5, false);
+            daBass = audio_play_sound(other.teBassSound, 5, false);
+            endSound = other.teEndSound;
             surf = 0;
             
             xscale = 1;
@@ -376,6 +380,17 @@ if (instance_exists(ENEMY))
         v *= 0.5;
     }
 }
+if (instance_exists(MOBJ))
+{
+    with (MOBJ)
+    {
+        if (bool("type" in self) and type == "Enemy")
+        {
+            h *= 0.5;
+            v *= 0.5;
+        }
+    }
+}
 
 EffectStandAuraCreate(random_range(player.x - 128, player.x + 128), random_range(player.y - 128, player.x + 128), global.sprStandParticle2, c_black);
 //xscale = lerp(xscale, 0.5, 0.1);
@@ -384,7 +399,7 @@ alpha = lerp(alpha, 0, 0.02);
 life -= DT;
 if (life <= 0)
 {
-    audio_play_sound(global.sndKcTeEnd, 5, false);
+    audio_play_sound(endSound, 5, false);
     EffectTimeSkipCreate();
     if (surface_exists(surf))
     {
@@ -400,7 +415,7 @@ if (life <= 0)
 #define TimeEraseDraw
 
 gpu_set_blendmode_ext(bm_inv_dest_color, bm_inv_src_alpha);
-draw_set_color(c_fuchsia);
+draw_set_color(STAND.color);
 draw_rectangle(WorldControl.x - 640, WorldControl.y - 360, WorldControl.x + 640, WorldControl.y + 360, false);
 draw_set_color(c_white);
 gpu_set_blendmode(bm_normal);
@@ -436,7 +451,7 @@ _skills[sk, StandSkill.Icon] = global.sprSkillScalpelSlash;
 _skills[sk, StandSkill.Damage] = 2;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.MaxCooldown] = 6;
-_skills[sk, StandSkill.Desc] = "scalpel slash:\ncarve your enemies and make them bleed.";
+_skills[sk, StandSkill.Desc] = Localize("scalpelSlashDesc");
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = ScalpelThrow;
@@ -444,7 +459,7 @@ _skills[sk, StandSkill.Icon] = global.sprSkillScalpelThrow;
 _skills[sk, StandSkill.Damage] = 1.5;
 _skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.Desc] = "scalpel throw:\nthrow two scalpels forward.";
+_skills[sk, StandSkill.Desc] = Localize("scalpelThrowDesc");
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = KcBarrage;
@@ -453,13 +468,11 @@ _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 6;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
-_skills[sk, StandSkill.Desc] = @"skip barrage:
-skips time into the nearest enemy
-releasing a series of fatal blows.";
+_skills[sk, StandSkill.Desc] = Localize("kcBarrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = KcChop;
-_skills[sk, StandSkill.Damage] = 3;
+_skills[sk, StandSkill.Damage] = 15;
 _skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 5;
@@ -468,24 +481,19 @@ _skills[sk, StandSkill.DamageAlt] = 15;
 _skills[sk, StandSkill.DamageScaleAlt] = 0.15;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillHeavyChop;
 _skills[sk, StandSkill.MaxCooldownAlt] = 15;
-_skills[sk, StandSkill.Desc] = @"chop:
-chops the enemy for moderate damage.
-
-heavy chop:
-winds up a terrible strike that is bound to
-seriously harm even the toughest opponent.";
+_skills[sk, StandSkill.Desc] = Localize("chopDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = TimeSkip;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimeSkip;
 _skills[sk, StandSkill.MaxCooldown] = 3;
-_skills[sk, StandSkill.Desc] = "time skip:\nskips time forward into a new position in space.";
+_skills[sk, StandSkill.Desc] = Localize("timeSkipDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = TimeErase;
 _skills[sk, StandSkill.MaxCooldown] = 35;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimeErase;
-_skills[sk, StandSkill.Desc] = "time erase:\nerases a frame of time, nobody will know what happened.";
+_skills[sk, StandSkill.Desc] = Localize("timeEraseDesc");
 
 
 var _s = StandBuilder(_owner, _skills);
@@ -494,6 +502,7 @@ with (_s)
     name = "King Crimson";
     sprite_index = global.sprKingCrimson;
     color = 0x3232ac;
+    colorAlt = c_fuchsia;
     dmgStack = 0;
     armChopRange = 72;
     armChopShow = false;
@@ -501,6 +510,9 @@ with (_s)
     idlePos = KcPos;
     summonSound = global.sndKcSummon;
     discType = global.jjbamDiscKc;
+    teSound = global.sndKcTe;
+    teBassSound = global.sndKcTeBass;
+    teEndSound = global.sndKcTeEnd;
     
     saveKey = "jjbamKc";
     InstanceAssignMethod(self, "step", ScriptWrap(KingCrimsonStep));

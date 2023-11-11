@@ -1,8 +1,8 @@
 
 global.jjbamDiscTwr = ItemCreate(
     undefined,
-    "DISC:TWR",
-    "The label says: The World Retro",
+    Localize("standDiscName") + "TWR",
+    Localize("standDiscDescription") + "The World Retro",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -45,16 +45,56 @@ switch (attackState)
         var _p = PunchCreate(x, y, _dir, GetDmg(skill), 0);
         with (_p)
         {
-            var _arg = noone;
-            if (instance_exists(ENEMY))
+            if (enemy_instance_exists())
             {
-                _arg = instance_nearest(x, y, ENEMY);
+                var _arg = get_nearest_enemy(x, y);
+                onHitEvent = StwDivineBloodCreate;
+                onHitEventArg = _arg;
             }
-            onHitEvent = StwDivineBloodCreate;
-            onHitEventArg = _arg;
             destroyOnImpact = true;
         }
         EndAtk(skill);
+    break;
+}
+attackStateTimer += DT;
+
+#define TwrBarrage(m, s)
+
+var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
+var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+
+xTo = owner.x + lengthdir_x(GetStandReach(), _dir + random_range(-4, 4));
+yTo = owner.y + lengthdir_y(GetStandReach(), _dir + random_range(-4, 4));
+image_xscale = mouse_x > owner.x ? 1 : -1;
+
+switch (attackState)
+{
+    case 0:
+        audio_play_sound(global.sndTwrBarrage, 10, false);
+        attackState++;
+    break;
+    case 1:
+        if (distance_to_point(xTo, yTo) < 2)
+        {
+            if (attackStateTimer >= 0.08)
+            {
+                var xx = x + random_range(-4, 4);
+                var yy = y + random_range(-8, 8);
+                var _p = PunchSwingCreate(xx, yy, _dir, 45, GetDmg(s));
+                attackStateTimer = 0;
+            }
+            skills[s, StandSkill.ExecutionTime] += DT;
+        }
+        
+        if (keyboard_check_pressed(ord(skills[s, StandSkill.Key])))
+        {
+            audio_stop_sound(global.sndTwrBarrage);
+            EndAtk(s);
+        }
+        if (skills[s, StandSkill.ExecutionTime] >= skills[s, StandSkill.MaxExecutionTime])
+        {
+            audio_stop_sound(global.sndTwrBarrage);
+        }
     break;
 }
 attackStateTimer += DT;
@@ -64,8 +104,8 @@ attackStateTimer += DT;
 var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y)
 
-var _xx = player.x + lengthdir_x(8, _dir);
-var _yy = player.y + lengthdir_y(8, _dir);
+var _xx = player.x + lengthdir_x(GetStandReach(), _dir);
+var _yy = player.y + lengthdir_y(GetStandReach(), _dir);
 xTo = _xx;
 yTo = _yy;
 
@@ -110,17 +150,26 @@ switch (attackState)
         }
     break;
     case 2:
-        var _snd = audio_play_sound(global.sndStwKnifeThrow2, 0, false);
-        audio_sound_pitch(_snd, random_range(0.9, 1.1));
+        if modTypeExists("timestop")
+        {
+            var _snd = audio_play_sound(global.sndKnifeThrow, 5, false);
+            audio_sound_pitch(_snd, random_range(0.9, 1.1));
+        }
+        else
+        {
+            audio_play_sound(global.sndTwohTp, 0, false);
+            EffectWhiteScreen(0.1);
+        }
         
         repeat (5)
         {
+            var _dmg = GetDmg(skill);
             var _p = ProjectileCreate(player.x, player.y);
             with (_p)
             {
                 x += lengthdir_x(irandom_range(-8, 8), _dir + 90);
                 y += lengthdir_y(irandom_range(-8, 8), _dir + 90);
-                damage = GetDmg(skill);
+                damage = _dmg;
                 direction = _dir;
                 canMoveInTs = false;
                 sprite_index = other.knifeSprite;
@@ -183,7 +232,7 @@ with (_s)
     name = "The World Retro";
     sprite_index = global.sprTWR;
     color = /*#*/0x66a0d9;
-    isRare = true;
+    UpdateRarity(Rarity.Mythical);
     saveKey = "jjbamTwr";
     discType = global.jjbamDiscTwr;
     
@@ -194,6 +243,7 @@ with (_s)
     soundIdle = [global.sndTwrIdle1, global.sndTwrIdle2];
     
     skills[StandState.SkillCOff, StandSkill.Skill] = TwrBloodDrain;
+    skills[StandState.SkillA, StandSkill.Skill] = TwrBarrage;
     skills[StandState.SkillB, StandSkill.Skill] = TwrStrongPunch;
     skills[StandState.SkillC, StandSkill.Skill] = TwrKnifeWall;
     skills[StandState.SkillD, StandSkill.Skill] = TwrTimestop;

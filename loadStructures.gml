@@ -14,7 +14,29 @@ global.jjbamStandWorkshop = StructureCreate(
     BuildMenuCategory.Magical,
     undefined,
     false
-)
+);
+
+global.jjStructureDiosCoffin = StructureCreate(
+    undefined,
+    Localize("diosCoffinName"),
+    Localize("diosCoffinDescription"),
+    StructureType.Base,
+    global.sprDiosCoffin,
+    undefined,
+    [
+        Item.Wood, 100,
+        Item.OnyxRelic, 10
+    ],
+    2,
+    true,
+    [
+        global.jjEgyptianCrown
+    ],
+    true,
+    BuildMenuCategory.Magical,
+    undefined,
+    false
+);
 
 #define SkillStandWorkshop
 

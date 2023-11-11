@@ -1,8 +1,8 @@
 
 global.jjbamDiscGe = ItemCreate(
     undefined,
-    "DISC:GE",
-    "The label says: Gold Experience",
+    Localize("standDiscName") + "GE",
+    Localize("standDiscDescription") + "Gold Experience",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -28,8 +28,8 @@ GiveGoldExperience(player);
 var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
 
-xTo = owner.x + lengthdir_x(8, _dir + random_range(-4, 4));
-yTo = owner.y + lengthdir_y(8, _dir + random_range(-4, 4));
+xTo = owner.x + lengthdir_x(GetStandReach(), _dir + random_range(-4, 4));
+yTo = owner.y + lengthdir_y(GetStandReach(), _dir + random_range(-4, 4));
 image_xscale = mouse_x > owner.x ? 1 : -1;
 
 attackStateTimer += DT;
@@ -67,8 +67,8 @@ if (keyboard_check_pressed(ord(skills[skill, StandSkill.Key])))
 
 #define LifePunch(method, skill)
 var _dir = point_direction(x, y, mouse_x, mouse_y);
-xTo = owner.x + lengthdir_x(8, _dir);
-yTo = owner.y + lengthdir_y(8, _dir);
+xTo = owner.x + lengthdir_x(GetStandReach(), _dir);
+yTo = owner.y + lengthdir_y(GetStandReach(), _dir);
 
 switch (attackState)
 {
@@ -91,7 +91,7 @@ switch (attackState)
         state = StandState.Idle;
     break;
 }
-attackStateTimer += 1 / room_speed;
+attackStateTimer += DT;
 
 #define SelfHeal(method, skill)
 var _dir = point_direction(x, y, mouse_x, mouse_y);
@@ -122,12 +122,12 @@ switch (attackState)
         }
     break;
 }
-attackStateTimer += 1 / room_speed;
+attackStateTimer += DT;
 
 #define LifeFormScorpion(method, skill)
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-xTo = owner.x + lengthdir_x(16, _dir)
-yTo = owner.y + lengthdir_y(16, _dir)
+xTo = owner.x + lengthdir_x(GetStandReach() * 2, _dir)
+yTo = owner.y + lengthdir_y(GetStandReach() * 2, _dir)
 alphaTarget = 1;
 
 switch (attackState)
@@ -153,8 +153,8 @@ attackStateTimer += 1 / room_speed;
 
 #define LifeFormPlant(method, skill)
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-var xx = owner.x + lengthdir_x(16, _dir);
-var yy = owner.y + lengthdir_y(16, _dir);
+var xx = owner.x + lengthdir_x(GetStandReach() * 2, _dir);
+var yy = owner.y + lengthdir_y(GetStandReach() * 2, _dir);
 var xs = (floor(xx / 16) * 16) + 8;
 var ys = (floor(yy / 16) * 16) + 8;
 alphaTarget = 1;
@@ -240,9 +240,9 @@ var _p = ProjectileCreate(x, y);
 with (_p)
 {
     target = noone
-    if (instance_exists(parEnemy))
+    if (enemy_instance_exists())
     {
-        target = instance_nearest(x, y, parEnemy);
+        target = get_nearest_enemy(x, y);
         sprite_index = target.sprite_index;
         image_speed = 0;
     }
@@ -280,19 +280,19 @@ sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = LifeFormPlant;
 _skills[sk, StandSkill.Icon] = global.sprSkillLifeFormPlant;
 _skills[sk, StandSkill.MaxCooldown] = 15;
-_skills[sk, StandSkill.Desc] = "lifeform plant:\nsummons a random plant.";
+_skills[sk, StandSkill.Desc] = Localize("lifeformPlantDesc");
 
 sk = StandState.SkillCOff;
 _skills[sk, StandSkill.Skill] = LifeFormScorpion;
 _skills[sk, StandSkill.Icon] = global.sprSkillLifeFormScorpion;
 _skills[sk, StandSkill.MaxCooldown] = 20;
-_skills[sk, StandSkill.Desc] = "lifeform scorpion:\nsummons a scorpion that attacks nearby enemies.";
+_skills[sk, StandSkill.Desc] = Localize("lifeformScorpionDesc");
 
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = LifeFormFrog;
 _skills[sk, StandSkill.Icon] = global.sprSkillLifeFormFrog;
 _skills[sk, StandSkill.MaxCooldown] = 20;
-_skills[sk, StandSkill.Desc] = "lifeform frog:\nsummons a frog that protects you and reflects damage.";
+_skills[sk, StandSkill.Desc] = Localize("lifeformFrogDesc");
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = GeBarrage;
@@ -301,15 +301,15 @@ _skills[sk, StandSkill.DamageScale] = 0.01;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 7;
-_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.";
+_skills[sk, StandSkill.Desc] = Localize("barrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = LifePunch;
-_skills[sk, StandSkill.Damage] = 3;
+_skills[sk, StandSkill.Damage] = 15;
 _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 8;
-_skills[sk, StandSkill.Desc] = "life punch:\npunches the enemy and pulls their soul out,\nthe soul damages other enemies.";
+_skills[sk, StandSkill.Desc] = Localize("lifePunchDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = SelfHeal;
@@ -318,7 +318,7 @@ _skills[sk, StandSkill.DamageScale] = 0.15;
 _skills[sk, StandSkill.DamagePlayerStat] = false;
 _skills[sk, StandSkill.Icon] = global.sprSkillSelfHeal;
 _skills[sk, StandSkill.MaxCooldown] = 15;
-_skills[sk, StandSkill.Desc] = "self heal:\nmends the user's wounds,\nthe effectiveness of the healing is tied to the user's level.";
+_skills[sk, StandSkill.Desc] = Localize("selfHealDesc");
 
 sk = StandState.SkillD;
 

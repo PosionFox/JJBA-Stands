@@ -3,7 +3,7 @@
 
 with (MOBJ)
 {
-    if ("type" in self)
+    if bool("type" in self)
     {
         if (type == _type)
         {
@@ -19,7 +19,7 @@ if (modTypeExists(_type))
 {
     with (MOBJ)
     {
-        if ("type" in self)
+        if bool("type" in self)
         {
             if (type == _type)
             {
@@ -35,7 +35,7 @@ return noone;
 var _list = [];
 with (MOBJ)
 {
-    if ("type" in self and type == _type)
+    if bool("type" in self and type == _type)
     {
         array_push(_list, self);
     }
@@ -68,7 +68,7 @@ return _nearest;
 var _count = 0;
 with (MOBJ)
 {
-    if ("type" in self)
+    if bool("type" in self)
     {
         if (type == _type)
         {
@@ -82,7 +82,7 @@ return _count;
 
 var _colliding = false;
 var _o = instance_place(_x, _y, MOBJ);
-if ("type" in _o and _o.type == _type)
+if bool("type" in _o and _o.type == _type)
 {
     _colliding = true;
 }
@@ -91,7 +91,7 @@ return _colliding;
 #define modTypePlace(_x, _y, _type)
 
 var _o = instance_place(_x, _y, MOBJ);
-if ("type" in _o and _o.type == _type)
+if bool("type" in _o and _o.type == _type)
 {
     return _o;
 }
@@ -101,7 +101,7 @@ return false;
 
 with (MOBJ)
 {
-    if ("subtype" in self)
+    if bool("subtype" in self)
     {
         if (subtype == _type)
         {
@@ -115,7 +115,7 @@ return false;
 
 with (MOBJ)
 {
-    if ("subtype" in self)
+    if bool("subtype" in self)
     {
         if (subtype == _type)
         {
@@ -130,7 +130,7 @@ return noone;
 var _list = [];
 with (MOBJ)
 {
-    if ("subtype" in self and subtype == _type)
+    if bool("subtype" in self and subtype == _type)
     {
         array_push(_list, self);
     }
@@ -233,3 +233,70 @@ for(var i = 0; i < array_length(_array); i++)
     }
     rnd -= _array[i, 1];
 }
+
+#define enemy_instance_exists()
+
+if instance_exists(ENEMY)
+{
+    with (ENEMY)
+    {
+        return true;
+    }
+}
+else if instance_exists(MOBJ)
+{
+    with (MOBJ)
+    {
+        if bool("type" in self and type == "Enemy")
+        {
+            return true;
+        }
+    }
+}
+return false;
+
+#define get_nearest_enemy(_x, _y)
+
+var _list = [];
+if instance_exists(MOBJ)
+{
+    with (MOBJ)
+    {
+        if bool("type" in self and type == "Enemy")
+        {
+            array_push(_list, self);
+        }
+    }
+}
+if instance_exists(ENEMY)
+{
+    with (ENEMY)
+    {
+        array_push(_list, self);
+    }
+}
+
+if (array_length(_list) == 0)
+{
+    return self;
+}
+
+var _nearest = _list[0];
+for (var i = 0; i < array_length(_list); i++)
+{
+    var _nearestDis;
+    with (_nearest)
+    {
+        _nearestDis = distance_to_point(_x, _y);
+    }
+    
+    with (_list[i])
+    {
+        if (distance_to_point(_x, _y) < _nearestDis)
+        {
+            _nearest = self;
+        }
+    }
+}
+return _nearest;
+

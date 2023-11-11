@@ -1,8 +1,8 @@
 
 global.jjbamDiscKcm = ItemCreate(
     undefined,
-    "DISC:KCM",
-    "The label says: King Crimson Manga",
+    Localize("standDiscName") + "KCM",
+    Localize("standDiscDescription") + "King Crimson Manga",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -32,8 +32,12 @@ with (_s)
     sprite_index = global.sprKingCrimsonManga;
     name = "King Crimson Manga";
     color = 0xba7bd7;
-    isRare = true;
+    UpdateRarity(Rarity.Mythical);
     saveKey = "jjbamKcm";
     discType = global.jjbamDiscKcm;
+    summonSound = global.sndKcmSummon;
+    teSound = global.sndKcmTe;
+    //teBassSound = global.sndKcmTeBass;
+    teEndSound = global.sndKcmTeEnd;
 }
 return _s;

@@ -1,16 +1,32 @@
 
-CommandCreate("jjbamStand", true, ScriptWrap(CheatGiveStand), "name");
-CommandCreate("jjbamTest", false, ScriptWrap(TestCommand));
-CommandCreate("jjbamDebug", true, ScriptWrap(JjbamDebug));
+CommandCreate("jjStand", true, ScriptWrap(jjCheatGiveStand), "name");
+CommandCreate("jjTest", false, ScriptWrap(jjTestCommand));
+CommandCreate("jjDebug", true, ScriptWrap(jjbamDebug));
 
-CommandCreate("jjbamSpawnPucci", true, ScriptWrap(jjbamSpawnPucci));
-CommandCreate("jjbamPucciCheck", true, ScriptWrap(jjbamPucciCheck));
-CommandCreate("jjbamKillPucci", true, ScriptWrap(jjbamKillPucci));
-CommandCreate("jjbamKillNPCs", true, ScriptWrap(jjbamKillNPCs));
+CommandCreate("jjSpawnPucci", true, ScriptWrap(jjbamSpawnPucci));
+CommandCreate("jjPucciCheck", true, ScriptWrap(jjbamPucciCheck));
+CommandCreate("jjKillPucci", true, ScriptWrap(jjbamKillPucci));
+CommandCreate("jjKillNPCs", true, ScriptWrap(jjbamKillNPCs));
 
-CommandCreate("jjVarSpy", true, ScriptWrap(JjVarSpy), "obj");
+CommandCreate("jjVarSpy", true, ScriptWrap(jjVarSpy), "obj");
 
 CommandCreate("jjRemapKeybind", false, ScriptWrap(jjRemapKeybind), "summon/ability", "key");
+
+CommandCreate("jjMaxExp", true, ScriptWrap(jjMaxExp))
+
+CommandCreate("jjSpawnDio", true, ScriptWrap(jjSpawnDio))
+
+#define jjSpawnDio
+
+var _d = EnemyDioSpawn();
+_d.sun_immunity = true;
+
+#define jjMaxExp
+
+if (instance_exists(STAND) and bool("xp" in STAND))
+{
+    STAND.xp += 100000000;
+}
 
 #define jjRemapKeybind(args)
 
@@ -43,16 +59,10 @@ switch (args[0])
     break;
 }
 
-#define CheatGiveStand(args)
+#define jjCheatGiveStand(args)
 
-with (objPlayer)
-{
-    if (instance_exists(myStand))
-    {
-        instance_destroy(myStand);
-        myStand = noone;
-    }
-}
+RemoveStand(player);
+
 switch (args[0])
 {
     // p3
@@ -61,10 +71,14 @@ switch (args[0])
     case "tw": GiveTheWorld(player); break;
     case "anubis": GiveAnubis(player); break;
     case "stw": GiveShadowTheWorld(player); break;
+    case "spp": GiveSpp(player); break;
+    case "mr": GiveMagiciansRed(player); break;
+    case "hg": GiveHierophantGreen(player); break;
     // p4
     case "sptw": GiveSPTW(player); break;
     case "kq": GiveKillerQueen(player); break;
     case "kqbtd": GiveKillerQueenBtD(player); break;
+    case "hd": GiveHeavensDoor(player); break;
     // p5
     case "sf": GiveStickyFingers(player); break;
     case "ge": GiveGoldExperience(player); break;
@@ -80,6 +94,8 @@ switch (args[0])
     case "twau": GiveTheWorldAU(player); break;
     case "tusk": GiveTusk(player); break;
     case "tusk4": GiveTusk4(); break;
+    //p8
+    case "snw": GiveSoftAndWet(player); break;
     // alts
     case "sw": GiveSpookyWorld(player); break;
     case "spr": GiveSpr(player); break;
@@ -89,18 +105,43 @@ switch (args[0])
     case "shadow": GiveShadow(player); break;
     case "kcm": GiveKcm(player); break;
     case "sqbtd": GiveSQBTD(player); break;
+    case "scova": GiveScova(player); break;
+    case "neo": GiveNeo(player); break;
+    case "te": GiveTe(player); break;
+    case "bs": GiveBs(player); break;
+    case "snwg": GiveSnwg(player); break;
+    case "pd4c": GivePd4c(player); break;
+    case "pd4clt": GivePd4clt(player); break;
+    case "eg": GiveEg(player); break;
+    case "twgh": GiveTwgh(player); break;
+    case "twg": GiveTwg(player); break;
+    case "kcmo": GiveKcmo(player); break;
+    case "kca": GiveKca(player); break;
+    case "twru": GiveTwru(player); break;
+    case "spg": GiveSpg(player); break;
+    case "twau3000": GiveTwau3000(player); break;
+    case "sfg": GiveSfg(player); break;
+    case "sfr": GiveSfr(player); break;
+    case "kcg": GiveKcg(player); break;
+    case "gm": GiveGm(player); break;
+    case "twroh": GiveTwroh(player); break;
+    case "dw": GiveDw(player); break;
+    case "twruoh": GiveTwruoh(player); break;
+    case "hr": GiveHr(player); break;
+    case "hb": GiveHb(player); break;
     // other
     case "sus": GiveImposter(player); break;
+    case "twoh": GiveTWOH(player); break;
     
     default: Trace("not found");
 }
 
-#define TestCommand
+#define jjTestCommand
 
 Trace(display_get_gui_width());
 Trace(display_get_gui_height());
 
-#define JjVarSpy(args)
+#define jjVarSpy(args)
 
 var _obj = asset_get_index(args[0]);
 
@@ -112,7 +153,7 @@ for (var i = 0, n = ds_list_size(_list); i < n; i++)
 }
 ds_list_destroy(_list);
 
-#define JjbamDebug
+#define jjbamDebug
 
 if (!modTypeExists("jjbamDebug"))
 {
@@ -134,7 +175,7 @@ if (_o)
     Trace(object_get_name(_o.object_index));
 }
 
-#define JjbamDebugDraw
+#define jjbamDebugDraw
 
 draw_set_color(c_gray);
 for (var v = 0; v < room_width; v += 16)

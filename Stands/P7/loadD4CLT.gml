@@ -1,8 +1,8 @@
 
 global.jjbamDiscD4clt = ItemCreate(
     undefined,
-    "DISC:D4CLT",
-    "The label says: D4C Love Train",
+    Localize("standDiscName") + "D4CLT",
+    Localize("standDiscDescription") + "D4C Love Train",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -28,8 +28,8 @@ GiveD4CLT(player);
 var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
 var _dir = DIR_PLAYER_TO_MOUSE;
 
-xTo = player.x + lengthdir_x(8, _dir + random_range(-4, 4));
-yTo = player.y + lengthdir_y(8, _dir + random_range(-4, 4));
+xTo = player.x + lengthdir_x(GetStandReach(), _dir + random_range(-4, 4));
+yTo = player.y + lengthdir_y(GetStandReach(), _dir + random_range(-4, 4));
 image_xscale = mouse_x > player.x ? 1 : -1;
 
 attackStateTimer += DT;
@@ -68,9 +68,9 @@ if (keyboard_check_pressed(ord(skills[s, StandSkill.Key])))
 
 #define SlashNearest
 
-if (instance_exists(ENEMY))
+if (enemy_instance_exists())
 {
-    var _n = instance_nearest(x, y, ENEMY);
+    var _n = get_nearest_enemy(x, y);
     LastingDamageCreate(_n, 0.0002, 1, true);
 }
 
@@ -83,16 +83,16 @@ switch (attackState)
         attackState++;
     break;
     case 1:
-        xTo = player.x + lengthdir_x(32, DIR_PLAYER_TO_MOUSE);
-        yTo = player.y + lengthdir_y(32, DIR_PLAYER_TO_MOUSE);
+        xTo = player.x + lengthdir_x(GetStandReach() * 4, DIR_PLAYER_TO_MOUSE);
+        yTo = player.y + lengthdir_y(GetStandReach() * 4, DIR_PLAYER_TO_MOUSE);
         if (attackStateTimer > 0.8)
         {
             attackState++;
         }
     break;
     case 2:
-        xTo = player.x + lengthdir_x(4, DIR_PLAYER_TO_MOUSE);
-        yTo = player.y + lengthdir_y(4, DIR_PLAYER_TO_MOUSE);
+        xTo = player.x + lengthdir_x(GetStandReach() * 4, DIR_PLAYER_TO_MOUSE);
+        yTo = player.y + lengthdir_y(GetStandReach() * 4, DIR_PLAYER_TO_MOUSE);
         if (attackStateTimer > 1)
         {
             attackState++;
@@ -111,8 +111,8 @@ attackStateTimer += DT;
 
 #define SuperCloneSummon(m, skill)
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-xTo = objPlayer.x + lengthdir_x(8, _dir);
-yTo = objPlayer.y + lengthdir_y(8, _dir);
+xTo = objPlayer.x + lengthdir_x(GetStandReach(), _dir);
+yTo = objPlayer.y + lengthdir_y(GetStandReach(), _dir);
 image_xscale = sign(dcos(_dir));
 
 attackStateTimer += 1 / room_speed;
@@ -158,7 +158,7 @@ switch (attackState)
 
 if (!modTypeExists("loveTrain"))
 {
-    LoveTrainCreate(15);
+    LoveTrainCreate(GetDmg(skill));
     FireCD(skill);
     state = StandState.Idle;
 }
@@ -271,7 +271,7 @@ sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = RevolverReload;
 _skills[sk, StandSkill.Icon] = global.sprRevolverReload;
 _skills[sk, StandSkill.MaxCooldown] = 3;
-_skills[sk, StandSkill.Desc] = "reload revolver:\nreload your revolver";
+_skills[sk, StandSkill.Desc] = Localize("revolverReloadDesc");
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = TrickShot;
@@ -279,11 +279,7 @@ _skills[sk, StandSkill.Damage] = 4;
 _skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.Icon] = global.sprSkillGunShot;
 _skills[sk, StandSkill.MaxCooldown] = 0.5;
-_skills[sk, StandSkill.Desc] = @"trick shot:
-fire a projectile forwards.
-
-(after cast) bullet time:
-redirects the projectile into the nearest enemy.";
+_skills[sk, StandSkill.Desc] = Localize("trickShotDesc");
 
 sk = StandState.SkillCOff;
 _skills[sk, StandSkill.Skill] = BulletVolley;
@@ -291,13 +287,13 @@ _skills[sk, StandSkill.Damage] = 3;
 _skills[sk, StandSkill.DamageScale] = 0.3;
 _skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
 _skills[sk, StandSkill.MaxCooldown] = 1;
-_skills[sk, StandSkill.Desc] = "bullet volley:\nfire a volley of three projectiles.";
+_skills[sk, StandSkill.Desc] = Localize("bulletVolleyDesc");
 
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = CloneSwap;
 _skills[sk, StandSkill.Icon] = global.sprSkillCloneSwap;
 _skills[sk, StandSkill.MaxCooldown] = 2;
-_skills[sk, StandSkill.Desc] = "clone swap:\nswap places with the nearest clone you aim at.";
+_skills[sk, StandSkill.Desc] = Localize("cloneSwapDesc");
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = SlashingStrikes;
@@ -309,11 +305,7 @@ _skills[sk, StandSkill.SkillAlt] = MeleePull;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillMeleePull;
 _skills[sk, StandSkill.MaxCooldownAlt] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 0.5;
-_skills[sk, StandSkill.Desc] = @"slashing strikes:
-launches a short barrage of strikes that inflict bleeding.
-
-(hold) melee pull:
-pulls the enemy towards you.";
+_skills[sk, StandSkill.Desc] = Localize("slashingStrikesDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = DoubleSlap;
@@ -321,7 +313,7 @@ _skills[sk, StandSkill.Damage] = 3;
 _skills[sk, StandSkill.DamageScale] = 0.04;
 _skills[sk, StandSkill.Icon] = global.sprSkillDoubleSlap;
 _skills[sk, StandSkill.MaxCooldown] = 4;
-_skills[sk, StandSkill.Desc] = "double slap:\nhovers forward and slaps the enemies twice,\nthe second slap deals more damage.";
+_skills[sk, StandSkill.Desc] = Localize("doubleSlapDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = CloneBomb;
@@ -332,32 +324,18 @@ _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.SkillAlt] = SuperCloneSummon;
 _skills[sk, StandSkill.MaxCooldownAlt] = 6.5;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillCloneSummon;
-_skills[sk, StandSkill.Desc] = @"clone bomb:
-summons a clone of the enemy you aim at that
-chases the target and explodes on contact.
-
-(hold) super clone summon:
-summons even more clones of the user
-to aid them in combat,
-the amount of clones to summon depends
-on the user's level.";
+_skills[sk, StandSkill.Desc] = Localize("clonesDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = LoveTrain;
 _skills[sk, StandSkill.Icon] = global.sprSkillLoveTrain;
 _skills[sk, StandSkill.MaxCooldown] = 45;
+_skills[sk, StandSkill.Damage] = 15;
+_skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.SkillAlt] = DimensionalHop;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillDimensionalHop;
 _skills[sk, StandSkill.MaxCooldownAlt] = 20;
-_skills[sk, StandSkill.Desc] = @"love train:
-summons a pocket dimension as a wall of light that
-reflects all incoming damage back to the nearest enemy.
-
-(hold) dimensional hop:
-pulls out the flag and waves it
-flattening the user and warping them
-into another parallel dimension,
-enemies in range will also be teleported.";
+_skills[sk, StandSkill.Desc] = Localize("loveTrainDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)
@@ -380,6 +358,7 @@ with (_s)
     InstanceAssignMethod(self, "destroy", ScriptWrap(D4Cdestroy));
     InstanceAssignMethod(self, "drawGUI", ScriptWrap(D4CLTDrawGui));
 }
+return _s;
 
 #define D4CLTDrawGui
 

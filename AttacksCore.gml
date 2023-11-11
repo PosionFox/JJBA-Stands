@@ -2,13 +2,27 @@
 #define FireCD(skill)
 
 attackState = 0;
-if (altAttack)
+if (max_energy > 0)
 {
-    skills[skill, StandSkill.CooldownAlt] = skills[skill, StandSkill.MaxCooldownAlt];
+    if (altAttack)
+    {
+        skills[skill, StandSkill.CooldownAlt] = 0.1;
+    }
+    else
+    {
+        skills[skill, StandSkill.Cooldown] = 0.1;
+    }
 }
 else
 {
-    skills[skill, StandSkill.Cooldown] = skills[skill, StandSkill.MaxCooldown];
+    if (altAttack)
+    {
+        skills[skill, StandSkill.CooldownAlt] = skills[skill, StandSkill.MaxCooldownAlt];
+    }
+    else
+    {
+        skills[skill, StandSkill.Cooldown] = skills[skill, StandSkill.MaxCooldown];
+    }
 }
 attackStateTimer = 0;
 altAttack = false;
@@ -18,11 +32,16 @@ skills[skill, StandSkill.ExecutionTime] = 0;
 
 FireCD(skill);
 skills[skill, StandSkill.Cooldown] = 0;
+if (max_energy > 0)
+{
+    energy += skills[skill, StandSkill.EnergyCost];
+}
 
 #define EndAtk(skill)
 
 angleTarget = 0;
 angleTargetSpd = 0.1;
+attackStateTimer = 0;
 FireCD(skill);
 state = StandState.Idle;
 
@@ -30,8 +49,7 @@ state = StandState.Idle;
 
 angleTarget = 0;
 angleTargetSpd = 0.1;
-FireCD(skill);
-skills[skill, StandSkill.Cooldown] = 0;
+ResetCD(skill);
 state = StandState.Idle;
 
 #define AttackHandler(method, skill)
@@ -42,34 +60,30 @@ state = StandState.Idle;
 #define GetDmg(skill)
 
 var _damage = 0;
-with (STAND)
+_damage += skills[skill, StandSkill.Damage] + (owner.level * skills[skill, StandSkill.DamageScale]);
+if (skills[skill, StandSkill.DamagePlayerStat])
 {
-    _damage += skills[skill, StandSkill.Damage] + (player.level * skills[skill, StandSkill.DamageScale]);
-    if (skills[skill, StandSkill.DamagePlayerStat])
-    {
-        _damage += player.dmg;
-    }
+    _damage += owner.dmg;
 }
+var _final_damage = _damage * powerMultiplier * GetRunesDamage();
 
-return _damage;
+return _final_damage;
 
 #define GetDmgAlt(skill)
 
 var _damage = 0;
-with (STAND)
+_damage += skills[skill, StandSkill.DamageAlt] + (owner.level * skills[skill, StandSkill.DamageScaleAlt]);
+if (skills[skill, StandSkill.DamagePlayerStatAlt])
 {
-    _damage += skills[skill, StandSkill.DamageAlt] + (player.level * skills[skill, StandSkill.DamageScaleAlt]);
-    if (skills[skill, StandSkill.DamagePlayerStatAlt])
-    {
-        _damage += player.dmg;
-    }
+    _damage += owner.dmg;
 }
+var _final_damage = _damage * powerMultiplier * GetRunesDamage();
 
-return _damage;
+return _final_damage;
 
-#define ProjHitEnemy(enemy)
+#define ProjHitTarget(_target)
 
-if (array_find_index(instancesHit, enemy.id) == -1)
+if (array_find_index(instancesHit, _target.id) == -1)
 {
     if (onHitSound != noone)
     {
@@ -86,15 +100,22 @@ if (array_find_index(instancesHit, enemy.id) == -1)
     }
     PunchEffectCreate(x, y);
     DustEntityAdd(x, y);
-    var _dir = point_direction(x, y, enemy.x, enemy.y) - 180;
+    var _dir = point_direction(x, y, _target.x, _target.y) - 180;
     // if (other.knockback > 0)
     // {
     //     KnockbackCreate(self, other.knockback, other.direction, other.knockbackDuration);
     // }
-    enemy.h = lengthdir_x(knockback, direction);
-    enemy.v = lengthdir_y(knockback, direction);
-    enemy.hp -= damage;
-    array_push(instancesHit, enemy.id);
+    _target.h = lengthdir_x(knockback, direction);
+    _target.v = lengthdir_y(knockback, direction);
+    if (_target.object_index == player)
+    {
+        DmgPlayer(damage / 10, true);
+    }
+    else
+    {
+        _target.hp -= damage;
+    }
+    array_push(instancesHit, _target.id);
     if (destroyOnImpact)
     {
         instance_destroy(self);
@@ -114,6 +135,10 @@ with (_o)
     type = "projectile";
     subtype = "projectile";
     owner = other;
+    targets = other.targets;
+    z = 5;
+    shadow_enabled = true;
+    scale = 1;
     despawnFade = true;
     despawnTime = 5;
     baseSpd = 5;
@@ -134,6 +159,7 @@ with (_o)
     onHitEventArg = undefined;
     
     InstanceAssignMethod(self, "step", ScriptWrap(ProjectileStep), false);
+    InstanceAssignMethod(self, "draw", ScriptWrap(ProjectileDraw), false);
     InstanceAssignMethod(self, "destroy", ScriptWrap(ProjectileDestroy), false);
 }
 return _o;
@@ -193,17 +219,72 @@ if (instance_exists(self))
         }
     }
     
-    with (ENEMY)
+    try
     {
-        if (place_meeting(x, y, other) and scale != 0)
+        for (var i = 0; i < array_length(targets); i++)
         {
-            with (other)
+            if (targets[i] = MOBJ)
             {
-                ProjHitEnemy(other);
+                with (targets[i])
+                {
+                    if (place_meeting(x, y, other) and bool("targetableFlag" in self))
+                    {
+                        with (other)
+                        {
+                            ProjHitTarget(other);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                with (targets[i])
+                {
+                    if (place_meeting(x, y, other) and scale != 0)
+                    {
+                        with (other)
+                        {
+                            ProjHitTarget(other);
+                        }
+                    }
+                }
             }
         }
     }
+    catch (e)
+    {
+        //Trace("error");
+    }
 }
+
+#define ProjectileDraw
+
+if (shadow_enabled)
+{
+    draw_sprite_ext(
+        sprShadow,
+        0,
+        x,
+        y,
+        sprite_width / sprite_get_width(sprShadow),
+        sprite_height / sprite_get_height(sprShadow),
+        image_angle,
+        c_white,
+        image_alpha * 0.5
+    );
+}
+
+draw_sprite_ext(
+    sprite_index,
+    image_index,
+    x,
+    y - z,
+    image_xscale,
+    image_yscale,
+    image_angle,
+    image_blend,
+    image_alpha
+);
 
 #define ProjectileDestroy
 
@@ -274,6 +355,7 @@ with (o)
 {
     type = "timestop";
     owner = other;
+    targets = owner.targets;
     global.timeIsFrozen = true;
     resumeSound = global.sndTwTsResume;
     
@@ -297,26 +379,66 @@ if (whiteScreen > 0)
     whiteScreen -= 1 / room_speed;
 }
 
-with (ENEMY)
+for (var i = 0; i < array_length(targets); i++)
 {
-    freeze = 2;
-    // var _o = ModObjectSpawn(x, y, depth);
-    // _o.type = "TsEnemy";
-    // _o.target = self;
-    // _o.sprite_index = sprite_index;
-    // _o.image_speed = 0;
-    // _o.image_index = image_index;
-    // _o.image_xscale = -image_xscale;
-    // _o.image_yscale = image_yscale;
-    // _o.damageStack = 0;
-    // InstanceAssignMethod(_o, "step", ScriptWrap(TsEnemyStep), false);
-    // InstanceAssignMethod(_o, "destroy", ScriptWrap(TsEnemyDestroy), false);
-    // instance_deactivate_object(self);
+    with (targets[i])
+    {
+        freeze = 5;
+    }
 }
 
 if (instance_exists(objArrow))
 {
     with (objArrow)
+    {
+        speed = lerp(speed, 0, 0.1);
+    }
+}
+if (instance_exists(objBallistaArrow))
+{
+    with (objBallistaArrow)
+    {
+        speed = lerp(speed, 0, 0.1);
+    }
+}
+if (instance_exists(objIceBolt))
+{
+    with (objIceBolt)
+    {
+        speed = lerp(speed, 0, 0.1);
+    }
+}
+if (instance_exists(objDarkBeetProjectile))
+{
+    with (objDarkBeetProjectile)
+    {
+        speed = lerp(speed, 0, 0.1);
+    }
+}
+if (instance_exists(objSkeletonBoomerang))
+{
+    with (objSkeletonBoomerang)
+    {
+        speed = lerp(speed, 0, 0.1);
+    }
+}
+if (instance_exists(objToxicProjectile))
+{
+    with (objToxicProjectile)
+    {
+        speed = lerp(speed, 0, 0.1);
+    }
+}
+if (instance_exists(objFireball))
+{
+    with (objFireball)
+    {
+        speed = lerp(speed, 0, 0.1);
+    }
+}
+if (instance_exists(objVenomBolt))
+{
+    with (objVenomBolt)
     {
         speed = lerp(speed, 0, 0.1);
     }
@@ -368,11 +490,60 @@ if (instance_exists(objArrow))
         speed = 6;
     }
 }
+if (instance_exists(objBallistaArrow))
+{
+    with (objBallistaArrow)
+    {
+        speed = 5;
+    }
+}
+if (instance_exists(objIceBolt))
+{
+    with (objIceBolt)
+    {
+        speed = 2;
+    }
+}
+if (instance_exists(objDarkBeetProjectile))
+{
+    with (objDarkBeetProjectile)
+    {
+        speed = 3;
+    }
+}
+if (instance_exists(objSkeletonBoomerang))
+{
+    with (objSkeletonBoomerang)
+    {
+        speed = 2;
+    }
+}
+if (instance_exists(objToxicProjectile))
+{
+    with (objToxicProjectile)
+    {
+        speed = 2;
+    }
+}
+if (instance_exists(objFireball))
+{
+    with (objFireball)
+    {
+        speed = 3;
+    }
+}
+if (instance_exists(objVenomBolt))
+{
+    with (objVenomBolt)
+    {
+        speed = 2;
+    }
+}
 
 audio_play_sound(resumeSound, 5, false);
 with (MOBJ)
 {
-    if ("type" in self)
+    if bool("type" in self)
     {
         if (type == "TsEnemy")
         {
@@ -419,11 +590,11 @@ with (_p)
 return _p;
 
 #define StandBarrage(method, skill)
-var _dis = point_distance(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
-xTo = objPlayer.x + lengthdir_x(8, _dir + random_range(-4, 4));
-yTo = objPlayer.y + lengthdir_y(8, _dir + random_range(-4, 4));
+var _dir = owner.attack_direction;
+
+xTo = objPlayer.x + lengthdir_x(GetStandReach(), _dir + random_range(-4, 4));
+yTo = objPlayer.y + lengthdir_y(GetStandReach(), _dir + random_range(-4, 4));
 image_xscale = mouse_x > objPlayer.x ? 1 : -1;
 
 if (distance_to_point(xTo, yTo) < 2)
@@ -470,20 +641,30 @@ return _p;
 
 #define PunchSwingStep
 
-var pd = point_direction(x, y, mouse_x, mouse_y);
-var xx = player.x + lengthdir_x(32, pd);
-var yy = player.y + lengthdir_y(32, pd);
+var pd = player.attack_direction;
+var xx = x;
+var yy = y;
+if (instance_exists(owner))
+{
+    xx = owner.x + lengthdir_x(32, pd);
+    yy = owner.y + lengthdir_y(32, pd);
+}
 pd = point_direction(x, y, xx, yy);
 var dd = angle_difference(direction, pd);
 direction -= min(abs(dd), swingSpd) * sign(dd);
 
 #define StrongPunch(method, skill)
 
-var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
-var _dir = point_direction(player.x, player.y, mouse_x, mouse_y)
-
-var _xx = player.x + lengthdir_x(8, _dir);
-var _yy = player.y + lengthdir_y(8, _dir);
+var _dir = 0;
+var _xx = x;
+var _yy = y;
+if (instance_exists(owner))
+{
+    _dir = owner.attack_direction;
+    
+    _xx = owner.x + lengthdir_x(GetStandReach(), _dir);
+    _yy = owner.y + lengthdir_y(GetStandReach(), _dir);
+}
 xTo = _xx;
 yTo = _yy;
 
@@ -526,7 +707,50 @@ if (instance_exists(target))
     x = target.x;
     y = target.y;
     
-    if ("hp" in target)
+    if bool("hp" in target)
+    {
+        if (percentageDamage)
+        {
+            target.hp -= target.hpMax * damage;
+        }
+        else
+        {
+            target.hp -= damage;
+        }
+    }
+    
+    if (time >= timeMax)
+    {
+        instance_destroy(self);
+        exit;
+    }
+    time += DT;
+}
+
+#define BurnDamageCreate(_target, _dmg, _time, _percentageDamage)
+
+var _o = ModObjectSpawn(_target.x, _target.y, _target.depth);
+with (_o)
+{
+    target = _target;
+    damage = _dmg;
+    timeMax = _time;
+    time = 0;
+    percentageDamage = _percentageDamage;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(BurnDamageStep), false);
+}
+return _o;
+
+#define BurnDamageStep
+
+if (instance_exists(target))
+{
+    x = target.x;
+    y = target.y;
+    FireEffect(c_red, c_yellow);
+    
+    if bool("hp" in target)
     {
         if (percentageDamage)
         {
@@ -595,7 +819,7 @@ switch (state)
     case "chase":
         if (isGuided)
         {
-            var pd = point_direction(x, y, mouse_x, mouse_y);
+            var pd = owner.attack_direction;
             var dd = angle_difference(direction, pd);
             direction -= min(abs(dd), 3) * sign(dd);
         }

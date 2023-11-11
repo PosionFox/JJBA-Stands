@@ -8,6 +8,9 @@ loadSilverChariot();
 loadAnubis();
 loadShadowTW();
 loadTheWorld();
+SPP();
+MagiciansRed();
+HierophantGreen();
 
 #endregion
 
@@ -16,6 +19,7 @@ loadTheWorld();
 loadSPTW();
 loadKillerQueen();
 loadKillerQueenBtD();
+HeavensDoor();
 
 #endregion
 
@@ -45,6 +49,18 @@ loadTusk();
 
 #endregion
 
+#region p8
+
+loadSnW();
+
+#endregion
+
+#region p9
+
+
+
+#endregion
+
 #region alts
 
 loadSpookyWorld();
@@ -55,6 +71,30 @@ TWOVA();
 Shadow();
 KCM();
 SQBTD();
+SCOVA();
+NEO();
+TimeEmperor();
+BS();
+SnWG();
+PD4C();
+PD4CLT();
+EG();
+TWGH();
+TWGray();
+KCMo();
+KCA();
+TWRu();
+SPG();
+TWAU3000();
+SFG();
+SFR();
+KCGray();
+Gm();
+TWROH();
+TWRuOH();
+DW();
+HR();
+HB();
 
 #endregion
 
@@ -62,6 +102,7 @@ SQBTD();
 
 StImposter();
 AbSakuya();
+TWOH();
 
 #endregion
 

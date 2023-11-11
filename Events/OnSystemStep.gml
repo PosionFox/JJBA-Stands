@@ -1,9 +1,17 @@
 
 #define OnSystemStep
 
-if (room = rmGame)
+if (instance_exists(player))
 {
-    if (random(100) < 0.02)
+    if (bool("myStand" in player) and instance_exists(player.myStand))
+    {
+        RunRunesUpdateTick();
+    }
+}
+
+if (room == rmGame)
+{
+    if (random(100) <= 0.02)
     {
         if (!NPC2Exists(global.npcPucci))
         {

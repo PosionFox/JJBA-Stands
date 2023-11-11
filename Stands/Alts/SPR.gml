@@ -1,8 +1,8 @@
 
 global.jjbamDiscSpr = ItemCreate(
     undefined,
-    "DISC:SPR",
-    "The label says: Star Platinum Retro",
+    Localize("standDiscName") + "SPR",
+    Localize("standDiscDescription") + "Star Platinum Retro",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -29,8 +29,8 @@ GiveSpr(player);
 var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y)
 
-var _xx = player.x + lengthdir_x(8, _dir);
-var _yy = player.y + lengthdir_y(8, _dir);
+var _xx = player.x + lengthdir_x(GetStandReach(), _dir);
+var _yy = player.y + lengthdir_y(GetStandReach(), _dir);
 xTo = _xx;
 yTo = _yy;
 
@@ -58,8 +58,8 @@ attackStateTimer += DT;
 
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
 
-var _xx = player.x + lengthdir_x(8, _dir);
-var _yy = player.y + lengthdir_y(8, _dir);
+var _xx = player.x + lengthdir_x(GetStandReach(), _dir);
+var _yy = player.y + lengthdir_y(GetStandReach(), _dir);
 xTo = _xx;
 yTo = _yy;
 image_xscale = mouse_x > player.x ? 1 : -1;
@@ -78,24 +78,24 @@ switch (attackState)
     break;
     case 2:
         audio_play_sound(global.sndSprFinger, 0, false);
+        var _dmg = GetDmg(skill);
         var _p = ProjectileCreate(x, y);
         with (_p)
         {
             subtype = "starFinger";
             owner = STAND;
             sprite_index = global.sprStarPlatinumFinger;
+            image_xscale = 0;
             image_blend = STAND.color;
-            damage = GetDmg(skill);
+            damage = _dmg;
             stationary = true;
             canDespawnInTs = true;
             destroyOnImpact = false;
             direction = _dir;
             despawnFade = false;
             despawnTime = 1;
-            fingerSize = 0;
             
-            InstanceAssignMethod(self, "step", ScriptWrap(StarFingerStep), false);
-            InstanceAssignMethod(self, "draw", ScriptWrap(StarFingerDraw), false);
+            InstanceAssignMethod(self, "step", ScriptWrap(StarFingerStep));
         }
         attackState++;
     break;
@@ -151,7 +151,7 @@ with (_s)
     name = "Star Platinum Retro";
     sprite_index = global.sprSPR;
     color = /*#*/0xe4cd5f;
-    isRare = true;
+    UpdateRarity(Rarity.Mythical);
     saveKey = "jjbamSpr";
     discType = global.jjbamDiscSpr;
     
@@ -162,5 +162,6 @@ with (_s)
     skills[StandState.SkillB, StandSkill.Skill] = SprStrongPunch;
     skills[StandState.SkillC, StandSkill.Skill] = SprStarFinger;
     skills[StandState.SkillD, StandSkill.Skill] = SprTimestop;
+    skills[StandState.SkillD, StandSkill.SkillAlt] = AttackHandler;
 }
 return _s;

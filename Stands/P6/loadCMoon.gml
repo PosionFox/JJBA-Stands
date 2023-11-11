@@ -2,8 +2,8 @@
 //wip
 global.jjbamDiscCmn = ItemCreate(
     undefined,
-    "DISC:CMN",
-    "The label says: C-Moon",
+    Localize("standDiscName") + "CMN",
+    Localize("standDiscDescription") + "C-Moon",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -25,11 +25,40 @@ if (instance_exists(STAND) or room != rmGame)
 }
 GiveCMoon(player);
 
-#define GiveCMoon(_owner) //stand
+#define GravityShift(m, s)
 
-var _name = "C-Moon";
-var _sprite = global.sprCMoon;
-var _color = /*#*/0x30be6a;
+GravityShiftCreate(owner.x, owner.y);
+EndAtk(s);
+
+#define GravityShiftCreate(_x, _y)
+
+var _o = ModObjectSpawn(_x, _y, -100000);
+with (_o)
+{
+    surf = 0;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(GravityShiftStep));
+    InstanceAssignMethod(self, "draw", ScriptWrap(GravityShiftDraw));
+}
+
+#define GravityShiftStep
+
+if (!surface_exists(surf) and surface_exists(application_surface))
+{
+    surf = surface_create(1280, 720);
+    surface_set_target(surf)
+    draw_surface(application_surface, 0, 0);
+    surface_reset_target();
+}
+
+#define GravityShiftDraw
+
+if (surface_exists(application_surface))
+{
+    draw_surface_ext(application_surface, (WorldControl.x - 640), (WorldControl.y - 360), 1, 1, 0, c_white, 1);
+}
+
+#define GiveCMoon(_owner) //stand
 
 var _skills = StandSkillInit();
 
@@ -59,7 +88,7 @@ _skills[sk, StandSkill.MaxExecutionTime] = 0.7;
 _skills[sk, StandSkill.Desc] = "star finger:\nstar platinum stretches their finger hitting enemies in the way.";
 
 sk = StandState.SkillD;
-_skills[sk, StandSkill.Skill] = AttackHandler;
+_skills[sk, StandSkill.Skill] = GravityShift;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimestopSp;
 _skills[sk, StandSkill.MaxCooldown] = 20;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
@@ -70,8 +99,9 @@ with (_s)
 {
     name = "C-Moon";
     sprite_index = global.sprCMoon;
-    color = /*#*/0x30be6a;
+    color = 0x30be6a;
     summonSound = global.sndSpSummon;
     saveKey = "jjbamCmn";
     discType = global.jjbamDiscCmn;
 }
+return _s;

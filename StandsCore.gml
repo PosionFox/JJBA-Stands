@@ -7,27 +7,36 @@ var _width = display_get_gui_width();
 var _height = display_get_gui_height() - 40;
 
 
-//draw_text(128, 128, string(objPlayer.dmg)); // debug
+//draw_text(128, 160, string(TimeControl.timer)); // debug
+//draw_text(128, 192, string(TimeControl.lightState)); // debug
+// 3 is night and 0 is dawn
 
-if (isRare or isUnobtainable)
+var xx = 168;
+var yy = _height - 200;
+var _ss = random_range(0.85, 1.15);
+var _spr = global.sprStarTier;
+var _c = rarity.color;
+
+draw_sprite_ext(_spr, 0, xx - 4, yy, _ss, _ss, 0, _c, 0.8);
+
+var gx = device_mouse_x_to_gui(0);
+var gy = device_mouse_y_to_gui(0);
+if (point_in_rectangle(gx, gy, xx - 16, yy - 16, xx + 16, yy + 16))
 {
-    var xx = 168;
-    var yy = _height - 200;
-    var _ss = random_range(0.85, 1.15);
-    var _spr = sprStarFragment;
-    var _c = c_purple;
-    if (isUnobtainable) { _spr = sprLegendaryGem; }
-    if (isUnobtainable) { _c = c_red; }
-    
-    draw_sprite_ext(_spr, 0, xx - 4, yy, _ss, _ss, 0, _c, 0.8);
-    
-    var gx = device_mouse_x_to_gui(0);
-    var gy = device_mouse_y_to_gui(0);
-    if (point_in_rectangle(gx, gy, xx - 16, yy - 16, xx + 16, yy + 16))
+    draw_text(gx + 8, gy, rarity.name);
+}
+
+// draw runes
+var _rlen = array_length(runes);
+for (var i = 0; i < _rlen; i++)
+{
+    if (runes[i] == noone)
     {
-        var txt = "rare";
-        if (isUnobtainable) { txt = "unobtainable"; }
-        draw_text(gx + 8, gy, txt);
+        draw_circle_color(xx - 128 + (32 * i), yy - 32, 8, c_black, c_black, false);
+    }
+    else
+    {
+        draw_sprite(runes[i].sprite, 0, xx - 128 + (32 * i), yy - 32);
     }
 }
 
@@ -89,12 +98,16 @@ for (var i = _start; i <= _end; i++)
     var gy = device_mouse_y_to_gui(0);
     if (point_in_rectangle(gx, gy, xx - 32, yy - 32, xx + 32, yy + 32) and skills[i, StandSkill.Desc] != "")
     {
-        var dmg = skills[i, StandSkill.Damage] + (player.level * skills[i, StandSkill.DamageScale]);
+        //var dmg = skills[i, StandSkill.Damage] + (player.level * skills[i, StandSkill.DamageScale]);
         var desc = skills[i, StandSkill.Desc];
         var txt = desc;
         if (skills[i, StandSkill.Damage] != 0)
         {
-            txt += "\n\ndmg: " + string(dmg) + " + " + string(player.dmg);
+            txt += "\n\n" + Localize("dmgDisplay") + ": " + string(GetDmg(i)) + " + " + string(player.dmg);
+        }
+        if (skills[i, StandSkill.DamageAlt] != 0)
+        {
+            txt += "\n" + Localize("dmgDisplay") + " alt: " + string(GetDmgAlt(i)) + " + " + string(player.dmg);
         }
         draw_set_color(c_dkgray);
         draw_rectangle(gx, (yy - 64) - string_height(txt), gx + string_width(txt), (yy - 64), false);
@@ -107,17 +120,26 @@ for (var i = _start; i <= _end; i++)
     }
 }
 
+xx = 168;
+yy = _height - 200;
+// draw energy bar
+if (max_energy > 0)
+{
+    var _color = make_color_rgb(0, abs(sin(current_time / 1000)) * 254, abs(sin(current_time / 1000)) * 254);
+    draw_line_width_color(xx - 134, yy + 134, (xx - 134) + ((energy / max_energy) * 250), yy + 134, abs(sin(current_time / 1000)) * 5, _color, _color);
+}
+
 #define StandSkillRunCD(s)
 
 for (var i = StandState.LEN - 1; i > 0; i--)
 {
     if (s[@ i, StandSkill.Cooldown] > 0)
     {
-        s[@ i, StandSkill.Cooldown] -= DT;
+        s[@ i, StandSkill.Cooldown] -= DT * CDMultiplier;
     }
     if (s[@ i, StandSkill.CooldownAlt] > 0)
     {
-        s[@ i, StandSkill.CooldownAlt] -= DT;
+        s[@ i, StandSkill.CooldownAlt] -= DT * CDMultiplier;
     }
 }
 
@@ -129,35 +151,71 @@ StandSkillRunCD(skills);
 
 for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
 {
-    if (state == StandState.Idle and active = skills[i, StandSkill.ActiveOnly])
+    if (state == StandState.Idle and active == skills[i, StandSkill.ActiveOnly])
     {
-        if (player.hp != 0 and !instance_exists(objPlayerMenu))
+        if (owner.hp != 0 and !instance_exists(objPlayerMenu))
         {
             if (keyboard_check(ord(skills[i, StandSkill.Key]))/* or InputCheckDown(skills[i, StandSkill.GpBtn])*/)
             {
-                if (skills[i, StandSkill.CooldownAlt] <= 0 and skills[i, StandSkill.SkillAlt] != AttackHandler)
+                if (max_energy > 0)
                 {
-                    skills[i, StandSkill.Hold] += 1 / room_speed;
-                    skills[i, StandSkill.Hold] = clamp(skills[i, StandSkill.Hold], 0, skills[i, StandSkill.MaxHold]);
-                    if (skills[i, StandSkill.Hold] >= skills[i, StandSkill.MaxHold] and !altAttack)
+                    if (energy >= skills[i, StandSkill.EnergyCost] and skills[i, StandSkill.SkillAlt] != AttackHandler)
                     {
-                        altAttack = true;
-                        var _s = audio_play_sound(sndCoin1, 1, false);
-                        audio_sound_pitch(_s, 1.5);
+                        skills[i, StandSkill.Hold] += DT;
+                        skills[i, StandSkill.Hold] = clamp(skills[i, StandSkill.Hold], 0, skills[i, StandSkill.MaxHold]);
+                        if (skills[i, StandSkill.Hold] >= skills[i, StandSkill.MaxHold] and !altAttack)
+                        {
+                            altAttack = true;
+                            var _s = audio_play_sound(sndCoin1, 1, false);
+                            audio_sound_pitch(_s, 1.5);
+                        }
+                    }
+                }
+                else
+                {
+                    if (skills[i, StandSkill.CooldownAlt] <= 0 and skills[i, StandSkill.SkillAlt] != AttackHandler)
+                    {
+                        skills[i, StandSkill.Hold] += DT;
+                        skills[i, StandSkill.Hold] = clamp(skills[i, StandSkill.Hold], 0, skills[i, StandSkill.MaxHold]);
+                        if (skills[i, StandSkill.Hold] >= skills[i, StandSkill.MaxHold] and !altAttack)
+                        {
+                            altAttack = true;
+                            var _s = audio_play_sound(sndCoin1, 1, false);
+                            audio_sound_pitch(_s, 1.5);
+                        }
                     }
                 }
             }
             if (keyboard_check_released(ord(skills[i, StandSkill.Key]))/* or InputCheckPressed(skills[i, StandSkill.GpBtn])*/)
             {
-                if (!altAttack and skills[i, StandSkill.Cooldown] <= 0)
+                if (max_energy > 0)
                 {
-                    state = i;
+                    if (energy >= skills[i, StandSkill.EnergyCost])
+                    {
+                        if (!altAttack and skills[i, StandSkill.Cooldown] <= 0)
+                        {
+                            state = i;
+                        }
+                        else if (altAttack)
+                        {
+                            state = i;
+                        }
+                        skills[i, StandSkill.Hold] = 0;
+                        energy -= skills[i, StandSkill.EnergyCost];
+                    }
                 }
-                else if (altAttack)
+                else
                 {
-                    state = i;
+                    if (!altAttack and skills[i, StandSkill.Cooldown] <= 0)
+                    {
+                        state = i;
+                    }
+                    else if (altAttack)
+                    {
+                        state = i;
+                    }
+                    skills[i, StandSkill.Hold] = 0;
                 }
-                skills[i, StandSkill.Hold] = 0;
             }
         }
     }
@@ -192,7 +250,7 @@ script_execute(runCDsMethod);
 
 if (state == StandState.Idle)
 {
-    if (keyboard_check_pressed(ord(player.summonKeybind)))
+    if (keyboard_check_pressed(ord(player.summonKeybind)) and owner.freeze < 1)
     {
         active = !active;
         if (active)
@@ -242,10 +300,14 @@ if (active)
         scaleX = mouseXSide;
         image_xscale = mouseXSide;
         alphaTarget = 1;
-        script_execute(idlePos);
+        if (runIdlePos)
+        {
+            script_execute(idlePos);
+        }
         height = 2 + (cos(current_time / 1000) * 2);
     }
-    EffectStandAuraCreate(x, y - height, auraParticleSprite, color);
+    var _e = EffectStandAuraCreate(x, y - height, auraParticleSprite, color);
+    _e.rotation = auraParticleRotation;
 }
 else
 {
@@ -274,7 +336,20 @@ if (soundIdleTimer <= 0)
 }
 soundIdleTimer -= DT;
 
-StandSkillManage();
+if (instance_exists(owner))
+{
+    if (owner.freeze < 1)
+    {
+        StandSkillManage();
+    }
+}
+
+max_energy = GetRunesMaxEnergy();
+if (max_energy > 0)
+{
+    energy += max_energy * 0.0005;
+    energy = clamp(energy, 0, max_energy);
+}
 
 #define StandDefaultDraw
 
@@ -336,6 +411,15 @@ _arr[StandState.SkillB, StandSkill.Key] = _arr[StandState.SkillBOff, StandSkill.
 _arr[StandState.SkillC, StandSkill.Key] = _arr[StandState.SkillCOff, StandSkill.Key];
 _arr[StandState.SkillD, StandSkill.Key] = _arr[StandState.SkillDOff, StandSkill.Key];
 
+_arr[StandState.SkillAOff, StandSkill.EnergyCost] = 25;
+_arr[StandState.SkillBOff, StandSkill.EnergyCost] = 50;
+_arr[StandState.SkillCOff, StandSkill.EnergyCost] = 75;
+_arr[StandState.SkillDOff, StandSkill.EnergyCost] = 100;
+_arr[StandState.SkillA, StandSkill.EnergyCost] = 25;
+_arr[StandState.SkillB, StandSkill.EnergyCost] = 50;
+_arr[StandState.SkillC, StandSkill.EnergyCost] = 75;
+_arr[StandState.SkillD, StandSkill.EnergyCost] = 100;
+
 return _arr;
 
 #define StandBuilder(_owner, _skills)
@@ -351,7 +435,7 @@ if (!instance_exists(_owner))
         exit;
     }
 }
-if !("myStand" in _owner)
+if !bool("myStand" in _owner)
 {
     _owner.myStand = noone;
 }
@@ -366,19 +450,26 @@ with (_stand)
     type = "stand";
     name = "unknown";
     owner = _owner;
+    targets = [ENEMY, MOBJ];
     sprite_index = global.sprStarPlatinum;
     xTo = _owner.x;
     yTo = _owner.y;
     height = 0;
-    isRare = false;
-    isUnobtainable = false;
+    rarity = {
+        tier : Rarity.Common,
+        name : Localize("commonName"),
+        color : c_white
+    };
     saveKey = "jjbamStandless";
     discType = noone;
     color = c_white;
+    colorAlt = c_white;
     summonSound = global.sndStandSummon;
     playSummonSound = true;
     auraParticleSprite = global.sprStandParticle;
+    auraParticleRotation = 0;
     // state
+    CDMultiplier = 1;
     attackState = 0;
     attackStateTimer = 0;
     active = false;
@@ -387,6 +478,7 @@ with (_stand)
     alphaTarget = 0;
     angleTarget = 0;
     angleTargetSpd = 0.1;
+    scale = 1;
     scaleX = 1;
     scaleXSpd = 0.1;
     scaleY = 1;
@@ -397,12 +489,20 @@ with (_stand)
     soundIdleTimer = irandom_range(60, 120);
     soundWhenHurt = undefined;
     soundWhenDead = undefined;
+    runIdlePos = true;
     idlePos = StandDefaultPos;
     summonMethod = StandDefaultSummon;
     runCDsMethod = StandSkillDefaultCDs;
     runDrawGUI = true;
     // stats
+    powerMultiplier = GetPowerMultiplier(rarity.tier);
     spd = 0.5;
+    stand_reach = 8;
+    attack_reach = 1;
+    crit_chance = 0;
+    runes = [noone, noone, noone];
+    max_energy = 0;
+    energy = max_energy;
     // skills
     skills = array_clone(_skills);
     
@@ -413,11 +513,60 @@ with (_stand)
 }
 return _stand;
 
+#define GetPowerMultiplier(_rarity)
+
+switch(_rarity)
+{
+    case Rarity.Common: return 1; break;
+    case Rarity.Uncommon: return 2; break;
+    case Rarity.Rare: return 4; break;
+    case Rarity.Epic: return 8; break;
+    case Rarity.Legendary: return 16; break;
+    case Rarity.Mythical: return 32; break;
+    case Rarity.Ascended: return 64; break;
+    case Rarity.Ultimate: return 128; break;
+}
+
+#define GetRarityName(_rarity)
+
+switch(_rarity)
+{
+    case Rarity.Common: return Localize("commonName"); break;
+    case Rarity.Uncommon: return Localize("uncommonName"); break;
+    case Rarity.Rare: return Localize("rareName"); break;
+    case Rarity.Epic: return Localize("epicName"); break;
+    case Rarity.Legendary: return Localize("legendaryName"); break;
+    case Rarity.Mythical: return Localize("mythicalName"); break;
+    case Rarity.Ascended: return Localize("ascendedName"); break;
+    case Rarity.Ultimate: return Localize("ultimateName"); break;
+}
+
+#define GetRarityColor(_rarity)
+
+switch(_rarity)
+{
+    case Rarity.Common: return c_white; break;
+    case Rarity.Uncommon: return c_lime; break;
+    case Rarity.Rare: return c_blue; break;
+    case Rarity.Epic: return c_purple; break;
+    case Rarity.Legendary: return c_yellow; break;
+    case Rarity.Mythical: return c_red; break;
+    case Rarity.Ascended: return c_orange; break;
+    case Rarity.Ultimate: return c_fuchsia; break;
+}
+
+#define UpdateRarity(_rarity)
+
+rarity.tier = _rarity;
+powerMultiplier = GetPowerMultiplier(_rarity);
+rarity.name = GetRarityName(_rarity)
+rarity.color = GetRarityColor(_rarity)
+
 #define RemoveStand(_owner)
 
 with (MOBJ)
 {
-    if ("type" in self)
+    if bool("type" in self)
     {
         if (type == "timestop")
         {
@@ -427,6 +576,7 @@ with (MOBJ)
 }
 if (instance_exists(_owner) and instance_exists(_owner.myStand))
 {
+    RunesRemove(_owner);
     with (_owner.myStand)
     {
         state = StandState.Idle;
@@ -439,3 +589,6 @@ if (instance_exists(_owner) and instance_exists(_owner.myStand))
     _owner.myStand = noone;
 }
 
+#define GetStandReach
+
+return (stand_reach * GetRunesStandReach());

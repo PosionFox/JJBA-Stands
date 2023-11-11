@@ -2,8 +2,8 @@
 
 global.jjbamArrow = ItemCreate(
     undefined,
-    "Suspicious Arrow",
-    "Looks like a normal arrow.",
+    Localize("susArrowName"),
+    Localize("susArrowDescription"),
     global.sprArrow,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -19,10 +19,47 @@ global.jjbamArrow = ItemCreate(
     true
 );
 
+global.jjbamRokakaka = ItemCreate(
+    undefined,
+    Localize("rokakakaName"),
+    Localize("rokakakaDescription"),
+    global.sprRokakaka,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    32,
+    0,
+    0,
+    undefined,
+    ScriptWrap(RokakakaUse),
+    60 * 2,
+    true
+);
+
+global.jjRokakakaStew = ItemCreate(
+    undefined,
+    Localize("rokakakaStewName"),
+    Localize("rokakakaStewDescription"),
+    global.sprRokakakaStew,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    61,
+    0,
+    0,
+    [
+        global.jjbamRokakaka, 1,
+        Item.HotPepper, 1,
+        Item.Egg, 2,
+        Item.Beet, 5
+    ],
+    ScriptWrap(RokakakaStewUse),
+    60 * 20,
+    true
+);
+
 global.jjbamRequiem = ItemCreate(
     undefined,
-    "Requiem Arrow",
-    "An arrow with a fancy beetle design.",
+    Localize("requiemArrowName"),
+    Localize("requiemArrowDescription"),
     global.sprArrowBeetle,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -40,8 +77,8 @@ global.jjbamRequiem = ItemCreate(
 
 global.jjbamEternalArrow = ItemCreate(
     undefined,
-    "Eternal Arrow",
-    "Looks like a suspicious arrow but more ominous.",
+    Localize("eternalArrowName"),
+    Localize("eternalArrowDescription"),
     global.sprEternalArrow,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -60,8 +97,8 @@ global.jjbamEternalArrow = ItemCreate(
 
 global.jjDiscBlueprint = ItemCreate(
     undefined,
-    "Disc Blueprint",
-    "Contains information needed to craft synthetic stand discs in a factory without a whitesnake.",
+    Localize("discBlueprintName"),
+    Localize("discBlueprintDescription"),
     global.sprDiscBlueprint,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -77,8 +114,8 @@ global.jjDiscBlueprint = ItemCreate(
 // stand discs were moved to their stand files
 global.jjbamDisc = ItemCreate(
     undefined,
-    "DISC",
-    "A disc to remove and store data.",
+    Localize("discName"),
+    Localize("discDescription"),
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -96,8 +133,8 @@ global.jjbamDisc = ItemCreate(
 
 global.jjbamSteelBall = ItemCreate(
     undefined,
-    "Steel Ball",
-    "Learn the ways of spin.",
+    Localize("steelBallName"),
+    Localize("steelBallDescription"),
     global.sprSteelBall,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -115,8 +152,8 @@ global.jjbamSteelBall = ItemCreate(
 
 global.jjbamAnubis = ItemCreate(
     undefined,
-    "Anubis",
-    "Anubis is the strongest stand!",
+    Localize("anubisName"),
+    Localize("anubisDescription"),
     global.sprAnubis,
     ItemType.Consumable,
     ItemSubType.None,
@@ -128,6 +165,57 @@ global.jjbamAnubis = ItemCreate(
     0,
     true,
     5
+);
+
+global.jjDiosDiary = ItemCreate(
+    undefined,
+    Localize("diosDiaryName"),
+    Localize("diosDiaryDescription"),
+    global.sprDiosDiary,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    1000,
+    0,
+    0,
+    undefined,
+    ScriptWrap(DiosDiaryUse),
+    60 * 4,
+    false
+);
+
+global.jjDiosBone = ItemCreate(
+    undefined,
+    Localize("diosBoneName"),
+    Localize("diosBoneDescription"),
+    global.sprDiosBone,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    1000,
+    0,
+    0,
+    undefined,
+    ScriptWrap(DiosBoneUse),
+    60 * 4,
+    false
+);
+
+global.jjEgyptianCrown = ItemCreate(
+    undefined,
+    Localize("egyptianCrownName"),
+    Localize("egyptianCrownDescription"),
+    global.sprEgyptianCrown,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    812,
+    0,
+    0,
+    [
+        Item.GoldIngot, 100,
+        Item.Topaz, 2
+    ],
+    ScriptWrap(EgyptianCrownUse),
+    60 * 30,
+    true
 );
 
 // var _newArray = StructureGet(Structure.Forge, StructureData.Items);
@@ -143,12 +231,14 @@ StructureAddItem(Structure.Forge, global.jjbamRequiem);
 StructureAddItem(Structure.Factory, global.jjbamDisc);
 //StructureAddItem(Structure.Forge, global.jjbamSteelBall);
 
+StructureAddItem(Structure.Cookpot, global.jjRokakakaStew);
+
 #region holy parts
 
 global.jjbamHeart = ItemCreate(
     undefined,
-    "Heart",
-    "The heart of the saint.",
+    Localize("heartName"),
+    Localize("heartDescription"),
     global.sprHeart,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -163,8 +253,8 @@ global.jjbamHeart = ItemCreate(
 
 global.jjbamEye = ItemCreate(
     undefined,
-    "Eye",
-    "The eye of the saint.",
+    Localize("eyeName"),
+    Localize("eyeDescription"),
     global.sprEye,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -179,8 +269,8 @@ global.jjbamEye = ItemCreate(
 
 global.jjbamLeftArm = ItemCreate(
     undefined,
-    "Left Arm",
-    "The left arm of the saint.",
+    Localize("leftArmName"),
+    Localize("leftArmDescription"),
     global.sprLeftArm,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -197,8 +287,8 @@ global.jjbamLeftArm = ItemCreate(
 
 global.jjPrayerBeads = ItemCreate(
     undefined,
-    "Prayer Beads",
-    "Summons Enrico Pucci.",
+    Localize("prayerBeadsName"),
+    Localize("prayerBeadsDescription"),
     global.sprPrayerBeads,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -216,7 +306,111 @@ global.jjPrayerBeads = ItemCreate(
 )
 StructureAddItem(Structure.Forge, global.jjPrayerBeads);
 
+#define EgyptianCrownUse
+
+if (TimeControl.lightState == 0 or TimeControl.lightState == 3)
+{
+    if (modSubtypeExists("DIO"))
+    {
+        GainItem(global.jjEgyptianCrown, 1);
+    }
+    else
+    {
+        EnemyDioSpawn();
+    }
+}
+else
+{
+    GainItem(global.jjEgyptianCrown, 1);
+}
+
+#define DiosBoneUse
+
+GainItem(global.jjDiosBone, 1);
+
+#define RokakakaStewUse
+
+if (room != rmGame)
+{
+    GainItem(global.jjRokakakaStew);
+    exit;
+}
+
+if (instance_exists(STAND))
+{
+    if (STAND.discType != noone)
+    {
+        DmgPlayer(1, false);
+        RemoveStand(player);
+        var _c = random(1);
+        if (_c > 0.04)
+        {
+            GainItem(global.jjRokakakaStew);
+        }
+    }
+}
+else
+{
+    GainItem(global.jjRokakakaStew);
+}
+
+#define DiosDiaryUse
+
+if (room != rmGame)
+{
+    GainItem(global.jjDiosDiary);
+    exit;
+}
+
+if (instance_exists(STAND))
+{
+    switch (STAND.name)
+    {
+        case "The World":
+            GiveTWOH(player);
+        break;
+        case "The World Retro":
+            GiveTwroh(player);
+        break;
+        case "The World Runic":
+            GiveTwruoh(player);
+        break;
+        default: GainItem(global.jjDiosDiary); break;
+    }
+}
+else
+{
+    GainItem(global.jjDiosDiary);
+}
+
+#define RokakakaUse
+
+if (room != rmGame)
+{
+    GainItem(global.jjbamRokakaka);
+    exit;
+}
+
+if (instance_exists(STAND))
+{
+    if (STAND.discType != noone)
+    {
+        DmgPlayer(1, false);
+        RemoveStand(player);
+    }
+}
+else
+{
+    GainItem(global.jjbamRokakaka);
+}
+
 #define PrayerBeadsUse
+
+if (room != rmGame)
+{
+    GainItem(global.jjPrayerBeads);
+    exit;
+}
 
 if (global.pucciSpawned == false)
 {
@@ -306,15 +500,15 @@ if (instance_exists(STAND))
                 [GiveSQBTD, 1]
             ]
             script_execute(random_weight(_stands), player);
-            Trace("The arrow merges with the stand!");
+            Trace(Localize("requiemArrowMerge"));
         break;
         case "Gold Experience":
             RemoveStand(player);
             GiveGer(player);
-            Trace("The arrow reacts with the stand!");
+            Trace(Localize("requiemArrowMerge"));
         break;
         default:
-            Trace("Nothing happens...");
+            Trace(Localize("requiemArrowRefuse"));
             GainItem(global.jjbamRequiem);
         break;
     }
@@ -326,15 +520,39 @@ else
 
 #define GiveRandomStand
 
+/*
+    100 = common
+    50 = uncommon
+    25 = rare
+    12 = epic
+    5 = legendary
+    1 = mythical
+*/
+
 var _standPool =
 [
-    [GiveStarPlatinum, 30],
-    [GiveShadowTheWorld, 30],
-    [GiveKillerQueen, 30],
-    [GiveStickyFingers, 30],
-    [GiveGoldExperience, 30],
-    [GiveKingCrimson, 30],
-    [GiveImposter, 1],
+    [GiveStarPlatinum, 100],
+    [GiveShadowTheWorld, 100],
+    [GiveKillerQueen, 100],
+    [GiveStickyFingers, 100],
+    [GiveGoldExperience, 100],
+    [GiveKingCrimson, 100],
+    [GiveSilverChariot, 100],
+    [GiveWhiteSnake, 100],
+    [GiveHierophantGreen, 100],
+    [GiveSpg, 50],
+    [GiveSfg, 50],
+    [GiveSfr, 50],
+    [GiveKcg, 50],
+    [GiveHr, 50],
+    [GiveScova, 25],
+    [GiveKca, 25],
+    [GiveHb, 25],
+    [GiveBs, 12],
+    [GiveImposter, 5],
+    [GiveKcmo, 5],
+    [GiveDw, 5],
+    [GiveSpp, 5],
     [GiveSpr, 1],
     [GiveShadow, 1],
     [GiveKcm, 1]
@@ -391,16 +609,24 @@ if (instance_exists(STAND))
             STAND.hasArm = true;
             D4CEvolveIfCan();
         break;
+        case "Patriot D4C":
+            STAND.hasArm = true;
+            PD4CEvolveIfCan();
+        break;
         default:
-            Trace("The holy part refuses to interact with you");
+            Trace(Localize("holyPartRefuse"));
             GainItem(global.jjbamLeftArm);
         break;
     }
 }
 else
 {
-    Trace("The holy part refuses to interact with you");
-    GainItem(global.jjbamLeftArm);
+    var _standPool =
+    [
+        [GiveSoftAndWet, 100],
+        [GiveSnwg, 5]
+    ]
+    script_execute(random_weight(_standPool), player);
 }
 
 #define HeartUse
@@ -422,14 +648,19 @@ if (instance_exists(STAND))
         //     D4CEvolveIfCan();
         // break;
         default:
-            Trace("The holy part refuses to interact with you");
+            Trace(Localize("holyPartRefuse"));
             GainItem(global.jjbamHeart);
         break;
     }
 }
 else
 {
-    GiveD4C(player);
+    var _standPool =
+    [
+        [GiveD4C, 100],
+        [GivePd4c, 12]
+    ]
+    script_execute(random_weight(_standPool), player);
 }
 
 #define EyeUse
@@ -457,14 +688,24 @@ if (instance_exists(STAND))
             STAND.hasEye = true;
             D4CEvolveIfCan();
         break;
+        case "Patriot D4C":
+            STAND.hasEye = true;
+            PD4CEvolveIfCan();
+        break;
         default:
-            Trace("The holy part refuses to interact with you");
+            Trace(Localize("holyPartRefuse"));
             GainItem(global.jjbamEye);
         break;
     }
 }
 else
 {
-    GiveTheWorldAU(player);
+    var _standPool =
+    [
+        [GiveTheWorldAU, 100],
+        [GiveNeo, 12],
+        [GiveTwau3000, 5]
+    ]
+    script_execute(random_weight(_standPool), player);
 }
 

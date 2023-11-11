@@ -1,8 +1,8 @@
 
 global.jjbamDiscStw = ItemCreate(
     undefined,
-    "DISC:STW",
-    "The label says: Shadow The World",
+    Localize("standDiscName") + "STW",
+    Localize("standDiscDescription") + "Shadow The World",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -44,44 +44,46 @@ draw_set_color(c_white);
 
 #define StwXXI(method, skill) //attacks
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-var _dis = 12;
+var _dis = GetStandReach() * 1.5;
 alphaTarget = 1;
 
 switch (attackState)
 {
     case 0:
+        if (attackStateTimer >= 0.1) attackState++;
+    break;
+    case 1:
         audio_play_sound(summonSound, 0, false);
         var _snd = audio_play_sound(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         PunchSwingCreate(x, y, _dir, 45, GetDmg(skill));
         attackState++;
     break;
-    case 1:
+    case 2:
         if (attackStateTimer >= 0.3)
         {
             attackState++;
         }
     break;
-    case 2:
+    case 3:
         var _snd = audio_play_sound(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         PunchSwingCreate(x, y, _dir, 45, GetDmg(skill));
         attackState++;
     break;
-    case 3:
+    case 4:
         if (attackStateTimer >= 0.8)
         {
             attackState++;
         }
     break;
-    case 4:
-        _dis = 16;
+    case 5:
+        _dis = GetStandReach() * 2;
         var _snd = audio_play_sound(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         PunchSwingCreate(x, y, _dir, 45, GetDmg(skill) * 2);
-        audio_play_sound(global.sndStw2Desummon, 0, false);
-        FireCD(skill);
-        state = StandState.Idle;
+        audio_play_sound(desummonSound, 0, false);
+        EndAtk(skill);
     break;
 }
 xTo = objPlayer.x + lengthdir_x(_dis, _dir);
@@ -90,8 +92,8 @@ attackStateTimer += 1 / room_speed;
 
 #define StwPunishment(method, skill)
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-xTo = objPlayer.x + lengthdir_x(12, _dir);
-yTo = objPlayer.y + lengthdir_y(12, _dir);
+xTo = objPlayer.x + lengthdir_x(GetStandReach() * 1.5, _dir);
+yTo = objPlayer.y + lengthdir_y(GetStandReach() * 1.5, _dir);
 alphaTarget = 1;
 
 switch (attackState)
@@ -128,9 +130,9 @@ var _dmg = 2 + (player.level * 0.2) + player.dmg;
 //var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 var _target = player;
 alphaTarget = 1;
-if (instance_exists(ENEMY))
+if (enemy_instance_exists())
 {
-    _target = instance_nearest(x, y, ENEMY);
+    _target = get_nearest_enemy(x, y);
 }
 var c = random(1);
 if (c < 0.5)
@@ -139,6 +141,8 @@ if (c < 0.5)
     audio_play_sound(_s, 0, false);
 }
 
+EffectWhiteScreen(0.1);
+audio_play_sound(global.sndTwohTp, 5, false);
 var _snd = audio_play_sound(global.sndStwKnifeThrow2, 0, false);
 audio_sound_pitch(_snd, random_range(0.9, 1.1));
 var _k = 8;
@@ -169,10 +173,11 @@ switch (attackState)
         var i = 0;
         repeat (4)
         {
+            var _dmg = GetDmg(skill);
             var _p = ProjectileCreate(player.x, player.y);
             with (_p)
             {
-                damage = GetDmg(skill);
+                damage = _dmg;
                 direction = (_dir - (i * 2)) - 4;
                 canMoveInTs = false;
                 sprite_index = other.knifeSprite;
@@ -195,10 +200,11 @@ switch (attackState)
         var i = 0;
         repeat (4)
         {
+            var _dmg = GetDmg(skill);
             var _p = ProjectileCreate(player.x, player.y);
             with (_p)
             {
-                damage = GetDmg(skill);
+                damage = _dmg;
                 direction = (_dir + (i * 2)) + 4;
                 canMoveInTs = false;
                 sprite_index = other.knifeSprite;
@@ -233,9 +239,9 @@ switch (attackState)
         with (_p)
         {
             var _arg = noone;
-            if (instance_exists(ENEMY))
+            if (enemy_instance_exists())
             {
-                _arg = instance_nearest(x, y, ENEMY);
+                _arg = get_nearest_enemy(x, y);
             }
             onHitEvent = StwDivineBloodCreate;
             onHitEventArg = _arg;
@@ -252,11 +258,12 @@ var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
 player.h = lengthdir_x(1, _dir + 180);
 player.v = lengthdir_y(1, _dir + 180);
 audio_play_sound(global.sndStwSRSE, 0, false);
+var _dmg = GetDmg(skill);
 var _p = ProjectileCreate(player.x, player.y - 4);
 with (_p)
 {
     baseSpd = 10;
-    damage = GetDmg(skill);
+    damage = _dmg;
     direction = _dir;
     canMoveInTs = false;
     destroyOnImpact = false;
@@ -270,7 +277,7 @@ var _p = ProjectileCreate(player.x, player.y - 4);
 with (_p)
 {
     baseSpd = 10;
-    damage = GetDmg(skill);
+    damage = _dmg;
     direction = _dir;
     canMoveInTs = false;
     destroyOnImpact = false;
@@ -345,10 +352,11 @@ switch (attackState)
     case 2:
         for (var i = 0; i < 5; i++)
         {
+            var _dmg = GetDmg(skill);
             var _o = ProjectileCreate(x + lengthdir_x(16, 45 * i), y + lengthdir_y(16, 45 * i));
             with (_o)
             {
-                damage = GetDmg(skill);
+                damage = _dmg;
                 canMoveInTs = false;
                 baseSpd = 0.1;
                 direction = random(360);
@@ -370,11 +378,12 @@ attackStateTimer += DT;
 #define StwTimestop(method, skill)
 
 xTo = player.x;
-yTo = player.y;
+yTo = player.y - 8;
 
 switch (attackState)
 {
     case 0:
+        alphaTarget = 1;
         var _tsExists = modTypeExists("timestop");
 
         if (_tsExists)
@@ -407,7 +416,7 @@ switch (attackState)
     break;
     case 4:
         var s = audio_play_sound(global.sndStwTokiyotomare, 5, false);
-        
+        alphaTarget = 0;
         EndAtk(skill);
     break;
 }
@@ -444,8 +453,11 @@ if (timer <= 0)
 {
     var _standPool =
     [
-        [GiveTheWorld, 30],
-        [GiveSpookyWorld, 1]
+        [GiveTheWorld, 100],
+        [GiveTwg, 50],
+        [GiveSpookyWorld, 25],
+        [GiveTwgh, 5],
+        [GiveTwru, 1]
     ]
     script_execute(random_weight(_standPool), player);
     instance_destroy(self);
@@ -512,9 +524,9 @@ if (life <= 0)
 #define StwCharismaStep
 
 baseSpd *= 1.02;
-if (instance_exists(ENEMY))
+if (enemy_instance_exists())
 {
-    var _near = instance_nearest(x, y, ENEMY);
+    var _near = get_nearest_enemy(x, y);
     if (distance_to_object(_near) < 128)
     {
         var pd = point_direction(x, y, _near.x, _near.y);
@@ -530,11 +542,11 @@ var _skills = StandSkillInit();
 var sk;
 sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = StwUry;
-_skills[sk, StandSkill.Damage] = 4;
+_skills[sk, StandSkill.Damage] = 10;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillUry;
 _skills[sk, StandSkill.MaxCooldown] = 8;
-_skills[sk, StandSkill.Desc] = "uryyy:\nlunge forward striking enemies on the way.";
+_skills[sk, StandSkill.Desc] = Localize("uryDesc");
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = StwSRSE;
@@ -542,13 +554,13 @@ _skills[sk, StandSkill.Damage] = 6;
 _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillSRSE;
 _skills[sk, StandSkill.MaxCooldown] = 8;
-_skills[sk, StandSkill.Desc] = "space ripper stingy eyes:\nfire two piercing lasers at high speeds.";
+_skills[sk, StandSkill.Desc] = Localize("srseDesc");
 
 sk = StandState.SkillCOff;
 _skills[sk, StandSkill.Skill] = StwDivineBlood;
 _skills[sk, StandSkill.Icon] = global.sprSkillDivineBlood;
 _skills[sk, StandSkill.MaxCooldown] = 15;
-_skills[sk, StandSkill.Desc] = "divine blood:\ndrains the target's health and heals the user.";
+_skills[sk, StandSkill.Desc] = Localize("divineBloodDesc");
 
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = StwCharisma;
@@ -556,7 +568,7 @@ _skills[sk, StandSkill.Damage] = 5;
 _skills[sk, StandSkill.DamageScale] = 0.01;
 _skills[sk, StandSkill.Icon] = global.sprSkillCharisma;
 _skills[sk, StandSkill.MaxCooldown] = 18;
-_skills[sk, StandSkill.Desc] = "charisma:\nrelease vampiric spores that chase enemies around.";
+_skills[sk, StandSkill.Desc] = Localize("charismaDesc");
 // on
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StwXXI;
@@ -564,7 +576,7 @@ _skills[sk, StandSkill.Damage] = 3;
 _skills[sk, StandSkill.DamageScale] = 0.03;
 _skills[sk, StandSkill.Icon] = global.sprSkillXXI;
 _skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.Desc] = "xxi:\nexecutes a combo of two punches and a strong final punch.";
+_skills[sk, StandSkill.Desc] = Localize("xxiDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = StwPunishment;
@@ -572,7 +584,7 @@ _skills[sk, StandSkill.Damage] = 1;
 _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillPunishment;
 _skills[sk, StandSkill.MaxCooldown] = 10;
-_skills[sk, StandSkill.Desc] = "punishment:\ncharges an attack that upon impact surrounds the enemy with knifes.";
+_skills[sk, StandSkill.Desc] = Localize("punishmentDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = StwThrowingKnifes;
@@ -580,23 +592,16 @@ _skills[sk, StandSkill.Damage] = 3;
 _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillStwKnifes;
 _skills[sk, StandSkill.MaxCooldown] = 6;
-_skills[sk, StandSkill.Desc] = "throwing knifes:\nthrows two bursts of knifes.";
+_skills[sk, StandSkill.Desc] = Localize("throwingKnifesDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = StwTimestop;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimestopStw;
-_skills[sk, StandSkill.MaxCooldown] = 22;
+_skills[sk, StandSkill.MaxCooldown] = 20;
 _skills[sk, StandSkill.SkillAlt] = StwTheWorld;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillStwTw;
 _skills[sk, StandSkill.MaxHold] = 2;
-_skills[sk, StandSkill.Desc] = @"the world's secret power:
-stops the time for a brief moment,
-most enemies are not allowed to move
-and makes your projectiles freeze in place.
-
-(hold) the world:
-with enough experience,
-shadow the world evolves into the world.";
+_skills[sk, StandSkill.Desc] = Localize("stwTimestopDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)
@@ -604,13 +609,14 @@ with (_s)
     name = "Shadow The World";
     sprite_index = global.sprShadowTheWorld;
     summonSound = global.sndStwSummon;
+    desummonSound = global.sndStw2Desummon;
     playSummonSound = false;
     idlePos = StwPos;
     soundWhenHurt = [global.sndStwHurt1, global.sndStwHurt2, global.sndStwHurt3];
     soundWhenDead = global.sndStwDead;
     knifeSprite = global.sprKnifeStw;
     discType = global.jjbamDiscStw;
-    maxXp = 300;
+    maxXp = 1000;
     xp = 0;
     
     saveKey = "jjbamStw";

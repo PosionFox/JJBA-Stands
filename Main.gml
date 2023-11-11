@@ -7,11 +7,11 @@
 
 if (instance_exists(player))
 {
-    if !("myStand" in player)
+    if !bool("myStand" in player)
     {
-        STAND = noone;
+        player.myStand = noone;
     }
-    if !("skCustomStands" in player)
+    if !bool("skCustomStands" in player)
     {
         player.skCustomStands = false;
     }
@@ -28,7 +28,7 @@ return array_clone(class);
 
 #define printVersion
 
-Trace("jjbas v0.6.0b");
+Trace("jjbas v0.6.0");
 
 #define Main
 
@@ -36,9 +36,14 @@ printVersion();
 
 global.timeIsFrozen = false;
 
+localizationEnglish();
+localizationSpanish();
 loadSprites();
 loadSounds();
 loadItems();
+Runes();
+loadEnemies();
+loadSpawns();
 loadStands();
 loadStructures();
 loadNPCs();

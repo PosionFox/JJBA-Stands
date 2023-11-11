@@ -1,8 +1,8 @@
 
 global.jjbamDiscSpova = ItemCreate(
     undefined,
-    "DISC:SPOVA",
-    "The label says: Star Platinum OVA",
+    Localize("standDiscName") + "SPOVA",
+    Localize("standDiscDescription") + "Star Platinum OVA",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -151,7 +151,7 @@ with (_s)
     name = "Star Platinum OVA";
     sprite_index = global.sprSPR;
     color = /*#*/0xe4cd5f;
-    isUnobtainable = true;
+    UpdateRarity(Rarity.Mythical);
     saveKey = "jjbamSpova";
     discType = global.jjbamDiscSpova;
     

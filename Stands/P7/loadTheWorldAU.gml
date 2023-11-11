@@ -1,8 +1,8 @@
 
 global.jjbamDiscTwau = ItemCreate(
     undefined,
-    "DISC:TWAU",
-    "The label says: The World Alternate Universe",
+    Localize("standDiscName") + "TWAU",
+    Localize("standDiscDescription") + "The World Alternate Universe",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -31,14 +31,15 @@ audio_sound_pitch(_snd, random_range(0.9, 1.1));
 
 for (var i = 0; i < 3; i++)
 {
+    var _dmg = GetDmg(s);
     var _p = ProjectileCreate(player.x, player.y);
     with (_p)
     {
         var _d = (_dir - 16) + (i * 16);
-        damage = GetDmg(s);
+        damage = _dmg;
         direction = _d;
         canMoveInTs = false;
-        sprite_index = global.sprKnife;
+        sprite_index = other.sprKnife;
     }
 }
 EndAtk(s);
@@ -186,8 +187,8 @@ life -= DT;
 var _dis = point_distance(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
-var _xx = objPlayer.x + lengthdir_x(8, _dir);
-var _yy = objPlayer.y + lengthdir_y(8, _dir);
+var _xx = objPlayer.x + lengthdir_x(GetStandReach(), _dir);
+var _yy = objPlayer.y + lengthdir_y(GetStandReach(), _dir);
 xTo = _xx;
 yTo = _yy;
 image_xscale = mouse_x > objPlayer.x ? 1 : -1;
@@ -202,14 +203,15 @@ if (distance_to_point(_xx, _yy) < 2)
         var xx = x + random_range(-8, 8);
         var yy = y + random_range(-8, 8);
         var ddir = _dir + random_range(-2, 2);
+        var _dmg = GetDmg(skill);
         var _p = ProjectileCreate(xx, yy);
         with (_p)
         {
-            damage = GetDmg(skill);
+            damage = _dmg;
             direction = _dir;
             direction += random_range(-4, 4);
             canMoveInTs = false;
-            sprite_index = global.sprKnife;
+            sprite_index = other.sprKnife;
         }
         attackStateTimer = 0;
     }
@@ -237,11 +239,21 @@ BulletCreate(player.x, player.y, _dir, GetDmg(skill));
 FireCD(skill)
 state = StandState.Idle;
 
-#define TwauTimestop(method, skill)
+#define TwauTimestop(m, s)
 
-audio_play_sound(global.sndTwAuTs, 5, false);
-TimestopCreate(5 + (0.15 * player.level));
-EndAtk(skill);
+var _length = 5 + (0.15 * player.level);
+if (player.hp <= player.hpMax * 0.5)
+{
+    audio_play_sound(global.sndTwAuTsPanic, 5, false);
+    _length = 8 + (0.2 * player.level);
+}
+else
+{
+    audio_play_sound(global.sndTwAuDiegoTs, 5, false);
+}
+var _t = TimestopCreate(_length);
+_t.resumeSound = global.sndTwAuTsResume;
+EndAtk(s);
 
 #define GiveTheWorldAU(_owner) //stand
 
@@ -252,7 +264,7 @@ sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = RevolverReload;
 _skills[sk, StandSkill.Icon] = global.sprRevolverReload;
 _skills[sk, StandSkill.MaxCooldown] = 4;
-_skills[sk, StandSkill.Desc] = "reload revolver:\nreload your revolver";
+_skills[sk, StandSkill.Desc] = Localize("revolverReloadDesc");
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = BulletVolley;
@@ -260,7 +272,7 @@ _skills[sk, StandSkill.Damage] = 3;
 _skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
 _skills[sk, StandSkill.MaxCooldown] = 1;
-_skills[sk, StandSkill.Desc] = "bullet volley:\nfire a volley of three projectiles.";
+_skills[sk, StandSkill.Desc] = Localize("bulletVolleyDesc");
 
 sk = StandState.SkillCOff;
 _skills[sk, StandSkill.Skill] = TripleKnifeThrow;
@@ -268,7 +280,7 @@ _skills[sk, StandSkill.Damage] = 5;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillTripleKnifeThrow;
 _skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.Desc] = "triple knife:\ntoss three knifes at once.";
+_skills[sk, StandSkill.Desc] = Localize("tripleKnifeDesc");
 /*
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = Matches;
@@ -290,7 +302,7 @@ _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 4;
-_skills[sk, StandSkill.Desc] = "barrage:\nlaunches a barrage of punches.";
+_skills[sk, StandSkill.Desc] = Localize("barrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = KnifeBarrage;
@@ -299,21 +311,21 @@ _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillKnifeBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
-_skills[sk, StandSkill.Desc] = "knife barrage:\nlaunches a barrage of knifes.";
+_skills[sk, StandSkill.Desc] = Localize("knifeBarrageDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = StrongPunch;
-_skills[sk, StandSkill.Damage] = 4;
+_skills[sk, StandSkill.Damage] = 20;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 7;
-_skills[sk, StandSkill.Desc] = "strong punch:\ncharges and launches a strong punch.";
+_skills[sk, StandSkill.Desc] = Localize("strongPunchDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = TwauTimestop;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimestop;
 _skills[sk, StandSkill.MaxCooldown] = 25;
-_skills[sk, StandSkill.Desc] = "it's my time!:\nstops the time, most enemies are not allowed to move\nand makes your projectiles freeze in place.";
+_skills[sk, StandSkill.Desc] = Localize("twauTimestopDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)
@@ -322,6 +334,7 @@ with (_s)
     sprite_index = global.sprTheWorldAU;
     color = 0x36c7fb;
     summonSound = global.sndTwSummon;
+    sprKnife = global.sprKnife;
     saveKey = "jjbamTwau";
     discType = global.jjbamDiscTwau;
     
@@ -329,6 +342,7 @@ with (_s)
     
     InstanceAssignMethod(self, "drawGUI", ScriptWrap(TWAUDrawGui));
 }
+return _s;
 
 #define TWAUDrawGui
 

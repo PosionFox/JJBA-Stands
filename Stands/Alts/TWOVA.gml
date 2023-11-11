@@ -1,8 +1,8 @@
 
 global.jjbamDiscTwova = ItemCreate(
     undefined,
-    "DISC:TWOVA",
-    "The label says: The World OVA",
+    Localize("standDiscName") + "TWOVA",
+    Localize("standDiscDescription") + "The World OVA",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -45,13 +45,12 @@ switch (attackState)
         var _p = PunchCreate(x, y, _dir, GetDmg(skill), 0);
         with (_p)
         {
-            var _arg = noone;
-            if (instance_exists(ENEMY))
+            if (enemy_instance_exists())
             {
-                _arg = instance_nearest(x, y, ENEMY);
+                var _arg = get_nearest_enemy(x, y);
+                onHitEvent = StwDivineBloodCreate;
+                onHitEventArg = _arg;
             }
-            onHitEvent = StwDivineBloodCreate;
-            onHitEventArg = _arg;
             destroyOnImpact = true;
         }
         EndAtk(skill);
@@ -183,7 +182,7 @@ with (_s)
     name = "The World OVA";
     sprite_index = global.sprTWR;
     color = /*#*/0x66a0d9;
-    isUnobtainable = true;
+    UpdateRarity(Rarity.Mythical);
     saveKey = "jjbamTwova";
     discType = global.jjbamDiscTwova;
     

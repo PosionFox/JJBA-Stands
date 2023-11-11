@@ -1,8 +1,8 @@
 
 global.jjbamDiscSQBTD = ItemCreate(
     undefined,
-    "DISC:SQBTD",
-    "The label says: Shadow Queen: Bites the Dust",
+    Localize("standDiscName") + "SQBTD",
+    Localize("standDiscDescription") + "Shadow Queen: Bites the Dust",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -32,7 +32,7 @@ with (_s)
     sprite_index = global.sprSQBTD;
     name = "Shadow Queen:\nBites the Dust";
     color = 0x3c2845;
-    isRare = true;
+    UpdateRarity(Rarity.Epic);
     auraParticleSprite = global.sprStandParticle2;
     saveKey = "jjbamSqbtd";
     discType = global.jjbamDiscSQBTD;

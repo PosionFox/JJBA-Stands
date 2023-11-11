@@ -43,5 +43,17 @@ enum StandSkill {
     CooldownAlt,
     MaxExecutionTime,
     ExecutionTime,
+    EnergyCost,
     LEN
+}
+
+enum Rarity {
+    Common,
+    Uncommon,
+    Rare,
+    Epic,
+    Legendary,
+    Mythical,
+    Ascended,
+    Ultimate
 }

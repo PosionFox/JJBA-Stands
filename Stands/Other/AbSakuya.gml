@@ -42,7 +42,6 @@ with (_s)
     summonSound = global.sndImposterSummon;
     saveKey = "jjbamSus";
     discType = global.jjbamDiscSus;
-    isRare = true;
     rot = 0;
     
     InstanceAssignMethod(self, "draw", ScriptWrap(ImposterDraw), false);

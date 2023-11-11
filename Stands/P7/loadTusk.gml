@@ -2,8 +2,8 @@
 // wip
 global.jjbamDiscTsk = ItemCreate(
     undefined,
-    "DISC:TUSK",
-    "The label says: Tusk",
+    Localize("standDiscName") + "TUSK",
+    Localize("standDiscDescription") + "Tusk",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -209,9 +209,9 @@ state = StandState.Idle;
 tpTime += 1 / room_speed;
 if (tpTime >= 1)
 {
-    if (instance_exists(ENEMY))
+    if (enemy_instance_exists())
     {
-        var _near = instance_nearest(x, y, ENEMY);
+        var _near = get_nearest_enemy(x, y);
         var _d = random(360);
         x = _near.x + lengthdir_x(32, _d);
         y = _near.y + lengthdir_y(32, _d);

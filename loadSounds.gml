@@ -1,6 +1,10 @@
 
 var p = ""; // path short
 
+p = "Resources/Sounds/DIO/";
+global.sndDioSpawn = audio_create_stream(p + "dioSpawn.ogg");
+global.sndDioDeath = audio_create_stream(p + "dio_death.ogg");
+
 #region generic stand
 
 p = "Resources/Sounds/Generic/Stand/";
@@ -18,6 +22,7 @@ global.sndPunchHit = audio_create_stream(p + "punchHit.ogg");
 global.sndKnifeThrow = audio_create_stream(p + "knifeThrow.ogg");
 global.sndGunShot = audio_create_stream(p + "gunShot.ogg");
 global.sndStrongPunch = audio_create_stream(p + "strongPunch.ogg");
+global.sndHeavyPunch = audio_create_stream(p + "heavyPunch.ogg");
 global.sndRevFire1 = audio_create_stream(p + "revFire1.ogg");
 global.sndRevFire2 = audio_create_stream(p + "revFire2.ogg");
 global.sndRevFire3 = audio_create_stream(p + "revFire3.ogg");
@@ -31,10 +36,11 @@ global.sndRevReload = audio_create_stream(p + "revReload.ogg");
 p = "Resources/Sounds/SP/";
 global.sndSpSummon = audio_create_stream(p + "spSummon.ogg");
 global.sndSpTs = audio_create_stream(p + "spTs.ogg");
+global.sndSpOpenSoda = audio_create_stream(p + "spOpenSoda.ogg");
 
 #endregion
 
-#region star platinum ova
+#region star platinum retro
 
 p = "Resources/Sounds/SPR/";
 global.sndSprOra = audio_create_stream(p + "sprOra.ogg");
@@ -49,6 +55,32 @@ global.sndSprDead = audio_create_stream(p + "sprDead.ogg");
 global.sndSprTs = audio_create_stream(p + "sprTs.ogg");
 global.sndSprStaar = audio_create_stream(p + "sprStaar.ogg");
 global.sndSprFinger = audio_create_stream(p + "sprFinger.ogg");
+
+#endregion
+
+#region star platinum the world
+
+p = "Resources/Sounds/SPTW/";
+global.sndSptwTp = audio_create_stream(p + "sptwTp.ogg");
+
+#endregion
+
+#region silver chariot
+
+p = "Resources/Sounds/SC/";
+global.sndScSummon = audio_create_stream(p + "scSummon.ogg");
+global.sndScBarrage = audio_create_stream(p + "scBarrage.ogg");
+global.sndScLunge = audio_create_stream(p + "scLunge.ogg");
+global.sndScSweep = audio_create_stream(p + "scSweep.ogg");
+global.sndScArmorOff = audio_create_stream(p + "scArmorOff.ogg");
+global.sndScBladeOff = audio_create_stream(p + "scBladeOff.ogg");
+
+#endregion
+
+#region hierophant green
+
+p = "Resources/Sounds/HG/";
+global.sndHgEmeraldSplash = audio_create_stream(p + "hgEmeraldSplash.ogg");
 
 #endregion
 
@@ -101,13 +133,26 @@ p = "Resources/Sounds/TW/";
 global.sndTwSummon = audio_create_stream(p + "twSummon.ogg");
 global.sndTwTs = audio_create_stream(p + "twTs.ogg");
 global.sndStopSign = audio_create_stream(p + "stopSign.ogg");
+global.sndTwBarrage = audio_create_stream(p + "twBarrage.ogg");
 
 #endregion
 
-#region the world ova
+#region the world over heaven
+
+p = "Resources/Sounds/TWOH/";
+global.sndTwohTs = audio_create_stream(p + "twohTs.ogg");
+global.sndTwohHeal = audio_create_stream(p + "twohHeal.ogg");
+global.sndTwohWave = audio_create_stream(p + "twohWave.ogg");
+global.sndTwohTp = audio_create_stream(p + "twohTp.ogg");
+global.sndTwohRealityOverwrite = audio_create_stream(p + "twohRealityOverwrite.ogg");
+
+#endregion
+
+#region the world retro
 
 p = "Resources/Sounds/TWR/";
 global.sndTwrSummon = audio_create_stream(p + "twrSummon.ogg");
+global.sndTwrBarrage = audio_create_stream(p + "twrBarrage.ogg");
 global.sndTwrTs = audio_create_stream(p + "twrTs.ogg");
 global.sndTwrIdle1 = audio_create_stream(p + "twrIdle1.ogg");
 global.sndTwrIdle2 = audio_create_stream(p + "twrIdle2.ogg");
@@ -123,6 +168,17 @@ global.sndTwrBd2 = audio_create_stream(p + "twrBd2.ogg");
 
 p = "Resources/Sounds/TWAU/";
 global.sndTwAuTs = audio_create_stream(p + "twauTs.ogg");
+global.sndTwAuDiegoTs = audio_create_stream(p + "twauDiegoTs.ogg");
+global.sndTwAuTsPanic = audio_create_stream(p + "twauTsPanic.ogg");
+global.sndTwAuTsResume = audio_create_stream(p + "twauTsResume.ogg");
+
+#endregion
+
+#region neo
+
+p = "Resources/Sounds/NEO/";
+global.sndNeoTs = audio_create_stream(p + "neoTs.ogg");
+global.sndNeoTsResume = audio_create_stream(p + "neoTsResume.ogg");
 
 #endregion
 
@@ -191,6 +247,13 @@ global.sndKcTe = audio_create_stream(p + "kcTe.ogg");
 global.sndKcTeBass = audio_create_stream(p + "kcTeBass.ogg");
 global.sndKcTeEnd = audio_create_stream(p + "kcTeEnd.ogg");
 
+// kcm
+p = "Resources/Sounds/KC/KCM/";
+global.sndKcmSummon = audio_create_stream(p + "kcmSummon.ogg");
+global.sndKcmTe = audio_create_stream(p + "kcmTe.ogg");
+global.sndKcmTeBass = audio_create_stream(p + "kcmTeBass.ogg");
+global.sndKcmTeEnd = audio_create_stream(p + "kcmTeEnd.ogg");
+
 #endregion
 
 #region imposter
@@ -213,4 +276,24 @@ global.sndTa4Summon = audio_create_stream(p + "ta4Summon.ogg");
 
 #endregion
 
+#region whitesnake
 
+p = "Resources/Sounds/Pucci/WS/";
+global.sndWsSummon = audio_create_stream(p + "wsSummon.ogg");
+global.sndAcidicSpit = audio_create_stream(p + "wsAcidicSpit.ogg");
+global.sndMeltYourHeart = audio_create_stream(p + "wsMeltYourHeart.ogg");
+global.sndWsDiscSteal = audio_create_stream(p + "wsDiscSteal.ogg");
+
+#endregion
+
+#region soft and wet
+
+p = "Resources/Sounds/SnW/";
+global.sndSnwSummon = audio_create_stream(p + "snwSummon.ogg");
+global.sndSnwBubble = audio_create_stream(p + "snwBubble.ogg");
+global.sndSnwBubblePop = audio_create_stream(p + "snwBubblePop.ogg");
+global.sndSnwBubbleBigPop = audio_create_stream(p + "snwBubbleBigPop.ogg");
+global.sndSnwBubbleSummon = audio_create_stream(p + "snwBubbleSummon.ogg");
+global.sndSnwBubbleThrow = audio_create_stream(p + "snwBubbleThrow.ogg");
+
+#endregion

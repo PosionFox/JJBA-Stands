@@ -1,8 +1,8 @@
 
 global.jjbamDiscSw = ItemCreate(
     undefined,
-    "DISC:SW",
-    "The label says: Spooky World",
+    Localize("standDiscName") + "SW",
+    Localize("standDiscDescription") + "Spooky World",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -32,6 +32,7 @@ with (_s)
     name = "Spooky World";
     sprite_index = global.sprSpookyWorld;
     color = 0x322022;
+    UpdateRarity(Rarity.Rare);
     auraParticleSprite = global.sprStandParticle2;
     saveKey = "jjbamSw";
     discType = global.jjbamDiscSw;

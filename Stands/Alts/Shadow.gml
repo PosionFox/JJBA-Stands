@@ -1,8 +1,8 @@
 
 global.jjbamDiscShadow = ItemCreate(
     undefined,
-    "DISC:SHADOW",
-    "The label says: Shadow",
+    Localize("standDiscName") + "SHADOW",
+    Localize("standDiscDescription") + "Shadow",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -65,7 +65,7 @@ with (_s)
     name = "Shadow";
     sprite_index = global.sprShadow;
     color = 0x36f2fb;
-    isRare = true;
+    UpdateRarity(Rarity.Mythical);
     summonSound = global.sndStw2Summon;
     saveKey = "jjbamShadow";
     discType = global.jjbamDiscShadow;

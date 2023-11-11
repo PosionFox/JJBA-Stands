@@ -1,8 +1,8 @@
 
 global.jjbamDiscSf = ItemCreate(
     undefined,
-    "DISC:SF",
-    "The label says: Sticky Fingers",
+    Localize("standDiscName") + "SF",
+    Localize("standDiscDescription") + "Sticky Fingers",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -28,8 +28,8 @@ GiveStickyFingers(player);
 var _dis = point_distance(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
-xTo = objPlayer.x + lengthdir_x(8, _dir + random_range(-4, 4));
-yTo = objPlayer.y + lengthdir_y(8, _dir + random_range(-4, 4));
+xTo = objPlayer.x + lengthdir_x(GetStandReach(), _dir + random_range(-4, 4));
+yTo = objPlayer.y + lengthdir_y(GetStandReach(), _dir + random_range(-4, 4));
 image_xscale = mouse_x > objPlayer.x ? 1 : -1;
 
 attackStateTimer += 1 / room_speed;
@@ -69,8 +69,8 @@ if (keyboard_check_pressed(ord(skills[skill, StandSkill.Key])))
 
 #define ZipperPunch(method, skill)
 var _dir = point_direction(x, y, mouse_x, mouse_y);
-xTo = objPlayer.x + lengthdir_x(8, _dir);
-yTo = objPlayer.y + lengthdir_y(8, _dir);
+xTo = objPlayer.x + lengthdir_x(GetStandReach(), _dir);
+yTo = objPlayer.y + lengthdir_y(GetStandReach(), _dir);
 
 switch (attackState)
 {
@@ -96,8 +96,8 @@ attackStateTimer += DT;
 
 #define ZipperGrab(method, skill)
 var _dir = point_direction(x, y, mouse_x, mouse_y);
-xTo = objPlayer.x + lengthdir_x(8, _dir);
-yTo = objPlayer.y + lengthdir_y(8, _dir);
+xTo = objPlayer.x + lengthdir_x(GetStandReach(), _dir);
+yTo = objPlayer.y + lengthdir_y(GetStandReach(), _dir);
 
 switch (attackState)
 {
@@ -167,8 +167,8 @@ if (_sc or _wc)
 }
 
 var _dir = point_direction(x, y, mouse_x, mouse_y);
-xTo = objPlayer.x + lengthdir_x(10, _dir);
-yTo = objPlayer.y + lengthdir_y(10, _dir);
+xTo = objPlayer.x + lengthdir_x(GetStandReach(), _dir);
+yTo = objPlayer.y + lengthdir_y(GetStandReach(), _dir);
 
 switch (attackState)
 {
@@ -207,14 +207,14 @@ with (_o)
     image_speed = 0.5;
     
     target = noone;
-    if (instance_exists(ENEMY))
+    if (enemy_instance_exists())
     {
         if (random(100) < 50)
         {
             var _s = audio_play_sound(global.sndSfInjury, 0, false);
             audio_sound_pitch(_s, random_range(0.9, 1.1));
         }
-        target = instance_nearest(x, y, ENEMY);
+        target = get_nearest_enemy(x, y);
         with (target)
         {
             hp -= (hpMax * 0.01) * 0.5;
@@ -369,30 +369,30 @@ _skills[sk, StandSkill.DamageScale] = 0.01;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 6;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
-_skills[sk, StandSkill.Desc] = "sticky barrage:\nlaunches a barrage of punches.\ninflicts damaging zippers on the enemy.";
+_skills[sk, StandSkill.Desc] = Localize("sfBarrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = ZipperPunch;
-_skills[sk, StandSkill.Damage] = 2;
+_skills[sk, StandSkill.Damage] = 20;
 _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 10;
-_skills[sk, StandSkill.Desc] = "zipper punch:\ncharges and launches a strong punch.\ninflicts damaging zippers on the enemy.";
+_skills[sk, StandSkill.Desc] = Localize("zipperPunchDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = ZipperGrab;
 _skills[sk, StandSkill.Icon] = global.sprSkillZipperGrab;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
-_skills[sk, StandSkill.Desc] = "zipper grab:\ndisjoints and launches their arm forwards\ngrabbing and pulling the first enemy it touches.";
+_skills[sk, StandSkill.Desc] = Localize("zipperGrabDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = SfPortal;
 _skills[sk, StandSkill.Icon] = global.sprSkillZipPortal;
 _skills[sk, StandSkill.MaxCooldown] = 20;
 _skills[sk, StandSkill.MaxExecutionTime] = 20;
-_skills[sk, StandSkill.Desc] = "portal through:\nopens two portals, one below the user\nand the other where they are aiming at.";
+_skills[sk, StandSkill.Desc] = Localize("portalThroughDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)
@@ -404,3 +404,4 @@ with (_s)
     discType = global.jjbamDiscSf;
     saveKey = "jjbamSf";
 }
+return _s;
