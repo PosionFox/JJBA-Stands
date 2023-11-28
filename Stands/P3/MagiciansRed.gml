@@ -328,7 +328,6 @@ with (_o)
     sprite_index = global.sprRestrains;
     
     InstanceAssignMethod(self, "step", ScriptWrap(RestrainStep));
-    InstanceAssignMethod(self, "draw", ScriptWrap(RestrainDraw));
 }
 
 #define RestrainStep
@@ -347,9 +346,45 @@ if (instance_exists(target))
     target.freeze = 5;
 }
 
-#define RestrainDraw
+#define CrossFireHurricane(_, skill)
 
-//draw_sprite(global.sprRestrains, 0, x, y);
+var _dir = 0;
+var _xx = x;
+var _yy = y;
+if (instance_exists(owner))
+{
+    _dir = owner.attack_direction;
+    
+    _xx = owner.x + lengthdir_x(GetStandReach(), _dir);
+    _yy = owner.y + lengthdir_y(GetStandReach(), _dir);
+}
+xTo = _xx;
+yTo = _yy;
+
+switch (attackState)
+{
+    case 0:
+        if (attackStateTimer >= 0.5)
+        {
+            attackState++;
+        }
+    break;
+    case 1:
+        var _dmg = GetDmg(skill);
+        var _p = ProjectileCreate(x, y);
+        with (_p)
+        {
+            damage = _dmg;
+            direction = _dir;
+        }
+        EndAtk(skill);
+    break;
+}
+attackStateTimer += DT;
+
+#define CrossFireHurricaneSpecial(_, skill)
+
+
 
 #define GiveMagiciansRed(_owner) //stand
 

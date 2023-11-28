@@ -374,3 +374,10 @@ LocalizationAddKey(_map, "runeEnergizeName", "energizar");
 LocalizationAddKey(_map, "runeEnergizeDesc", "te permite utilizar energía en lugar de enfriamientos, esta runa contiene la siguiente energía:");
 
 #endregion
+
+#region cross modding
+
+LocalizationAddKey(_map, "dioGrimoireName", "grimorio de dio");
+LocalizationAddKey(_map, "dioGrimoireDescription", "invoca a dio sin costo.");
+
+#endregion

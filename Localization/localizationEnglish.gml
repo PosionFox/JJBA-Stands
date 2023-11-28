@@ -374,4 +374,9 @@ LocalizationAddKey(_map, "runeEnergizeDesc", "allows you to use energy instead o
 
 #endregion
 
+#region cross modding
 
+LocalizationAddKey(_map, "dioGrimoireName", "dio grimoire");
+LocalizationAddKey(_map, "dioGrimoireDescription", "summons dio at no cost.");
+
+#endregion

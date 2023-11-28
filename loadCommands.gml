@@ -16,6 +16,20 @@ CommandCreate("jjMaxExp", true, ScriptWrap(jjMaxExp))
 
 CommandCreate("jjSpawnDio", true, ScriptWrap(jjSpawnDio))
 
+CommandCreate("jjCheckGrimoires", false, ScriptWrap(jjCheckGrimoires));
+
+#define jjCheckGrimoires
+
+var _result = ModFind("Grimoires");
+if (_result == -1)
+{
+    Trace("grimoires is not installed");
+}
+else
+{
+    Trace("grimoires is installed");
+}
+
 #define jjSpawnDio
 
 var _d = EnemyDioSpawn();

@@ -48,7 +48,7 @@ loadStands();
 loadStructures();
 loadNPCs();
 loadCommands();
-
+LoadOtherMods();
 
 
 
