@@ -300,3 +300,17 @@ for (var i = 0; i < array_length(_list); i++)
 }
 return _nearest;
 
+#define StructureHasItem(_structure, _item)
+
+var _items = StructureGet(_structure, StructureData.Items);
+var _len = array_length(_items);
+for (var i = 0; i < _len; i++)
+{
+    if (_items[i] == _item)
+    {
+        return true;
+    }
+}
+return false;
+
+

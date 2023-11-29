@@ -29,7 +29,7 @@ if (instance_exists(player))
     }
 }
 
-if (STAND.uses_energy)
+if (STAND.max_energy > 0)
 {
     var _c = random(1);
     if (_c <= 0.5)
