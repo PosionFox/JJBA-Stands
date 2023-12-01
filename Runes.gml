@@ -60,36 +60,36 @@ return _base_rune;
 
 #define RuneBaseOnRemove
 
-#define RunRunesUpdate
+#define RunRunesUpdate(_stand)
 
-var _len = array_length(STAND.runes);
+var _len = array_length(_stand.runes);
 for (var i = 0; i < _len; i++)
 {
-    if (STAND.runes[i] != noone)
+    if (_stand.runes[i] != noone)
     {
-        ScriptCall(STAND.runes[i].update);
+        ScriptCall(_stand.runes[i].update);
     }
 }
 
-#define RunRunesUpdateTick
+#define RunRunesUpdateTick(_stand)
 
-var _len = array_length(STAND.runes);
+var _len = array_length(_stand.runes);
 for (var i = 0; i < _len; i++)
 {
-    if (STAND.runes[i] != noone)
+    if (_stand.runes[i] != noone)
     {
-        ScriptCall(STAND.runes[i].update_tick);
+        ScriptCall(_stand.runes[i].update_tick);
     }
 }
 
-#define RunRunesHealing
+#define RunRunesHealing(_user, _stand)
 
-var _len = array_length(STAND.runes);
+var _len = array_length(_stand.runes);
 for (var i = 0; i < _len; i++)
 {
-    if (STAND.runes[i] != noone)
+    if (_stand.runes[i] != noone)
     {
-        player.hp += STAND.runes[i].healing;
+        _user.hp += _stand.runes[i].healing;
     }
 }
 
@@ -148,13 +148,13 @@ if (instance_exists(_user) and instance_exists(_stand))
     }
 }
 
-#define GetRunesDamage
+#define GetRunesDamage(_stand)
 
 var _total_damage = 0;
-var _len = array_length(STAND.runes);
+var _len = array_length(_stand.runes);
 for (var i = 0; i < _len; i++)
 {
-    var _rune = STAND.runes[i];
+    var _rune = _stand.runes[i];
     if (_rune != noone)
     {
         _total_damage += _rune.damage;
@@ -162,13 +162,13 @@ for (var i = 0; i < _len; i++)
 }
 return  (1 + _total_damage);
 
-#define GetRunesStandReach
+#define GetRunesStandReach(_stand)
 
 var _total_range = 0;
-var _len = array_length(STAND.runes);
+var _len = array_length(_stand.runes);
 for (var i = 0; i < _len; i++)
 {
-    var _rune = STAND.runes[i];
+    var _rune = _stand.runes[i];
     if (_rune != noone)
     {
         _total_range += _rune.stand_reach;
@@ -176,13 +176,13 @@ for (var i = 0; i < _len; i++)
 }
 return  (1 + _total_range);
 
-#define GetRunesMaxEnergy
+#define GetRunesMaxEnergy(_stand)
 
 var _total_energy = 0;
-var _len = array_length(STAND.runes);
+var _len = array_length(_stand.runes);
 for (var i = 0; i < _len; i++)
 {
-    var _rune = STAND.runes[i];
+    var _rune = _stand.runes[i];
     if (_rune != noone)
     {
         _total_energy += _rune.max_energy;

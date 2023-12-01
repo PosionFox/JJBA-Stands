@@ -145,7 +145,7 @@ if (attackState >= 3)
 
 #define DoubleSlap(method, skill)
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-var _dis = GetStandReach();
+var _dis = GetStandReach(self);
 
 switch (attackState)
 {
@@ -158,7 +158,7 @@ switch (attackState)
         }
     break;
     case 1:
-        _dis = GetStandReach() * 1.5;
+        _dis = GetStandReach(self) * 1.5;
         if (attackStateTimer > 1)
         {
             audio_play_sound(global.sndPunchAir, 0, false);
@@ -210,8 +210,8 @@ if (!instance_exists(parEnemy))
 }
 
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-xTo = objPlayer.x + lengthdir_x(GetStandReach(), _dir);
-yTo = objPlayer.y + lengthdir_y(GetStandReach(), _dir);
+xTo = objPlayer.x + lengthdir_x(GetStandReach(self), _dir);
+yTo = objPlayer.y + lengthdir_y(GetStandReach(self), _dir);
 image_xscale = sign(dcos(_dir));
 
 attackStateTimer += 1 / room_speed;
@@ -257,8 +257,8 @@ switch (attackState)
 
 #define CloneSummon(method, skill)
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-xTo = objPlayer.x + lengthdir_x(GetStandReach(), _dir);
-yTo = objPlayer.y + lengthdir_y(GetStandReach(), _dir);
+xTo = objPlayer.x + lengthdir_x(GetStandReach(self), _dir);
+yTo = objPlayer.y + lengthdir_y(GetStandReach(self), _dir);
 image_xscale = sign(dcos(_dir));
 
 attackStateTimer += 1 / room_speed;

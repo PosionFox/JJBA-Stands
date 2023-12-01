@@ -28,8 +28,8 @@ GiveGoldExperience(player);
 var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
 
-xTo = owner.x + lengthdir_x(GetStandReach(), _dir + random_range(-4, 4));
-yTo = owner.y + lengthdir_y(GetStandReach(), _dir + random_range(-4, 4));
+xTo = owner.x + lengthdir_x(GetStandReach(self), _dir + random_range(-4, 4));
+yTo = owner.y + lengthdir_y(GetStandReach(self), _dir + random_range(-4, 4));
 image_xscale = mouse_x > owner.x ? 1 : -1;
 
 attackStateTimer += DT;
@@ -67,8 +67,8 @@ if (keyboard_check_pressed(ord(skills[skill, StandSkill.Key])))
 
 #define LifePunch(method, skill)
 var _dir = point_direction(x, y, mouse_x, mouse_y);
-xTo = owner.x + lengthdir_x(GetStandReach(), _dir);
-yTo = owner.y + lengthdir_y(GetStandReach(), _dir);
+xTo = owner.x + lengthdir_x(GetStandReach(self), _dir);
+yTo = owner.y + lengthdir_y(GetStandReach(self), _dir);
 
 switch (attackState)
 {
@@ -126,8 +126,8 @@ attackStateTimer += DT;
 
 #define LifeFormScorpion(method, skill)
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-xTo = owner.x + lengthdir_x(GetStandReach() * 2, _dir)
-yTo = owner.y + lengthdir_y(GetStandReach() * 2, _dir)
+xTo = owner.x + lengthdir_x(GetStandReach(self) * 2, _dir)
+yTo = owner.y + lengthdir_y(GetStandReach(self) * 2, _dir)
 alphaTarget = 1;
 
 switch (attackState)
@@ -153,8 +153,8 @@ attackStateTimer += 1 / room_speed;
 
 #define LifeFormPlant(method, skill)
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-var xx = owner.x + lengthdir_x(GetStandReach() * 2, _dir);
-var yy = owner.y + lengthdir_y(GetStandReach() * 2, _dir);
+var xx = owner.x + lengthdir_x(GetStandReach(self) * 2, _dir);
+var yy = owner.y + lengthdir_y(GetStandReach(self) * 2, _dir);
 var xs = (floor(xx / 16) * 16) + 8;
 var ys = (floor(yy / 16) * 16) + 8;
 alphaTarget = 1;

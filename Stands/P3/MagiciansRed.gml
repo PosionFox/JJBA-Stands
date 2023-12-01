@@ -69,8 +69,8 @@ if (enemy_instance_exists())
 
 var _dir = owner.attack_direction;
 
-xTo = owner.x + lengthdir_x(GetStandReach(), _dir + random_range(-4, 4));
-yTo = owner.y + lengthdir_y(GetStandReach(), _dir + random_range(-4, 4));
+xTo = owner.x + lengthdir_x(GetStandReach(self), _dir + random_range(-4, 4));
+yTo = owner.y + lengthdir_y(GetStandReach(self), _dir + random_range(-4, 4));
 image_xscale = mouse_x > owner.x ? 1 : -1;
 
 switch (attackState)
@@ -116,8 +116,8 @@ if (instance_exists(owner))
 {
     _dir = owner.attack_direction;
     
-    _xx = owner.x + lengthdir_x(GetStandReach(), _dir);
-    _yy = owner.y + lengthdir_y(GetStandReach(), _dir);
+    _xx = owner.x + lengthdir_x(GetStandReach(self), _dir);
+    _yy = owner.y + lengthdir_y(GetStandReach(self), _dir);
 }
 xTo = _xx;
 yTo = _yy;
@@ -142,8 +142,8 @@ attackStateTimer += DT;
 #define RedBindPull(_, skill)
 
 var _dir = owner.attack_direction;
-xTo = owner.x + lengthdir_x(GetStandReach(), _dir);
-yTo = owner.y + lengthdir_y(GetStandReach(), _dir);
+xTo = owner.x + lengthdir_x(GetStandReach(self), _dir);
+yTo = owner.y + lengthdir_y(GetStandReach(self), _dir);
 
 switch (attackState)
 {
@@ -236,8 +236,8 @@ draw_set_color(image_blend);
 #define RedBindRestrain(_, skill)
 
 var _dir = owner.attack_direction;
-xTo = owner.x + lengthdir_x(GetStandReach(), _dir);
-yTo = owner.y + lengthdir_y(GetStandReach(), _dir);
+xTo = owner.x + lengthdir_x(GetStandReach(self), _dir);
+yTo = owner.y + lengthdir_y(GetStandReach(self), _dir);
 
 switch (attackState)
 {
@@ -355,8 +355,8 @@ if (instance_exists(owner))
 {
     _dir = owner.attack_direction;
     
-    _xx = owner.x + lengthdir_x(GetStandReach(), _dir);
-    _yy = owner.y + lengthdir_y(GetStandReach(), _dir);
+    _xx = owner.x + lengthdir_x(GetStandReach(self), _dir);
+    _yy = owner.y + lengthdir_y(GetStandReach(self), _dir);
 }
 xTo = _xx;
 yTo = _yy;

@@ -28,8 +28,8 @@ GiveD4CLT(player);
 var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
 var _dir = DIR_PLAYER_TO_MOUSE;
 
-xTo = player.x + lengthdir_x(GetStandReach(), _dir + random_range(-4, 4));
-yTo = player.y + lengthdir_y(GetStandReach(), _dir + random_range(-4, 4));
+xTo = player.x + lengthdir_x(GetStandReach(self), _dir + random_range(-4, 4));
+yTo = player.y + lengthdir_y(GetStandReach(self), _dir + random_range(-4, 4));
 image_xscale = mouse_x > player.x ? 1 : -1;
 
 attackStateTimer += DT;
@@ -83,16 +83,16 @@ switch (attackState)
         attackState++;
     break;
     case 1:
-        xTo = player.x + lengthdir_x(GetStandReach() * 4, DIR_PLAYER_TO_MOUSE);
-        yTo = player.y + lengthdir_y(GetStandReach() * 4, DIR_PLAYER_TO_MOUSE);
+        xTo = player.x + lengthdir_x(GetStandReach(self) * 4, DIR_PLAYER_TO_MOUSE);
+        yTo = player.y + lengthdir_y(GetStandReach(self) * 4, DIR_PLAYER_TO_MOUSE);
         if (attackStateTimer > 0.8)
         {
             attackState++;
         }
     break;
     case 2:
-        xTo = player.x + lengthdir_x(GetStandReach() * 4, DIR_PLAYER_TO_MOUSE);
-        yTo = player.y + lengthdir_y(GetStandReach() * 4, DIR_PLAYER_TO_MOUSE);
+        xTo = player.x + lengthdir_x(GetStandReach(self) * 4, DIR_PLAYER_TO_MOUSE);
+        yTo = player.y + lengthdir_y(GetStandReach(self) * 4, DIR_PLAYER_TO_MOUSE);
         if (attackStateTimer > 1)
         {
             attackState++;
@@ -111,8 +111,8 @@ attackStateTimer += DT;
 
 #define SuperCloneSummon(m, skill)
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-xTo = objPlayer.x + lengthdir_x(GetStandReach(), _dir);
-yTo = objPlayer.y + lengthdir_y(GetStandReach(), _dir);
+xTo = objPlayer.x + lengthdir_x(GetStandReach(self), _dir);
+yTo = objPlayer.y + lengthdir_y(GetStandReach(self), _dir);
 image_xscale = sign(dcos(_dir));
 
 attackStateTimer += 1 / room_speed;

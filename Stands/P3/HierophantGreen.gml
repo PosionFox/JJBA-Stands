@@ -29,8 +29,8 @@ GiveHierophantGreen(player);
 var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
 
-var _xx = owner.x + lengthdir_x(GetStandReach(), _dir);
-var _yy = owner.y + lengthdir_y(GetStandReach(), _dir);
+var _xx = owner.x + lengthdir_x(GetStandReach(self), _dir);
+var _yy = owner.y + lengthdir_y(GetStandReach(self), _dir);
 xTo = _xx;
 yTo = _yy;
 image_xscale = mouse_x > owner.x ? 1 : -1;
@@ -123,8 +123,8 @@ image_xscale = lerp(image_xscale, 1, 0.1);
 var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
 
-var _xx = owner.x + lengthdir_x(GetStandReach(), _dir);
-var _yy = owner.y + lengthdir_y(GetStandReach(), _dir);
+var _xx = owner.x + lengthdir_x(GetStandReach(self), _dir);
+var _yy = owner.y + lengthdir_y(GetStandReach(self), _dir);
 xTo = _xx;
 yTo = _yy;
 image_xscale = mouse_x > owner.x ? 1 : -1;

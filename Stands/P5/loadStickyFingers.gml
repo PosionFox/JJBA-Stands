@@ -28,8 +28,8 @@ GiveStickyFingers(player);
 var _dis = point_distance(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
-xTo = objPlayer.x + lengthdir_x(GetStandReach(), _dir + random_range(-4, 4));
-yTo = objPlayer.y + lengthdir_y(GetStandReach(), _dir + random_range(-4, 4));
+xTo = objPlayer.x + lengthdir_x(GetStandReach(self), _dir + random_range(-4, 4));
+yTo = objPlayer.y + lengthdir_y(GetStandReach(self), _dir + random_range(-4, 4));
 image_xscale = mouse_x > objPlayer.x ? 1 : -1;
 
 attackStateTimer += 1 / room_speed;
@@ -69,8 +69,8 @@ if (keyboard_check_pressed(ord(skills[skill, StandSkill.Key])))
 
 #define ZipperPunch(method, skill)
 var _dir = point_direction(x, y, mouse_x, mouse_y);
-xTo = objPlayer.x + lengthdir_x(GetStandReach(), _dir);
-yTo = objPlayer.y + lengthdir_y(GetStandReach(), _dir);
+xTo = objPlayer.x + lengthdir_x(GetStandReach(self), _dir);
+yTo = objPlayer.y + lengthdir_y(GetStandReach(self), _dir);
 
 switch (attackState)
 {
@@ -96,8 +96,8 @@ attackStateTimer += DT;
 
 #define ZipperGrab(method, skill)
 var _dir = point_direction(x, y, mouse_x, mouse_y);
-xTo = objPlayer.x + lengthdir_x(GetStandReach(), _dir);
-yTo = objPlayer.y + lengthdir_y(GetStandReach(), _dir);
+xTo = objPlayer.x + lengthdir_x(GetStandReach(self), _dir);
+yTo = objPlayer.y + lengthdir_y(GetStandReach(self), _dir);
 
 switch (attackState)
 {
@@ -167,8 +167,8 @@ if (_sc or _wc)
 }
 
 var _dir = point_direction(x, y, mouse_x, mouse_y);
-xTo = objPlayer.x + lengthdir_x(GetStandReach(), _dir);
-yTo = objPlayer.y + lengthdir_y(GetStandReach(), _dir);
+xTo = objPlayer.x + lengthdir_x(GetStandReach(self), _dir);
+yTo = objPlayer.y + lengthdir_y(GetStandReach(self), _dir);
 
 switch (attackState)
 {

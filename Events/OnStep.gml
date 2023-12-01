@@ -10,8 +10,8 @@ if (instance_exists(player))
     
     if (bool("myStand" in player) and instance_exists(player.myStand))
     {
-        RunRunesUpdate();
-        RunRunesHealing();
+        RunRunesUpdate(STAND);
+        RunRunesHealing(player, STAND);
     }
 }
 

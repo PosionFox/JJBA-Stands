@@ -42,8 +42,8 @@ state = StandState.Idle;
 
 #define StrayCat(method, skill)
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-xTo = objPlayer.x + lengthdir_x(GetStandReach(), _dir);
-yTo = objPlayer.y + lengthdir_y(GetStandReach(), _dir);
+xTo = objPlayer.x + lengthdir_x(GetStandReach(self), _dir);
+yTo = objPlayer.y + lengthdir_y(GetStandReach(self), _dir);
 
 switch (attackState)
 {

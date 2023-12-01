@@ -44,7 +44,7 @@ draw_set_color(c_white);
 
 #define StwXXI(method, skill) //attacks
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-var _dis = GetStandReach() * 1.5;
+var _dis = GetStandReach(self) * 1.5;
 alphaTarget = 1;
 
 switch (attackState)
@@ -78,7 +78,7 @@ switch (attackState)
         }
     break;
     case 5:
-        _dis = GetStandReach() * 2;
+        _dis = GetStandReach(self) * 2;
         var _snd = audio_play_sound(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         PunchSwingCreate(x, y, _dir, 45, GetDmg(skill) * 2);
@@ -92,8 +92,8 @@ attackStateTimer += 1 / room_speed;
 
 #define StwPunishment(method, skill)
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-xTo = objPlayer.x + lengthdir_x(GetStandReach() * 1.5, _dir);
-yTo = objPlayer.y + lengthdir_y(GetStandReach() * 1.5, _dir);
+xTo = objPlayer.x + lengthdir_x(GetStandReach(self) * 1.5, _dir);
+yTo = objPlayer.y + lengthdir_y(GetStandReach(self) * 1.5, _dir);
 alphaTarget = 1;
 
 switch (attackState)

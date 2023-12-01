@@ -195,8 +195,8 @@ switch (attackState)
 var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y)
 
-var _xx = player.x + lengthdir_x(GetStandReach(), _dir);
-var _yy = player.y + lengthdir_y(GetStandReach(), _dir);
+var _xx = player.x + lengthdir_x(GetStandReach(self), _dir);
+var _yy = player.y + lengthdir_y(GetStandReach(self), _dir);
 xTo = _xx;
 yTo = _yy;
 image_xscale = mouseXSide;

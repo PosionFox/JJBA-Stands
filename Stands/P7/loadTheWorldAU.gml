@@ -187,8 +187,8 @@ life -= DT;
 var _dis = point_distance(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
-var _xx = objPlayer.x + lengthdir_x(GetStandReach(), _dir);
-var _yy = objPlayer.y + lengthdir_y(GetStandReach(), _dir);
+var _xx = objPlayer.x + lengthdir_x(GetStandReach(self), _dir);
+var _yy = objPlayer.y + lengthdir_y(GetStandReach(self), _dir);
 xTo = _xx;
 yTo = _yy;
 image_xscale = mouse_x > objPlayer.x ? 1 : -1;

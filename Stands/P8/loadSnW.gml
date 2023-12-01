@@ -56,8 +56,8 @@ z = 5 + cos((current_time / 1000) + x);
 var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
 
-xTo = owner.x + lengthdir_x(GetStandReach(), _dir + random_range(-4, 4));
-yTo = owner.y + lengthdir_y(GetStandReach(), _dir + random_range(-4, 4));
+xTo = owner.x + lengthdir_x(GetStandReach(self), _dir + random_range(-4, 4));
+yTo = owner.y + lengthdir_y(GetStandReach(self), _dir + random_range(-4, 4));
 image_xscale = mouse_x > owner.x ? 1 : -1;
 
 switch (attackState)
@@ -108,8 +108,8 @@ attackStateTimer += DT;
 var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
 
-xTo = owner.x + lengthdir_x(GetStandReach(), _dir + random_range(-4, 4));
-yTo = owner.y + lengthdir_y(GetStandReach(), _dir + random_range(-4, 4));
+xTo = owner.x + lengthdir_x(GetStandReach(self), _dir + random_range(-4, 4));
+yTo = owner.y + lengthdir_y(GetStandReach(self), _dir + random_range(-4, 4));
 image_xscale = mouse_x > owner.x ? 1 : -1;
 
 switch (attackState)
@@ -187,8 +187,8 @@ y = owner.y;
 var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
 
-xTo = owner.x + lengthdir_x(GetStandReach(), _dir + random_range(-4, 4));
-yTo = owner.y + lengthdir_y(GetStandReach(), _dir + random_range(-4, 4));
+xTo = owner.x + lengthdir_x(GetStandReach(self), _dir + random_range(-4, 4));
+yTo = owner.y + lengthdir_y(GetStandReach(self), _dir + random_range(-4, 4));
 image_xscale = mouse_x > owner.x ? 1 : -1;
 
 switch (attackState)

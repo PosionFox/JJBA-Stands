@@ -65,7 +65,7 @@ if (skills[skill, StandSkill.DamagePlayerStat])
 {
     _damage += owner.dmg;
 }
-var _final_damage = _damage * powerMultiplier * GetRunesDamage();
+var _final_damage = _damage * powerMultiplier * GetRunesDamage(self);
 
 return _final_damage;
 
@@ -77,7 +77,7 @@ if (skills[skill, StandSkill.DamagePlayerStatAlt])
 {
     _damage += owner.dmg;
 }
-var _final_damage = _damage * powerMultiplier * GetRunesDamage();
+var _final_damage = _damage * powerMultiplier * GetRunesDamage(self);
 
 return _final_damage;
 
@@ -593,8 +593,8 @@ return _p;
 
 var _dir = owner.attack_direction;
 
-xTo = objPlayer.x + lengthdir_x(GetStandReach(), _dir + random_range(-4, 4));
-yTo = objPlayer.y + lengthdir_y(GetStandReach(), _dir + random_range(-4, 4));
+xTo = objPlayer.x + lengthdir_x(GetStandReach(self), _dir + random_range(-4, 4));
+yTo = objPlayer.y + lengthdir_y(GetStandReach(self), _dir + random_range(-4, 4));
 image_xscale = mouse_x > objPlayer.x ? 1 : -1;
 
 if (distance_to_point(xTo, yTo) < 2)
@@ -662,8 +662,8 @@ if (instance_exists(owner))
 {
     _dir = owner.attack_direction;
     
-    _xx = owner.x + lengthdir_x(GetStandReach(), _dir);
-    _yy = owner.y + lengthdir_y(GetStandReach(), _dir);
+    _xx = owner.x + lengthdir_x(GetStandReach(self), _dir);
+    _yy = owner.y + lengthdir_y(GetStandReach(self), _dir);
 }
 xTo = _xx;
 yTo = _yy;

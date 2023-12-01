@@ -344,7 +344,7 @@ if (instance_exists(owner))
     }
 }
 
-max_energy = GetRunesMaxEnergy();
+max_energy = GetRunesMaxEnergy(self);
 if (max_energy > 0)
 {
     energy += max_energy * 0.0005;
@@ -589,6 +589,6 @@ if (instance_exists(_owner) and instance_exists(_owner.myStand))
     _owner.myStand = noone;
 }
 
-#define GetStandReach
+#define GetStandReach(_stand)
 
-return (stand_reach * GetRunesStandReach());
+return (stand_reach * GetRunesStandReach(_stand));
