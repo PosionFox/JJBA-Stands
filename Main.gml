@@ -30,6 +30,10 @@ return array_clone(class);
 
 Trace("jjbas v0.6.0");
 
+#define load_seasonals
+
+Christmas();
+
 #define Main
 
 printVersion();
@@ -42,11 +46,13 @@ loadSprites();
 loadSounds();
 loadItems();
 Runes();
+Shards();
 loadEnemies();
 loadSpawns();
 loadStands();
 loadStructures();
 loadNPCs();
+load_seasonals();
 loadCommands();
 LoadOtherMods();
 

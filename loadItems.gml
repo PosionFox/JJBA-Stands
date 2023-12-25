@@ -531,6 +531,7 @@ else
 
 var _standPool =
 [
+    // common
     [GiveStarPlatinum, 100],
     [GiveShadowTheWorld, 100],
     [GiveKillerQueen, 100],
@@ -540,22 +541,29 @@ var _standPool =
     [GiveSilverChariot, 100],
     [GiveWhiteSnake, 100],
     [GiveHierophantGreen, 100],
+    // uncommon
     [GiveSpg, 50],
     [GiveSfg, 50],
     [GiveSfr, 50],
     [GiveKcg, 50],
     [GiveHr, 50],
+    // rare
     [GiveScova, 25],
     [GiveKca, 25],
     [GiveHb, 25],
+    // epic
     [GiveBs, 12],
+    // legendary
     [GiveImposter, 5],
     [GiveKcmo, 5],
     [GiveDw, 5],
     [GiveSpp, 5],
+    // mythical
     [GiveSpr, 1],
     [GiveShadow, 1],
     [GiveKcm, 1]
+    // ascended
+    // ultimate
 ]
 
 script_execute(random_weight(_standPool), player);

@@ -42,7 +42,7 @@ LocalizationAddKey(_map, "leftArmDescription", "the left arm of the saint.");
 LocalizationAddKey(_map, "prayerBeadsName", "prayer beads");
 LocalizationAddKey(_map, "prayerBeadsDescription", "summons enrico pucci.");
 
-LocalizationAddKey(_map, "standDiscName", "disc");
+LocalizationAddKey(_map, "standDiscName", "disc:");
 LocalizationAddKey(_map, "standDiscDescription", "the disc reads: ");
 
 LocalizationAddKey(_map, "diosDiaryName", "dio's diary");
@@ -57,6 +57,18 @@ LocalizationAddKey(_map, "egyptianCrownDescription", "summons dio during night."
 LocalizationAddKey(_map, "runeRemoverName", "rune remover");
 LocalizationAddKey(_map, "runeRemoverDescription", "removes your runes.");
 
+LocalizationAddKey(_map, "shardName", "shard");
+LocalizationAddKey(_map, "shardDescription", "The fragmentation of the forgotten, used to create new abilities.");
+
+LocalizationAddKey(_map, "concentratedArrowName", "concentrated arrow");
+LocalizationAddKey(_map, "concentratedArrowDescription", "Grants the user a specific ability.");
+
+LocalizationAddKey(_map, "bizarreCandyName", "bizarre candy");
+LocalizationAddKey(_map, "bizarreCandyDescription", "A bizarre looking candy.");
+
+LocalizationAddKey(_map, "deliciousDirkName", "delicious dirk");
+LocalizationAddKey(_map, "deliciousDirkDescription", "Looks delicious but dangerous.");
+
 
 LocalizationAddKey(_map, "requiemArrowMerge", "the arrow merges with the stand!");
 LocalizationAddKey(_map, "requiemArrowRefuse", "nothing happens...");
@@ -69,6 +81,12 @@ LocalizationAddKey(_map, "holyPartRefuse", "the holy part refuses to interact wi
 
 LocalizationAddKey(_map, "diosCoffinName", "dio's coffin");
 LocalizationAddKey(_map, "diosCoffinDescription", "awaken the vampire");
+
+LocalizationAddKey(_map, "shardsTableName", "shards table");
+LocalizationAddKey(_map, "shardsTableDescription", "create new abilities using fragments.");
+
+LocalizationAddKey(_map, "offeringPillarName", "offering pillar");
+LocalizationAddKey(_map, "offeringPillarDescription", "create unique abilities.");
 
 #endregion
 
@@ -84,6 +102,7 @@ LocalizationAddKey(_map, "legendaryName", "legendary");
 LocalizationAddKey(_map, "mythicalName", "mythical");
 LocalizationAddKey(_map, "ascendedName", "ascended");
 LocalizationAddKey(_map, "ultimateName", "ultimate");
+LocalizationAddKey(_map, "eventName", "event");
 
 #endregion
 

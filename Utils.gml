@@ -313,4 +313,20 @@ for (var i = 0; i < _len; i++)
 }
 return false;
 
+#define grant_ability_from_item(item, ability_script)
 
+if (room != rmGame)
+{
+    GainItem(item);
+    exit;
+}
+
+if (!instance_exists(STAND))
+{
+    DmgPlayer(1, false);
+    script_execute(ability_script, player);
+}
+else
+{
+    GainItem(item);
+}

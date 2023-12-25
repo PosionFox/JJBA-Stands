@@ -95,6 +95,10 @@ TWRuOH();
 DW();
 HR();
 HB();
+EP();
+TWF();
+KCF();
+HE();
 
 #endregion
 

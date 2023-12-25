@@ -65,6 +65,14 @@ global.sndSptwTp = audio_create_stream(p + "sptwTp.ogg");
 
 #endregion
 
+#region estrella platinada
+
+p = "Resources/Sounds/EP/";
+global.sndEpSummon = audio_create_stream(p + "epSummon.ogg");
+global.sndEpTs = audio_create_stream(p + "epTs.ogg");
+
+#endregion
+
 #region silver chariot
 
 p = "Resources/Sounds/SC/";
@@ -134,6 +142,21 @@ global.sndTwSummon = audio_create_stream(p + "twSummon.ogg");
 global.sndTwTs = audio_create_stream(p + "twTs.ogg");
 global.sndStopSign = audio_create_stream(p + "stopSign.ogg");
 global.sndTwBarrage = audio_create_stream(p + "twBarrage.ogg");
+
+#endregion
+
+#region the world frozen
+
+p = "Resources/Sounds/TWF/";
+global.sndTwfSummon = audio_create_stream(p + "twfSummon.ogg");
+global.sndTwfTs = audio_create_stream(p + "twfTs.ogg");
+global.sndTwfTsResume = audio_create_stream(p + "twfTsResume.ogg");
+global.sndTwfIdle1 = audio_create_stream(p + "twfIdle1.ogg");
+global.sndTwfIdle2 = audio_create_stream(p + "twfIdle2.ogg");
+global.sndTwfIdle3 = audio_create_stream(p + "twfIdle3.ogg");
+global.sndTwfIdle4 = audio_create_stream(p + "twfIdle4.ogg");
+global.sndTwfIdle5 = audio_create_stream(p + "twfIdle5.ogg");
+global.sndTwfBarrage = audio_create_stream(p + "twfBarrage.ogg");
 
 #endregion
 

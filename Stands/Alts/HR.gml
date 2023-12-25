@@ -2,7 +2,7 @@
 global.jjbamDiscHr = ItemCreate(
     undefined,
     Localize("standDiscName") + "HR",
-    Localize("standDiscDescription") + "Hierophant Black",
+    Localize("standDiscDescription") + "Hierophant Red",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -31,7 +31,7 @@ with (_s)
 {
     name = "Hierophant Red"
     sprite_index = global.sprHierophantRed;
-    color = /*#*/0x6357d9;
+    color = 0x6357d9;
     UpdateRarity(Rarity.Uncommon);
     saveKey = "jjbamHr";
     discType = global.jjbamDiscHr;

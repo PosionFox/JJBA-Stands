@@ -19,6 +19,22 @@ global.sprDiosDiary = sprite_add(p + "DiosDiary.png", 1, false, false, 8, 8);
 global.sprRokakakaStew = sprite_add(p + "RokakakaStew.png", 1, false, false, 8, 8);
 global.sprDiosBone = sprite_add(p + "DiosBone.png", 1, false, false, 8, 8);
 global.sprEgyptianCrown = sprite_add(p + "EgyptianCrown.png", 1, false, false, 8, 8);
+global.sprCommonShard = sprite_add(p + "CommonShard.png", 1, false, false, 8, 8);
+global.sprUncommonShard = sprite_add(p + "UncommonShard.png", 1, false, false, 8, 8);
+global.sprRareShard = sprite_add(p + "RareShard.png", 1, false, false, 8, 8);
+global.sprEpicShard = sprite_add(p + "EpicShard.png", 1, false, false, 8, 8);
+global.sprLegendaryShard = sprite_add(p + "LegendaryShard.png", 1, false, false, 8, 8);
+global.sprMythicalShard = sprite_add(p + "MythicalShard.png", 1, false, false, 8, 8);
+global.sprAscendedShard = sprite_add(p + "AscendedShard.png", 1, false, false, 8, 8);
+global.sprUltimateShard = sprite_add(p + "UltimateShard.png", 1, false, false, 8, 8);
+global.sprCommonConcentratedArrow = sprite_add(p + "CommonConcentratedArrow.png", 1, false, false, 8, 8);
+global.sprUncommonConcentratedArrow = sprite_add(p + "UncommonConcentratedArrow.png", 1, false, false, 8, 8);
+global.sprRareConcentratedArrow = sprite_add(p + "RareConcentratedArrow.png", 1, false, false, 8, 8);
+global.sprEpicConcentratedArrow = sprite_add(p + "EpicConcentratedArrow.png", 1, false, false, 8, 8);
+global.sprLegendaryConcentratedArrow = sprite_add(p + "LegendaryConcentratedArrow.png", 1, false, false, 8, 8);
+global.sprMythicalConcentratedArrow = sprite_add(p + "MythicalConcentratedArrow.png", 1, false, false, 8, 8);
+global.sprAscendedConcentratedArrow = sprite_add(p + "AscendedConcentratedArrow.png", 1, false, false, 8, 8);
+global.sprUltimateConcentratedArrow = sprite_add(p + "UltimateConcentratedArrow.png", 1, false, false, 8, 8);
 
 #endregion
 
@@ -27,6 +43,7 @@ global.sprEgyptianCrown = sprite_add(p + "EgyptianCrown.png", 1, false, false, 8
 p = "Resources/Sprites/Structures/";
 global.sprRokakakaTree = sprite_add(p + "RokakakaTree.png", 1, false, false, 8, 31);
 global.sprDiosCoffin = sprite_add(p + "DiosCoffin.png", 1, false, false, 16, 8);
+global.sprShardsTable = sprite_add(p + "ShardsTable.png", 1, false, false, 8, 8);
 
 #endregion
 
@@ -85,6 +102,7 @@ global.sprStandParticle4 = sprite_add(p + "StandParticle4.png", 1, false, false,
 global.sprStandParticle5 = sprite_add(p + "StandParticle5.png", 1, false, false, 4, 4);
 global.sprStandParticle6 = sprite_add(p + "StandParticle6.png", 1, false, false, 8, 8);
 global.sprStandParticle7 = sprite_add(p + "StandParticle7.png", 1, false, false, 2, 3);
+global.sprStandParticleSnowflake = sprite_add(p + "StandParticleSnowflake.png", 1, false, false, 4, 4);
 global.sprHitbox8x8 = sprite_add(p + "Hitbox8x8.png", 1, false, false, 4, 4);
 global.sprHitbox16x16 = sprite_add(p + "Hitbox16x16.png", 1, false, false, 8, 8);
 global.sprHitbox32x32 = sprite_add(p + "Hitbox32x32.png", 1, false, false, 16, 16);
@@ -174,6 +192,9 @@ global.sprSkillJosephKnife = sprite_add(p + "SkillJosephKnife.png", 1, false, fa
 global.sprSkillStopSign = sprite_add(p + "SkillStopSign.png", 1, false, false, 16, 16);
 global.sprSkillTripleKnifeThrow = sprite_add(p + "SkillTripleKnifeThrow.png", 1, false, false, 16, 16);
 
+// alts
+global.sprTheWorldFrozen = sprite_add(p + "TheWorldFrozen.png", 1, false, false, 16, 19);
+
 #endregion
 
 #region the world over heaven
@@ -220,6 +241,7 @@ global.sprSptw = sprite_add(p + "SPTW.png", 1, false, false, 16, 19);
 global.sprSkillSoda = sprite_add(p + "SkillSoda.png", 1, false, false, 16, 16);
 
 global.sprTimeEmperor = sprite_add(p + "TimeEmperor.png", 1, false, false, 16, 19);
+global.sprEP = sprite_add(p + "EP.png", 1, false, false, 16, 19);
 
 #endregion
 
@@ -308,10 +330,6 @@ global.sprSkillRequiem = sprite_add(p + "SkillRequiem.png", 1, false, false, 16,
 
 p = "Resources/Sprites/KC/";
 global.sprKingCrimson = sprite_add(p + "KingCrimson.png", 1, false, false, 16, 19);
-global.sprKingCrimsonManga = sprite_add(p + "KingCrimsonM.png", 1, false, false, 16, 19);
-global.sprKingCrimsonMono = sprite_add(p + "KCMonochrome.png", 1, false, false, 16, 19);
-global.sprKingCrimsonAqua = sprite_add(p + "KCAqua.png", 1, false, false, 16, 19);
-global.sprKCG = sprite_add(p + "KCGray.png", 1, false, false, 16, 19);
 global.sprScalpelSwing = sprite_add(p + "ScalpelAttack.png", 5, false, false, 16, 16);
 global.sprScalpel = sprite_add(p + "KcScalpel.png", 1, false, false, 8, 8);
 global.sprSkillScalpelSlash = sprite_add(p + "SkillScalpelSlash.png", 1, false, false, 16, 16);
@@ -327,6 +345,13 @@ global.sprSkillTimeErase = sprite_add(p + "SkillTimeErase.png", 1, false, false,
 // global.sprSkillLifeFormScorpion = sprite_add(p + "SkillLifeFormScorpion.png", 1, false, false, 16, 16);
 // global.sprSkillLifeFormFrog = sprite_add(p + "SkillLifeFormFrog.png", 1, false, false, 16, 16);
 // global.sprSkillSelfHeal = sprite_add(p + "SkillSelfHeal.png", 1, false, false, 16, 16);
+
+// alts
+global.sprKingCrimsonManga = sprite_add(p + "KingCrimsonM.png", 1, false, false, 16, 19);
+global.sprKingCrimsonMono = sprite_add(p + "KCMonochrome.png", 1, false, false, 16, 19);
+global.sprKingCrimsonAqua = sprite_add(p + "KCAqua.png", 1, false, false, 16, 19);
+global.sprKCG = sprite_add(p + "KCGray.png", 1, false, false, 16, 19);
+global.sprKCF = sprite_add(p + "KingCrimsonFestive.png", 1, false, false, 16, 19);
 
 #endregion
 
@@ -470,6 +495,7 @@ global.sprSkillEmeraldSplash20Meters = sprite_add(p + "SkillEmeraldSplash20Meter
 // skins
 global.sprHierophantRed = sprite_add(p + "HierophantRed.png", 1, false, false, 16, 19);
 global.sprHierophantBlack = sprite_add(p + "HierophantBlack.png", 1, false, false, 16, 19);
+global.sprHierophantEve = sprite_add(p + "HierophantEve.png", 1, false, false, 16, 19);
 
 #endregion
 

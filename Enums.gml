@@ -55,5 +55,6 @@ enum Rarity {
     Legendary,
     Mythical,
     Ascended,
-    Ultimate
+    Ultimate,
+    Event
 }

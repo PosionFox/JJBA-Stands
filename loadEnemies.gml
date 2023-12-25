@@ -190,6 +190,23 @@ switch (state)
             var _drops = [global.jjDiosDiary, global.jjDiosBone];
             var _item = irandom(array_length(_drops) - 1);
             DropItem(x, y, _drops[_item], 1);
+            repeat (8)
+            {
+                var _pool =
+                [
+                    [global.jjCommonShard, 128],
+                    [global.jjUncommonShard, 64],
+                    [global.jjRareShard, 32],
+                    [global.jjEpicShard, 16],
+                    [global.jjLegendaryShard, 8],
+                    [global.jjMythicalShard, 4],
+                    [global.jjAscendedShard, 2],
+                    [global.jjUltimateShard, 1],
+                ]
+                var _shard = random_weight(_pool);
+                DropItem(x, y, _shard, 1);
+            }
+            DropItem(x, y, global.jjBizarreCandy, 8);
             global.enemyDioSpawned = false;
             instance_destroy(self);
             exit;

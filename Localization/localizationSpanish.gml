@@ -42,7 +42,7 @@ LocalizationAddKey(_map, "leftArmDescription", "el brazo izquierdo del santo.");
 LocalizationAddKey(_map, "prayerBeadsName", "rosario");
 LocalizationAddKey(_map, "prayerBeadsDescription", "invoca a enrico pucci.");
 
-LocalizationAddKey(_map, "standDiscName", "disco");
+LocalizationAddKey(_map, "standDiscName", "disco:");
 LocalizationAddKey(_map, "standDiscDescription", "el disco dice: ");
 
 LocalizationAddKey(_map, "diosDiaryName", "diario de dio");
@@ -56,6 +56,18 @@ LocalizationAddKey(_map, "egyptianCrownDescription", "invoca a dio durante la no
 
 LocalizationAddKey(_map, "runeRemoverName", "removedor de runas");
 LocalizationAddKey(_map, "runeRemoverDescription", "remueve tus runas.");
+
+LocalizationAddKey(_map, "shardName", "fragmento");
+LocalizationAddKey(_map, "shardDescription", "La fragmentación de lo olvidado, usado para crear nuevas habilidades.");
+
+LocalizationAddKey(_map, "concentratedArrowName", "flecha concentrada");
+LocalizationAddKey(_map, "concentratedArrowDescription", "Le da al usuario una habilidad específica.");
+
+LocalizationAddKey(_map, "bizarreCandyName", "dulce bizarro");
+LocalizationAddKey(_map, "bizarreCandyDescription", "Un dulce que se ve bizarro.");
+
+LocalizationAddKey(_map, "deliciousDirkName", "puñal delicioso");
+LocalizationAddKey(_map, "deliciousDirkDescription", "Se ve delicioso pero peligroso.");
 
 
 
@@ -71,6 +83,12 @@ LocalizationAddKey(_map, "holyPartRefuse", "la parte sagrada se rehusa a interac
 LocalizationAddKey(_map, "diosCoffinName", "ataúd de dio");
 LocalizationAddKey(_map, "diosCoffinDescription", "despierta al vampiro");
 
+LocalizationAddKey(_map, "shardsTableName", "mesa de fragmentos");
+LocalizationAddKey(_map, "shardsTableDescription", "crea nuevas habilidades usando fragmentos.");
+
+LocalizationAddKey(_map, "offeringPillarName", "pilar de ofrendas");
+LocalizationAddKey(_map, "offeringPillarDescription", "crea habilidades únicas.");
+
 #endregion
 
 LocalizationAddKey(_map, "dmgDisplay", "daño");
@@ -85,6 +103,7 @@ LocalizationAddKey(_map, "legendaryName", "legendario");
 LocalizationAddKey(_map, "mythicalName", "mítico");
 LocalizationAddKey(_map, "ascendedName", "ascendido");
 LocalizationAddKey(_map, "ultimateName", "supremo");
+LocalizationAddKey(_map, "eventName", "evento");
 
 #endregion
 

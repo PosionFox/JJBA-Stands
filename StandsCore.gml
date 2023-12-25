@@ -525,6 +525,7 @@ switch(_rarity)
     case Rarity.Mythical: return 32; break;
     case Rarity.Ascended: return 64; break;
     case Rarity.Ultimate: return 128; break;
+    case Rarity.Event: return 256; break;
 }
 
 #define GetRarityName(_rarity)
@@ -539,6 +540,7 @@ switch(_rarity)
     case Rarity.Mythical: return Localize("mythicalName"); break;
     case Rarity.Ascended: return Localize("ascendedName"); break;
     case Rarity.Ultimate: return Localize("ultimateName"); break;
+    case Rarity.Event: return Localize("eventName"); break;
 }
 
 #define GetRarityColor(_rarity)
@@ -553,6 +555,7 @@ switch(_rarity)
     case Rarity.Mythical: return c_red; break;
     case Rarity.Ascended: return c_orange; break;
     case Rarity.Ultimate: return c_fuchsia; break;
+    case Rarity.Event: return c_aqua; break;
 }
 
 #define UpdateRarity(_rarity)

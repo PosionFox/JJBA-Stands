@@ -18,6 +18,33 @@ CommandCreate("jjSpawnDio", true, ScriptWrap(jjSpawnDio))
 
 CommandCreate("jjCheckGrimoires", false, ScriptWrap(jjCheckGrimoires));
 
+CommandCreate("jjSpawnShards", true, ScriptWrap(jjSpawnShards));
+
+CommandCreate("jjCheckMonth", false, ScriptWrap(jjCheckMonth));
+
+#define jjCheckMonth
+
+Trace(current_month);
+
+#define jjSpawnShards
+
+repeat (100)
+{
+    var _pool =
+    [
+        [global.jjCommonShard, 128],
+        [global.jjUncommonShard, 64],
+        [global.jjRareShard, 32],
+        [global.jjEpicShard, 16],
+        [global.jjLegendaryShard, 8],
+        [global.jjMythicalShard, 4],
+        [global.jjAscendedShard, 2],
+        [global.jjUltimateShard, 1],
+    ]
+    var _shard = random_weight(_pool);
+    DropItem(player.x, player.y, _shard, 1);
+}
+
 #define jjCheckGrimoires
 
 var _result = ModFind("Grimoires");
@@ -143,6 +170,10 @@ switch (args[0])
     case "twruoh": GiveTwruoh(player); break;
     case "hr": GiveHr(player); break;
     case "hb": GiveHb(player); break;
+    case "ep": GiveEP(player); break;
+    case "twf": GiveTWF(player); break;
+    case "kcf": GiveKCF(player); break;
+    case "he": GiveHE(player); break;
     // other
     case "sus": GiveImposter(player); break;
     case "twoh": GiveTWOH(player); break;

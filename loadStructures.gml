@@ -38,6 +38,62 @@ global.jjStructureDiosCoffin = StructureCreate(
     false
 );
 
+global.jjShardsTable = StructureCreate(
+    undefined,
+    Localize("shardsTableName"),
+    Localize("shardsTableDescription"),
+    StructureType.Base,
+    global.sprShardsTable,
+    undefined,
+    [
+        Item.Wood, 100,
+        Item.StarFragment, 1
+    ],
+    1,
+    true,
+    [
+        // common
+        global.jjConcentratedArrowSP,
+        global.jjConcentratedArrowSTW,
+        global.jjConcentratedArrowKQ,
+        global.jjConcentratedArrowSF,
+        global.jjConcentratedArrowGE,
+        global.jjConcentratedArrowKC,
+        global.jjConcentratedArrowSC,
+        global.jjConcentratedArrowWS,
+        global.jjConcentratedArrowHG,
+        // uncommon
+        global.jjConcentratedArrowSPG,
+        global.jjConcentratedArrowSFG,
+        global.jjConcentratedArrowSFR,
+        global.jjConcentratedArrowKCG,
+        global.jjConcentratedArrowHR,
+        // rare
+        global.jjConcentratedArrowSCOVA,
+        global.jjConcentratedArrowKCA,
+        global.jjConcentratedArrowHB,
+        // epic
+        global.jjConcentratedArrowBS,
+        // legendary
+        global.jjConcentratedArrowSUS,
+        global.jjConcentratedArrowKCMo,
+        global.jjConcentratedArrowDW,
+        global.jjConcentratedArrowSPP,
+        // mythical
+        global.jjConcentratedArrowSPR,
+        global.jjConcentratedArrowS,
+        global.jjConcentratedArrowKCM,
+        // ascended
+        
+        // ultimate
+        global.jjConcentratedArrowEP
+    ],
+    false,
+    BuildMenuCategory.Magical,
+    undefined,
+    false
+);
+
 #define SkillStandWorkshop
 
 if (instance_exists(objPlayer))
