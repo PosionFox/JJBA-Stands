@@ -69,6 +69,9 @@ LocalizationAddKey(_map, "bizarreCandyDescription", "Un dulce que se ve bizarro.
 LocalizationAddKey(_map, "deliciousDirkName", "puñal delicioso");
 LocalizationAddKey(_map, "deliciousDirkDescription", "Se ve delicioso pero peligroso.");
 
+LocalizationAddKey(_map, "suspiciousBoltName", "perno sospechoso");
+LocalizationAddKey(_map, "suspiciousBoltDescription", "se ve como un perno sospechoso.");
+
 
 
 LocalizationAddKey(_map, "requiemArrowMerge", "la flecha se fusiona con el stand!");

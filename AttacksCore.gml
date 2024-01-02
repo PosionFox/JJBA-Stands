@@ -65,7 +65,7 @@ if (skills[skill, StandSkill.DamagePlayerStat])
 {
     _damage += owner.dmg;
 }
-var _final_damage = _damage * powerMultiplier * GetRunesDamage(self);
+var _final_damage = _damage * powerMultiplier * GetRunesDamage(self) * (1 + owner.trait.damage);
 
 return _final_damage;
 
@@ -77,7 +77,7 @@ if (skills[skill, StandSkill.DamagePlayerStatAlt])
 {
     _damage += owner.dmg;
 }
-var _final_damage = _damage * powerMultiplier * GetRunesDamage(self);
+var _final_damage = _damage * powerMultiplier * GetRunesDamage(self) * (1 + owner.trait.damage);
 
 return _final_damage;
 

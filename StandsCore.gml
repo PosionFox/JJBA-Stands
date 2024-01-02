@@ -42,6 +42,9 @@ for (var i = 0; i < _rlen; i++)
 
 draw_set_halign(fa_left);
 draw_set_valign(fa_bottom);
+draw_set_color(owner.trait.color);
+draw_text(32, _height - 186, string_lower(string(owner.trait.name)));
+draw_set_color(c_white);
 draw_text(32, _height - 138, string_lower(string(name)));
 draw_line_color(32, _height - 144, 32 + 255, _height - 144, color, c_black);
 draw_set_valign(fa_middle);

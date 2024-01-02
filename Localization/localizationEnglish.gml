@@ -69,6 +69,9 @@ LocalizationAddKey(_map, "bizarreCandyDescription", "A bizarre looking candy.");
 LocalizationAddKey(_map, "deliciousDirkName", "delicious dirk");
 LocalizationAddKey(_map, "deliciousDirkDescription", "Looks delicious but dangerous.");
 
+LocalizationAddKey(_map, "suspiciousBoltName", "suspicious bolt");
+LocalizationAddKey(_map, "suspiciousBoltDescription", "looks like a normal bolt.");
+
 
 LocalizationAddKey(_map, "requiemArrowMerge", "the arrow merges with the stand!");
 LocalizationAddKey(_map, "requiemArrowRefuse", "nothing happens...");

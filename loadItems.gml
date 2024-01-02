@@ -218,6 +218,25 @@ global.jjEgyptianCrown = ItemCreate(
     true
 );
 
+global.jjSuspiciousBolt = ItemCreate(
+    undefined,
+    Localize("suspiciousBoltName"),
+    Localize("suspiciousBoltDescription"),
+    global.sprSuspiciousBolt,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    812,
+    0,
+    0,
+    [
+        Item.GoldIngot, 100,
+        Item.Topaz, 2
+    ],
+    ScriptWrap(SuspiciousBoltUse),
+    60 * 30,
+    true
+);
+
 // var _newArray = StructureGet(Structure.Forge, StructureData.Items);
 // array_push(_newArray, global.jjbamArrow);
 // array_push(_newArray, global.jjbamDisc);
@@ -305,6 +324,31 @@ global.jjPrayerBeads = ItemCreate(
     true
 )
 StructureAddItem(Structure.Forge, global.jjPrayerBeads);
+
+#define SuspiciousBoltUse
+
+var _pool =
+[
+    // common
+    ["jjFit", 128],
+    // uncommon
+    ["jjHefty", 64],
+    // rare
+    ["jjStrong", 32],
+    // epic
+    ["jjMuscular", 16],
+    // legendary
+    ["jjJacked", 8],
+    // mythical
+    ["jjBuff", 4],
+    // ascended
+    ["jjRipped", 2],
+    // ultimate
+    ["jjHercules", 1],
+]
+var _trait = random_weight(_pool);
+trait_set_by_key(player, _trait);
+DmgPlayer(1, false);
 
 #define EgyptianCrownUse
 

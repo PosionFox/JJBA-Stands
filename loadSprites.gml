@@ -35,6 +35,7 @@ global.sprLegendaryConcentratedArrow = sprite_add(p + "LegendaryConcentratedArro
 global.sprMythicalConcentratedArrow = sprite_add(p + "MythicalConcentratedArrow.png", 1, false, false, 8, 8);
 global.sprAscendedConcentratedArrow = sprite_add(p + "AscendedConcentratedArrow.png", 1, false, false, 8, 8);
 global.sprUltimateConcentratedArrow = sprite_add(p + "UltimateConcentratedArrow.png", 1, false, false, 8, 8);
+global.sprSuspiciousBolt = sprite_add(p + "SuspiciousBolt.png", 1, false, false, 8, 8);
 
 #endregion
 

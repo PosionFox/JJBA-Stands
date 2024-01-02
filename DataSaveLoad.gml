@@ -194,6 +194,12 @@ if (instance_exists(player) and instance_exists(STAND))
     if (STAND.runes[1] != noone) _map[? "jjRune1"] = STAND.runes[1].save_key;
     if (STAND.runes[2] != noone) _map[? "jjRune2"] = STAND.runes[2].save_key;
 }
+// traits
+if bool("trait" in player)
+{
+    _map[? "jjTrait"] = player.trait.key;
+}
+
 
 ModSaveDataSubmit(_map);
 ds_map_destroy(_map);
@@ -308,6 +314,18 @@ if (_map[? "jjEnemyDioSpawned"])
 if (instance_exists(player) and instance_exists(STAND))
 {
     LoadRunes(_map);
+}
+
+#endregion
+
+#region traits
+
+if (instance_exists(player))
+{
+    if bool("trait" in player)
+    {
+        trait_set_by_key(player, _map[? "jjTrait"]);
+    }
 }
 
 #endregion
