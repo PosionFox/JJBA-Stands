@@ -133,521 +133,142 @@ global.jjUltimateShard = ItemCreate(
 
 #region concentrated arrows
 
-// common
-
-global.jjConcentratedArrowSP = ItemCreate(
+global.jjCommonConcentratedArrow = ItemCreate(
     undefined,
-    Localize("concentratedArrowName") + ":" + "Star Platinum",
+    Localize("concentratedArrowName") + " (" + Localize("commonName") + ")",
     Localize("concentratedArrowDescription"),
     global.sprCommonConcentratedArrow,
     ItemType.Consumable,
     ItemSubType.None,
-    128 * 8,
+    128 * 1,
     0,
     0,
     [
         global.jjbamArrow, 1,
         global.jjCommonShard, 64
     ],
-    ScriptWrap(GrantSP),
+    ScriptWrap(GrantCommonAbility),
     60 * 1,
     true
 );
 
-global.jjConcentratedArrowSTW = ItemCreate(
+global.jjUncommonConcentratedArrow = ItemCreate(
     undefined,
-    Localize("concentratedArrowName") + ":" + "Shadow The World",
-    Localize("concentratedArrowDescription"),
-    global.sprCommonConcentratedArrow,
-    ItemType.Consumable,
-    ItemSubType.None,
-    128 * 8,
-    0,
-    0,
-    [
-        global.jjbamArrow, 1,
-        global.jjCommonShard, 64
-    ],
-    ScriptWrap(GrantSP),
-    60 * 1,
-    true
-);
-
-global.jjConcentratedArrowKQ = ItemCreate(
-    undefined,
-    Localize("concentratedArrowName") + ":" + "Killer Queen",
-    Localize("concentratedArrowDescription"),
-    global.sprCommonConcentratedArrow,
-    ItemType.Consumable,
-    ItemSubType.None,
-    128 * 8,
-    0,
-    0,
-    [
-        global.jjbamArrow, 1,
-        global.jjCommonShard, 64
-    ],
-    ScriptWrap(GrantSP),
-    60 * 1,
-    true
-);
-
-global.jjConcentratedArrowSF = ItemCreate(
-    undefined,
-    Localize("concentratedArrowName") + ":" + "Sticky Fingers",
-    Localize("concentratedArrowDescription"),
-    global.sprCommonConcentratedArrow,
-    ItemType.Consumable,
-    ItemSubType.None,
-    128 * 8,
-    0,
-    0,
-    [
-        global.jjbamArrow, 1,
-        global.jjCommonShard, 64
-    ],
-    ScriptWrap(GrantSP),
-    60 * 1,
-    true
-);
-
-global.jjConcentratedArrowGE = ItemCreate(
-    undefined,
-    Localize("concentratedArrowName") + ":" + "Gold Experience",
-    Localize("concentratedArrowDescription"),
-    global.sprCommonConcentratedArrow,
-    ItemType.Consumable,
-    ItemSubType.None,
-    128 * 8,
-    0,
-    0,
-    [
-        global.jjbamArrow, 1,
-        global.jjCommonShard, 64
-    ],
-    ScriptWrap(GrantSP),
-    60 * 1,
-    true
-);
-
-global.jjConcentratedArrowKC = ItemCreate(
-    undefined,
-    Localize("concentratedArrowName") + ":" + "King Crimson",
-    Localize("concentratedArrowDescription"),
-    global.sprCommonConcentratedArrow,
-    ItemType.Consumable,
-    ItemSubType.None,
-    128 * 8,
-    0,
-    0,
-    [
-        global.jjbamArrow, 1,
-        global.jjCommonShard, 64
-    ],
-    ScriptWrap(GrantSP),
-    60 * 1,
-    true
-);
-
-global.jjConcentratedArrowSC = ItemCreate(
-    undefined,
-    Localize("concentratedArrowName") + ":" + "Silver Chariot",
-    Localize("concentratedArrowDescription"),
-    global.sprCommonConcentratedArrow,
-    ItemType.Consumable,
-    ItemSubType.None,
-    128 * 8,
-    0,
-    0,
-    [
-        global.jjbamArrow, 1,
-        global.jjCommonShard, 64
-    ],
-    ScriptWrap(GrantSP),
-    60 * 1,
-    true
-);
-
-global.jjConcentratedArrowWS = ItemCreate(
-    undefined,
-    Localize("concentratedArrowName") + ":" + "WhiteSnake",
-    Localize("concentratedArrowDescription"),
-    global.sprCommonConcentratedArrow,
-    ItemType.Consumable,
-    ItemSubType.None,
-    128 * 8,
-    0,
-    0,
-    [
-        global.jjbamArrow, 1,
-        global.jjCommonShard, 64
-    ],
-    ScriptWrap(GrantSP),
-    60 * 1,
-    true
-);
-
-global.jjConcentratedArrowSP = ItemCreate(
-    undefined,
-    Localize("concentratedArrowName") + ":" + "Star Platinum",
-    Localize("concentratedArrowDescription"),
-    global.sprCommonConcentratedArrow,
-    ItemType.Consumable,
-    ItemSubType.None,
-    128 * 8,
-    0,
-    0,
-    [
-        global.jjbamArrow, 1,
-        global.jjCommonShard, 64
-    ],
-    ScriptWrap(GrantSP),
-    60 * 1,
-    true
-);
-
-global.jjConcentratedArrowHG = ItemCreate(
-    undefined,
-    Localize("concentratedArrowName") + ":" + "Hierophant Green",
-    Localize("concentratedArrowDescription"),
-    global.sprCommonConcentratedArrow,
-    ItemType.Consumable,
-    ItemSubType.None,
-    128 * 8,
-    0,
-    0,
-    [
-        global.jjbamArrow, 1,
-        global.jjCommonShard, 64
-    ],
-    ScriptWrap(GrantSP),
-    60 * 1,
-    true
-);
-
-// uncommon
-
-global.jjConcentratedArrowSPG = ItemCreate(
-    undefined,
-    Localize("concentratedArrowName") + ":" + "Star Platinum Gray",
+    Localize("concentratedArrowName") + " (" + Localize("uncommonName") + ")",
     Localize("concentratedArrowDescription"),
     global.sprUncommonConcentratedArrow,
     ItemType.Consumable,
     ItemSubType.None,
-    128 * 8,
+    128 * 2,
     0,
     0,
     [
         global.jjbamArrow, 1,
         global.jjUncommonShard, 32
     ],
-    ScriptWrap(GrantSP),
+    ScriptWrap(GrantUncommonAbility),
     60 * 1,
     true
 );
 
-global.jjConcentratedArrowSFG = ItemCreate(
+global.jjRareConcentratedArrow = ItemCreate(
     undefined,
-    Localize("concentratedArrowName") + ":" + "Sticky Fingers Gray",
-    Localize("concentratedArrowDescription"),
-    global.sprUncommonConcentratedArrow,
-    ItemType.Consumable,
-    ItemSubType.None,
-    128 * 8,
-    0,
-    0,
-    [
-        global.jjbamArrow, 1,
-        global.jjUncommonShard, 32
-    ],
-    ScriptWrap(GrantSP),
-    60 * 1,
-    true
-);
-
-global.jjConcentratedArrowSFR = ItemCreate(
-    undefined,
-    Localize("concentratedArrowName") + ":" + "Sticky Fingers Red",
-    Localize("concentratedArrowDescription"),
-    global.sprUncommonConcentratedArrow,
-    ItemType.Consumable,
-    ItemSubType.None,
-    128 * 8,
-    0,
-    0,
-    [
-        global.jjbamArrow, 1,
-        global.jjUncommonShard, 32
-    ],
-    ScriptWrap(GrantSP),
-    60 * 1,
-    true
-);
-
-global.jjConcentratedArrowKCG = ItemCreate(
-    undefined,
-    Localize("concentratedArrowName") + ":" + "King Crimson Gray",
-    Localize("concentratedArrowDescription"),
-    global.sprUncommonConcentratedArrow,
-    ItemType.Consumable,
-    ItemSubType.None,
-    128 * 8,
-    0,
-    0,
-    [
-        global.jjbamArrow, 1,
-        global.jjUncommonShard, 32
-    ],
-    ScriptWrap(GrantSP),
-    60 * 1,
-    true
-);
-
-global.jjConcentratedArrowHR = ItemCreate(
-    undefined,
-    Localize("concentratedArrowName") + ":" + "Hierophant Red",
-    Localize("concentratedArrowDescription"),
-    global.sprUncommonConcentratedArrow,
-    ItemType.Consumable,
-    ItemSubType.None,
-    128 * 8,
-    0,
-    0,
-    [
-        global.jjbamArrow, 1,
-        global.jjUncommonShard, 32
-    ],
-    ScriptWrap(GrantSP),
-    60 * 1,
-    true
-);
-
-// rare
-
-global.jjConcentratedArrowSCOVA = ItemCreate(
-    undefined,
-    Localize("concentratedArrowName") + ":" + "Silver Chariot OVA",
+    Localize("concentratedArrowName") + " (" + Localize("rareName") + ")",
     Localize("concentratedArrowDescription"),
     global.sprRareConcentratedArrow,
     ItemType.Consumable,
     ItemSubType.None,
-    128 * 8,
+    128 * 3,
     0,
     0,
     [
         global.jjbamArrow, 1,
         global.jjRareShard, 16
     ],
-    ScriptWrap(GrantSP),
+    ScriptWrap(GrantRareAbility),
     60 * 1,
     true
 );
 
-global.jjConcentratedArrowKCA = ItemCreate(
+global.jjEpicConcentratedArrow = ItemCreate(
     undefined,
-    Localize("concentratedArrowName") + ":" + "King Crimson Aqua",
-    Localize("concentratedArrowDescription"),
-    global.sprRareConcentratedArrow,
-    ItemType.Consumable,
-    ItemSubType.None,
-    128 * 8,
-    0,
-    0,
-    [
-        global.jjbamArrow, 1,
-        global.jjRareShard, 16
-    ],
-    ScriptWrap(GrantSP),
-    60 * 1,
-    true
-);
-
-global.jjConcentratedArrowHB = ItemCreate(
-    undefined,
-    Localize("concentratedArrowName") + ":" + "Hierophant Black",
-    Localize("concentratedArrowDescription"),
-    global.sprRareConcentratedArrow,
-    ItemType.Consumable,
-    ItemSubType.None,
-    128 * 8,
-    0,
-    0,
-    [
-        global.jjbamArrow, 1,
-        global.jjRareShard, 16
-    ],
-    ScriptWrap(GrantSP),
-    60 * 1,
-    true
-);
-
-// epic
-
-global.jjConcentratedArrowBS = ItemCreate(
-    undefined,
-    Localize("concentratedArrowName") + ":" + "BlackSnake",
+    Localize("concentratedArrowName") + " (" + Localize("epicName") + ")",
     Localize("concentratedArrowDescription"),
     global.sprEpicConcentratedArrow,
     ItemType.Consumable,
     ItemSubType.None,
-    128 * 8,
+    128 * 4,
     0,
     0,
     [
         global.jjbamArrow, 1,
         global.jjEpicShard, 8
     ],
-    ScriptWrap(GrantSP),
+    ScriptWrap(GrantEpicAbility),
     60 * 1,
     true
 );
 
-// legendary
-
-global.jjConcentratedArrowSUS = ItemCreate(
+global.jjLegendaryConcentratedArrow = ItemCreate(
     undefined,
-    Localize("concentratedArrowName") + ":" + "Imposter",
+    Localize("concentratedArrowName") + " (" + Localize("legendaryName") + ")",
     Localize("concentratedArrowDescription"),
     global.sprLegendaryConcentratedArrow,
     ItemType.Consumable,
     ItemSubType.None,
-    128 * 8,
+    128 * 5,
     0,
     0,
     [
         global.jjbamArrow, 1,
         global.jjLegendaryShard, 4
     ],
-    ScriptWrap(GrantSP),
+    ScriptWrap(GrantLegendaryAbility),
     60 * 1,
     true
 );
 
-global.jjConcentratedArrowKCMo = ItemCreate(
+global.jjMythicalConcentratedArrow = ItemCreate(
     undefined,
-    Localize("concentratedArrowName") + ":" + "King Crimson Monochrome",
-    Localize("concentratedArrowDescription"),
-    global.sprLegendaryConcentratedArrow,
-    ItemType.Consumable,
-    ItemSubType.None,
-    128 * 8,
-    0,
-    0,
-    [
-        global.jjbamArrow, 1,
-        global.jjLegendaryShard, 4
-    ],
-    ScriptWrap(GrantSP),
-    60 * 1,
-    true
-);
-
-global.jjConcentratedArrowDW = ItemCreate(
-    undefined,
-    Localize("concentratedArrowName") + ":" + "Dark World",
-    Localize("concentratedArrowDescription"),
-    global.sprLegendaryConcentratedArrow,
-    ItemType.Consumable,
-    ItemSubType.None,
-    128 * 8,
-    0,
-    0,
-    [
-        global.jjbamArrow, 1,
-        global.jjLegendaryShard, 4
-    ],
-    ScriptWrap(GrantSP),
-    60 * 1,
-    true
-);
-
-global.jjConcentratedArrowSPP = ItemCreate(
-    undefined,
-    Localize("concentratedArrowName") + ":" + "Star Platinum Prime",
-    Localize("concentratedArrowDescription"),
-    global.sprLegendaryConcentratedArrow,
-    ItemType.Consumable,
-    ItemSubType.None,
-    128 * 8,
-    0,
-    0,
-    [
-        global.jjbamArrow, 1,
-        global.jjLegendaryShard, 4
-    ],
-    ScriptWrap(GrantSP),
-    60 * 1,
-    true
-);
-
-// mythical
-
-global.jjConcentratedArrowSPR = ItemCreate(
-    undefined,
-    Localize("concentratedArrowName") + ":" + "Star Platinum Retro",
+    Localize("concentratedArrowName") + " (" + Localize("mythicalName") + ")",
     Localize("concentratedArrowDescription"),
     global.sprMythicalConcentratedArrow,
     ItemType.Consumable,
     ItemSubType.None,
-    128 * 8,
+    128 * 6,
     0,
     0,
     [
         global.jjbamArrow, 1,
         global.jjMythicalShard, 3
     ],
-    ScriptWrap(GrantSP),
+    ScriptWrap(GrantMythicalAbility),
     60 * 1,
     true
 );
 
-global.jjConcentratedArrowS = ItemCreate(
+global.jjAscendedConcentratedArrow = ItemCreate(
     undefined,
-    Localize("concentratedArrowName") + ":" + "Shadow",
+    Localize("concentratedArrowName") + " (" + Localize("ascendedName") + ")",
     Localize("concentratedArrowDescription"),
-    global.sprMythicalConcentratedArrow,
+    global.sprAscendedConcentratedArrow,
     ItemType.Consumable,
     ItemSubType.None,
-    128 * 8,
+    128 * 7,
     0,
     0,
     [
         global.jjbamArrow, 1,
-        global.jjMythicalShard, 3
+        global.jjAscendedShard, 2
     ],
-    ScriptWrap(GrantSP),
+    ScriptWrap(GrantAscendedAbility),
     60 * 1,
     true
 );
 
-global.jjConcentratedArrowKCM = ItemCreate(
+global.jjUltimateConcentratedArrow = ItemCreate(
     undefined,
-    Localize("concentratedArrowName") + ":" + "King Crimson Manga",
-    Localize("concentratedArrowDescription"),
-    global.sprMythicalConcentratedArrow,
-    ItemType.Consumable,
-    ItemSubType.None,
-    128 * 8,
-    0,
-    0,
-    [
-        global.jjbamArrow, 1,
-        global.jjMythicalShard, 3
-    ],
-    ScriptWrap(GrantSP),
-    60 * 1,
-    true
-);
-
-// ascended
-
-
-
-// ultimate
-
-global.jjConcentratedArrowEP = ItemCreate(
-    undefined,
-    Localize("concentratedArrowName") + ":" + "Estrella Platinada",
+    Localize("concentratedArrowName") + " (" + Localize("ultimateName") + ")",
     Localize("concentratedArrowDescription"),
     global.sprUltimateConcentratedArrow,
     ItemType.Consumable,
@@ -659,27 +280,169 @@ global.jjConcentratedArrowEP = ItemCreate(
         global.jjbamArrow, 1,
         global.jjUltimateShard, 1
     ],
-    ScriptWrap(GrantSP),
+    ScriptWrap(GrantUltimateAbility),
     60 * 1,
     true
 );
 
 #endregion
 
-#define GrantSP
+#define GrantCommonAbility
 
 if (room != rmGame)
 {
-    GainItem(global.jjConcentratedArrowSP);
+    GainItem(global.jjCommonConcentratedArrow);
     exit;
 }
 
 if (!instance_exists(STAND))
 {
     DmgPlayer(1, false);
-    GiveStarPlatinum(player);
+    var _abilities = get_all_from_weight(global.arrow_ability_pool, global.common_arrow_weight);
+    var _c = array_length(_abilities) - 1;
+    script_execute(_abilities[_c], player);
 }
 else
 {
-    GainItem(global.jjConcentratedArrowSP);
+    GainItem(global.jjCommonConcentratedArrow);
+}
+
+#define GrantUncommonAbility
+
+if (room != rmGame)
+{
+    GainItem(global.jjUncommonConcentratedArrow);
+    exit;
+}
+
+if (!instance_exists(STAND))
+{
+    DmgPlayer(1, false);
+    var _abilities = get_all_from_weight(global.arrow_ability_pool, global.uncommon_arrow_weight);
+    var _c = array_length(_abilities) - 1;
+    script_execute(_abilities[_c], player);
+}
+else
+{
+    GainItem(global.jjUncommonConcentratedArrow);
+}
+
+#define GrantRareAbility
+
+if (room != rmGame)
+{
+    GainItem(global.jjRareConcentratedArrow);
+    exit;
+}
+
+if (!instance_exists(STAND))
+{
+    DmgPlayer(1, false);
+    var _abilities = get_all_from_weight(global.arrow_ability_pool, global.rare_arrow_weight);
+    var _c = array_length(_abilities) - 1;
+    script_execute(_abilities[_c], player);
+}
+else
+{
+    GainItem(global.jjRareConcentratedArrow);
+}
+
+#define GrantEpicAbility
+
+if (room != rmGame)
+{
+    GainItem(global.jjEpicConcentratedArrow);
+    exit;
+}
+
+if (!instance_exists(STAND))
+{
+    DmgPlayer(1, false);
+    var _abilities = get_all_from_weight(global.arrow_ability_pool, global.epic_arrow_weight);
+    var _c = array_length(_abilities) - 1;
+    script_execute(_abilities[_c], player);
+}
+else
+{
+    GainItem(global.jjEpicConcentratedArrow);
+}
+
+#define GrantLegendaryAbility
+
+if (room != rmGame)
+{
+    GainItem(global.jjLegendaryConcentratedArrow);
+    exit;
+}
+
+if (!instance_exists(STAND))
+{
+    DmgPlayer(1, false);
+    var _abilities = get_all_from_weight(global.arrow_ability_pool, global.legendary_arrow_weight);
+    var _c = array_length(_abilities) - 1;
+    script_execute(_abilities[_c], player);
+}
+else
+{
+    GainItem(global.jjLegendaryConcentratedArrow);
+}
+
+#define GrantMythicalAbility
+
+if (room != rmGame)
+{
+    GainItem(global.jjMythicalConcentratedArrow);
+    exit;
+}
+
+if (!instance_exists(STAND))
+{
+    DmgPlayer(1, false);
+    var _abilities = get_all_from_weight(global.arrow_ability_pool, global.mythical_arrow_weight);
+    var _c = array_length(_abilities) - 1;
+    script_execute(_abilities[_c], player);
+}
+else
+{
+    GainItem(global.jjMythicalConcentratedArrow);
+}
+
+#define GrantAscendedAbility
+
+if (room != rmGame)
+{
+    GainItem(global.jjAscendedConcentratedArrow);
+    exit;
+}
+
+if (!instance_exists(STAND))
+{
+    DmgPlayer(1, false);
+    var _abilities = get_all_from_weight(global.arrow_ability_pool, global.ascended_arrow_weight);
+    var _c = array_length(_abilities) - 1;
+    script_execute(_abilities[_c], player);
+}
+else
+{
+    GainItem(global.jjAscendedConcentratedArrow);
+}
+
+#define GrantUltimateAbility
+
+if (room != rmGame)
+{
+    GainItem(global.jjUltimateConcentratedArrow);
+    exit;
+}
+
+if (!instance_exists(STAND))
+{
+    DmgPlayer(1, false);
+    var _abilities = get_all_from_weight(global.arrow_ability_pool, global.ultimate_arrow_weight);
+    var _c = array_length(_abilities) - 1;
+    script_execute(_abilities[_c], player);
+}
+else
+{
+    GainItem(global.jjUltimateConcentratedArrow);
 }

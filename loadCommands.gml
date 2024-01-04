@@ -22,6 +22,12 @@ CommandCreate("jjSpawnShards", true, ScriptWrap(jjSpawnShards));
 
 CommandCreate("jjCheckMonth", false, ScriptWrap(jjCheckMonth));
 
+CommandCreate("jjTrait", true, ScriptWrap(jjTrait), "trait");
+
+#define jjTrait(args)
+
+trait_set_by_key(player, args[0]);
+
 #define jjCheckMonth
 
 Trace(current_month);
@@ -174,6 +180,9 @@ switch (args[0])
     case "twf": GiveTWF(player); break;
     case "kcf": GiveKCF(player); break;
     case "he": GiveHE(player); break;
+    case "spoh": GiveSPOH(player); break;
+    case "sproh": GiveSPROH(player); break;
+    // other
     // other
     case "sus": GiveImposter(player); break;
     case "twoh": GiveTWOH(player); break;

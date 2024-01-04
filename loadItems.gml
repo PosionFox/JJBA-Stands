@@ -325,6 +325,55 @@ global.jjPrayerBeads = ItemCreate(
 )
 StructureAddItem(Structure.Forge, global.jjPrayerBeads);
 
+
+global.common_arrow_weight = 128;
+global.uncommon_arrow_weight = 64;
+global.rare_arrow_weight = 32;
+global.epic_arrow_weight = 16;
+global.legendary_arrow_weight = 8;
+global.mythical_arrow_weight = 4;
+global.ascended_arrow_weight = 2;
+global.ultimate_arrow_weight = 1;
+
+global.arrow_ability_pool =
+[
+    // common
+    [GiveStarPlatinum, global.common_arrow_weight],
+    [GiveShadowTheWorld, global.common_arrow_weight],
+    [GiveKillerQueen, global.common_arrow_weight],
+    [GiveStickyFingers, global.common_arrow_weight],
+    [GiveGoldExperience, global.common_arrow_weight],
+    [GiveKingCrimson, global.common_arrow_weight],
+    [GiveSilverChariot, global.common_arrow_weight],
+    [GiveWhiteSnake, global.common_arrow_weight],
+    [GiveHierophantGreen, global.common_arrow_weight],
+    // uncommon
+    [GiveSpg, global.uncommon_arrow_weight],
+    [GiveSfg, global.uncommon_arrow_weight],
+    [GiveSfr, global.uncommon_arrow_weight],
+    [GiveKcg, global.uncommon_arrow_weight],
+    [GiveHr, global.uncommon_arrow_weight],
+    // rare
+    [GiveScova, global.rare_arrow_weight],
+    [GiveKca, global.rare_arrow_weight],
+    [GiveHb, global.rare_arrow_weight],
+    // epic
+    [GiveBs, global.epic_arrow_weight],
+    // legendary
+    [GiveImposter, global.legendary_arrow_weight],
+    [GiveKcmo, global.legendary_arrow_weight],
+    [GiveDw, global.legendary_arrow_weight],
+    [GiveSpp, global.legendary_arrow_weight],
+    // mythical
+    [GiveSpr, global.mythical_arrow_weight],
+    [GiveShadow, global.mythical_arrow_weight],
+    [GiveKcm, global.mythical_arrow_weight],
+    // ascended
+    [GiveSPOH, global.ascended_arrow_weight],
+    // ultimate
+    [GiveSPROH, global.ultimate_arrow_weight]
+];
+
 #define SuspiciousBoltUse
 
 var _pool =
@@ -339,12 +388,16 @@ var _pool =
     ["jjMuscular", 16],
     // legendary
     ["jjJacked", 8],
+    ["jjRepeat", 8],
     // mythical
     ["jjBuff", 4],
+    ["jjReflect", 4],
     // ascended
     ["jjRipped", 2],
+    ["jjMirror", 2],
     // ultimate
     ["jjHercules", 1],
+    ["jjEcho", 1]
 ]
 var _trait = random_weight(_pool);
 trait_set_by_key(player, _trait);
@@ -564,56 +617,7 @@ else
 
 #define GiveRandomStand
 
-/*
-    100 = common
-    50 = uncommon
-    25 = rare
-    12 = epic
-    5 = legendary
-    1 = mythical
-*/
-
-var _standPool =
-[
-    // common
-    [GiveStarPlatinum, 100],
-    [GiveShadowTheWorld, 100],
-    [GiveKillerQueen, 100],
-    [GiveStickyFingers, 100],
-    [GiveGoldExperience, 100],
-    [GiveKingCrimson, 100],
-    [GiveSilverChariot, 100],
-    [GiveWhiteSnake, 100],
-    [GiveHierophantGreen, 100],
-    // uncommon
-    [GiveSpg, 50],
-    [GiveSfg, 50],
-    [GiveSfr, 50],
-    [GiveKcg, 50],
-    [GiveHr, 50],
-    // rare
-    [GiveScova, 25],
-    [GiveKca, 25],
-    [GiveHb, 25],
-    // epic
-    [GiveBs, 12],
-    // legendary
-    [GiveImposter, 5],
-    [GiveKcmo, 5],
-    [GiveDw, 5],
-    [GiveSpp, 5],
-    // mythical
-    [GiveSpr, 1],
-    [GiveShadow, 1],
-    [GiveKcm, 1]
-    // ascended
-    // ultimate
-]
-
-script_execute(random_weight(_standPool), player);
-
-//var _c = irandom(array_length(_standPool) - 1);
-//script_execute(_standPool[_c]);
+script_execute(random_weight(global.arrow_ability_pool), player);
 
 #define DiscUse
 

@@ -43,3 +43,12 @@ if (modSubtypeExists("geFrog"))
         player.invulFrames = 0;
     }
 }
+
+if (enemy_instance_exists() and instance_exists(player))
+{
+    if (player.trait.damage_reflected > 0)
+    {
+        var _n = get_nearest_enemy(player.x, player.y);
+        _n.hp -= _damage * player.trait.damage_reflected;
+    }
+}

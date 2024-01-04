@@ -236,11 +236,16 @@ global.sprSkillStrongPunchSp = sprite_add(p + "SkillStrongPunchSp.png", 1, false
 global.sprSkillStarFinger = sprite_add(p + "SkillStarFinger.png", 1, false, false, 16, 16);
 global.sprSkillTimestopSp = sprite_add(p + "SkillTimestopSp.png", 1, false, false, 16, 16);
 
-    // star platinum the world
+// alts
+global.sprSPOH = sprite_add(p + "SPOH.png", 1, false, false, 16, 19);
+global.sprSPROH = sprite_add(p + "SPROH.png", 1, false, false, 16, 19);
+
+// star platinum the world
 p = "Resources/Sprites/SPTW/";
 global.sprSptw = sprite_add(p + "SPTW.png", 1, false, false, 16, 19);
 global.sprSkillSoda = sprite_add(p + "SkillSoda.png", 1, false, false, 16, 16);
 
+// alts
 global.sprTimeEmperor = sprite_add(p + "TimeEmperor.png", 1, false, false, 16, 19);
 global.sprEP = sprite_add(p + "EP.png", 1, false, false, 16, 19);
 

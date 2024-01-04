@@ -1,78 +1,111 @@
 
+#define init_player_traits
+
+if !bool("trait" in player)
+{
+    player.trait = {
+        name : "none",
+        key : "jjNone",
+        color : c_white,
+        damage : 0,
+        damage_reflected : 0
+    }
+}
+
 #define trait_set_by_key(_user, _trait_key)
 
 switch (_trait_key)
 {
     // common
     case "jjFit":
-        _user.trait = {
-            name : "fit",
-            key : _trait_key,
-            color : c_white,
-            damage : 0.05
-        }
+        _user.trait.name = "fit";
+        _user.trait.key = _trait_key;
+        _user.trait.color = c_white;
+        _user.trait.damage = 0.05;
+        _user.trait.damage_reflected = 0;
     break;
     // uncommon
     case "jjHefty":
-        _user.trait = {
-            name : "hefty",
-            key : _trait_key,
-            color : c_lime,
-            damage : 0.10
-        }
+        _user.trait.name = "hefty";
+        _user.trait.key = _trait_key;
+        _user.trait.color = c_lime;
+        _user.trait.damage = 0.10;
+        _user.trait.damage_reflected = 0;
     break;
     // rare
     case "jjStrong":
-        _user.trait = {
-            name : "strong",
-            key : _trait_key,
-            color : c_blue,
-            damage : 0.15
-        }
+        _user.trait.name = "strong";
+        _user.trait.key = _trait_key;
+        _user.trait.color = c_blue;
+        _user.trait.damage = 0.15;
+        _user.trait.damage_reflected = 0;
     break;
     // epic
     case "jjMuscular":
-        _user.trait = {
-            name : "muscular",
-            key : _trait_key,
-            color : c_purple,
-            damage : 0.20
-        }
+        _user.trait.name = "muscular";
+        _user.trait.key = _trait_key;
+        _user.trait.color = c_purple;
+        _user.trait.damage = 0.20;
+        _user.trait.damage_reflected = 0;
     break;
     // legendary
     case "jjJacked":
-        _user.trait = {
-            name : "jacked",
-            key : _trait_key,
-            color : c_yellow,
-            damage : 0.25
-        }
+        _user.trait.name = "jacked";
+        _user.trait.key = _trait_key;
+        _user.trait.color = c_yellow;
+        _user.trait.damage = 0.25;
+        _user.trait.damage_reflected = 0;
+    break;
+    case "jjRepeat":
+        _user.trait.name = "repeat";
+        _user.trait.key = _trait_key;
+        _user.trait.color = c_yellow;
+        _user.trait.damage = 0;
+        _user.trait.damage_reflected = 1;
     break;
     // mythical
     case "jjBuff":
-        _user.trait = {
-            name : "buff",
-            key : _trait_key,
-            color : c_red,
-            damage : 0.30
-        }
+        _user.trait.name = "buff";
+        _user.trait.key = _trait_key;
+        _user.trait.color = c_red;
+        _user.trait.damage = 0.30;
+        _user.trait.damage_reflected = 0;
+    break;
+    case "jjReflect":
+        _user.trait.name = "reflect";
+        _user.trait.key = _trait_key;
+        _user.trait.color = c_red;
+        _user.trait.damage = 0;
+        _user.trait.damage_reflected = 5;
     break;
     // ascended
     case "jjRipped":
-        _user.trait = {
-            name : "ripped",
-            key : _trait_key,
-            color : c_orange,
-            damage : 0.35
-        }
+        _user.trait.name = "ripped";
+        _user.trait.key = _trait_key;
+        _user.trait.color = c_orange;
+        _user.trait.damage = 0.35;
+        _user.trait.damage_reflected = 0;
+    break;
+    case "jjMirror":
+        _user.trait.name = "mirror";
+        _user.trait.key = _trait_key;
+        _user.trait.color = c_orange;
+        _user.trait.damage = 0;
+        _user.trait.damage_reflected = 10;
     break;
     // ultimate
     case "jjHercules":
-        _user.trait = {
-            name : "hercules",
-            key : _trait_key,
-            color : c_fuchsia,
-            damage : 0.40
-        }
+        _user.trait.name = "hercules";
+        _user.trait.key = _trait_key;
+        _user.trait.color = c_fuchsia;
+        _user.trait.damage = 0.40;
+        _user.trait.damage_reflected = 0;
+    break;
+    case "jjEcho":
+        _user.trait.name = "echo";
+        _user.trait.key = _trait_key;
+        _user.trait.color = c_fuchsia;
+        _user.trait.damage = 0;
+        _user.trait.damage_reflected = 15;
     break;
 }

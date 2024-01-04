@@ -2,6 +2,7 @@
 #define OnLoad
 
 InitPlayerVariables();
+init_player_traits();
 LoadData();
 
 // grimoires boss fix

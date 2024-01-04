@@ -453,11 +453,11 @@ if (timer <= 0)
 {
     var _standPool =
     [
-        [GiveTheWorld, 100],
-        [GiveTwg, 50],
-        [GiveSpookyWorld, 25],
-        [GiveTwgh, 5],
-        [GiveTwru, 1]
+        [GiveTheWorld, global.common_arrow_weight],
+        [GiveTwg, global.uncommon_arrow_weight],
+        [GiveSpookyWorld, global.rare_arrow_weight],
+        [GiveTwgh, global.legendary_arrow_weight],
+        [GiveTwru, global.mythical_arrow_weight]
     ]
     script_execute(random_weight(_standPool), player);
     instance_destroy(self);

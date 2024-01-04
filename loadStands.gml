@@ -99,6 +99,8 @@ EP();
 TWF();
 KCF();
 HE();
+SPOH();
+SPROH();
 
 #endregion
 

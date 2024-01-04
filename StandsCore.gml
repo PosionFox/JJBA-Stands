@@ -13,17 +13,21 @@ var _height = display_get_gui_height() - 40;
 
 var xx = 168;
 var yy = _height - 200;
+
+// tier
+var _tx = xx;
+var _ty = yy - 64;
 var _ss = random_range(0.85, 1.15);
 var _spr = global.sprStarTier;
 var _c = rarity.color;
 
-draw_sprite_ext(_spr, 0, xx - 4, yy, _ss, _ss, 0, _c, 0.8);
+draw_sprite_ext(_spr, 0, _tx - 4, _ty, _ss, _ss, 0, _c, 0.8);
 
 var gx = device_mouse_x_to_gui(0);
 var gy = device_mouse_y_to_gui(0);
-if (point_in_rectangle(gx, gy, xx - 16, yy - 16, xx + 16, yy + 16))
+if (point_in_rectangle(gx, gy, _tx - 16, _ty - 16, _tx + 16, _ty + 16))
 {
-    draw_text(gx + 8, gy, rarity.name);
+    draw_text(gx + 8, gy, string(rarity.name) + " (" + string(rarity.probability) + "%)");
 }
 
 // draw runes
@@ -461,8 +465,10 @@ with (_stand)
     rarity = {
         tier : Rarity.Common,
         name : Localize("commonName"),
-        color : c_white
+        color : c_white,
+        probability : 1
     };
+    UpdateRarity(rarity.tier);
     saveKey = "jjbamStandless";
     discType = noone;
     color = c_white;
@@ -561,12 +567,28 @@ switch(_rarity)
     case Rarity.Event: return c_aqua; break;
 }
 
+#define GetRarityWeight(_rarity)
+
+switch(_rarity)
+{
+    case Rarity.Common: return global.common_arrow_weight; break;
+    case Rarity.Uncommon: return global.uncommon_arrow_weight; break;
+    case Rarity.Rare: return global.rare_arrow_weight; break;
+    case Rarity.Epic: return global.epic_arrow_weight; break;
+    case Rarity.Legendary: return global.legendary_arrow_weight; break;
+    case Rarity.Mythical: return global.mythical_arrow_weight; break;
+    case Rarity.Ascended: return global.ascended_arrow_weight; break;
+    case Rarity.Ultimate: return global.ultimate_arrow_weight; break;
+    case Rarity.Event: return 0; break;
+}
+
 #define UpdateRarity(_rarity)
 
 rarity.tier = _rarity;
 powerMultiplier = GetPowerMultiplier(_rarity);
-rarity.name = GetRarityName(_rarity)
-rarity.color = GetRarityColor(_rarity)
+rarity.name = GetRarityName(_rarity);
+rarity.color = GetRarityColor(_rarity);
+rarity.probability = (GetRarityWeight(_rarity) / get_total_weight(global.arrow_ability_pool)) * 100;
 
 #define RemoveStand(_owner)
 

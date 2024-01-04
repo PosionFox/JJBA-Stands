@@ -144,8 +144,9 @@ if (timer <= 0)
 {
     var _standPool =
     [
-        [GiveSPTW, 100],
-        [GiveTe, 12]
+        [GiveSPTW, global.common_arrow_weight],
+        [GiveTe, global.epic_arrow_weight],
+        [GiveEP, global.ultimate_arrow_weight],
     ]
     script_execute(random_weight(_standPool), player);
     instance_destroy(self);

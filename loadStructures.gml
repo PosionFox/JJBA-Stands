@@ -52,43 +52,16 @@ global.jjShardsTable = StructureCreate(
     1,
     true,
     [
-        // common
-        global.jjConcentratedArrowSP,
-        global.jjConcentratedArrowSTW,
-        global.jjConcentratedArrowKQ,
-        global.jjConcentratedArrowSF,
-        global.jjConcentratedArrowGE,
-        global.jjConcentratedArrowKC,
-        global.jjConcentratedArrowSC,
-        global.jjConcentratedArrowWS,
-        global.jjConcentratedArrowHG,
-        // uncommon
-        global.jjConcentratedArrowSPG,
-        global.jjConcentratedArrowSFG,
-        global.jjConcentratedArrowSFR,
-        global.jjConcentratedArrowKCG,
-        global.jjConcentratedArrowHR,
-        // rare
-        global.jjConcentratedArrowSCOVA,
-        global.jjConcentratedArrowKCA,
-        global.jjConcentratedArrowHB,
-        // epic
-        global.jjConcentratedArrowBS,
-        // legendary
-        global.jjConcentratedArrowSUS,
-        global.jjConcentratedArrowKCMo,
-        global.jjConcentratedArrowDW,
-        global.jjConcentratedArrowSPP,
-        // mythical
-        global.jjConcentratedArrowSPR,
-        global.jjConcentratedArrowS,
-        global.jjConcentratedArrowKCM,
-        // ascended
-        
-        // ultimate
-        global.jjConcentratedArrowEP
+        global.jjCommonConcentratedArrow,
+        global.jjUncommonConcentratedArrow,
+        global.jjRareConcentratedArrow,
+        global.jjEpicConcentratedArrow,
+        global.jjLegendaryConcentratedArrow,
+        global.jjMythicalConcentratedArrow,
+        global.jjAscendedConcentratedArrow,
+        global.jjUltimateConcentratedArrow
     ],
-    false,
+    true,
     BuildMenuCategory.Magical,
     undefined,
     false

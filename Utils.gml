@@ -234,6 +234,27 @@ for(var i = 0; i < array_length(_array); i++)
     rnd -= _array[i, 1];
 }
 
+#define get_total_weight(_array)
+
+var sumWeight = 0;
+for(var i = 0; i < array_length(_array); i++)
+{
+    sumWeight += _array[i, 1];
+}
+return sumWeight;
+
+#define get_all_from_weight(_array, _weight)
+
+var _pool = []
+for(var i = 0; i < array_length(_array); i++)
+{
+    if (_weight == _array[i, 1])
+    {
+        array_push(_pool, _array[i, 0]);
+    }
+}
+return _pool;
+
 #define enemy_instance_exists()
 
 if instance_exists(ENEMY)

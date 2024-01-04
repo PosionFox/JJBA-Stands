@@ -20,15 +20,6 @@ if (instance_exists(player))
     if !bool("abilityKeybind2" in player) { player.abilityKeybind2 = "F" }
     if !bool("abilityKeybind3" in player) { player.abilityKeybind3 = "C" }
     if !bool("abilityKeybind4" in player) { player.abilityKeybind4 = "G" }
-    if !bool("trait" in player)
-    {
-        player.trait = {
-            name : "none",
-            key : "jjNone",
-            color : c_white,
-            damage : 0
-        }
-    }
 }
 
 #define newClass(class)
@@ -37,7 +28,7 @@ return array_clone(class);
 
 #define printVersion
 
-Trace("jjbas v0.6.0");
+Trace("jjbas v0.7.0");
 
 #define load_seasonals
 
