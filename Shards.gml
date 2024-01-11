@@ -299,7 +299,7 @@ if (!instance_exists(STAND))
 {
     DmgPlayer(1, false);
     var _abilities = get_all_from_weight(global.arrow_ability_pool, global.common_arrow_weight);
-    var _c = array_length(_abilities) - 1;
+    var _c = irandom(array_length(_abilities) - 1);
     script_execute(_abilities[_c], player);
 }
 else
@@ -319,7 +319,7 @@ if (!instance_exists(STAND))
 {
     DmgPlayer(1, false);
     var _abilities = get_all_from_weight(global.arrow_ability_pool, global.uncommon_arrow_weight);
-    var _c = array_length(_abilities) - 1;
+    var _c = irandom(array_length(_abilities) - 1);
     script_execute(_abilities[_c], player);
 }
 else
@@ -339,7 +339,7 @@ if (!instance_exists(STAND))
 {
     DmgPlayer(1, false);
     var _abilities = get_all_from_weight(global.arrow_ability_pool, global.rare_arrow_weight);
-    var _c = array_length(_abilities) - 1;
+    var _c = irandom(array_length(_abilities) - 1);
     script_execute(_abilities[_c], player);
 }
 else
@@ -359,7 +359,7 @@ if (!instance_exists(STAND))
 {
     DmgPlayer(1, false);
     var _abilities = get_all_from_weight(global.arrow_ability_pool, global.epic_arrow_weight);
-    var _c = array_length(_abilities) - 1;
+    var _c = irandom(array_length(_abilities) - 1);
     script_execute(_abilities[_c], player);
 }
 else
@@ -379,7 +379,7 @@ if (!instance_exists(STAND))
 {
     DmgPlayer(1, false);
     var _abilities = get_all_from_weight(global.arrow_ability_pool, global.legendary_arrow_weight);
-    var _c = array_length(_abilities) - 1;
+    var _c = irandom(array_length(_abilities) - 1);
     script_execute(_abilities[_c], player);
 }
 else
@@ -399,7 +399,7 @@ if (!instance_exists(STAND))
 {
     DmgPlayer(1, false);
     var _abilities = get_all_from_weight(global.arrow_ability_pool, global.mythical_arrow_weight);
-    var _c = array_length(_abilities) - 1;
+    var _c = irandom(array_length(_abilities) - 1);
     script_execute(_abilities[_c], player);
 }
 else
@@ -419,7 +419,7 @@ if (!instance_exists(STAND))
 {
     DmgPlayer(1, false);
     var _abilities = get_all_from_weight(global.arrow_ability_pool, global.ascended_arrow_weight);
-    var _c = array_length(_abilities) - 1;
+    var _c = irandom(array_length(_abilities) - 1);
     script_execute(_abilities[_c], player);
 }
 else
@@ -439,7 +439,7 @@ if (!instance_exists(STAND))
 {
     DmgPlayer(1, false);
     var _abilities = get_all_from_weight(global.arrow_ability_pool, global.ultimate_arrow_weight);
-    var _c = array_length(_abilities) - 1;
+    var _c = irandom(array_length(_abilities) - 1);
     script_execute(_abilities[_c], player);
 }
 else
