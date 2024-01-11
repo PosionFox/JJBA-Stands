@@ -24,6 +24,12 @@ CommandCreate("jjCheckMonth", false, ScriptWrap(jjCheckMonth));
 
 CommandCreate("jjTrait", true, ScriptWrap(jjTrait), "trait");
 
+CommandCreate("jjPrintVersion", false, ScriptWrap(jjPrintVersion))
+
+#define jjPrintVersion
+
+printVersion();
+
 #define jjTrait(args)
 
 trait_set_by_key(player, args[0]);

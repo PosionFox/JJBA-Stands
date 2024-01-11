@@ -38,7 +38,7 @@ Christmas();
 
 printVersion();
 
-global.timeIsFrozen = false;
+global.timeIsFrozen = false;    // unused
 
 localizationEnglish();
 localizationSpanish();
