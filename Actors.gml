@@ -19,6 +19,7 @@ with (_o)
     scale = 1;
     facing = 1;
     freeze = 0;
+    targets = [ENEMY, MOBJ];
     
     attackCD = 0;
     life = 60;
@@ -432,7 +433,6 @@ with (_o)
     owner = other;
     state = "idle";
     color = c_white;
-    targets = [ENEMY, MOBJ];
     target = noone;
     sprIdle = objPlayer.sprIdle;
     sprWalk = objPlayer.sprWalk;

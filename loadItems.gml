@@ -247,6 +247,7 @@ global.jjSuspiciousBolt = ItemCreate(
 // StructureEdit(Structure.Forge, StructureData.Items, _newArray);
 
 StructureAddItem(Structure.Forge, global.jjbamArrow);
+StructureAddItem(Structure.Forge, global.jjSuspiciousBolt);
 StructureAddItem(Structure.Forge, global.jjbamEternalArrow);
 StructureAddItem(Structure.Forge, global.jjbamRequiem);
 
