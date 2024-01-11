@@ -35,15 +35,25 @@ global.sndRevReload = audio_create_stream(p + "revReload.ogg");
 
 p = "Resources/Sounds/SP/";
 global.sndSpSummon = audio_create_stream(p + "spSummon.ogg");
+global.sndSpBarrage = audio_create_stream(p + "spBarrage.ogg");
 global.sndSpTs = audio_create_stream(p + "spTs.ogg");
 global.sndSpOpenSoda = audio_create_stream(p + "spOpenSoda.ogg");
+
+// spova
+p = "Resources/Sounds/SP/OVA/";
+global.sndSpovaSummon = audio_create_stream(p + "spovaSummon.ogg");
+global.sndSpovaBarrage = audio_create_stream(p + "spovaBarrage.ogg");
+global.sndSpovaStrongPunch = audio_create_stream(p + "spovaStrongPunch.ogg");
+global.sndSpovaTs = audio_create_stream(p + "spovaTs.ogg");
 
 #endregion
 
 #region star platinum retro
 
 p = "Resources/Sounds/SPR/";
+global.sndSprSummon = audio_create_stream(p + "sprSummon.ogg");
 global.sndSprOra = audio_create_stream(p + "sprOra.ogg");
+global.sndSprBarrage = audio_create_stream(p + "sprBarrage.ogg");
 global.sndSprStarPlat = audio_create_stream(p + "sprStarPlat.ogg");
 global.sndSprTokiyotomare = audio_create_stream(p + "sprTokiyotomare.ogg");
 global.sndSprTsResume = audio_create_stream(p + "sprTsResume.ogg");
@@ -142,6 +152,13 @@ global.sndTwSummon = audio_create_stream(p + "twSummon.ogg");
 global.sndTwTs = audio_create_stream(p + "twTs.ogg");
 global.sndStopSign = audio_create_stream(p + "stopSign.ogg");
 global.sndTwBarrage = audio_create_stream(p + "twBarrage.ogg");
+
+// ova
+p = "Resources/Sounds/TW/OVA/";
+global.sndTwovaSummon = audio_create_stream(p + "twovaSummon.ogg");
+global.sndTwovaTs = audio_create_stream(p + "twovaTs.ogg");
+global.sndTwovaBarrage = audio_create_stream(p + "twovaBarrage.ogg");
+global.sndTwovaStrongPunch = audio_create_stream(p + "twovaStrongPunch.ogg");
 
 #endregion
 

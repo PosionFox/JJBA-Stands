@@ -24,20 +24,61 @@ if (instance_exists(STAND) or room != rmGame)
 }
 GiveSpova(player);
 
+#define SpovaBarrage(m, s)
+
+var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
+var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+
+xTo = owner.x + lengthdir_x(GetStandReach(self), _dir + random_range(-4, 4));
+yTo = owner.y + lengthdir_y(GetStandReach(self), _dir + random_range(-4, 4));
+image_xscale = mouse_x > owner.x ? 1 : -1;
+
+switch (attackState)
+{
+    case 0:
+        audio_play_sound(global.sndSpovaBarrage, 10, false);
+        attackState++;
+    break;
+    case 1:
+        if (distance_to_point(xTo, yTo) < 2)
+        {
+            if (attackStateTimer >= 0.08)
+            {
+                var xx = x + random_range(-4, 4);
+                var yy = y + random_range(-8, 8);
+                var _p = PunchSwingCreate(xx, yy, _dir, 45, GetDmg(s));
+                attackStateTimer = 0;
+            }
+            skills[s, StandSkill.ExecutionTime] += DT;
+        }
+        
+        if (keyboard_check_pressed(ord(skills[s, StandSkill.Key])))
+        {
+            audio_stop_sound(global.sndSpovaBarrage);
+            EndAtk(s);
+        }
+        if (skills[s, StandSkill.ExecutionTime] >= skills[s, StandSkill.MaxExecutionTime])
+        {
+            audio_stop_sound(global.sndSpovaBarrage);
+        }
+    break;
+}
+attackStateTimer += DT;
+
 #define SpovaStrongPunch(method, skill)
 
 var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y)
 
-var _xx = player.x + lengthdir_x(8, _dir);
-var _yy = player.y + lengthdir_y(8, _dir);
+var _xx = player.x + lengthdir_x(GetStandReach(self), _dir);
+var _yy = player.y + lengthdir_y(GetStandReach(self), _dir);
 xTo = _xx;
 yTo = _yy;
 
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndSprOra, 0, false);
+        audio_play_sound(global.sndSpovaStrongPunch, 0, false);
         attackState++;
     break;
     case 1:
@@ -54,94 +95,11 @@ switch (attackState)
 }
 attackStateTimer += DT;
 
-#define SpovaStarFinger(method, skill) //attacks
+#define SpovaTimestop(m, s)
 
-var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
-
-var _xx = player.x + lengthdir_x(8, _dir);
-var _yy = player.y + lengthdir_y(8, _dir);
-xTo = _xx;
-yTo = _yy;
-image_xscale = mouse_x > player.x ? 1 : -1;
-
-switch (attackState)
-{
-    case 0:
-        audio_play_sound(global.sndSprStaar, 0, false);
-        attackState++;
-    break;
-    case 1:
-        if (attackStateTimer >= 1.15)
-        {
-            attackState++;
-        }
-    break;
-    case 2:
-        audio_play_sound(global.sndSprFinger, 0, false);
-        var _p = ProjectileCreate(x, y);
-        with (_p)
-        {
-            subtype = "starFinger";
-            owner = STAND;
-            sprite_index = global.sprStarPlatinumFinger;
-            image_blend = STAND.color;
-            damage = GetDmg(skill);
-            stationary = true;
-            canDespawnInTs = true;
-            destroyOnImpact = false;
-            direction = _dir;
-            despawnFade = false;
-            despawnTime = 1;
-            fingerSize = 0;
-            
-            InstanceAssignMethod(self, "step", ScriptWrap(StarFingerStep), false);
-            InstanceAssignMethod(self, "draw", ScriptWrap(StarFingerDraw), false);
-        }
-        attackState++;
-    break;
-    case 3:
-        if (attackStateTimer >= 2.2)
-        {
-            attackState++;
-        }
-    break;
-    case 4:
-        EndAtk(skill);
-    break;
-}
-attackStateTimer += DT;
-
-#define SpovaTimestop(method, s)
-
-xTo = player.x;
-yTo = player.y - 16;
-
-switch (attackState)
-{
-    case 0:
-        angleTarget = 25;
-        audio_play_sound(global.sndSprTs, 5, false);
-        attackState++;
-    break;
-    case 1:
-        if (attackStateTimer >= 0.9)
-        {
-            attackState++;
-        }
-    break;
-    case 2:
-        angleTargetSpd = 0.3;
-        angleTarget = -25;
-        
-        var ts = TimestopCreate(5 + (0.1 * player.level));
-        ts.resumeSound = global.sndSprTsResume;
-        attackState++;
-    break;
-    case 3:
-        EndAtk(s);
-    break;
-}
-attackStateTimer += DT;
+audio_play_sound(global.sndSpovaTs, 5, false);
+TimestopCreate(5 + (0.1 * player.level));
+EndAtk(s);
 
 #define GiveSpova(_owner) //stand
 
@@ -149,18 +107,17 @@ var _s = GiveStarPlatinum(_owner);
 with (_s)
 {
     name = "Star Platinum OVA";
-    sprite_index = global.sprSPR;
-    color = /*#*/0xe4cd5f;
-    UpdateRarity(Rarity.Mythical);
+    sprite_index = global.sprSPOVA;
+    color = 0x826030;
+    UpdateRarity(Rarity.Legendary);
     saveKey = "jjbamSpova";
     discType = global.jjbamDiscSpova;
     
-    summonSound = global.sndSprStarPlat;
-    soundWhenHurt = [global.sndSprHurt1, global.sndSprHurt2, global.sndSprHurt3];
-    soundWhenDead = global.sndSprDead;
+    summonSound = global.sndSpovaSummon;
     
+    skills[StandState.SkillA, StandSkill.Skill] = SpovaBarrage;
     skills[StandState.SkillB, StandSkill.Skill] = SpovaStrongPunch;
-    skills[StandState.SkillC, StandSkill.Skill] = SpovaStarFinger;
     skills[StandState.SkillD, StandSkill.Skill] = SpovaTimestop;
+    skills[StandState.SkillD, StandSkill.SkillAlt] = AttackHandler;
 }
 return _s;

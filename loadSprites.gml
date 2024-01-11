@@ -195,6 +195,7 @@ global.sprSkillTripleKnifeThrow = sprite_add(p + "SkillTripleKnifeThrow.png", 1,
 
 // alts
 global.sprTheWorldFrozen = sprite_add(p + "TheWorldFrozen.png", 1, false, false, 16, 19);
+global.sprTWOVA = sprite_add(p + "TWOVA.png", 1, false, false, 16, 19);
 
 #endregion
 
@@ -239,6 +240,7 @@ global.sprSkillTimestopSp = sprite_add(p + "SkillTimestopSp.png", 1, false, fals
 // alts
 global.sprSPOH = sprite_add(p + "SPOH.png", 1, false, false, 16, 19);
 global.sprSPROH = sprite_add(p + "SPROH.png", 1, false, false, 16, 19);
+global.sprSPOVA = sprite_add(p + "SPOVA.png", 1, false, false, 16, 19);
 
 // star platinum the world
 p = "Resources/Sprites/SPTW/";

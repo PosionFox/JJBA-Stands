@@ -19,6 +19,10 @@ if (instance_exists(player))
                 STAND.xp += _mob.hpMax;
                 STAND.xp = min(STAND.maxXp, STAND.xp);
             break;
+            case "jjbamDw":
+                STAND.xp += _mob.hpMax;
+                STAND.xp = min(STAND.maxXp, STAND.xp);
+            break;
             case "jjbamTsk":
                 STAND.act4Meter += _mob.hpMax * 0.25;
             break;

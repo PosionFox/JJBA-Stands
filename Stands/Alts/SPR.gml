@@ -24,6 +24,47 @@ if (instance_exists(STAND) or room != rmGame)
 }
 GiveSpr(player);
 
+#define SprBarrage(m, s)
+
+var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
+var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+
+xTo = owner.x + lengthdir_x(GetStandReach(self), _dir + random_range(-4, 4));
+yTo = owner.y + lengthdir_y(GetStandReach(self), _dir + random_range(-4, 4));
+image_xscale = mouse_x > owner.x ? 1 : -1;
+
+switch (attackState)
+{
+    case 0:
+        audio_play_sound(global.sndSprBarrage, 10, false);
+        attackState++;
+    break;
+    case 1:
+        if (distance_to_point(xTo, yTo) < 2)
+        {
+            if (attackStateTimer >= 0.08)
+            {
+                var xx = x + random_range(-4, 4);
+                var yy = y + random_range(-8, 8);
+                var _p = PunchSwingCreate(xx, yy, _dir, 45, GetDmg(s));
+                attackStateTimer = 0;
+            }
+            skills[s, StandSkill.ExecutionTime] += DT;
+        }
+        
+        if (keyboard_check_pressed(ord(skills[s, StandSkill.Key])))
+        {
+            audio_stop_sound(global.sndSprBarrage);
+            EndAtk(s);
+        }
+        if (skills[s, StandSkill.ExecutionTime] >= skills[s, StandSkill.MaxExecutionTime])
+        {
+            audio_stop_sound(global.sndSprBarrage);
+        }
+    break;
+}
+attackStateTimer += DT;
+
 #define SprStrongPunch(method, skill)
 
 var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
@@ -150,15 +191,16 @@ with (_s)
 {
     name = "Star Platinum Retro";
     sprite_index = global.sprSPR;
-    color = /*#*/0xe4cd5f;
+    color = 0xe4cd5f;
     UpdateRarity(Rarity.Mythical);
     saveKey = "jjbamSpr";
     discType = global.jjbamDiscSpr;
     
-    summonSound = global.sndSprStarPlat;
+    summonSound = global.sndSprSummon;
     soundWhenHurt = [global.sndSprHurt1, global.sndSprHurt2, global.sndSprHurt3];
     soundWhenDead = global.sndSprDead;
     
+    skills[StandState.SkillA, StandSkill.Skill] = SprBarrage;
     skills[StandState.SkillB, StandSkill.Skill] = SprStrongPunch;
     skills[StandState.SkillC, StandSkill.Skill] = SprStarFinger;
     skills[StandState.SkillD, StandSkill.Skill] = SprTimestop;

@@ -24,6 +24,39 @@ if (instance_exists(STAND) or room != rmGame)
 }
 GiveDw(player);
 
+#define DwEvolve(m, s)
+
+if (xp >= maxXp)
+{
+    audio_play_sound(global.sndStwEvolve, 5, false);
+    var _o = ModObjectSpawn(x, y, 0);
+    with (_o)
+    {
+        timer = 1;
+        
+        InstanceAssignMethod(self, "step", ScriptWrap(DwEvolveStep), false);
+    }
+}
+else
+{
+    ResetCD(s);
+    state = StandState.Idle;
+}
+
+#define DwEvolveStep
+
+if (instance_exists(STAND))
+{
+    RemoveStand(player);
+}
+FireEffect(c_white, 0x66a0d9);
+timer -= DT;
+if (timer <= 0)
+{
+    GiveTwova(player);
+    instance_destroy(self);
+}
+
 #define GiveDw(_owner) //stand
 
 var _s = GiveShadowTheWorld(_owner);
@@ -31,12 +64,12 @@ with (_s)
 {
     name = "Dark World";
     sprite_index = global.sprDW;
-    color = /*#*/0x3c2845;
+    color = 0x3c2845;
     UpdateRarity(Rarity.Legendary);
     summonSound = global.sndStw2Summon;
     saveKey = "jjbamDw";
     discType = global.jjbamDiscDw;
     auraParticleSprite = global.sprStandParticle2;
-    skills[StandState.SkillD, StandSkill.SkillAlt] = AttackHandler;
+    skills[StandState.SkillD, StandSkill.SkillAlt] = DwEvolve;
 }
 return _s;

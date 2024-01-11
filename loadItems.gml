@@ -363,11 +363,12 @@ global.arrow_ability_pool =
     [GiveHb, global.rare_arrow_weight],
     // epic
     [GiveBs, global.epic_arrow_weight],
+    [GiveSpp, global.epic_arrow_weight],
     // legendary
     [GiveImposter, global.legendary_arrow_weight],
     [GiveKcmo, global.legendary_arrow_weight],
     [GiveDw, global.legendary_arrow_weight],
-    [GiveSpp, global.legendary_arrow_weight],
+    [GiveSpova, global.legendary_arrow_weight],
     // mythical
     [GiveSpr, global.mythical_arrow_weight],
     [GiveShadow, global.mythical_arrow_weight],

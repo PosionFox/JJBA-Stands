@@ -24,36 +24,43 @@ if (instance_exists(STAND) or room != rmGame)
 }
 GiveTwova(player);
 
-#define TwovaBloodDrain(method, skill)
-var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
+#define TwovaBarrage(m, s)
+
+var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
+var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+
+xTo = owner.x + lengthdir_x(GetStandReach(self), _dir + random_range(-4, 4));
+yTo = owner.y + lengthdir_y(GetStandReach(self), _dir + random_range(-4, 4));
+image_xscale = mouse_x > owner.x ? 1 : -1;
 
 switch (attackState)
 {
     case 0:
-        var _s = [global.sndTwrBd1, global.sndTwrBd2];
-        var _i = irandom(array_length(_s) - 1);
-        audio_play_sound(_s[_i], 0, false);
+        audio_play_sound(global.sndTwovaBarrage, 10, false);
         attackState++;
     break;
     case 1:
-        if (attackStateTimer >= 0.3)
+        if (distance_to_point(xTo, yTo) < 2)
         {
-            attackState++;
-        }
-    break;
-    case 2:
-        var _p = PunchCreate(x, y, _dir, GetDmg(skill), 0);
-        with (_p)
-        {
-            if (enemy_instance_exists())
+            if (attackStateTimer >= 0.08)
             {
-                var _arg = get_nearest_enemy(x, y);
-                onHitEvent = StwDivineBloodCreate;
-                onHitEventArg = _arg;
+                var xx = x + random_range(-4, 4);
+                var yy = y + random_range(-8, 8);
+                var _p = PunchSwingCreate(xx, yy, _dir, 45, GetDmg(s));
+                attackStateTimer = 0;
             }
-            destroyOnImpact = true;
+            skills[s, StandSkill.ExecutionTime] += DT;
         }
-        EndAtk(skill);
+        
+        if (keyboard_check_pressed(ord(skills[s, StandSkill.Key])))
+        {
+            audio_stop_sound(global.sndTwovaBarrage);
+            EndAtk(s);
+        }
+        if (skills[s, StandSkill.ExecutionTime] >= skills[s, StandSkill.MaxExecutionTime])
+        {
+            audio_stop_sound(global.sndTwovaBarrage);
+        }
     break;
 }
 attackStateTimer += DT;
@@ -63,15 +70,15 @@ attackStateTimer += DT;
 var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y)
 
-var _xx = player.x + lengthdir_x(8, _dir);
-var _yy = player.y + lengthdir_y(8, _dir);
+var _xx = player.x + lengthdir_x(GetStandReach(self), _dir);
+var _yy = player.y + lengthdir_y(GetStandReach(self), _dir);
 xTo = _xx;
 yTo = _yy;
 
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndTwrMuda, 0, false);
+        audio_play_sound(global.sndTwovaStrongPunch, 0, false);
         attackState++;
     break;
     case 1:
@@ -85,48 +92,6 @@ switch (attackState)
         _p.onHitSound = global.sndStrongPunch;
         EndAtk(skill);
         break;
-}
-attackStateTimer += DT;
-
-#define TwovaKnifeWall(method, skill)
-var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
-StandDefaultPos();
-
-switch (attackState)
-{
-    case 0:
-        var _c = random(1);
-        if (_c < 0.5)
-        {
-            audio_play_sound(global.sndTwrMudada, 0, false);
-        }
-        attackState++;
-    break;
-    case 1:
-        if (attackStateTimer > 0.2)
-        {
-            attackState++;
-        }
-    break;
-    case 2:
-        var _snd = audio_play_sound(global.sndStwKnifeThrow2, 0, false);
-        audio_sound_pitch(_snd, random_range(0.9, 1.1));
-        
-        repeat (5)
-        {
-            var _p = ProjectileCreate(player.x, player.y);
-            with (_p)
-            {
-                x += lengthdir_x(irandom_range(-8, 8), _dir + 90);
-                y += lengthdir_y(irandom_range(-8, 8), _dir + 90);
-                damage = GetDmg(skill);
-                direction = _dir;
-                canMoveInTs = false;
-                sprite_index = other.knifeSprite;
-            }
-        }
-        EndAtk(skill);
-    break;
 }
 attackStateTimer += DT;
 
@@ -145,7 +110,7 @@ switch (attackState)
             instance_destroy(modTypeFind("timestop"));
         }
         angleTarget = 25;
-        audio_play_sound(global.sndStwTheWorld, 5, false);
+        audio_play_sound(global.sndTwovaTs, 5, false);
         attackState++;
     break;
     case 1:
@@ -155,10 +120,10 @@ switch (attackState)
         }
     break;
     case 2:
-        audio_play_sound(global.sndTwrTs, 5, false);
+        //audio_play_sound(global.sndTwrTs, 5, false);
         
         var ts = TimestopCreate(9 + (0.05 * player.level));
-        ts.resumeSound = global.sndStwTsResume;
+        ts.resumeSound = global.sndTwTsResume;
         attackState++;
     break;
     case 3:
@@ -168,7 +133,7 @@ switch (attackState)
         }
     break;
     case 4:
-        audio_play_sound(global.sndStwTokiyotomare, 5, false);
+        //audio_play_sound(global.sndStwTokiyotomare, 5, false);
         EndAtk(skill);
     break;
 }
@@ -180,21 +145,16 @@ var _s = GiveTheWorld(_owner);
 with (_s)
 {
     name = "The World OVA";
-    sprite_index = global.sprTWR;
-    color = /*#*/0x66a0d9;
-    UpdateRarity(Rarity.Mythical);
+    sprite_index = global.sprTWOVA;
+    color = 0xb7ad9b;
+    UpdateRarity(Rarity.Legendary);
     saveKey = "jjbamTwova";
     discType = global.jjbamDiscTwova;
     
-    knifeSprite = global.sprKnifeStw;
-    summonSound = global.sndTwrSummon;
-    soundWhenHurt = [global.sndStwHurt1, global.sndStwHurt2, global.sndStwHurt3];
-    soundWhenDead = global.sndStwDead;
-    soundIdle = [global.sndTwrIdle1, global.sndTwrIdle2];
+    summonSound = global.sndTwovaSummon;
     
-    skills[StandState.SkillCOff, StandSkill.Skill] = TwovaBloodDrain;
+    skills[StandState.SkillA, StandSkill.Skill] = TwovaBarrage;
     skills[StandState.SkillB, StandSkill.Skill] = TwovaStrongPunch;
-    skills[StandState.SkillC, StandSkill.Skill] = TwovaKnifeWall;
     skills[StandState.SkillD, StandSkill.Skill] = TwovaTimestop;
 }
 return _s;

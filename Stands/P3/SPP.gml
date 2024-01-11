@@ -31,8 +31,8 @@ with (_s)
 {
     name = "Star Platinum Prime";
     sprite_index = global.sprSPP;
-    color = /*#*/0xe16e5b;
-    UpdateRarity(Rarity.Legendary);
+    color = 0xe16e5b;
+    UpdateRarity(Rarity.Epic);
     saveKey = "jjbamSpp";
     discType = global.jjbamDiscSpp;
     
