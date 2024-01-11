@@ -225,15 +225,18 @@ global.jjSuspiciousBolt = ItemCreate(
     global.sprSuspiciousBolt,
     ItemType.Consumable,
     ItemSubType.Potion,
-    812,
+    250,
     0,
     0,
     [
-        Item.GoldIngot, 100,
-        Item.Topaz, 2
+        Item.Wood, 1,
+        Item.Ruby, 1,
+        Item.Emerald, 1,
+        Item.Topaz, 1,
+        Item.Amethyst, 1
     ],
     ScriptWrap(SuspiciousBoltUse),
-    60 * 30,
+    60 * 5,
     true
 );
 
