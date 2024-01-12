@@ -457,7 +457,7 @@ with (_stand)
     type = "stand";
     name = "unknown";
     owner = _owner;
-    targets = [ENEMY, MOBJ];
+    targets = [ENEMY, MOBJ, NATURAL, CRITTER];
     sprite_index = global.sprStarPlatinum;
     xTo = _owner.x;
     yTo = _owner.y;

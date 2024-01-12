@@ -16,6 +16,7 @@ if (room != rmGame)
     if (instance_exists(player))
     {
         InitPlayerVariables();
+        init_player_traits();
         //var _map = ModSaveDataFetch();
         //LoadStand(_map);
         LoadData();
