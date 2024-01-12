@@ -2,6 +2,11 @@ This is a mod that tries to incorporate the entities of JoJo's Bizarre Adventure
 
 I highly suggest downloading Cave's Scrollable Structure List: https://steamcommunity.com/sharedfiles/filedetails/?id=1985510486
 
+this mod is compatible with the Grimoires mod, while not being a dependency, having them installed adds a new grimoire to the game, you can find that mod here: https://steamcommunity.com/sharedfiles/filedetails/?id=2068521399
+[b]IMPORTANT[/b]: in order for JJBA Stands to work properly with Grimoires, Grimoires needs to be above JJBA Stands in the mods list(load first), otherwise JJBA Stands will crash.
+
+changelog: https://steamcommunity.com/sharedfiles/filedetails/changelog/2597172322
+
 
 [h1]How to get a Stand[/h1]
 You can try any of the following options:
@@ -35,6 +40,7 @@ Some Stands are capable of evolving into a stronger form:
 [*]Patriot D4C can evolve into Patriot D4C: Love Train or Evergreen(ascended)
 [*]Star Platinum can evolve into Star Platinum: The World with enough experience gained or Time Emperor(epic)
 [*]The World can evolve into The World Over Heaven by using a DIO's diary(DIO drops it)
+[*]Dark World can evolve into The World OVA with enough experience gained
 [/list]
 
 
@@ -57,24 +63,33 @@ With the Rune system you can upgrade your Stand or yourself by equipping runes i
 [*]King Crimson
 [*]Silver Chariot
 [*]WhiteSnake
+[*]Hierophant Green
 [b][i]Uncommon:[/i][/b]
 [*]Star Platinum Gray
 [*]Sticky Fingers Gray
 [*]Sticky Fingers Red
 [*]King Crimson Gray
+[*]Hierophant Red
 [b][i]Rare:[/i][/b]
 [*]Silver Chariot OVA
 [*]King Crimson Aqua
+[*]Hierophant Black
 [b][i]Epic:[/i][/b]
 [*]BlackSnake
+[*]Star Platinum Prime
 [b][i]Legendary:[/i][/b]
 [*]Imposter
 [*]King Crimson Monochrome
 [*]Dark World
+[*]Star Platinum OVA
 [b][i]Mythical:[/i][/b]
 [*]Star Platinum Retro
 [*]King Crimson Manga
 [*]Shadow
+[b][i]Ascended:[/i][/b]
+[*]Star Platinum Over Heaven
+[b][i]Ultimate:[/i][/b]
+[*]Star Platinum Retro Over Heaven
 [/list]
 
 [u]Stands you can get from Holy parts:[/u]
