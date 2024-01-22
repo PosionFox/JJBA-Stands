@@ -72,6 +72,35 @@ switch (attackState)
 }
 attackStateTimer += DT;
 
+#define SpStrongPunch(method, skill)
+
+var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
+var _dir = point_direction(player.x, player.y, mouse_x, mouse_y)
+
+var _xx = player.x + lengthdir_x(GetStandReach(self), _dir);
+var _yy = player.y + lengthdir_y(GetStandReach(self), _dir);
+xTo = _xx;
+yTo = _yy;
+
+switch (attackState)
+{
+    case 0:
+        audio_play_sound(global.sndSpStrongPunch, 0, false);
+        attackState++;
+    break;
+    case 1:
+        if (attackStateTimer >= 0.8)
+        {
+            attackState++;
+        }
+        break;
+    case 2:
+        var _p = PunchCreate(x, y, _dir, GetDmg(skill), 3);
+        _p.onHitSound = global.sndStrongPunch;
+        EndAtk(skill);
+        break;
+}
+attackStateTimer += DT;
 
 #define StarFinger(method, skill) //attacks
 
@@ -86,12 +115,16 @@ image_xscale = mouse_x > player.x ? 1 : -1;
 switch (attackState)
 {
     case 0:
+        audio_play_sound(global.sndSpStarFinger, 5, false);
+        attackState++;
+    break;
+    case 1:
         if (attackStateTimer >= 1.15)
         {
             attackState++;
         }
     break;
-    case 1:
+    case 2:
         var _dmg = GetDmg(skill);
         var _p = ProjectileCreate(x, y);
         with (_p)
@@ -113,13 +146,13 @@ switch (attackState)
         }
         attackState++;
     break;
-    case 2:
+    case 3:
         if (attackStateTimer >= 2.2)
         {
             attackState++;
         }
     break;
-    case 3:
+    case 4:
         EndAtk(skill);
     break;
 }
@@ -215,7 +248,7 @@ _skills[sk, StandSkill.MaxExecutionTime] = 5;
 _skills[sk, StandSkill.Desc] = Localize("barrageDesc");
 
 sk = StandState.SkillB;
-_skills[sk, StandSkill.Skill] = StrongPunch;
+_skills[sk, StandSkill.Skill] = SpStrongPunch;
 _skills[sk, StandSkill.Damage] = 5;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;

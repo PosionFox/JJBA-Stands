@@ -189,9 +189,9 @@ switch (args[0])
     case "spoh": GiveSPOH(player); break;
     case "sproh": GiveSPROH(player); break;
     // other
-    // other
     case "sus": GiveImposter(player); break;
     case "twoh": GiveTWOH(player); break;
+    case "sans": GiveSans(player); break;
     
     default: Trace("not found");
 }

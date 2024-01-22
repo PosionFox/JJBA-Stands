@@ -2,5 +2,5 @@
 #define OnNewGame
 
 InitPlayerVariables();
-init_player_traits();
+init_trait(player);
 GiveRandomStand();

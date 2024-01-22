@@ -689,8 +689,33 @@ else
 
 draw_circle(x, y, 1000, false);
 
+#define EffectBlackScreen(_time)
 
+var _o = ModObjectSpawn(player.x, player.y, -1000);
+with (_o)
+{
+    whiteScreen = _time;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(EffectBlackScreenStep));
+    InstanceAssignMethod(self, "draw", ScriptWrap(EffectBlackScreenDraw));
+}
 
+#define EffectBlackScreenStep
+
+if (whiteScreen > 0)
+{
+    whiteScreen -= DT;
+}
+else
+{
+    instance_destroy(self);
+}
+
+#define EffectBlackScreenDraw
+
+draw_set_color(c_black);
+draw_circle(x, y, 1000, false);
+draw_set_color(c_white);
 
 
 

@@ -83,6 +83,7 @@ return _final_damage;
 
 #define ProjHitTarget(_target)
 
+last_instance_hit = _target;
 if (array_find_index(instancesHit, _target.id) == -1)
 {
     if (onHitSound != noone)
@@ -115,7 +116,10 @@ if (array_find_index(instancesHit, _target.id) == -1)
     {
         _target.hp -= damage;
     }
-    array_push(instancesHit, _target.id);
+    if (!multihit)
+    {
+        array_push(instancesHit, _target.id);
+    }
     if (destroyOnImpact)
     {
         instance_destroy(self);
@@ -146,9 +150,12 @@ with (_o)
     baseDamage = 0;
     damage = baseDamage;
     destroyOnImpact = true;
+    last_instance_hit = undefined;
     instancesHit = [];
+    multihit = false;
     stationary = false;
     distance = 0;
+    rotate_with_direction = true;
     canMoveInTs = true;
     canDespawnInTs = false;
     knockback = 0;
@@ -186,7 +193,7 @@ if (despawnTime <= 0)
 
 if (instance_exists(self))
 {
-    image_angle = direction;
+    if (rotate_with_direction) image_angle = direction;
     image_yscale = sign(dcos(image_angle));
     
     if (stationary)

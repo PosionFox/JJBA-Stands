@@ -23,6 +23,8 @@ with (_o)
     attack_cooldown = 0;
     dying_timer = 0;
     
+    init_trait(self);
+    
     myStand = GiveTheWorld(self);
     with (myStand)
     {

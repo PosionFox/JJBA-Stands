@@ -38,6 +38,8 @@ global.sndSpSummon = audio_create_stream(p + "spSummon.ogg");
 global.sndSpBarrage = audio_create_stream(p + "spBarrage.ogg");
 global.sndSpTs = audio_create_stream(p + "spTs.ogg");
 global.sndSpOpenSoda = audio_create_stream(p + "spOpenSoda.ogg");
+global.sndSpStrongPunch = audio_create_stream(p + "spStrongPunch.ogg");
+global.sndSpStarFinger = audio_create_stream(p + "spStarFinger.ogg");
 
 // spova
 p = "Resources/Sounds/SP/OVA/";
@@ -72,6 +74,7 @@ global.sndSprFinger = audio_create_stream(p + "sprFinger.ogg");
 
 p = "Resources/Sounds/SPTW/";
 global.sndSptwTp = audio_create_stream(p + "sptwTp.ogg");
+global.sndSptwTs = audio_create_stream(p + "sptwTs.ogg");
 
 #endregion
 
@@ -335,5 +338,17 @@ global.sndSnwBubblePop = audio_create_stream(p + "snwBubblePop.ogg");
 global.sndSnwBubbleBigPop = audio_create_stream(p + "snwBubbleBigPop.ogg");
 global.sndSnwBubbleSummon = audio_create_stream(p + "snwBubbleSummon.ogg");
 global.sndSnwBubbleThrow = audio_create_stream(p + "snwBubbleThrow.ogg");
+
+#endregion
+
+#region undertale
+
+p = "Resources/Sounds/Undertale/";
+global.sndSoulDamaged = audio_create_stream(p + "soul_damaged.ogg");
+
+// sans
+p = "Resources/Sounds/Undertale/Sans/";
+global.sndSansVoice = audio_create_stream(p + "sans_voice.ogg");
+global.sndSansTp = audio_create_stream(p + "sansTp.ogg");
 
 #endregion

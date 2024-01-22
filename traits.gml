@@ -1,9 +1,9 @@
 
-#define init_player_traits
+#define init_trait(_user)
 
-if !bool("trait" in player)
+if !bool("trait" in _user)
 {
-    player.trait = {
+    _user.trait = {
         name : "none",
         key : "jjNone",
         color : c_white,

@@ -51,18 +51,18 @@ FireEffect(c_yellow, c_red);
 
 #define Burning
 
-if (enemy_instance_exists())
+if (last_instance_hit != undefined)
 {
-    var _near = get_nearest_enemy(x, y);
-    BurnDamageCreate(_near, 0.002, 3, true);
+    var _target = last_instance_hit;
+    BurnDamageCreate(_target, 0.002, 3, true);
 }
 
 #define LesserBurning
 
-if (enemy_instance_exists())
+if (last_instance_hit != undefined)
 {
-    var _near = get_nearest_enemy(x, y);
-    BurnDamageCreate(_near, 0.00002, 3, true);
+    var _target = last_instance_hit;
+    BurnDamageCreate(_target, 0.00002, 3, true);
 }
 
 #define MrBarrage(m, s)

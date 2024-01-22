@@ -514,6 +514,14 @@ global.sprHeavensDoor = sprite_add(p + "HeavensDoor.png", 1, false, false, 16, 1
 
 #endregion
 
+#region sans
+
+p = "Resources/Sprites/SANS/";
+global.sprSans = sprite_add(p + "Sans.png", 1, false, false, 16, 19);
+global.sprGroundBone = sprite_add(p + "GroundBone.png", 3, false, false, 8, 16);
+
+#endregion
+
 #region Alts
 
 p = "Resources/Sprites/Alts/";
