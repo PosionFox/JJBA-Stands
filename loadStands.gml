@@ -110,6 +110,7 @@ StImposter();
 AbSakuya();
 TWOH();
 Sans();
+Gojo();
 
 #endregion
 

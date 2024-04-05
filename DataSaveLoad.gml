@@ -120,6 +120,7 @@ switch (_stand)
     case "jjbamSpoh": GiveSPOH(player); break;
     case "jjbamSproh": GiveSPROH(player); break;
     case "jjbamSans": GiveSans(player); break;
+    case "jjbamGojo": GiveGojo(player); break;
 }
 
 #define SaveData
