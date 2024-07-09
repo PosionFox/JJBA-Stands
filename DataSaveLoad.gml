@@ -40,6 +40,7 @@ switch (_stand)
     case "jjbamSptw": GiveSPTW(player); break;
     case "jjbamKq": GiveKillerQueen(player); break;
     case "jjbamKqbtd": GiveKillerQueenBtD(player); break;
+    case "jjbamCd": GiveCrazyDiamond(player); break;
     // p5
     case "jjbamSf": GiveStickyFingers(player); break;
     case "jjbamGe": GiveGoldExperience(player); break;

@@ -514,6 +514,13 @@ global.sprHeavensDoor = sprite_add(p + "HeavensDoor.png", 1, false, false, 16, 1
 
 #endregion
 
+#region crazy diamond
+
+p = "Resources/Sprites/CD/";
+global.sprCrazyDiamond = sprite_add(p + "CrazyDiamond.png", 1, false, false, 16, 19);
+
+#endregion
+
 #region sans
 
 p = "Resources/Sprites/SANS/";

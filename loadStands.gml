@@ -4,54 +4,112 @@
 #region p3
 
 loadStarPlatinum();
-loadSilverChariot();
-loadAnubis();
-loadShadowTW();
-loadTheWorld();
+SPG();
 SPP();
+SPR();
+SPOVA();
+EP();
+SPOH();
+SPROH();
+
+loadSilverChariot();
+SCOVA();
+
+loadAnubis();
+
+loadShadowTW();
+Shadow();
+DW();
+
+loadTheWorld();
+TWGray();
+loadSpookyWorld();
+TWR();
+TWOVA();
+TWGH();
+TWRu();
+TWF();
+
 MagiciansRed();
+
 HierophantGreen();
+HR();
+HB();
+HE();
 
 #endregion
 
 #region p4
 
 loadSPTW();
+TimeEmperor();
+
 loadKillerQueen();
+
 loadKillerQueenBtD();
+SQBTD();
+
 HeavensDoor();
+
+CrazyDiamond();
+
 
 #endregion
 
 #region p5
 
 loadGoldExperience();
+
 GER();
+
 loadStickyFingers();
+SFG();
+SFR();
+
 loadKingCrimson();
+KCGray();
+KCM();
+KCMo();
+KCA();
+KCF();
 
 #endregion
 
 #region p6
 
 loadWhiteSnake();
+BS();
+
 loadCMoon();
+
 
 #endregion
 
 #region p7
 
 loadSpin();
+
 loadD4C();
+PD4C();
+
 loadD4CLT();
+PD4CLT();
+EG();
+Gm();
+
 loadTheWorldAU();
+NEO();
+TWAU3000();
+
 loadTusk();
+
 
 #endregion
 
 #region p8
 
 loadSnW();
+SnWG();
 
 #endregion
 
@@ -61,54 +119,15 @@ loadSnW();
 
 #endregion
 
-#region alts
-
-loadSpookyWorld();
-SPR();
-TWR();
-SPOVA();
-TWOVA();
-Shadow();
-KCM();
-SQBTD();
-SCOVA();
-NEO();
-TimeEmperor();
-BS();
-SnWG();
-PD4C();
-PD4CLT();
-EG();
-TWGH();
-TWGray();
-KCMo();
-KCA();
-TWRu();
-SPG();
-TWAU3000();
-SFG();
-SFR();
-KCGray();
-Gm();
-TWROH();
-TWRuOH();
-DW();
-HR();
-HB();
-EP();
-TWF();
-KCF();
-HE();
-SPOH();
-SPROH();
-
-#endregion
-
 #region other
 
 StImposter();
 AbSakuya();
+
 TWOH();
+TWROH();
+TWRuOH();
+
 Sans();
 Gojo();
 

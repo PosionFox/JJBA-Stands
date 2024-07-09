@@ -132,6 +132,7 @@ switch (args[0])
     case "kq": GiveKillerQueen(player); break;
     case "kqbtd": GiveKillerQueenBtD(player); break;
     case "hd": GiveHeavensDoor(player); break;
+    case "cd": GiveCrazyDiamond(player); break;
     // p5
     case "sf": GiveStickyFingers(player); break;
     case "ge": GiveGoldExperience(player); break;
