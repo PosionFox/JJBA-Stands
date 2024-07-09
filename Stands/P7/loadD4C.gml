@@ -503,6 +503,10 @@ _skills[sk, StandSkill.Damage] = 3;
 _skills[sk, StandSkill.DamageScale] = 0.04;
 _skills[sk, StandSkill.Icon] = global.sprSkillDoubleSlap;
 _skills[sk, StandSkill.MaxCooldown] = 4;
+_skills[sk, StandSkill.SkillAlt] = StrongPunch;
+_skills[sk, StandSkill.DamageAlt] = 8;
+_skills[sk, StandSkill.MaxCooldownAlt] = 5;
+_skills[sk, StandSkill.IconAlt] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.Desc] = Localize("doubleSlapDesc");
 
 sk = StandState.SkillC;
