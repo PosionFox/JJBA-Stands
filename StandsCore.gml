@@ -30,6 +30,19 @@ if (point_in_rectangle(gx, gy, _tx - 16, _ty - 16, _tx + 16, _ty + 16))
     draw_text(gx + 8, gy, string(rarity.name) + " (" + string(rarity.probability) + "%)");
 }
 
+// combo counter
+var _cx = xx;
+var _cy = yy - 128;
+var _ccolor = c_white;
+if (combo > 25) _ccolor = c_lime;
+if (combo > 50) _ccolor = c_blue;
+if (combo > 75) _ccolor = c_yellow;
+if (combo > 100) _ccolor = c_red;
+if (combo > 0)
+{
+    draw_text_ext_transformed_color(_cx, _cy, string(combo), 1, 128, 1 + (combo / 100) + comboCounterLerp, 1 + (combo / 100) + comboCounterLerp, 0, _ccolor, _ccolor, _ccolor, _ccolor, 0.8);
+}
+
 // draw runes
 var _rlen = array_length(runes);
 for (var i = 0; i < _rlen; i++)
@@ -358,6 +371,19 @@ if (max_energy > 0)
     energy = clamp(energy, 0, max_energy);
 }
 
+comboCounterLerp = lerp(comboCounterLerp, 0, 0.1);
+if !(modTypeExists("timestop"))
+{
+    if (comboResetTimer > 0)
+    {
+        comboResetTimer -= DT;
+    }
+    else
+    {
+        combo = 0;
+    }
+}
+
 #define StandDefaultDraw
 
 if (active)
@@ -477,6 +503,8 @@ with (_stand)
     playSummonSound = true;
     auraParticleSprite = global.sprStandParticle;
     auraParticleRotation = 0;
+    comboCounterLerp = 0;
+    comboResetTimer = 0;
     // state
     CDMultiplier = 1;
     attackState = 0;
@@ -504,6 +532,7 @@ with (_stand)
     runCDsMethod = StandSkillDefaultCDs;
     runDrawGUI = true;
     // stats
+    combo = 0;
     powerMultiplier = GetPowerMultiplier(rarity.tier);
     spd = 0.5;
     stand_reach = 8;
@@ -620,3 +649,9 @@ if (instance_exists(_owner) and instance_exists(_owner.myStand))
 #define GetStandReach(_stand)
 
 return (stand_reach * GetRunesStandReach(_stand));
+
+#define AddCombo
+
+combo++;
+comboCounterLerp = 1;
+comboResetTimer = 3;

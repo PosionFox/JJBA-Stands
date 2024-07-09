@@ -65,7 +65,7 @@ if (skills[skill, StandSkill.DamagePlayerStat])
 {
     _damage += owner.dmg;
 }
-var _final_damage = _damage * powerMultiplier * GetRunesDamage(self) * (1 + owner.trait.damage);
+var _final_damage = _damage * powerMultiplier * GetRunesDamage(self) * (1 + owner.trait.damage) * (1 + (owner.myStand.combo / 100));
 
 return _final_damage;
 
@@ -77,7 +77,7 @@ if (skills[skill, StandSkill.DamagePlayerStatAlt])
 {
     _damage += owner.dmg;
 }
-var _final_damage = _damage * powerMultiplier * GetRunesDamage(self) * (1 + owner.trait.damage);
+var _final_damage = _damage * powerMultiplier * GetRunesDamage(self) * (1 + owner.trait.damage) * (1 + (owner.myStand.combo / 100));
 
 return _final_damage;
 
@@ -101,6 +101,10 @@ if (array_find_index(instancesHit, _target.id) == -1)
     }
     PunchEffectCreate(x, y);
     DustEntityAdd(x, y);
+    with (owner)
+    {
+        AddCombo();
+    }
     var _dir = point_direction(x, y, _target.x, _target.y) - 180;
     // if (other.knockback > 0)
     // {
