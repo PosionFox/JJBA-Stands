@@ -193,6 +193,7 @@ switch (args[0])
     case "sus": GiveImposter(player); break;
     case "twoh": GiveTWOH(player); break;
     case "sans": GiveSans(player); break;
+    case "kcau": GiveKCAU(player); break;
     
     default: Trace("not found");
 }

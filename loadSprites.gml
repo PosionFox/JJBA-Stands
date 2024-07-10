@@ -363,6 +363,13 @@ global.sprKCF = sprite_add(p + "KingCrimsonFestive.png", 1, false, false, 16, 19
 
 #endregion
 
+#region king crimson alternate universe
+
+p = "Resources/Sprites/KCAU/";
+global.sprKCAU = sprite_add(p + "KCAU.png", 1, false, false, 16, 19);
+
+#endregion
+
 #region silver chariot
 
 p = "Resources/Sprites/SC/";

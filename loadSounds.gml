@@ -299,6 +299,17 @@ global.sndKcmTeEnd = audio_create_stream(p + "kcmTeEnd.ogg");
 
 #endregion
 
+#region kcau
+
+p = "Resources/Sounds/KCAU/";
+global.sndKcauSummon = audio_create_stream(p + "kcauSummon.ogg");
+global.sndKcauTeStart = audio_create_stream(p + "kcauTeStart.ogg");
+global.sndKcauTeEnd = audio_create_stream(p + "kcauTeEnd.ogg");
+global.sndKcauStrike = audio_create_stream(p + "kcauStrike.ogg");
+global.sndKcauEpitaph = audio_create_stream(p + "kcauEpitaph.ogg");
+
+#endregion
+
 #region imposter
 
 p = "Resources/Sounds/SUS/";
