@@ -194,6 +194,7 @@ switch (args[0])
     case "twoh": GiveTWOH(player); break;
     case "sans": GiveSans(player); break;
     case "kcau": GiveKCAU(player); break;
+    case "sukuna": GiveSukuna(player); break;
     
     default: Trace("not found");
 }

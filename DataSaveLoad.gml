@@ -123,6 +123,7 @@ switch (_stand)
     case "jjbamSans": GiveSans(player); break;
     case "jjbamGojo": GiveGojo(player); break;
     case "jjbamKcau": GiveKCAU(player); break;
+    case "jjbamSukuna": GiveSukuna(player); break;
 }
 
 #define SaveData

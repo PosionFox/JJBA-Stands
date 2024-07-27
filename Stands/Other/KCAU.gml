@@ -83,7 +83,7 @@ _skills[sk, StandSkill.Desc] = Localize("timeEraseDesc");
 var _s = StandBuilder(_owner, _skills);
 with (_s)
 {
-    name = "King Crimson Alternate Universe";
+    name = "King Crimson\nAlternate Universe";
     sprite_index = global.sprKCAU;
     color = 0x6357d9;
     colorAlt = c_red;

@@ -129,7 +129,9 @@ TWROH();
 TWRuOH();
 
 Sans();
+
 Gojo();
+Sukuna();
 
 KCAU();
 
