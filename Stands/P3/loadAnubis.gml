@@ -24,7 +24,7 @@ if (keyboard_check_pressed(ord("Q")) and state == StandState.Idle) {
     {
         if (!audio_is_playing(summonSound) and summonSound != noone)
         {
-            audio_play_sound(summonSound, 0, false);
+            jj_play_audio(summonSound, 0, false);
             GainItem(global.jjbamAnubis);
             ToolbarAdd(global.jjbamAnubis);
             ToolbarRefresh(true);

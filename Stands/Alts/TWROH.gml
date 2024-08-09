@@ -36,7 +36,7 @@ image_xscale = mouse_x > owner.x ? 1 : -1;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndTwrBarrage, 10, false);
+        jj_play_audio(global.sndTwrBarrage, 10, false);
         attackState++;
     break;
     case 1:

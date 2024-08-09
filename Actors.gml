@@ -116,7 +116,7 @@ draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, ima
 
 #define ShaCreate(_x, _y)
 
-audio_play_sound(global.sndSHA, 1, false);
+jj_play_audio(global.sndSHA, 1, false);
 var _o = ActorCreate(_x, _y);
 with (_o)
 {
@@ -542,7 +542,7 @@ switch (state)
             if (attackCD <= 0)
             {
                 var _dir = point_direction(x, y, target.x, target.y);
-                var _snd = audio_play_sound(global.sndPunchAir, 0, false);
+                var _snd = jj_play_audio(global.sndPunchAir, 0, false);
                 audio_sound_pitch(_snd, random_range(0.9, 1.1));
                 audio_sound_gain(_snd, 0.3, 0);
                 var _o = PunchCreate(x, y, _dir, damage, 0);
@@ -613,7 +613,7 @@ switch (state)
             if (attackCD <= 0)
             {
                 var _dir = point_direction(x, y, target.x, target.y);
-                var _snd = audio_play_sound(global.sndGunShot, 0, false);
+                var _snd = jj_play_audio(global.sndGunShot, 0, false);
                 audio_sound_pitch(_snd, random_range(0.9, 1.1));
                 audio_sound_gain(_snd, 0.3, 0);
                 var _o = ProjectileCreate(x, y);

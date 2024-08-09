@@ -28,7 +28,7 @@ GiveDw(player);
 
 if (xp >= maxXp)
 {
-    audio_play_sound(global.sndStwEvolve, 5, false);
+    jj_play_audio(global.sndStwEvolve, 5, false);
     var _o = ModObjectSpawn(x, y, 0);
     with (_o)
     {

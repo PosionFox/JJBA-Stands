@@ -38,7 +38,7 @@ image_xscale = mouse_x > owner.x ? 1 : -1;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndHgEmeraldSplash, 5, false);
+        jj_play_audio(global.sndHgEmeraldSplash, 5, false);
         attackState++;
     break;
     case 1:
@@ -132,7 +132,7 @@ image_xscale = mouse_x > owner.x ? 1 : -1;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndHgEmeraldSplash, 5, false);
+        jj_play_audio(global.sndHgEmeraldSplash, 5, false);
         attackState++;
     break;
     case 1:

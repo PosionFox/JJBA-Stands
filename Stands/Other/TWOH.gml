@@ -27,7 +27,7 @@ GiveTWOH(player);
 #define LightningKnifes(m, s)
 
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
-var _snd = audio_play_sound(global.sndKnifeThrow, 0, false);
+var _snd = jj_play_audio(global.sndKnifeThrow, 0, false);
 audio_sound_pitch(_snd, random_range(0.9, 1.1));
 
 for (var i = 0; i < 3; i++)
@@ -59,7 +59,7 @@ if (enemy_instance_exists())
 #define KnifeBuryal(m, s)
 
 EffectWhiteScreen(0.1);
-audio_play_sound(global.sndTwohTp, 5, false);
+jj_play_audio(global.sndTwohTp, 5, false);
 var _target = get_nearest_enemy(mouse_x, mouse_y);
 var _k = 16;
 for (var i = 0; i <= _k; i++)
@@ -98,8 +98,8 @@ switch (attackState)
     case 1:
         if (instance_exists(owner))
         {
-            var _s = audio_play_sound(global.sndTwohRealityOverwrite, 0, false);
-            var _s2 = audio_play_sound(global.sndTwohHeal, 0, false);
+            var _s = jj_play_audio(global.sndTwohRealityOverwrite, 0, false);
+            var _s2 = jj_play_audio(global.sndTwohHeal, 0, false);
             audio_sound_pitch(_s, random_range(0.8, 1.2));
             audio_sound_pitch(_s2, random_range(0.8, 1.2));
             owner.hp += 1 + owner.hpMax / 2;
@@ -117,7 +117,7 @@ attackStateTimer += DT;
 if (!WaterCollision(mouse_x, mouse_y) and !modTypeExists("timestop"))
 {
     EffectWhiteScreen(0.1);
-    audio_play_sound(global.sndTwohTp, 5, false);
+    jj_play_audio(global.sndTwohTp, 5, false);
     player.x = mouse_x;
     player.y = mouse_y;
     EndAtk(s);
@@ -144,7 +144,7 @@ switch (attackState)
         }
     break;
     case 1:
-        audio_play_sound(global.sndTwohWave, 0, false);
+        jj_play_audio(global.sndTwohWave, 0, false);
         var _dmg = GetDmg(s);
         var _p = ProjectileCreate(x, y);
         with (_p)
@@ -186,7 +186,7 @@ image_xscale = mouse_x > owner.x ? 1 : -1;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndTwBarrage, 10, false);
+        jj_play_audio(global.sndTwBarrage, 10, false);
         attackState++;
     break;
     case 1:
@@ -235,7 +235,7 @@ switch (attackState)
         if (attackStateTimer >= 0.1) attackState++;
     break;
     case 1:
-        var _snd = audio_play_sound(global.sndPunchAir, 0, false);
+        var _snd = jj_play_audio(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         PunchSwingCreate(x, y, _dir, 45, GetDmg(s));
         attackState++;
@@ -247,7 +247,7 @@ switch (attackState)
         }
     break;
     case 3:
-        var _snd = audio_play_sound(global.sndPunchAir, 0, false);
+        var _snd = jj_play_audio(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         PunchSwingCreate(x, y, _dir, 45, GetDmg(s));
         attackState++;
@@ -260,7 +260,7 @@ switch (attackState)
     break;
     case 5:
         _dis = 16;
-        var _snd = audio_play_sound(global.sndPunchAir, 0, false);
+        var _snd = jj_play_audio(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         var _p = PunchSwingCreate(x, y, _dir, 45, GetDmg(s) * 2);
         _p.onHitSound = global.sndStrongPunch;
@@ -283,7 +283,7 @@ yTo = _yy;
 switch (attackState)
 {
     case 0:
-        //audio_play_sound(global.sndTwrMuda, 0, false);
+        //jj_play_audio(global.sndTwrMuda, 0, false);
         attackState++;
     break;
     case 1:
@@ -332,7 +332,7 @@ switch (attackState)
         attackState++;
     break;
     case 1:
-        audio_play_sound(global.sndTwohTs, 5, false);
+        jj_play_audio(global.sndTwohTs, 5, false);
         attackState++;
     break;
     case 2:

@@ -37,7 +37,7 @@ if (distance_to_point(xTo, yTo) < 2)
 {
     if (attackStateTimer >= 0.08)
     {
-        var _snd = audio_play_sound(global.sndPunchAir, 0, false);
+        var _snd = jj_play_audio(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         var xx = x + random_range(-4, 4);
         var yy = y + random_range(-8, 8);
@@ -102,7 +102,7 @@ yTo = objPlayer.y + lengthdir_y(GetStandReach(self), _dir);
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndSfGrab, 0, false);
+        jj_play_audio(global.sndSfGrab, 0, false);
         attackState++;
     break;
     case 1:
@@ -173,7 +173,7 @@ yTo = objPlayer.y + lengthdir_y(GetStandReach(self), _dir);
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndSfPortal, 1, false);
+        jj_play_audio(global.sndSfPortal, 1, false);
         attackState++;
     break;
     case 1:
@@ -211,7 +211,7 @@ with (_o)
     {
         if (random(100) < 50)
         {
-            var _s = audio_play_sound(global.sndSfInjury, 0, false);
+            var _s = jj_play_audio(global.sndSfInjury, 0, false);
             audio_sound_pitch(_s, random_range(0.9, 1.1));
         }
         target = get_nearest_enemy(x, y);
@@ -269,7 +269,7 @@ if (timer <= 0)
 var _hit = instance_place(x, y, ENEMY);
 if (_hit and !grab)
 {
-    audio_play_sound(global.sndSfGrabReturn, 0, false);
+    jj_play_audio(global.sndSfGrabReturn, 0, false);
     target = _hit;
     grab = true;
     timer = 0;
@@ -347,7 +347,7 @@ if (instance_exists(ENTITY))
         {
             _pt = modSubtypeFind("sfP1");
         }
-        audio_play_sound(global.sndSfTp, 0, false);
+        jj_play_audio(global.sndSfTp, 0, false);
         FireEffect(c_white, c_aqua);
         LineEffect(_ins.x, _ins.y, _pt.x, _pt.y).color = c_aqua;
         _ins.x = _pt.x;

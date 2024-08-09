@@ -26,7 +26,7 @@ GiveSoftAndWet(player);
 
 #define MoisturePlunder(m, s)
 
-audio_play_sound(global.sndSnwBubbleSummon, 5, false)
+jj_play_audio(global.sndSnwBubbleSummon, 5, false)
 for (var i = 0; i < 8; i++)
 {
     var xx = x + lengthdir_x(8, 0 + (i * 45));
@@ -63,7 +63,7 @@ image_xscale = mouse_x > owner.x ? 1 : -1;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndSnwBubble, 5, false);
+        jj_play_audio(global.sndSnwBubble, 5, false);
         attackState++;
     break;
     case 1:
@@ -118,7 +118,7 @@ switch (attackState)
         if (attackStateTimer >= 0.5) attackState++;
     break;
     case 1:
-        audio_play_sound(global.sndSnwBubbleThrow, 5, false);
+        jj_play_audio(global.sndSnwBubbleThrow, 5, false);
         var xx = x + random_range(-4, 4);
         var yy = y + random_range(-8, 8);
         var _dmg = GetDmg(s);
@@ -149,7 +149,7 @@ for (var i = 0; i < 16; i++)
 
 #define BubbleShield(m, s)
 
-audio_play_sound(global.sndSnwBubbleSummon, 5, false);
+jj_play_audio(global.sndSnwBubbleSummon, 5, false);
 BubbleShieldCreate(player);
 EndAtk(s);
 
@@ -169,7 +169,7 @@ with (_o)
 
 if (life <= 0)
 {
-    audio_play_sound(global.sndSnwBubbleBigPop, 5, false);
+    jj_play_audio(global.sndSnwBubbleBigPop, 5, false);
     instance_destroy(self);
     exit;
 }
@@ -197,7 +197,7 @@ switch (attackState)
         if (attackStateTimer >= 0.5) attackState++;
     break;
     case 1:
-        audio_play_sound(global.sndSnwBubbleThrow, 5, false);
+        jj_play_audio(global.sndSnwBubbleThrow, 5, false);
         var xx = x + random_range(-4, 4);
         var yy = y + random_range(-8, 8);
         var _dmg = GetDmg(s);
@@ -243,7 +243,7 @@ with (_o)
 life -= DT;
 if (life <= 0)
 {
-    audio_play_sound(global.sndSnwBubbleBigPop, 5, false);
+    jj_play_audio(global.sndSnwBubbleBigPop, 5, false);
     instance_destroy(self);
     exit;
 }

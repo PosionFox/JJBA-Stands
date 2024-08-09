@@ -32,7 +32,7 @@ switch (attackState)
     case 0:
         var _s = [global.sndTwrBd1, global.sndTwrBd2];
         var _i = irandom(array_length(_s) - 1);
-        audio_play_sound(_s[_i], 0, false);
+        jj_play_audio(_s[_i], 0, false);
         attackState++;
     break;
     case 1:
@@ -70,7 +70,7 @@ image_xscale = mouse_x > owner.x ? 1 : -1;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndTwrBarrage, 10, false);
+        jj_play_audio(global.sndTwrBarrage, 10, false);
         attackState++;
     break;
     case 1:
@@ -112,7 +112,7 @@ yTo = _yy;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndTwrMuda, 0, false);
+        jj_play_audio(global.sndTwrMuda, 0, false);
         attackState++;
     break;
     case 1:
@@ -139,7 +139,7 @@ switch (attackState)
         var _c = random(1);
         if (_c < 0.5)
         {
-            audio_play_sound(global.sndTwrMudada, 0, false);
+            jj_play_audio(global.sndTwrMudada, 0, false);
         }
         attackState++;
     break;
@@ -152,12 +152,12 @@ switch (attackState)
     case 2:
         if modTypeExists("timestop")
         {
-            var _snd = audio_play_sound(global.sndKnifeThrow, 5, false);
+            var _snd = jj_play_audio(global.sndKnifeThrow, 5, false);
             audio_sound_pitch(_snd, random_range(0.9, 1.1));
         }
         else
         {
-            audio_play_sound(global.sndTwohTp, 0, false);
+            jj_play_audio(global.sndTwohTp, 0, false);
             EffectWhiteScreen(0.1);
         }
         
@@ -195,7 +195,7 @@ switch (attackState)
             instance_destroy(modTypeFind("timestop"));
         }
         angleTarget = 25;
-        audio_play_sound(global.sndStwTheWorld, 5, false);
+        jj_play_audio(global.sndStwTheWorld, 5, false);
         attackState++;
     break;
     case 1:
@@ -205,7 +205,7 @@ switch (attackState)
         }
     break;
     case 2:
-        audio_play_sound(global.sndTwrTs, 5, false);
+        jj_play_audio(global.sndTwrTs, 5, false);
         
         var ts = TimestopCreate(9 + (0.05 * player.level));
         ts.resumeSound = global.sndStwTsResume;
@@ -218,7 +218,7 @@ switch (attackState)
         }
     break;
     case 4:
-        audio_play_sound(global.sndStwTokiyotomare, 5, false);
+        jj_play_audio(global.sndStwTokiyotomare, 5, false);
         EndAtk(skill);
     break;
 }

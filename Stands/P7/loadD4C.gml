@@ -29,7 +29,7 @@ GiveD4C(player);
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndRevReload, 5, false);
+        jj_play_audio(global.sndRevReload, 5, false);
         attackState++;
     break;
     case 1:
@@ -59,7 +59,7 @@ if (ammo > 0)
         prevSkill = skill;
         knockback = 2;
         var _snds = [global.sndRevFire1, global.sndRevFire2, global.sndRevFire3, global.sndRevFire4];
-        var _s = audio_play_sound(_snds[irandom(array_length(_snds) - 1)], 5, false);
+        var _s = jj_play_audio(_snds[irandom(array_length(_snds) - 1)], 5, false);
         audio_sound_pitch(_s, random_range(0.9, 1.1));
         audio_sound_gain(_s, 0.5, 0);
         baseSpd = 10;
@@ -114,7 +114,7 @@ if (attackStateTimer >= 0.15)
     if (ammo > 0)
     {
         var _snds = [global.sndRevFire1, global.sndRevFire2, global.sndRevFire3, global.sndRevFire4];
-        var _s = audio_play_sound(_snds[irandom(array_length(_snds) - 1)], 5, false);
+        var _s = jj_play_audio(_snds[irandom(array_length(_snds) - 1)], 5, false);
         audio_sound_pitch(_s, random_range(0.9, 1.1));
         audio_sound_gain(_s, 0.5, 0);
         BulletCreate(player.x, player.y, _dir, GetDmg(skill));
@@ -152,7 +152,7 @@ switch (attackState)
     case 0:
         if (attackStateTimer > 0.5)
         {
-            audio_play_sound(global.sndPunchAir, 0, false);
+            jj_play_audio(global.sndPunchAir, 0, false);
             PunchCreate(x, y, _dir, GetDmg(skill), 1);
             attackState++;
         }
@@ -161,7 +161,7 @@ switch (attackState)
         _dis = GetStandReach(self) * 1.5;
         if (attackStateTimer > 1)
         {
-            audio_play_sound(global.sndPunchAir, 0, false);
+            jj_play_audio(global.sndPunchAir, 0, false);
             PunchCreate(x, y, _dir, GetDmg(skill) * 1.5, 2);
             attackState++;
         }
@@ -223,7 +223,7 @@ switch (attackState)
         USAflag.y = y;
         USAflag.image_xscale = 0;
         USAflag.image_angle = 180;
-        audio_play_sound(global.sndCloneSummon, 1, false);
+        jj_play_audio(global.sndCloneSummon, 1, false);
         attackState++;
     break;
     case 1:
@@ -271,7 +271,7 @@ switch (attackState)
         USAflag.y = y;
         USAflag.image_xscale = 0;
         USAflag.image_angle = 180;
-        audio_play_sound(global.sndCloneSummon, 1, false);
+        jj_play_audio(global.sndCloneSummon, 1, false);
         attackState++;
     break;
     case 1:
@@ -310,7 +310,7 @@ yTo = objPlayer.y + lengthdir_y(8, 90);
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndDimensionalHop, 5, false);
+        jj_play_audio(global.sndDimensionalHop, 5, false);
         USAflag.x = x;
         USAflag.y = y;
         USAflag.visible = true;

@@ -27,3 +27,8 @@ if (instance_exists(MNPC))
         }
     }
 }
+
+if (keyboard_check_pressed(ord("M")))
+{
+    global.jjShowMenu = !global.jjShowMenu;
+}

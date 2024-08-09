@@ -3,7 +3,7 @@ global.enemyDioSpawned = false;
 
 #define EnemyDioCreate(_x, _y)
 
-audio_play_sound(global.sndDioSpawn, 1, false);
+jj_play_audio(global.sndDioSpawn, 1, false);
 var _o = ActorCreate(_x, _y);
 with (_o)
 {
@@ -120,7 +120,7 @@ if (freeze > 0)
 
 if (hp <= 0 and state != "dying")
 {
-    audio_play_sound(global.sndDioDeath, 5, false);
+    jj_play_audio(global.sndDioDeath, 5, false);
     state = "dying";
 }
 hp = clamp(hp, 0, hpMax);

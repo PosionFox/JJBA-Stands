@@ -29,12 +29,12 @@ GiveNeo(player);
 var _length = 5 + (0.15 * player.level);
 if (player.hp <= player.maxHp / 2)
 {
-    audio_play_sound(global.sndTwAuTsPanic, 5, false);
+    jj_play_audio(global.sndTwAuTsPanic, 5, false);
     _length = 8 + (0.2 * player.level);
 }
 else
 {
-    audio_play_sound(global.sndNeoTs, 5, false);
+    jj_play_audio(global.sndNeoTs, 5, false);
 }
 var _t = TimestopCreate(_length);
 _t.resumeSound = global.sndNeoTsResume;

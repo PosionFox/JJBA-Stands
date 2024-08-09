@@ -351,3 +351,9 @@ else
 {
     GainItem(item);
 }
+
+#define jj_play_audio(sound, priority, loop)
+
+var _s = audio_play_sound(sound, priority, loop);
+audio_sound_gain(_s, global.jjAudioVolume, 0);
+return _s;

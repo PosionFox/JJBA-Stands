@@ -37,7 +37,7 @@ if (distance_to_point(xTo, yTo) < 2)
 {
     if (attackStateTimer >= 0.08)
     {
-        var _snd = audio_play_sound(global.sndPunchAir, 0, false);
+        var _snd = jj_play_audio(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         var xx = x + random_range(-4, 4);
         var yy = y + random_range(-8, 8);
@@ -110,7 +110,7 @@ switch (attackState)
     case 1:
         if (instance_exists(owner))
         {
-            var _s = audio_play_sound(global.sndGeLife, 0, false);
+            var _s = jj_play_audio(global.sndGeLife, 0, false);
             audio_sound_pitch(_s, random_range(0.8, 1.2));
             var _e = ShrinkingCircleEffect(objPlayer.x, objPlayer.y);
             _e.color = c_lime;
@@ -139,7 +139,7 @@ switch (attackState)
         }
     break;
     case 1:
-        var _s = audio_play_sound(global.sndGeLife, 0, false);
+        var _s = jj_play_audio(global.sndGeLife, 0, false);
         audio_sound_pitch(_s, random_range(0.8, 1.2));
         var _e = ShrinkingCircleEffect(x, y);
         _e.color = c_lime;
@@ -189,7 +189,7 @@ switch (attackState)
             Spawn.Wheat
         ]
         var _pick = irandom(array_length(_pool) - 1);
-        var _s = audio_play_sound(global.sndGeLife, 0, false);
+        var _s = jj_play_audio(global.sndGeLife, 0, false);
         audio_sound_pitch(_s, random_range(0.8, 1.2));
         var _grid = ResourceSnapshot();
         var _res = ResourceSpawn(_grid, _pool[_pick]);
@@ -222,7 +222,7 @@ switch (attackState)
         }
     break;
     case 1:
-        var _s = audio_play_sound(global.sndGeLife, 0, false);
+        var _s = jj_play_audio(global.sndGeLife, 0, false);
         audio_sound_pitch(_s, random_range(0.8, 1.2));
         var _e = ShrinkingCircleEffect(objPlayer.x, objPlayer.y);
         _e.color = c_lime;

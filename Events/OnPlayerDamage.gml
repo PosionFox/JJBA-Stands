@@ -14,11 +14,11 @@ if (instance_exists(STAND) and !_dodge)
         if (is_array(_sound))
         {
             var i = irandom(array_length(_sound) - 1);
-            audio_play_sound(_sound[i], 0, false);
+            jj_play_audio(_sound[i], 0, false);
         }
         else
         {
-            audio_play_sound(_sound, 0, false);
+            jj_play_audio(_sound, 0, false);
         }
     }
 }
@@ -30,7 +30,7 @@ if (modTypeExists("loveTrain"))
     _t.hp -= (_t.hpMax * 0.02) + _damage;
     player.invulFrames = 0;
     LTPunishEffect(_t.x, _t.y);
-    audio_play_sound(global.sndLtPunish, 5, false);
+    jj_play_audio(global.sndLtPunish, 5, false);
 }
 if (modSubtypeExists("geFrog"))
 {

@@ -29,7 +29,7 @@ var _dmg = GetDmg(s);
 
 if (enemy_instance_exists())
 {
-    audio_play_sound(global.sndAmogButton, 5, false);
+    jj_play_audio(global.sndAmogButton, 5, false);
     with (ENEMY)
     {
         with (other)
@@ -65,7 +65,7 @@ switch (attackState)
             var _n = get_nearest_enemy(x, y);
             if (distance_to_object(_n) < 64)
             {
-                audio_play_sound(global.sndAmogMurder, 5, false);
+                jj_play_audio(global.sndAmogMurder, 5, false);
                 player.x = _n.x;
                 player.y = _n.y;
                 attackState++;

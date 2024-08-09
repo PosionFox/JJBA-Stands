@@ -36,7 +36,7 @@ image_xscale = mouse_x > owner.x ? 1 : -1;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndTwovaBarrage, 10, false);
+        jj_play_audio(global.sndTwovaBarrage, 10, false);
         attackState++;
     break;
     case 1:
@@ -78,7 +78,7 @@ yTo = _yy;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndTwovaStrongPunch, 0, false);
+        jj_play_audio(global.sndTwovaStrongPunch, 0, false);
         attackState++;
     break;
     case 1:
@@ -110,7 +110,7 @@ switch (attackState)
             instance_destroy(modTypeFind("timestop"));
         }
         angleTarget = 25;
-        audio_play_sound(global.sndTwovaTs, 5, false);
+        jj_play_audio(global.sndTwovaTs, 5, false);
         attackState++;
     break;
     case 1:
@@ -120,7 +120,7 @@ switch (attackState)
         }
     break;
     case 2:
-        //audio_play_sound(global.sndTwrTs, 5, false);
+        //jj_play_audio(global.sndTwrTs, 5, false);
         
         var ts = TimestopCreate(9 + (0.05 * player.level));
         ts.resumeSound = global.sndTwTsResume;
@@ -133,7 +133,7 @@ switch (attackState)
         }
     break;
     case 4:
-        //audio_play_sound(global.sndStwTokiyotomare, 5, false);
+        //jj_play_audio(global.sndStwTokiyotomare, 5, false);
         EndAtk(skill);
     break;
 }

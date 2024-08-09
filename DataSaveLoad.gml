@@ -207,6 +207,9 @@ if bool("trait" in player)
     _map[? "jjTrait"] = player.trait.key;
 }
 
+// mod settings
+_map[? "jjAudioVolume"] = global.jjAudioVolume;
+
 
 ModSaveDataSubmit(_map);
 ds_map_destroy(_map);
@@ -333,6 +336,19 @@ if (instance_exists(player))
     {
         trait_set_by_key(player, _map[? "jjTrait"]);
     }
+}
+
+#endregion
+
+#region mod settings
+
+if (_map[? "jjAudioVolume"] != undefined)
+{
+    global.jjAudioVolume = _map[? "jjAudioVolume"];
+}
+else
+{
+    global.jjAudioVolume = 1.0;
 }
 
 #endregion

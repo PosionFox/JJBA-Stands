@@ -27,7 +27,7 @@ if (instance_exists(player))
                 STAND.act4Meter += _mob.hpMax * 0.25;
             break;
             case "jjbamSus":
-                audio_play_sound(global.sndAmogDead, 5, false);
+                jj_play_audio(global.sndAmogDead, 5, false);
             break;
         }
     }

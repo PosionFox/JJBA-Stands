@@ -53,8 +53,8 @@ switch (attackState)
         if (attackStateTimer >= 0.1) attackState++;
     break;
     case 1:
-        audio_play_sound(summonSound, 0, false);
-        var _snd = audio_play_sound(global.sndPunchAir, 0, false);
+        jj_play_audio(summonSound, 0, false);
+        var _snd = jj_play_audio(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         PunchSwingCreate(x, y, _dir, 45, GetDmg(skill));
         attackState++;
@@ -66,7 +66,7 @@ switch (attackState)
         }
     break;
     case 3:
-        var _snd = audio_play_sound(global.sndPunchAir, 0, false);
+        var _snd = jj_play_audio(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         PunchSwingCreate(x, y, _dir, 45, GetDmg(skill));
         attackState++;
@@ -79,10 +79,10 @@ switch (attackState)
     break;
     case 5:
         _dis = GetStandReach(self) * 2;
-        var _snd = audio_play_sound(global.sndPunchAir, 0, false);
+        var _snd = jj_play_audio(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         PunchSwingCreate(x, y, _dir, 45, GetDmg(skill) * 2);
-        audio_play_sound(desummonSound, 0, false);
+        jj_play_audio(desummonSound, 0, false);
         EndAtk(skill);
     break;
 }
@@ -99,7 +99,7 @@ alphaTarget = 1;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(summonSound, 0, false);
+        jj_play_audio(summonSound, 0, false);
         attackState++;
     break;
     case 1:
@@ -109,7 +109,7 @@ switch (attackState)
         }
     break;
     case 2:
-        var _snd = audio_play_sound(global.sndPunchAir, 0, false);
+        var _snd = jj_play_audio(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         var _p = PunchCreate(x, y, _dir, GetDmg(skill), 2);
         with (_p)
@@ -118,7 +118,7 @@ switch (attackState)
             onHitEvent = KnifeCoffin;
             destroyOnImpact = true;
         }
-        audio_play_sound(global.sndStw2Desummon, 0, false);
+        jj_play_audio(global.sndStw2Desummon, 0, false);
         FireCD(skill);
         state = StandState.Idle;
     break;
@@ -138,12 +138,12 @@ var c = random(1);
 if (c < 0.5)
 {
     var _s = choose(global.sndStwLaugh1, global.sndStwLaugh2);
-    audio_play_sound(_s, 0, false);
+    jj_play_audio(_s, 0, false);
 }
 
 EffectWhiteScreen(0.1);
-audio_play_sound(global.sndTwohTp, 5, false);
-var _snd = audio_play_sound(global.sndStwKnifeThrow2, 0, false);
+jj_play_audio(global.sndTwohTp, 5, false);
+var _snd = jj_play_audio(global.sndStwKnifeThrow2, 0, false);
 audio_sound_pitch(_snd, random_range(0.9, 1.1));
 var _k = 8;
 for (var i = 0; i <= _k; i++)
@@ -167,8 +167,8 @@ var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
 switch (attackState)
 {
     case 0:
-        audio_play_sound(summonSound, 0, false);
-        var _snd = audio_play_sound(global.sndStwKnifeThrow1, 0, false);
+        jj_play_audio(summonSound, 0, false);
+        var _snd = jj_play_audio(global.sndStwKnifeThrow1, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         var i = 0;
         repeat (4)
@@ -195,7 +195,7 @@ switch (attackState)
         }
     break;
     case 2:
-        var _snd = audio_play_sound(global.sndStwKnifeThrow1, 0, false);
+        var _snd = jj_play_audio(global.sndStwKnifeThrow1, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         var i = 0;
         repeat (4)
@@ -225,7 +225,7 @@ var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndStwNazimuzo, 0, false);
+        jj_play_audio(global.sndStwNazimuzo, 0, false);
         attackState++;
     break;
     case 1:
@@ -257,7 +257,7 @@ var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
 
 player.h = lengthdir_x(1, _dir + 180);
 player.v = lengthdir_y(1, _dir + 180);
-audio_play_sound(global.sndStwSRSE, 0, false);
+jj_play_audio(global.sndStwSRSE, 0, false);
 var _dmg = GetDmg(skill);
 var _p = ProjectileCreate(player.x, player.y - 4);
 with (_p)
@@ -307,7 +307,7 @@ switch (attackState)
         }
     break;
     case 2:
-        audio_play_sound(global.sndStwUry, 1, false);
+        jj_play_audio(global.sndStwUry, 1, false);
         player.h += lengthdir_x(6, _dir);
         player.v += lengthdir_y(6, _dir);
         var _p = PunchCreate(x, y, _dir, GetDmg(skill), 4);
@@ -330,7 +330,7 @@ var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndStwCharisma, 1, false);
+        jj_play_audio(global.sndStwCharisma, 1, false);
         EffectCircleLerpCreate(x, y, 32, 0);
         with (ENEMY)
         {
@@ -391,7 +391,7 @@ switch (attackState)
             instance_destroy(modTypeFind("timestop"));
         }
         
-        var s = audio_play_sound(global.sndStwTheWorld, 5, false);
+        var s = jj_play_audio(global.sndStwTheWorld, 5, false);
         
         attackState++;
     break;
@@ -402,7 +402,7 @@ switch (attackState)
         }
     break;
     case 2:
-        var s = audio_play_sound(global.sndTsOld, 5, false);
+        var s = jj_play_audio(global.sndTsOld, 5, false);
         
         var ts = TimestopCreate(2 + (0.05 * player.level));
         ts.resumeSound = global.sndStwTsResume;
@@ -415,7 +415,7 @@ switch (attackState)
         }
     break;
     case 4:
-        var s = audio_play_sound(global.sndStwTokiyotomare, 5, false);
+        var s = jj_play_audio(global.sndStwTokiyotomare, 5, false);
         alphaTarget = 0;
         EndAtk(skill);
     break;
@@ -426,7 +426,7 @@ attackStateTimer += DT;
 
 if (xp >= maxXp)
 {
-    audio_play_sound(global.sndStwEvolve, 5, false);
+    jj_play_audio(global.sndStwEvolve, 5, false);
     var _o = ModObjectSpawn(x, y, 0);
     with (_o)
     {
@@ -476,7 +476,7 @@ with (_o)
     
     InstanceAssignMethod(self, "step", ScriptWrap(StwDivineBloodStep), false);
 }
-audio_play_sound(global.sndStwDivineBlood, 1, false);
+jj_play_audio(global.sndStwDivineBlood, 1, false);
 
 #define StwDivineBloodStep
 
@@ -502,7 +502,7 @@ if (timer > 0)
 }
 else
 {
-    audio_play_sound(global.sndTwrDrain, 0, false);
+    jj_play_audio(global.sndTwrDrain, 0, false);
     player.hp++;
     target.hp -= target.hpMax * 0.05;
     player.energy += 6;

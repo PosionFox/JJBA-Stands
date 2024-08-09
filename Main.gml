@@ -39,6 +39,8 @@ Christmas();
 printVersion();
 
 global.timeIsFrozen = false;    // unused
+global.jjAudioVolume = 1.0;
+global.jjShowMenu = false;
 
 localizationEnglish();
 localizationSpanish();

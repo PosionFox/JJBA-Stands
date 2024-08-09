@@ -37,7 +37,7 @@ if (distance_to_point(xTo, yTo) < 2)
 {
     if (attackStateTimer >= 0.08)
     {
-        var _snd = audio_play_sound(global.sndPunchAir, 0, false);
+        var _snd = jj_play_audio(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         var xx = x + random_range(-4, 4);
         var yy = y + random_range(-6, 6);
@@ -124,7 +124,7 @@ switch (attackState)
         USAflag.y = y;
         USAflag.image_xscale = 0;
         USAflag.image_angle = 180;
-        audio_play_sound(global.sndCloneSummon, 1, false);
+        jj_play_audio(global.sndCloneSummon, 1, false);
         attackState++;
     break;
     case 1:
@@ -170,7 +170,7 @@ else
 
 #define LoveTrainCreate(_length)
 
-audio_play_sound(global.sndLoveTrain, 5, false);
+jj_play_audio(global.sndLoveTrain, 5, false);
 var _o = ModObjectSpawn(objPlayer.x, objPlayer.y, 0)
 with (_o)
 {
@@ -218,7 +218,7 @@ if (instance_exists(player))
 length -= 1 / room_speed;
 if (length <= 0)
 {
-    var _s = audio_play_sound(global.sndLtEnd, 5, false);
+    var _s = jj_play_audio(global.sndLtEnd, 5, false);
     audio_sound_pitch(_s, random_range(0.9, 1.1));
     instance_destroy(self);
 }

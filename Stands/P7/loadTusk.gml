@@ -38,7 +38,7 @@ var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
 var _p = ProjectileCreate(player.x, player.y);
 with (_p)
 {
-    audio_play_sound(global.sndGunShot, 0, false);
+    jj_play_audio(global.sndGunShot, 0, false);
     baseSpd = 10;
     sprite_index = global.sprBtdVoidTrace;
     image_blend = c_yellow;
@@ -107,7 +107,7 @@ var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 var _p = ProjectileCreate(objPlayer.x, objPlayer.y);
 with (_p)
 {
-    audio_play_sound(global.sndGunShot, 0, false);
+    jj_play_audio(global.sndGunShot, 0, false);
     baseSpd = 10;
     sprite_index = global.sprBtdVoidTrace;
     image_blend = c_yellow;
@@ -137,7 +137,7 @@ if (attackStateTimer >= 0.2)
     var _p = ProjectileCreate(objPlayer.x, objPlayer.y);
     with (_p)
     {
-        audio_play_sound(global.sndGunShot, 0, false);
+        jj_play_audio(global.sndGunShot, 0, false);
         baseSpd = 10;
         sprite_index = global.sprBtdVoidTrace;
         image_blend = c_yellow;
@@ -186,7 +186,7 @@ var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 var _p = ProjectileCreate(objPlayer.x, objPlayer.y);
 with (_p)
 {
-    audio_play_sound(global.sndGunShot, 0, false);
+    jj_play_audio(global.sndGunShot, 0, false);
     baseSpd = 10;
     sprite_index = global.sprBtdVoidTrace;
     image_blend = c_fuchsia;
@@ -290,7 +290,7 @@ var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
 var _p = ProjectileCreate(player.x, player.y);
 with (_p)
 {
-    audio_play_sound(global.sndGunShot, 0, false);
+    jj_play_audio(global.sndGunShot, 0, false);
     baseSpd = 10;
     sprite_index = global.sprBtdVoidTrace;
     image_blend = c_yellow;
@@ -411,7 +411,7 @@ if (point_in_rectangle(mouse_x, mouse_y, bbox_left, bbox_top, bbox_right, bbox_b
         active = true;
         if (!audio_is_playing(summonSound) and summonSound != noone)
         {
-            audio_play_sound(summonSound, 0, false);
+            jj_play_audio(summonSound, 0, false);
         }
     }
 }

@@ -27,7 +27,7 @@ GiveStarPlatinum(player);
 #define Soda(m, s)
 
 player.hp += 2;
-audio_play_sound(global.sndSpOpenSoda, 5, false);
+jj_play_audio(global.sndSpOpenSoda, 5, false);
 EffectSodaCreate(player);
 EndAtk(s);
 
@@ -43,7 +43,7 @@ image_xscale = mouse_x > owner.x ? 1 : -1;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndSpBarrage, 10, false);
+        jj_play_audio(global.sndSpBarrage, 10, false);
         attackState++;
     break;
     case 1:
@@ -85,7 +85,7 @@ yTo = _yy;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndSpStrongPunch, 0, false);
+        jj_play_audio(global.sndSpStrongPunch, 0, false);
         attackState++;
     break;
     case 1:
@@ -115,7 +115,7 @@ image_xscale = mouse_x > player.x ? 1 : -1;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndSpStarFinger, 5, false);
+        jj_play_audio(global.sndSpStarFinger, 5, false);
         attackState++;
     break;
     case 1:
@@ -185,7 +185,7 @@ if (_col2)
 
 #define SpTimestop(m, s)
 
-audio_play_sound(global.sndSpTs, 5, false);
+jj_play_audio(global.sndSpTs, 5, false);
 TimestopCreate(5 + (0.1 * player.level));
 EndAtk(s);
 
@@ -193,7 +193,7 @@ EndAtk(s);
 
 if (xp >= maxXp)
 {
-    audio_play_sound(global.sndStwEvolve, 5, false);
+    jj_play_audio(global.sndStwEvolve, 5, false);
     var _o = ModObjectSpawn(x, y, 0);
     with (_o)
     {

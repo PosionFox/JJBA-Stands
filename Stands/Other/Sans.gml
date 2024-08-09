@@ -62,7 +62,7 @@ if (image_index >= 2)
 if (!WaterCollision(mouse_x, mouse_y) and !modTypeExists("timestop"))
 {
     EffectBlackScreen(0.1);
-    audio_play_sound(global.sndSansTp, 5, false);
+    jj_play_audio(global.sndSansTp, 5, false);
     player.x = mouse_x;
     player.y = mouse_y;
     EndAtk(s);

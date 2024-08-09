@@ -28,7 +28,7 @@ GiveWhiteSnake(player);
 #define SuddenStrike(m, s)
 
 var _dir = DIR_PLAYER_TO_MOUSE;
-var _snd = audio_play_sound(global.sndPunchAir, 0, false);
+var _snd = jj_play_audio(global.sndPunchAir, 0, false);
 audio_sound_pitch(_snd, random_range(0.9, 1.1));
 var xx = x + random_range(-4, 4);
 var yy = y + random_range(-8, 8);
@@ -38,7 +38,7 @@ EndAtk(s);
 #define ExplosiveSurprise(m, s)
 
 var _dir = DIR_PLAYER_TO_MOUSE;
-var _snd = audio_play_sound(global.sndPunchAir, 0, false);
+var _snd = jj_play_audio(global.sndPunchAir, 0, false);
 audio_sound_pitch(_snd, 2);
 var _b = BulletCreate(x, y, _dir, GetDmg(s));
 with (_b)
@@ -79,7 +79,7 @@ if (distance_to_point(xTo, yTo) < 2)
 {
     if (attackStateTimer >= 0.12)
     {
-        var _snd = audio_play_sound(global.sndPunchAir, 0, false);
+        var _snd = jj_play_audio(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         var xx = x + random_range(-4, 4);
         var yy = y + random_range(-8, 8);
@@ -119,7 +119,7 @@ switch (attackState)
     case 1:
         if (attackStateTimer >= 0.5)
         {
-            audio_play_sound(global.sndGunShot, 0, false);
+            jj_play_audio(global.sndGunShot, 0, false);
             var _b = BulletCreate(x, y, _dir, GetDmg(s));
             attackState++;
         }
@@ -127,7 +127,7 @@ switch (attackState)
     case 2:
         if (attackStateTimer >= 0.7)
         {
-            audio_play_sound(global.sndGunShot, 0, false);
+            jj_play_audio(global.sndGunShot, 0, false);
             var _b = BulletCreate(x, y, _dir, GetDmg(s));
             attackState++;
         }
@@ -135,7 +135,7 @@ switch (attackState)
     case 3:
         if (attackStateTimer >= 0.9)
         {
-            audio_play_sound(global.sndGunShot, 0, false);
+            jj_play_audio(global.sndGunShot, 0, false);
             var _b = BulletCreate(x, y, _dir, GetDmg(s));
             var _p = EffectGeParticleCreate(x, y, c_dkgray);
             _p.sprite_index = global.sprGun;
@@ -156,7 +156,7 @@ yTo = owner.y + lengthdir_y(GetStandReach(self), _dir);
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndAcidicSpit, 0, false);
+        jj_play_audio(global.sndAcidicSpit, 0, false);
         attackState++;
     break;
     case 1:
@@ -192,7 +192,7 @@ player.v = 0;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndMeltYourHeart, 0, false);
+        jj_play_audio(global.sndMeltYourHeart, 0, false);
         attackState++;
     break;
     case 1:

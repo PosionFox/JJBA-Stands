@@ -56,7 +56,7 @@ attackStateTimer += DT;
 if (modTypeCount("coinBomb") < 5)
 {
     var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-    audio_play_sound(sndCoin1, 0, false);
+    jj_play_audio(sndCoin1, 0, false);
     CoinBombCreate(objPlayer.x, objPlayer.y, _dir);
     FireCD(skill);
     state = StandState.Idle;
@@ -73,7 +73,7 @@ StandDefaultPos();
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndClickBomb, 1, false);
+        jj_play_audio(global.sndClickBomb, 1, false);
         attackState++;
     break;
     case 1:
@@ -171,7 +171,7 @@ if (instance_exists(target))
 
 ExplosionCreate(x, y, 32, true);
 ExplosionEffect(x, y);
-audio_play_sound(global.sndDetonateBomb, 1, false);
+jj_play_audio(global.sndDetonateBomb, 1, false);
 if (instance_exists(parEnemy))
 {
     with (parEnemy)

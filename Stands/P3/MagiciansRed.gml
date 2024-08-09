@@ -32,7 +32,7 @@ var _dmg = GetDmg(s);
 var _p = ProjectileCreate(owner.x, owner.y);
 with (_p)
 {
-    var _snd = audio_play_sound(global.sndKnifeThrow, 0, false);
+    var _snd = jj_play_audio(global.sndKnifeThrow, 0, false);
     audio_sound_pitch(_snd, random_range(0.9, 1.1));
     damage = _dmg;
     baseSpd = 8;
@@ -76,7 +76,7 @@ image_xscale = mouse_x > owner.x ? 1 : -1;
 switch (attackState)
 {
     case 0:
-        //audio_play_sound(global.sndTwBarrage, 10, false);
+        //jj_play_audio(global.sndTwBarrage, 10, false);
         attackState++;
     break;
     case 1:
@@ -148,7 +148,7 @@ yTo = owner.y + lengthdir_y(GetStandReach(self), _dir);
 switch (attackState)
 {
     case 0:
-        //audio_play_sound(global.sndSfGrab, 0, false);
+        //jj_play_audio(global.sndSfGrab, 0, false);
         attackState++;
     break;
     case 1:
@@ -213,7 +213,7 @@ if (timer <= 0)
 var _hit = instance_place(x, y, ENEMY);
 if (_hit and !grab)
 {
-    //audio_play_sound(global.sndSfGrabReturn, 0, false);
+    //jj_play_audio(global.sndSfGrabReturn, 0, false);
     target = _hit;
     grab = true;
     timer = 0;
@@ -242,7 +242,7 @@ yTo = owner.y + lengthdir_y(GetStandReach(self), _dir);
 switch (attackState)
 {
     case 0:
-        //audio_play_sound(global.sndSfGrab, 0, false);
+        //jj_play_audio(global.sndSfGrab, 0, false);
         attackState++;
     break;
     case 1:
@@ -306,7 +306,7 @@ if (timer <= 0)
 var _hit = instance_place(x, y, ENEMY);
 if (_hit and !grab)
 {
-    //audio_play_sound(global.sndSfGrabReturn, 0, false);
+    //jj_play_audio(global.sndSfGrabReturn, 0, false);
     target = _hit;
     grab = true;
     timer = 0;

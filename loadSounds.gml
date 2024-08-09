@@ -11,6 +11,7 @@ p = "Resources/Sounds/Generic/Stand/";
 global.sndStandSummon = audio_create_stream(p + "standSummon.ogg");
 global.sndTwTsResume = audio_create_stream(p + "tsResume.ogg");
 global.sndTsOld = audio_create_stream(p + "tsOld.ogg");
+global.sndSlamSound = audio_create_stream(p + "slamSound.ogg");
 
 #endregion
 
@@ -102,6 +103,13 @@ global.sndScBladeOff = audio_create_stream(p + "scBladeOff.ogg");
 
 p = "Resources/Sounds/HG/";
 global.sndHgEmeraldSplash = audio_create_stream(p + "hgEmeraldSplash.ogg");
+
+#endregion
+
+#region crazy diamond
+
+p = "Resources/Sounds/CD/";
+global.sndHealingMode = audio_create_stream(p + "healingMode.ogg");
 
 #endregion
 

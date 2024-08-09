@@ -19,7 +19,7 @@ if (image_index >= image_number - 1)
 
 #define BombEffect(_x, _y)
 
-audio_play_sound(global.sndBomb, 0, false);
+jj_play_audio(global.sndBomb, 0, false);
 var _o = ModObjectSpawn(_x, _y, 0);
 with (_o)
 {

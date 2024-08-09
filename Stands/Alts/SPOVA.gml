@@ -36,7 +36,7 @@ image_xscale = mouse_x > owner.x ? 1 : -1;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndSpovaBarrage, 10, false);
+        jj_play_audio(global.sndSpovaBarrage, 10, false);
         attackState++;
     break;
     case 1:
@@ -78,7 +78,7 @@ yTo = _yy;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndSpovaStrongPunch, 0, false);
+        jj_play_audio(global.sndSpovaStrongPunch, 0, false);
         attackState++;
     break;
     case 1:
@@ -97,7 +97,7 @@ attackStateTimer += DT;
 
 #define SpovaTimestop(m, s)
 
-audio_play_sound(global.sndSpovaTs, 5, false);
+jj_play_audio(global.sndSpovaTs, 5, false);
 TimestopCreate(5 + (0.1 * player.level));
 EndAtk(s);
 

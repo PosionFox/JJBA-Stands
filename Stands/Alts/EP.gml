@@ -33,7 +33,7 @@ switch (attackState)
 {
     case 0:
         angleTarget = 25;
-        audio_play_sound(global.sndEpTs, 5, false);
+        jj_play_audio(global.sndEpTs, 5, false);
         attackState++;
     break;
     case 1:

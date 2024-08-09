@@ -36,7 +36,7 @@ image_xscale = mouse_x > owner.x ? 1 : -1;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndScBarrage, 10, false);
+        jj_play_audio(global.sndScBarrage, 10, false);
         attackState++;
     break;
     case 1:
@@ -93,7 +93,7 @@ switch (attackState)
         }
     break;
     case 2:
-        audio_play_sound(global.sndKnifeThrow, 0, false);
+        jj_play_audio(global.sndKnifeThrow, 0, false);
         repeat (5)
         {
             var _e = EffectArmChopCreate(x, y);
@@ -127,7 +127,7 @@ switch (attackState)
         }
     break;
     case 1:
-        audio_play_sound(global.sndScSweep, 5, false);
+        jj_play_audio(global.sndScSweep, 5, false);
         var _dmg = GetDmg(s);
         var o = ProjectileCreate(owner.x, owner.y);
         with (o)
@@ -157,7 +157,7 @@ attackStateTimer += DT * (1 + (isFtl * 2));
 
 sprite_index = sprArmorless;
 ExplosionEffect(x, y);
-audio_play_sound(global.sndScArmorOff, 0, false);
+jj_play_audio(global.sndScArmorOff, 0, false);
 isFtl = true;
 CDMultiplier = 2;
 repeat (5)

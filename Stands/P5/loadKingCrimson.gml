@@ -27,7 +27,7 @@ GiveKingCrimson(player);
 #define ScalpelSlash(m, s)
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
 
-audio_play_sound(global.sndKnifeThrow, 5, false);
+jj_play_audio(global.sndKnifeThrow, 5, false);
 var _dmg = GetDmg(s);
 var o = ProjectileCreate(owner.x, owner.y);
 with (o)
@@ -59,7 +59,7 @@ var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
 switch (attackState)
 {
     case 0:
-        var _snd = audio_play_sound(global.sndKnifeThrow, 5, false);
+        var _snd = jj_play_audio(global.sndKnifeThrow, 5, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         var _dmg = GetDmg(s);
         var _p = ProjectileCreate(owner.x, owner.y);
@@ -78,7 +78,7 @@ switch (attackState)
         if (attackStateTimer >= 0.15) attackState++;
     break;
     case 2:
-        var _snd = audio_play_sound(global.sndKnifeThrow, 5, false);
+        var _snd = jj_play_audio(global.sndKnifeThrow, 5, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         var _dmg = GetDmg(s);
         var _p = ProjectileCreate(owner.x, owner.y);
@@ -100,7 +100,7 @@ attackStateTimer += DT;
 
 if (!WaterCollision(mouse_x, mouse_y) and !modTypeExists("timeErase"))
 {
-    audio_play_sound(global.sndKcTp, 5, false);
+    jj_play_audio(global.sndKcTp, 5, false);
     EffectPlayerAfterimageCreate(owner.x, owner.y);
     EffectTimeSkipCreate();
     player.x = mouse_x;
@@ -122,7 +122,7 @@ switch (attackState)
             var _n = get_nearest_enemy(mouse_x, mouse_y);
             if (distance_to_object(_n) < 64)
             {
-                audio_play_sound(global.sndKcTp, 5, false);
+                jj_play_audio(global.sndKcTp, 5, false);
                 EffectPlayerAfterimageCreate(owner.x, owner.y);
                 EffectTimeSkipCreate();
                 player.x = _n.x;
@@ -158,7 +158,7 @@ switch (attackState)
         {
             if (attackStateTimer >= 0.12)
             {
-                var _snd = audio_play_sound(global.sndPunchAir, 0, false);
+                var _snd = jj_play_audio(global.sndPunchAir, 0, false);
                 var _sHit = choose(global.sndKcAttack1, global.sndKcAttack2, global.sndKcAttack3, global.sndKcAttack4, global.sndKcAttack5);
                 audio_sound_pitch(_snd, random_range(0.9, 1.1));
                 var xx = x + random_range(-4, 4);
@@ -211,7 +211,7 @@ switch (attackState)
         }
     break;
     case 1:
-        var _snd = audio_play_sound(global.sndPunchAir, 0, false);
+        var _snd = jj_play_audio(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         var _p = PunchSwingCreate(x, y, _dir, 45, GetDmg(s));
         _p.onHitSound = global.sndKcAttack5;
@@ -239,7 +239,7 @@ switch (attackState)
             {
                 x = _n.x;
                 y = _n.y;
-                audio_play_sound(global.sndKcGrowl, 5, false);
+                jj_play_audio(global.sndKcGrowl, 5, false);
                 attackState++;
             }
             else
@@ -314,7 +314,7 @@ yTo = owner.y - 8;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(teSound, 5, false);
+        jj_play_audio(teSound, 5, false);
         attackState++;
     break;
     case 1:
@@ -331,7 +331,7 @@ switch (attackState)
         with (o)
         {
             type = "timeErase";
-            daBass = audio_play_sound(other.teBassSound, 5, false);
+            daBass = jj_play_audio(other.teBassSound, 5, false);
             endSound = other.teEndSound;
             surf = 0;
             
@@ -399,7 +399,7 @@ alpha = lerp(alpha, 0, 0.02);
 life -= DT;
 if (life <= 0)
 {
-    audio_play_sound(endSound, 5, false);
+    jj_play_audio(endSound, 5, false);
     EffectTimeSkipCreate();
     if (surface_exists(surf))
     {

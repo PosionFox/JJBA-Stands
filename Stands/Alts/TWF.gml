@@ -36,7 +36,7 @@ image_xscale = mouse_x > owner.x ? 1 : -1;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndTwfBarrage, 10, false);
+        jj_play_audio(global.sndTwfBarrage, 10, false);
         attackState++;
     break;
     case 1:
@@ -80,7 +80,7 @@ switch (attackState)
             instance_destroy(modTypeFind("timestop"));
         }
         angleTarget = 25;
-        audio_play_sound(global.sndTwfTs, 5, false);
+        jj_play_audio(global.sndTwfTs, 5, false);
         attackState++;
     break;
     case 1:

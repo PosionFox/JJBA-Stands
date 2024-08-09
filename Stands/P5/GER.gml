@@ -26,7 +26,7 @@ GiveGer(player);
 
 #define RequiemTaunt(m, s)
 
-audio_play_sound(global.sndGerTaunt, 10, false);
+jj_play_audio(global.sndGerTaunt, 10, false);
 EndAtk(s);
 
 #define GerBarrage(method, skill) //attacks
@@ -40,7 +40,7 @@ image_xscale = mouse_x > owner.x ? 1 : -1;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndGerBarrage, 10, false);
+        jj_play_audio(global.sndGerBarrage, 10, false);
         attackState++;
     break;
     case 1:
@@ -48,7 +48,7 @@ switch (attackState)
         {
             if (attackStateTimer >= 0.08)
             {
-                var _snd = audio_play_sound(global.sndPunchAir, 0, false);
+                var _snd = jj_play_audio(global.sndPunchAir, 0, false);
                 audio_sound_pitch(_snd, random_range(0.9, 1.1));
                 var xx = x + random_range(-4, 4);
                 var yy = y + random_range(-8, 8);
@@ -84,7 +84,7 @@ switch(attackState)
         if (attackStateTimer >= 0.2) attackState++;
     break;
     case 1:
-        audio_play_sound(global.sndGeHit, 5, false);
+        jj_play_audio(global.sndGeHit, 5, false);
         var _dmg = 10 + (player.level * 0.1) + player.dmg;
         var _p = BulletCreate(x, y, _dir, _dmg);
         with (_p)
@@ -125,7 +125,7 @@ switch (attackState)
     case 0:
         angleTarget = 15;
         ShrinkingCircleEffect(x, y);
-        audio_play_sound(global.sndGeStab, 5, false);
+        jj_play_audio(global.sndGeStab, 5, false);
         attackState++;
     break;
     case 1:
@@ -139,7 +139,7 @@ switch (attackState)
         if (attackStateTimer > 2)
         {
             angleTarget = -15;
-            audio_play_sound(global.sndGeBreak, 5, false);
+            jj_play_audio(global.sndGeBreak, 5, false);
             repeat (5)
             {
                 EffectGeParticleCreate(x, y, color);
@@ -157,7 +157,7 @@ switch (attackState)
     break;
     case 4:
         ShrinkingCircleEffect(x, y);
-        audio_play_sound(global.sndGeRequiem, 5, false);
+        jj_play_audio(global.sndGeRequiem, 5, false);
         skills = gerMoveset;
         active = false;
         requiemActive = true;

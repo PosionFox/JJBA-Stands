@@ -26,7 +26,7 @@ GiveTheWorldAU(player);
 
 #define TripleKnifeThrow(m, s)
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
-var _snd = audio_play_sound(global.sndKnifeThrow, 0, false);
+var _snd = jj_play_audio(global.sndKnifeThrow, 0, false);
 audio_sound_pitch(_snd, random_range(0.9, 1.1));
 
 for (var i = 0; i < 3; i++)
@@ -198,7 +198,7 @@ if (distance_to_point(_xx, _yy) < 2)
 {
     if (attackStateTimer >= 0.1)
     {
-        var _snd = audio_play_sound(global.sndKnifeThrow, 0, false);
+        var _snd = jj_play_audio(global.sndKnifeThrow, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         var xx = x + random_range(-8, 8);
         var yy = y + random_range(-8, 8);
@@ -234,7 +234,7 @@ if (keyboard_check_pressed(ord(skills[skill, StandSkill.Key])))
 #define GunShot(method, skill)
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
-audio_play_sound(global.sndGunShot, 0, false);
+jj_play_audio(global.sndGunShot, 0, false);
 BulletCreate(player.x, player.y, _dir, GetDmg(skill));
 FireCD(skill)
 state = StandState.Idle;
@@ -244,12 +244,12 @@ state = StandState.Idle;
 var _length = 5 + (0.15 * player.level);
 if (player.hp <= player.hpMax * 0.5)
 {
-    audio_play_sound(global.sndTwAuTsPanic, 5, false);
+    jj_play_audio(global.sndTwAuTsPanic, 5, false);
     _length = 8 + (0.2 * player.level);
 }
 else
 {
-    audio_play_sound(global.sndTwAuDiegoTs, 5, false);
+    jj_play_audio(global.sndTwAuDiegoTs, 5, false);
 }
 var _t = TimestopCreate(_length);
 _t.resumeSound = global.sndTwAuTsResume;

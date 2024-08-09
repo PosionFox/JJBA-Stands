@@ -33,7 +33,7 @@ if (modTypeCount("coinBomb") >= 9)
 }
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
-audio_play_sound(sndCoin2, 0, false);
+jj_play_audio(sndCoin2, 0, false);
 CoinBombCreate(objPlayer.x, objPlayer.y, _dir - 45);
 CoinBombCreate(objPlayer.x, objPlayer.y, _dir);
 CoinBombCreate(objPlayer.x, objPlayer.y, _dir + 45);
@@ -48,7 +48,7 @@ yTo = objPlayer.y + lengthdir_y(GetStandReach(self), _dir);
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndStrayCat, 1, false);
+        jj_play_audio(global.sndStrayCat, 1, false);
         attackState++;
     break;
     case 1:
@@ -98,7 +98,7 @@ switch (attackState)
             state = StandState.Idle;
             exit;
         }
-        audio_play_sound(global.sndBitesTheDust, 5, false);
+        jj_play_audio(global.sndBitesTheDust, 5, false);
         visible = false;
         with (parEnemy)
         {
@@ -200,7 +200,7 @@ if (life <= 0)
 
 #define ScBubbleDestroy
 
-audio_play_sound(global.sndDetonateBomb, 0, false);
+jj_play_audio(global.sndDetonateBomb, 0, false);
 
 with (parEnemy)
 {

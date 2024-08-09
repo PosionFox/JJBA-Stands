@@ -92,7 +92,7 @@ if (array_find_index(instancesHit, _target.id) == -1)
         {
             audio_stop_sound(onHitSound);
         }
-        var _s = audio_play_sound(onHitSound, 0, false);
+        var _s = jj_play_audio(onHitSound, 0, false);
         audio_sound_pitch(_s, random_range(0.9, 1.1));
     }
     if (onHitEvent != noone)
@@ -551,7 +551,7 @@ if (instance_exists(objVenomBolt))
     }
 }
 
-audio_play_sound(resumeSound, 5, false);
+jj_play_audio(resumeSound, 5, false);
 with (MOBJ)
 {
     if bool("type" in self)
@@ -612,7 +612,7 @@ if (distance_to_point(xTo, yTo) < 2)
 {
     if (attackStateTimer >= 0.08)
     {
-        var _snd = audio_play_sound(global.sndPunchAir, 0, false);
+        var _snd = jj_play_audio(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         var xx = x + random_range(-4, 4);
         var yy = y + random_range(-8, 8);
@@ -891,7 +891,7 @@ y = STAND.y + yoffset;
 var _hit = instance_place(x, y, ENEMY);
 if (_hit and !grab)
 {
-    audio_play_sound(global.sndPunchAir, 0, false);
+    jj_play_audio(global.sndPunchAir, 0, false);
     target = _hit;
     grab = true;
 }

@@ -27,7 +27,7 @@ GiveSPTW(player);
 #define BearingShot(m, s)
 
 var _dir = DIR_PLAYER_TO_MOUSE;
-var _snd = audio_play_sound(global.sndGunShot, 0, false);
+var _snd = jj_play_audio(global.sndGunShot, 0, false);
 audio_sound_pitch(_snd, 2);
 BulletCreate(x, y, _dir, GetDmg(s));
 EndAtk(s);
@@ -37,7 +37,7 @@ EndAtk(s);
 if (!WaterCollision(mouse_x, mouse_y) and !modTypeExists("timestop"))
 {
     EffectWhiteScreen(0.1);
-    audio_play_sound(global.sndSptwTp, 5, false);
+    jj_play_audio(global.sndSptwTp, 5, false);
     player.x = mouse_x;
     player.y = mouse_y;
     EndAtk(s);
@@ -62,7 +62,7 @@ switch (attackState)
             instance_destroy(modTypeFind("timestop"));
         }
         angleTarget = 25;
-        audio_play_sound(global.sndSptwTs, 5, false);
+        jj_play_audio(global.sndSptwTs, 5, false);
         attackState++;
     break;
     case 1:
@@ -72,7 +72,7 @@ switch (attackState)
         }
     break;
     case 2:
-        //audio_play_sound(global.sndTwrTs, 5, false);
+        //jj_play_audio(global.sndTwrTs, 5, false);
         
         var ts = TimestopCreate(5 + (0.1 * player.level));
         ts.resumeSound = global.sndTwTsResume;
@@ -85,7 +85,7 @@ switch (attackState)
         }
     break;
     case 4:
-        //audio_play_sound(global.sndStwTokiyotomare, 5, false);
+        //jj_play_audio(global.sndStwTokiyotomare, 5, false);
         EndAtk(skill);
     break;
 }

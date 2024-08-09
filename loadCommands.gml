@@ -12,9 +12,9 @@ CommandCreate("jjVarSpy", true, ScriptWrap(jjVarSpy), "obj");
 
 CommandCreate("jjRemapKeybind", false, ScriptWrap(jjRemapKeybind), "summon/ability", "key");
 
-CommandCreate("jjMaxExp", true, ScriptWrap(jjMaxExp))
+CommandCreate("jjMaxExp", true, ScriptWrap(jjMaxExp));
 
-CommandCreate("jjSpawnDio", true, ScriptWrap(jjSpawnDio))
+CommandCreate("jjSpawnDio", true, ScriptWrap(jjSpawnDio));
 
 CommandCreate("jjCheckGrimoires", false, ScriptWrap(jjCheckGrimoires));
 
@@ -24,7 +24,7 @@ CommandCreate("jjCheckMonth", false, ScriptWrap(jjCheckMonth));
 
 CommandCreate("jjTrait", true, ScriptWrap(jjTrait), "trait");
 
-CommandCreate("jjPrintVersion", false, ScriptWrap(jjPrintVersion))
+CommandCreate("jjPrintVersion", false, ScriptWrap(jjPrintVersion));
 
 #define jjPrintVersion
 

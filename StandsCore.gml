@@ -186,7 +186,7 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
                         if (skills[i, StandSkill.Hold] >= skills[i, StandSkill.MaxHold] and !altAttack)
                         {
                             altAttack = true;
-                            var _s = audio_play_sound(sndCoin1, 1, false);
+                            var _s = jj_play_audio(sndCoin1, 1, false);
                             audio_sound_pitch(_s, 1.5);
                         }
                     }
@@ -200,7 +200,7 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
                         if (skills[i, StandSkill.Hold] >= skills[i, StandSkill.MaxHold] and !altAttack)
                         {
                             altAttack = true;
-                            var _s = audio_play_sound(sndCoin1, 1, false);
+                            var _s = jj_play_audio(sndCoin1, 1, false);
                             audio_sound_pitch(_s, 1.5);
                         }
                     }
@@ -277,7 +277,7 @@ if (state == StandState.Idle)
         {
             if (!audio_is_playing(summonSound) and summonSound != noone and playSummonSound == true)
             {
-                audio_play_sound(summonSound, 0, false);
+                jj_play_audio(summonSound, 0, false);
             }
         }
     }
@@ -345,11 +345,11 @@ if (soundIdleTimer <= 0)
         if (is_array(_sound))
         {
             var i = irandom(array_length(_sound) - 1);
-            audio_play_sound(_sound[i], 0, false);
+            jj_play_audio(_sound[i], 0, false);
         }
         else
         {
-            audio_play_sound(_sound, 0, false);
+            jj_play_audio(_sound, 0, false);
         }
         soundIdleTimer = irandom_range(60, 120);
     }

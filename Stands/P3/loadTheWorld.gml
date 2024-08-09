@@ -31,7 +31,7 @@ var _dmg = GetDmg(skill);
 var _p = ProjectileCreate(owner.x, owner.y);
 with (_p)
 {
-    var _snd = audio_play_sound(global.sndKnifeThrow, 0, false);
+    var _snd = jj_play_audio(global.sndKnifeThrow, 0, false);
     audio_sound_pitch(_snd, random_range(0.9, 1.1));
     damage = _dmg;
     baseSpd = 8;
@@ -102,7 +102,7 @@ var _dir = owner.attack_direction;
 switch (attackState)
 {
     case 0:
-        //audio_play_sound(global.sndStwNazimuzo, 0, false);
+        //jj_play_audio(global.sndStwNazimuzo, 0, false);
         attackState++;
     break;
     case 1:
@@ -134,7 +134,7 @@ attackStateTimer += DT;
 if (!WaterCollision(mouse_x, mouse_y) and !modTypeExists("timestop"))
 {
     EffectWhiteScreen(0.1);
-    audio_play_sound(global.sndTwohTp, 5, false);
+    jj_play_audio(global.sndTwohTp, 5, false);
     player.x = mouse_x;
     player.y = mouse_y;
     EndAtk(s);
@@ -155,7 +155,7 @@ image_xscale = mouse_x > owner.x ? 1 : -1;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndTwBarrage, 10, false);
+        jj_play_audio(global.sndTwBarrage, 10, false);
         attackState++;
     break;
     case 1:
@@ -189,12 +189,12 @@ attackStateTimer += DT;
 var _dir = owner.attack_direction;
 if modTypeExists("timestop")
 {
-    var _snd = audio_play_sound(global.sndKnifeThrow, 5, false);
+    var _snd = jj_play_audio(global.sndKnifeThrow, 5, false);
     audio_sound_pitch(_snd, random_range(0.9, 1.1));
 }
 else
 {
-    audio_play_sound(global.sndTwohTp, 0, false);
+    jj_play_audio(global.sndTwohTp, 0, false);
     EffectWhiteScreen(0.1);
 }
 
@@ -225,7 +225,7 @@ if (_tsExists)
 
 if (!_tsExists)
 {
-    audio_play_sound(global.sndTwTs, 5, false);
+    jj_play_audio(global.sndTwTs, 5, false);
     TimestopCreate(9 + (0.05 * owner.level));
     FireCD(skill);
 }

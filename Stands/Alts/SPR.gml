@@ -36,7 +36,7 @@ image_xscale = mouse_x > owner.x ? 1 : -1;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndSprBarrage, 10, false);
+        jj_play_audio(global.sndSprBarrage, 10, false);
         attackState++;
     break;
     case 1:
@@ -78,7 +78,7 @@ yTo = _yy;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndSprOra, 0, false);
+        jj_play_audio(global.sndSprOra, 0, false);
         attackState++;
     break;
     case 1:
@@ -108,7 +108,7 @@ image_xscale = mouse_x > player.x ? 1 : -1;
 switch (attackState)
 {
     case 0:
-        audio_play_sound(global.sndSprStaar, 0, false);
+        jj_play_audio(global.sndSprStaar, 0, false);
         attackState++;
     break;
     case 1:
@@ -118,7 +118,7 @@ switch (attackState)
         }
     break;
     case 2:
-        audio_play_sound(global.sndSprFinger, 0, false);
+        jj_play_audio(global.sndSprFinger, 0, false);
         var _dmg = GetDmg(skill);
         var _p = ProjectileCreate(x, y);
         with (_p)
@@ -161,7 +161,7 @@ switch (attackState)
 {
     case 0:
         angleTarget = 25;
-        audio_play_sound(global.sndSprTs, 5, false);
+        jj_play_audio(global.sndSprTs, 5, false);
         attackState++;
     break;
     case 1:
