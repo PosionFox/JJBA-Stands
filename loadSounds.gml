@@ -109,6 +109,9 @@ global.sndHgEmeraldSplash = audio_create_stream(p + "hgEmeraldSplash.ogg");
 #region crazy diamond
 
 p = "Resources/Sounds/CD/";
+global.sndCdSummon = audio_create_stream(p + "cdSummon.ogg");
+global.sndCdBarrage = audio_create_stream(p + "cdBarrage.ogg");
+global.sndCdPunch = audio_create_stream(p + "cdPunch.ogg");
 global.sndHealingMode = audio_create_stream(p + "healingMode.ogg");
 
 #endregion
