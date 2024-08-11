@@ -89,7 +89,7 @@ switch (attackState)
         EndAtk(skill);
     break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define GiveSPTW(_owner) //stand
 
@@ -123,7 +123,7 @@ _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.Desc] = Localize("tsTpDesc");
 
 sk = StandState.SkillA;
-_skills[sk, StandSkill.Skill] = SpBarrage;
+_skills[sk, StandSkill.Skill] = StandBarrage;
 _skills[sk, StandSkill.Damage] = 2;
 _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
@@ -170,5 +170,6 @@ with (_s)
     discType = global.jjbamDiscSptw;
     
     knifeSprite = global.sprKnife;
+    barrageData.sound = global.sndSpBarrage;
 }
 return _s;

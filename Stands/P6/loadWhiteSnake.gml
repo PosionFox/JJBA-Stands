@@ -77,7 +77,7 @@ image_xscale = mouse_x > owner.x ? 1 : -1;
 attackStateTimer += DT;
 if (distance_to_point(xTo, yTo) < 2)
 {
-    if (attackStateTimer >= 0.12)
+    if (attackStateTimer >= 0.12 / GetStandSpeed(self))
     {
         var _snd = jj_play_audio(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
@@ -407,7 +407,7 @@ with (_s)
 {
     name = "WhiteSnake";
     sprite_index = global.sprWhiteSnake;
-    color = /*#*/0xfcdbcb;
+    color = 0xfcdbcb;
     summonSound = global.sndWsSummon;
     saveKey = "jjbamWs";
     discType = global.jjbamDiscWs;

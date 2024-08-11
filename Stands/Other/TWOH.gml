@@ -110,7 +110,7 @@ switch (attackState)
         }
     break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define TwohTsTp(m, s)
 
@@ -163,7 +163,7 @@ switch (attackState)
         EndAtk(s)
     break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define ThunderousWaveStep
 
@@ -192,7 +192,7 @@ switch (attackState)
     case 1:
         if (distance_to_point(xTo, yTo) < 2)
         {
-            if (attackStateTimer >= 0.08)
+            if (attackStateTimer >= 0.08 / GetStandSpeed(self))
             {
                 var xx = x + random_range(-4, 4);
                 var yy = y + random_range(-8, 8);
@@ -268,7 +268,7 @@ switch (attackState)
     break;
 }
 
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define RealityOverwritePunch(m, s)
 
@@ -299,7 +299,7 @@ switch (attackState)
         EndAtk(s);
         break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define OverwriteHealth
 
@@ -343,7 +343,7 @@ switch (attackState)
         EndAtk(s);
     break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define GiveTWOH(_owner) //stand
 
@@ -352,7 +352,7 @@ with (_s)
 {
     name = "The World\nOver Heaven";
     sprite_index = global.sprTWOH;
-    color = /*#*/0xffffff;
+    color = 0xffffff;
     desummonSound = summonSound;
     UpdateRarity(Rarity.Common);
     saveKey = "jjbamTwoh";

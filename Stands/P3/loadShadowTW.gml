@@ -30,18 +30,6 @@ xTo = objPlayer.x;
 yTo = objPlayer.y;
 alphaTarget = 0;
 
-#define StwDrawGui
-
-var xx = 244;
-var yy = 40;
-var length = 790;
-
-draw_set_color(c_black);
-draw_line_width(xx, yy, xx + length, yy, 3);
-draw_set_color(c_yellow);
-draw_line_width(xx, yy, xx + (xp / maxXp) * length, yy, 3);
-draw_set_color(c_white);
-
 #define StwXXI(method, skill) //attacks
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 var _dis = GetStandReach(self) * 1.5;
@@ -88,7 +76,7 @@ switch (attackState)
 }
 xTo = objPlayer.x + lengthdir_x(_dis, _dir);
 yTo = objPlayer.y + lengthdir_y(_dis, _dir);
-attackStateTimer += 1 / room_speed;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define StwPunishment(method, skill)
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
@@ -123,7 +111,7 @@ switch (attackState)
         state = StandState.Idle;
     break;
 }
-attackStateTimer += 1 / room_speed;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define KnifeCoffin(_x, _y)
 var _dmg = 2 + (player.level * 0.2) + player.dmg;
@@ -217,7 +205,7 @@ switch (attackState)
         state = StandState.Idle;
     break;
 }
-attackStateTimer += 1 / room_speed;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define StwDivineBlood(method, skill)
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
@@ -250,7 +238,7 @@ switch (attackState)
         EndAtk(skill);
     break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define StwSRSE(method, skill)
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
@@ -322,7 +310,7 @@ switch (attackState)
         state = StandState.Idle;
     break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define StwCharisma(method, skill)
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
@@ -373,7 +361,7 @@ switch (attackState)
         state = StandState.Idle;
     break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define StwTimestop(method, skill)
 
@@ -420,11 +408,11 @@ switch (attackState)
         EndAtk(skill);
     break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define StwTheWorld(method, skill)
 
-if (xp >= maxXp)
+if (level == 100)
 {
     jj_play_audio(global.sndStwEvolve, 5, false);
     var _o = ModObjectSpawn(x, y, 0);
@@ -616,10 +604,7 @@ with (_s)
     soundWhenDead = global.sndStwDead;
     knifeSprite = global.sprKnifeStw;
     discType = global.jjbamDiscStw;
-    maxXp = 1000;
-    xp = 0;
     
     saveKey = "jjbamStw";
-    InstanceAssignMethod(self, "drawGUI", ScriptWrap(StwDrawGui), true);
 }
 return _s;

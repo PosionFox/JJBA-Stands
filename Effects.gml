@@ -9,6 +9,7 @@ with (_o)
     image_index = 0;
     InstanceAssignMethod(self, "step", ScriptWrap(PunchEffectStep), false);
 }
+return _o;
 
 #define PunchEffectStep
 
@@ -87,7 +88,7 @@ gpu_set_blendmode(bm_normal);
 var _o = ModObjectSpawn(_x, _y, -1);
 with (_o)
 {
-    spd = random_range(0.3, 0.6);
+    velocity = random_range(0.3, 0.6);
     size = random(1);
     
     InstanceAssignMethod(self, "step", ScriptWrap(ExplosionSmokeStep), false);
@@ -98,7 +99,7 @@ with (_o)
 
 depth = -y;
 size += 0.2;
-y -= spd;
+y -= velocity;
 image_alpha -= 0.01;
 
 if (image_alpha <= 0)

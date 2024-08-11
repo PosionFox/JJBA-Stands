@@ -25,54 +25,6 @@ if (instance_exists(STAND) or room != rmGame)
 }
 GiveSilverChariot(player);
 
-#define ScBarrage(m, skill)
-var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-
-xTo = owner.x + lengthdir_x(GetStandReach(self), _dir + random_range(-4, 4));
-yTo = owner.y + lengthdir_y(GetStandReach(self), _dir + random_range(-4, 4));
-image_xscale = mouse_x > owner.x ? 1 : -1;
-
-switch (attackState)
-{
-    case 0:
-        jj_play_audio(global.sndScBarrage, 10, false);
-        attackState++;
-    break;
-    case 1:
-        if (distance_to_point(xTo, yTo) < 2)
-        {
-            var _cd = 0.08;
-            if (isFtl)
-            {
-                _cd = 0.04;
-            }
-            if (attackStateTimer >= _cd)
-            {
-                var xx = x + random_range(-4, 4);
-                var yy = y + random_range(-8, 8);
-                var ddir = _dir + random_range(-25, 25);
-                var _p = PunchCreate(xx, yy, ddir, GetDmg(skill), 0);
-                with (_p)
-                {
-                    sprite_index = global.sprScAttack;
-                    despawnTime = 0.15;
-                    onHitSound = global.sndPunchHit;
-                }
-                attackStateTimer = 0;
-            }
-            skills[skill, StandSkill.ExecutionTime] += 1 / room_speed;
-        }
-        
-        if (keyboard_check_pressed(ord(skills[skill, StandSkill.Key])))
-        {
-            audio_stop_sound(global.sndScBarrage);
-            EndAtk(skill);
-        }
-    break;
-}
-attackStateTimer += 1 / room_speed;
-
 #define ScLunge(m, s)
 
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
@@ -110,7 +62,7 @@ switch (attackState)
         EndAtk(s);
     break;
 }
-attackStateTimer += DT * (1 + (isFtl * 2));
+attackStateTimer += DT * (1 + (isFtl * 2)) * GetStandSpeed(self);
 
 #define ScSweep(m, s)
 
@@ -151,7 +103,7 @@ switch (attackState)
         }
     break;
 }
-attackStateTimer += DT * (1 + (isFtl * 2));
+attackStateTimer += DT * (1 + (isFtl * 2)) * GetStandSpeed(self);
 
 #define ScFTL(m, skill)
 
@@ -173,7 +125,7 @@ var _skills = StandSkillInit();
 
 var sk;
 sk = StandState.SkillA;
-_skills[sk, StandSkill.Skill] = ScBarrage;
+_skills[sk, StandSkill.Skill] = StandBarrage;
 _skills[sk, StandSkill.Damage] = 1;
 _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillScBarrage;
@@ -212,13 +164,14 @@ with (_s)
     sprite_index = global.sprSilverChariot;
     sprArmored = sprite_index;
     sprArmorless = global.sprSCarmorless;
-    color = /*#*/0x877e84;
+    color = 0x877e84;
     summonSound = global.sndScSummon;
     saveKey = "jjbamSc";
     discType = global.jjbamDiscSc;
     
     isFtl = false;
     FtlCD = 0;
+    barrageData.sound = global.sndScBarrage;
     
     InstanceAssignMethod(self, "step", ScriptWrap(SilverChariotStep));
     InstanceAssignMethod(self, "draw", ScriptWrap(SilverChariotDraw), false);

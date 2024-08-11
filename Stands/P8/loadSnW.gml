@@ -69,7 +69,7 @@ switch (attackState)
     case 1:
         if (distance_to_point(xTo, yTo) < 2)
         {
-            if (attackStateTimer >= 0.16)
+            if (attackStateTimer >= 0.16 / GetStandSpeed(self))
             {
                 var xx = x + random_range(-4, 4);
                 var yy = y + random_range(-8, 8);
@@ -138,7 +138,7 @@ switch (attackState)
         EndAtk(s);
     break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define BubbleExplode(_, _args)
 
@@ -216,7 +216,7 @@ switch (attackState)
         EndAtk(s);
     break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define TrapEnemyBubble
 

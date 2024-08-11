@@ -38,9 +38,12 @@ Christmas();
 
 printVersion();
 
+global.jjStandSlots = array_create(512, undefined);
 global.timeIsFrozen = false;    // unused
 global.jjAudioVolume = 1.0;
 global.jjShowMenu = false;
+global.jjMenuMinIndex = 0;
+global.jjMenuMaxIndex = 8;
 
 localizationEnglish();
 localizationSpanish();

@@ -50,7 +50,7 @@ switch (attackState)
         state = StandState.Idle;
     break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define CoinBomb(method, skill)
 if (modTypeCount("coinBomb") < 5)

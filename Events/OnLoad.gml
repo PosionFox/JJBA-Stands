@@ -2,7 +2,7 @@
 #define OnLoad
 
 InitPlayerVariables();
-init_trait(player);
+if instance_exists(STAND) init_trait(player.myStand);
 LoadData();
 
 // grimoires boss fix

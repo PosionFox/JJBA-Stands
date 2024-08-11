@@ -2,5 +2,5 @@
 #define OnNewGame
 
 InitPlayerVariables();
-init_trait(player);
+if instance_exists(STAND) init_trait(STAND);
 GiveRandomStand();

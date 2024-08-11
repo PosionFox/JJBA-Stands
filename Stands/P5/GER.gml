@@ -29,49 +29,6 @@ GiveGer(player);
 jj_play_audio(global.sndGerTaunt, 10, false);
 EndAtk(s);
 
-#define GerBarrage(method, skill) //attacks
-var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-
-xTo = owner.x + lengthdir_x(GetStandReach(self), _dir + random_range(-4, 4));
-yTo = owner.y + lengthdir_y(GetStandReach(self), _dir + random_range(-4, 4));
-image_xscale = mouse_x > owner.x ? 1 : -1;
-
-switch (attackState)
-{
-    case 0:
-        jj_play_audio(global.sndGerBarrage, 10, false);
-        attackState++;
-    break;
-    case 1:
-        if (distance_to_point(xTo, yTo) < 2)
-        {
-            if (attackStateTimer >= 0.08)
-            {
-                var _snd = jj_play_audio(global.sndPunchAir, 0, false);
-                audio_sound_pitch(_snd, random_range(0.9, 1.1));
-                var xx = x + random_range(-4, 4);
-                var yy = y + random_range(-8, 8);
-                var _p = PunchSwingCreate(xx, yy, _dir, 45, GetDmg(skill));
-                with (_p)
-                {
-                    onHitSoundOverlap = true;
-                    onHitEvent = SpawnNullEffect;
-                }
-                attackStateTimer = 0;
-            }
-            skills[skill, StandSkill.ExecutionTime] += DT;
-        }
-        
-        if (keyboard_check_pressed(ord(skills[skill, StandSkill.Key])))
-        {
-            audio_stop_sound(global.sndGerBarrage);
-            EndAtk(skill);
-        }
-    break;
-}
-attackStateTimer += DT;
-
 #define ScorpionToss(m, s)
 
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
@@ -168,7 +125,7 @@ switch (attackState)
         EndAtk(s);
     break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define GiveGer(_owner)
 
@@ -198,7 +155,7 @@ _skills[sk, StandSkill.Desc] = Localize("lifeformFrogDesc");
 
 
 sk = StandState.SkillA;
-_skills[sk, StandSkill.Skill] = GeBarrage;
+_skills[sk, StandSkill.Skill] = StandBarrage;
 _skills[sk, StandSkill.Damage] = 1;
 _skills[sk, StandSkill.DamageScale] = 0.01;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
@@ -240,7 +197,7 @@ _skillsGer[sk, StandSkill.MaxCooldown] = 10;
 _skillsGer[sk, StandSkill.Desc] = "requiem";
 
 sk = StandState.SkillA;
-_skillsGer[sk, StandSkill.Skill] = GerBarrage;
+_skillsGer[sk, StandSkill.Skill] = StandBarrage;
 _skillsGer[sk, StandSkill.Damage] = 4;
 _skillsGer[sk, StandSkill.DamageScale] = 0.4;
 _skillsGer[sk, StandSkill.Icon] = global.sprSkillBarrage;
@@ -291,6 +248,9 @@ with (_s)
     
     discType = global.jjbamDiscGer;
     saveKey = "jjbamGer";
+    
+    barrageData.hitEvent = SpawnNullEffect;
+    
     InstanceAssignMethod(self, "step", ScriptWrap(GerStep))
     InstanceAssignMethod(self, "drawGUI", ScriptWrap(GerDrawGUI))
 }

@@ -17,11 +17,11 @@ else
 {
     if (altAttack)
     {
-        skills[skill, StandSkill.CooldownAlt] = skills[skill, StandSkill.MaxCooldownAlt];
+        skills[skill, StandSkill.CooldownAlt] = skills[skill, StandSkill.MaxCooldownAlt] / GetStandStamina(self);
     }
     else
     {
-        skills[skill, StandSkill.Cooldown] = skills[skill, StandSkill.MaxCooldown];
+        skills[skill, StandSkill.Cooldown] = skills[skill, StandSkill.MaxCooldown] / GetStandStamina(self);
     }
 }
 attackStateTimer = 0;
@@ -65,9 +65,19 @@ if (skills[skill, StandSkill.DamagePlayerStat])
 {
     _damage += owner.dmg;
 }
-var _final_damage = _damage * powerMultiplier * GetRunesDamage(self) * (1 + owner.trait.damage) * (1 + (owner.myStand.combo / 100));
+var _final_damage = _damage * (powerMultiplier * destructive_power) * GetRunesDamage(self) * (1 + trait.damage) * (1 + (owner.myStand.combo / 100));
 
-return _final_damage;
+var _crit_chance = random(1);
+var _crit_damage = 1;
+if (_crit_chance <= 0.02 * GetStandPrecision(self))
+{
+    _crit_damage = 2;
+    next_hit_is_crit = true;
+}
+
+var _final_final_damage = _final_damage * _crit_damage;
+
+return _final_final_damage;
 
 #define GetDmgAlt(skill)
 
@@ -77,9 +87,19 @@ if (skills[skill, StandSkill.DamagePlayerStatAlt])
 {
     _damage += owner.dmg;
 }
-var _final_damage = _damage * powerMultiplier * GetRunesDamage(self) * (1 + owner.trait.damage) * (1 + (owner.myStand.combo / 100));
+var _final_damage = _damage * (powerMultiplier * destructive_power) * GetRunesDamage(self) * (1 + trait.damage) * (1 + (owner.myStand.combo / 100));
 
-return _final_damage;
+var _crit_chance = random(1);
+var _crit_damage = 1;
+if (_crit_chance <= 0.02 * GetStandPrecision(self))
+{
+    _crit_damage = 2;
+    next_hit_is_crit = true;
+}
+
+var _final_final_damage = _final_damage * _crit_damage;
+
+return _final_final_damage;
 
 #define ProjHitTarget(_target)
 
@@ -99,7 +119,12 @@ if (array_find_index(instancesHit, _target.id) == -1)
     {
         script_execute(onHitEvent, onHitEventArg, undefined);
     }
-    PunchEffectCreate(x, y);
+    var _e = PunchEffectCreate(x, y);
+    if (is_crit)
+    {
+        _e.image_blend = c_red;
+        owner.next_hit_is_crit = false;
+    }
     DustEntityAdd(x, y);
     with (owner)
     {
@@ -150,7 +175,7 @@ with (_o)
     despawnFade = true;
     despawnTime = 5;
     baseSpd = 5;
-    spd = baseSpd;
+    velocity = baseSpd;
     baseDamage = 0;
     damage = baseDamage;
     destroyOnImpact = true;
@@ -164,6 +189,7 @@ with (_o)
     canDespawnInTs = false;
     knockback = 0;
     knockbackDuration = 0.5;
+    is_crit = owner.next_hit_is_crit;
     onHitSound = sndHitMeat;
     onHitSoundOverlap = false;
     onHitEvent = noone;
@@ -209,24 +235,24 @@ if (instance_exists(self))
     {
         if (!global.timeIsFrozen)
         {
-            spd = baseSpd;
+            velocity = baseSpd;
             image_speed = baseAnimSpd;
-            x += lengthdir_x(spd, direction);
-            y += lengthdir_y(spd, direction);
+            x += lengthdir_x(velocity, direction);
+            y += lengthdir_y(velocity, direction);
         }
         else if (global.timeIsFrozen and canMoveInTs)
         {
-            spd = baseSpd;
+            velocity = baseSpd;
             image_speed = baseAnimSpd;
-            x += lengthdir_x(spd, direction);
-            y += lengthdir_y(spd, direction);
+            x += lengthdir_x(velocity, direction);
+            y += lengthdir_y(velocity, direction);
         }
         else if (global.timeIsFrozen and !canMoveInTs)
         {
-            spd = lerp(spd, 0, 0.15);
+            velocity = lerp(velocity, 0, 0.15);
             image_speed = lerp(image_speed, 0, 0.1);
-            x += lengthdir_x(spd, direction);
-            y += lengthdir_y(spd, direction);
+            x += lengthdir_x(velocity, direction);
+            y += lengthdir_y(velocity, direction);
         }
     }
     
@@ -321,7 +347,7 @@ return _o;
 
 #define BulletStep
 
-image_xscale = max(1, spd);
+image_xscale = max(1, velocity);
 
 #define KnockbackCreate(_target, _strength, _direction, _duration)
 
@@ -600,39 +626,50 @@ with (_p)
 }
 return _p;
 
-#define StandBarrage(method, skill)
+#define StandBarrage(m, s)
 
-var _dir = owner.attack_direction;
+var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
+var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
 
-xTo = objPlayer.x + lengthdir_x(GetStandReach(self), _dir + random_range(-4, 4));
-yTo = objPlayer.y + lengthdir_y(GetStandReach(self), _dir + random_range(-4, 4));
-image_xscale = mouse_x > objPlayer.x ? 1 : -1;
+xTo = owner.x + lengthdir_x(GetStandReach(self), _dir + random_range(-4, 4));
+yTo = owner.y + lengthdir_y(GetStandReach(self), _dir + random_range(-4, 4));
+image_xscale = mouse_x > owner.x ? 1 : -1;
 
-if (distance_to_point(xTo, yTo) < 2)
+switch (attackState)
 {
-    if (attackStateTimer >= 0.08)
-    {
-        var _snd = jj_play_audio(global.sndPunchAir, 0, false);
-        audio_sound_pitch(_snd, random_range(0.9, 1.1));
-        var xx = x + random_range(-4, 4);
-        var yy = y + random_range(-8, 8);
-        PunchSwingCreate(xx, yy, _dir, 45, GetDmg(skill));
-        attackStateTimer = 0;
-    }
-    skills[skill, StandSkill.ExecutionTime] += DT;
-}
-
-if (keyboard_check_pressed(ord(skills[skill, StandSkill.Key])))
-{
-    if (skills[skill, StandSkill.ExecutionTime] > 0)
-    {
-        FireCD(skill);
-    }
-    else
-    {
-        ResetCD(skill);
-    }
-    state = StandState.Idle;
+    case 0:
+        if barrageData.sound != noone jj_play_audio(barrageData.sound, 10, false);
+        attackState++;
+    break;
+    case 1:
+        if (distance_to_point(xTo, yTo) < 2)
+        {
+            if (attackStateTimer >= (0.08 / GetStandSpeed(self)))
+            {
+                var xx = x + random_range(-4, 4);
+                var yy = y + random_range(-8, 8);
+                var _p = PunchSwingCreate(xx, yy, _dir, 45, GetDmg(s));
+                with (_p)
+                {
+                    if other.barrageData.hitSound != noone onHitSound = other.barrageData.hitSound;
+                    if other.barrageData.hitEvent != noone onHitEvent = other.barrageData.hitEvent;
+                    if other.barrageData.hitEventArgs != noone onHitEventArg = other.barrageData.hitEventArgs;
+                }
+                attackStateTimer = 0;
+            }
+            skills[s, StandSkill.ExecutionTime] += DT;
+        }
+        
+        if (keyboard_check_pressed(ord(skills[s, StandSkill.Key])))
+        {
+            if barrageData.sound != noone audio_stop_sound(barrageData.sound);
+            EndAtk(s);
+        }
+        if (skills[s, StandSkill.ExecutionTime] >= skills[s, StandSkill.MaxExecutionTime])
+        {
+            if barrageData.sound != noone audio_stop_sound(barrageData.sound);
+        }
+    break;
 }
 attackStateTimer += DT;
 
@@ -694,7 +731,7 @@ switch (attackState)
         state = StandState.Idle;
         break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define LastingDamageCreate(_target, _dmg, _time, _percentageDamage)
 

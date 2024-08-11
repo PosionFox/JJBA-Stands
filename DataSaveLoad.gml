@@ -1,38 +1,16 @@
 
-#define LoadStand(_map)
-//  for non rmGame rooms
-var _stand = _map[? "jjbamAbility"];
+#define GiveStandByKey(_key)
 
-switch (_stand)
+switch (_key)
 {
     // p3
     case "jjbamTw": GiveTheWorld(player); break;
     case "jjbamSpp": GiveSpp(player); break;
-    case "jjbamSp":
-        GiveStarPlatinum(player);
-        var _xp = _map[? "jjbamSpXp"];
-        if (_xp == undefined)
-        {
-            STAND.xp = 0;
-        }
-        else
-        {
-            STAND.xp = _xp;
-        }
+    case "jjbamSp": GiveStarPlatinum(player);
     break;
     case "jjbamSc": GiveSilverChariot(player); break;
     case "jjbamAnubis": GiveAnubis(player); break;
-    case "jjbamStw":
-        GiveShadowTheWorld(player);
-        var _xp = _map[? "jjbamStwXp"];
-        if (_xp == undefined)
-        {
-            STAND.xp = 0;
-        }
-        else
-        {
-            STAND.xp = _xp;
-        }
+    case "jjbamStw": GiveShadowTheWorld(player);
     break;
     case "jjbamMr": GiveMagiciansRed(player); break;
     case "jjbamHg": GiveHierophantGreen(player); break;
@@ -50,21 +28,12 @@ switch (_stand)
     case "jjbamWs": GiveWhiteSnake(player); break;
     case "jjbamCmn": GiveCMoon(player); break;
     // p7
-    case "jjbamD4c":
-        GiveD4C(player);
-        STAND.hasArm = _map[? "jjbamD4cHasArm"];
-        STAND.hasHeart = _map[? "jjbamD4cHasHeart"];
-        STAND.hasEye = _map[? "jjbamD4cHasEye"];
+    case "jjbamD4c": GiveD4C(player);
     break;
     case "jjbamD4clt": GiveD4CLT(player); break;
     case "jjbamTwau": GiveTheWorldAU(player); break;
     case "jjbamSpin": GiveSpin(player); break;
-    case "jjbamTsk":
-        GiveTusk(player);
-        STAND.hasAct1 = _map[? "jjbamTuskA1"];
-        STAND.hasAct2 = _map[? "jjbamTuskA2"];
-        STAND.hasAct3 = _map[? "jjbamTuskA3"];
-        STAND.hasAct4 = _map[? "jjbamTuskA4"];
+    case "jjbamTsk": GiveTusk(player);
     break;
     // p8
     case "jjbamSnw": GiveSoftAndWet(player); break;
@@ -75,17 +44,7 @@ switch (_stand)
     case "jjbamTwr": GiveTwr(player); break;
     case "jjbamSpova": GiveSpova(player); break;
     case "jjbamTwova": GiveTwova(player); break;
-    case "jjbamShadow":
-        GiveShadow(player);
-        var _xp = _map[? "jjbamShadowXp"];
-        if (_xp == undefined)
-        {
-            STAND.xp = 0;
-        }
-        else
-        {
-            STAND.xp = _xp;
-        }
+    case "jjbamShadow": GiveShadow(player);
     break;
     case "jjbamSqbtd": GiveSQBTD(player); break;
     case "jjbamKcm": GiveKcm(player); break;
@@ -126,6 +85,29 @@ switch (_stand)
     case "jjbamSukuna": GiveSukuna(player); break;
 }
 
+#define LoadStand(_map)
+//  for non rmGame rooms
+var _stand = _map[? "jjbamAbility"];
+if (_stand != undefined)
+{
+    DeconstructStandData(_stand);
+}
+
+// switch (_stand)
+// {
+//     case "jjbamD4c":
+//         STAND.hasArm = _map[? "jjbamD4cHasArm"];
+//         STAND.hasHeart = _map[? "jjbamD4cHasHeart"];
+//         STAND.hasEye = _map[? "jjbamD4cHasEye"];
+//     break;
+//     case "jjbamTsk":
+//         STAND.hasAct1 = _map[? "jjbamTuskA1"];
+//         STAND.hasAct2 = _map[? "jjbamTuskA2"];
+//         STAND.hasAct3 = _map[? "jjbamTuskA3"];
+//         STAND.hasAct4 = _map[? "jjbamTuskA4"];
+//     break;
+// }
+
 #define SaveData
 
 var _map = ds_map_create();
@@ -134,22 +116,13 @@ if (instance_exists(player))
 {
     if (instance_exists(STAND))
     {
-        _map[? "jjbamAbility"] = STAND.saveKey; // save stand
+        _map[? "jjbamAbility"] = ConstructStandData(STAND); // save stand
         //Trace("saving stand: " + string(STAND.saveKey));
         // _map[? "jjbamAbilitySkills"] = string(array_clone(objPlayer.myStand.skills)); // save stand skills
         // Trace(_map[? "jjbamAbilitySkills"]);
         
         switch (STAND.saveKey)
         {
-            case "jjbamStw": // save stw xp
-                _map[? "jjbamStwXp"] = STAND.xp;
-            break;
-            case "jjbamSp":
-                _map[? "jjbamSpXp"] = STAND.xp;
-            break;
-            case "jjbamShadow":
-                _map[? "jjbamShadowXp"] = STAND.xp;
-            break;
             case "jjbamTsk": // save tusk acts
                 _map[? "jjbamTuskA1"] = STAND.hasAct1;
                 _map[? "jjbamTuskA2"] = STAND.hasAct2;
@@ -201,15 +174,16 @@ if (instance_exists(player) and instance_exists(STAND))
     if (STAND.runes[1] != noone) _map[? "jjRune1"] = STAND.runes[1].save_key;
     if (STAND.runes[2] != noone) _map[? "jjRune2"] = STAND.runes[2].save_key;
 }
-// traits
-if bool("trait" in player)
-{
-    _map[? "jjTrait"] = player.trait.key;
-}
 
 // mod settings
 _map[? "jjAudioVolume"] = global.jjAudioVolume;
 
+// stand slots
+for (var i = 0; i < array_length(global.jjStandSlots); i++)
+{
+    var _key = "jjStandSlot" + string(i);
+    _map[? _key] = global.jjStandSlots[i];
+}
 
 ModSaveDataSubmit(_map);
 ds_map_destroy(_map);
@@ -328,18 +302,6 @@ if (instance_exists(player) and instance_exists(STAND))
 
 #endregion
 
-#region traits
-
-if (instance_exists(player))
-{
-    if bool("trait" in player)
-    {
-        trait_set_by_key(player, _map[? "jjTrait"]);
-    }
-}
-
-#endregion
-
 #region mod settings
 
 if (_map[? "jjAudioVolume"] != undefined)
@@ -349,6 +311,23 @@ if (_map[? "jjAudioVolume"] != undefined)
 else
 {
     global.jjAudioVolume = 1.0;
+}
+
+#endregion
+
+#region stand slots
+
+for (var i = 0; i < array_length(global.jjStandSlots); i++)
+{
+    var _key = "jjStandSlot" + string(i);
+    if (_map[? _key] != undefined)
+    {
+        global.jjStandSlots[i] = _map[? _key];
+    }
+    else
+    {
+        global.jjStandSlots[i] = undefined
+    }
 }
 
 #endregion

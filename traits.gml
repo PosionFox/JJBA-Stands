@@ -12,6 +12,33 @@ if !bool("trait" in _user)
     }
 }
 
+#define trait_give_random(_user)
+
+var _pool =
+[
+    // common
+    ["jjFit", 128],
+    // uncommon
+    ["jjHefty", 64],
+    // rare
+    ["jjStrong", 32],
+    // epic
+    ["jjMuscular", 16],
+    // legendary
+    ["jjJacked", 8],
+    ["jjRepeat", 8],
+    // mythical
+    ["jjBuff", 4],
+    ["jjReflect", 4],
+    // ascended
+    ["jjRipped", 2],
+    ["jjMirror", 2],
+    // ultimate
+    ["jjHercules", 1],
+    ["jjEcho", 1]
+]
+trait_set_by_key(_user, random_weight(_pool));
+
 #define trait_set_by_key(_user, _trait_key)
 
 switch (_trait_key)

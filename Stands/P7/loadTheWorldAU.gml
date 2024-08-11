@@ -193,7 +193,7 @@ xTo = _xx;
 yTo = _yy;
 image_xscale = mouse_x > objPlayer.x ? 1 : -1;
 
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 if (distance_to_point(_xx, _yy) < 2)
 {
     if (attackStateTimer >= 0.1)

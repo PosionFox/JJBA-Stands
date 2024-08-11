@@ -24,49 +24,6 @@ if (instance_exists(STAND) or room != rmGame)
 }
 GiveStickyFingers(player);
 
-#define SfBarrage(method, skill) //attacks
-var _dis = point_distance(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-
-xTo = objPlayer.x + lengthdir_x(GetStandReach(self), _dir + random_range(-4, 4));
-yTo = objPlayer.y + lengthdir_y(GetStandReach(self), _dir + random_range(-4, 4));
-image_xscale = mouse_x > objPlayer.x ? 1 : -1;
-
-attackStateTimer += 1 / room_speed;
-if (distance_to_point(xTo, yTo) < 2)
-{
-    if (attackStateTimer >= 0.08)
-    {
-        var _snd = jj_play_audio(global.sndPunchAir, 0, false);
-        audio_sound_pitch(_snd, random_range(0.9, 1.1));
-        var xx = x + random_range(-4, 4);
-        var yy = y + random_range(-8, 8);
-        var _p = PunchSwingCreate(xx, yy, _dir, 45, GetDmg(skill));
-        with (_p)
-        {
-            destroyOnImpact = true;
-            onHitSound = global.sndSfPunch;
-            onHitEvent = ZipperInjury;
-            onHitEventArg = [x, y];
-        }
-        attackStateTimer = 0;
-    }
-    skills[skill, StandSkill.ExecutionTime] += 1 / room_speed;
-}
-
-if (keyboard_check_pressed(ord(skills[skill, StandSkill.Key])))
-{
-    if (skills[skill, StandSkill.ExecutionTime] > 0)
-    {
-        FireCD(skill);
-    }
-    else
-    {
-        ResetCD(skill);
-    }
-    state = StandState.Idle;
-}
-
 #define ZipperPunch(method, skill)
 var _dir = point_direction(x, y, mouse_x, mouse_y);
 xTo = objPlayer.x + lengthdir_x(GetStandReach(self), _dir);
@@ -92,7 +49,7 @@ switch (attackState)
         state = StandState.Idle;
     break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define ZipperGrab(method, skill)
 var _dir = point_direction(x, y, mouse_x, mouse_y);
@@ -154,7 +111,7 @@ switch (attackState)
         }
     break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define SfPortal(method, skill)
 var _sc = collision_circle(mouse_x, mouse_y, 16, parSolid, false, true);
@@ -194,7 +151,7 @@ switch (attackState)
         state = StandState.Idle;
     break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define ZipperInjury(_scr, _pos) //attack properties
 
@@ -363,7 +320,7 @@ var _skills = StandSkillInit();
 
 var sk;
 sk = StandState.SkillA;
-_skills[sk, StandSkill.Skill] = SfBarrage;
+_skills[sk, StandSkill.Skill] = StandBarrage;
 _skills[sk, StandSkill.Damage] = 1;
 _skills[sk, StandSkill.DamageScale] = 0.01;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
@@ -403,5 +360,9 @@ with (_s)
     summonSound = global.sndSfSummon;
     discType = global.jjbamDiscSf;
     saveKey = "jjbamSf";
+    
+    barrageData.hitSound = global.sndSfPunch;
+    barrageData.hitEvent = ZipperInjury;
+    barrageData.hitEventArg = [x, y];
 }
 return _s;

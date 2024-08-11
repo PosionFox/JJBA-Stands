@@ -230,10 +230,10 @@ global.jjSuspiciousBolt = ItemCreate(
     0,
     [
         Item.Wood, 1,
-        Item.Ruby, 1,
-        Item.Emerald, 1,
-        Item.Topaz, 1,
-        Item.Amethyst, 1
+        Item.Ruby, 25,
+        Item.Emerald, 25,
+        Item.Topaz, 25,
+        Item.Amethyst, 25
     ],
     ScriptWrap(SuspiciousBoltUse),
     60 * 5,
@@ -381,31 +381,7 @@ global.arrow_ability_pool =
 
 #define SuspiciousBoltUse
 
-var _pool =
-[
-    // common
-    ["jjFit", 128],
-    // uncommon
-    ["jjHefty", 64],
-    // rare
-    ["jjStrong", 32],
-    // epic
-    ["jjMuscular", 16],
-    // legendary
-    ["jjJacked", 8],
-    ["jjRepeat", 8],
-    // mythical
-    ["jjBuff", 4],
-    ["jjReflect", 4],
-    // ascended
-    ["jjRipped", 2],
-    ["jjMirror", 2],
-    // ultimate
-    ["jjHercules", 1],
-    ["jjEcho", 1]
-]
-var _trait = random_weight(_pool);
-trait_set_by_key(player, _trait);
+trait_give_random(STAND);
 DmgPlayer(1, false);
 
 #define EgyptianCrownUse

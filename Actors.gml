@@ -13,7 +13,7 @@ with (_o)
     dmg = 1;
     hpMax = 100;
     hp = hpMax;
-    spd = 0;
+    velocity = 0;
     h = 0;
     v = 0;
     scale = 1;
@@ -135,9 +135,9 @@ with (_o)
 switch (state)
 {
     case "idle":
-        h = lengthdir_x(spd, 0);
-        v = lengthdir_y(spd, 0);
-        spd = lerp(spd, 0, 0.1);
+        h = lengthdir_x(velocity, 0);
+        v = lengthdir_y(velocity, 0);
+        velocity = lerp(velocity, 0, 0.1);
         if (instance_exists(objPlayer))
         {
             var _dis = distance_to_point(objPlayer.x, objPlayer.y);
@@ -164,8 +164,8 @@ switch (state)
             var _dis = distance_to_point(objPlayer.x, objPlayer.y);
             
             image_xscale = sign(dcos(_dir)) * 0.5;
-            spd = lerp(spd, maxSpd, 0.1);
-            mp_potential_step_object(player.x, player.y, spd, parSolid);
+            velocity = lerp(velocity, maxSpd, 0.1);
+            mp_potential_step_object(player.x, player.y, velocity, parSolid);
             
             if (_dis < 16)
             {
@@ -195,8 +195,8 @@ switch (state)
             if (_dis > 8)
             {
                 image_xscale = sign(dcos(_dir)) * 0.5;
-                spd = lerp(spd, maxSpd, 0.1);
-                mp_potential_step_object(_near.x, _near.y, spd, parSolid);
+                velocity = lerp(velocity, maxSpd, 0.1);
+                mp_potential_step_object(_near.x, _near.y, velocity, parSolid);
             }
             else if (_dis < 8)
             {
@@ -215,7 +215,7 @@ switch (state)
             var _dir = point_direction(x, y, _near.x, _near.y);
             var _dis = distance_to_object(_near);
             
-            spd = lerp(spd, 0, 0.1);
+            velocity = lerp(velocity, 0, 0.1);
             
             if (attackCD <= 0)
             {
@@ -296,9 +296,9 @@ with (_o)
 switch (state)
 {
     case "idle":
-        h = lengthdir_x(spd, 0);
-        v = lengthdir_y(spd, 0);
-        spd = lerp(spd, 0, 0.1);
+        h = lengthdir_x(velocity, 0);
+        v = lengthdir_y(velocity, 0);
+        velocity = lerp(velocity, 0, 0.1);
         if (enemy_instance_exists())
         {
             var _near = get_nearest_enemy(x, y);
@@ -318,9 +318,9 @@ switch (state)
             var _dis = distance_to_point(_near.x, _near.y);
             
             image_xscale = sign(dcos(_dir));
-            h = lengthdir_x(spd, _dir);
-            v = lengthdir_y(spd, _dir);
-            spd = lerp(spd, maxSpd, 0.1);
+            h = lengthdir_x(velocity, _dir);
+            v = lengthdir_y(velocity, _dir);
+            velocity = lerp(velocity, maxSpd, 0.1);
             if (_dis < 16)
             {
                 state = "attack";
@@ -339,9 +339,9 @@ switch (state)
             var _dis = distance_to_point(_near.x, _near.y);
             
             image_xscale = sign(dcos(_dir));
-            h = lengthdir_x(spd, _dir);
-            v = lengthdir_y(spd, _dir);
-            spd = lerp(spd, 0, 0.1);
+            h = lengthdir_x(velocity, _dir);
+            v = lengthdir_y(velocity, _dir);
+            velocity = lerp(velocity, 0, 0.1);
             if (attackCD <= 0)
             {
                 var _p = ProjectileCreate(x, y);
@@ -511,8 +511,8 @@ switch (state)
             {
                 image_xscale = target.x > x ? 1 : -1;
                 var _dir = point_direction(x, y, target.x, target.y);
-                spd = lerp(spd, maxSpd, 0.1);
-                mp_potential_step_object(target.x, target.y, spd, parSolid);
+                velocity = lerp(velocity, maxSpd, 0.1);
+                mp_potential_step_object(target.x, target.y, velocity, parSolid);
             }
             else
             {

@@ -14,6 +14,19 @@ var _height = display_get_gui_height() - 40;
 var xx = 168;
 var yy = _height - 200;
 
+// xp bar
+var _bx = 244;
+var _by = 80;
+var _length = 790;
+
+draw_set_color(c_black);
+draw_line_width(_bx, _by, _bx + _length, _by, 3);
+draw_set_color(c_yellow);
+var _barLen = _bx + min(experience / experienceNext, 1) * _length;
+draw_line_width(_bx, _by, _barLen, _by, 4);
+draw_set_color(c_white);
+draw_text((_bx + _length) / 2, _by, "stand level " + string(level) + " (" + string(experience) + "/" + string(experienceNext) + ")");
+
 // tier
 var _tx = xx;
 var _ty = yy - 64;
@@ -59,8 +72,8 @@ for (var i = 0; i < _rlen; i++)
 
 draw_set_halign(fa_left);
 draw_set_valign(fa_bottom);
-draw_set_color(owner.trait.color);
-draw_text(32, _height - 186, string_lower(string(owner.trait.name)));
+draw_set_color(trait.color);
+draw_text(32, _height - 186, string_lower(string(trait.name)));
 draw_set_color(c_white);
 draw_text(32, _height - 138, string_lower(string(name)));
 draw_line_color(32, _height - 144, 32 + 255, _height - 144, color, c_black);
@@ -90,7 +103,7 @@ for (var i = _start; i <= _end; i++)
         draw_sprite_ext(skills[i, StandSkill.Icon], 0, xx, yy, 2, 2, 0, color, 1);
         if (skills[i, StandSkill.Cooldown] > 0)
         {
-            var cyy = (skills[i, StandSkill.Cooldown] / skills[i, StandSkill.MaxCooldown]) * 2;
+            var cyy = ((skills[i, StandSkill.Cooldown] / skills[i, StandSkill.MaxCooldown]) * 2) * GetStandStamina(self);
             draw_sprite_ext(global.sprSkillCooldown, 0, xx, yy, 2, cyy, 0, c_white, 0.8);
             draw_text(xx + 8, yy + 10, string(skills[i, StandSkill.Cooldown]));
         }
@@ -108,7 +121,7 @@ for (var i = _start; i <= _end; i++)
         draw_sprite_ext(global.sprSkillHold, 0, xx, yy + 64, 2, _hold, 0, color, 0.8);
         if (skills[i, StandSkill.CooldownAlt] > 0)
         {
-            var cyy = (skills[i, StandSkill.CooldownAlt] / skills[i, StandSkill.MaxCooldownAlt]) * 2;
+            var cyy = ((skills[i, StandSkill.CooldownAlt] / skills[i, StandSkill.MaxCooldownAlt]) * 2) * GetStandStamina(self);
             draw_sprite_ext(global.sprSkillCooldown, 0, xx, yy + 64, 2, cyy, 0, c_white, 0.8);
             draw_text(xx + 8, yy + 74, string(skills[i, StandSkill.CooldownAlt]));
         }
@@ -306,8 +319,8 @@ if (instance_exists(owner))
     mouseXSide = sign(owner.facing);
 }
 
-x = lerp(x, xTo, spd);
-y = lerp(y, yTo, spd);
+x = lerp(x, xTo, velocity);
+y = lerp(y, yTo, velocity);
 image_alpha = lerp(image_alpha, alphaTarget, 0.1);
 image_angle = lerp(image_angle, angleTarget * image_xscale, 0.1);
 image_xscale = lerp(image_xscale, scaleX, scaleXSpd);
@@ -381,6 +394,22 @@ if !(modTypeExists("timestop"))
     else
     {
         combo = 0;
+    }
+}
+
+if (experience >= experienceNext)
+{
+    if (level < 100)
+    {
+        level++;
+        experience -= experienceNext;
+        experience = max(experience, 0);
+        experienceNext = 3 * level * 1.25;
+        stat_points += 1;
+        
+        var _e = ShrinkingCircleEffect(x, y);
+        _e.color = c_yellow;
+        _e.radius = 16;
     }
 }
 
@@ -505,6 +534,12 @@ with (_stand)
     auraParticleRotation = 0;
     comboCounterLerp = 0;
     comboResetTimer = 0;
+    barrageData = {
+        sound : noone,
+        hitSound : noone,
+        hitEvent : noone,
+        hitEventArgs : noone
+    };
     // state
     CDMultiplier = 1;
     attackState = 0;
@@ -531,10 +566,22 @@ with (_stand)
     summonMethod = StandDefaultSummon;
     runCDsMethod = StandSkillDefaultCDs;
     runDrawGUI = true;
+    next_hit_is_crit = false;
     // stats
+    level = 1;
+    experience = 0;
+    experienceNext = 3;
+    trait = {};
+    stat_points = 0;
+    destructive_power = random_range(0.5, 2);
+    spd = random_range(0.5, 2);
+    range = random_range(0.5, 2);
+    stamina = random_range(0.5, 2);
+    precision = random_range(0.5, 2);
+    development_potential = random_range(0.5, 3);
     combo = 0;
     powerMultiplier = GetPowerMultiplier(rarity.tier);
-    spd = 0.5;
+    velocity = 0.5;
     stand_reach = 8;
     attack_reach = 1;
     crit_chance = 0;
@@ -543,6 +590,8 @@ with (_stand)
     energy = max_energy;
     // skills
     skills = array_clone(_skills);
+    
+    trait_give_random(self);
     
     InstanceAssignMethod(self, "step", ScriptWrap(StandDefaultStep), false);
     InstanceAssignMethod(self, "draw", ScriptWrap(StandDefaultDraw), false);
@@ -553,18 +602,20 @@ return _stand;
 
 #define GetPowerMultiplier(_rarity)
 
+var _value = 1;
 switch(_rarity)
 {
-    case Rarity.Common: return 1; break;
-    case Rarity.Uncommon: return 2; break;
-    case Rarity.Rare: return 4; break;
-    case Rarity.Epic: return 8; break;
-    case Rarity.Legendary: return 16; break;
-    case Rarity.Mythical: return 32; break;
-    case Rarity.Ascended: return 64; break;
-    case Rarity.Ultimate: return 128; break;
-    case Rarity.Event: return 256; break;
+    case Rarity.Common: _value = 1; break;
+    case Rarity.Uncommon: _value = 2; break;
+    case Rarity.Rare: _value = 4; break;
+    case Rarity.Epic: _value = 8; break;
+    case Rarity.Legendary: _value = 16; break;
+    case Rarity.Mythical: _value = 32; break;
+    case Rarity.Ascended: _value = 64; break;
+    case Rarity.Ultimate: _value = 128; break;
+    case Rarity.Event: _value = 256; break;
 }
+return _value;
 
 #define GetRarityName(_rarity)
 
@@ -648,7 +699,19 @@ if (instance_exists(_owner) and instance_exists(_owner.myStand))
 
 #define GetStandReach(_stand)
 
-return (stand_reach * GetRunesStandReach(_stand));
+return ((_stand.stand_reach * GetRunesStandReach(_stand)) * _stand.range);
+
+#define GetStandSpeed(_stand)
+
+return (spd);
+
+#define GetStandStamina(_stand)
+
+return (stamina);
+
+#define GetStandPrecision(_stand)
+
+return (precision);
 
 #define AddCombo
 

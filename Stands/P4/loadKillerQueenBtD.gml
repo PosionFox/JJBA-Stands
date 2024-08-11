@@ -52,7 +52,7 @@ switch (attackState)
         attackState++;
     break;
     case 1:
-        attackStateTimer += DT;
+        attackStateTimer += DT * GetStandSpeed(self);
         if (attackStateTimer >= 0.8)
         {
             attackState++;
@@ -88,7 +88,7 @@ state = StandState.Idle;
 
 #define BitesTheDust(method, skill)
 
-attackStateTimer += 1 / room_speed;
+attackStateTimer += DT * GetStandSpeed(self);
 switch (attackState)
 {
     case 0:

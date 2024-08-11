@@ -156,7 +156,7 @@ switch (attackState)
         attackStateTimer += DT;
         if (distance_to_point(xTo, yTo) < 2)
         {
-            if (attackStateTimer >= 0.12)
+            if (attackStateTimer >= 0.12 / GetStandSpeed(self))
             {
                 var _snd = jj_play_audio(global.sndPunchAir, 0, false);
                 var _sHit = choose(global.sndKcAttack1, global.sndKcAttack2, global.sndKcAttack3, global.sndKcAttack4, global.sndKcAttack5);
@@ -225,7 +225,7 @@ switch (attackState)
         }
     break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define KcHeavyChop(m, s)
 
@@ -304,7 +304,7 @@ switch (attackState)
         }
     break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define TimeErase(m, s)
 
@@ -347,7 +347,7 @@ switch (attackState)
         EndAtk(s);
     break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define TimeEraseStep
 

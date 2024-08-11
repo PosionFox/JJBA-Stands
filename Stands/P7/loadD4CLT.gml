@@ -32,7 +32,7 @@ xTo = player.x + lengthdir_x(GetStandReach(self), _dir + random_range(-4, 4));
 yTo = player.y + lengthdir_y(GetStandReach(self), _dir + random_range(-4, 4));
 image_xscale = mouse_x > player.x ? 1 : -1;
 
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 if (distance_to_point(xTo, yTo) < 2)
 {
     if (attackStateTimer >= 0.08)
@@ -107,7 +107,7 @@ switch (attackState)
         EndAtk(s);
     break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define SuperCloneSummon(m, skill)
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
@@ -115,7 +115,7 @@ xTo = objPlayer.x + lengthdir_x(GetStandReach(self), _dir);
 yTo = objPlayer.y + lengthdir_y(GetStandReach(self), _dir);
 image_xscale = sign(dcos(_dir));
 
-attackStateTimer += 1 / room_speed;
+attackStateTimer += DT * GetStandSpeed(self);
 switch (attackState)
 {
     case 0:

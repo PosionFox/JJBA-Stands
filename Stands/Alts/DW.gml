@@ -26,7 +26,7 @@ GiveDw(player);
 
 #define DwEvolve(m, s)
 
-if (xp >= maxXp)
+if (level == 100)
 {
     jj_play_audio(global.sndStwEvolve, 5, false);
     var _o = ModObjectSpawn(x, y, 0);

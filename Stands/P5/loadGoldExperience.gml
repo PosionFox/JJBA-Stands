@@ -24,47 +24,6 @@ if (instance_exists(STAND) or room != rmGame)
 }
 GiveGoldExperience(player);
 
-#define GeBarrage(method, skill) //attacks
-var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-
-xTo = owner.x + lengthdir_x(GetStandReach(self), _dir + random_range(-4, 4));
-yTo = owner.y + lengthdir_y(GetStandReach(self), _dir + random_range(-4, 4));
-image_xscale = mouse_x > owner.x ? 1 : -1;
-
-attackStateTimer += DT;
-if (distance_to_point(xTo, yTo) < 2)
-{
-    if (attackStateTimer >= 0.08)
-    {
-        var _snd = jj_play_audio(global.sndPunchAir, 0, false);
-        audio_sound_pitch(_snd, random_range(0.9, 1.1));
-        var xx = x + random_range(-4, 4);
-        var yy = y + random_range(-8, 8);
-        var _p = PunchSwingCreate(xx, yy, _dir, 45, GetDmg(skill));
-        with (_p)
-        {
-            onHitSound = global.sndGeHit;
-            onHitSoundOverlap = true;
-        }
-        attackStateTimer = 0;
-    }
-    skills[skill, StandSkill.ExecutionTime] += DT;
-}
-
-if (keyboard_check_pressed(ord(skills[skill, StandSkill.Key])))
-{
-    if (skills[skill, StandSkill.ExecutionTime] > 0)
-    {
-        FireCD(skill);
-    }
-    else
-    {
-        ResetCD(skill);
-    }
-    state = StandState.Idle;
-}
-
 #define LifePunch(method, skill)
 var _dir = point_direction(x, y, mouse_x, mouse_y);
 xTo = owner.x + lengthdir_x(GetStandReach(self), _dir);
@@ -91,7 +50,7 @@ switch (attackState)
         state = StandState.Idle;
     break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define SelfHeal(method, skill)
 var _dir = point_direction(x, y, mouse_x, mouse_y);
@@ -122,7 +81,7 @@ switch (attackState)
         }
     break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define LifeFormScorpion(method, skill)
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
@@ -149,7 +108,7 @@ switch (attackState)
         state = StandState.Idle;
     break;
 }
-attackStateTimer += 1 / room_speed;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define LifeFormPlant(method, skill)
 var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
@@ -204,7 +163,7 @@ switch (attackState)
         state = StandState.Idle;
     break;
 }
-attackStateTimer += 1 / room_speed;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define LifeFormFrog(method, skill)
 var _dir = point_direction(x, y, mouse_x, mouse_y);
@@ -232,7 +191,7 @@ switch (attackState)
         state = StandState.Idle;
     break;
 }
-attackStateTimer += 1 / room_speed;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define LifeSoul(_scr, _dir) //attack properties
 
@@ -295,7 +254,7 @@ _skills[sk, StandSkill.MaxCooldown] = 20;
 _skills[sk, StandSkill.Desc] = Localize("lifeformFrogDesc");
 
 sk = StandState.SkillA;
-_skills[sk, StandSkill.Skill] = GeBarrage;
+_skills[sk, StandSkill.Skill] = StandBarrage;
 _skills[sk, StandSkill.Damage] = 1;
 _skills[sk, StandSkill.DamageScale] = 0.01;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;

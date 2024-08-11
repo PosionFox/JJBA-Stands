@@ -357,3 +357,85 @@ else
 var _s = audio_play_sound(sound, priority, loop);
 audio_sound_gain(_s, global.jjAudioVolume, 0);
 return _s;
+
+#define string_split(string_to_split, string_splitter)
+
+var slot = 0;
+var splits; //array to hold all splits
+var str2 = ""; //var to hold the current split we're working on building
+
+var i;
+for (i = 1; i < (string_length(string_to_split)+1); i++) {
+    var currStr = string_copy(string_to_split, i, 1);
+    if (currStr == string_splitter) {
+        splits[slot] = str2; //add this split to the array of all splits
+        slot++;
+        str2 = "";
+    } else {
+        str2 = str2 + currStr;
+        splits[slot] = str2;
+    }
+}
+
+return splits;
+
+#define ConstructStandData(_stand)
+
+return (
+    string(STAND.saveKey) +
+    ":" +
+    string(STAND.name) +
+    ":" +
+    string(STAND.level) +
+    ":" +
+    string(STAND.experience) +
+    ":" +
+    string(STAND.experienceNext) +
+    ":" +
+    string(STAND.trait.key) +
+    ":" +
+    string(STAND.destructive_power) +
+    ":" +
+    string(STAND.spd) +
+    ":" +
+    string(STAND.range) +
+    ":" +
+    string(STAND.stamina) +
+    ":" +
+    string(STAND.precision) +
+    ":" +
+    string(STAND.development_potential) +
+    ":" +
+    string(STAND.stat_points)
+);
+
+#define DeconstructStandData(_standData)
+
+var _data = string_split(_standData, ":");
+var _key = _data[0];
+var _name = _data[1];
+var _level = _data[2];
+var _experience = _data[3];
+var _experienceNext = _data[4];
+var _traitKey = _data[5];
+var _destructive_power = _data[6];
+var _spd = _data[7];
+var _range = _data[8];
+var _stamina = _data[9];
+var _precision = _data[10];
+var _development_potential = _data[11];
+var _stat_points = _data[12];
+
+if _key != undefined GiveStandByKey(_key) else GiveStarPlatinum(player);
+//if _name != undefined  name
+if _level != undefined STAND.level = real(_level) else STAND.level = 1;
+if _experience != undefined STAND.experience = real(_experience) else STAND.experience = 0;
+if _experienceNext != undefined STAND.experienceNext = real(_experienceNext) else STAND.experienceNext = 5;
+if _traitKey != undefined trait_set_by_key(STAND, _traitKey) else trait_set_by_key(STAND, "jjFit");
+if _destructive_power != undefined STAND.destructive_power = real(_destructive_power) else STAND.destructive_power = 1;
+if _spd != undefined STAND.spd = real(_spd) else STAND.spd = 1;
+if _range != undefined STAND.range = real(_range) else STAND.range = 1;
+if _stamina != undefined STAND.stamina = real(_stamina) else STAND.stamina = 1;
+if _precision != undefined STAND.precision = real(_precision) else STAND.precision = 1;
+if _development_potential != undefined STAND.development_potential = real(_development_potential) else STAND.development_potential = 1;
+if _stat_points != undefined STAND.stat_points = real(_stat_points) else STAND.stat_points = 0;

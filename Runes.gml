@@ -45,6 +45,7 @@ var _base_rune = {
     healing : 0,
     stand_reach : 0,  // multiplier
     max_energy : 0,
+    damage_reduction : 1,
     update : ScriptWrap(RuneBaseUpdate),
     update_tick : ScriptWrap(RuneBaseUpdateTick),
     on_equip : ScriptWrap(RuneBaseOnEquip),

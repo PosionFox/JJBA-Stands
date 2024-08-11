@@ -26,7 +26,7 @@ GiveShadow(player);
 
 #define ShadowEvolve(m, s)
 
-if (xp >= maxXp)
+if (level == 100)
 {
     jj_play_audio(global.sndStwEvolve, 5, false);
     var _o = ModObjectSpawn(x, y, 0);
@@ -49,7 +49,7 @@ if (instance_exists(STAND))
 {
     RemoveStand(player);
 }
-FireEffect(c_white, /*#*/0x66a0d9);
+FireEffect(c_white, 0x66a0d9);
 timer -= DT;
 if (timer <= 0)
 {

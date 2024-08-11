@@ -32,7 +32,7 @@ printVersion();
 
 #define jjTrait(args)
 
-trait_set_by_key(player, args[0]);
+trait_set_by_key(STAND, args[0]);
 
 #define jjCheckMonth
 
@@ -76,9 +76,9 @@ _d.sun_immunity = true;
 
 #define jjMaxExp
 
-if (instance_exists(STAND) and bool("xp" in STAND))
+if (instance_exists(STAND))
 {
-    STAND.xp += 100000000;
+    STAND.experience += 1000000;
 }
 
 #define jjRemapKeybind(args)
@@ -116,88 +116,7 @@ switch (args[0])
 
 RemoveStand(player);
 
-switch (args[0])
-{
-    // p3
-    case "sp": GiveStarPlatinum(player); break;
-    case "sc": GiveSilverChariot(player); break;
-    case "tw": GiveTheWorld(player); break;
-    case "anubis": GiveAnubis(player); break;
-    case "stw": GiveShadowTheWorld(player); break;
-    case "spp": GiveSpp(player); break;
-    case "mr": GiveMagiciansRed(player); break;
-    case "hg": GiveHierophantGreen(player); break;
-    // p4
-    case "sptw": GiveSPTW(player); break;
-    case "kq": GiveKillerQueen(player); break;
-    case "kqbtd": GiveKillerQueenBtD(player); break;
-    case "hd": GiveHeavensDoor(player); break;
-    case "cd": GiveCrazyDiamond(player); break;
-    // p5
-    case "sf": GiveStickyFingers(player); break;
-    case "ge": GiveGoldExperience(player); break;
-    case "ger": GiveGer(player); break;
-    case "kc": GiveKingCrimson(player); break;
-    // p6
-    case "ws": GiveWhiteSnake(player); break;
-    case "cm": GiveCMoon(player); break;
-    // p7
-    case "spn": GiveSpin(player); break;
-    case "d4c": GiveD4C(player); break;
-    case "d4clt": GiveD4CLT(player); break;
-    case "twau": GiveTheWorldAU(player); break;
-    case "tusk": GiveTusk(player); break;
-    case "tusk4": GiveTusk4(); break;
-    //p8
-    case "snw": GiveSoftAndWet(player); break;
-    // alts
-    case "sw": GiveSpookyWorld(player); break;
-    case "spr": GiveSpr(player); break;
-    case "twr": GiveTwr(player); break;
-    case "spova": GiveSpova(player); break;
-    case "twova": GiveTwova(player); break;
-    case "shadow": GiveShadow(player); break;
-    case "kcm": GiveKcm(player); break;
-    case "sqbtd": GiveSQBTD(player); break;
-    case "scova": GiveScova(player); break;
-    case "neo": GiveNeo(player); break;
-    case "te": GiveTe(player); break;
-    case "bs": GiveBs(player); break;
-    case "snwg": GiveSnwg(player); break;
-    case "pd4c": GivePd4c(player); break;
-    case "pd4clt": GivePd4clt(player); break;
-    case "eg": GiveEg(player); break;
-    case "twgh": GiveTwgh(player); break;
-    case "twg": GiveTwg(player); break;
-    case "kcmo": GiveKcmo(player); break;
-    case "kca": GiveKca(player); break;
-    case "twru": GiveTwru(player); break;
-    case "spg": GiveSpg(player); break;
-    case "twau3000": GiveTwau3000(player); break;
-    case "sfg": GiveSfg(player); break;
-    case "sfr": GiveSfr(player); break;
-    case "kcg": GiveKcg(player); break;
-    case "gm": GiveGm(player); break;
-    case "twroh": GiveTwroh(player); break;
-    case "dw": GiveDw(player); break;
-    case "twruoh": GiveTwruoh(player); break;
-    case "hr": GiveHr(player); break;
-    case "hb": GiveHb(player); break;
-    case "ep": GiveEP(player); break;
-    case "twf": GiveTWF(player); break;
-    case "kcf": GiveKCF(player); break;
-    case "he": GiveHE(player); break;
-    case "spoh": GiveSPOH(player); break;
-    case "sproh": GiveSPROH(player); break;
-    // other
-    case "sus": GiveImposter(player); break;
-    case "twoh": GiveTWOH(player); break;
-    case "sans": GiveSans(player); break;
-    case "kcau": GiveKCAU(player); break;
-    case "sukuna": GiveSukuna(player); break;
-    
-    default: Trace("not found");
-}
+GiveStandByKey(args[0]);
 
 #define jjTestCommand
 
