@@ -126,7 +126,7 @@ global.jjbamDisc = ItemCreate(
         Item.GoldIngot, 1,
         Item.Plastic, 1,
     ],
-    ScriptWrap(DiscUse),
+    ScriptWrap(EventHandler),
     60 * 4,
     false
 );
