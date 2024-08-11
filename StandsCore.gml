@@ -566,7 +566,6 @@ with (_stand)
     summonMethod = StandDefaultSummon;
     runCDsMethod = StandSkillDefaultCDs;
     runDrawGUI = true;
-    next_hit_is_crit = false;
     // stats
     level = 1;
     experience = 0;
@@ -703,15 +702,15 @@ return ((_stand.stand_reach * GetRunesStandReach(_stand)) * _stand.range);
 
 #define GetStandSpeed(_stand)
 
-return (spd);
+return (_stand.spd);
 
 #define GetStandStamina(_stand)
 
-return (stamina);
+return (_stand.stamina);
 
 #define GetStandPrecision(_stand)
 
-return (precision);
+return (_stand.precision);
 
 #define AddCombo
 

@@ -67,17 +67,7 @@ if (skills[skill, StandSkill.DamagePlayerStat])
 }
 var _final_damage = _damage * (powerMultiplier * destructive_power) * GetRunesDamage(self) * (1 + trait.damage) * (1 + (owner.myStand.combo / 100));
 
-var _crit_chance = random(1);
-var _crit_damage = 1;
-if (_crit_chance <= 0.02 * GetStandPrecision(self))
-{
-    _crit_damage = 2;
-    next_hit_is_crit = true;
-}
-
-var _final_final_damage = _final_damage * _crit_damage;
-
-return _final_final_damage;
+return _final_damage;
 
 #define GetDmgAlt(skill)
 
@@ -89,17 +79,7 @@ if (skills[skill, StandSkill.DamagePlayerStatAlt])
 }
 var _final_damage = _damage * (powerMultiplier * destructive_power) * GetRunesDamage(self) * (1 + trait.damage) * (1 + (owner.myStand.combo / 100));
 
-var _crit_chance = random(1);
-var _crit_damage = 1;
-if (_crit_chance <= 0.02 * GetStandPrecision(self))
-{
-    _crit_damage = 2;
-    next_hit_is_crit = true;
-}
-
-var _final_final_damage = _final_damage * _crit_damage;
-
-return _final_final_damage;
+return _final_damage;
 
 #define ProjHitTarget(_target)
 
@@ -120,10 +100,9 @@ if (array_find_index(instancesHit, _target.id) == -1)
         script_execute(onHitEvent, onHitEventArg, undefined);
     }
     var _e = PunchEffectCreate(x, y);
-    if (is_crit)
+    if (crit_damage > 1)
     {
         _e.image_blend = c_red;
-        owner.next_hit_is_crit = false;
     }
     DustEntityAdd(x, y);
     with (owner)
@@ -139,11 +118,11 @@ if (array_find_index(instancesHit, _target.id) == -1)
     _target.v = lengthdir_y(knockback, direction);
     if (_target.object_index == player)
     {
-        DmgPlayer(damage / 10, true);
+        DmgPlayer((damage / 10) * crit_damage, true);
     }
     else
     {
-        _target.hp -= damage;
+        _target.hp -= damage * crit_damage;
     }
     if (!multihit)
     {
@@ -153,6 +132,14 @@ if (array_find_index(instancesHit, _target.id) == -1)
     {
         instance_destroy(self);
     }
+}
+
+#define RollCrit
+
+var _cc = random(1);
+if (_cc <= (crit_chance * GetStandPrecision(owner)))
+{
+    crit_damage = 2;
 }
 
 #define ProjectileCreate(_x, _y)
@@ -189,11 +176,14 @@ with (_o)
     canDespawnInTs = false;
     knockback = 0;
     knockbackDuration = 0.5;
-    is_crit = owner.next_hit_is_crit;
     onHitSound = sndHitMeat;
     onHitSoundOverlap = false;
     onHitEvent = noone;
     onHitEventArg = undefined;
+    
+    crit_chance = 0.02;
+    crit_damage = 1;
+    RollCrit();
     
     InstanceAssignMethod(self, "step", ScriptWrap(ProjectileStep), false);
     InstanceAssignMethod(self, "draw", ScriptWrap(ProjectileDraw), false);
@@ -290,7 +280,7 @@ if (instance_exists(self))
     }
     catch (e)
     {
-        //Trace("error");
+        //Trace(e);
     }
 }
 

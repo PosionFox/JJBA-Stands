@@ -162,7 +162,12 @@ switch (attackState)
         if (attackStateTimer > 1)
         {
             jj_play_audio(global.sndPunchAir, 0, false);
-            PunchCreate(x, y, _dir, GetDmg(skill) * 1.5, 2);
+            var _p = PunchCreate(x, y, _dir, GetDmg(skill) * 1.5, 2);
+            with (_p)
+            {
+                crit_chance = 1;
+                RollCrit();
+            }
             attackState++;
         }
     break;

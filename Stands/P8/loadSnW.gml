@@ -142,9 +142,14 @@ attackStateTimer += DT * GetStandSpeed(self);
 
 #define BubbleExplode(_, _args)
 
-for (var i = 0; i < 16; i++)
+with (owner)
 {
-    BulletCreate(x, y, i * 22.5, _args);
+    var _num = irandom_range(8, 16);
+    
+    for (var i = 0; i < _num; i++)
+    {
+        BulletCreate(other.x, other.y, i * (360 / _num), _args);
+    }
 }
 
 #define BubbleShield(m, s)

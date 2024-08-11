@@ -321,6 +321,10 @@ for (var i = 0; i < array_length(_list); i++)
 }
 return _nearest;
 
+#define get_nearest_target(_x, _y)
+
+
+
 #define StructureHasItem(_structure, _item)
 
 var _items = StructureGet(_structure, StructureData.Items);
