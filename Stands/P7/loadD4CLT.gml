@@ -344,7 +344,7 @@ _skills[sk, StandSkill.Desc] = Localize("loveTrainDesc");
 var _s = StandBuilder(_owner, _skills);
 with (_s)
 {
-    name = "D4C: Love Train";
+    name = "D4C Love Train";
     sprite_index = global.sprD4CLT;
     color = 0xe4cd5f;
     summonSound = global.sndD4CLTSummon;

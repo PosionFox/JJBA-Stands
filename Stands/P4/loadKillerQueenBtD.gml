@@ -25,6 +25,7 @@ if (instance_exists(STAND) or room != rmGame)
 GiveKillerQueenBtD(player);
 
 #define TripleCoin(method, skill) //attacks
+
 if (modTypeCount("coinBomb") >= 9)
 {
     ResetCD(skill);
@@ -34,13 +35,13 @@ if (modTypeCount("coinBomb") >= 9)
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 
 jj_play_audio(sndCoin2, 0, false);
-CoinBombCreate(objPlayer.x, objPlayer.y, _dir - 45);
-CoinBombCreate(objPlayer.x, objPlayer.y, _dir);
-CoinBombCreate(objPlayer.x, objPlayer.y, _dir + 45);
-FireCD(skill);
-state = StandState.Idle;
+CoinBombCreate(objPlayer.x, objPlayer.y, _dir - 45, GetDmg(skill));
+CoinBombCreate(objPlayer.x, objPlayer.y, _dir, GetDmg(skill));
+CoinBombCreate(objPlayer.x, objPlayer.y, _dir + 45, GetDmg(skill));
+EndAtk(skill);
 
 #define StrayCat(method, skill)
+
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 xTo = objPlayer.x + lengthdir_x(GetStandReach(self), _dir);
 yTo = objPlayer.y + lengthdir_y(GetStandReach(self), _dir);
@@ -59,9 +60,8 @@ switch (attackState)
         }
     break;
     case 2:
-        ScBubbleCreate(x, y);
-        FireCD(skill)
-        state = StandState.Idle;
+        ScBubbleCreate(x, y, GetDmg(skill));
+        EndAtk(skill);
     break;
 }
 
@@ -160,7 +160,7 @@ switch (attackState)
 xTo = objPlayer.x;
 yTo = objPlayer.y - 16;
 
-#define ScBubbleCreate(_x, _y) //attacks properties
+#define ScBubbleCreate(_x, _y, _dmg) //attacks properties
 
 var _o = ModObjectSpawn(_x, _y, 0)
 with (_o)
@@ -171,6 +171,7 @@ with (_o)
     image_yscale = 0;
     direction = point_direction(x, y, mouse_x, mouse_y);
     speed = 0.5;
+    damage = _dmg;
     life = 8;
     
     InstanceAssignMethod(self, "step", ScriptWrap(ScBubbleStep), false);
@@ -212,7 +213,8 @@ with (parEnemy)
 }
 
 ExplosionEffect(x, y);
-ExplosionCreate(x, y, 32, true);
+var _e = ExplosionCreate(x, y, 32, true);
+_e.dmg = damage;
 instance_destroy(self);
 
 #define BtDStareCreate(_target)
@@ -367,12 +369,16 @@ _skills[sk, StandSkill.Desc] = Localize("detonateBombDesc");
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = TripleCoin;
+_skills[sk, StandSkill.Damage] = 15;
+_skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillCoinBomb;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.Desc] = Localize("theWealthyDesc");
 
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = ShaSummon;
+_skills[sk, StandSkill.Damage] = 40;
+_skills[sk, StandSkill.DamageScale] = 0.01;
 _skills[sk, StandSkill.Icon] = global.sprSkillSHA;
 _skills[sk, StandSkill.MaxCooldown] = 20;
 _skills[sk, StandSkill.Desc] = Localize("shaSummonDesc");
@@ -387,12 +393,16 @@ _skills[sk, StandSkill.Desc] = Localize("barrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = PlaceBomb;
+_skills[sk, StandSkill.Damage] = 30;
+_skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.Icon] = global.sprSkillFirstBomb;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.Desc] = Localize("placeBombDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = StrayCat;
+_skills[sk, StandSkill.Damage] = 35;
+_skills[sk, StandSkill.DamageScale] = 0.5;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrayCat;
 _skills[sk, StandSkill.MaxCooldown] = 12;
 _skills[sk, StandSkill.Desc] = Localize("strayCatDesc");
@@ -407,7 +417,7 @@ _skills[sk, StandSkill.Desc] = Localize("thirdBombDesc");
 var _s = StandBuilder(_owner, _skills);
 with (_s)
 {
-    name = "Killer Queen:\nBites The Dust";
+    name = "Killer Queen\nBites The Dust";
     sprite_index = global.sprKillerQueenBtD;
     color = 0xba7bd7;
     summonSound = global.sndKqbtdSummon;

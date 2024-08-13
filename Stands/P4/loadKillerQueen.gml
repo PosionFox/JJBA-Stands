@@ -53,11 +53,12 @@ switch (attackState)
 attackStateTimer += DT * GetStandSpeed(self);
 
 #define CoinBomb(method, skill)
+
 if (modTypeCount("coinBomb") < 5)
 {
     var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
     jj_play_audio(sndCoin1, 0, false);
-    CoinBombCreate(objPlayer.x, objPlayer.y, _dir);
+    CoinBombCreate(objPlayer.x, objPlayer.y, _dir, GetDmg(skill));
     FireCD(skill);
     state = StandState.Idle;
 }
@@ -100,13 +101,11 @@ switch (attackState)
             {
                 if (type == "coinBomb")
                 {
-                    ExplosionCreate(x, y, 32, true);
                     instance_destroy(self);
                 }
             }
         }
-        FireCD(skill);
-        state = StandState.Idle;
+        EndAtk(skill);
     break;
 }
 
@@ -114,7 +113,7 @@ switch (attackState)
 
 if (!modTypeExists("SHA"))
 {
-    ShaCreate(x, y);
+    ShaCreate(x, y, GetDmg(skill));
     FireCD(skill);
     state = StandState.Idle;
 }
@@ -125,6 +124,7 @@ else
 }
 
 #define BombCreate(_x, _y, _dmg) //attack properties
+
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
 xTo = objPlayer.x + lengthdir_x(8, _dir);
 yTo = objPlayer.y + lengthdir_y(8, _dir);
@@ -169,21 +169,12 @@ if (instance_exists(target))
 
 #define BombDestroy
 
-ExplosionCreate(x, y, 32, true);
+var _e = ExplosionCreate(x, y, 32, true);
+_e.dmg = damage;
 ExplosionEffect(x, y);
 jj_play_audio(global.sndDetonateBomb, 1, false);
-if (instance_exists(parEnemy))
-{
-    with (parEnemy)
-    {
-        if (distance_to_object(other) < other.range)
-        {
-            hp -= other.damage;
-        }
-    }
-}
 
-#define CoinBombCreate(_x, _y, _dir)
+#define CoinBombCreate(_x, _y, _dir, _dmg)
 
 var _o = ModObjectSpawn(_x, _y, 0);
 with (_o)
@@ -192,6 +183,7 @@ with (_o)
     sprite_index = global.sprCoin;
     direction = _dir;
     speed = 5;
+    damage = _dmg;
     z = 0;
     zGrav = 4;
     bouncy = 0.75;
@@ -200,6 +192,7 @@ with (_o)
     
     InstanceAssignMethod(self, "step", ScriptWrap(CoinBombStep), false);
     InstanceAssignMethod(self, "draw", ScriptWrap(CoinBombDraw), false);
+    InstanceAssignMethod(self, "destroy", ScriptWrap(CoinBombDestroy));
 }
 
 #define CoinBombStep
@@ -246,6 +239,13 @@ draw_sprite_ext(
     image_alpha
 );
 
+#define CoinBombDestroy
+
+var _e = ExplosionCreate(x, y, 32, true);
+_e.dmg = damage;
+ExplosionEffect(x, y);
+jj_play_audio(global.sndDetonateBomb, 1, false);
+
 #define GiveKillerQueen(_owner) //stand
 
 var _skills = StandSkillInit();
@@ -268,6 +268,8 @@ _skills[sk, StandSkill.Desc] = Localize("barrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = PlaceBomb;
+_skills[sk, StandSkill.Damage] = 20;
+_skills[sk, StandSkill.DamageScale] = 0.01;
 _skills[sk, StandSkill.Icon] = global.sprSkillFirstBomb;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
@@ -275,6 +277,8 @@ _skills[sk, StandSkill.Desc] = Localize("placeBombDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = CoinBomb;
+_skills[sk, StandSkill.Damage] = 10;
+_skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillCoinBomb;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
@@ -282,6 +286,8 @@ _skills[sk, StandSkill.Desc] = Localize("coinBombDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = ShaSummon;
+_skills[sk, StandSkill.Damage] = 30;
+_skills[sk, StandSkill.DamageScale] = 0.01;
 _skills[sk, StandSkill.Icon] = global.sprSkillSHA;
 _skills[sk, StandSkill.MaxCooldown] = 40;
 _skills[sk, StandSkill.MaxExecutionTime] = 20;

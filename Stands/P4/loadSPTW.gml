@@ -162,7 +162,7 @@ _skills[sk, StandSkill.Desc] = Localize("sptwTimestopDesc");
 var _s = StandBuilder(_owner, _skills);
 with (_s)
 {
-    name = "Star Platinum:\nThe World";
+    name = "Star Platinum\nThe World";
     sprite_index = global.sprSptw;
     color = 0xff9b63;
     summonSound = global.sndSpSummon;

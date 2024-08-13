@@ -228,6 +228,10 @@ if (place_meeting(x, y, objArrow))
 {
     hp -= player.dmg;
 }
+if (place_meeting(x, y, objExplosion))
+{
+    hp -= player.dmg;
+}
 
 #define EnemyDioDrawGUI
 

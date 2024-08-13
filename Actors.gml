@@ -98,7 +98,7 @@ if (canCollide)
 }
 
 var _a = instance_place(x, y, MOBJ);
-if (instance_exists(_a) and "type" in _a)
+if (instance_exists(_a) and bool("type" in _a))
 {
     if (_a.type == "Actor" and id < _a.id)
     {
@@ -115,7 +115,7 @@ depth = -y;
 draw_sprite_ext(sprShadow, 0, x, y + 3, image_xscale, image_yscale, 0, c_white, 0.5);
 draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
 
-#define ShaCreate(_x, _y)
+#define ShaCreate(_x, _y, _dmg)
 
 jj_play_audio(global.sndSHA, 1, false);
 var _o = ActorCreate(_x, _y);
@@ -125,6 +125,7 @@ with (_o)
     sprite_index = global.sprSHA;
     image_xscale = 0.5;
     image_yscale = 0.5;
+    damage = _dmg;
     maxSpd = 2;
     life = 20;
 
@@ -220,7 +221,8 @@ switch (state)
             
             if (attackCD <= 0)
             {
-                ExplosionCreate(x, y, 32, false);
+                var _e = ExplosionCreate(x, y, 32, false);
+                _e.dmg = damage;
                 attackCD = 2;
             }
             if (_dis > 10)
