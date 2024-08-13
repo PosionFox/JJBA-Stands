@@ -27,15 +27,17 @@ GiveCMoon(player);
 
 #define GravityShift(m, s)
 
-GravityShiftCreate(owner.x, owner.y);
+GravityShiftCreate(owner);
 EndAtk(s);
 
-#define GravityShiftCreate(_x, _y)
+#define GravityShiftCreate(_owner)
 
-var _o = ModObjectSpawn(_x, _y, -100000);
+var _o = ModObjectSpawn(_owner.x, _owner.y, -100000);
 with (_o)
 {
-    surf = 0;
+    life = 5;
+    radius = 0;
+    alpha = 1;
     
     InstanceAssignMethod(self, "step", ScriptWrap(GravityShiftStep));
     InstanceAssignMethod(self, "draw", ScriptWrap(GravityShiftDraw));
@@ -43,20 +45,20 @@ with (_o)
 
 #define GravityShiftStep
 
-if (!surface_exists(surf) and surface_exists(application_surface))
+if (life <= 0)
 {
-    surf = surface_create(1280, 720);
-    surface_set_target(surf)
-    draw_surface(application_surface, 0, 0);
-    surface_reset_target();
+    instance_destroy(self);
+    exit;
 }
+life -= DT;
+alpha = min(life, 1);
+radius += DT * 255;
 
 #define GravityShiftDraw
 
-if (surface_exists(application_surface))
-{
-    draw_surface_ext(application_surface, (WorldControl.x - 640), (WorldControl.y - 360), 1, 1, 0, c_white, 1);
-}
+draw_set_alpha(0.5 * alpha);
+draw_circle_color(player.x, player.y, radius, c_lime, c_green, false);
+draw_set_alpha(image_alpha);
 
 #define GiveCMoon(_owner) //stand
 
@@ -100,7 +102,7 @@ with (_s)
     name = "C-Moon";
     sprite_index = global.sprCMoon;
     color = 0x30be6a;
-    summonSound = global.sndSpSummon;
+    summonSound = global.sndCmSummon;
     saveKey = "jjbamCmn";
     discType = global.jjbamDiscCmn;
 }

@@ -15,17 +15,20 @@ var xx = 168;
 var yy = _height - 200;
 
 // xp bar
-var _bx = 244;
-var _by = 80;
-var _length = 790;
-
-draw_set_color(c_black);
-draw_line_width(_bx, _by, _bx + _length, _by, 3);
-draw_set_color(c_yellow);
-var _barLen = _bx + min(experience / experienceNext, 1) * _length;
-draw_line_width(_bx, _by, _barLen, _by, 4);
-draw_set_color(c_white);
-draw_text((_bx + _length) / 2, _by, "stand level " + string(level) + " (" + string(experience) + "/" + string(experienceNext) + ")");
+if (!instance_exists(objPlayerMenu) and !instance_exists(uiCrafting))
+{
+    var _bx = 244;
+    var _by = 80;
+    var _length = 790;
+    
+    draw_set_color(c_black);
+    draw_line_width(_bx, _by, _bx + _length, _by, 3);
+    draw_set_color(c_yellow);
+    var _barLen = _bx + min(experience / experienceNext, 1) * _length;
+    draw_line_width(_bx, _by, _barLen, _by, 4);
+    draw_set_color(c_white);
+    draw_text((_bx + _length) / 2, _by, "stand level " + string(level) + " (" + string(experience) + "/" + string(experienceNext) + ")");
+}
 
 // tier
 var _tx = xx;

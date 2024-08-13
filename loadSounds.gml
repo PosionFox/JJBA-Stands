@@ -352,6 +352,13 @@ global.sndWsDiscSteal = audio_create_stream(p + "wsDiscSteal.ogg");
 
 #endregion
 
+#region c-moon
+
+p = "Resources/Sounds/Pucci/CM/";
+global.sndCmSummon = audio_create_stream(p + "cmSummon.ogg");
+
+#endregion
+
 #region soft and wet
 
 p = "Resources/Sounds/SnW/";
