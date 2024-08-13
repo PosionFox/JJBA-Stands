@@ -5,6 +5,7 @@
 var _o = ModObjectSpawn(_x, _y, 0);
 with (_o)
 {
+    owner = other;
     type = "Actor";
     sprite_index = sprPlayerIdle;
     
@@ -344,10 +345,13 @@ switch (state)
             velocity = lerp(velocity, 0, 0.1);
             if (attackCD <= 0)
             {
-                var _p = ProjectileCreate(x, y);
+                var _p;
+                with (owner)
+                {
+                    _p = ProjectileCreate(other.x, other.y);
+                }
                 with (_p)
                 {
-                    owner = objPlayer;
                     sprite_index = global.sprAttackPunch;
                     image_alpha = 0;
                     direction = _dir;
@@ -545,10 +549,13 @@ switch (state)
                 var _snd = jj_play_audio(global.sndPunchAir, 0, false);
                 audio_sound_pitch(_snd, random_range(0.9, 1.1));
                 audio_sound_gain(_snd, 0.3, 0);
-                var _o = PunchCreate(x, y, _dir, damage, 0);
+                var _o;
+                with (owner)
+                {
+                    _o = PunchCreate(other.x, other.y, _dir, other.damage, 0);
+                }
                 with (_o)
                 {
-                    owner = objPlayer;
                     canMoveInTs = false;
                     destroyOnImpact = true;
                 }
@@ -616,10 +623,13 @@ switch (state)
                 var _snd = jj_play_audio(global.sndGunShot, 0, false);
                 audio_sound_pitch(_snd, random_range(0.9, 1.1));
                 audio_sound_gain(_snd, 0.3, 0);
-                var _o = ProjectileCreate(x, y);
+                var _o
+                with (owner)
+                {
+                    _o = ProjectileCreate(other.x, other.y);
+                }
                 with (_o)
                 {
-                    owner = objPlayer;
                     direction = _dir;
                     baseSpd = 10;
                     sprite_index = global.sprBtdVoidTrace;

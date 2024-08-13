@@ -138,7 +138,11 @@ for (var i = 0; i <= _k; i++)
 {
     var _xx = _target.x + lengthdir_x(96, i * (360 / _k));
     var _yy = _target.y + lengthdir_y(96, i * (360 / _k));
-    var _p = ProjectileCreate(_xx, _yy);
+    var _p;
+    with (owner)
+    {
+        _p = ProjectileCreate(_xx, _yy);
+    }
     with (_p)
     {
         var _dir = (i * (360 / _k)) - 180;

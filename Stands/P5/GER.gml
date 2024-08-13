@@ -29,6 +29,52 @@ GiveGer(player);
 jj_play_audio(global.sndGerTaunt, 10, false);
 EndAtk(s);
 
+#define GerBarrage(m, s)
+
+var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
+var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+
+xTo = owner.x + lengthdir_x(GetStandReach(self), _dir + random_range(-4, 4));
+yTo = owner.y + lengthdir_y(GetStandReach(self), _dir + random_range(-4, 4));
+image_xscale = mouse_x > owner.x ? 1 : -1;
+
+switch (attackState)
+{
+    case 0:
+        jj_play_audio(global.sndGerBarrage, 10, false);
+        attackState++;
+    break;
+    case 1:
+        if (distance_to_point(xTo, yTo) < 2)
+        {
+            if (attackStateTimer >= (0.08 / GetStandSpeed(self)))
+            {
+                var xx = x + random_range(-4, 4);
+                var yy = y + random_range(-8, 8);
+                var _p = PunchSwingCreate(xx, yy, _dir, 45, GetDmg(s));
+                with (_p)
+                {
+                    onHitSound = other.barrageData.hitSound;
+                    onHitEvent = SpawnNullEffect;
+                }
+                attackStateTimer = 0;
+            }
+            skills[s, StandSkill.ExecutionTime] += DT;
+        }
+        
+        if (keyboard_check_pressed(ord(skills[s, StandSkill.Key])))
+        {
+            audio_stop_sound(global.sndGerBarrage);
+            EndAtk(s);
+        }
+        if (skills[s, StandSkill.ExecutionTime] >= skills[s, StandSkill.MaxExecutionTime])
+        {
+            audio_stop_sound(global.sndGerBarrage);
+        }
+    break;
+}
+attackStateTimer += DT;
+
 #define ScorpionToss(m, s)
 
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
@@ -62,7 +108,10 @@ if (enemy_instance_exists())
     var _e = ShrinkingCircleEffect(_n.x, _n.y);
     _e.color = c_lime;
     _e.radius = 8;
-    ScorpionCreate(_n.x, _n.y);
+    with (owner)
+    {
+        ScorpionCreate(_n.x, _n.y);
+    }
 }
 
 #define SpawnNullEffect
@@ -197,7 +246,7 @@ _skillsGer[sk, StandSkill.MaxCooldown] = 10;
 _skillsGer[sk, StandSkill.Desc] = "requiem";
 
 sk = StandState.SkillA;
-_skillsGer[sk, StandSkill.Skill] = StandBarrage;
+_skillsGer[sk, StandSkill.Skill] = GerBarrage;
 _skillsGer[sk, StandSkill.Damage] = 4;
 _skillsGer[sk, StandSkill.DamageScale] = 0.4;
 _skillsGer[sk, StandSkill.Icon] = global.sprSkillBarrage;
@@ -249,7 +298,7 @@ with (_s)
     discType = global.jjbamDiscGer;
     saveKey = "jjbamGer";
     
-    barrageData.hitEvent = SpawnNullEffect;
+    barrageData.hitSound = global.sndGeHit;
     
     InstanceAssignMethod(self, "step", ScriptWrap(GerStep))
     InstanceAssignMethod(self, "drawGUI", ScriptWrap(GerDrawGUI))

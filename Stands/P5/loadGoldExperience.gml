@@ -195,7 +195,11 @@ attackStateTimer += DT * GetStandSpeed(self);
 
 #define LifeSoul(_scr, _dir) //attack properties
 
-var _p = ProjectileCreate(x, y);
+var _p;
+with (owner)
+{
+    _p = ProjectileCreate(other.x, other.y);
+}
 with (_p)
 {
     target = noone
@@ -290,6 +294,8 @@ with (_s)
     summonSound = global.sndGeSummon;
     discType = global.jjbamDiscGe;
     saveKey = "jjbamGe";
+    
+    barrageData.hitSound = global.sndGeHit;
 }
 return _s;
 
