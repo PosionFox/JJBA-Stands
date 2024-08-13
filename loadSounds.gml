@@ -300,6 +300,7 @@ global.sndKcAttack5 = audio_create_stream(p + "kcAttack5.ogg");
 global.sndKcTe = audio_create_stream(p + "kcTe.ogg");
 global.sndKcTeBass = audio_create_stream(p + "kcTeBass.ogg");
 global.sndKcTeEnd = audio_create_stream(p + "kcTeEnd.ogg");
+global.sndKcEpitaph = audio_create_stream(p + "kcEpitaph.ogg");
 
 // kcm
 p = "Resources/Sounds/KC/KCM/";

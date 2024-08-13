@@ -306,6 +306,15 @@ switch (attackState)
 }
 attackStateTimer += DT * GetStandSpeed(self);
 
+#define Epitaph(m, s)
+
+epitaphActive = true;
+epitaphTimer = 10;
+var _e = EffectCircleCreate(x, y, 32, 4);
+_e.color = colorAlt;
+jj_play_audio(global.sndKcEpitaph, 5, false)
+EndAtk(s);
+
 #define TimeErase(m, s)
 
 xTo = owner.x;
@@ -468,6 +477,11 @@ _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 6;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
+_skills[sk, StandSkill.SkillAlt] = MeleeCombo;
+_skills[sk, StandSkill.DamageAlt] = 1.5;
+_skills[sk, StandSkill.DamageScaleAlt] = 0.1;
+_skills[sk, StandSkill.IconAlt] = global.sprSkillXXI;
+_skills[sk, StandSkill.MaxCooldownAlt] = 6;
 _skills[sk, StandSkill.Desc] = Localize("kcBarrageDesc");
 
 sk = StandState.SkillB;
@@ -490,9 +504,12 @@ _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.Desc] = Localize("timeSkipDesc");
 
 sk = StandState.SkillD;
-_skills[sk, StandSkill.Skill] = TimeErase;
-_skills[sk, StandSkill.MaxCooldown] = 35;
-_skills[sk, StandSkill.Icon] = global.sprSkillTimeErase;
+_skills[sk, StandSkill.Skill] = Epitaph;
+_skills[sk, StandSkill.MaxCooldown] = 20;
+_skills[sk, StandSkill.Icon] = global.sprSkillEpitaph;
+_skills[sk, StandSkill.SkillAlt] = TimeErase;
+_skills[sk, StandSkill.MaxCooldownAlt] = 35;
+_skills[sk, StandSkill.IconAlt] = global.sprSkillTimeErase;
 _skills[sk, StandSkill.Desc] = Localize("timeEraseDesc");
 
 
@@ -506,6 +523,8 @@ with (_s)
     dmgStack = 0;
     armChopRange = 72;
     armChopShow = false;
+    epitaphActive = false;
+    epitaphTimer = 0;
     
     idlePos = KcPos;
     summonSound = global.sndKcSummon;
@@ -526,6 +545,16 @@ return _s;
 if (dmgStack < 1)
 {
     dmgStack += DT / 3;
+}
+if (epitaphActive)
+{
+    EffectStandAuraCreate(player.x, player.y - 2, global.sprStandParticle2, colorAlt);
+    player.invulFrames = 10;
+    epitaphTimer -= DT;
+    if (epitaphTimer <= 0)
+    {
+        epitaphActive = false;
+    }
 }
 
 #define KingCrimsonDraw
