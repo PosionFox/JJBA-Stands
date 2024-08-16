@@ -43,7 +43,6 @@ switch (attackState)
         {
             onHitSound = global.sndSfStrong;
             onHitEvent = ZipperInjury;
-            onHitEventArg = [x, y];
         }
         FireCD(skill);
         state = StandState.Idle;
@@ -75,7 +74,7 @@ switch (attackState)
             subtype = "sfGrab";
             target = noone;
             despawnTime = 10;
-            timer = 0.4;
+            timer = 0.4 * GetStandRange(other);
             grab = false;
             
             InstanceAssignMethod(self, "step", ScriptWrap(ZipperGrabStep), true);
@@ -153,36 +152,39 @@ switch (attackState)
 }
 attackStateTimer += DT * GetStandSpeed(self);
 
-#define ZipperInjury(_scr, _pos) //attack properties
+#define ZipperInjury(_, _args, _target) //attack properties
 
-var _o = ModObjectSpawn(_pos[0], _pos[1], 0);
-with (_o)
+if (instance_exists(_target))
 {
-    type = "sfInjury";
-    sprite_index = global.sprSfZipper;
-    image_angle = irandom(360);
-    image_speed = 0.5;
-    
-    target = noone;
-    if (enemy_instance_exists())
+    var _o = ModObjectSpawn(_target.x, _target.y, 0);
+    with (_o)
     {
-        if (random(100) < 50)
+        type = "sfInjury";
+        sprite_index = global.sprSfZipper;
+        image_angle = irandom(360);
+        image_speed = 0.5;
+        
+        target = noone;
+        if (instance_exists(_target))
         {
-            var _s = jj_play_audio(global.sndSfInjury, 0, false);
-            audio_sound_pitch(_s, random_range(0.9, 1.1));
+            if (random(100) < 50)
+            {
+                var _s = jj_play_audio(global.sndSfInjury, 0, false);
+                audio_sound_pitch(_s, random_range(0.9, 1.1));
+            }
+            target = _target;
+            with (target)
+            {
+                hp -= (hpMax * 0.01) * 0.5;
+            }
         }
-        target = get_nearest_enemy(x, y);
-        with (target)
+        else
         {
-            hp -= (hpMax * 0.01) * 0.5;
+            instance_destroy(self);
         }
+        
+        InstanceAssignMethod(self, "step", ScriptWrap(ZipperInjuryStep), false);
     }
-    else
-    {
-        instance_destroy(self);
-    }
-    
-    InstanceAssignMethod(self, "step", ScriptWrap(ZipperInjuryStep), false);
 }
 
 #define ZipperInjuryStep

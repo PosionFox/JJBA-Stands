@@ -27,15 +27,17 @@ GiveSoftAndWet(player);
 #define MoisturePlunder(m, s)
 
 jj_play_audio(global.sndSnwBubbleSummon, 5, false)
-for (var i = 0; i < 8; i++)
+var _amount = 8 * GetStandRange(self);
+for (var i = 0; i < _amount; i++)
 {
-    var xx = x + lengthdir_x(8, 0 + (i * 45));
-    var yy = y + lengthdir_y(8, 0 + (i * 45));
+    var xx = x + lengthdir_x(8 + GetStandReach(self), 0 + (i * (360 / _amount)));
+    var yy = y + lengthdir_y(8 + GetStandReach(self), 0 + (i * (360 / _amount)));
     var _dmg = GetDmg(s);
     var _p = ProjectileCreate(xx, yy);
     with (_p)
     {
         baseSpd = 0;
+        scale *= GetStandDestructivePower(other);
         despawnTime = 15;
         damage = _dmg;
         canMoveInTs = false;
@@ -50,6 +52,15 @@ EndAtk(s);
 #define MoisturePlunderStep
 
 z = 5 + cos((current_time / 1000) + x);
+if (modSubtypeExists("stopSignSwing"))
+{
+    var _n = modSubtypeFindNearest(x, y, "stopSignSwing");
+    if (distance_to_object(_n) < 16)
+    {
+        baseSpd = 5;
+        direction = _n.direction;
+    }
+}
 
 #define BubbleBarrage(m, s)
 
@@ -78,6 +89,7 @@ switch (attackState)
                 with (_p)
                 {
                     baseSpd = 2;
+                    scale *= GetStandDestructivePower(other);
                     damage = _dmg;
                     direction = _dir;
                     direction += random_range(-4, 4);
@@ -126,6 +138,7 @@ switch (attackState)
         with (_p)
         {
             baseSpd = 2;
+            scale *= GetStandDestructivePower(other);
             damage = _dmg;
             direction = _dir;
             direction += random_range(-4, 4);
@@ -155,7 +168,7 @@ with (owner)
 #define BubbleShield(m, s)
 
 jj_play_audio(global.sndSnwBubbleSummon, 5, false);
-BubbleShieldCreate(player);
+BubbleShieldCreate(player).life *= GetStandTotalPower(self);
 EndAtk(s);
 
 #define BubbleShieldCreate(_owner)
@@ -169,6 +182,7 @@ with (_o)
     
     InstanceAssignMethod(self, "step", ScriptWrap(BubbleShieldStep));
 }
+return _o;
 
 #define BubbleShieldStep
 
@@ -210,6 +224,7 @@ switch (attackState)
         with (_p)
         {
             baseSpd = 2;
+            scale *= GetStandDestructivePower(other);
             damage = _dmg;
             direction = _dir;
             direction += random_range(-4, 4);
@@ -217,18 +232,18 @@ switch (attackState)
             sprite_index = global.sprBubble;
             onHitSound = global.sndSnwBubblePop;
             onHitEvent = TrapEnemyBubble;
+            onHitEventArg = GetStandTotalPower(other);
         }
         EndAtk(s);
     break;
 }
 attackStateTimer += DT * GetStandSpeed(self);
 
-#define TrapEnemyBubble
+#define TrapEnemyBubble(_, _args, _target)
 
-if (enemy_instance_exists())
+if (instance_exists(_target))
 {
-    var _target = get_nearest_enemy(x,  y);
-    BubbleTrapCreate(_target)
+    BubbleTrapCreate(_target).life *= _args;
 }
 
 #define BubbleTrapCreate(_t)

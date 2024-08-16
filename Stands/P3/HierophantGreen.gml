@@ -104,6 +104,7 @@ switch (attackState)
             image_xscale = 0;
             image_blend = other.color;
             baseSpd = 0;
+            lengthMax = GetStandRange(other);
             
             InstanceAssignMethod(self, "step", ScriptWrap(HierophantBarrierStep));
         }
@@ -116,7 +117,7 @@ skills[s, StandSkill.ExecutionTime] += DT;
 
 #define HierophantBarrierStep
 
-image_xscale = lerp(image_xscale, 1, 0.1);
+image_xscale = lerp(image_xscale, lengthMax, 0.1);
 
 #define EmeraldSplash20Meters(m, s)
 
@@ -214,7 +215,7 @@ with (_s)
 {
     name = "Hierophant Green";
     sprite_index = global.sprHierophantGreen;
-    color = /*#*/0x30be6a;
+    color = 0x30be6a;
     discType = global.jjbamDiscHg;
     saveKey = "jjbamHg";
     stand_reach = 16;

@@ -301,12 +301,11 @@ switch (attackState)
 }
 attackStateTimer += DT * GetStandSpeed(self);
 
-#define OverwriteHealth
+#define OverwriteHealth(_, _args, _target)
 
-var _e = get_nearest_enemy(x, y);
-if (_e != self)
+if (instance_exists(_target))
 {
-    _e.hp -= _e.hp * 0.2;
+    _target.hp -= _target.hp * 0.2;
 }
 repeat (5)
 {

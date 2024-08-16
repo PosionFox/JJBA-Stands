@@ -60,7 +60,8 @@ switch (attackState)
         }
     break;
     case 2:
-        ScBubbleCreate(x, y, GetDmg(skill));
+        var _b = ScBubbleCreate(x, y, GetDmg(skill));
+        _b.scale = GetStandRange(self);
         EndAtk(skill);
     break;
 }
@@ -171,12 +172,14 @@ with (_o)
     image_yscale = 0;
     direction = point_direction(x, y, mouse_x, mouse_y);
     speed = 0.5;
+    scale = 1;
     damage = _dmg;
     life = 8;
     
     InstanceAssignMethod(self, "step", ScriptWrap(ScBubbleStep), false);
     InstanceAssignMethod(self, "destroy", ScriptWrap(ScBubbleDestroy), false);
 }
+return _o;
 
 #define ScBubbleStep
 
@@ -185,8 +188,8 @@ depth = -y;
 var _xs, _ys;
 _xs = (1 + abs(cos(current_time / 1000))) * 0.5;
 _ys = (1 + abs(sin(current_time / 1000))) * 0.5;
-image_xscale = lerp(image_xscale, _xs, 0.1);
-image_yscale = lerp(image_yscale, _ys, 0.1);
+image_xscale = lerp(image_xscale, _xs * scale, 0.1);
+image_yscale = lerp(image_yscale, _ys * scale, 0.1);
 image_alpha = lerp(image_alpha, 0.5, 0.1);
 
 var pd = point_direction(x, y, mouse_x, mouse_y);

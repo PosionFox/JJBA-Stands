@@ -113,14 +113,14 @@ switch (attackState)
 }
 attackStateTimer += DT * GetStandSpeed(self);
 
-#define KnifeCoffin(_x, _y)
+#define KnifeCoffin(_, _args, _target)
 var _dmg = 2 + (player.level * 0.2) + player.dmg;
 //var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-var _target = player;
+var _t = player;
 alphaTarget = 1;
-if (enemy_instance_exists())
+if (instance_exists(_target))
 {
-    _target = get_nearest_enemy(x, y);
+    _t = _target;
 }
 var c = random(1);
 if (c < 0.5)
@@ -136,8 +136,8 @@ audio_sound_pitch(_snd, random_range(0.9, 1.1));
 var _k = 8;
 for (var i = 0; i <= _k; i++)
 {
-    var _xx = _target.x + lengthdir_x(96, i * (360 / _k));
-    var _yy = _target.y + lengthdir_y(96, i * (360 / _k));
+    var _xx = _t.x + lengthdir_x(96, i * (360 / _k));
+    var _yy = _t.y + lengthdir_y(96, i * (360 / _k));
     var _p;
     with (owner)
     {
@@ -230,13 +230,7 @@ switch (attackState)
         var _p = PunchCreate(x, y, _dir, GetDmg(skill), 0);
         with (_p)
         {
-            var _arg = noone;
-            if (enemy_instance_exists())
-            {
-                _arg = get_nearest_enemy(x, y);
-            }
             onHitEvent = StwDivineBloodCreate;
-            onHitEventArg = _arg;
             destroyOnImpact = true;
         }
         EndAtk(skill);
@@ -396,7 +390,8 @@ switch (attackState)
     case 2:
         var s = jj_play_audio(global.sndTsOld, 5, false);
         
-        var ts = TimestopCreate(2 + (0.05 * player.level));
+        var _time = 2 + (0.05 * player.level) * GetStandTotalPower(self);
+        var ts = TimestopCreate(_time);
         ts.resumeSound = global.sndStwTsResume;
         attackState++;
     break;
@@ -455,7 +450,7 @@ if (timer <= 0)
     instance_destroy(self);
 }
 
-#define StwDivineBloodCreate(_scr, _target)
+#define StwDivineBloodCreate(_, _args, _target)
 
 var _o = ModObjectSpawn(player.x, player.y, 0);
 with (_o)
@@ -464,7 +459,7 @@ with (_o)
     life = 3;
     timer = 0.8;
     target = noone;
-    if (instance_exists(_target)) { target = _target; }
+    if (instance_exists(_target)) target = _target; else instance_destroy(self);
     
     InstanceAssignMethod(self, "step", ScriptWrap(StwDivineBloodStep), false);
 }

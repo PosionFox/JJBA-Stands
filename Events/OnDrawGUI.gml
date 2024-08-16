@@ -69,6 +69,8 @@ if (global.jjShowMenu and !instance_exists(objPlayerMenu))
                 }
             }
         }
+        var _total_power = (GetStandTotalPower(STAND) * 100);
+        draw_text(_sx, _sy + (48 * 6), "total power: " + string(_total_power) + "%");
         draw_text(_sx, _sy + (48 * 7), "development potential: " + string(STAND.development_potential * 100) + "%");
         draw_text(_sx, _sy + (48 * 8), "stat points: " + string(STAND.stat_points));
     }

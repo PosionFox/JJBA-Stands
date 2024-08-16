@@ -66,12 +66,11 @@ if (keyboard_check_pressed(ord(skills[s, StandSkill.Key])))
     state = StandState.Idle;
 }
 
-#define SlashNearest
+#define SlashNearest(_, _args, _target)
 
-if (enemy_instance_exists())
+if (instance_exists(_target))
 {
-    var _n = get_nearest_enemy(x, y);
-    LastingDamageCreate(_n, 0.0002, 1, true);
+    LastingDamageCreate(_target, 0.0002, 1, true);
 }
 
 #define MeleePull(m, s)
@@ -141,7 +140,7 @@ switch (attackState)
     break;
     case 2:
         USAflag.visible = false;
-        var _clonesMax = ceil(player.level / 5);
+        var _clonesMax = ceil(player.level / 5) * GetStandDestructivePower(self);
         for (var i = 0; i < _clonesMax; i++)
         {
             var _xx = x + lengthdir_x(4 + (4 * i), _dir);
@@ -158,7 +157,7 @@ switch (attackState)
 
 if (!modTypeExists("loveTrain"))
 {
-    LoveTrainCreate(GetDmg(skill));
+    LoveTrainCreate((level / 3) * GetStandTotalPower(self));
     FireCD(skill);
     state = StandState.Idle;
 }

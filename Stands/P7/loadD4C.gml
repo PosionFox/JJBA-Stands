@@ -294,7 +294,7 @@ switch (attackState)
     break;
     case 2:
         USAflag.visible = false;
-        var _clonesMax = ceil(player.level / 10);
+        var _clonesMax = ceil(player.level / 10) * GetStandDestructivePower(self);
         for (var i = 0; i < _clonesMax; i++)
         {
             var _xx = x + lengthdir_x(4 + (4 * i), _dir);

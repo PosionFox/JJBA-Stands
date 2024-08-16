@@ -145,7 +145,8 @@ if (_col2)
 #define SpTimestop(m, s)
 
 jj_play_audio(global.sndSpTs, 5, false);
-TimestopCreate(5 + (0.1 * player.level));
+var _time = 5 + (0.1 * player.level) * GetStandTotalPower(self);
+TimestopCreate(_time);
 EndAtk(s);
 
 #define SpEvolveToSptw(m, s)

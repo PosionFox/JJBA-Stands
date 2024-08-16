@@ -235,7 +235,7 @@ switch (attackState)
         if (enemy_instance_exists())
         {
             var _n = get_nearest_enemy(mouse_x, mouse_y);
-            if (distance_to_object(_n) < 64)
+            if (distance_to_object(_n) < (armChopRange * GetStandRange(self)))
             {
                 x = _n.x;
                 y = _n.y;
@@ -262,12 +262,12 @@ switch (attackState)
         else
         {
             armChopShow = false;
-            EndAtk(s);
+            ResetAtk(s);
         }
-        if (distance_to_object(owner) > armChopRange)
+        if (distance_to_object(owner) > (armChopRange * GetStandRange(self)))
         {
             armChopShow = false;
-            EndAtk(s);
+            ResetAtk(s);
         }
         xTo = _t.x - 8;
         yTo = _t.y - 8;
@@ -309,7 +309,7 @@ attackStateTimer += DT * GetStandSpeed(self);
 #define Epitaph(m, s)
 
 epitaphActive = true;
-epitaphTimer = 10;
+epitaphTimer = 10 * GetStandTotalPower(self);
 var _e = EffectCircleCreate(x, y, 32, 4);
 _e.color = colorAlt;
 jj_play_audio(global.sndKcEpitaph, 5, false)
@@ -563,7 +563,7 @@ if (armChopShow == true)
 {
     draw_set_color(c_yellow);
     draw_set_alpha(cos(current_time / 100));
-    draw_circle_thick(x, y, armChopRange, 2);
+    draw_circle_thick(x, y, armChopRange * GetStandRange(self), 2);
     draw_set_alpha(1);
     draw_set_color(c_white);
 }

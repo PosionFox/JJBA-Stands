@@ -40,11 +40,11 @@ if (life <= 0)
 }
 if (life > 0)
 {
-    life -= 1 / room_speed;
+    life -= DT;
 }
 if (attackCD > 0)
 {
-    attackCD -= 1 / room_speed;
+    attackCD -= DT;
 }
 
 if (freeze > 0)
@@ -126,11 +126,15 @@ with (_o)
     image_xscale = 0.5;
     image_yscale = 0.5;
     damage = _dmg;
+    range = 32;
+    rangeMult = 1;
+    attackSpd = 1;
     maxSpd = 2;
     life = 20;
 
     InstanceAssignMethod(self, "step", ScriptWrap(ShaStep), true);
 }
+return _o;
 
 #define ShaStep
 
@@ -221,9 +225,9 @@ switch (state)
             
             if (attackCD <= 0)
             {
-                var _e = ExplosionCreate(x, y, 32, false);
+                var _e = ExplosionCreate(x, y, range * rangeMult, false);
                 _e.dmg = damage;
-                attackCD = 2;
+                attackCD = 2 / attackSpd;
             }
             if (_dis > 10)
             {

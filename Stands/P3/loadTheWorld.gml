@@ -66,6 +66,7 @@ switch (attackState)
         {
             var _dmg = GetDmg(skill);
             var _p = PunchCreate(owner.x, owner.y, stopSign.direction, _dmg, 3);
+            _p.subtype = "stopSignSwing";
             _p.onHitSound = global.sndStopSign;
             _p.image_alpha = 0;
             _p.mask_index = global.sprHorizontalSlash;
@@ -158,7 +159,8 @@ else
     EffectWhiteScreen(0.1);
 }
 
-repeat (5)
+var _times = 5 * GetStandDestructivePower(self);
+repeat (_times)
 {
     var _dmg = GetDmg(skill);
     var _p = ProjectileCreate(owner.x, owner.y);
@@ -186,17 +188,17 @@ if (_tsExists)
 if (!_tsExists)
 {
     jj_play_audio(global.sndTwTs, 5, false);
-    TimestopCreate(9 + (0.05 * owner.level));
+    var _time = 9 + (0.05 * owner.level) * GetStandTotalPower(self);
+    TimestopCreate(_time);
     FireCD(skill);
 }
 state = StandState.Idle;
 
-#define StuckKnife //attack properties
+#define StuckKnife(_, _args, _target) //attack properties
 
-if (enemy_instance_exists())
+if (instance_exists(_target))
 {
-    var _near = get_nearest_enemy(x, y);
-    LastingDamageCreate(_near, 0.001, 3, true);
+    LastingDamageCreate(_target, 0.001, 3, true);
 }
 
 #define GiveTheWorld(_owner) //stand

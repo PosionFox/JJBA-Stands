@@ -113,9 +113,10 @@ switch (attackState)
 
 if (!modTypeExists("SHA"))
 {
-    ShaCreate(x, y, GetDmg(skill));
-    FireCD(skill);
-    state = StandState.Idle;
+    var _s = ShaCreate(x, y, GetDmg(skill));
+    _s.rangeMult = GetStandRange(self);
+    _s.attackSpd = GetStandSpeed(self);
+    EndAtk(skill);
 }
 else
 {
@@ -153,6 +154,7 @@ with (_o)
     type = "bomb";
     target = _target;
     range = 32;
+    rangeMult = GetStandRange(other);
     damage = _dmg;
     
     InstanceAssignMethod(self, "step", ScriptWrap(BombStep), false);
@@ -169,7 +171,7 @@ if (instance_exists(target))
 
 #define BombDestroy
 
-var _e = ExplosionCreate(x, y, 32, true);
+var _e = ExplosionCreate(x, y, range * rangeMult, true);
 _e.dmg = damage;
 ExplosionEffect(x, y);
 jj_play_audio(global.sndDetonateBomb, 1, false);
@@ -184,6 +186,8 @@ with (_o)
     direction = _dir;
     speed = 5;
     damage = _dmg;
+    range = 32;
+    rangeMult = GetStandRange(other);
     z = 0;
     zGrav = 4;
     bouncy = 0.75;
@@ -192,7 +196,7 @@ with (_o)
     
     InstanceAssignMethod(self, "step", ScriptWrap(CoinBombStep), false);
     InstanceAssignMethod(self, "draw", ScriptWrap(CoinBombDraw), false);
-    InstanceAssignMethod(self, "destroy", ScriptWrap(CoinBombDestroy));
+    InstanceAssignMethod(self, "destroy", ScriptWrap(BombDestroy));
 }
 
 #define CoinBombStep
@@ -238,13 +242,6 @@ draw_sprite_ext(
     image_blend,
     image_alpha
 );
-
-#define CoinBombDestroy
-
-var _e = ExplosionCreate(x, y, 32, true);
-_e.dmg = damage;
-ExplosionEffect(x, y);
-jj_play_audio(global.sndDetonateBomb, 1, false);
 
 #define GiveKillerQueen(_owner) //stand
 

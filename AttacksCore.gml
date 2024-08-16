@@ -65,7 +65,7 @@ if (skills[skill, StandSkill.DamagePlayerStat])
 {
     _damage += owner.dmg;
 }
-var _final_damage = _damage * (powerMultiplier * destructive_power) * GetRunesDamage(self) * (1 + trait.damage) * (1 + (owner.myStand.combo / 100));
+var _final_damage = _damage * (powerMultiplier * GetStandDestructivePower(self)) * GetRunesDamage(self) * (1 + trait.damage) * (1 + (owner.myStand.combo / 100));
 
 return _final_damage;
 
@@ -77,7 +77,7 @@ if (skills[skill, StandSkill.DamagePlayerStatAlt])
 {
     _damage += owner.dmg;
 }
-var _final_damage = _damage * (powerMultiplier * destructive_power) * GetRunesDamage(self) * (1 + trait.damage) * (1 + (owner.myStand.combo / 100));
+var _final_damage = _damage * (powerMultiplier * GetStandDestructivePower(self)) * GetRunesDamage(self) * (1 + trait.damage) * (1 + (owner.myStand.combo / 100));
 
 return _final_damage;
 
@@ -97,7 +97,7 @@ if (array_find_index(instancesHit, _target.id) == -1)
     }
     if (onHitEvent != noone)
     {
-        script_execute(onHitEvent, onHitEventArg, undefined);
+        script_execute(onHitEvent, onHitEventArg, _target, undefined);
     }
     var _e = PunchEffectCreate(x, y);
     if (crit_damage > 1)
@@ -293,8 +293,8 @@ if (shadow_enabled)
         0,
         x,
         y,
-        sprite_width / sprite_get_width(sprShadow),
-        sprite_height / sprite_get_height(sprShadow),
+        (sprite_width / sprite_get_width(sprShadow)) * scale,
+        (sprite_height / sprite_get_height(sprShadow)) * scale,
         image_angle,
         c_white,
         image_alpha * 0.5
@@ -306,8 +306,8 @@ draw_sprite_ext(
     image_index,
     x,
     y - z,
-    image_xscale,
-    image_yscale,
+    image_xscale * scale,
+    image_yscale * scale,
     image_angle,
     image_blend,
     image_alpha

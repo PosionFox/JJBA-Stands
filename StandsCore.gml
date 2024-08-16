@@ -413,6 +413,8 @@ if (experience >= experienceNext)
         var _e = ShrinkingCircleEffect(x, y);
         _e.color = c_yellow;
         _e.radius = 16;
+        
+        jj_play_audio(global.sndStandLevelUp, 10, false);
     }
 }
 
@@ -699,13 +701,17 @@ if (instance_exists(_owner) and instance_exists(_owner.myStand))
     _owner.myStand = noone;
 }
 
-#define GetStandReach(_stand)
+#define GetStandDestructivePower(_stand)
 
-return ((_stand.stand_reach * GetRunesStandReach(_stand)) * _stand.range);
+return (_stand.destructive_power);
 
 #define GetStandSpeed(_stand)
 
 return (_stand.spd);
+
+#define GetStandRange(_stand)
+
+return (_stand.range);
 
 #define GetStandStamina(_stand)
 
@@ -714,6 +720,14 @@ return (_stand.stamina);
 #define GetStandPrecision(_stand)
 
 return (_stand.precision);
+
+#define GetStandTotalPower(_stand)
+
+return (_stand.destructive_power * _stand.spd * _stand.range * _stand.stamina * _stand.precision);
+
+#define GetStandReach(_stand)
+
+return ((_stand.stand_reach * GetRunesStandReach(_stand)) * _stand.range);
 
 #define AddCombo
 

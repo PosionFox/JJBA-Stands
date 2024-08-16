@@ -98,13 +98,13 @@ switch(attackState)
         EndAtk(s);
     break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
-#define ScorpionTossSpawn
+#define ScorpionTossSpawn(_, _args, _target)
 
-if (enemy_instance_exists())
+if (instance_exists(_target))
 {
-    var _n = get_nearest_enemy(x, y);
+    var _n = _target;
     var _e = ShrinkingCircleEffect(_n.x, _n.y);
     _e.color = c_lime;
     _e.radius = 8;

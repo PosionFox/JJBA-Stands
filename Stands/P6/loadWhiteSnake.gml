@@ -44,20 +44,15 @@ var _b = BulletCreate(x, y, _dir, GetDmg(s));
 with (_b)
 {
     onHitEvent = ExplodeProjectile;
-    onHitEventArg = [x, y];
+    onHitEventArg = GetStandRange(other);
 }
 EndAtk(s);
 
-#define ExplodeProjectile(_, _args)
+#define ExplodeProjectile(_, _args, _target)
 
-var _near = noone;
-if (enemy_instance_exists())
+if (instance_exists(_target))
 {
-    _near = get_nearest_enemy(x, y);
-}
-if (_near != noone)
-{
-    ExplosionCreate(_near.x, _near.y, 16, true);
+    ExplosionCreate(_target.x, _target.y, 16 * _args, true);
 }
 
 #define DiscProduce(m, s)
@@ -145,9 +140,10 @@ switch (attackState)
         }
     break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define AcidicSpit(m, s)
+
 var _dir = point_direction(x, y, mouse_x, mouse_y);
 
 xTo = owner.x + lengthdir_x(GetStandReach(self), _dir);
@@ -179,7 +175,7 @@ switch (attackState)
         EndAtk(s);
     break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define MeltYourHeart(m, s)
 var _dir = point_direction(x, y, mouse_x, mouse_y);
@@ -202,11 +198,12 @@ switch (attackState)
         }
     break;
     case 2:
-        AcidicPoolCreate(x, y);
+        var _p = AcidicPoolCreate(x, y);
+        _p.scale *= GetStandRange(self);
         EndAtk(s);
     break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define AcidicPoolCreate(_x, _y)
 
@@ -218,10 +215,12 @@ with (_o)
     image_yscale = 0;
     image_angle = irandom(360);
     life = 20;
+    scale = 1;
     enemiesHit = ds_list_create();
     
     InstanceAssignMethod(self, "step", ScriptWrap(AcidicPoolStep));
 }
+return _o;
 
 #define AcidicPoolStep
 
@@ -236,12 +235,28 @@ if (life <= 0)
     }
 }
 
-image_xscale = lerp(image_xscale, 1, 0.02);
-image_yscale = lerp(image_yscale, 1, 0.02);
-image_xscale = clamp(image_xscale, 0, 1);
-image_yscale = clamp(image_yscale, 0, 1);
+image_xscale = lerp(image_xscale, 1 * scale, 0.02);
+image_yscale = lerp(image_yscale, 1 * scale, 0.02);
+image_xscale = clamp(image_xscale, 0, 1 * scale);
+image_yscale = clamp(image_yscale, 0, 1 * scale);
 
 with (ENEMY)
+{
+    if (place_meeting(x, y, other))
+    {
+        hp -= 0.001 + (hpMax * 0.001);
+        freeze = 2;
+    }
+}
+with (NATURAL)
+{
+    if (place_meeting(x, y, other))
+    {
+        hp -= 0.001 + (hpMax * 0.001);
+        freeze = 2;
+    }
+}
+with (CRITTER)
 {
     if (place_meeting(x, y, other))
     {
@@ -285,7 +300,7 @@ switch (attackState)
         }
     break;
 }
-attackStateTimer += DT;
+attackStateTimer += DT * GetStandSpeed(self);
 
 #define DiscStolen
 

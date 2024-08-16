@@ -97,6 +97,15 @@ if bool("type" in _o and _o.type == _type)
 }
 return false;
 
+#define modSubtypePlace(_x, _y, _subtype)
+
+var _o = instance_place(_x, _y, MOBJ);
+if bool("subtype" in _o and _o.subtype == _subtype)
+{
+    return _o;
+}
+return false;
+
 #define modSubtypeExists(_type)
 
 with (MOBJ)

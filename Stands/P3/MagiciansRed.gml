@@ -49,19 +49,17 @@ EndAtk(s);
 
 FireEffect(c_yellow, c_red);
 
-#define Burning
+#define Burning(_, _args, _target)
 
-if (last_instance_hit != undefined)
+if (instance_exists(_target))
 {
-    var _target = last_instance_hit;
     BurnDamageCreate(_target, 0.002, 3, true);
 }
 
-#define LesserBurning
+#define LesserBurning(_, _args, _target)
 
-if (last_instance_hit != undefined)
+if (instance_exists(_target))
 {
-    var _target = last_instance_hit;
     BurnDamageCreate(_target, 0.00002, 3, true);
 }
 

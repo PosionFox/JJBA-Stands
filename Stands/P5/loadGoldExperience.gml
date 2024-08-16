@@ -193,7 +193,7 @@ switch (attackState)
 }
 attackStateTimer += DT * GetStandSpeed(self);
 
-#define LifeSoul(_scr, _dir) //attack properties
+#define LifeSoul(_, _args, _target) //attack properties
 
 var _p;
 with (owner)
@@ -205,13 +205,13 @@ with (_p)
     target = noone
     if (enemy_instance_exists())
     {
-        target = get_nearest_enemy(x, y);
+        target = _target;
         sprite_index = target.sprite_index;
         image_speed = 0;
     }
     damage = 2 + (objPlayer.level * 0.1) + objPlayer.dmg;
     destroyOnImpact = false;
-    direction = _dir;
+    direction = _args;
     
     InstanceAssignMethod(self, "step", ScriptWrap(LifeSoulStep), true);
 }
