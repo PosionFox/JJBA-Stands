@@ -19,5 +19,3 @@ if (room == rmGame)
         }
     }
 }
-
-

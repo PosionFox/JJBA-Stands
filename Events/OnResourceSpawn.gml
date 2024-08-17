@@ -1,9 +1,9 @@
 
 #define OnResourceSpawn(_ins)
 
-var _c = irandom(100);
+var _c = random(1);
 
-if (_c <= 3)
+if (_c <= 0.03)
 {
     if (_ins.object_index == objTree)
     {

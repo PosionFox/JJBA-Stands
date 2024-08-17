@@ -18,6 +18,10 @@ if (instance_exists(player))
     {
         global.jjShowMenu = !global.jjShowMenu;
     }
+    if (keyboard_check_pressed(vk_escape))
+    {
+        global.jjShowMenu = false;
+    }
 }
 
 // destroy spriteless npcs

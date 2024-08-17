@@ -1,4 +1,18 @@
 
+global.jjStarShard = ItemCreate(
+    undefined,
+    "Star shard",
+    "with enough of these, you can craft a stand arrow.",
+    global.sprStarShard,
+    ItemType.Material,
+    ItemSubType.None,
+    12,
+    0,
+    0,
+    [
+        Item.StarFragment, 1
+    ]
+);
 
 global.jjbamArrow = ItemCreate(
     undefined,
@@ -12,7 +26,7 @@ global.jjbamArrow = ItemCreate(
     0,
     [
         Item.Wood, 1,
-        Item.StarFragment, 1
+        global.jjStarShard, 1
     ],
     ScriptWrap(SusArrowUse),
     60 * 2,
@@ -240,22 +254,6 @@ global.jjSuspiciousBolt = ItemCreate(
     true
 );
 
-// var _newArray = StructureGet(Structure.Forge, StructureData.Items);
-// array_push(_newArray, global.jjbamArrow);
-// array_push(_newArray, global.jjbamDisc);
-// array_push(_newArray, global.jjbamRequiem);
-// StructureEdit(Structure.Forge, StructureData.Items, _newArray);
-
-StructureAddItem(Structure.Forge, global.jjbamArrow);
-StructureAddItem(Structure.Forge, global.jjSuspiciousBolt);
-StructureAddItem(Structure.Forge, global.jjbamEternalArrow);
-StructureAddItem(Structure.Forge, global.jjbamRequiem);
-
-StructureAddItem(Structure.Factory, global.jjbamDisc);
-//StructureAddItem(Structure.Forge, global.jjbamSteelBall);
-
-StructureAddItem(Structure.Cookpot, global.jjRokakakaStew);
-
 #region holy parts
 
 global.jjbamHeart = ItemCreate(
@@ -329,7 +327,6 @@ global.jjPrayerBeads = ItemCreate(
 )
 StructureAddItem(Structure.Forge, global.jjPrayerBeads);
 
-
 global.common_arrow_weight = 128;
 global.uncommon_arrow_weight = 64;
 global.rare_arrow_weight = 32;
@@ -378,6 +375,23 @@ global.arrow_ability_pool =
     // ultimate
     [GiveSPROH, global.ultimate_arrow_weight]
 ];
+
+// var _newArray = StructureGet(Structure.Forge, StructureData.Items);
+// array_push(_newArray, global.jjbamArrow);
+// array_push(_newArray, global.jjbamDisc);
+// array_push(_newArray, global.jjbamRequiem);
+// StructureEdit(Structure.Forge, StructureData.Items, _newArray);
+
+StructureAddItem(Structure.Forge, global.jjStarShard);
+StructureAddItem(Structure.Forge, global.jjbamArrow);
+StructureAddItem(Structure.Forge, global.jjSuspiciousBolt);
+StructureAddItem(Structure.Forge, global.jjbamEternalArrow);
+StructureAddItem(Structure.Forge, global.jjbamRequiem);
+
+StructureAddItem(Structure.Factory, global.jjbamDisc);
+//StructureAddItem(Structure.Forge, global.jjbamSteelBall);
+
+StructureAddItem(Structure.Cookpot, global.jjRokakakaStew);
 
 #define SuspiciousBoltUse
 

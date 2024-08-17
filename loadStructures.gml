@@ -47,7 +47,7 @@ global.jjShardsTable = StructureCreate(
     undefined,
     [
         Item.Wood, 100,
-        Item.StarFragment, 1
+        global.jjStarShard, 4
     ],
     1,
     true,
