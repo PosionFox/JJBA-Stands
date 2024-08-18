@@ -157,7 +157,7 @@ switch (attackState)
 
 if (!modTypeExists("loveTrain"))
 {
-    LoveTrainCreate((level / 3) * GetStandTotalPower(self));
+    LoveTrainCreate(5 + (level / 3) * GetStandTotalPower(self));
     FireCD(skill);
     state = StandState.Idle;
 }

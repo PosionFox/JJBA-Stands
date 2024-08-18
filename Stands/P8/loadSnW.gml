@@ -257,6 +257,7 @@ with (_o)
     
     InstanceAssignMethod(self, "step", ScriptWrap(BubbleTrapStep))
 }
+return _o;
 
 #define BubbleTrapStep
 

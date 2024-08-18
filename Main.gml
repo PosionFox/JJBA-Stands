@@ -56,6 +56,7 @@ loadEnemies();
 loadSpawns();
 loadStands();
 loadStructures();
+LoadGear();
 loadNPCs();
 load_seasonals();
 loadCommands();

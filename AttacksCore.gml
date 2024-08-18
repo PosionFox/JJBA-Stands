@@ -810,20 +810,15 @@ if (instance_exists(target))
 
 #define SteelBallCreate(_x, _y, _dir, _dmg)
 
-var _o = ProjectileCreate(_x, _y)
+var _o = ModObjectSpawn(_x, _y, 0)
 with (_o)
 {
     type = "steelBall";
     sprite_index = global.sprSteelBallProj;
     direction = _dir;
-    destroyOnImpact = false;
+    speed = 5;
     damage = _dmg;
-    isGuided = false;
-    empowered = false;
-    despawnTime = 20;
-    live = 3;
-    
-    state = "chase";
+    life = 5;
     
     InstanceAssignMethod(self, "step", ScriptWrap(SteelBallStep))
 }
@@ -831,55 +826,34 @@ return _o;
 
 #define SteelBallStep
 
-live -= 1 / room_speed;
-if (live <= 0)
+if (life <= 0)
 {
-    state = "comeback";
+    instance_destroy(self);
+    exit;
+}
+life -= DT;
+
+var _e = instance_place(x, y, ENEMY);
+if (_e)
+{
+    _e.hp -= damage;
+    EffectCircleCreate(x, y, 4, 2);
+    jj_play_audio(global.sndPunchHit, 5, false);
+    instance_destroy(self);
+    exit;
+}
+var _r = instance_place(x, y, NATURAL);
+if (_r)
+{
+    _r.hp -= damage;
+    EffectCircleCreate(x, y, 4, 2);
+    jj_play_audio(global.sndPunchHit, 5, false);
+    instance_destroy(self);
+    exit;
 }
 
-var _c = collision_circle(x, y, 4, MOBJ, false, true);
-if (_c and "type" in _c)
-{
-    if (_c.type == "steelBall" and !empowered)
-    {
-        damage *= 2;
-        empowered = true;
-    }
-}
-
-if (empowered)
-{
-    FireEffect(c_lime, c_yellow);
-}
-
-switch (state)
-{
-    case "chase":
-        if (isGuided)
-        {
-            var pd = owner.attack_direction;
-            var dd = angle_difference(direction, pd);
-            direction -= min(abs(dd), 3) * sign(dd);
-        }
-        if (place_meeting(x, y, parEnemy))
-        {
-            state = "comeback";
-        }
-    break;
-    case "comeback":
-        var pd = point_direction(x, y, STAND.x, STAND.y);
-        var dd = angle_difference(direction, pd);
-        direction -= min(abs(dd), 8) * sign(dd);
-        if (place_meeting(x, y, STAND))
-        {
-            if ("balls" in STAND)
-            {
-                STAND.balls++;
-            }
-            instance_destroy(self);
-        }
-    break;
-}
+FireEffect(c_white, c_lime);
+image_angle += speed * 5;
 
 #define GrabCreate(_xoffset, _yoffset)
 

@@ -150,16 +150,16 @@ global.jjbamSteelBall = ItemCreate(
     Localize("steelBallName"),
     Localize("steelBallDescription"),
     global.sprSteelBall,
-    ItemType.Consumable,
-    ItemSubType.Potion,
-    273,
+    ItemType.Gear,
+    ItemSubType.None,
+    0,
     0,
     0,
     [
-        Item.GoldIngot, 1,
+        Item.GoldIngot, 4,
         Item.RoyalSteel, 1
     ],
-    ScriptWrap(GiveSpin),
+    ScriptWrap(SteelBallUse),
     60 * 20,
     true
 );
@@ -376,20 +376,14 @@ global.arrow_ability_pool =
     [GiveSPROH, global.ultimate_arrow_weight]
 ];
 
-// var _newArray = StructureGet(Structure.Forge, StructureData.Items);
-// array_push(_newArray, global.jjbamArrow);
-// array_push(_newArray, global.jjbamDisc);
-// array_push(_newArray, global.jjbamRequiem);
-// StructureEdit(Structure.Forge, StructureData.Items, _newArray);
-
 StructureAddItem(Structure.Forge, global.jjStarShard);
 StructureAddItem(Structure.Forge, global.jjbamArrow);
 StructureAddItem(Structure.Forge, global.jjSuspiciousBolt);
 StructureAddItem(Structure.Forge, global.jjbamEternalArrow);
 StructureAddItem(Structure.Forge, global.jjbamRequiem);
+//StructureAddItem(Structure.Forge, global.jjbamSteelBall);
 
 StructureAddItem(Structure.Factory, global.jjbamDisc);
-//StructureAddItem(Structure.Forge, global.jjbamSteelBall);
 
 StructureAddItem(Structure.Cookpot, global.jjRokakakaStew);
 
@@ -760,3 +754,10 @@ else
     script_execute(random_weight(_standPool), player);
 }
 
+#define SteelBallUse
+
+if (!modSubtypeExists("steelBall"))
+{
+    var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
+    SteelBallCreate(x, y, _dir, 2 + player.dmg);
+}
