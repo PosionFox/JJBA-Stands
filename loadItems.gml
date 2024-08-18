@@ -2,7 +2,7 @@
 global.jjStarShard = ItemCreate(
     undefined,
     "Star shard",
-    "with enough of these, you can craft a stand arrow.",
+    "obtained from rocks or crafted, can be used to make stand arrows.",
     global.sprStarShard,
     ItemType.Material,
     ItemSubType.None,
