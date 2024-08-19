@@ -372,6 +372,7 @@ global.arrow_ability_pool =
     [GiveKcm, global.mythical_arrow_weight],
     // ascended
     [GiveSPOH, global.ascended_arrow_weight],
+    [GiveKce, global.ascended_arrow_weight],
     // ultimate
     [GiveSPROH, global.ultimate_arrow_weight]
 ];
