@@ -15,17 +15,19 @@ if (instance_exists(player))
                 jj_play_audio(global.sndAmogDead, 5, false);
             break;
         }
+        
+        if (STAND.max_energy > 0)
+        {
+            var _c = random(1);
+            if (_c <= 0.5)
+            {
+                CreateEnergyOrb(_mob.x, _mob.y);
+            }
+        }
     }
 }
 
-if (STAND.max_energy > 0)
-{
-    var _c = random(1);
-    if (_c <= 0.5)
-    {
-        CreateEnergyOrb(_mob.x, _mob.y);
-    }
-}
+
 
 // shards
 var _rolls = irandom(1);

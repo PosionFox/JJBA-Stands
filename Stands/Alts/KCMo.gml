@@ -31,7 +31,8 @@ with (_s)
 {
     sprite_index = global.sprKingCrimsonMono;
     name = "King Crimson Monochrome";
-    color = /*#*/0x342022;
+    color = 0x342022;
+    colorAlt = c_white;
     UpdateRarity(Rarity.Legendary);
     saveKey = "jjbamKcmo";
     discType = global.jjbamDiscKcmo;

@@ -118,7 +118,7 @@ for (var i = _start; i <= _end; i++)
     {
         var _s = global.sprSkillHoldTemplate;
         if (color_get_value(color) < 80) { _s = global.sprSkillHoldTemplateWhite; }
-        draw_sprite_ext(global.sprSkillHoldTemplate, 0, xx, yy + 64, 2, 2, 0, c_white, 1);
+        draw_sprite_ext(_s, 0, xx, yy + 64, 2, 2, 0, c_white, 1);
         draw_sprite_ext(skills[i, StandSkill.IconAlt], 0, xx, yy + 64, 2, 2, 0, color, 1);
         var _hold = (skills[i, StandSkill.Hold] / skills[i, StandSkill.MaxHold]) * 2;
         draw_sprite_ext(global.sprSkillHold, 0, xx, yy + 64, 2, _hold, 0, color, 0.8);
@@ -291,9 +291,23 @@ if (state == StandState.Idle)
         active = !active;
         if (active)
         {
-            if (!audio_is_playing(summonSound) and summonSound != noone and playSummonSound == true)
+            if (summonSound != noone and playSummonSound)
             {
-                jj_play_audio(summonSound, 0, false);
+                if (is_array(summonSound))
+                {
+                    var _s = irandom(array_length(summonSound) - 1);
+                    var _is_playing = false;
+                    for (var i = 0; i < array_length(summonSound); i++)
+                    {
+                        if audio_is_playing(summonSound[i]) _is_playing = true;
+                        break;
+                    }
+                    if (!_is_playing) jj_play_audio(summonSound[_s], 5, false);
+                }
+                else
+                {
+                    if (!audio_is_playing(summonSound)) jj_play_audio(summonSound, 0, false);
+                }
             }
         }
     }

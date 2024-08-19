@@ -310,6 +310,25 @@ global.sndKcmTe = audio_create_stream(p + "kcmTe.ogg");
 global.sndKcmTeBass = audio_create_stream(p + "kcmTeBass.ogg");
 global.sndKcmTeEnd = audio_create_stream(p + "kcmTeEnd.ogg");
 
+// kce
+p = "Resources/Sounds/KC/KCE/";
+global.sndKceDeath = audio_create_stream(p + "kceDeath.ogg");
+global.sndKceHurt1 = audio_create_stream(p + "kceHurt1.ogg");
+global.sndKceHurt2 = audio_create_stream(p + "kceHurt2.ogg");
+global.sndKceHurt3 = audio_create_stream(p + "kceHurt3.ogg");
+global.sndKceHurt4 = audio_create_stream(p + "kceHurt4.ogg");
+global.sndKceIdle1 = audio_create_stream(p + "kceIdle1.ogg");
+global.sndKceIdle2 = audio_create_stream(p + "kceIdle2.ogg");
+global.sndKceIdle3 = audio_create_stream(p + "kceIdle3.ogg");
+global.sndKceIdle4 = audio_create_stream(p + "kceIdle4.ogg");
+global.sndKceIdle5 = audio_create_stream(p + "kceIdle5.ogg");
+global.sndKceScream1 = audio_create_stream(p + "kceScream1.ogg");
+global.sndKceScream2 = audio_create_stream(p + "kceScream2.ogg");
+global.sndKceScream3 = audio_create_stream(p + "kceScream3.ogg");
+global.sndKceScream4 = audio_create_stream(p + "kceScream4.ogg");
+global.sndKceStare = audio_create_stream(p + "kceStare.ogg");
+global.sndKceTeleport = audio_create_stream(p + "kceTeleport.ogg");
+
 #endregion
 
 #region kcau

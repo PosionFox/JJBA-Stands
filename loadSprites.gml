@@ -362,6 +362,7 @@ global.sprKingCrimsonMono = sprite_add(p + "KCMonochrome.png", 1, false, false, 
 global.sprKingCrimsonAqua = sprite_add(p + "KCAqua.png", 1, false, false, 16, 19);
 global.sprKCG = sprite_add(p + "KCGray.png", 1, false, false, 16, 19);
 global.sprKCF = sprite_add(p + "KingCrimsonFestive.png", 1, false, false, 16, 19);
+global.sprKCE = sprite_add(p + "KCEnderman.png", 1, false, false, 16, 19);
 
 #endregion
 

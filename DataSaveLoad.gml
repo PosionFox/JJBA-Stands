@@ -44,8 +44,7 @@ switch (_key)
     case "jjbamTwr": GiveTwr(player); break;
     case "jjbamSpova": GiveSpova(player); break;
     case "jjbamTwova": GiveTwova(player); break;
-    case "jjbamShadow": GiveShadow(player);
-    break;
+    case "jjbamShadow": GiveShadow(player); break;
     case "jjbamSqbtd": GiveSQBTD(player); break;
     case "jjbamKcm": GiveKcm(player); break;
     case "jjbamScova": GiveScova(player); break;
@@ -83,6 +82,7 @@ switch (_key)
     case "jjbamGojo": GiveGojo(player); break;
     case "jjbamKcau": GiveKCAU(player); break;
     case "jjbamSukuna": GiveSukuna(player); break;
+    case "jjbamKce": GiveKce(player); break;
 }
 
 #define LoadStand(_map)
