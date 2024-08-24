@@ -145,6 +145,8 @@ if (instance_exists(player))
     _map[? "jjAbilityKeybind2"] = player.abilityKeybind2;
     _map[? "jjAbilityKeybind3"] = player.abilityKeybind3;
     _map[? "jjAbilityKeybind4"] = player.abilityKeybind4;
+    _map[? "jjSpecKeybind1"] = player.specKeybind1;
+    _map[? "jjSpecKeybind2"] = player.specKeybind2;
 }
 // npcs
 _map[? "jjQuestPucciBlueprintCompleted"] = global.questPucciBlueprintCompleted;
@@ -218,6 +220,8 @@ if (instance_exists(player))
     if (_map[? "jjAbilityKeybind2"] != undefined) { player.abilityKeybind2 = _map[? "jjAbilityKeybind2"]; }
     if (_map[? "jjAbilityKeybind3"] != undefined) { player.abilityKeybind3 = _map[? "jjAbilityKeybind3"]; }
     if (_map[? "jjAbilityKeybind4"] != undefined) { player.abilityKeybind4 = _map[? "jjAbilityKeybind4"]; }
+    if (_map[? "jjSpecKeybind1"] != undefined) { player.specKeybind1 = _map[? "jjSpecKeybind1"]; }
+    if (_map[? "jjSpecKeybind2"] != undefined) { player.specKeybind2 = _map[? "jjSpecKeybind2"]; }
 }
 if (instance_exists(STAND))
 {

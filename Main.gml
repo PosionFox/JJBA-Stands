@@ -11,6 +11,10 @@ if (instance_exists(player))
     {
         player.myStand = noone;
     }
+    if (!bool("spec" in player))
+    {
+        player.spec = noone;
+    }
     if !bool("skCustomStands" in player)
     {
         player.skCustomStands = false;
@@ -20,6 +24,9 @@ if (instance_exists(player))
     if !bool("abilityKeybind2" in player) { player.abilityKeybind2 = "F" }
     if !bool("abilityKeybind3" in player) { player.abilityKeybind3 = "C" }
     if !bool("abilityKeybind4" in player) { player.abilityKeybind4 = "G" }
+    
+    if !bool("specKeybind1" in player) { player.specKeybind1 = "V" }
+    if !bool("specKeybind2" in player) { player.specKeybind2 = "B" }
 }
 
 #define newClass(class)

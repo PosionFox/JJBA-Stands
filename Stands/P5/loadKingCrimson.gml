@@ -276,7 +276,7 @@ switch (attackState)
         if (attackStateTimer > 3)
         {
             var _dir = point_direction(x, y, _t.x, _t.y);
-            var _p = PunchSwingCreate(x, y, _dir, 45, GetDmgAlt(s) + (_t.hpMax * 0.1));
+            var _p = PunchSwingCreate(x, y, _dir, 45, GetDmg(s) + (_t.hpMax * 0.1));
             with (_p)
             {
                 onHitSound = global.sndKcArmChop;

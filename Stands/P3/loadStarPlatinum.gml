@@ -31,6 +31,48 @@ jj_play_audio(global.sndSpOpenSoda, 5, false);
 EffectSodaCreate(player);
 EndAtk(s);
 
+#define GroundSlam(_, s)
+
+xTo = owner.x + lengthdir_x(GetStandReach(self) * 2, owner.attack_direction);
+yTo = owner.y + lengthdir_y(GetStandReach(self) * 2, owner.attack_direction);
+
+switch (attackState)
+{
+    case 0:
+        angleTarget = -45;
+        if (attackStateTimer >= 0.6) attackState++;
+    break;
+    case 1:
+        angleTarget = -45;
+        jj_play_audio(global.sndSlamSound, 5, false);
+        EffectGroundSlamCreate(x, y);
+        repeat (8)
+        {
+            EffectGeParticleCreate(x, y, c_maroon);
+        }
+        EffectCircleCreate(x, y, 32, 4);
+        var _a = PunchCreate(x, y, 0, GetDmg(s), 16);
+        with (_a)
+        {
+            mask_index = global.sprHitbox64x64;
+            image_alpha = 0;
+            stationary = true;
+            speed = 0;
+            despawnTime = 0.25;
+            destroyOnImpact = false;
+        }
+        attackState++;
+    break;
+    case 2:
+        angleTarget = -65;
+        if (attackStateTimer >= 0.9) attackState++;
+    break;
+    case 3:
+        EndAtk(s);
+    break;
+}
+attackStateTimer += DT * GetStandSpeed(self);
+
 #define SpStrongPunch(method, skill)
 
 var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
@@ -205,11 +247,16 @@ _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 5;
+_skills[sk, StandSkill.SkillAlt] = GroundSlam;
+_skills[sk, StandSkill.DamageAlt] = 35;
+_skills[sk, StandSkill.DamageScaleAlt] = 0.01;
+_skills[sk, StandSkill.IconAlt] = global.sprSkillDetonate;
+_skills[sk, StandSkill.MaxCooldownAlt] = 10;
 _skills[sk, StandSkill.Desc] = Localize("barrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = SpStrongPunch;
-_skills[sk, StandSkill.Damage] = 5;
+_skills[sk, StandSkill.Damage] = 25;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 8;
@@ -221,7 +268,7 @@ _skills[sk, StandSkill.Desc] = Localize("spStrongPunchDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = StarFinger;
-_skills[sk, StandSkill.Damage] = 3;
+_skills[sk, StandSkill.Damage] = 20;
 _skills[sk, StandSkill.DamageScale] = 0.05;
 _skills[sk, StandSkill.Icon] = global.sprSkillStarFinger;
 _skills[sk, StandSkill.MaxCooldown] = 3;

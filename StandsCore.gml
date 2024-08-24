@@ -141,10 +141,10 @@ for (var i = _start; i <= _end; i++)
         {
             txt += "\n\n" + Localize("dmgDisplay") + ": " + string(GetDmg(i)) + " + " + string(player.dmg);
         }
-        if (skills[i, StandSkill.DamageAlt] != 0)
-        {
-            txt += "\n" + Localize("dmgDisplay") + " alt: " + string(GetDmgAlt(i)) + " + " + string(player.dmg);
-        }
+        // if (skills[i, StandSkill.DamageAlt] != 0)
+        // {
+        //     txt += "\n" + Localize("dmgDisplay") + " alt: " + string(GetDmg(i)) + " + " + string(player.dmg);
+        // }
         draw_set_color(c_dkgray);
         draw_rectangle(gx, (yy - 64) - string_height(txt), gx + string_width(txt), (yy - 64), false);
         draw_set_color(c_white);

@@ -129,6 +129,11 @@ _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 5;
+_skills[sk, StandSkill.SkillAlt] = GroundSlam;
+_skills[sk, StandSkill.DamageAlt] = 40;
+_skills[sk, StandSkill.DamageScaleAlt] = 0.02;
+_skills[sk, StandSkill.IconAlt] = global.sprSkillDetonate;
+_skills[sk, StandSkill.MaxCooldownAlt] = 12;
 _skills[sk, StandSkill.Desc] = Localize("barrageDesc");
 
 sk = StandState.SkillB;

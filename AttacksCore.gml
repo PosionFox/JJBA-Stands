@@ -59,21 +59,17 @@ state = StandState.Idle;
 
 #define GetDmg(skill)
 
-var _damage = 0;
-_damage += skills[skill, StandSkill.Damage] + (owner.level * skills[skill, StandSkill.DamageScale]);
-if (skills[skill, StandSkill.DamagePlayerStat])
+var _skillDamage = StandSkill.Damage;
+var _skillDamageScale = StandSkill.DamageScale;
+if (altAttack)
 {
-    _damage += owner.dmg;
+    _skillDamage = StandSkill.DamageAlt;
+    _skillDamageScale = StandSkill.DamageScaleAlt;
 }
-var _final_damage = _damage * (powerMultiplier * GetStandDestructivePower(self)) * GetRunesDamage(self) * (1 + trait.damage) * (1 + (owner.myStand.combo / 100));
-
-return _final_damage;
-
-#define GetDmgAlt(skill)
 
 var _damage = 0;
-_damage += skills[skill, StandSkill.DamageAlt] + (owner.level * skills[skill, StandSkill.DamageScaleAlt]);
-if (skills[skill, StandSkill.DamagePlayerStatAlt])
+_damage += skills[skill, _skillDamage] + (owner.level * skills[skill, _skillDamageScale]);
+if (skills[skill, StandSkill.DamagePlayerStat])
 {
     _damage += owner.dmg;
 }
@@ -183,7 +179,7 @@ with (_o)
     
     crit_chance = 0.02;
     crit_damage = 1;
-    RollCrit();
+    if (owner.type == "stand") RollCrit();
     
     InstanceAssignMethod(self, "step", ScriptWrap(ProjectileStep), false);
     InstanceAssignMethod(self, "draw", ScriptWrap(ProjectileDraw), false);

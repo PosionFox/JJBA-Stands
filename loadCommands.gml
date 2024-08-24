@@ -1,5 +1,6 @@
 
-CommandCreate("jjStand", true, ScriptWrap(jjCheatGiveStand), "name");
+CommandCreate("jjStand", true, ScriptWrap(jjCheatGiveStand), "id");
+CommandCreate("jjSpec", true, ScriptWrap(jjSpec), "id");
 CommandCreate("jjTest", false, ScriptWrap(jjTestCommand));
 CommandCreate("jjDebug", true, ScriptWrap(jjbamDebug));
 
@@ -25,6 +26,10 @@ CommandCreate("jjCheckMonth", false, ScriptWrap(jjCheckMonth));
 CommandCreate("jjTrait", true, ScriptWrap(jjTrait), "trait");
 
 CommandCreate("jjPrintVersion", false, ScriptWrap(jjPrintVersion));
+
+#define jjSpec(args)
+
+GiveHamon(player);
 
 #define jjPrintVersion
 

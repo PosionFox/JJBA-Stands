@@ -718,6 +718,31 @@ draw_set_color(c_black);
 draw_circle(x, y, 1000, false);
 draw_set_color(c_white);
 
+#define EffectGroundSlamCreate(_x, _y)
+
+var _o = ModObjectSpawn(_x, _y, 0);
+with (_o)
+{
+    life = 5;
+    sprite_index = global.sprGroundSlam;
+    image_angle = random(360);
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(EffectGroundSlamStep));
+    InstanceAssignMethod(self, "draw", ScriptWrap(EffectGroundSlamDraw));
+}
+
+#define EffectGroundSlamStep
+
+if (life <= 0)
+{
+    instance_destroy(self);
+    exit;
+}
+life -= DT;
+
+image_alpha = min(1, life);
+
+#define EffectGroundSlamDraw
 
 
 
