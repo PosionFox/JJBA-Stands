@@ -746,4 +746,20 @@ image_alpha = min(1, life);
 
 
 
+#define EffectScreenWarpCreate
 
+var _o = ModObjectSpawn(0, 0, 0);
+with (_o)
+{
+    InstanceAssignMethod(self, "step", ScriptWrap(EffectScreenWarpStep));
+}
+WorldControl.default_zoom_height = 0;
+
+#define EffectScreenWarpStep
+
+WorldControl.default_zoom_height = lerp(WorldControl.default_zoom_height, 205, 0.02);
+if (WorldControl.default_zoom_height == 205)
+{
+    instance_destroy(self);
+    exit;
+}

@@ -27,6 +27,21 @@ CommandCreate("jjTrait", true, ScriptWrap(jjTrait), "trait");
 
 CommandCreate("jjPrintVersion", false, ScriptWrap(jjPrintVersion));
 
+CommandCreate("jjSpawnPrisoner", true, ScriptWrap(jjSpawnPrisoner));
+
+CommandCreate("jjDigWorldControl", false, ScriptWrap(jjDigWorldControl));
+
+#define jjDigWorldControl
+
+var _list = ds_list_create();
+_list = variable_instance_get_names(WorldControl);
+Trace(_list);
+ds_list_destroy(_list);
+
+#define jjSpawnPrisoner
+
+EnemyPrisonerCreate(player.x, player.y);
+
 #define jjSpec(args)
 
 GiveHamon(player);

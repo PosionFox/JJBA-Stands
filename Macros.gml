@@ -10,6 +10,7 @@
 #macro NATURAL parNatural
 #macro CRITTER parCritter
 #macro HERB parHerb
+#macro STRUCTURE parStructure
 
 
 #macro DIR_PLAYER_TO_MOUSE point_direction(player.x, player.y, mouse_x, mouse_y)

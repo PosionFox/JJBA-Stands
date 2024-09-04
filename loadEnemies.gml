@@ -17,7 +17,7 @@ with (_o)
     level = 65;
     hpMax = 8000;
     hp = hpMax;
-    life = 120;
+    life = 512;
     sun_immunity = false;
     attack_direction = 0;
     attack_cooldown = 0;
@@ -210,9 +210,15 @@ switch (state)
             }
             DropItem(x, y, global.jjBizarreCandy, 8);
             global.enemyDioSpawned = false;
+            STAND.experience += hpMax * STAND.development_potential;
             instance_destroy(self);
             exit;
         }
+    break;
+    case "destroy":
+        RemoveStand(self);
+        instance_destroy(self);
+        exit;
     break;
 }
 
@@ -259,3 +265,168 @@ ExplosionCreate(_xx, _yy, 32, false);
 var _d = EnemyDioCreate(_xx, _yy);
 global.enemyDioSpawned = true;
 return _d;
+
+#define EnemyPrisonerCreate(_x, _y)
+
+var _o = ActorCreate(_x, _y);
+with (_o)
+{
+    type = "Enemy";
+    subtype = "Prisoner";
+    targetableFlag = true;
+    sprIdle = global.sprPrisoner;
+    sprWalk = global.sprPrisonerMoving;
+    sprite_index = sprIdle;
+    image_speed = 0.35;
+    level = 10;
+    hpMax = 500;
+    hp = hpMax;
+    life = 240;
+    attack_direction = 0;
+    attack_cooldown = 0;
+    state = "waiting";
+    
+    init_trait(self);
+    
+    myStand = GivePrisoner(self);
+    with (myStand)
+    {
+        targets = [player];
+        summonMethod = EventHandler;
+        runDrawGUI = false;
+        for (var i = 0; i < array_length(skills); i++)
+        {
+            skills[i, StandSkill.Key] = "null";
+        }
+    }
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(EnemyPrisonerStep));
+    InstanceAssignMethod(self, "draw", ScriptWrap(EnemyPrisonerDraw));
+}
+return _o;
+
+#define EnemyPrisonerStep
+
+if (attack_cooldown > 0)
+{
+    attack_cooldown -= DT;
+    if (instance_exists(myStand))
+    {
+        for (var i = 0; i < array_length(myStand.skills); i++)
+        {
+            myStand.skills[i, StandSkill.Key] = "null";
+        }
+    }
+}
+
+if (freeze > 0)
+{
+    state = "freeze";
+}
+
+if (hp <= 0 and state != "dying")
+{
+    state = "dying";
+}
+hp = clamp(hp, 0, hpMax);
+
+switch (state)
+{
+    case "waiting":
+        if (distance_to_object(player) < 32 or hp < hpMax)
+        {
+            state = "chase";
+        }
+    break;
+    case "idle":
+        sprite_index = sprIdle;
+        image_speed = 0.35;
+        if (distance_to_object(player) < 128)
+        {
+            state = "chase";
+        }
+    break;
+    case "chase":
+        if (distance_to_object(player) > 16)
+        {
+            sprite_index = sprWalk;
+            mp_potential_step_object(player.x, player.y, maxSpd, parSolid);
+        }
+        else
+        {
+            state = "attack";
+        }
+    break;
+    case "attack":
+        sprite_index = sprIdle;
+        attack_direction = point_direction(x, y, player.x, player.y);
+        facing = player.x > x ? 1 : -1;
+        if (attack_cooldown <= 0)
+        {
+            for (var i = 0; i < array_length(myStand.skills); i++)
+            {
+                myStand.skills[i, StandSkill.Key] = "";
+            }
+            attack_cooldown = 1;
+        }
+        if (distance_to_object(player) > 16)
+        {
+            state = "chase";
+        }
+    break;
+    case "freeze":
+        image_speed = 0;
+        image_blend = c_aqua;
+        h = 0;
+        v = 0;
+        for (var i = 0; i < array_length(myStand.skills); i++)
+        {
+            myStand.skills[i, StandSkill.Key] = "null";
+        }
+        if (freeze <= 0)
+        {
+            image_blend = c_white;
+            state = "idle";
+        }
+    break;
+    case "dying":
+        RemoveStand(self);
+        image_angle = 90;
+        image_speed = 0.1;
+        DropItem(x, y, global.jjPrisonerSoul, 1);
+        STAND.experience += hpMax * STAND.development_potential;
+        instance_destroy(self);
+        exit;
+    break;
+    case "destroy":
+        RemoveStand(self);
+        instance_destroy(self);
+        exit;
+    break;
+}
+
+h = lerp(h, 0, 0.1);
+v = lerp(v, 0, 0.1);
+image_xscale = facing;
+
+if (place_meeting(x, y, objSwordCollision))
+{
+    hp -= player.dmg;
+}
+if (place_meeting(x, y, objArrow))
+{
+    hp -= player.dmg;
+}
+if (place_meeting(x, y, objExplosion))
+{
+    hp -= player.dmg;
+}
+
+#define EnemyPrisonerDraw
+
+if (hp < hpMax)
+{
+    draw_self();
+    draw_line_width_color(x - 8, y - 16, x + 8, y - 16, 2, c_black, c_black);
+    draw_line_width_color(x - 8, y - 16, (x - 8) + ((hp / hpMax) * 16), y - 16, 2, c_red, c_red);
+}

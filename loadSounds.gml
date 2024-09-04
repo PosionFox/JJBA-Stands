@@ -114,6 +114,11 @@ global.sndCdSummon = audio_create_stream(p + "cdSummon.ogg");
 global.sndCdBarrage = audio_create_stream(p + "cdBarrage.ogg");
 global.sndCdPunch = audio_create_stream(p + "cdPunch.ogg");
 global.sndHealingMode = audio_create_stream(p + "healingMode.ogg");
+global.sndCdHit1 = audio_create_stream(p + "cdHit1.ogg");
+global.sndCdHit2 = audio_create_stream(p + "cdHit2.ogg");
+global.sndCdHit3 = audio_create_stream(p + "cdHit3.ogg");
+global.sndCdHit4 = audio_create_stream(p + "cdHit4.ogg");
+global.sndCdHit5 = audio_create_stream(p + "cdHit5.ogg");
 
 #endregion
 
@@ -376,6 +381,9 @@ global.sndWsDiscSteal = audio_create_stream(p + "wsDiscSteal.ogg");
 
 p = "Resources/Sounds/Pucci/CM/";
 global.sndCmSummon = audio_create_stream(p + "cmSummon.ogg");
+global.sndCmGravityShiftRepel = audio_create_stream(p + "cmGravityShiftRepel.ogg");
+global.sndCmGravityShiftAttract = audio_create_stream(p + "cmGravityShiftAttract.ogg");
+global.sndCmGravityShiftCollapse = audio_create_stream(p + "cmGravityShiftCollapse.ogg");
 
 #endregion
 

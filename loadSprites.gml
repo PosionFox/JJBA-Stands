@@ -37,6 +37,10 @@ global.sprAscendedConcentratedArrow = sprite_add(p + "AscendedConcentratedArrow.
 global.sprUltimateConcentratedArrow = sprite_add(p + "UltimateConcentratedArrow.png", 1, false, false, 8, 8);
 global.sprSuspiciousBolt = sprite_add(p + "SuspiciousBolt.png", 1, false, false, 8, 8);
 global.sprStarShard = sprite_add(p + "StarShard.png", 1, false, false, 8, 8);
+global.sprPrisonerSoul = sprite_add(p + "prisoner_soul.png", 1, false, false, 8, 8);
+global.sprGreenBaby = sprite_add(p + "green_baby.png", 1, false, false, 8, 8);
+global.sprCamera = sprite_add(p + "camera.png", 1, false, false, 8, 8);
+global.sprJotarosHat = sprite_add(p + "jotaros_hat.png", 1, false, false, 8, 8);
 
 #endregion
 
@@ -470,9 +474,18 @@ global.sprSkillAcidicSpit = sprite_add(p + "WS/SkillAcidicSpit.png", 1, false, f
 global.sprSkillDiscSteal = sprite_add(p + "WS/SkillDiscSteal.png", 1, false, false, 16, 16);
 
 global.sprBlackSnake = sprite_add(p + "WS/Blacksnake.png", 1, false, false, 16, 19);
+global.sprGreenSnake = sprite_add(p + "WS/Greensnake.png", 1, false, false, 16, 19);
+global.sprBlueSnake = sprite_add(p + "WS/Bluesnake.png", 1, false, false, 16, 19);
+global.sprPurpleSnake = sprite_add(p + "WS/Purplesnake.png", 1, false, false, 16, 19);
+global.sprYellowSnake = sprite_add(p + "WS/Yellowsnake.png", 1, false, false, 16, 19);
+global.sprRedSnake = sprite_add(p + "WS/Redsnake.png", 1, false, false, 16, 19);
+global.sprOrangeSnake = sprite_add(p + "WS/Orangesnake.png", 1, false, false, 16, 19);
+global.sprPinkSnake = sprite_add(p + "WS/Pinksnake.png", 1, false, false, 16, 19);
 
     // c-moon
 global.sprCMoon = sprite_add(p + "CMoon/CMoon.png", 1, false, false, 16, 19);
+global.sprSkillGravityShiftRepel = sprite_add(p + "CMoon/SkillGravityShiftRepel.png", 1, false, false, 16, 16);
+global.sprSkillGravityShiftAttract = sprite_add(p + "CMoon/SkillGravityShiftAttract.png", 1, false, false, 16, 16);
 
 #endregion
 
@@ -550,3 +563,10 @@ global.sprTWR = sprite_add(p + "TWR.png", 1, false, false, 16, 19);
 
 #endregion
 
+#region prisoner
+
+p = "Resources/Sprites/prisoner/";
+global.sprPrisoner = sprite_add(p + "prisoner_idle.png", 4, false, false, 16, 19);
+global.sprPrisonerMoving = sprite_add(p + "prisoner_moving.png", 4, false, false, 16, 19);
+
+#endregion

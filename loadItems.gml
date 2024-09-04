@@ -254,6 +254,76 @@ global.jjSuspiciousBolt = ItemCreate(
     true
 );
 
+global.jjPrisonerSoul = ItemCreate(
+    undefined,
+    "Prisoner Soul",
+    "the soul of an evil person.",
+    global.sprPrisonerSoul,
+    ItemType.Material,
+    ItemSubType.None,
+    0,
+    0,
+    0
+);
+
+global.jjGreenBaby = ItemCreate(
+    undefined,
+    "green baby",
+    "a strange bizarre infant.",
+    global.sprGreenBaby,
+    ItemType.Consumable,
+    ItemSubType.None,
+    0,
+    0,
+    0,
+    [
+        global.jjDiosBone, 1,
+        global.jjPrisonerSoul, 36
+    ],
+    ScriptWrap(GreenBabyOnUse)
+);
+StructureAddItem(Structure.Forge, global.jjGreenBaby);
+
+global.jjCamera = ItemCreate(
+    undefined,
+    "camera",
+    "a device for capturing landscapes.",
+    global.sprCamera,
+    ItemType.Consumable,
+    ItemSubType.None,
+    0,
+    0,
+    0,
+    [
+        Item.Electronics, 1,
+        Item.RoyalSteel, 5,
+        Item.Plastic, 10,
+        Item.Glass, 25
+    ],
+    ScriptWrap(CameraOnUse),
+    60 * 60
+);
+StructureAddItem(Structure.Factory, global.jjCamera);
+
+global.jjJotarosHat = ItemCreate(
+    undefined,
+    "jotaro's hat",
+    "a peculiar looking hat.",
+    global.sprJotarosHat,
+    ItemType.Consumable,
+    ItemSubType.None,
+    0,
+    0,
+    0,
+    [
+        Item.GoldIngot, 5,
+        Item.Thread, 50
+    ],
+    ScriptWrap(JotarosHatOnUse),
+    60 * 60
+);
+StructureAddItem(Structure.SewingStation, global.jjJotarosHat);
+
 #region holy parts
 
 global.jjbamHeart = ItemCreate(
@@ -354,27 +424,34 @@ global.arrow_ability_pool =
     [GiveSfr, global.uncommon_arrow_weight],
     [GiveKcg, global.uncommon_arrow_weight],
     [GiveHr, global.uncommon_arrow_weight],
+    [GiveGreenSnake, global.uncommon_arrow_weight],
     // rare
     [GiveScova, global.rare_arrow_weight],
     [GiveKca, global.rare_arrow_weight],
     [GiveHb, global.rare_arrow_weight],
+    [GiveBlueSnake, global.rare_arrow_weight],
     // epic
     [GiveBs, global.epic_arrow_weight],
     [GiveSpp, global.epic_arrow_weight],
+    [GivePurpleSnake, global.epic_arrow_weight],
     // legendary
     [GiveImposter, global.legendary_arrow_weight],
     [GiveKcmo, global.legendary_arrow_weight],
     [GiveDw, global.legendary_arrow_weight],
     [GiveSpova, global.legendary_arrow_weight],
+    [GiveYellowSnake, global.legendary_arrow_weight],
     // mythical
     [GiveSpr, global.mythical_arrow_weight],
     [GiveShadow, global.mythical_arrow_weight],
     [GiveKcm, global.mythical_arrow_weight],
+    [GiveRedSnake, global.mythical_arrow_weight],
     // ascended
     [GiveSPOH, global.ascended_arrow_weight],
     [GiveKce, global.ascended_arrow_weight],
+    [GiveOrangeSnake, global.ascended_arrow_weight],
     // ultimate
-    [GiveSPROH, global.ultimate_arrow_weight]
+    [GiveSPROH, global.ultimate_arrow_weight],
+    [GivePinkSnake, global.ultimate_arrow_weight]
 ];
 
 StructureAddItem(Structure.Forge, global.jjStarShard);
@@ -387,6 +464,47 @@ StructureAddItem(Structure.Forge, global.jjbamRequiem);
 StructureAddItem(Structure.Factory, global.jjbamDisc);
 
 StructureAddItem(Structure.Cookpot, global.jjRokakakaStew);
+
+#define JotarosHatOnUse
+
+if (instance_exists(STAND))
+{
+    if (STAND.saveKey == "jjbamSp")
+    {
+        RemoveStand(player);
+        GiveSPTW(player);
+    }
+    else GainItem(global.jjJotarosHat, 1);
+}
+else GainItem(global.jjJotarosHat, 1);
+
+#define CameraOnUse
+
+if (instance_exists(STAND))
+{
+    if (STAND.saveKey == "jjbamStw")
+    {
+        RemoveStand(player);
+        GiveTheWorld(player);
+    }
+    else GainItem(global.jjCamera, 1);
+}
+else GainItem(global.jjCamera, 1);
+
+#define GreenBabyOnUse
+
+if (instance_exists(STAND))
+{
+    if (STAND.saveKey == "jjbamWs")
+    {
+        // RemoveStand(player);
+        // GiveCMoon(player);
+        Trace("not yet");
+        GainItem(global.jjGreenBaby, 1);
+    }
+    else GainItem(global.jjGreenBaby, 1);
+}
+else GainItem(global.jjGreenBaby, 1);
 
 #define SuspiciousBoltUse
 

@@ -214,6 +214,7 @@ with (_o)
     image_xscale = 0;
     image_yscale = 0;
     image_angle = irandom(360);
+    image_blend = other.color;
     life = 20;
     scale = 1;
     enemiesHit = ds_list_create();

@@ -84,12 +84,21 @@ if (array_find_index(instancesHit, _target.id) == -1)
 {
     if (onHitSound != noone)
     {
-        if (audio_is_playing(onHitSound) and onHitSoundOverlap == false)
+        if (is_array(onHitSound))
         {
-            audio_stop_sound(onHitSound);
+            var _i = irandom(array_length(onHitSound) - 1);
+            var _s = jj_play_audio(onHitSound[_i], 0, false);
+            audio_sound_pitch(_s, random_range(0.9, 1.1));
         }
-        var _s = jj_play_audio(onHitSound, 0, false);
-        audio_sound_pitch(_s, random_range(0.9, 1.1));
+        else
+        {
+            if (audio_is_playing(onHitSound) and onHitSoundOverlap == false)
+            {
+                audio_stop_sound(onHitSound);
+            }
+            var _s = jj_play_audio(onHitSound, 0, false);
+            audio_sound_pitch(_s, random_range(0.9, 1.1));
+        }
     }
     if (onHitEvent != noone)
     {
@@ -614,11 +623,8 @@ return _p;
 
 #define StandBarrage(m, s)
 
-var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-
-xTo = owner.x + lengthdir_x(GetStandReach(self), _dir + random_range(-4, 4));
-yTo = owner.y + lengthdir_y(GetStandReach(self), _dir + random_range(-4, 4));
+xTo = owner.x + lengthdir_x(GetStandReach(self), owner.attack_direction + random_range(-4, 4));
+yTo = owner.y + lengthdir_y(GetStandReach(self), owner.attack_direction + random_range(-4, 4));
 image_xscale = mouse_x > owner.x ? 1 : -1;
 
 switch (attackState)
@@ -634,7 +640,7 @@ switch (attackState)
             {
                 var xx = x + random_range(-4, 4);
                 var yy = y + random_range(-8, 8);
-                var _p = PunchSwingCreate(xx, yy, _dir, 45, GetDmg(s));
+                var _p = PunchSwingCreate(xx, yy, owner.attack_direction, 45, GetDmg(s));
                 with (_p)
                 {
                     if other.barrageData.hitSound != noone onHitSound = other.barrageData.hitSound;
