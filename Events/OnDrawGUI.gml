@@ -11,6 +11,7 @@ if (global.jjShowMenu and !instance_exists(objPlayerMenu))
     var _rx2 = _cx + 512;
     var _ry2 = _cy + 256;
     
+    draw_rectangle_color(_rx1 - 4, _ry1 - 4, _rx2 + 4, _ry2 + 4, c_gray, c_gray, c_gray, c_gray, false);
     draw_rectangle_color(_rx1, _ry1, _rx2, _ry2, c_black, c_black, c_gray, c_gray, false);
     
     if (instance_exists(STAND))
@@ -105,13 +106,13 @@ if (global.jjShowMenu and !instance_exists(objPlayerMenu))
         global.jjAudioVolume = clamp(global.jjAudioVolume, 0, 1);
     }
     
-    var _stx = _cx + 256;
+    var _stx = _cx + 200;
     draw_text(_stx, _ry1 + 96, "stand storage:");
     
-    var _bLeft = draw_button_circle(_stx - 96, _cy, 16, "-");
-    var _bRight = draw_button_circle(_stx + 96, _cy, 16, "+");
-    var _bLeftPlus = draw_button_circle(_stx - 128, _cy, 16, "--");
-    var _bRightPlus = draw_button_circle(_stx + 128, _cy, 16, "++");
+    var _bLeft = draw_button(_stx - 112, _cy, 32, 32, "-");
+    var _bRight = draw_button(_stx + 208, _cy, 32, 32, "+");
+    var _bLeftPlus = draw_button(_stx - (112 + 48), _cy, 32, 32, "--");
+    var _bRightPlus = draw_button(_stx + (208 + 48), _cy, 32, 32, "++");
     
     var _arr_len = array_length(global.jjStandSlots);
     
@@ -158,7 +159,7 @@ if (global.jjShowMenu and !instance_exists(objPlayerMenu))
             _text = string_split(global.jjStandSlots[i], ":")[1];
         }
         
-        var _b = draw_button(_stx - 64, _ry1 + 128 + (40 * (i - global.jjMenuMinIndex)), 128, 32, string_lower(_text));
+        var _b = draw_button(_stx - 64, _ry1 + 128 + (48 * (i - global.jjMenuMinIndex)), 256, 32, string_lower(_text));
         if (_b)
         {
             if (global.jjStandSlots[i] == undefined and instance_exists(player.myStand))
@@ -178,9 +179,20 @@ if (global.jjShowMenu and !instance_exists(objPlayerMenu))
 
 #define draw_button(_x, _y, _w, _h, _txt)
 
-draw_rectangle_color(_x, _y, _x + _w, _y + _h, c_black, c_black, c_black, c_black, false);
+var _hover = point_in_rectangle(device_mouse_x_to_gui(0), device_mouse_y_to_gui(0), _x, _y, _x + _w, _y + _h);
+var _btn_color = c_black;
+
+if (_hover)
+{
+    _btn_color = c_gray;
+}
+
+draw_rectangle_color(_x - 4, _y - 4, _x + _w + 4, _y + _h + 4, c_gray, c_gray, c_gray, c_gray, false);
+draw_rectangle_color(_x, _y, _x + _w, _y + _h, _btn_color, _btn_color, _btn_color, _btn_color, false);
+
 draw_text(_x + (_w / 2), _y + (_h / 2), _txt);
-if (mouse_check_button_pressed(mb_left) and point_in_rectangle(device_mouse_x_to_gui(0), device_mouse_y_to_gui(0), _x, _y, _x + _w, _y + _h))
+
+if (mouse_check_button_pressed(mb_left) and _hover)
 {
     return true;
 }
