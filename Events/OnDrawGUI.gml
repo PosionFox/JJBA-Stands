@@ -31,18 +31,8 @@ if (global.jjShowMenu and !instance_exists(objPlayerMenu))
         for (var i = 0; i < array_length(_stats); i++)
         {
             draw_text(_sx, _sy + (48 * i) + 24, string(_stats[i][0]) + ": " + string(_stats[i][1] * 100) + "%");
-            if (draw_button_circle(_sx - 42, _sy + (48 * i) + 32, 8, "--"))
-            {
-                repeat (5)
-                {
-                    if (variable_instance_get(STAND, _stats[i][2]) > 0.5)
-                    {
-                        variable_instance_set(STAND, _stats[i][2], variable_instance_get(STAND, _stats[i][2]) - 0.01);
-                        STAND.stat_points++;
-                    }
-                }
-            }
-            if (draw_button_circle(_sx - 16, _sy + (48 * i) + 32, 8, "-"))
+            
+            if (draw_button_circle(_sx - 48, _sy + (48 * i) + 34, 10, "--", true))
             {
                 if (variable_instance_get(STAND, _stats[i][2]) > 0.5)
                 {
@@ -50,7 +40,15 @@ if (global.jjShowMenu and !instance_exists(objPlayerMenu))
                     STAND.stat_points++;
                 }
             }
-            if (draw_button_circle(_sx + 16, _sy + (48 * i) + 32, 8, "+"))
+            if (draw_button_circle(_sx - 16, _sy + (48 * i) + 34, 10, "-", false))
+            {
+                if (variable_instance_get(STAND, _stats[i][2]) > 0.5)
+                {
+                    variable_instance_set(STAND, _stats[i][2], variable_instance_get(STAND, _stats[i][2]) - 0.01);
+                    STAND.stat_points++;
+                }
+            }
+            if (draw_button_circle(_sx + 16, _sy + (48 * i) + 34, 10, "+", false))
             {
                 if (STAND.stat_points > 0)
                 {
@@ -58,15 +56,12 @@ if (global.jjShowMenu and !instance_exists(objPlayerMenu))
                     STAND.stat_points--;
                 }
             }
-            if (draw_button_circle(_sx + 42, _sy + (48 * i) + 32, 8, "++"))
+            if (draw_button_circle(_sx + 48, _sy + (48 * i) + 34, 10, "++", true))
             {
-                repeat (5)
+                if (STAND.stat_points > 0)
                 {
-                    if (STAND.stat_points > 0)
-                    {
-                        variable_instance_set(STAND, _stats[i][2], variable_instance_get(STAND, _stats[i][2]) + 0.01);
-                        STAND.stat_points--;
-                    }
+                    variable_instance_set(STAND, _stats[i][2], variable_instance_get(STAND, _stats[i][2]) + 0.01);
+                    STAND.stat_points--;
                 }
             }
         }
@@ -80,10 +75,10 @@ if (global.jjShowMenu and !instance_exists(objPlayerMenu))
     draw_line(_rx1, _ry1 + 64, _rx2, _ry1 + 64);
     draw_text(_cx, _ry1 + 64, string(global.jjAudioVolume * 100) + "%");
     
-    var _b1 = draw_button_circle(_cx - 96, _ry1 + 48, 10, "--");
-    var _b2 = draw_button_circle(_cx - 64, _ry1 + 48, 10, "-");
-    var _b3 = draw_button_circle(_cx + 64, _ry1 + 48, 10, "+");
-    var _b4 = draw_button_circle(_cx + 96, _ry1 + 48, 10, "++");
+    var _b1 = draw_button_circle(_cx - 96, _ry1 + 48, 10, "--", true);
+    var _b2 = draw_button_circle(_cx - 64, _ry1 + 48, 10, "-", false);
+    var _b3 = draw_button_circle(_cx + 64, _ry1 + 48, 10, "+", false);
+    var _b4 = draw_button_circle(_cx + 96, _ry1 + 48, 10, "++", true);
     
     if (_b1)
     {
@@ -201,15 +196,41 @@ else
     return false;
 }
 
-#define draw_button_circle(_x, _y, _radius, _txt)
+#define draw_button_circle(_x, _y, _radius, _txt, _continuous)
 
-draw_circle(_x, _y, _radius, false);
-draw_text(_x + _radius, _y + _radius, string(_txt));
-if (mouse_check_button_pressed(mb_left) and point_in_circle(device_mouse_x_to_gui(0), device_mouse_y_to_gui(0), _x, _y, _radius))
+var _hover = point_in_circle(device_mouse_x_to_gui(0), device_mouse_y_to_gui(0), _x, _y, _radius);
+var _btn_color = c_black;
+
+if (_hover)
 {
-    return true;
+    _btn_color = c_gray;
+}
+
+draw_circle_color(_x, _y, _radius + 4, c_gray, c_gray, false);
+draw_circle_color(_x, _y, _radius, _btn_color, _btn_color, false);
+draw_text(_x + _radius, _y + _radius, string(_txt));
+
+if (_continuous)
+{
+    if (mouse_check_button(mb_left) and _hover)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 else
 {
-    return false;
+    if (mouse_check_button_pressed(mb_left) and _hover)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
+
+

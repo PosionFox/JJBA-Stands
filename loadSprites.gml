@@ -41,6 +41,7 @@ global.sprPrisonerSoul = sprite_add(p + "prisoner_soul.png", 1, false, false, 8,
 global.sprGreenBaby = sprite_add(p + "green_baby.png", 1, false, false, 8, 8);
 global.sprCamera = sprite_add(p + "camera.png", 1, false, false, 8, 8);
 global.sprJotarosHat = sprite_add(p + "jotaros_hat.png", 1, false, false, 8, 8);
+global.sprStandOrb = sprite_add(p + "stand_orb.png", 1, false, false, 8, 8);
 
 #endregion
 

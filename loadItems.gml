@@ -324,6 +324,26 @@ global.jjJotarosHat = ItemCreate(
 );
 StructureAddItem(Structure.SewingStation, global.jjJotarosHat);
 
+global.jjStandOrb = ItemCreate(
+    undefined,
+    "stand orb",
+    "used for increasing stand power.",
+    global.sprStandOrb,
+    ItemType.Consumable,
+    ItemSubType.None,
+    50000,
+    0,
+    0,
+    [
+        Item.StarFragment, 5,
+        Item.OnyxRelic, 5,
+        Item.CosmicSteel, 25
+    ],
+    ScriptWrap(StandOrbOnUse),
+    60 * 60
+);
+StructureAddItem(Structure.SewingStation, global.jjJotarosHat);
+
 #region holy parts
 
 global.jjbamHeart = ItemCreate(
@@ -464,6 +484,16 @@ StructureAddItem(Structure.Forge, global.jjbamRequiem);
 StructureAddItem(Structure.Factory, global.jjbamDisc);
 
 StructureAddItem(Structure.Cookpot, global.jjRokakakaStew);
+
+StructureAddItem(Structure.SpiritCrystal, global.jjStandOrb);
+
+#define StandOrbOnUse
+
+if (instance_exists(STAND))
+{
+    STAND.stat_points += 100;
+}
+else GainItem(global.jjStandOrb, 1);
 
 #define JotarosHatOnUse
 
