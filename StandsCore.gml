@@ -428,7 +428,10 @@ if (experience >= experienceNext)
         _e.color = c_yellow;
         _e.radius = 16;
         
-        jj_play_audio(global.sndStandLevelUp, 10, false);
+        if (!audio_is_playing(global.sndStandLevelUp))
+        {
+            jj_play_audio(global.sndStandLevelUp, 10, false);
+        }
     }
 }
 
