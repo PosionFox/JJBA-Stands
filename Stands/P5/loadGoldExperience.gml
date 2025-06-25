@@ -88,6 +88,7 @@ var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
 xTo = owner.x + lengthdir_x(GetStandReach(self) * 2, _dir)
 yTo = owner.y + lengthdir_y(GetStandReach(self) * 2, _dir)
 alphaTarget = 1;
+image_xscale = sign(dcos(_dir));
 
 switch (attackState)
 {
@@ -117,6 +118,7 @@ var yy = owner.y + lengthdir_y(GetStandReach(self) * 2, _dir);
 var xs = (floor(xx / 16) * 16) + 8;
 var ys = (floor(yy / 16) * 16) + 8;
 alphaTarget = 1;
+image_xscale = sign(dcos(_dir));
 var _nat = collision_circle(xs, ys, 2, parNatural, false, true);
 var _herb = collision_circle(xs, ys, 2, parHerb, false, true);
 if (_nat or _herb or WaterCollision(xs, ys))
