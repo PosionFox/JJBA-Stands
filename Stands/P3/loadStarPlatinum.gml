@@ -39,11 +39,13 @@ yTo = owner.y + lengthdir_y(GetStandReach(self) * 2, owner.attack_direction);
 switch (attackState)
 {
     case 0:
-        angleTarget = -45;
+        angleTarget = EaseOutSine(attackStateTimer, 0, 45, 0.6)
+        height_target = 8;
         if (attackStateTimer >= 0.6) attackState++;
     break;
     case 1:
         angleTarget = -45;
+        angleTargetSpd = 0.4;
         jj_play_audio(global.sndSlamSound, 5, false);
         EffectGroundSlamCreate(x, y);
         repeat (8)
@@ -61,6 +63,7 @@ switch (attackState)
             despawnTime = 0.25;
             destroyOnImpact = false;
         }
+        height_target = 0;
         attackState++;
     break;
     case 2:
@@ -68,6 +71,7 @@ switch (attackState)
         if (attackStateTimer >= 0.9) attackState++;
     break;
     case 3:
+        angleTargetSpd = 0.1;
         EndAtk(s);
     break;
 }

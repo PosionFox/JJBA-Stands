@@ -295,6 +295,7 @@ return _o;
 if (phase2)
 {
     y2 = lerp(y2, 0, 0.4);
+    CAM.default_zoom_height = lerp(CAM.default_zoom_height, 205.71, 0.5);
     if (y2 <= 0)
     {
         instance_destroy(self);
@@ -304,6 +305,7 @@ if (phase2)
 else
 {
     y1 = lerp(y1, 0, 0.4);
+    CAM.default_zoom_height = lerp(CAM.default_zoom_height, -205.71, 0.5);
     if (y1 <= 0)
     {
         phase2 = true;

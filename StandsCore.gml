@@ -250,6 +250,7 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
                     {
                         state = i;
                     }
+                    height_target = 0;
                     skills[i, StandSkill.Hold] = 0;
                 }
             }
@@ -259,7 +260,7 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
 
 if (state != StandState.Idle)
 {
-    height = lerp(height, 0, 0.2);
+    //height = lerp(height, 0, 0.2);
     for (var i = 1; i < StandState.LEN; i++)
     {
         if (state == i)
@@ -356,6 +357,7 @@ if (active)
         }
         height = 2 + (cos(current_time / 1000) * 2);
     }
+    height = lerp(height, height_target, height_speed);
     var _e = EffectStandAuraCreate(x, y - height, auraParticleSprite, color);
     _e.rotation = auraParticleRotation;
 }
@@ -539,6 +541,8 @@ with (_stand)
     xTo = _owner.x;
     yTo = _owner.y;
     height = 0;
+    height_target = 0;
+    height_speed = 0.2;
     rarity = {
         tier : Rarity.Common,
         name : Localize("commonName"),

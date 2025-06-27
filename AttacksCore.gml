@@ -108,6 +108,8 @@ if (array_find_index(instancesHit, _target.id) == -1)
     if (crit_damage > 1)
     {
         _e.image_blend = c_red;
+        _e.image_xscale = crit_damage;
+        _e.image_yscale = crit_damage;
     }
     DustEntityAdd(x, y);
     with (owner)
@@ -253,35 +255,51 @@ if (instance_exists(self))
     
     try
     {
-        for (var i = 0; i < array_length(targets); i++)
+        for (var i = array_length(targets) - 1; i >= 0; i--)
         {
-            if (targets[i] = MOBJ)
+            var obj = targets[i];
+            var hit = instance_place(x, y, obj);
+            
+            if (hit != noone)
             {
-                with (targets[i])
+                var valid = (obj == MOBJ) ? ("targetableFlag" in hit) : (hit.scale != 0);
+                if (valid)
                 {
-                    if (place_meeting(x, y, other) and bool("targetableFlag" in self))
-                    {
-                        with (other)
-                        {
-                            ProjHitTarget(other);
-                        }
-                    }
-                }
-            }
-            else
-            {
-                with (targets[i])
-                {
-                    if (place_meeting(x, y, other) and scale != 0)
-                    {
-                        with (other)
-                        {
-                            ProjHitTarget(other);
-                        }
-                    }
+                    ProjHitTarget(hit);
                 }
             }
         }
+        
+        // old collision code
+        // for (var i = 0; i < array_length(targets); i++)
+        // {
+        //     if (targets[i] == MOBJ)
+        //     {
+        //         with (targets[i])
+        //         {
+        //             if (place_meeting(x, y, other) and bool("targetableFlag" in self))
+        //             {
+        //                 with (other)
+        //                 {
+        //                     ProjHitTarget(other);
+        //                 }
+        //             }
+        //         }
+        //     }
+        //     else
+        //     {
+        //         with (targets[i])
+        //         {
+        //             if (place_meeting(x, y, other) and scale != 0)
+        //             {
+        //                 with (other)
+        //                 {
+        //                     ProjHitTarget(other);
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
     }
     catch (e)
     {
@@ -718,9 +736,13 @@ switch (attackState)
         break;
     case 1:
         var _p = PunchCreate(x, y, _dir, GetDmg(skill), 3);
-        _p.onHitSound = global.sndStrongPunch;
-        FireCD(skill);
-        state = StandState.Idle;
+        with (_p)
+        {
+            crit_change = 0.2;
+            RollCrit();
+            onHitSound = global.sndStrongPunch;
+        }
+        EndAtk(skill);
         break;
 }
 attackStateTimer += DT * GetStandSpeed(self);

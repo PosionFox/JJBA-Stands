@@ -452,3 +452,14 @@ if _stamina != undefined STAND.stamina = real(_stamina) else STAND.stamina = 1;
 if _precision != undefined STAND.precision = real(_precision) else STAND.precision = 1;
 if _development_potential != undefined STAND.development_potential = real(_development_potential) else STAND.development_potential = 1;
 if _stat_points != undefined STAND.stat_points = real(_stat_points) else STAND.stat_points = 0;
+
+#define power(base, exponent)
+
+if (exponent == 0) return 1;
+
+var total = base;
+for (var i = 0; i < exponent; i++)
+{
+    total *= base;
+}
+return total;
