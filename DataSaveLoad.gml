@@ -119,28 +119,30 @@ if (_stand != undefined)
 #define SaveData
 
 var _map = ds_map_create();
+var _stand; // not using STAND macro because it errors on new worlds
+if ("myStand" in player) { _stand = player.myStand; }
 
 if (instance_exists(player))
 {
-    if (instance_exists(STAND))
+    if (instance_exists(_stand))
     {
-        _map[? "jjbamAbility"] = ConstructStandData(STAND); // save stand
+        _map[? "jjbamAbility"] = ConstructStandData(_stand); // save stand
         //Trace("saving stand: " + string(STAND.saveKey));
         // _map[? "jjbamAbilitySkills"] = string(array_clone(objPlayer.myStand.skills)); // save stand skills
         // Trace(_map[? "jjbamAbilitySkills"]);
         
-        switch (STAND.saveKey)
+        switch (_stand.saveKey)
         {
             case "jjbamTsk": // save tusk acts
-                _map[? "jjbamTuskA1"] = STAND.hasAct1;
-                _map[? "jjbamTuskA2"] = STAND.hasAct2;
-                _map[? "jjbamTuskA3"] = STAND.hasAct3;
-                _map[? "jjbamTuskA4"] = STAND.hasAct4;
+                _map[? "jjbamTuskA1"] = _stand.hasAct1;
+                _map[? "jjbamTuskA2"] = _stand.hasAct2;
+                _map[? "jjbamTuskA3"] = _stand.hasAct3;
+                _map[? "jjbamTuskA4"] = _stand.hasAct4;
             break;
             case "jjbamD4c":
-                _map[? "jjbamD4cHasArm"] = STAND.hasArm;
-                _map[? "jjbamD4cHasHeart"] = STAND.hasHeart;
-                _map[? "jjbamD4cHasEye"] = STAND.hasEye;
+                _map[? "jjbamD4cHasArm"] = _stand.hasArm;
+                _map[? "jjbamD4cHasHeart"] = _stand.hasHeart;
+                _map[? "jjbamD4cHasEye"] = _stand.hasEye;
             break;
         }
     }
@@ -148,13 +150,13 @@ if (instance_exists(player))
     {
         _map[? "jjbamCustomStands"] = player.skCustomStands;
     }
-    _map[? "jjSummonKeybind"] = player.summonKeybind;
-    _map[? "jjAbilityKeybind1"] = player.abilityKeybind1;
-    _map[? "jjAbilityKeybind2"] = player.abilityKeybind2;
-    _map[? "jjAbilityKeybind3"] = player.abilityKeybind3;
-    _map[? "jjAbilityKeybind4"] = player.abilityKeybind4;
-    _map[? "jjSpecKeybind1"] = player.specKeybind1;
-    _map[? "jjSpecKeybind2"] = player.specKeybind2;
+    _map[? "jjSummonKeybind"] = "summonKeybind" in player ? player.summonKeybind : undefined;
+    _map[? "jjAbilityKeybind2"] = "abilityKeybind2" in player ? player.abilityKeybind2 : undefined;
+    _map[? "jjAbilityKeybind1"] = "abilityKeybind1" in player ? player.abilityKeybind1 : undefined;
+    _map[? "jjAbilityKeybind3"] = "abilityKeybind3" in player ? player.abilityKeybind3 : undefined;
+    _map[? "jjAbilityKeybind4"] = "abilityKeybind4" in player ? player.abilityKeybind4 : undefined;
+    _map[? "jjSpecKeybind1"] = "specKeybind1" in player ? player.specKeybind1 : undefined;
+    _map[? "jjSpecKeybind2"] = "specKeybind2" in player ? player.specKeybind2 : undefined;
 }
 // npcs
 _map[? "jjQuestPucciBlueprintCompleted"] = global.questPucciBlueprintCompleted;
@@ -178,11 +180,11 @@ if (_map[? "jjEnemyDioSpawned"] == true)
     _map[? "jjEnemyDioHp"] = _dio.hp;
 }
 // runes
-if (instance_exists(player) and instance_exists(STAND))
+if (instance_exists(player) and instance_exists(_stand))
 {
-    if (STAND.runes[0] != noone) _map[? "jjRune0"] = STAND.runes[0].save_key;
-    if (STAND.runes[1] != noone) _map[? "jjRune1"] = STAND.runes[1].save_key;
-    if (STAND.runes[2] != noone) _map[? "jjRune2"] = STAND.runes[2].save_key;
+    if (_stand.runes[0] != noone) _map[? "jjRune0"] = _stand.runes[0].save_key;
+    if (_stand.runes[1] != noone) _map[? "jjRune1"] = _stand.runes[1].save_key;
+    if (_stand.runes[2] != noone) _map[? "jjRune2"] = _stand.runes[2].save_key;
 }
 
 // mod settings
