@@ -342,7 +342,6 @@ global.jjStandOrb = ItemCreate(
     ScriptWrap(StandOrbOnUse),
     60 * 60
 );
-StructureAddItem(Structure.SewingStation, global.jjJotarosHat);
 
 #region holy parts
 
@@ -794,16 +793,16 @@ if (room != rmGame)
 
 if (instance_exists(STAND))
 {
-    switch (STAND.name)
+    switch (STAND.saveKey)
     {
-        case "Spin":
+        case "jjbamSpin":
             GiveTusk(player);
         break;
-        case "Dirty Deeds Done Dirt Cheap":
+        case "jjbamD4c":
             STAND.hasArm = true;
             D4CEvolveIfCan();
         break;
-        case "Patriot D4C":
+        case "jjbamPd4c":
             STAND.hasArm = true;
             PD4CEvolveIfCan();
         break;
@@ -832,9 +831,9 @@ if (room != rmGame)
 
 if (instance_exists(STAND))
 {
-    switch (STAND.name)
+    switch (STAND.saveKey)
     {
-        case "Tusk":
+        case "jjbamTsk":
             STAND.hasAct2 = true;
         break;
         // case "D4C":
@@ -867,9 +866,9 @@ if (room != rmGame)
 
 if (instance_exists(STAND))
 {
-    switch (STAND.name)
+    switch (STAND.saveKey)
     {
-        case "Tusk":
+        case "jjbamTsk":
             if (STAND.hasAct2)
             {
                 STAND.hasAct3 = true;
@@ -878,11 +877,11 @@ if (instance_exists(STAND))
                 STAND.nails += 5;
             }
         exit;
-        case "Dirty Deeds Done Dirt Cheap":
+        case "jjbamD4c":
             STAND.hasEye = true;
             D4CEvolveIfCan();
         break;
-        case "Patriot D4C":
+        case "jjbamPd4c":
             STAND.hasEye = true;
             PD4CEvolveIfCan();
         break;

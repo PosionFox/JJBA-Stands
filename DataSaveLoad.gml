@@ -99,22 +99,24 @@ var _stand = _map[? "jjbamAbility"];
 if (_stand != undefined)
 {
     DeconstructStandData(_stand);
-}
+    
+    var _key = string_split(_stand, ":")[0];
 
-// switch (_stand)
-// {
-//     case "jjbamD4c":
-//         STAND.hasArm = _map[? "jjbamD4cHasArm"];
-//         STAND.hasHeart = _map[? "jjbamD4cHasHeart"];
-//         STAND.hasEye = _map[? "jjbamD4cHasEye"];
-//     break;
-//     case "jjbamTsk":
-//         STAND.hasAct1 = _map[? "jjbamTuskA1"];
-//         STAND.hasAct2 = _map[? "jjbamTuskA2"];
-//         STAND.hasAct3 = _map[? "jjbamTuskA3"];
-//         STAND.hasAct4 = _map[? "jjbamTuskA4"];
-//     break;
-// }
+    switch (_key)
+    {
+        case "jjbamD4c":
+            STAND.hasArm = _map[? "jjbamD4cHasArm"];
+            STAND.hasHeart = _map[? "jjbamD4cHasHeart"];
+            STAND.hasEye = _map[? "jjbamD4cHasEye"];
+        break;
+        case "jjbamTsk":
+            STAND.hasAct1 = _map[? "jjbamTuskA1"];
+            STAND.hasAct2 = _map[? "jjbamTuskA2"];
+            STAND.hasAct3 = _map[? "jjbamTuskA3"];
+            STAND.hasAct4 = _map[? "jjbamTuskA4"];
+        break;
+    }
+}
 
 #define SaveData
 

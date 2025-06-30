@@ -715,7 +715,7 @@ with (_s)
 {
     name = "Tusk";
     sprite_index = global.sprTuskAct1;
-    color = /*#*/0xba7bd7;
+    color = 0xba7bd7;
     summonSound = global.sndTa1Summon;
     saveKey = "jjbamTsk";
     discType = global.jjbamDiscTsk;
