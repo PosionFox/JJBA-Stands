@@ -44,6 +44,8 @@ enum StandSkill {
     MaxExecutionTime,
     ExecutionTime,
     EnergyCost,
+    Vars,
+    VarsAlt,
     LEN
 }
 

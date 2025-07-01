@@ -85,6 +85,12 @@ var _final_damage = _damage * (powerMultiplier * GetStandDestructivePower(self))
 
 return _final_damage;
 
+#define GetSkillVars(skill)
+
+var _vars = skills[skill, StandSkill.Vars];
+if (altAttack) _vars = skills[skill, StandSkill.VarsAlt];
+return _vars;
+
 #define ProjHitTarget(_target)
 
 last_instance_hit = _target;

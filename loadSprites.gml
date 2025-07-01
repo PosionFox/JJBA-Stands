@@ -102,14 +102,6 @@ p = "Resources/Sprites/Generic/";
 global.sprBulletGUI = sprite_add(p + "BulletGUI.png", 1, false, false, 16, 16);
 global.sprRevCylinderGUI = sprite_add(p + "RevCylinderGUI.png", 1, false, false, 16, 16);
 global.sprPunchEffect = sprite_add(p + "PunchEffect.png", 6, false, false, 8, 8);
-global.sprStandParticle = sprite_add(p + "StandParticle.png", 1, false, false, 1, 1);
-global.sprStandParticle2 = sprite_add(p + "StandParticle2.png", 1, false, false, 2, 2);
-global.sprStandParticle3 = sprite_add(p + "StandParticle3.png", 1, false, false, 3, 1);
-global.sprStandParticle4 = sprite_add(p + "StandParticle4.png", 1, false, false, 4, 4);
-global.sprStandParticle5 = sprite_add(p + "StandParticle5.png", 1, false, false, 4, 4);
-global.sprStandParticle6 = sprite_add(p + "StandParticle6.png", 1, false, false, 8, 8);
-global.sprStandParticle7 = sprite_add(p + "StandParticle7.png", 1, false, false, 2, 3);
-global.sprStandParticleSnowflake = sprite_add(p + "StandParticleSnowflake.png", 1, false, false, 4, 4);
 global.sprHitbox8x8 = sprite_add(p + "Hitbox8x8.png", 1, false, false, 4, 4);
 global.sprHitbox16x16 = sprite_add(p + "Hitbox16x16.png", 1, false, false, 8, 8);
 global.sprHitbox32x32 = sprite_add(p + "Hitbox32x32.png", 1, false, false, 16, 16);
@@ -117,6 +109,17 @@ global.sprHitbox64x64 = sprite_add(p + "Hitbox64x64.png", 1, false, false, 32, 3
 global.sprGun = sprite_add(p + "Gun.png", 1, false, false, 4, 4);
 global.sprStarTier = sprite_add(p + "StarTier.png", 1, false, false, 8, 8);
 global.sprGroundSlam = sprite_add(p + "ground_slam.png", 1, false, false, 16, 16);
+
+// particles
+global.sprStandParticle = sprite_add(p + "StandParticle.png", 1, false, false, 1, 1);
+global.sprStandParticle2 = sprite_add(p + "StandParticle2.png", 1, false, false, 2, 2);
+global.sprStandParticle3 = sprite_add(p + "StandParticle3.png", 1, false, false, 3, 1);
+global.sprStandParticle4 = sprite_add(p + "StandParticle4.png", 1, false, false, 4, 4);
+global.sprStandParticle5 = sprite_add(p + "StandParticle5.png", 1, false, false, 4, 4);
+global.sprStandParticle6 = sprite_add(p + "StandParticle6.png", 1, false, false, 8, 8);
+global.sprStandParticle7 = sprite_add(p + "StandParticle7.png", 1, false, false, 2, 3);
+global.sprStandParticle8 = sprite_add(p + "StandParticle8.png", 1, false, false, 2, 2);
+global.sprStandParticleSnowflake = sprite_add(p + "StandParticleSnowflake.png", 1, false, false, 4, 4);
 
 // projectiles
 p = "Resources/Sprites/Generic/Projectiles/";
@@ -415,6 +418,9 @@ global.sprSfPortal = sprite_add(p + "SfPortal.png", 4, false, false, 16, 16);
 global.sprSkillZipperGrab = sprite_add(p + "SkillZipperGrab.png", 1, false, false, 16, 16);
 global.sprSkillZipPortal = sprite_add(p + "SkillZipPortal.png", 1, false, false, 16, 16);
 
+// skins
+global.sprP03 = sprite_add(p + "p03.png", 1, false, false, 16, 19);
+global.sprP03Portal = sprite_add(p + "P03Portal.png", 4, false, false, 16, 16);
 
 #endregion
 

@@ -78,7 +78,7 @@ draw_set_valign(fa_bottom);
 draw_set_color(trait.color);
 draw_text(32, _height - 186, string_lower(string(trait.name)));
 draw_set_color(c_white);
-draw_text(32, _height - 138, string_lower(string(name)));
+draw_text_color(32, _height - 138, string_lower(string(name)), color, colorAlt, color, colorAlt, 1);
 draw_line_color(32, _height - 144, 32 + 255, _height - 144, color, c_black);
 draw_set_valign(fa_middle);
 draw_set_halign(fa_center);
@@ -467,6 +467,7 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
     _arr[_s, StandSkill.DamagePlayerStat] = true;
     _arr[_s, StandSkill.MaxCooldown] = 1;
     _arr[_s, StandSkill.Cooldown] = 0;
+    _arr[_s, StandSkill.Vars] = {};
     // hold
     _arr[_s, StandSkill.SkillAlt] = AttackHandler;
     _arr[_s, StandSkill.IconAlt] = global.sprSkillSkip;
@@ -475,6 +476,7 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
     _arr[_s, StandSkill.DamagePlayerStatAlt] = true;
     _arr[_s, StandSkill.MaxCooldownAlt] = 1;
     _arr[_s, StandSkill.CooldownAlt] = 0;
+    _arr[_s, StandSkill.VarsAlt] = {};
     // both
     _arr[_s, StandSkill.Key] = "";
     _arr[_s, StandSkill.GpBtn] = Input.DPad;
@@ -749,7 +751,7 @@ return (_stand.precision);
 
 #define GetStandTotalPower(_stand)
 
-return (_stand.destructive_power * _stand.spd * _stand.range * _stand.stamina * _stand.precision);
+return (_stand.destructive_power + _stand.spd + _stand.range + _stand.stamina + _stand.precision) / 5;
 
 #define GetStandReach(_stand)
 

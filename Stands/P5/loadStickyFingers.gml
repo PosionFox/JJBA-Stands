@@ -141,10 +141,13 @@ switch (attackState)
     case 2:
         if (!_sc and !_wc)
         {
+            var _pskin = GetSkillVars(skill).portalSkin;
             var _p1 = SfPortalCreate(xTo, yTo);
             _p1.subtype = "sfP1";
+            _p1.sprite_index = _pskin;
             var _p2 = SfPortalCreate(mouse_x, mouse_y);
             _p2.subtype = "sfP2";
+            _p2.sprite_index = _pskin;
         }
         FireCD(skill);
         state = StandState.Idle;
@@ -351,6 +354,7 @@ _skills[sk, StandSkill.Skill] = SfPortal;
 _skills[sk, StandSkill.Icon] = global.sprSkillZipPortal;
 _skills[sk, StandSkill.MaxCooldown] = 20;
 _skills[sk, StandSkill.MaxExecutionTime] = 20;
+_skills[sk, StandSkill.Vars] = { portalSkin : global.sprSfPortal };
 _skills[sk, StandSkill.Desc] = Localize("portalThroughDesc");
 
 var _s = StandBuilder(_owner, _skills);

@@ -40,7 +40,7 @@ global.jjbamRokakaka = ItemCreate(
     global.sprRokakaka,
     ItemType.Consumable,
     ItemSubType.Potion,
-    32,
+    12,
     0,
     0,
     undefined,
@@ -56,7 +56,7 @@ global.jjRokakakaStew = ItemCreate(
     global.sprRokakakaStew,
     ItemType.Consumable,
     ItemSubType.Potion,
-    61,
+    25,
     0,
     0,
     [
@@ -464,6 +464,7 @@ global.arrow_ability_pool =
     [GiveShadow, global.mythical_arrow_weight],
     [GiveKcm, global.mythical_arrow_weight],
     [GiveRedSnake, global.mythical_arrow_weight],
+    [GiveP03, global.mythical_arrow_weight],
     // ascended
     [GiveSPOH, global.ascended_arrow_weight],
     [GiveKce, global.ascended_arrow_weight],

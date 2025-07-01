@@ -83,7 +83,7 @@ switch (_key)
     case "jjbamKcau": GiveKCAU(player); break;
     case "jjbamSukuna": GiveSukuna(player); break;
     case "jjbamKce": GiveKce(player); break;
-    
+    case "jjsP03": GiveP03(player); break;
     case "jjGreenSnake": GiveGreenSnake(player); break;
     case "jjBlueSnake": GiveBlueSnake(player); break;
     case "jjPurpleSnake": GivePurpleSnake(player); break;
