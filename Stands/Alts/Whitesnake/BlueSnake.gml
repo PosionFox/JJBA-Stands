@@ -7,6 +7,7 @@ with (_s)
     name = "BlueSnake"
     sprite_index = global.sprBlueSnake;
     color = 0xe16e5b;
+    colorAlt = c_dkgray;
     UpdateRarity(Rarity.Rare);
     saveKey = "jjBlueSnake";
 }

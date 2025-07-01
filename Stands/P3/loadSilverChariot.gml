@@ -165,6 +165,7 @@ with (_s)
     sprArmored = sprite_index;
     sprArmorless = global.sprSCarmorless;
     color = 0x877e84;
+    colorAlt = c_ltgray;
     summonSound = global.sndScSummon;
     saveKey = "jjbamSc";
     discType = global.jjbamDiscSc;

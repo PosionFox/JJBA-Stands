@@ -65,6 +65,7 @@ with (_s)
     name = "Dark World";
     sprite_index = global.sprDW;
     color = 0x3c2845;
+    colorAlt = c_dkgray;
     UpdateRarity(Rarity.Legendary);
     summonSound = global.sndStw2Summon;
     saveKey = "jjbamDw";

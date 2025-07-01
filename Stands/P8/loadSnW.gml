@@ -346,6 +346,7 @@ with (_s)
     name = "Soft and Wet";
     sprite_index = global.sprSoftAndWet;
     color = 0xffffff
+    colorAlt = c_purple;
     summonSound = global.sndSnwSummon;
     discType = global.jjbamDiscSnw;
     stopSign = ModObjectSpawn(x, y, depth);

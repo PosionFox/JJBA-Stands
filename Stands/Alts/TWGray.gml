@@ -31,7 +31,8 @@ with (_s)
 {
     name = "The World Gray";
     sprite_index = global.sprTWG;
-    color = /*#*/0xa9a9a9;
+    color = c_gray;
+    colorAlt = c_ltgray;
     UpdateRarity(Rarity.Uncommon);
     saveKey = "jjbamTwg";
     discType = global.jjbamDiscTwg;

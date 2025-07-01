@@ -31,7 +31,8 @@ with (_s)
 {
     name = "Star Platinum\nOver Heaven";
     sprite_index = global.sprSPOH;
-    color = 0xffffff;
+    color = c_white;
+    color = c_yellow;
     UpdateRarity(Rarity.Ascended);
     saveKey = "jjbamSpoh";
     discType = global.jjbamDiscSpoh;

@@ -48,6 +48,7 @@ with (_s)
     sprite_index = global.sprTheWorldNeo;
     name = "The World Neo\nAlternate Universe";
     color = 0xff9b63;
+    colorAlt = c_navy;
     UpdateRarity(Rarity.Epic);
     auraParticleSprite = global.sprStandParticle3;
     sprKnife = global.sprNeoKnife;

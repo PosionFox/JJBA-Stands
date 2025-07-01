@@ -31,7 +31,8 @@ with (_s)
 {
     name = "The World\nGreatest High";
     sprite_index = global.sprTWGH;
-    color = /*#*/0x743f3f;
+    color = 0x743f3f;
+    colorAlt = 0x6357d9;
     UpdateRarity(Rarity.Legendary);
     saveKey = "jjbamTwgh";
     discType = global.jjbamDiscTwgh;

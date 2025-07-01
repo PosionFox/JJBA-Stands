@@ -32,6 +32,7 @@ with (_s)
     sprite_index = global.sprKingCrimsonManga;
     name = "King Crimson Manga";
     color = 0xba7bd7;
+    colorAlt = 0x36f2fb;
     UpdateRarity(Rarity.Mythical);
     saveKey = "jjbamKcm";
     discType = global.jjbamDiscKcm;

@@ -192,6 +192,7 @@ with (_s)
     name = "Star Platinum Retro";
     sprite_index = global.sprSPR;
     color = 0xe4cd5f;
+    colorAlt = 0xff9b63;
     UpdateRarity(Rarity.Mythical);
     saveKey = "jjbamSpr";
     discType = global.jjbamDiscSpr;

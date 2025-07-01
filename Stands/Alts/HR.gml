@@ -32,6 +32,7 @@ with (_s)
     name = "Hierophant Red"
     sprite_index = global.sprHierophantRed;
     color = 0x6357d9;
+    colorAlt = 0x877e84;
     UpdateRarity(Rarity.Uncommon);
     saveKey = "jjbamHr";
     discType = global.jjbamDiscHr;

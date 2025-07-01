@@ -117,12 +117,19 @@ else
 switch (attackState)
 {
     case 0:
-        jj_play_audio(global.sndKcTp, 5, false);
-        EffectPlayerAfterimageCreate(owner.x, owner.y);
-        EffectTimeSkipCreate();
-        player.x = mouse_x;
-        player.y = mouse_y;
-        attackState++;
+        if (!WaterCollision(mouse_x, mouse_y))
+        {
+            jj_play_audio(global.sndKcTp, 5, false);
+            EffectPlayerAfterimageCreate(owner.x, owner.y);
+            EffectTimeSkipCreate();
+            player.x = mouse_x;
+            player.y = mouse_y;
+            attackState++;
+        }
+        else
+        {
+            ResetAtk(s);
+        }
     break;
     case 1:
         var _target = noone;

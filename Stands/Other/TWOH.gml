@@ -352,6 +352,7 @@ with (_s)
     name = "The World\nOver Heaven";
     sprite_index = global.sprTWOH;
     color = 0xffffff;
+    color = 0x36f2fb;
     desummonSound = summonSound;
     UpdateRarity(Rarity.Common);
     saveKey = "jjbamTwoh";

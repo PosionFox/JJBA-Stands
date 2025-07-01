@@ -32,6 +32,7 @@ with (_s)
     name = "Hierophant Black"
     sprite_index = global.sprHierophantBlack;
     color = 0x342022;
+    colorAlt = 0x877e84;
     UpdateRarity(Rarity.Rare);
     auraParticleSprite = global.sprStandParticle2;
     saveKey = "jjbamHb";

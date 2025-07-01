@@ -424,6 +424,7 @@ with (_s)
     name = "WhiteSnake";
     sprite_index = global.sprWhiteSnake;
     color = 0xfcdbcb;
+    colorAlt = c_dkgray;
     summonSound = global.sndWsSummon;
     saveKey = "jjbamWs";
     discType = global.jjbamDiscWs;

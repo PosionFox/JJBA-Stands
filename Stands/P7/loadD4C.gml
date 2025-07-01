@@ -537,6 +537,7 @@ with (_s)
     name = "Dirty Deeds Done Dirt Cheap";
     sprite_index = global.sprD4C;
     color = 0xe4cd5f;
+    colorAlt = 0xba7bd7;
     summonSound = global.sndD4CSummon;
     saveKey = "jjbamD4c";
     discType = global.jjbamDiscD4c;

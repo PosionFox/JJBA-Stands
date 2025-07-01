@@ -297,6 +297,7 @@ with (_s)
     name = "Star Platinum";
     sprite_index = global.sprStarPlatinum;
     color = 0x8a4276;
+    colorAlt = 0xff9b63;
     summonSound = global.sndSpSummon;
     discType = global.jjbamDiscSp;
     saveKey = "jjbamSp";

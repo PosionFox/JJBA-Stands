@@ -231,7 +231,8 @@ with (_s)
 {
     name = "The World Retro";
     sprite_index = global.sprTWR;
-    color = /*#*/0x66a0d9;
+    color = 0x66a0d9;
+    colorAlt = 0x30be6a;
     UpdateRarity(Rarity.Mythical);
     saveKey = "jjbamTwr";
     discType = global.jjbamDiscTwr;

@@ -147,6 +147,7 @@ with (_s)
     name = "The World OVA";
     sprite_index = global.sprTWOVA;
     color = 0xb7ad9b;
+    colorAlt = 0x30be6a;
     UpdateRarity(Rarity.Legendary);
     saveKey = "jjbamTwova";
     discType = global.jjbamDiscTwova;

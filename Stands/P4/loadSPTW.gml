@@ -170,6 +170,7 @@ with (_s)
     name = "Star Platinum\nThe World";
     sprite_index = global.sprSptw;
     color = 0xff9b63;
+    colorAlt = c_aqua;
     summonSound = global.sndSpSummon;
     saveKey = "jjbamSptw";
     discType = global.jjbamDiscSptw;

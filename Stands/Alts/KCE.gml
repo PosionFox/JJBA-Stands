@@ -87,23 +87,15 @@ else
 switch (attackState)
 {
     case 0:
-        if (enemy_instance_exists())
+        if (!WaterCollision(mouse_x, mouse_y))
         {
-            var _n = get_nearest_enemy(mouse_x, mouse_y);
-            if (distance_to_object(_n) < 64)
-            {
-                KcePlayRandomScream();
-                jj_play_audio(global.sndKcTp, 5, false);
-                EffectPlayerAfterimageCreate(owner.x, owner.y);
-                EffectTimeSkipCreate();
-                player.x = _n.x;
-                player.y = _n.y;
-                attackState++;
-            }
-            else
-            {
-                ResetAtk(s);
-            }
+            KcePlayRandomScream();
+            jj_play_audio(global.sndKcTp, 5, false);
+            EffectPlayerAfterimageCreate(owner.x, owner.y);
+            EffectTimeSkipCreate();
+            player.x = mouse_x;
+            player.y = mouse_y;
+            attackState++;
         }
         else
         {
@@ -119,6 +111,11 @@ switch (attackState)
             _target = get_nearest_enemy(owner.x, owner.y);
             _dis = point_distance(owner.x, owner.y, _target.x, _target.y);
             _dir = point_direction(owner.x, owner.y, _target.x, _target.y);
+            if (_dis > 64 * GetStandRange(self))
+            {
+                _target = noone;
+                _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+            }
         }
         xTo = owner.x + lengthdir_x(8, _dir + random_range(-4, 4));
         yTo = owner.y + lengthdir_y(8, _dir + random_range(-4, 4));
@@ -134,7 +131,7 @@ switch (attackState)
                 audio_sound_pitch(_snd, random_range(0.9, 1.1));
                 var xx = x + random_range(-4, 4);
                 var yy = y + random_range(-8, 8);
-                var _p = PunchSwingCreate(xx, yy, _dir, 45, GetDmg(s));
+                var _p = PunchSwingCreate(xx, yy, _dir, 45, GetDmg(s) * dmgStack);
                 with (_p)
                 {
                     onHitSound = _sHit;
@@ -185,7 +182,7 @@ switch (attackState)
     case 1:
         var _snd = jj_play_audio(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
-        var _p = PunchSwingCreate(x, y, _dir, 45, GetDmg(s));
+        var _p = PunchSwingCreate(x, y, _dir, 45, GetDmg(s) * dmgStack);
         _p.onHitSound = global.sndKcAttack5;
         attackState++;
     break;
@@ -249,7 +246,7 @@ switch (attackState)
         if (attackStateTimer > 3)
         {
             var _dir = point_direction(x, y, _t.x, _t.y);
-            var _p = PunchSwingCreate(x, y, _dir, 45, GetDmg(s) + (_t.hpMax * 0.1));
+            var _p = PunchSwingCreate(x, y, _dir, 45, (GetDmg(s) * dmgStack) + (_t.hpMax * 0.1));
             with (_p)
             {
                 onHitSound = global.sndKcArmChop;
@@ -362,12 +359,12 @@ with (_s)
     
     skills[StandState.SkillAOff, StandSkill.Skill] = KceScalpelSlash;
     skills[StandState.SkillBOff, StandSkill.Skill] = KceScalpelThrow;
+    skills[StandState.SkillDOff, StandSkill.Skill] = KceEpitaph;
     skills[StandState.SkillA, StandSkill.Skill] = KceBarrage;
     skills[StandState.SkillB, StandSkill.Skill] = KceChop;
     skills[StandState.SkillB, StandSkill.SkillAlt] = KceHeavyChop;
     skills[StandState.SkillC, StandSkill.Skill] = KceTimeSkip;
-    skills[StandState.SkillD, StandSkill.Skill] = KceEpitaph;
-    skills[StandState.SkillD, StandSkill.SkillAlt] = KceTimeErase;
+    skills[StandState.SkillD, StandSkill.Skill] = KceTimeErase;
 }
 return _s;
 

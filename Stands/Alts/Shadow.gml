@@ -65,6 +65,7 @@ with (_s)
     name = "Shadow";
     sprite_index = global.sprShadow;
     color = 0x36f2fb;
+    colorAlt = c_white;
     UpdateRarity(Rarity.Mythical);
     summonSound = global.sndStw2Summon;
     saveKey = "jjbamShadow";

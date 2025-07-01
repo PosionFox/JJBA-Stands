@@ -47,6 +47,7 @@ with (_s)
     sprite_index = global.sprPD4C;
     name = "Patriot D4C";
     color = 0xff9b63;
+    colorAlt = 0x3232ac;
     UpdateRarity(Rarity.Epic);
     auraParticleSprite = global.sprStandParticle3;
     saveKey = "jjbamPd4c";

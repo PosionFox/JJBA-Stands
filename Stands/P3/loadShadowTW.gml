@@ -595,6 +595,7 @@ with (_s)
 {
     name = "Shadow The World";
     sprite_index = global.sprShadowTheWorld;
+    colorAlt = c_fuchsia;
     summonSound = global.sndStwSummon;
     desummonSound = global.sndStw2Desummon;
     playSummonSound = false;

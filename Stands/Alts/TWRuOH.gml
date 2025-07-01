@@ -32,6 +32,7 @@ with (_s)
     name = "The World Runic\nOver Heaven";
     sprite_index = global.sprTWRuOH;
     color = 0x36f2fb;
+    colorAlt = c_white;
     UpdateRarity(Rarity.Mythical);
     auraParticleSprite = global.sprStandParticle3;
     saveKey = "jjbamTwruoh";

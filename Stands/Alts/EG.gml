@@ -31,7 +31,8 @@ with (_s)
 {
     sprite_index = global.sprEvergreen;
     name = "Evergreen";
-    color = /*#*/0x50e599;
+    color = 0x50e599;
+    colorAlt = 0x3c2845;
     UpdateRarity(Rarity.Ascended);
     auraParticleSprite = global.sprStandParticle6;
     saveKey = "jjbamEg";

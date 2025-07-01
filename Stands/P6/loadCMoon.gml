@@ -128,6 +128,7 @@ with (_s)
     name = "C-Moon";
     sprite_index = global.sprCMoon;
     color = 0x30be6a;
+    colorAlt = 0xfcdbcb;
     summonSound = global.sndCmSummon;
     saveKey = "jjbamCmn";
 }

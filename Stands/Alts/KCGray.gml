@@ -31,8 +31,8 @@ with (_s)
 {
     sprite_index = global.sprKCG;
     name = "King Crimson Gray";
-    color = 0x737373;
-    colorAlt = 0x737373;
+    color = c_gray;
+    colorAlt = c_ltgray;
     UpdateRarity(Rarity.Uncommon);
     saveKey = "jjbamKcg";
     discType = global.jjbamDiscKcg;

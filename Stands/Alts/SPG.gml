@@ -31,7 +31,8 @@ with (_s)
 {
     name = "Star Platinum Gray";
     sprite_index = global.sprSPG;
-    color = /*#*/0x424242;
+    color = c_gray;
+    colorAlt = c_ltgray;
     UpdateRarity(Rarity.Uncommon);
     saveKey = "jjbamSpg";
     discType = global.jjbamDiscSpg;

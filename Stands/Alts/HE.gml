@@ -32,6 +32,7 @@ with (_s)
     name = "Hierophant Eve"
     sprite_index = global.sprHierophantEve;
     color = 0x6357d9;
+    colorAlt = 0x30be6a;
     UpdateRarity(Rarity.Event);
     saveKey = "jjbamHe";
     discType = global.jjbamDiscHe;

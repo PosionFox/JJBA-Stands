@@ -346,6 +346,7 @@ with (_s)
     name = "D4C Love Train";
     sprite_index = global.sprD4CLT;
     color = 0xe4cd5f;
+    colorAlt = 0xba7bd7;
     summonSound = global.sndD4CLTSummon;
     saveKey = "jjbamD4clt";
     discType = global.jjbamDiscD4clt;

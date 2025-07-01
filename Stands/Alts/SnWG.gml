@@ -32,6 +32,7 @@ with (_s)
     name = "Soft and Wet Golden"
     sprite_index = global.sprSoftAndWetGolden;
     color = 0x36f2fb;
+    colorAlt = 0x30be6a;
     UpdateRarity(Rarity.Legendary);
     auraParticleSprite = global.sprStandParticle5;
     saveKey = "jjbamSnwg";

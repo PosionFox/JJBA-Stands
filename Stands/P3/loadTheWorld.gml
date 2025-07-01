@@ -271,6 +271,7 @@ with (_s)
     name = "The World";
     sprite_index = global.sprTheWorld;
     color = 0x36f2fb;
+    colorAlt = c_gray;
     summonSound = global.sndTwSummon;
     discType = global.jjbamDiscTw;
     

@@ -296,6 +296,7 @@ with (_s)
     name = "Killer Queen";
     sprite_index = global.sprKillerQueen;
     color = 0xba7bd7;
+    colorAlt = c_fuchsia;
     summonSound = global.sndKqSummon;
     discType = global.jjbamDiscKq;
     saveKey = "jjbamKq";

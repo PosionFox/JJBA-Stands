@@ -293,6 +293,7 @@ with (_s)
     name = "Gold Experience";
     sprite_index = global.sprGoldExperience;
     color = 0x36f2fb;
+    colorAlt = c_orange;
     summonSound = global.sndGeSummon;
     discType = global.jjbamDiscGe;
     saveKey = "jjbamGe";

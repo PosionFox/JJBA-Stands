@@ -31,7 +31,8 @@ with (_s)
 {
     sprite_index = global.sprSFG;
     name = "Sticky Fingers Gray";
-    color = /*#*/0x969696;
+    color = c_gray;
+    colorAlt = c_ltgray;
     UpdateRarity(Rarity.Uncommon);
     saveKey = "jjbamSfg";
     discType = global.jjbamDiscSfg;

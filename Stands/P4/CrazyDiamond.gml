@@ -239,6 +239,7 @@ with (_s)
     name = "Crazy Diamond"
     sprite_index = global.sprCrazyDiamond;
     color = 0xe4cd5f;
+    colorAlt = 0xba7bd7;
     healingMode = false;
     summonSound = global.sndCdSummon;
     UpdateRarity(Rarity.Common);

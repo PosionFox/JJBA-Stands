@@ -32,6 +32,7 @@ with (_s)
     name = "BlackSnake"
     sprite_index = global.sprBlackSnake;
     color = 0x342022;
+    colorAlt = c_dkgray;
     UpdateRarity(Rarity.Epic);
     auraParticleSprite = global.sprStandParticle4;
     saveKey = "jjbamBs";

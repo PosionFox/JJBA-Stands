@@ -423,6 +423,7 @@ with (_s)
     name = "Killer Queen\nBites The Dust";
     sprite_index = global.sprKillerQueenBtD;
     color = 0xba7bd7;
+    colorAlt = c_fuchsia;
     summonSound = global.sndKqbtdSummon;
     discType = global.jjbamDiscKqbtd;
     saveKey = "jjbamKqbtd";

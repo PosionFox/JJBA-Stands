@@ -114,6 +114,7 @@ with (_s)
     name = "The World Frozen";
     sprite_index = global.sprTheWorldFrozen;
     color = 0xe4cd5f;
+    colorAlt = 0x6357d9;
     UpdateRarity(Rarity.Event);
     saveKey = "jjbamTwf";
     discType = global.jjbamDiscTwf;
