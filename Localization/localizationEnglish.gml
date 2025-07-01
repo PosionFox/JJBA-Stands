@@ -7,7 +7,7 @@ LocalizationAddKey(_map, "susArrowName", "suspicious arrow");
 LocalizationAddKey(_map, "susArrowDescription", "looks like a normal arrow.");
 
 LocalizationAddKey(_map, "rokakakaName", "rokakaka");
-LocalizationAddKey(_map, "rokakakaDescription", "a spiky looking fruit.");
+LocalizationAddKey(_map, "rokakakaDescription", "a spiky looking fruit, can be used to remove your stand.");
 
 LocalizationAddKey(_map, "rokakakaStewName", "rokakaka stew");
 LocalizationAddKey(_map, "rokakakaStewDescription", "a spicy looking stew.");

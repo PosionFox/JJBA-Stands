@@ -30,7 +30,7 @@ var _s = GiveKillerQueenBtD(_owner);
 with (_s)
 {
     sprite_index = global.sprSQBTD;
-    name = "Shadow Queen:\nBites the Dust";
+    name = "Shadow Queen\nBites the Dust";
     color = 0xba7bd7;
     colorAlt = 0x3c2845;
     UpdateRarity(Rarity.Epic);

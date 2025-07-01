@@ -513,8 +513,14 @@ if (instance_exists(STAND))
 {
     if (STAND.saveKey == "jjbamStw")
     {
-        RemoveStand(player);
-        GiveTheWorld(player);
+        jj_play_audio(global.sndStwEvolve, 5, false);
+        var _o = ModObjectSpawn(x, y, 0);
+        with (_o)
+        {
+            timer = 1;
+            
+            InstanceAssignMethod(self, "step", ScriptWrap(StwTheWorldStep), false);
+        }
     }
     else GainItem(global.jjCamera, 1);
 }

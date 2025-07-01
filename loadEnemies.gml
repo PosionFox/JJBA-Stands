@@ -120,8 +120,8 @@ if (freeze > 0)
 
 if (hp <= 0 and state != "dying")
 {
-    jj_play_audio(global.sndDioDeath, 5, false);
     state = "dying";
+    jj_play_audio(global.sndDioDeath, 5, false);
 }
 hp = clamp(hp, 0, hpMax);
 
@@ -208,9 +208,15 @@ switch (state)
                 var _shard = random_weight(_pool);
                 DropItem(x, y, _shard, 1);
             }
-            DropItem(x, y, global.jjBizarreCandy, 8);
+            if (current_month == 12)
+            {
+                DropItem(x, y, global.jjBizarreCandy, 8);
+            }
             global.enemyDioSpawned = false;
-            STAND.experience += hpMax * STAND.development_potential;
+            if (instance_exists(STAND))
+            {
+                STAND.experience += hpMax * STAND.development_potential;
+            }
             instance_destroy(self);
             exit;
         }
@@ -394,7 +400,10 @@ switch (state)
         image_angle = 90;
         image_speed = 0.1;
         DropItem(x, y, global.jjPrisonerSoul, 1);
-        STAND.experience += hpMax * STAND.development_potential;
+        if (instance_exists(STAND))
+        {
+            STAND.experience += hpMax * STAND.development_potential;
+        }
         instance_destroy(self);
         exit;
     break;
