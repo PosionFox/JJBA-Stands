@@ -30,8 +30,16 @@ skills[skill, StandSkill.ExecutionTime] = 0;
 
 #define ResetCD(skill)
 
+var _was_alt = altAttack;
 FireCD(skill);
-skills[skill, StandSkill.Cooldown] = 0;
+if (_was_alt)
+{
+    skills[skill, StandSkill.CooldownAlt] = 0;
+}
+else
+{
+    skills[skill, StandSkill.Cooldown] = 0;
+}
 if (max_energy > 0)
 {
     energy += skills[skill, StandSkill.EnergyCost];

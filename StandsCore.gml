@@ -103,7 +103,8 @@ for (var i = _start; i <= _end; i++)
         var _s = global.sprSkillTemplate;
         if (color_get_value(color) < 80) { _s = global.sprSkillTemplateWhite; }
         draw_sprite_ext(_s, 0, xx, yy, 2, 2, 0, c_white, 1);
-        draw_sprite_ext(skills[i, StandSkill.Icon], 0, xx, yy, 2, 2, 0, color, 1);
+        //draw_sprite_ext(skills[i, StandSkill.Icon], 0, xx, yy, 2, 2, 0, color, 1);
+        draw_sprite_general(skills[i, StandSkill.Icon], 0, 0, 0, 32, 32, xx - 32, yy - 32, 2, 2, 0, color, color, colorAlt, colorAlt, 1);
         if (skills[i, StandSkill.Cooldown] > 0)
         {
             var cyy = ((skills[i, StandSkill.Cooldown] / skills[i, StandSkill.MaxCooldown]) * 2) * GetStandStamina(self);
@@ -119,7 +120,8 @@ for (var i = _start; i <= _end; i++)
         var _s = global.sprSkillHoldTemplate;
         if (color_get_value(color) < 80) { _s = global.sprSkillHoldTemplateWhite; }
         draw_sprite_ext(_s, 0, xx, yy + 64, 2, 2, 0, c_white, 1);
-        draw_sprite_ext(skills[i, StandSkill.IconAlt], 0, xx, yy + 64, 2, 2, 0, color, 1);
+        //draw_sprite_ext(skills[i, StandSkill.IconAlt], 0, xx, yy + 64, 2, 2, 0, color, 1);
+        draw_sprite_general(skills[i, StandSkill.IconAlt], 0, 0, 0, 32, 32, xx - 32, yy - 32 + 64, 2, 2, 0, colorAlt, colorAlt, color, color, 1);
         var _hold = (skills[i, StandSkill.Hold] / skills[i, StandSkill.MaxHold]) * 2;
         draw_sprite_ext(global.sprSkillHold, 0, xx, yy + 64, 2, _hold, 0, color, 0.8);
         if (skills[i, StandSkill.CooldownAlt] > 0)
@@ -357,17 +359,20 @@ if (active)
         }
         height = 2 + (cos(current_time / 1000) * 2);
     }
-    height = lerp(height, height_target, height_speed);
     var _e = EffectStandAuraCreate(x, y - height, auraParticleSprite, color);
     _e.rotation = auraParticleRotation;
 }
 else
 {
-    scaleX = 0;
-    alphaTarget = 0;
-    xTo = owner.x;
-    yTo = owner.y;
+    if (state == StandState.Idle)
+    {
+        scaleX = 0;
+        alphaTarget = 0;
+        xTo = owner.x;
+        yTo = owner.y;
+    }
 }
+height = lerp(height, height_target, height_speed);
 
 if (soundIdleTimer <= 0)
 {
@@ -439,7 +444,7 @@ if (experience >= experienceNext)
 
 #define StandDefaultDraw
 
-if (active)
+if (active or image_alpha > 0)
 {
     draw_sprite_ext(sprShadow, 0, x, y + 2, min(1, abs(image_xscale / (height * 0.2))), min(1, abs(image_yscale / (height * 0.2))), 0, c_white, image_alpha * 0.5);
 }

@@ -35,7 +35,7 @@ image_xscale = mouse_x > player.x ? 1 : -1;
 attackStateTimer += DT * GetStandSpeed(self);
 if (distance_to_point(xTo, yTo) < 2)
 {
-    if (attackStateTimer >= 0.08)
+    if (attackStateTimer >= 0.16)
     {
         var _snd = jj_play_audio(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
@@ -44,7 +44,7 @@ if (distance_to_point(xTo, yTo) < 2)
         var _p = PunchSwingCreate(xx, yy, _dir, 90, GetDmg(s));
         with (_p)
         {
-            onHitSound = global.sndPunchHit;
+            onHitSound = global.sndSlashStrike;
             onHitEvent = SlashNearest;
             swingSpd = 20;
         }

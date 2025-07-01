@@ -39,7 +39,10 @@ yTo = owner.y + lengthdir_y(GetStandReach(self) * 2, owner.attack_direction);
 switch (attackState)
 {
     case 0:
-        angleTarget = EaseOutSine(attackStateTimer, 0, 45, 0.6)
+        alphaTarget = 1;
+        scaleX = sign(dcos(owner.attack_direction));
+        angleTargetSpd = 0.002;
+        angleTarget = 45;
         height_target = 8;
         if (attackStateTimer >= 0.6) attackState++;
     break;
@@ -68,7 +71,7 @@ switch (attackState)
     break;
     case 2:
         angleTarget = -65;
-        if (attackStateTimer >= 0.9) attackState++;
+        if (attackStateTimer >= 1.2) attackState++;
     break;
     case 3:
         angleTargetSpd = 0.1;

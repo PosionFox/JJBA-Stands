@@ -30,6 +30,7 @@ global.sndRevFire2 = audio_create_stream(p + "revFire2.ogg");
 global.sndRevFire3 = audio_create_stream(p + "revFire3.ogg");
 global.sndRevFire4 = audio_create_stream(p + "revFire4.ogg");
 global.sndRevReload = audio_create_stream(p + "revReload.ogg");
+global.sndSlashStrike = audio_create_stream(p + "slashStrike.ogg");
 
 #endregion
 

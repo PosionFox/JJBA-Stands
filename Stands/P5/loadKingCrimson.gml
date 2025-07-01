@@ -117,27 +117,12 @@ else
 switch (attackState)
 {
     case 0:
-        if (enemy_instance_exists())
-        {
-            var _n = get_nearest_enemy(mouse_x, mouse_y);
-            if (distance_to_object(_n) < 64)
-            {
-                jj_play_audio(global.sndKcTp, 5, false);
-                EffectPlayerAfterimageCreate(owner.x, owner.y);
-                EffectTimeSkipCreate();
-                player.x = _n.x;
-                player.y = _n.y;
-                attackState++;
-            }
-            else
-            {
-                ResetAtk(s);
-            }
-        }
-        else
-        {
-            ResetAtk(s);
-        }
+        jj_play_audio(global.sndKcTp, 5, false);
+        EffectPlayerAfterimageCreate(owner.x, owner.y);
+        EffectTimeSkipCreate();
+        player.x = mouse_x;
+        player.y = mouse_y;
+        attackState++;
     break;
     case 1:
         var _target = noone;
@@ -148,6 +133,11 @@ switch (attackState)
             _target = get_nearest_enemy(owner.x, owner.y);
             _dis = point_distance(owner.x, owner.y, _target.x, _target.y);
             _dir = point_direction(owner.x, owner.y, _target.x, _target.y);
+            if (_dis > 64 * GetStandRange(self))
+            {
+                _target = noone;
+                _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+            }
         }
         xTo = owner.x + lengthdir_x(8, _dir + random_range(-4, 4));
         yTo = owner.y + lengthdir_y(8, _dir + random_range(-4, 4));
@@ -163,7 +153,7 @@ switch (attackState)
                 audio_sound_pitch(_snd, random_range(0.9, 1.1));
                 var xx = x + random_range(-4, 4);
                 var yy = y + random_range(-8, 8);
-                var _p = PunchSwingCreate(xx, yy, _dir, 45, GetDmg(s));
+                var _p = PunchSwingCreate(xx, yy, _dir, 45, GetDmg(s) * dmgStack);
                 with (_p)
                 {
                     onHitSound = _sHit;
@@ -213,7 +203,7 @@ switch (attackState)
     case 1:
         var _snd = jj_play_audio(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
-        var _p = PunchSwingCreate(x, y, _dir, 45, GetDmg(s));
+        var _p = PunchSwingCreate(x, y, _dir, 45, GetDmg(s) * dmgStack);
         _p.onHitSound = global.sndKcAttack5;
         attackState++;
     break;
@@ -276,7 +266,7 @@ switch (attackState)
         if (attackStateTimer > 3)
         {
             var _dir = point_direction(x, y, _t.x, _t.y);
-            var _p = PunchSwingCreate(x, y, _dir, 45, GetDmg(s) + (_t.hpMax * 0.1));
+            var _p = PunchSwingCreate(x, y, _dir, 45, (GetDmg(s) * dmgStack) + (_t.hpMax * 0.1));
             with (_p)
             {
                 onHitSound = global.sndKcArmChop;
@@ -375,6 +365,7 @@ if (instance_exists(player))
 }
 if (instance_exists(STAND))
 {
+    STAND.dmgStack += 0.01;
     if (STAND.state != StandState.Idle)
     {
         life = 0;
@@ -419,6 +410,7 @@ if (life <= 0)
         audio_stop_sound(daBass);
     }
     instance_destroy(self);
+    exit;
 }
 
 #define TimeEraseDraw
@@ -448,7 +440,6 @@ yTo = owner.y - 8;
 angleTarget = 25 + (cos(current_time / 1000) * 5);
 image_xscale = -xPos;
 
-
 #define GiveKingCrimson(_owner) //stand
 
 var _skills = StandSkillInit();
@@ -469,6 +460,18 @@ _skills[sk, StandSkill.Damage] = 1.5;
 _skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.Desc] = Localize("scalpelThrowDesc");
+
+sk = StandState.SkillCOff;
+_skills[sk, StandSkill.Skill] = GroundSlam;
+_skills[sk, StandSkill.Icon] = global.sprSkillDetonate;
+_skills[sk, StandSkill.MaxCooldown] = 10;
+_skills[sk, StandSkill.Desc] = "ground slam:\nstrike the earth with a mighty blow.";
+
+sk = StandState.SkillDOff;
+_skills[sk, StandSkill.Skill] = Epitaph;
+_skills[sk, StandSkill.Icon] = global.sprSkillEpitaph;
+_skills[sk, StandSkill.MaxCooldown] = 20;
+_skills[sk, StandSkill.Desc] = "epitaph:\npredict the next moves of your opponent and evade them.";
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = KcBarrage;
@@ -504,12 +507,9 @@ _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.Desc] = Localize("timeSkipDesc");
 
 sk = StandState.SkillD;
-_skills[sk, StandSkill.Skill] = Epitaph;
-_skills[sk, StandSkill.MaxCooldown] = 20;
-_skills[sk, StandSkill.Icon] = global.sprSkillEpitaph;
-_skills[sk, StandSkill.SkillAlt] = TimeErase;
-_skills[sk, StandSkill.MaxCooldownAlt] = 35;
-_skills[sk, StandSkill.IconAlt] = global.sprSkillTimeErase;
+_skills[sk, StandSkill.Skill] = TimeErase;
+_skills[sk, StandSkill.MaxCooldown] = 35;
+_skills[sk, StandSkill.Icon] = global.sprSkillTimeErase;
 _skills[sk, StandSkill.Desc] = Localize("timeEraseDesc");
 
 
@@ -520,7 +520,7 @@ with (_s)
     sprite_index = global.sprKingCrimson;
     color = 0x3232ac;
     colorAlt = c_fuchsia;
-    dmgStack = 0;
+    dmgStack = 1;
     armChopRange = 72;
     armChopShow = false;
     epitaphActive = false;
@@ -542,9 +542,9 @@ return _s;
 
 #define KingCrimsonStep
 
-if (dmgStack < 1)
+if (state == StandState.Idle and dmgStack > 1 and !modTypeExists("timeErase"))
 {
-    dmgStack += DT / 3;
+    dmgStack = 1;
 }
 if (epitaphActive)
 {
@@ -570,7 +570,11 @@ if (armChopShow == true)
 
 #define KingCrimsonDrawGUI
 
-var _h = display_get_gui_height();
-//draw_sprite_ext(global.sprSteelBall, 0, 320, _h - 136, dmgStack * 2, dmgStack * 2, cos(current_time / 1000) * 5, color, 1);
+if (dmgStack > 1)
+{
+    var _h = display_get_gui_height();
+    //draw_sprite_ext(global.sprSteelBall, 0, 320, _h - 136, dmgStack * 2, dmgStack * 2, cos(current_time / 1000) * 5, color, 1);
+    draw_text_color(380, _h - 100, "dmg x" + string(dmgStack), color, color, colorAlt, colorAlt, 1);
+}
 
 
