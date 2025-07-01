@@ -109,6 +109,11 @@ if (_stand != undefined)
             STAND.hasHeart = _map[? "jjbamD4cHasHeart"];
             STAND.hasEye = _map[? "jjbamD4cHasEye"];
         break;
+        case "jjbamPd4c":
+            STAND.hasArm = _map[? "jjbamD4cHasArm"];
+            STAND.hasHeart = _map[? "jjbamD4cHasHeart"];
+            STAND.hasEye = _map[? "jjbamD4cHasEye"];
+        break;
         case "jjbamTsk":
             STAND.hasAct1 = _map[? "jjbamTuskA1"];
             STAND.hasAct2 = _map[? "jjbamTuskA2"];
@@ -142,6 +147,11 @@ if (instance_exists(player))
                 _map[? "jjbamTuskA4"] = _stand.hasAct4;
             break;
             case "jjbamD4c":
+                _map[? "jjbamD4cHasArm"] = _stand.hasArm;
+                _map[? "jjbamD4cHasHeart"] = _stand.hasHeart;
+                _map[? "jjbamD4cHasEye"] = _stand.hasEye;
+            break;
+            case "jjbamPd4c":
                 _map[? "jjbamD4cHasArm"] = _stand.hasArm;
                 _map[? "jjbamD4cHasHeart"] = _stand.hasHeart;
                 _map[? "jjbamD4cHasEye"] = _stand.hasEye;
