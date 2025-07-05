@@ -5,6 +5,11 @@ p = "Resources/Sounds/DIO/";
 global.sndDioSpawn = audio_create_stream(p + "dioSpawn.ogg");
 global.sndDioDeath = audio_create_stream(p + "dio_death.ogg");
 
+#region generic
+
+p = "Resources/Sounds/Generic/";
+global.sndEnergyOrb = audio_create_stream(p + "energy_orb.ogg");
+
 #region generic stand
 
 p = "Resources/Sounds/Generic/Stand/";

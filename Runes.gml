@@ -27,11 +27,11 @@ global.jjRuneRemover = ItemCreate(
     60 * 10,
     true
 )
-StructureAddItem(Structure.Forge, global.jjRuneRemover);
+//StructureAddItem(Structure.Forge, global.jjRuneRemover);
 
 #define RuneRemoverUse
 
-RunesRemove(player);
+//RunesRemove(player);
 GainItem(global.jjRuneRemover, 1);
 
 #define ConstructRuneBase
@@ -118,6 +118,20 @@ else
     GainItem(_new_rune.item_id, 1);
 }
 
+#define RuneRemove(_user, _index)
+
+var _stand = _user.myStand;
+if (instance_exists(_user) and instance_exists(_stand))
+{
+    if (_stand.runes[_index] != noone)
+    {
+        var _rune = _stand.runes[_index];
+        DropItem(_stand.x, _stand.y, _rune.item_id, 1);
+        ScriptCall(_rune.on_remove);
+        _stand.runes[_index] = noone;
+    }
+}
+
 #define RunesRemove(_user)
 
 var _stand = _user.myStand;
@@ -191,26 +205,42 @@ for (var i = 0; i < _len; i++)
 }
 return _total_energy;
 
-#define CreateEnergyOrb(_x, _y)
+#define CreateEnergyOrb(_x, _y, _depth)
 
-var _o = ModObjectSpawn(_x, _y, 0);
+var _o = ModObjectSpawn(_x, _y, _depth);
 with (_o)
 {
     sprite_index = global.sprEnergyOrb;
     energy_reward = 25;
+    life = 60;
     
     InstanceAssignMethod(self, "step", ScriptWrap(EnergyOrbStep));
 }
+return _o;
 
 #define EnergyOrbStep
 
-if (STAND.energy < STAND.max_energy and distance_to_object(player) < 16)
+if (life <= 0)
 {
-    mp_linear_step(player.x, player.y, 4, false);
-}
-
-if (STAND.energy < STAND.max_energy and place_meeting(x, y, player))
-{
-    STAND.energy += energy_reward;
     instance_destroy(self);
+    exit;
+}
+life -= DT;
+
+image_xscale = min(1, 0.5 + abs(sin(current_time / 500) * 2));
+image_yscale = min(1, 0.5 + abs(sin(current_time / 500) * 2));
+
+if (instance_exists(STAND))
+{
+    if (STAND.energy < STAND.max_energy and distance_to_object(player) < 32)
+    {
+        mp_linear_step(player.x, player.y, 4, false);
+    }
+    
+    if (STAND.energy < STAND.max_energy and place_meeting(x, y, player))
+    {
+        STAND.energy += energy_reward + (STAND.max_energy * 0.05);
+        jj_play_audio(global.sndEnergyOrb, 5, false);
+        instance_destroy(self);
+    }
 }

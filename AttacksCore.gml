@@ -237,7 +237,7 @@ if (instance_exists(self))
     if (rotate_with_direction) image_angle = direction;
     image_yscale = sign(dcos(image_angle));
     
-    if (stationary)
+    if (stationary and instance_exists(owner))
     {
         x = owner.x + lengthdir_x(distance, direction);
         y = owner.y + lengthdir_y(distance, direction);

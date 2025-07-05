@@ -59,17 +59,49 @@ if (combo > 0)
     draw_text_ext_transformed_color(_cx, _cy, string(combo), 1, 128, 1 + (combo / 100) + comboCounterLerp, 1 + (combo / 100) + comboCounterLerp, 0, _ccolor, _ccolor, _ccolor, _ccolor, 0.8);
 }
 
+//draw_text(mouse_x, mouse_y, string(energy_regen_mult));
+
 // draw runes
+var rx = xx - 128;
+var ry = yy - 40;
+
 var _rlen = array_length(runes);
 for (var i = 0; i < _rlen; i++)
 {
     if (runes[i] == noone)
     {
-        draw_circle_color(xx - 128 + (32 * i), yy - 32, 8, c_black, c_black, false);
+        draw_sprite_ext(global.sprRuneEnergize1, 0, rx, ry - (34 * i), 2, 2, 0, c_black, 1);
+        
+        if (point_in_rectangle(gx, gy, rx - 16, ry - 16 - (34 * i), rx + 16, ry + 16 - (34 * i)))
+        {
+            var txt = "no rune";
+            draw_set_halign(fa_left);
+            draw_set_valign(fa_top);
+            draw_text(rx + 32, (ry - string_height(txt)) + 16 - (34 * i), txt);
+            draw_set_halign(fa_center);
+            draw_set_valign(fa_middle);
+        }
     }
     else
     {
-        draw_sprite(runes[i].sprite, 0, xx - 128 + (32 * i), yy - 32);
+        draw_sprite_ext(runes[i].sprite, 0, rx, ry - (34 * i), 2, 2, 0, c_white, 1);
+        
+        if (point_in_rectangle(gx, gy, rx - 16, ry - 16 - (34 * i), rx + 16, ry + 16 - (34 * i)))
+        {
+            var txt = "click to remove";
+            // draw_set_color(c_dkgray);
+            // draw_rectangle(rx + 32, ry - string_height(txt) - (34 * i), rx + string_width(txt), ry + string_height(txt) - (34 * i), false);
+            // draw_set_color(c_white);
+            draw_set_halign(fa_left);
+            draw_set_valign(fa_top);
+            draw_text(rx + 32, (ry - string_height(txt)) + 16 - (34 * i), txt);
+            draw_set_halign(fa_center);
+            draw_set_valign(fa_middle);
+            if (mouse_check_button_pressed(mb_left))
+            {
+                RuneRemove(player, i);
+            }
+        }
     }
 }
 
@@ -240,6 +272,7 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
                         }
                         skills[i, StandSkill.Hold] = 0;
                         energy -= skills[i, StandSkill.EnergyCost];
+                        energy_regen_mult = 1;
                     }
                 }
                 else
@@ -404,8 +437,10 @@ if (instance_exists(owner))
 max_energy = GetRunesMaxEnergy(self);
 if (max_energy > 0)
 {
-    energy += max_energy * 0.0005;
+    energy += (max_energy * 0.0005) * energy_regen_mult;
+    energy_regen_mult += DT * 0.5;
     energy = clamp(energy, 0, max_energy);
+    energy_regen_mult = clamp(energy_regen_mult, 1, 8);
 }
 
 comboCounterLerp = lerp(comboCounterLerp, 0, 0.1);
@@ -620,6 +655,7 @@ with (_stand)
     runes = [noone, noone, noone];
     max_energy = 0;
     energy = max_energy;
+    energy_regen_mult = 1;
     // skills
     skills = array_clone(_skills);
     

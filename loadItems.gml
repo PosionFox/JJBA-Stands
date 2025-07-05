@@ -282,7 +282,7 @@ global.jjGreenBaby = ItemCreate(
     ],
     ScriptWrap(GreenBabyOnUse)
 );
-StructureAddItem(Structure.Forge, global.jjGreenBaby);
+StructureAddItem(Structure.SpiritCrystal, global.jjGreenBaby);
 
 global.jjCamera = ItemCreate(
     undefined,
