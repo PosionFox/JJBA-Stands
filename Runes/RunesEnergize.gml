@@ -2,7 +2,7 @@
 global.jjRuneEnergize1 = ItemCreate(
     undefined,
     Localize("runeOf") + " " + Localize("runeEnergizeName") + " " + Localize("commonName"),
-    Localize("runeEnergizeDesc") + " 100.",
+    Localize("runeEnergizeDesc") + " 200.",
     global.sprRuneEnergize1,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -18,7 +18,7 @@ global.jjRuneEnergize1 = ItemCreate(
 global.jjRuneEnergize2 = ItemCreate(
     undefined,
     Localize("runeOf") + " " + Localize("runeEnergizeName") + " " + Localize("uncommonName"),
-    Localize("runeEnergizeDesc") + " 200.",
+    Localize("runeEnergizeDesc") + " 250.",
     global.sprRuneEnergize2,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -34,7 +34,7 @@ global.jjRuneEnergize2 = ItemCreate(
 global.jjRuneEnergize3 = ItemCreate(
     undefined,
     Localize("runeOf") + " " + Localize("runeEnergizeName") + " " + Localize("rareName"),
-    Localize("runeEnergizeDesc") + " 400.",
+    Localize("runeEnergizeDesc") + " 300.",
     global.sprRuneEnergize3,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -50,7 +50,7 @@ global.jjRuneEnergize3 = ItemCreate(
 global.jjRuneEnergize4 = ItemCreate(
     undefined,
     Localize("runeOf") + " " + Localize("runeEnergizeName") + " " + Localize("epicName"),
-    Localize("runeEnergizeDesc") + " 800.",
+    Localize("runeEnergizeDesc") + " 350.",
     global.sprRuneEnergize4,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -66,7 +66,7 @@ global.jjRuneEnergize4 = ItemCreate(
 global.jjRuneEnergize5 = ItemCreate(
     undefined,
     Localize("runeOf") + " " + Localize("runeEnergizeName") + " " + Localize("legendaryName"),
-    Localize("runeEnergizeDesc") + " 1600.",
+    Localize("runeEnergizeDesc") + " 400.",
     global.sprRuneEnergize5,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -82,7 +82,7 @@ global.jjRuneEnergize5 = ItemCreate(
 global.jjRuneEnergize6 = ItemCreate(
     undefined,
     Localize("runeOf") + " " + Localize("runeEnergizeName") + " " + Localize("mythicalName"),
-    Localize("runeEnergizeDesc") + " 3200.",
+    Localize("runeEnergizeDesc") + " 450.",
     global.sprRuneEnergize6,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -98,7 +98,7 @@ global.jjRuneEnergize6 = ItemCreate(
 global.jjRuneEnergize7 = ItemCreate(
     undefined,
     Localize("runeOf") + " " + Localize("runeEnergizeName") + " " + Localize("ascendedName"),
-    Localize("runeEnergizeDesc") + " 6400.",
+    Localize("runeEnergizeDesc") + " 500.",
     global.sprRuneEnergize7,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -114,7 +114,7 @@ global.jjRuneEnergize7 = ItemCreate(
 global.jjRuneEnergize8 = ItemCreate(
     undefined,
     Localize("runeOf") + " " + Localize("runeEnergizeName") + " " + Localize("ultimateName"),
-    Localize("runeEnergizeDesc") + " 12800.",
+    Localize("runeEnergizeDesc") + " 550.",
     global.sprRuneEnergize8,
     ItemType.Consumable,
     ItemSubType.Potion,
