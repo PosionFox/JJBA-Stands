@@ -9,8 +9,15 @@ if (_id == global.jjHTTPPost)
 {
     if (_status == 0)
     {
-        var _data = string_split(_result, ":")[51];
-        var _unix = real(string_split(_data, ",")[0]);
+        var _data = string_split(_result, ",");
+        var _unix = 0;
+        for (var i = 0; i < array_length(_data); i++)
+        {
+            if (string_count("time_updated", _data[i]) > 0)
+            {
+                _unix = real(string_split(_data[i], ":")[1]);
+            }
+        }
         global.jjSteamVersion = unix_to_iso8601(_unix);
     }
 }
