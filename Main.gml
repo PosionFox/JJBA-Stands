@@ -61,6 +61,7 @@ global.jjMenuMinIndex = 0;
 global.jjMenuMaxIndex = 8;
 // settings
 global.jjSettAudioVolume = 1.0;
+global.jjSettStandTalkIdle = true;
 global.jjSettProjShadows = true;
 global.jjSettProjCollisions = false;
 

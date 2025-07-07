@@ -572,13 +572,19 @@ if (_sv != undefined)
     global.jjSettAudioVolume = _sv;
 }
 
-var _cs = draw_checkbox(_cx + 64, _cy - 32 + (48 * 1), 32, "attack shadows", global.jjSettProjShadows);
+var _st = draw_checkbox(_cx + 64, _cy - 32 + (48 * 1), 32, "stand talk when idle", global.jjSettStandTalkIdle);
+if (_st != undefined)
+{
+    global.jjSettStandTalkIdle = _st;
+}
+
+var _cs = draw_checkbox(_cx + 64, _cy - 32 + (48 * 2), 32, "attack shadows", global.jjSettProjShadows);
 if (_cs != undefined)
 {
     global.jjSettProjShadows = _cs;
 }
 
-var _cc = draw_checkbox(_cx + 64, _cy - 32 + (48 * 2), 32, "attack collisions", global.jjSettProjCollisions);
+var _cc = draw_checkbox(_cx + 64, _cy - 32 + (48 * 3), 32, "attack collisions", global.jjSettProjCollisions);
 if (_cc != undefined)
 {
     global.jjSettProjCollisions = _cc;

@@ -137,11 +137,12 @@ _skills[sk, StandSkill.MaxCooldownAlt] = 12;
 _skills[sk, StandSkill.Desc] = Localize("barrageDesc");
 
 sk = StandState.SkillB;
-_skills[sk, StandSkill.Skill] = SpStrongPunch;
+_skills[sk, StandSkill.Skill] = StrongPunch;
 _skills[sk, StandSkill.Damage] = 15;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 8;
+_skills[sk, StandSkill.Vars] = { cry_sound : global.sndSpStrongPunch, hit_sound : global.sndStrongPunch };
 _skills[sk, StandSkill.SkillAlt] = MeleePull;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillMeleePull;
 _skills[sk, StandSkill.MaxCooldownAlt] = 8;

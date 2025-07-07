@@ -217,7 +217,19 @@ var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
 switch (attackState)
 {
     case 0:
-        jj_play_audio(global.sndStwNazimuzo, 0, false);
+        var _sn = GetSkillVars(skill, "cast_sound");
+        if (_sn != undefined)
+        {
+            if (is_array(_sn))
+            {
+                var _i = irandom(array_length(_sn) - 1);
+                jj_play_audio(_sn[_i], 0, false);
+            }
+            else
+            {
+                jj_play_audio(_sn, 0, false);
+            }
+        }
         attackState++;
     break;
     case 1:
@@ -547,6 +559,7 @@ sk = StandState.SkillCOff;
 _skills[sk, StandSkill.Skill] = StwDivineBlood;
 _skills[sk, StandSkill.Icon] = global.sprSkillDivineBlood;
 _skills[sk, StandSkill.MaxCooldown] = 15;
+_skills[sk, StandSkill.Vars] = { cast_sound : global.sndStwNazimuzo };
 _skills[sk, StandSkill.Desc] = Localize("divineBloodDesc");
 
 sk = StandState.SkillDOff;

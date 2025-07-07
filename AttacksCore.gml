@@ -85,10 +85,10 @@ var _final_damage = _damage * (powerMultiplier * GetStandDestructivePower(self))
 
 return _final_damage;
 
-#define GetSkillVars(skill)
+#define GetSkillVars(skill, _name)
 
-var _vars = skills[skill, StandSkill.Vars];
-if (altAttack) _vars = skills[skill, StandSkill.VarsAlt];
+var _vars = variable_instance_get(skills[skill, StandSkill.Vars], _name, undefined);
+if (altAttack) _vars = variable_instance_get(skills[skill, StandSkill.VarsAlt], _name, undefined);
 return _vars;
 
 #define ProjHitTarget(_target)
@@ -667,6 +667,7 @@ image_xscale = mouse_x > owner.x ? 1 : -1;
 switch (attackState)
 {
     case 0:
+        Trace(barrageData.sound);
         if barrageData.sound != noone jj_play_audio(barrageData.sound, 10, false);
         attackState++;
     break;
@@ -748,21 +749,28 @@ yTo = _yy;
 switch (attackState)
 {
     case 0:
+        var _sc = GetSkillVars(skill, "cry_sound");
+        if (_sc) jj_play_audio(_sc, 0, false);
+        attackState++;
+    break;
+    case 1:
         if (attackStateTimer >= 0.8)
         {
             attackState++;
         }
-        break;
-    case 1:
+    break;
+    case 2:
+        var _hs = GetSkillVars(skill, "hit_sound");
         var _p = PunchCreate(x, y, _dir, GetDmg(skill), 3);
         with (_p)
         {
             crit_change = 0.2;
             RollCrit();
             onHitSound = global.sndStrongPunch;
+            if (_hs) onHitSound = _hs;
         }
         EndAtk(skill);
-        break;
+    break;
 }
 attackStateTimer += DT * GetStandSpeed(self);
 

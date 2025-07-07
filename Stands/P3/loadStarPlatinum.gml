@@ -80,36 +80,6 @@ switch (attackState)
 }
 attackStateTimer += DT * GetStandSpeed(self);
 
-#define SpStrongPunch(method, skill)
-
-var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
-var _dir = point_direction(player.x, player.y, mouse_x, mouse_y)
-
-var _xx = player.x + lengthdir_x(GetStandReach(self), _dir);
-var _yy = player.y + lengthdir_y(GetStandReach(self), _dir);
-xTo = _xx;
-yTo = _yy;
-
-switch (attackState)
-{
-    case 0:
-        jj_play_audio(global.sndSpStrongPunch, 0, false);
-        attackState++;
-    break;
-    case 1:
-        if (attackStateTimer >= 0.8)
-        {
-            attackState++;
-        }
-        break;
-    case 2:
-        var _p = PunchCreate(x, y, _dir, GetDmg(skill), 3);
-        _p.onHitSound = global.sndStrongPunch;
-        EndAtk(skill);
-        break;
-}
-attackStateTimer += DT * GetStandSpeed(self);
-
 #define StarFinger(method, skill) //attacks
 
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
@@ -123,7 +93,8 @@ image_xscale = mouse_x > player.x ? 1 : -1;
 switch (attackState)
 {
     case 0:
-        jj_play_audio(global.sndSpStarFinger, 5, false);
+        var _ss = GetSkillVars(skill, "star_sound");
+        if (_ss) jj_play_audio(_ss, 5, false);
         attackState++;
     break;
     case 1:
@@ -133,6 +104,8 @@ switch (attackState)
         }
     break;
     case 2:
+        var _fs = GetSkillVars(skill, "finger_sound");
+        if (_fs) jj_play_audio(_fs, 5, false);
         var _dmg = GetDmg(skill);
         var _p = ProjectileCreate(x, y);
         with (_p)
@@ -261,11 +234,12 @@ _skills[sk, StandSkill.MaxCooldownAlt] = 10;
 _skills[sk, StandSkill.Desc] = Localize("barrageDesc");
 
 sk = StandState.SkillB;
-_skills[sk, StandSkill.Skill] = SpStrongPunch;
+_skills[sk, StandSkill.Skill] = StrongPunch;
 _skills[sk, StandSkill.Damage] = 25;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 8;
+_skills[sk, StandSkill.Vars] = { cry_sound : global.sndSpStrongPunch };
 _skills[sk, StandSkill.SkillAlt] = MeleePull;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillMeleePull;
 _skills[sk, StandSkill.MaxCooldownAlt] = 8;
@@ -279,6 +253,7 @@ _skills[sk, StandSkill.DamageScale] = 0.05;
 _skills[sk, StandSkill.Icon] = global.sprSkillStarFinger;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 0.7;
+_skills[sk, StandSkill.Vars] = { star_sound : global.sndSpStarFinger };
 _skills[sk, StandSkill.Desc] = Localize("starFingerDesc");
 
 sk = StandState.SkillD;

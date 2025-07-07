@@ -147,6 +147,16 @@ else
 
 #define TwKnifeWall(method, skill)
 
+var _kws = GetSkillVars(skill, "toss_sound");
+if (_kws)
+{
+    var _c = random(1);
+    if (_c < 0.5)
+    {
+        jj_play_audio(_kws, 0, false);
+    }
+}
+
 var _dir = owner.attack_direction;
 if modTypeExists("timestop")
 {
@@ -223,7 +233,7 @@ _skills[sk, StandSkill.MaxCooldown] = 10;
 _skills[sk, StandSkill.Desc] = Localize("stopSignDesc");
 
 sk = StandState.SkillCOff;
-_skills[sk, StandSkill.Skill] = TwBloodDrain;
+_skills[sk, StandSkill.Skill] = StwDivineBlood;
 _skills[sk, StandSkill.Icon] = global.sprSkillDivineBlood;
 _skills[sk, StandSkill.MaxCooldown] = 15;
 _skills[sk, StandSkill.Desc] = Localize("bloodDrainDesc");

@@ -204,6 +204,7 @@ if (instance_exists(player) and instance_exists(_stand))
 
 // mod settings
 _map[? "jjAudioVolume"] = global.jjSettAudioVolume;
+_map[? "jjSettStandTalkIdle"] = global.jjSettStandTalkIdle;
 _map[? "jjSettProjShadows"] = global.jjSettProjShadows;
 _map[? "jjSettProjCollisions"] = global.jjSettProjCollisions;
 
@@ -351,6 +352,15 @@ if (_map[? "jjAudioVolume"] != undefined)
 else
 {
     global.jjSettAudioVolume = 1.0;
+}
+
+if (_map[? "jjSettStandTalkIdle"] != undefined)
+{
+    global.jjSettStandTalkIdle = _map[? "jjSettStandTalkIdle"];
+}
+else
+{
+    global.jjSettStandTalkIdle = true;
 }
 
 if (_map[? "jjSettProjShadows"] != undefined)

@@ -141,7 +141,7 @@ switch (attackState)
     case 2:
         if (!_sc and !_wc)
         {
-            var _pskin = GetSkillVars(skill).portalSkin;
+            var _pskin = GetSkillVars(skill, "portalSkin");
             var _p1 = SfPortalCreate(xTo, yTo);
             _p1.subtype = "sfP1";
             _p1.sprite_index = _pskin;
