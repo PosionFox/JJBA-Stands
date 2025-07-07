@@ -133,7 +133,7 @@ global.jjbamDisc = ItemCreate(
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
-    333,
+    1,
     0,
     0,
     [
