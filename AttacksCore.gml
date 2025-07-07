@@ -667,7 +667,6 @@ image_xscale = mouse_x > owner.x ? 1 : -1;
 switch (attackState)
 {
     case 0:
-        Trace(barrageData.sound);
         if barrageData.sound != noone jj_play_audio(barrageData.sound, 10, false);
         attackState++;
     break;
