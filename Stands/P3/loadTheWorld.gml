@@ -284,6 +284,18 @@ with (_s)
     }
     barrageData.sound = global.sndTwBarrage;
     saveKey = "jjbamTw";
+    
+    variants[0] = [sprite_index, rarity.tier];
+    variants[1] = [global.sprTWG, Rarity.Uncommon];
+    variants[2] = [global.sprSpookyWorld, Rarity.Epic];
+    variants[3] = [global.sprTWGH, Rarity.Legendary];
+    variants[4] = [global.sprTWOVA, Rarity.Legendary];
+    variants[5] = [global.sprTWR, Rarity.Mythical];
+    variants[6] = [global.sprTWRu, Rarity.Mythical];
+    variants[7] = [global.sprTheWorldFrozen, Rarity.Event];
+    
+    evolutions[0] = [global.sprTWOH, global.sprDiosDiary, Rarity.Common];
+    
     InstanceAssignMethod(self, "destroy", ScriptWrap(TheWorldDestroy), true);
 }
 return _s;

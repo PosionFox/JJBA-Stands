@@ -427,5 +427,8 @@ with (_s)
     summonSound = global.sndKqbtdSummon;
     discType = global.jjbamDiscKqbtd;
     saveKey = "jjbamKqbtd";
+    
+    variants[0] = [sprite_index, rarity.tier];
+    variants[1] = [global.sprSQBTD, Rarity.Epic];
 }
 return _s;

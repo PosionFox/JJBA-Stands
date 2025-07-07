@@ -299,6 +299,8 @@ with (_s)
     saveKey = "jjbamGe";
     
     barrageData.hitSound = global.sndGeHit;
+    
+    evolutions[0] = [global.sprGER, global.sprArrowBeetle, Rarity.Common];
 }
 return _s;
 

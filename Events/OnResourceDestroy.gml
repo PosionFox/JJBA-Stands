@@ -14,3 +14,11 @@ if (random(1) <= 0.04)
         DropItem(_ins.x, _ins.y, global.jjStarShard, _a);
     }
 }
+
+if (instance_exists(player))
+{
+    if (instance_exists(STAND))
+    {
+        STAND.experience += (_ins.hpMax * 0.5) * STAND.development_potential;
+    }
+}

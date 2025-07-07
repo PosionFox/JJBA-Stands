@@ -32,12 +32,14 @@ with (_s)
     name = "Star Platinum\nOver Heaven";
     sprite_index = global.sprSPOH;
     color = c_white;
-    color = c_yellow;
+    colorAlt = c_yellow;
     UpdateRarity(Rarity.Ascended);
     saveKey = "jjbamSpoh";
     discType = global.jjbamDiscSpoh;
     auraParticleSprite = global.sprStandParticle5;
     
     skills[StandState.SkillD, StandSkill.SkillAlt] = AttackHandler;
+    
+    evolutions = [];
 }
 return _s;

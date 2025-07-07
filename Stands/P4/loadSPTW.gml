@@ -177,5 +177,9 @@ with (_s)
     
     knifeSprite = global.sprKnife;
     barrageData.sound = global.sndSpBarrage;
+    
+    variants[0] = [sprite_index, rarity.tier];
+    variants[1] = [global.sprTimeEmperor, Rarity.Epic];
+    variants[2] = [global.sprEP, Rarity.Ultimate];
 }
 return _s;

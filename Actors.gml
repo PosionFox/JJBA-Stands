@@ -8,6 +8,7 @@ with (_o)
     owner = other;
     type = "Actor";
     sprite_index = sprPlayerIdle;
+    mask_index = sprPlayerIdle;
     
     level = 1;
     maxSpd = 1;
@@ -114,6 +115,7 @@ depth = -y;
 
 draw_sprite_ext(sprShadow, 0, x, y + 3, image_xscale, image_yscale, 0, c_white, 0.5);
 draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
+//draw_rectangle_color(bbox_left, bbox_top, bbox_right, bbox_bottom, c_red, c_red, c_red, c_red, true);
 
 #define ShaCreate(_x, _y, _dmg)
 

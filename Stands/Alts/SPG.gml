@@ -36,5 +36,7 @@ with (_s)
     UpdateRarity(Rarity.Uncommon);
     saveKey = "jjbamSpg";
     discType = global.jjbamDiscSpg;
+    
+    evolutions = [];
 }
 return _s;

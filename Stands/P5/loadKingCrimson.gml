@@ -543,6 +543,15 @@ with (_s)
     teEndSound = global.sndKcTeEnd;
     
     saveKey = "jjbamKc";
+    
+    variants[0] = [sprite_index, rarity.tier];
+    variants[1] = [global.sprKCG, Rarity.Uncommon];
+    variants[2] = [global.sprKingCrimsonAqua, Rarity.Rare];
+    variants[3] = [global.sprKingCrimsonMono, Rarity.Legendary];
+    variants[4] = [global.sprKingCrimsonManga, Rarity.Mythical];
+    variants[5] = [global.sprKCE, Rarity.Ascended];
+    variants[6] = [global.sprKCF, Rarity.Event];
+    
     InstanceAssignMethod(self, "step", ScriptWrap(KingCrimsonStep));
     InstanceAssignMethod(self, "draw", ScriptWrap(KingCrimsonDraw), false);
     InstanceAssignMethod(self, "drawGUI", ScriptWrap(KingCrimsonDrawGUI), false);

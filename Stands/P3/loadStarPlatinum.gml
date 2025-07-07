@@ -138,10 +138,10 @@ switch (attackState)
         with (_p)
         {
             subtype = "starFinger";
-            owner = STAND;
+            owner = other;
             sprite_index = global.sprStarPlatinumFinger;
             image_xscale = 0;
-            image_blend = STAND.color;
+            image_blend = other.color;
             damage = _dmg;
             stationary = true;
             canDespawnInTs = true;
@@ -151,6 +151,7 @@ switch (attackState)
             despawnTime = 1;
             
             InstanceAssignMethod(self, "step", ScriptWrap(StarFingerStep));
+            //InstanceAssignMethod(self, "draw", ScriptWrap(StarFingerDraw));
         }
         attackState++;
     break;
@@ -168,28 +169,26 @@ attackStateTimer += DT * GetStandSpeed(self);
 
 #define StarFingerStep
 
-var _dir = point_direction(STAND.x, STAND.y, mouse_x, mouse_y);
-direction = _dir;
-
 image_xscale = lerp(image_xscale, 1, 0.1);
 var w = image_xscale * (sprite_width / 2);
 x = STAND.x + lengthdir_x(w, direction);
 y = STAND.y + lengthdir_y(w, direction);
+image_angle = direction;
 
-var _col1 = collision_line(owner.x, owner.y, owner.x + lengthdir_x(w, direction), owner.y + lengthdir_y(w, direction), ENEMY, false, true); 
-if (_col1)
+for (var i = array_length(owner.targets) - 1; i >= 0; i--)
 {
-    ProjHitTarget(_col1);
-}
-
-var _col2 = collision_line(owner.x, owner.y, owner.x + lengthdir_x(w, direction), owner.y + lengthdir_y(w, direction), MOBJ, false, true); 
-if (_col2)
-{
-    if bool("hp" in _col2)
+    var _col = collision_line(owner.x, owner.y, owner.x + lengthdir_x(sprite_width, image_angle), owner.y + lengthdir_y(sprite_width, image_angle), owner.targets[i], false, true); 
+    if (_col)
     {
-        ProjHitTarget(_col2);
+        var valid = true;
+        if (_col.object_index == MOBJ and !("hp" in _col)) valid = false;
+        if (valid) ProjHitTarget(_col);
     }
 }
+
+#define StarFingerDraw
+
+draw_line_width(owner.x, owner.y, owner.x + lengthdir_x(sprite_width, image_angle), owner.y + lengthdir_y(sprite_width, image_angle), 4);
 
 #define SpTimestop(m, s)
 
@@ -304,5 +303,18 @@ with (_s)
     
     barrageData.sound = global.sndSpBarrage;
     knifeSprite = global.sprKnife;
+    
+    variants[0] = [sprite_index, rarity.tier];
+    variants[1] = [global.sprSPG, Rarity.Uncommon];
+    variants[2] = [global.sprSPP, Rarity.Epic];
+    variants[3] = [global.sprSPOVA, Rarity.Legendary];
+    variants[4] = [global.sprSPR, Rarity.Mythical];
+    variants[5] = [global.sprSPOH, Rarity.Ascended];
+    variants[6] = [global.sprSPROH, Rarity.Ultimate];
+    
+    evolutions[0] = [global.sprSptw, "lv100", Rarity.Common];
+    evolutions[1] = [global.sprTimeEmperor, "lv100", Rarity.Epic];
+    evolutions[2] = [global.sprEP, "lv100", Rarity.Ultimate];
+    evolutions[3] = [global.sprSptw, global.sprJotarosHat, Rarity.Common];
 }
 return _s;

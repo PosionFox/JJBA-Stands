@@ -300,4 +300,7 @@ with (_s)
     summonSound = global.sndKqSummon;
     discType = global.jjbamDiscKq;
     saveKey = "jjbamKq";
+    
+    evolutions[0] = [global.sprKillerQueenBtD, global.sprArrowBeetle, Rarity.Common];
+    evolutions[1] = [global.sprSQBTD, global.sprArrowBeetle, Rarity.Epic];
 }

@@ -157,5 +157,7 @@ with (_s)
     skills[StandState.SkillA, StandSkill.Skill] = TwovaBarrage;
     skills[StandState.SkillB, StandSkill.Skill] = TwovaStrongPunch;
     skills[StandState.SkillD, StandSkill.Skill] = TwovaTimestop;
+    
+    evolutions = [];
 }
 return _s;

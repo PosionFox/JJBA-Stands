@@ -126,6 +126,9 @@ if (_stand != undefined)
 #define SaveData
 
 var _map = ds_map_create();
+
+_map[? "jjNewGame"] = global.jjNewGame;
+
 var _stand; // not using STAND macro because it errors on new worlds
 if ("myStand" in player) { _stand = player.myStand; }
 
@@ -200,7 +203,9 @@ if (instance_exists(player) and instance_exists(_stand))
 }
 
 // mod settings
-_map[? "jjAudioVolume"] = global.jjAudioVolume;
+_map[? "jjAudioVolume"] = global.jjSettAudioVolume;
+_map[? "jjSettProjShadows"] = global.jjSettProjShadows;
+_map[? "jjSettProjCollisions"] = global.jjSettProjCollisions;
 
 // stand slots
 for (var i = 0; i < array_length(global.jjStandSlots); i++)
@@ -216,6 +221,15 @@ ds_map_destroy(_map);
 #define LoadData
 
 var _map = ModSaveDataFetch();
+
+if (_map[? "jjNewGame"] != undefined)
+{
+    global.jjNewGame = _map[? "jjNewGame"];
+}
+else
+{
+    global.jjNewGame = false;
+}
 
 var _standCompatibility = _map[? "pAbility"];
 var _stand = _map[? "jjbamAbility"];
@@ -332,11 +346,29 @@ if (instance_exists(player) and instance_exists(STAND))
 
 if (_map[? "jjAudioVolume"] != undefined)
 {
-    global.jjAudioVolume = _map[? "jjAudioVolume"];
+    global.jjSettAudioVolume = _map[? "jjAudioVolume"];
 }
 else
 {
-    global.jjAudioVolume = 1.0;
+    global.jjSettAudioVolume = 1.0;
+}
+
+if (_map[? "jjSettProjShadows"] != undefined)
+{
+    global.jjSettProjShadows = _map[? "jjSettProjShadows"];
+}
+else
+{
+    global.jjSettProjShadows = true;
+}
+
+if (_map[? "jjSettProjCollisions"] != undefined)
+{
+    global.jjSettProjCollisions = _map[? "jjSettProjCollisions"];
+}
+else
+{
+    global.jjSettProjCollisions = false;
 }
 
 #endregion
@@ -349,10 +381,12 @@ for (var i = 0; i < array_length(global.jjStandSlots); i++)
     if (_map[? _key] != undefined)
     {
         global.jjStandSlots[i] = _map[? _key];
+        global.jjMenuStorageNames[i] = string_split(_map[? _key], ":")[1];
     }
     else
     {
-        global.jjStandSlots[i] = undefined
+        global.jjStandSlots[i] = undefined;
+        global.jjMenuStorageNames[i] = undefined;
     }
 }
 

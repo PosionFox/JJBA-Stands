@@ -206,5 +206,7 @@ with (_s)
     skills[StandState.SkillC, StandSkill.Skill] = SprStarFinger;
     skills[StandState.SkillD, StandSkill.Skill] = SprTimestop;
     skills[StandState.SkillD, StandSkill.SkillAlt] = AttackHandler;
+    
+    evolutions = [];
 }
 return _s;

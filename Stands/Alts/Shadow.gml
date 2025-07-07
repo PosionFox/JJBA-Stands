@@ -74,5 +74,8 @@ with (_s)
     auraParticleSprite = global.sprStandParticle2;
     skills[StandState.SkillD, StandSkill.SkillAlt] = ShadowEvolve;
     //skills[StandState.SkillDOff, StandSkill.IconAlt] = global.sprSkillSkip;
+    
+    evolutions = [];
+    evolutions[0] = [global.sprTWR, "lv100", Rarity.Mythical];
 }
 return _s;

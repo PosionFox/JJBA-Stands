@@ -36,5 +36,7 @@ with (_s)
     UpdateRarity(Rarity.Legendary);
     saveKey = "jjbamTwgh";
     discType = global.jjbamDiscTwgh;
+    
+    evolutions = [];
 }
 return _s;

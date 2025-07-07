@@ -431,6 +431,17 @@ with (_s)
     
     discs = 0;
     
+    variants[0] = [sprite_index, rarity.tier];
+    variants[1] = [global.sprGreenSnake, Rarity.Uncommon];
+    variants[2] = [global.sprBlueSnake, Rarity.Rare];
+    variants[3] = [global.sprPurpleSnake, Rarity.Epic];
+    variants[4] = [global.sprYellowSnake, Rarity.Legendary];
+    variants[5] = [global.sprRedSnake, Rarity.Mythical];
+    variants[6] = [global.sprOrangeSnake, Rarity.Ascended];
+    variants[7] = [global.sprPinkSnake, Rarity.Ultimate];
+    
+    evolutions[0] = [global.sprCMoon, "???", Rarity.Common];
+    
     InstanceAssignMethod(self, "step", ScriptWrap(WhiteSnakeStep));
     InstanceAssignMethod(self, "drawGUI", ScriptWrap(WhiteSnakeDrawGUI));
 }

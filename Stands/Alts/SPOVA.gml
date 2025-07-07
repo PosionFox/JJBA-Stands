@@ -120,5 +120,7 @@ with (_s)
     skills[StandState.SkillB, StandSkill.Skill] = SpovaStrongPunch;
     skills[StandState.SkillD, StandSkill.Skill] = SpovaTimestop;
     skills[StandState.SkillD, StandSkill.SkillAlt] = AttackHandler;
+    
+    evolutions = [];
 }
 return _s;

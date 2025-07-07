@@ -93,11 +93,7 @@ if (sun_immunity == false)
     {
         var _c = EffectCircleCreate(x, y, 32, 4);
         _c.lifeMulti = 2;
-        RunesErase(self);
-        RemoveStand(self);
-        global.enemyDioSpawned = false;
-        instance_destroy(self);
-        exit;
+        state = "destroy";
     }
 }
 
@@ -222,7 +218,9 @@ switch (state)
         }
     break;
     case "destroy":
+        RunesErase(self);
         RemoveStand(self);
+        global.enemyDioSpawned = false;
         instance_destroy(self);
         exit;
     break;

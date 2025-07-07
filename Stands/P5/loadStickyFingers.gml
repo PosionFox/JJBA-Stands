@@ -371,5 +371,10 @@ with (_s)
     barrageData.hitSound = global.sndSfPunch;
     barrageData.hitEvent = ZipperInjury;
     barrageData.hitEventArg = [x, y];
+    
+    variants[0] = [sprite_index, rarity.tier];
+    variants[1] = [global.sprSFG, Rarity.Uncommon];
+    variants[2] = [global.sprSFR, Rarity.Uncommon];
+    variants[3] = [global.sprP03, Rarity.Mythical];
 }
 return _s;

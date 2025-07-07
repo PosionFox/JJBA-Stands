@@ -357,6 +357,9 @@ with (_s)
     }
     saveKey = "jjbamSnw";
     
+    variants[0] = [sprite_index, rarity.tier];
+    variants[1] = [global.sprSoftAndWetGolden, Rarity.Legendary];
+    
     InstanceAssignMethod(self, "destroy", ScriptWrap(SnWDestroy), true);
 }
 return _s;

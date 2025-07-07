@@ -52,6 +52,9 @@ with (_s)
     auraParticleSprite = global.sprStandParticle3;
     saveKey = "jjbamPd4c";
     discType = global.jjbamDiscPd4c;
+    
+    evolutions[0] = [global.sprPD4CLT, [global.sprLeftArm, global.sprEye], Rarity.Epic];
+    evolutions[1] = [global.sprEvergreen, [global.sprLeftArm, global.sprEye], Rarity.Ascended];
 }
 return _s;
 

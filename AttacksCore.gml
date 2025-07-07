@@ -169,7 +169,7 @@ var _o = ModObjectSpawn(_x, _y, 0);
 with (_o)
 {
     sprite_index = global.sprBullet;
-    mask_index = global.sprHitbox16x16;
+    mask_index = global.sprHitbox8x8;
     baseAnimSpd = 1;
     image_speed = baseAnimSpd;
     visible = false;
@@ -323,7 +323,7 @@ if (instance_exists(self))
 
 #define ProjectileDraw
 
-if (shadow_enabled)
+if (global.jjSettProjShadows and shadow_enabled)
 {
     draw_sprite_ext(
         sprShadow,
@@ -349,6 +349,11 @@ draw_sprite_ext(
     image_blend,
     image_alpha
 );
+
+if (global.jjSettProjCollisions)
+{
+    draw_rectangle_color(bbox_left, bbox_top, bbox_right, bbox_bottom, c_red, c_red, c_red, c_red, true);
+}
 
 #define ProjectileDestroy
 

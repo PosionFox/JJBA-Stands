@@ -737,8 +737,8 @@ if (instance_exists(STAND))
         case "Killer Queen":
             RemoveStand(player);
             var _stands = [
-                [GiveKillerQueenBtD, 30],
-                [GiveSQBTD, 1]
+                [GiveKillerQueenBtD, global.common_arrow_weight],
+                [GiveSQBTD, global.epic_arrow_weight]
             ]
             script_execute(random_weight(_stands), player);
             Trace(Localize("requiemArrowMerge"));
@@ -823,8 +823,8 @@ else
 {
     var _standPool =
     [
-        [GiveSoftAndWet, 100],
-        [GiveSnwg, 5]
+        [GiveSoftAndWet, global.common_arrow_weight],
+        [GiveSnwg, global.legendary_arrow_weight]
     ]
     script_execute(random_weight(_standPool), player);
 }
@@ -857,8 +857,8 @@ else
 {
     var _standPool =
     [
-        [GiveD4C, 100],
-        [GivePd4c, 12]
+        [GiveD4C, global.common_arrow_weight],
+        [GivePd4c, global.epic_arrow_weight]
     ]
     script_execute(random_weight(_standPool), player);
 }
@@ -902,9 +902,9 @@ else
 {
     var _standPool =
     [
-        [GiveTheWorldAU, 100],
-        [GiveNeo, 12],
-        [GiveTwau3000, 5]
+        [GiveTheWorldAU, global.common_arrow_weight],
+        [GiveNeo, global.epic_arrow_weight],
+        [GiveTwau3000, global.legendary_arrow_weight]
     ]
     script_execute(random_weight(_standPool), player);
 }

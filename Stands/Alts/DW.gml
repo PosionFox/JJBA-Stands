@@ -72,5 +72,8 @@ with (_s)
     discType = global.jjbamDiscDw;
     auraParticleSprite = global.sprStandParticle2;
     skills[StandState.SkillD, StandSkill.SkillAlt] = DwEvolve;
+    
+    evolutions = [];
+    evolutions[0] = [global.sprTWOVA, "lv100", Rarity.Legendary];
 }
 return _s;

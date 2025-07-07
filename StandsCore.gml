@@ -17,6 +17,8 @@ var yy = _height - 200;
 // xp bar
 if (!instance_exists(objPlayerMenu) and !instance_exists(uiCrafting))
 {
+    var _txt1 = "stand level " + string(level);
+    var _txt2 = "(" + string(round(experience)) + "/" + string(round(experienceNext)) + ")";
     var _bx = 244;
     var _by = 80;
     var _length = 790;
@@ -24,10 +26,11 @@ if (!instance_exists(objPlayerMenu) and !instance_exists(uiCrafting))
     draw_set_color(c_black);
     draw_line_width(_bx, _by, _bx + _length, _by, 3);
     draw_set_color(c_yellow);
-    var _barLen = _bx + min(experience / experienceNext, 1) * _length;
-    draw_line_width(_bx, _by, _barLen, _by, 4);
+    experience_display = lerp(experience_display, _bx + min(experience / experienceNext, 1) * _length, 0.2);
+    draw_line_width(_bx, _by, experience_display, _by, 4);
     draw_set_color(c_white);
-    draw_text((_bx + _length) / 2, _by, "stand level " + string(level) + " (" + string(experience) + "/" + string(experienceNext) + ")");
+    draw_text(_bx + 8 + string_width(_txt1) / 2, _by, _txt1);
+    draw_text(_bx + 8 + _length - string_width(_txt2) / 2, _by, _txt2);
 }
 
 // tier
@@ -464,7 +467,7 @@ if (experience >= experienceNext)
         experience -= experienceNext;
         experience = max(experience, 0);
         experienceNext = 3 * level * 1.25;
-        stat_points += 1;
+        stat_points += irandom_range(1, powerMultiplier);
         
         var _e = ShrinkingCircleEffect(x, y);
         _e.color = c_yellow;
@@ -472,7 +475,9 @@ if (experience >= experienceNext)
         
         if (!audio_is_playing(global.sndStandLevelUp))
         {
-            jj_play_audio(global.sndStandLevelUp, 10, false);
+            
+            var _s = audio_play_sound(global.sndStandLevelUp, 10, false);
+            audio_sound_gain(_s, global.jjSettAudioVolume * 0.5, 0);
         }
     }
 }
@@ -638,14 +643,15 @@ with (_stand)
     level = 1;
     experience = 0;
     experienceNext = 3;
+    experience_display = 0;
     trait = {};
     stat_points = 0;
-    destructive_power = random_range(0.5, 2);
-    spd = random_range(0.5, 2);
-    range = random_range(0.5, 2);
-    stamina = random_range(0.5, 2);
-    precision = random_range(0.5, 2);
-    development_potential = random_range(0.5, 3);
+    destructive_power = round(random_range(0.5, 2));
+    spd = round(random_range(0.5, 2));
+    range = round(random_range(0.5, 2));
+    stamina = round(random_range(0.5, 2));
+    precision = round(random_range(0.5, 2));
+    development_potential = round(random_range(0.5, 3));
     combo = 0;
     powerMultiplier = GetPowerMultiplier(rarity.tier);
     velocity = 0.5;
@@ -658,6 +664,9 @@ with (_stand)
     energy_regen_mult = 1;
     // skills
     skills = array_clone(_skills);
+    // variants and evolutions
+    variants = [];
+    evolutions = [];
     
     trait_give_random(self);
     
@@ -675,13 +684,13 @@ switch(_rarity)
 {
     case Rarity.Common: _value = 1; break;
     case Rarity.Uncommon: _value = 2; break;
-    case Rarity.Rare: _value = 4; break;
-    case Rarity.Epic: _value = 8; break;
-    case Rarity.Legendary: _value = 16; break;
-    case Rarity.Mythical: _value = 32; break;
-    case Rarity.Ascended: _value = 64; break;
-    case Rarity.Ultimate: _value = 128; break;
-    case Rarity.Event: _value = 256; break;
+    case Rarity.Rare: _value = 3; break;
+    case Rarity.Epic: _value = 4; break;
+    case Rarity.Legendary: _value = 5; break;
+    case Rarity.Mythical: _value = 6; break;
+    case Rarity.Ascended: _value = 7; break;
+    case Rarity.Ultimate: _value = 8; break;
+    case Rarity.Event: _value = 9; break;
 }
 return _value;
 

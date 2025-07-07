@@ -248,5 +248,7 @@ with (_s)
     skills[StandState.SkillB, StandSkill.Skill] = TwrStrongPunch;
     skills[StandState.SkillC, StandSkill.Skill] = TwrKnifeWall;
     skills[StandState.SkillD, StandSkill.Skill] = TwrTimestop;
+    
+    evolutions[0] = [global.sprTWROH, global.sprDiosDiary, Rarity.Mythical];
 }
 return _s;

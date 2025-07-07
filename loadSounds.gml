@@ -5,10 +5,21 @@ p = "Resources/Sounds/DIO/";
 global.sndDioSpawn = audio_create_stream(p + "dioSpawn.ogg");
 global.sndDioDeath = audio_create_stream(p + "dio_death.ogg");
 
+#region menu
+
+p = "Resources/Sounds/menu/";
+global.sndMenuOpen = audio_create_stream(p + "menu_open.ogg");
+global.sndMenuHover = audio_create_stream(p + "menu_hover.ogg");
+global.sndMenuClick = audio_create_stream(p + "menu_click.ogg");
+
+#endregion
+
 #region generic
 
 p = "Resources/Sounds/Generic/";
 global.sndEnergyOrb = audio_create_stream(p + "energy_orb.ogg");
+
+#endregion
 
 #region generic stand
 

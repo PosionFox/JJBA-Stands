@@ -352,7 +352,7 @@ with (_s)
     name = "The World\nOver Heaven";
     sprite_index = global.sprTWOH;
     color = 0xffffff;
-    color = 0x36f2fb;
+    colorAlt = 0x36f2fb;
     desummonSound = summonSound;
     UpdateRarity(Rarity.Common);
     saveKey = "jjbamTwoh";
@@ -399,6 +399,12 @@ with (_s)
     skills[StandState.SkillD, StandSkill.Skill] = TwohTimestop;
     skills[StandState.SkillD, StandSkill.MaxCooldown] = 1;
     skills[StandState.SkillD, StandSkill.Desc] = Localize("twohTimestopDesc");
+    
+    variants = [
+        [sprite_index, rarity.tier],
+        [global.sprTWROH, Rarity.Mythical],
+        [global.sprTWRuOH, Rarity.Mythical]
+    ];
     
     InstanceAssignMethod(self, "step", ScriptWrap(TwohStep))
 }

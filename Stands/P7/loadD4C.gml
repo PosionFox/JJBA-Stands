@@ -557,6 +557,12 @@ with (_s)
         visible = false;
     }
     
+    variants[0] = [sprite_index, rarity.tier];
+    variants[1] = [global.sprPD4C, Rarity.Epic];
+    
+    evolutions[0] = [global.sprD4CLT, [global.sprLeftArm, global.sprEye], Rarity.Common];
+    evolutions[1] = [global.sprGloomist, [global.sprLeftArm, global.sprEye], Rarity.Mythical];
+    
     InstanceAssignMethod(self, "drawGUI", ScriptWrap(D4CDrawGui));
     InstanceAssignMethod(self, "destroy", ScriptWrap(D4Cdestroy));
 }

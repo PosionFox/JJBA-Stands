@@ -606,5 +606,20 @@ with (_s)
     discType = global.jjbamDiscStw;
     
     saveKey = "jjbamStw";
+    
+    variants[0] = [sprite_index, rarity.tier];
+    variants[1] = [global.sprDW, Rarity.Legendary];
+    variants[2] = [global.sprShadow, Rarity.Mythical];
+    
+    evolutions[0] = [global.sprTheWorld, "lv100", Rarity.Common];
+    evolutions[1] = [global.sprTWG, "lv100", Rarity.Uncommon];
+    evolutions[2] = [global.sprSpookyWorld, "lv100", Rarity.Epic];
+    evolutions[3] = [global.sprTWGH, "lv100", Rarity.Legendary];
+    evolutions[4] = [global.sprTWRu, "lv100", Rarity.Mythical];
+    evolutions[5] = [global.sprTheWorld, global.sprCamera, Rarity.Common];
+    evolutions[6] = [global.sprTWG, global.sprCamera, Rarity.Uncommon];
+    evolutions[7] = [global.sprSpookyWorld, global.sprCamera, Rarity.Epic];
+    evolutions[8] = [global.sprTWGH, global.sprCamera, Rarity.Legendary];
+    evolutions[9] = [global.sprTWRu, global.sprCamera, Rarity.Mythical];
 }
 return _s;

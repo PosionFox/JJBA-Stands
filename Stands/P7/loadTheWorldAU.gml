@@ -245,7 +245,7 @@ var _length = 5 + (0.15 * player.level);
 if (player.hp <= player.hpMax * 0.5)
 {
     jj_play_audio(global.sndTwAuTsPanic, 5, false);
-    _length = 8 + (0.2 * player.level);
+    _length = 10 + (0.2 * player.level);
 }
 else
 {
@@ -340,6 +340,10 @@ with (_s)
     discType = global.jjbamDiscTwau;
     
     ammo = 6;
+    
+    variants[0] = [sprite_index, rarity.tier];
+    variants[1] = [global.sprTheWorldNeo, Rarity.Epic];
+    variants[2] = [global.sprTWAU3000, Rarity.Legendary];
     
     InstanceAssignMethod(self, "drawGUI", ScriptWrap(TWAUDrawGui));
 }

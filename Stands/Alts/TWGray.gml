@@ -36,5 +36,7 @@ with (_s)
     UpdateRarity(Rarity.Uncommon);
     saveKey = "jjbamTwg";
     discType = global.jjbamDiscTwg;
+    
+    evolutions = [];
 }
 return _s;

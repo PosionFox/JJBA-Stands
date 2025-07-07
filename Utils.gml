@@ -368,7 +368,7 @@ else
 #define jj_play_audio(sound, priority, loop)
 
 var _s = audio_play_sound(sound, priority, loop);
-audio_sound_gain(_s, global.jjAudioVolume, 0);
+audio_sound_gain(_s, global.jjSettAudioVolume, 0);
 return _s;
 
 #define string_split(string_to_split, string_splitter)
@@ -463,3 +463,58 @@ for (var i = 0; i < exponent; i++)
     total *= base;
 }
 return total;
+
+#define unix_to_iso8601(_unix)
+
+if(_unix < 0) { return false; }
+
+var year = 1970;
+var dayInSeconds = 86400;
+var daysInYear = 365;
+var daysInLYear = daysInYear + 1;
+var days = floor(real(_unix / dayInSeconds));
+var tmpDays = days + 1;
+var monthsInDays = [];
+var month = 11;
+var day;
+
+while (tmpDays >= daysInYear)
+{
+    year++;
+    if(is_leap_year(year))
+    {
+        tmpDays -= daysInLYear;
+    }
+    else
+    {
+        tmpDays -= daysInYear;
+    }
+}
+
+if (is_leap_year(year))
+{
+    tmpDays--;
+    monthsInDays = [-1,30,59,90,120,151,181,212,243,273,304,334];
+}
+else
+{
+    monthsInDays = [0,31,59,90,120,151,181,212,243,273,304,334];
+}
+
+while (month > 0)
+{
+    if (tmpDays > monthsInDays[month])
+    {
+        break;
+    }
+    month--;
+}
+day = tmpDays - monthsInDays[month];
+month++;
+
+return string(day) + "-" + string(month) + "-" + string(year);
+
+
+#define is_leap_year(_y)
+
+return (_y % 4 == 0 and (_y % 100 != 0 or _y % 400 == 0));

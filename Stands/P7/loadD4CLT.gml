@@ -359,6 +359,11 @@ with (_s)
         visible = false;
     }
     
+    variants[0] = [sprite_index, rarity.tier];
+    variants[1] = [global.sprPD4CLT, Rarity.Epic];
+    variants[2] = [global.sprGloomist, Rarity.Mythical];
+    variants[3] = [global.sprEvergreen, Rarity.Ascended];
+    
     InstanceAssignMethod(self, "destroy", ScriptWrap(D4Cdestroy));
     InstanceAssignMethod(self, "drawGUI", ScriptWrap(D4CLTDrawGui));
 }

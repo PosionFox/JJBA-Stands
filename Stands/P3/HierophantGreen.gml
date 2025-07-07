@@ -220,6 +220,11 @@ with (_s)
     discType = global.jjbamDiscHg;
     saveKey = "jjbamHg";
     stand_reach = 16;
+    
+    variants[0] = [sprite_index, rarity.tier];
+    variants[1] = [global.sprHierophantRed, Rarity.Uncommon];
+    variants[2] = [global.sprHierophantBlack, Rarity.Epic];
+    variants[3] = [global.sprHierophantEve, Rarity.Event];
 }
 return _s;
 

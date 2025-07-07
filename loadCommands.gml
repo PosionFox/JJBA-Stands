@@ -1,4 +1,7 @@
 
+CommandCreate("jjRemapKeybind", false, ScriptWrap(jjRemapKeybind), "summon/ability", "key");
+CommandCreate("jjCheckGrimoires", false, ScriptWrap(jjCheckGrimoires));
+
 CommandCreate("jjStand", true, ScriptWrap(jjCheatGiveStand), "id");
 CommandCreate("jjSpec", true, ScriptWrap(jjSpec), "id");
 CommandCreate("jjTest", false, ScriptWrap(jjTestCommand));
@@ -11,21 +14,15 @@ CommandCreate("jjKillNPCs", true, ScriptWrap(jjbamKillNPCs));
 
 CommandCreate("jjVarSpy", true, ScriptWrap(jjVarSpy), "obj");
 
-CommandCreate("jjRemapKeybind", false, ScriptWrap(jjRemapKeybind), "summon/ability", "key");
-
 CommandCreate("jjMaxExp", true, ScriptWrap(jjMaxExp));
 
 CommandCreate("jjSpawnDio", true, ScriptWrap(jjSpawnDio));
-
-CommandCreate("jjCheckGrimoires", false, ScriptWrap(jjCheckGrimoires));
 
 CommandCreate("jjSpawnShards", true, ScriptWrap(jjSpawnShards));
 
 CommandCreate("jjCheckMonth", false, ScriptWrap(jjCheckMonth));
 
 CommandCreate("jjTrait", true, ScriptWrap(jjTrait), "trait");
-
-CommandCreate("jjPrintVersion", false, ScriptWrap(jjPrintVersion));
 
 CommandCreate("jjSpawnPrisoner", true, ScriptWrap(jjSpawnPrisoner));
 
@@ -45,10 +42,6 @@ EnemyPrisonerCreate(player.x, player.y);
 #define jjSpec(args)
 
 GiveHamon(player);
-
-#define jjPrintVersion
-
-printVersion();
 
 #define jjTrait(args)
 

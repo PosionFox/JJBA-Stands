@@ -37,5 +37,7 @@ with (_s)
     auraParticleSprite = global.sprStandParticle6;
     saveKey = "jjbamTwru";
     discType = global.jjbamDiscTwru;
+    
+    evolutions[0] = [global.sprTWRuOH, global.sprDiosDiary, Rarity.Mythical];
 }
 return _s;

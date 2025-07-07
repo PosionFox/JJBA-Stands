@@ -125,5 +125,7 @@ with (_s)
     
     skills[StandState.SkillA, StandSkill.Skill] = TwfBarrage;
     skills[StandState.SkillD, StandSkill.Skill] = TwfTimestop;
+    
+    evolutions = [];
 }
 return _s;

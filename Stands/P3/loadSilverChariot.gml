@@ -174,6 +174,9 @@ with (_s)
     FtlCD = 0;
     barrageData.sound = global.sndScBarrage;
     
+    variants[0] = [sprite_index, rarity.tier];
+    variants[1] = [global.sprSilverChariotOVA, Rarity.Rare];
+    
     InstanceAssignMethod(self, "step", ScriptWrap(SilverChariotStep));
     InstanceAssignMethod(self, "draw", ScriptWrap(SilverChariotDraw), false);
 }
