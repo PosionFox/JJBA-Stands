@@ -212,7 +212,7 @@ _map[? "jjSettStandTalkIdle"] = global.jjSettStandTalkIdle;
 _map[? "jjSettProjShadows"] = global.jjSettProjShadows;
 _map[? "jjSettProjCollisions"] = global.jjSettProjCollisions;
 
-// stand slots
+// stand storage
 var _ss = array_length(global.jjStandSlots);
 for (var i = 0; i < _ss; i++)
 {
@@ -384,15 +384,18 @@ else
 
 #endregion
 
-#region stand slots
+#region stand storage
 
-for (var i = 0; i < array_length(global.jjStandSlots); i++)
+var _ss = array_length(global.jjStandSlots);
+for (var i = 0; i < _ss; i++)
 {
     var _key = "jjStandSlot" + string(i);
-    if (_map[? _key] != undefined)
+    var _loaded_stand = _map[? _key];
+    if (_loaded_stand != undefined)
     {
-        global.jjStandSlots[i] = _map[? _key];
-        global.jjMenuStorageNames[i] = string_split(_map[? _key], ":")[1];
+        Trace(_loaded_stand);
+        global.jjStandSlots[i] = _loaded_stand;
+        global.jjMenuStorageNames[i] = string_split(_loaded_stand, ":")[1];
     }
     else
     {

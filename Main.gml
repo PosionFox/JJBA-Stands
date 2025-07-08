@@ -58,8 +58,8 @@ global.jjMenuCurrent = "main";
 global.jjMenuSubCurrent = "default";
 global.jjMenuHover = undefined;
 // storage
-global.jjMenuStorageSlots = undefined;
-global.jjMenuStorageNames = undefined;
+global.jjMenuStorageSlots = undefined; // unused
+global.jjMenuStorageNames = array_create(512, undefined);
 global.jjMenuMinIndex = 0;
 global.jjMenuMaxIndex = 8;
 // rune storage
