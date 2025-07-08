@@ -393,7 +393,6 @@ for (var i = 0; i < _ss; i++)
     var _loaded_stand = _map[? _key];
     if (_loaded_stand != undefined)
     {
-        Trace(_loaded_stand);
         global.jjStandSlots[i] = _loaded_stand;
         global.jjMenuStorageNames[i] = string_split(_loaded_stand, ":")[1];
     }
