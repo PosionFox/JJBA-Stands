@@ -1,8 +1,8 @@
 
 global.jjbamDiscTwruoh = ItemCreate(
     undefined,
-    Localize("standDiscName") + "TWRuOH",
-    Localize("standDiscDescription") + "The World Runic Over Heaven",
+    tr("standDiscName") + "TWRuOH",
+    tr("standDiscDescription") + "The World Runic Over Heaven",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

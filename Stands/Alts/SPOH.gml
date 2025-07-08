@@ -1,8 +1,8 @@
 
 global.jjbamDiscSpoh = ItemCreate(
     undefined,
-    Localize("standDiscName") + "SPOH",
-    Localize("standDiscDescription") + "Star Platinum Over Heaven",
+    tr("standDiscName") + "SPOH",
+    tr("standDiscDescription") + "Star Platinum Over Heaven",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -33,7 +33,7 @@ with (_s)
     sprite_index = global.sprSPOH;
     color = c_white;
     colorAlt = c_yellow;
-    UpdateRarity(Rarity.Ascended);
+    UpdateRarity(Rarity.Celestial);
     saveKey = "jjbamSpoh";
     discType = global.jjbamDiscSpoh;
     auraParticleSprite = global.sprStandParticle5;

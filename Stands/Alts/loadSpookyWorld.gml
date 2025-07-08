@@ -1,8 +1,8 @@
 
 global.jjbamDiscSw = ItemCreate(
     undefined,
-    Localize("standDiscName") + "SW",
-    Localize("standDiscDescription") + "Spooky World",
+    tr("standDiscName") + "SW",
+    tr("standDiscDescription") + "Spooky World",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

@@ -158,7 +158,7 @@ if (array_find_index(instancesHit, _target.id) == -1)
 #define RollCrit
 
 var _cc = random(1);
-if (_cc <= (crit_chance * GetStandPrecision(owner)))
+if (_cc <= ((crit_chance + GetRunesCritChance(owner)) * GetStandPrecision(owner)))
 {
     crit_damage = 2;
 }

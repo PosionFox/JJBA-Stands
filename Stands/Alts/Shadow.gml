@@ -1,8 +1,8 @@
 
 global.jjbamDiscShadow = ItemCreate(
     undefined,
-    Localize("standDiscName") + "SHADOW",
-    Localize("standDiscDescription") + "Shadow",
+    tr("standDiscName") + "SHADOW",
+    tr("standDiscDescription") + "Shadow",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

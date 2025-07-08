@@ -11,21 +11,28 @@ global.sprDisc = sprite_add(p + "Disc.png", 1, false, false, 8, 8);
 global.sprDiscBlueprint = sprite_add(p + "DiscBlueprint.png", 1, false, false, 8, 8);
 global.sprArrowBeetle = sprite_add(p + "ArrowBeetle.png", 1, false, false, 8, 8);
 global.sprEternalArrow = sprite_add(p + "EternalArrow.png", 1, false, false, 8, 8);
-global.sprHeart = sprite_add(p + "Heart.png", 1, false, false, 8, 8);
-global.sprEye = sprite_add(p + "Eye.png", 1, false, false, 8, 8);
-global.sprLeftArm = sprite_add(p + "LeftArm.png", 1, false, false, 8, 8);
 global.sprPrayerBeads = sprite_add(p + "PrayerBeads.png", 1, false, false, 8, 8);
 global.sprDiosDiary = sprite_add(p + "DiosDiary.png", 1, false, false, 8, 8);
 global.sprRokakakaStew = sprite_add(p + "RokakakaStew.png", 1, false, false, 8, 8);
 global.sprDiosBone = sprite_add(p + "DiosBone.png", 1, false, false, 8, 8);
 global.sprEgyptianCrown = sprite_add(p + "EgyptianCrown.png", 1, false, false, 8, 8);
+global.sprSuspiciousBolt = sprite_add(p + "SuspiciousBolt.png", 1, false, false, 8, 8);
+global.sprStarChunk = sprite_add(p + "StarChunk.png", 1, false, false, 8, 8);
+global.sprPrisonerSoul = sprite_add(p + "prisoner_soul.png", 1, false, false, 8, 8);
+global.sprGreenBaby = sprite_add(p + "green_baby.png", 1, false, false, 8, 8);
+global.sprCamera = sprite_add(p + "camera.png", 1, false, false, 8, 8);
+global.sprJotarosHat = sprite_add(p + "jotaros_hat.png", 1, false, false, 8, 8);
+global.sprStandOrb = sprite_add(p + "stand_orb.png", 1, false, false, 8, 8);
+global.sprRuneBundle = sprite_add(p + "rune_bundle.png", 1, false, false, 8, 8);
+
+// shards
 global.sprCommonShard = sprite_add(p + "CommonShard.png", 1, false, false, 8, 8);
 global.sprUncommonShard = sprite_add(p + "UncommonShard.png", 1, false, false, 8, 8);
 global.sprRareShard = sprite_add(p + "RareShard.png", 1, false, false, 8, 8);
 global.sprEpicShard = sprite_add(p + "EpicShard.png", 1, false, false, 8, 8);
 global.sprLegendaryShard = sprite_add(p + "LegendaryShard.png", 1, false, false, 8, 8);
 global.sprMythicalShard = sprite_add(p + "MythicalShard.png", 1, false, false, 8, 8);
-global.sprAscendedShard = sprite_add(p + "AscendedShard.png", 1, false, false, 8, 8);
+global.sprCelestialShard = sprite_add(p + "CelestialShard.png", 1, false, false, 8, 8);
 global.sprUltimateShard = sprite_add(p + "UltimateShard.png", 1, false, false, 8, 8);
 global.sprCommonConcentratedArrow = sprite_add(p + "CommonConcentratedArrow.png", 1, false, false, 8, 8);
 global.sprUncommonConcentratedArrow = sprite_add(p + "UncommonConcentratedArrow.png", 1, false, false, 8, 8);
@@ -33,15 +40,22 @@ global.sprRareConcentratedArrow = sprite_add(p + "RareConcentratedArrow.png", 1,
 global.sprEpicConcentratedArrow = sprite_add(p + "EpicConcentratedArrow.png", 1, false, false, 8, 8);
 global.sprLegendaryConcentratedArrow = sprite_add(p + "LegendaryConcentratedArrow.png", 1, false, false, 8, 8);
 global.sprMythicalConcentratedArrow = sprite_add(p + "MythicalConcentratedArrow.png", 1, false, false, 8, 8);
-global.sprAscendedConcentratedArrow = sprite_add(p + "AscendedConcentratedArrow.png", 1, false, false, 8, 8);
+global.sprCelestialConcentratedArrow = sprite_add(p + "CelestialConcentratedArrow.png", 1, false, false, 8, 8);
 global.sprUltimateConcentratedArrow = sprite_add(p + "UltimateConcentratedArrow.png", 1, false, false, 8, 8);
-global.sprSuspiciousBolt = sprite_add(p + "SuspiciousBolt.png", 1, false, false, 8, 8);
-global.sprStarShard = sprite_add(p + "StarShard.png", 1, false, false, 8, 8);
-global.sprPrisonerSoul = sprite_add(p + "prisoner_soul.png", 1, false, false, 8, 8);
-global.sprGreenBaby = sprite_add(p + "green_baby.png", 1, false, false, 8, 8);
-global.sprCamera = sprite_add(p + "camera.png", 1, false, false, 8, 8);
-global.sprJotarosHat = sprite_add(p + "jotaros_hat.png", 1, false, false, 8, 8);
-global.sprStandOrb = sprite_add(p + "stand_orb.png", 1, false, false, 8, 8);
+
+// corpse parts
+p = "Resources/Sprites/Items/corpse_parts/";
+global.sprHolyHeart = sprite_add(p + "holy_heart.png", 1, false, false, 8, 8);
+global.sprHolyEye = sprite_add(p + "holy_eye.png", 1, false, false, 8, 8);
+global.sprHolyLeftArm = sprite_add(p + "holy_left_arm.png", 1, false, false, 8, 8);
+global.sprHolyRightArm = sprite_add(p + "holy_right_arm.png", 1, false, false, 8, 8);
+global.sprHolySpine = sprite_add(p + "holy_spine.png", 1, false, false, 8, 8);
+global.sprHolyRibCage = sprite_add(p + "holy_rib_cage.png", 1, false, false, 8, 8);
+global.sprHolyLeftEar = sprite_add(p + "holy_left_ear.png", 1, false, false, 8, 8);
+global.sprHolyRightEar = sprite_add(p + "holy_right_ear.png", 1, false, false, 8, 8);
+global.sprHolyLeftLeg = sprite_add(p + "holy_left_leg.png", 1, false, false, 8, 8);
+global.sprHolyRightLeg = sprite_add(p + "holy_right_leg.png", 1, false, false, 8, 8);
+global.sprHolySkull = sprite_add(p + "holy_skull.png", 1, false, false, 8, 8);
 
 #endregion
 
@@ -49,8 +63,8 @@ global.sprStandOrb = sprite_add(p + "stand_orb.png", 1, false, false, 8, 8);
 
 p = "Resources/Sprites/Structures/";
 global.sprRokakakaTree = sprite_add(p + "RokakakaTree.png", 1, false, false, 8, 31);
-global.sprDiosCoffin = sprite_add(p + "DiosCoffin.png", 1, false, false, 16, 8);
-global.sprShardsTable = sprite_add(p + "ShardsTable.png", 1, false, false, 8, 8);
+global.sprDiosCoffin = sprite_add(p + "DiosCoffin.png", 1, false, false, 16, 9);
+global.sprShardsTable = sprite_add(p + "ShardsTable.png", 1, false, false, 8, 9);
 
 #endregion
 
@@ -58,41 +72,16 @@ global.sprShardsTable = sprite_add(p + "ShardsTable.png", 1, false, false, 8, 8)
 
 p = "Resources/Sprites/Runes/";
 global.sprRuneRemover = sprite_add(p + "RuneRemover.png", 1, false, false, 8, 8);
-global.sprMissingRune = sprite_add(p + "MissingRune.png", 1, false, false, 8, 8);
 global.sprEnergyOrb = sprite_add(p + "EnergyOrb.png", 1, false, false, 8, 8);
-global.sprRuneStandMight1 = sprite_add(p + "RuneStandMight1.png", 1, false, false, 8, 8);
-global.sprRuneStandMight2 = sprite_add(p + "RuneStandMight2.png", 1, false, false, 8, 8);
-global.sprRuneStandMight3 = sprite_add(p + "RuneStandMight3.png", 1, false, false, 8, 8);
-global.sprRuneStandMight4 = sprite_add(p + "RuneStandMight4.png", 1, false, false, 8, 8);
-global.sprRuneStandMight5 = sprite_add(p + "RuneStandMight5.png", 1, false, false, 8, 8);
-global.sprRuneStandMight6 = sprite_add(p + "RuneStandMight6.png", 1, false, false, 8, 8);
-global.sprRuneStandMight7 = sprite_add(p + "RuneStandMight7.png", 1, false, false, 8, 8);
-global.sprRuneStandMight8 = sprite_add(p + "RuneStandMight8.png", 1, false, false, 8, 8);
-global.sprRuneBriefRaspite = sprite_add(p + "RuneBriefRaspite.png", 1, false, false, 8, 8);
-global.sprRuneReach1 = sprite_add(p + "RuneReach1.png", 1, false, false, 8, 8);
-global.sprRuneReach2 = sprite_add(p + "RuneReach2.png", 1, false, false, 8, 8);
-global.sprRuneReach3 = sprite_add(p + "RuneReach3.png", 1, false, false, 8, 8);
-global.sprRuneReach4 = sprite_add(p + "RuneReach4.png", 1, false, false, 8, 8);
-global.sprRuneReach5 = sprite_add(p + "RuneReach5.png", 1, false, false, 8, 8);
-global.sprRuneReach6 = sprite_add(p + "RuneReach6.png", 1, false, false, 8, 8);
-global.sprRuneReach7 = sprite_add(p + "RuneReach7.png", 1, false, false, 8, 8);
-global.sprRuneReach8 = sprite_add(p + "RuneReach8.png", 1, false, false, 8, 8);
-global.sprRuneMending1 = sprite_add(p + "RuneMending1.png", 1, false, false, 8, 8);
-global.sprRuneMending2 = sprite_add(p + "RuneMending2.png", 1, false, false, 8, 8);
-global.sprRuneMending3 = sprite_add(p + "RuneMending3.png", 1, false, false, 8, 8);
-global.sprRuneMending4 = sprite_add(p + "RuneMending4.png", 1, false, false, 8, 8);
-global.sprRuneMending5 = sprite_add(p + "RuneMending5.png", 1, false, false, 8, 8);
-global.sprRuneMending6 = sprite_add(p + "RuneMending6.png", 1, false, false, 8, 8);
-global.sprRuneMending7 = sprite_add(p + "RuneMending7.png", 1, false, false, 8, 8);
-global.sprRuneMending8 = sprite_add(p + "RuneMending8.png", 1, false, false, 8, 8);
-global.sprRuneEnergize1 = sprite_add(p + "RuneEnergize1.png", 1, false, false, 8, 8);
-global.sprRuneEnergize2 = sprite_add(p + "RuneEnergize2.png", 1, false, false, 8, 8);
-global.sprRuneEnergize3 = sprite_add(p + "RuneEnergize3.png", 1, false, false, 8, 8);
-global.sprRuneEnergize4 = sprite_add(p + "RuneEnergize4.png", 1, false, false, 8, 8);
-global.sprRuneEnergize5 = sprite_add(p + "RuneEnergize5.png", 1, false, false, 8, 8);
-global.sprRuneEnergize6 = sprite_add(p + "RuneEnergize6.png", 1, false, false, 8, 8);
-global.sprRuneEnergize7 = sprite_add(p + "RuneEnergize7.png", 1, false, false, 8, 8);
-global.sprRuneEnergize8 = sprite_add(p + "RuneEnergize8.png", 1, false, false, 8, 8);
+
+global.sprBlankRune = sprite_add(p + "blank_rune.png", 1, false, false, 8, 8);
+global.sprUnknownRune = sprite_add(p + "unknown_rune.png", 1, false, false, 8, 8);
+global.sprRuneMight = sprite_add(p + "rune_might.png", 1, false, false, 8, 8);
+global.sprRuneBriefRaspite = sprite_add(p + "rune_brief_raspite.png", 1, false, false, 8, 8);
+global.sprRuneReach = sprite_add(p + "rune_reach.png", 1, false, false, 8, 8);
+global.sprRuneMending = sprite_add(p + "rune_mending.png", 1, false, false, 8, 8);
+global.sprRuneEnergize = sprite_add(p + "rune_energize.png", 1, false, false, 8, 8);
+global.sprRuneAcute = sprite_add(p + "rune_acute.png", 1, false, false, 8, 8);
 
 #endregion
 

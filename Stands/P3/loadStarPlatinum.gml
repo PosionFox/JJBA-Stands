@@ -1,8 +1,8 @@
 
 global.jjbamDiscSp = ItemCreate(
     undefined,
-    Localize("standDiscName") + "SP",
-    Localize("standDiscDescription") + "Star Platinum",
+    tr("standDiscName") + "SP",
+    tr("standDiscDescription") + "Star Platinum",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -200,9 +200,9 @@ if (timer <= 0)
 {
     var _standPool =
     [
-        [GiveSPTW, global.common_arrow_weight],
-        [GiveTe, global.epic_arrow_weight],
-        [GiveEP, global.ultimate_arrow_weight],
+        [GiveSPTW, global.common_rarity_weight],
+        [GiveTe, global.epic_rarity_weight],
+        [GiveEP, global.ultimate_rarity_weight],
     ]
     script_execute(random_weight(_standPool), player);
     instance_destroy(self);
@@ -217,7 +217,7 @@ sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = JosephKnife;
 _skills[sk, StandSkill.Icon] = global.sprSkillJosephKnife;
 _skills[sk, StandSkill.MaxCooldown] = 10;
-_skills[sk, StandSkill.Desc] = Localize("diosKnifeDesc");
+_skills[sk, StandSkill.Desc] = tr("diosKnifeDesc");
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;
@@ -231,7 +231,7 @@ _skills[sk, StandSkill.DamageAlt] = 35;
 _skills[sk, StandSkill.DamageScaleAlt] = 0.01;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillDetonate;
 _skills[sk, StandSkill.MaxCooldownAlt] = 10;
-_skills[sk, StandSkill.Desc] = Localize("barrageDesc");
+_skills[sk, StandSkill.Desc] = tr("barrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = StrongPunch;
@@ -244,7 +244,7 @@ _skills[sk, StandSkill.SkillAlt] = MeleePull;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillMeleePull;
 _skills[sk, StandSkill.MaxCooldownAlt] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
-_skills[sk, StandSkill.Desc] = Localize("spStrongPunchDesc");
+_skills[sk, StandSkill.Desc] = tr("spStrongPunchDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = StarFinger;
@@ -254,7 +254,7 @@ _skills[sk, StandSkill.Icon] = global.sprSkillStarFinger;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 0.7;
 _skills[sk, StandSkill.Vars] = { star_sound : global.sndSpStarFinger };
-_skills[sk, StandSkill.Desc] = Localize("starFingerDesc");
+_skills[sk, StandSkill.Desc] = tr("starFingerDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = SpTimestop;
@@ -263,7 +263,7 @@ _skills[sk, StandSkill.MaxCooldown] = 25;
 _skills[sk, StandSkill.SkillAlt] = SpEvolveToSptw;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillStwTw;
 _skills[sk, StandSkill.MaxHold] = 2;
-_skills[sk, StandSkill.Desc] = Localize("spTimestopDesc");
+_skills[sk, StandSkill.Desc] = tr("spTimestopDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)
@@ -284,7 +284,7 @@ with (_s)
     variants[2] = [global.sprSPP, Rarity.Epic];
     variants[3] = [global.sprSPOVA, Rarity.Legendary];
     variants[4] = [global.sprSPR, Rarity.Mythical];
-    variants[5] = [global.sprSPOH, Rarity.Ascended];
+    variants[5] = [global.sprSPOH, Rarity.Celestial];
     variants[6] = [global.sprSPROH, Rarity.Ultimate];
     
     evolutions[0] = [global.sprSptw, "lv100", Rarity.Common];

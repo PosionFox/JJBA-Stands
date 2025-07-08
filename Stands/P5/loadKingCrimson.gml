@@ -1,8 +1,8 @@
 
 global.jjbamDiscKc = ItemCreate(
     undefined,
-    Localize("standDiscName") + "KC",
-    Localize("standDiscDescription") + "King Crimson",
+    tr("standDiscName") + "KC",
+    tr("standDiscDescription") + "King Crimson",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -146,8 +146,8 @@ switch (attackState)
                 _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
             }
         }
-        xTo = owner.x + lengthdir_x(8, _dir + random_range(-4, 4));
-        yTo = owner.y + lengthdir_y(8, _dir + random_range(-4, 4));
+        xTo = owner.x + lengthdir_x(GetStandReach(self), _dir + random_range(-4, 4));
+        yTo = owner.y + lengthdir_y(GetStandReach(self), _dir + random_range(-4, 4));
         image_xscale = mouse_x > owner.x ? 1 : -1;
         
         attackStateTimer += DT;
@@ -458,7 +458,7 @@ _skills[sk, StandSkill.Icon] = global.sprSkillScalpelSlash;
 _skills[sk, StandSkill.Damage] = 2;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.MaxCooldown] = 6;
-_skills[sk, StandSkill.Desc] = Localize("scalpelSlashDesc");
+_skills[sk, StandSkill.Desc] = tr("scalpelSlashDesc");
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = ScalpelThrow;
@@ -466,7 +466,7 @@ _skills[sk, StandSkill.Icon] = global.sprSkillScalpelThrow;
 _skills[sk, StandSkill.Damage] = 1.5;
 _skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.Desc] = Localize("scalpelThrowDesc");
+_skills[sk, StandSkill.Desc] = tr("scalpelThrowDesc");
 
 sk = StandState.SkillCOff;
 _skills[sk, StandSkill.Skill] = GroundSlam;
@@ -494,7 +494,7 @@ _skills[sk, StandSkill.DamageAlt] = 1.5;
 _skills[sk, StandSkill.DamageScaleAlt] = 0.1;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillXXI;
 _skills[sk, StandSkill.MaxCooldownAlt] = 6;
-_skills[sk, StandSkill.Desc] = Localize("kcBarrageDesc");
+_skills[sk, StandSkill.Desc] = tr("kcBarrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = KcChop;
@@ -507,19 +507,19 @@ _skills[sk, StandSkill.DamageAlt] = 15;
 _skills[sk, StandSkill.DamageScaleAlt] = 0.15;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillHeavyChop;
 _skills[sk, StandSkill.MaxCooldownAlt] = 15;
-_skills[sk, StandSkill.Desc] = Localize("chopDesc");
+_skills[sk, StandSkill.Desc] = tr("chopDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = TimeSkip;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimeSkip;
 _skills[sk, StandSkill.MaxCooldown] = 3;
-_skills[sk, StandSkill.Desc] = Localize("timeSkipDesc");
+_skills[sk, StandSkill.Desc] = tr("timeSkipDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = TimeErase;
 _skills[sk, StandSkill.MaxCooldown] = 35;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimeErase;
-_skills[sk, StandSkill.Desc] = Localize("timeEraseDesc");
+_skills[sk, StandSkill.Desc] = tr("timeEraseDesc");
 
 
 var _s = StandBuilder(_owner, _skills);
@@ -549,7 +549,7 @@ with (_s)
     variants[2] = [global.sprKingCrimsonAqua, Rarity.Rare];
     variants[3] = [global.sprKingCrimsonMono, Rarity.Legendary];
     variants[4] = [global.sprKingCrimsonManga, Rarity.Mythical];
-    variants[5] = [global.sprKCE, Rarity.Ascended];
+    variants[5] = [global.sprKCE, Rarity.Celestial];
     variants[6] = [global.sprKCF, Rarity.Event];
     
     InstanceAssignMethod(self, "step", ScriptWrap(KingCrimsonStep));

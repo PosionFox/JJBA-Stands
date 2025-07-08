@@ -1,7 +1,7 @@
 
-global.jjbamStandWorkshop = StructureCreate(
+global.jjsStandWorkshop = StructureCreate(
     undefined,
-    "Stand Workshop",
+    "jjsStandWorkshop",
     "Customize your Stand",
     StructureType.Base,
     global.sprTheWorldAU,
@@ -16,10 +16,10 @@ global.jjbamStandWorkshop = StructureCreate(
     false
 );
 
-global.jjStructureDiosCoffin = StructureCreate(
+global.jjsStructureDiosCoffin = StructureCreate(
     undefined,
-    Localize("diosCoffinName"),
-    Localize("diosCoffinDescription"),
+    "jjsStructureDiosCoffin",
+    "",
     StructureType.Base,
     global.sprDiosCoffin,
     undefined,
@@ -30,42 +30,46 @@ global.jjStructureDiosCoffin = StructureCreate(
     2,
     true,
     [
-        global.jjEgyptianCrown
+        global.jjsEgyptianCrown
     ],
     true,
     BuildMenuCategory.Magical,
     undefined,
     false
 );
+StructureEdit(global.jjsStructureDiosCoffin, StructureData.Name, tr("diosCoffinName"));
+StructureEdit(global.jjsStructureDiosCoffin, StructureData.Description, tr("diosCoffinDescription"));
 
-global.jjShardsTable = StructureCreate(
+global.jjsShardsTable = StructureCreate(
     undefined,
-    Localize("shardsTableName"),
-    Localize("shardsTableDescription"),
+    "jjsShardsTable",
+    "",
     StructureType.Base,
     global.sprShardsTable,
     undefined,
     [
         Item.Wood, 100,
-        global.jjStarShard, 4
+        global.jjsStarChunk, 4
     ],
     1,
     true,
     [
-        global.jjCommonConcentratedArrow,
-        global.jjUncommonConcentratedArrow,
-        global.jjRareConcentratedArrow,
-        global.jjEpicConcentratedArrow,
-        global.jjLegendaryConcentratedArrow,
-        global.jjMythicalConcentratedArrow,
-        global.jjAscendedConcentratedArrow,
-        global.jjUltimateConcentratedArrow
+        global.jjsCommonConcentratedArrow,
+        global.jjsUncommonConcentratedArrow,
+        global.jjsRareConcentratedArrow,
+        global.jjsEpicConcentratedArrow,
+        global.jjsLegendaryConcentratedArrow,
+        global.jjsMythicalConcentratedArrow,
+        global.jjsCelestialConcentratedArrow,
+        global.jjsUltimateConcentratedArrow
     ],
     true,
     BuildMenuCategory.Magical,
     undefined,
     false
 );
+StructureEdit(global.jjsShardsTable, StructureData.Name, tr("shardsTableName"));
+StructureEdit(global.jjsShardsTable, StructureData.Description, tr("shardsTableDescription"));
 
 #define SkillStandWorkshop
 

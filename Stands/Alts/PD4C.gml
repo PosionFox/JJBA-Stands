@@ -1,8 +1,8 @@
 
 global.jjbamDiscPd4c = ItemCreate(
     undefined,
-    Localize("standDiscName") + "PD4C",
-    Localize("standDiscDescription") + "Patriot D4C",
+    tr("standDiscName") + "PD4C",
+    tr("standDiscDescription") + "Patriot D4C",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -54,7 +54,7 @@ with (_s)
     discType = global.jjbamDiscPd4c;
     
     evolutions[0] = [global.sprPD4CLT, [global.sprLeftArm, global.sprEye], Rarity.Epic];
-    evolutions[1] = [global.sprEvergreen, [global.sprLeftArm, global.sprEye], Rarity.Ascended];
+    evolutions[1] = [global.sprEvergreen, [global.sprLeftArm, global.sprEye], Rarity.Celestial];
 }
 return _s;
 

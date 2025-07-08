@@ -337,7 +337,7 @@ with (_s)
     name = "King Crimson Enderman";
     color = 0xba7bd7;
     colorAlt = 0x342022;
-    UpdateRarity(Rarity.Ascended);
+    UpdateRarity(Rarity.Celestial);
     saveKey = "jjbamKce";
     
     soundWhenHurt = [

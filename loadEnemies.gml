@@ -15,7 +15,7 @@ with (_o)
     sprite_index = sprIdle;
     image_speed = 0.35;
     level = 65;
-    hpMax = 8000;
+    hpMax = 6000;
     hp = hpMax;
     life = 512;
     sun_immunity = false;
@@ -36,48 +36,6 @@ with (_o)
         {
             skills[i, StandSkill.Key] = "null";
         }
-    }
-    
-    var _pool =
-    [
-        [ConstructRuneStandMight1, 128],
-        [ConstructRuneStandMight2, 64],
-        [ConstructRuneStandMight3, 32],
-        [ConstructRuneStandMight4, 16],
-        [ConstructRuneStandMight5, 8],
-        [ConstructRuneStandMight6, 4],
-        [ConstructRuneStandMight7, 2],
-        [ConstructRuneStandMight8, 1],
-        [ConstructRuneReach1, 128],
-        [ConstructRuneReach2, 64],
-        [ConstructRuneReach3, 32],
-        [ConstructRuneReach4, 16],
-        [ConstructRuneReach5, 8],
-        [ConstructRuneReach6, 4],
-        [ConstructRuneReach7, 2],
-        [ConstructRuneReach8, 1],
-        [ConstructRuneMending1, 128],
-        [ConstructRuneMending2, 64],
-        [ConstructRuneMending3, 32],
-        [ConstructRuneMending4, 16],
-        [ConstructRuneMending5, 8],
-        [ConstructRuneMending6, 4],
-        [ConstructRuneMending7, 2],
-        [ConstructRuneMending8, 1],
-        [ConstructRuneEnergize1, 128],
-        [ConstructRuneEnergize2, 64],
-        [ConstructRuneEnergize3, 32],
-        [ConstructRuneEnergize4, 16],
-        [ConstructRuneEnergize5, 8],
-        [ConstructRuneEnergize6, 4],
-        [ConstructRuneEnergize7, 2],
-        [ConstructRuneEnergize8, 1]
-    ]
-    
-    repeat (3)
-    {
-        var _rune = random_weight(_pool);
-        RuneEquip(self, script_execute(_rune));
     }
     
     InstanceAssignMethod(self, "step", ScriptWrap(EnemyDioStep), true);
@@ -185,28 +143,29 @@ switch (state)
             var _c = EffectCircleCreate(x, y, 32, 4);
             _c.color = c_red;
             _c.lifeMulti = 2;
-            var _drops = [global.jjDiosDiary, global.jjDiosBone];
+            DropItem(x, y, global.jjsRuneBundle, 1);
+            var _drops = [global.jjsDiosDiary, global.jjsDiosBone];
             var _item = irandom(array_length(_drops) - 1);
             DropItem(x, y, _drops[_item], 1);
             repeat (8)
             {
                 var _pool =
                 [
-                    [global.jjCommonShard, 128],
-                    [global.jjUncommonShard, 64],
-                    [global.jjRareShard, 32],
-                    [global.jjEpicShard, 16],
-                    [global.jjLegendaryShard, 8],
-                    [global.jjMythicalShard, 4],
-                    [global.jjAscendedShard, 2],
-                    [global.jjUltimateShard, 1],
+                    [global.jjsCommonShard, 128],
+                    [global.jjsUncommonShard, 64],
+                    [global.jjsRareShard, 32],
+                    [global.jjsEpicShard, 16],
+                    [global.jjsLegendaryShard, 8],
+                    [global.jjsMythicalShard, 4],
+                    [global.jjsCelestialShard, 2],
+                    [global.jjsUltimateShard, 1],
                 ]
                 var _shard = random_weight(_pool);
                 DropItem(x, y, _shard, 1);
             }
             if (current_month == 12)
             {
-                DropItem(x, y, global.jjBizarreCandy, 8);
+                DropItem(x, y, global.jjsBizarreCandy, 8);
             }
             global.enemyDioSpawned = false;
             if (instance_exists(STAND))
@@ -218,7 +177,6 @@ switch (state)
         }
     break;
     case "destroy":
-        RunesErase(self);
         RemoveStand(self);
         global.enemyDioSpawned = false;
         instance_destroy(self);
@@ -283,7 +241,7 @@ with (_o)
     sprite_index = sprIdle;
     image_speed = 0.35;
     level = 10;
-    hpMax = 500;
+    hpMax = 120;
     hp = hpMax;
     life = 240;
     attack_direction = 0;
@@ -397,7 +355,7 @@ switch (state)
         RemoveStand(self);
         image_angle = 90;
         image_speed = 0.1;
-        DropItem(x, y, global.jjPrisonerSoul, 1);
+        DropItem(x, y, global.jjsPrisonerSoul, 1);
         if (instance_exists(STAND))
         {
             STAND.experience += hpMax * STAND.development_potential;

@@ -1,8 +1,8 @@
 
 global.jjbamDiscD4c = ItemCreate(
     undefined,
-    Localize("standDiscName") + "D4C",
-    Localize("standDiscDescription") + "Dirty Deeds Done Dirt Cheap",
+    tr("standDiscName") + "D4C",
+    tr("standDiscDescription") + "Dirty Deeds Done Dirt Cheap",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -477,7 +477,7 @@ sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = RevolverReload;
 _skills[sk, StandSkill.Icon] = global.sprRevolverReload;
 _skills[sk, StandSkill.MaxCooldown] = 4;
-_skills[sk, StandSkill.Desc] = Localize("revolverReloadDesc");
+_skills[sk, StandSkill.Desc] = tr("revolverReloadDesc");
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = BulletVolley;
@@ -485,13 +485,13 @@ _skills[sk, StandSkill.Damage] = 3;
 _skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
 _skills[sk, StandSkill.MaxCooldown] = 1;
-_skills[sk, StandSkill.Desc] = Localize("bulletVolleyDesc");
+_skills[sk, StandSkill.Desc] = tr("bulletVolleyDesc");
 
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = CloneSwap;
 _skills[sk, StandSkill.Icon] = global.sprSkillCloneSwap;
 _skills[sk, StandSkill.MaxCooldown] = 2;
-_skills[sk, StandSkill.Desc] = Localize("cloneSwapDesc");
+_skills[sk, StandSkill.Desc] = tr("cloneSwapDesc");
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;
@@ -500,7 +500,7 @@ _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 5;
-_skills[sk, StandSkill.Desc] = Localize("barrageDesc");
+_skills[sk, StandSkill.Desc] = tr("barrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = DoubleSlap;
@@ -512,7 +512,7 @@ _skills[sk, StandSkill.SkillAlt] = StrongPunch;
 _skills[sk, StandSkill.DamageAlt] = 8;
 _skills[sk, StandSkill.MaxCooldownAlt] = 5;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillStrongPunch;
-_skills[sk, StandSkill.Desc] = Localize("doubleSlapDesc");
+_skills[sk, StandSkill.Desc] = tr("doubleSlapDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = CloneBomb;
@@ -523,13 +523,13 @@ _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.SkillAlt] = CloneSummon;
 _skills[sk, StandSkill.MaxCooldownAlt] = 6.5;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillCloneSummon;
-_skills[sk, StandSkill.Desc] = Localize("clonesDesc");
+_skills[sk, StandSkill.Desc] = tr("clonesDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = DimensionalHop;
 _skills[sk, StandSkill.Icon] = global.sprSkillDimensionalHop;
 _skills[sk, StandSkill.MaxCooldown] = 25;
-_skills[sk, StandSkill.Desc] = Localize("dimensionalHopDesc");
+_skills[sk, StandSkill.Desc] = tr("dimensionalHopDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)

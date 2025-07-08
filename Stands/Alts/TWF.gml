@@ -1,8 +1,8 @@
 
 global.jjbamDiscTwf = ItemCreate(
     undefined,
-    Localize("standDiscName") + "TWF",
-    Localize("standDiscDescription") + "The World Frozen",
+    tr("standDiscName") + "TWF",
+    tr("standDiscDescription") + "The World Frozen",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

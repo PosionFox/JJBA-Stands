@@ -50,27 +50,48 @@ global.jjSteamVersion = undefined;
 global.jjStandSlots = array_create(512, undefined);
 global.timeIsFrozen = false;    // unused
 global.jjNewGame = false;
-// mod menu
+
+#region mod menu
+
 global.jjShowMenu = false;
 global.jjMenuCurrent = "main";
 global.jjMenuSubCurrent = "default";
 global.jjMenuHover = undefined;
+// storage
 global.jjMenuStorageSlots = undefined;
 global.jjMenuStorageNames = undefined;
 global.jjMenuMinIndex = 0;
 global.jjMenuMaxIndex = 8;
+// rune storage
+global.jjsMenuRuneDeleteMode = false;
+global.jjsMenuRuneMinIndex = 0;
+global.jjsMenuRuneMaxIndex = 8;
 // settings
 global.jjSettAudioVolume = 1.0;
 global.jjSettStandTalkIdle = true;
 global.jjSettProjShadows = true;
 global.jjSettProjCollisions = false;
 
-localizationEnglish();
-localizationSpanish();
+#endregion
+
+global.ordinary_rarity_weight = 16;
+global.tragic_rarity_weight = 64;
+global.common_rarity_weight = 256;
+global.uncommon_rarity_weight = 128;
+global.rare_rarity_weight = 64;
+global.epic_rarity_weight = 32;
+global.legendary_rarity_weight = 16;
+global.mythical_rarity_weight = 8;
+global.celestial_rarity_weight = 4;
+global.ultimate_rarity_weight = 2;
+global.bizarre_rarity_weight = 1;
+
+json_lib();
+localization();
 loadSprites();
 loadSounds();
 loadItems();
-Runes();
+RunesCore();
 Shards();
 loadEnemies();
 loadSpawns();

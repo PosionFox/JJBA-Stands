@@ -1,8 +1,8 @@
 
 global.jjbamDiscTwru = ItemCreate(
     undefined,
-    Localize("standDiscName") + "TWRu",
-    Localize("standDiscDescription") + "The World Runic",
+    tr("standDiscName") + "TWRu",
+    tr("standDiscDescription") + "The World Runic",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

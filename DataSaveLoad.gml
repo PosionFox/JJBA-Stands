@@ -125,6 +125,14 @@ if (_stand != undefined)
 
 #define SaveData
 
+var _sett_map = ds_map_create();
+
+_sett_map[? "jjsCurrentLang"] = global.jjsCurrentLang;
+
+ModSettingsSubmit(_sett_map);
+ds_map_destroy(_sett_map);
+
+
 var _map = ds_map_create();
 
 _map[? "jjNewGame"] = global.jjNewGame;
@@ -194,13 +202,9 @@ if (_map[? "jjEnemyDioSpawned"] == true)
     _map[? "jjEnemyDioY"] = _dio.y;
     _map[? "jjEnemyDioHp"] = _dio.hp;
 }
+
 // runes
-if (instance_exists(player) and instance_exists(_stand))
-{
-    if (_stand.runes[0] != noone) _map[? "jjRune0"] = _stand.runes[0].save_key;
-    if (_stand.runes[1] != noone) _map[? "jjRune1"] = _stand.runes[1].save_key;
-    if (_stand.runes[2] != noone) _map[? "jjRune2"] = _stand.runes[2].save_key;
-}
+SaveRunes(_map);
 
 // mod settings
 _map[? "jjAudioVolume"] = global.jjSettAudioVolume;
@@ -209,7 +213,8 @@ _map[? "jjSettProjShadows"] = global.jjSettProjShadows;
 _map[? "jjSettProjCollisions"] = global.jjSettProjCollisions;
 
 // stand slots
-for (var i = 0; i < array_length(global.jjStandSlots); i++)
+var _ss = array_length(global.jjStandSlots);
+for (var i = 0; i < _ss; i++)
 {
     var _key = "jjStandSlot" + string(i);
     _map[? _key] = global.jjStandSlots[i];
@@ -217,7 +222,6 @@ for (var i = 0; i < array_length(global.jjStandSlots); i++)
 
 ModSaveDataSubmit(_map);
 ds_map_destroy(_map);
-
 
 #define LoadData
 
@@ -286,7 +290,7 @@ if (_custom == true)
         if ("skCustomStands" in player)
         {
             global.hasCustomStands = true;
-            StructureEdit(global.jjbamStandWorkshop, StructureData.Unlocked, true);
+            StructureEdit(global.jjsStandWorkshop, StructureData.Unlocked, true);
         }
     }
 }
@@ -336,10 +340,7 @@ if (_map[? "jjEnemyDioSpawned"])
 
 #region runes
 
-if (instance_exists(player) and instance_exists(STAND))
-{
-    LoadRunes(_map);
-}
+LoadRunes(_map);
 
 #endregion
 
@@ -403,60 +404,3 @@ for (var i = 0; i < array_length(global.jjStandSlots); i++)
 #endregion
 
 ds_map_destroy(_map);
-
-#define LoadRunes(_map)
-
-var _rune_keys = [noone, noone, noone];
-if ds_map_exists(_map, "jjRune0") _rune_keys[0] = _map[? "jjRune0"];
-if ds_map_exists(_map, "jjRune1") _rune_keys[1] = _map[? "jjRune1"];
-if ds_map_exists(_map, "jjRune2") _rune_keys[2] = _map[? "jjRune2"];
-
-var _len = array_length(_rune_keys);
-for (var i = 0; i < _len; i++)
-{
-    if (_rune_keys[i] != noone)
-    {
-        switch (_rune_keys[i])
-        {
-            case "skMissing": RuneEquip(player, ConstructRuneBase()); break;
-            case "skRuneStandMight1": RuneEquip(player, ConstructRuneStandMight1()); break;
-            case "skRuneStandMight2": RuneEquip(player, ConstructRuneStandMight2()); break;
-            case "skRuneStandMight3": RuneEquip(player, ConstructRuneStandMight3()); break;
-            case "skRuneStandMight4": RuneEquip(player, ConstructRuneStandMight4()); break;
-            case "skRuneStandMight5": RuneEquip(player, ConstructRuneStandMight5()); break;
-            case "skRuneStandMight6": RuneEquip(player, ConstructRuneStandMight6()); break;
-            case "skRuneStandMight7": RuneEquip(player, ConstructRuneStandMight7()); break;
-            case "skRuneStandMight8": RuneEquip(player, ConstructRuneStandMight8()); break;
-            
-            case "skRuneReach1": RuneEquip(player, ConstructRuneReach1()); break;
-            case "skRuneReach2": RuneEquip(player, ConstructRuneReach2()); break;
-            case "skRuneReach3": RuneEquip(player, ConstructRuneReach3()); break;
-            case "skRuneReach4": RuneEquip(player, ConstructRuneReach4()); break;
-            case "skRuneReach5": RuneEquip(player, ConstructRuneReach5()); break;
-            case "skRuneReach6": RuneEquip(player, ConstructRuneReach6()); break;
-            case "skRuneReach7": RuneEquip(player, ConstructRuneReach7()); break;
-            case "skRuneReach8": RuneEquip(player, ConstructRuneReach8()); break;
-            
-            case "skRuneMending1": RuneEquip(player, ConstructRuneMending1()); break;
-            case "skRuneMending2": RuneEquip(player, ConstructRuneMending2()); break;
-            case "skRuneMending3": RuneEquip(player, ConstructRuneMending3()); break;
-            case "skRuneMending4": RuneEquip(player, ConstructRuneMending4()); break;
-            case "skRuneMending5": RuneEquip(player, ConstructRuneMending5()); break;
-            case "skRuneMending6": RuneEquip(player, ConstructRuneMending6()); break;
-            case "skRuneMending7": RuneEquip(player, ConstructRuneMending7()); break;
-            case "skRuneMending8": RuneEquip(player, ConstructRuneMending8()); break;
-            
-            case "skRuneEnergize1": RuneEquip(player, ConstructRuneEnergize1()); break;
-            case "skRuneEnergize2": RuneEquip(player, ConstructRuneEnergize2()); break;
-            case "skRuneEnergize3": RuneEquip(player, ConstructRuneEnergize3()); break;
-            case "skRuneEnergize4": RuneEquip(player, ConstructRuneEnergize4()); break;
-            case "skRuneEnergize5": RuneEquip(player, ConstructRuneEnergize5()); break;
-            case "skRuneEnergize6": RuneEquip(player, ConstructRuneEnergize6()); break;
-            case "skRuneEnergize7": RuneEquip(player, ConstructRuneEnergize7()); break;
-            case "skRuneEnergize8": RuneEquip(player, ConstructRuneEnergize8()); break;
-            
-            case "skRuneBriefRaspite": RuneEquip(player, ConstructRuneBriefRaspite()); break;
-            default: RuneEquip(player, ConstructRuneBase()); break;
-        }
-    }
-}

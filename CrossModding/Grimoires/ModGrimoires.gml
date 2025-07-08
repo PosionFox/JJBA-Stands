@@ -1,6 +1,6 @@
 
-global.jjModGrimoiresID = ModFind("Grimoires");
-if (global.jjModGrimoiresID == -1)
+global.jjsModGrimoiresID = ModFind("Grimoires");
+if (global.jjsModGrimoiresID == -1)
 {
     Trace("grimoires not found...");
     exit;
@@ -8,13 +8,14 @@ if (global.jjModGrimoiresID == -1)
 
 Trace("grimoires found...");
 
-global.jjLecturn = ModGlobalGet(global.jjModGrimoiresID, "Lecturn");
+global.jjsLecturn = ModGlobalGet(global.jjsModGrimoiresID, "Lecturn");
 
 global.sprDioGrimoire = sprite_add("CrossModding/Grimoires/DioGrimoire.png", 1, false, false, 6, 8);
-global.jjDioSpawnGrimoire = ItemCreate(
+
+global.jjsDioSpawnGrimoire = ItemCreate(
     undefined,
-    Localize("dioGrimoireName"),
-    Localize("dioGrimoireDescription"),
+    "jjsDioSpawnGrimoire",
+    "",
     global.sprDioGrimoire,
     ItemType.Consumable,
     ItemSubType.None,
@@ -23,19 +24,21 @@ global.jjDioSpawnGrimoire = ItemCreate(
     0,
     [
         Item.RoyalClothing, 5,
-        global.jjEgyptianCrown, 3,
+        global.jjsEgyptianCrown, 3,
         Item.StarFragment, 10
     ],
     ScriptWrap(DioGrimoireUse),
     60 * 15,
     true
 );
+ItemEdit(global.jjsDioSpawnGrimoire, ItemData.Name, tr("dioGrimoireName"));
+ItemEdit(global.jjsDioSpawnGrimoire, ItemData.Description, tr("dioGrimoireDescription"));
 
-StructureAddItem(global.jjLecturn, global.jjDioSpawnGrimoire);
+StructureAddItem(global.jjsLecturn, global.jjsDioSpawnGrimoire);
 
 #define DioGrimoireUse
 
-GainItem(global.jjDioSpawnGrimoire);
+GainItem(global.jjsDioSpawnGrimoire);
 if (TimeControl.lightState == 0 or TimeControl.lightState == 3)
 {
     if (modSubtypeExists("DIO"))
@@ -46,4 +49,8 @@ if (TimeControl.lightState == 0 or TimeControl.lightState == 3)
     {
         EnemyDioSpawn();
     }
+}
+else
+{
+    Trace("dio cannot spawn on daytime.");
 }

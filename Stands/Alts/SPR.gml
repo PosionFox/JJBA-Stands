@@ -1,8 +1,8 @@
 
 global.jjbamDiscSpr = ItemCreate(
     undefined,
-    Localize("standDiscName") + "SPR",
-    Localize("standDiscDescription") + "Star Platinum Retro",
+    tr("standDiscName") + "SPR",
+    tr("standDiscDescription") + "Star Platinum Retro",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

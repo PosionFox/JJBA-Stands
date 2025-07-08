@@ -2,8 +2,8 @@
 //wip
 global.jjbamDiscWs = ItemCreate(
     undefined,
-    Localize("standDiscName") + "WS",
-    Localize("standDiscDescription") + "WhiteSnake",
+    tr("standDiscName") + "WS",
+    tr("standDiscDescription") + "WhiteSnake",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -57,7 +57,7 @@ if (instance_exists(_target))
 
 #define DiscProduce(m, s)
 
-DropItem(x, y, global.jjbamDisc, 1);
+DropItem(x, y, global.jjsBlankDisc, 1);
 EndAtk(s);
 
 #define WsBarrage(method, skill) //attacks
@@ -362,7 +362,7 @@ _skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.Icon] = global.sprSkillUry;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 2;
-_skills[sk, StandSkill.Desc] = Localize("suddenStrikeDesc");
+_skills[sk, StandSkill.Desc] = tr("suddenStrikeDesc");
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = ExplosiveSurprise;
@@ -371,19 +371,19 @@ _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillExplosiveSurprise;
 _skills[sk, StandSkill.MaxCooldown] = 7;
 _skills[sk, StandSkill.MaxExecutionTime] = 2;
-_skills[sk, StandSkill.Desc] = Localize("explosiveSurpriseDesc");
+_skills[sk, StandSkill.Desc] = tr("explosiveSurpriseDesc");
 
 sk = StandState.SkillCOff;
 _skills[sk, StandSkill.Skill] = DiscProduce;
 _skills[sk, StandSkill.Icon] = global.sprSkillDiscProduce;
 _skills[sk, StandSkill.MaxCooldown] = 20;
-_skills[sk, StandSkill.Desc] = Localize("discProduceDesc");
+_skills[sk, StandSkill.Desc] = tr("discProduceDesc");
 
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = MeltYourHeart;
 _skills[sk, StandSkill.Icon] = global.sprSkillMeltYourHeart;
 _skills[sk, StandSkill.MaxCooldown] = 40;
-_skills[sk, StandSkill.Desc] = Localize("meltYourHeartDesc");
+_skills[sk, StandSkill.Desc] = tr("meltYourHeartDesc");
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = WsBarrage;
@@ -392,7 +392,7 @@ _skills[sk, StandSkill.DamageScale] = 0.01;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 4;
 _skills[sk, StandSkill.MaxExecutionTime] = 2;
-_skills[sk, StandSkill.Desc] = Localize("wsBarrageDesc");
+_skills[sk, StandSkill.Desc] = tr("wsBarrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = WsGun;
@@ -400,7 +400,7 @@ _skills[sk, StandSkill.Damage] = 5;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
 _skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.Desc] = Localize("quickDisposalDesc");
+_skills[sk, StandSkill.Desc] = tr("quickDisposalDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = AcidicSpit;
@@ -408,7 +408,7 @@ _skills[sk, StandSkill.Damage] = 1;
 _skills[sk, StandSkill.DamageScale] = 0.05;
 _skills[sk, StandSkill.Icon] = global.sprSkillAcidicSpit;
 _skills[sk, StandSkill.MaxCooldown] = 8;
-_skills[sk, StandSkill.Desc] = Localize("acidicSpitDesc");
+_skills[sk, StandSkill.Desc] = tr("acidicSpitDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = DiscSteal;
@@ -416,7 +416,7 @@ _skills[sk, StandSkill.Damage] = 1;
 _skills[sk, StandSkill.DamageScale] = 0.05;
 _skills[sk, StandSkill.Icon] = global.sprSkillDiscSteal;
 _skills[sk, StandSkill.MaxCooldown] = 35;
-_skills[sk, StandSkill.Desc] = Localize("discStealDesc");
+_skills[sk, StandSkill.Desc] = tr("discStealDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)
@@ -437,7 +437,7 @@ with (_s)
     variants[3] = [global.sprPurpleSnake, Rarity.Epic];
     variants[4] = [global.sprYellowSnake, Rarity.Legendary];
     variants[5] = [global.sprRedSnake, Rarity.Mythical];
-    variants[6] = [global.sprOrangeSnake, Rarity.Ascended];
+    variants[6] = [global.sprOrangeSnake, Rarity.Celestial];
     variants[7] = [global.sprPinkSnake, Rarity.Ultimate];
     
     evolutions[0] = [global.sprCMoon, "???", Rarity.Common];

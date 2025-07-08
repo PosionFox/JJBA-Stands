@@ -1,8 +1,8 @@
 
 global.jjbamDiscPd4clt = ItemCreate(
     undefined,
-    Localize("standDiscName") + "PD4CLT",
-    Localize("standDiscDescription") + "Patriot D4C Love Train",
+    tr("standDiscName") + "PD4CLT",
+    tr("standDiscDescription") + "Patriot D4C Love Train",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

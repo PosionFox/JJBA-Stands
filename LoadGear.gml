@@ -6,4 +6,4 @@ global.gearCategorySteelBalls = GearCategoryCreate(
     true
 );
 
-GearCategoryAddItems(global.gearCategorySteelBalls, global.jjbamSteelBall);
+GearCategoryAddItems(global.gearCategorySteelBalls, global.jjsSteelBall);

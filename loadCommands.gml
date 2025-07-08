@@ -57,14 +57,14 @@ repeat (100)
 {
     var _pool =
     [
-        [global.jjCommonShard, 128],
-        [global.jjUncommonShard, 64],
-        [global.jjRareShard, 32],
-        [global.jjEpicShard, 16],
-        [global.jjLegendaryShard, 8],
-        [global.jjMythicalShard, 4],
-        [global.jjAscendedShard, 2],
-        [global.jjUltimateShard, 1],
+        [global.jjsCommonShard, 128],
+        [global.jjsUncommonShard, 64],
+        [global.jjsRareShard, 32],
+        [global.jjsEpicShard, 16],
+        [global.jjsLegendaryShard, 8],
+        [global.jjsMythicalShard, 4],
+        [global.jjsCelestialShard, 2],
+        [global.jjsUltimateShard, 1],
     ]
     var _shard = random_weight(_pool);
     DropItem(player.x, player.y, _shard, 1);

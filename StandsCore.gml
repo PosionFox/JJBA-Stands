@@ -71,9 +71,11 @@ var ry = yy - 40;
 var _rlen = array_length(runes);
 for (var i = 0; i < _rlen; i++)
 {
-    if (runes[i] == noone)
+    var _rune = runes[i];
+    
+    if (_rune == undefined)
     {
-        draw_sprite_ext(global.sprRuneEnergize1, 0, rx, ry - (34 * i), 2, 2, 0, c_black, 1);
+        draw_sprite_ext(global.sprBlankRune, 0, rx, ry - (34 * i), 2, 2, 0, c_black, 1);
         
         if (point_in_rectangle(gx, gy, rx - 16, ry - 16 - (34 * i), rx + 16, ry + 16 - (34 * i)))
         {
@@ -87,7 +89,9 @@ for (var i = 0; i < _rlen; i++)
     }
     else
     {
-        draw_sprite_ext(runes[i].sprite, 0, rx, ry - (34 * i), 2, 2, 0, c_white, 1);
+        var _rc = GetRarityColor(_rune.rarity);
+        draw_sprite_ext(_rune.base_sprite, 0, rx, ry - (34 * i), 2, 2, 0, c_white, 1);
+        draw_sprite_ext(_rune.sprite, 0, rx, ry - (34 * i), 2, 2, 0, _rc, 1);
         
         if (point_in_rectangle(gx, gy, rx - 16, ry - 16 - (34 * i), rx + 16, ry + 16 - (34 * i)))
         {
@@ -108,6 +112,8 @@ for (var i = 0; i < _rlen; i++)
     }
 }
 
+
+// trait
 draw_set_halign(fa_left);
 draw_set_valign(fa_bottom);
 draw_set_color(trait.color);
@@ -117,6 +123,8 @@ draw_text_color(32, _height - 138, string_lower(string(name)), color, colorAlt, 
 draw_line_color(32, _height - 144, 32 + 255, _height - 144, color, c_black);
 draw_set_valign(fa_middle);
 draw_set_halign(fa_center);
+
+// skills
 draw_text(24, _height - 84, string_lower(player.summonKeybind));
 
 var _start = StandState.SkillAOff;
@@ -142,9 +150,11 @@ for (var i = _start; i <= _end; i++)
         draw_sprite_general(skills[i, StandSkill.Icon], 0, 0, 0, 32, 32, xx - 32, yy - 32, 2, 2, 0, color, color, colorAlt, colorAlt, 1);
         if (skills[i, StandSkill.Cooldown] > 0)
         {
+            var _ctxt = string(skills[i, StandSkill.Cooldown]);
+            if (skills[i, StandSkill.Cooldown] > 1) _ctxt = string(round(skills[i, StandSkill.Cooldown]));
             var cyy = ((skills[i, StandSkill.Cooldown] / skills[i, StandSkill.MaxCooldown]) * 2) * GetStandStamina(self);
             draw_sprite_ext(global.sprSkillCooldown, 0, xx, yy, 2, cyy, 0, c_white, 0.8);
-            draw_text(xx + 8, yy + 10, string(skills[i, StandSkill.Cooldown]));
+            draw_text(xx + 8, yy + 10, _ctxt);
         }
         
         draw_text(xx + 8, _height - 120, string_lower(skills[i, StandSkill.Key]));
@@ -161,9 +171,11 @@ for (var i = _start; i <= _end; i++)
         draw_sprite_ext(global.sprSkillHold, 0, xx, yy + 64, 2, _hold, 0, color, 0.8);
         if (skills[i, StandSkill.CooldownAlt] > 0)
         {
+            var _ctxt = string(skills[i, StandSkill.CooldownAlt]);
+            if (skills[i, StandSkill.CooldownAlt] > 1) _ctxt = string(round(skills[i, StandSkill.CooldownAlt]));
             var cyy = ((skills[i, StandSkill.CooldownAlt] / skills[i, StandSkill.MaxCooldownAlt]) * 2) * GetStandStamina(self);
             draw_sprite_ext(global.sprSkillCooldown, 0, xx, yy + 64, 2, cyy, 0, c_white, 0.8);
-            draw_text(xx + 8, yy + 74, string(skills[i, StandSkill.CooldownAlt]));
+            draw_text(xx + 8, yy + 74, _ctxt);
         }
     }
     //show tooltip
@@ -176,11 +188,11 @@ for (var i = _start; i <= _end; i++)
         var txt = desc;
         if (skills[i, StandSkill.Damage] != 0)
         {
-            txt += "\n\n" + Localize("dmgDisplay") + ": " + string(GetDmg(i)) + " + " + string(player.dmg);
+            txt += "\n\n" + tr("dmgDisplay") + ": " + string(GetDmg(i)) + " + " + string(player.dmg);
         }
         // if (skills[i, StandSkill.DamageAlt] != 0)
         // {
-        //     txt += "\n" + Localize("dmgDisplay") + " alt: " + string(GetDmg(i)) + " + " + string(player.dmg);
+        //     txt += "\n" + tr("dmgDisplay") + " alt: " + string(GetDmg(i)) + " + " + string(player.dmg);
         // }
         draw_set_color(c_dkgray);
         draw_rectangle(gx, (yy - 64) - string_height(txt), gx + string_width(txt), (yy - 64), false);
@@ -592,7 +604,7 @@ with (_stand)
     height_speed = 0.2;
     rarity = {
         tier : Rarity.Common,
-        name : Localize("commonName"),
+        name : tr("commonName"),
         color : c_white,
         probability : 1
     };
@@ -658,7 +670,7 @@ with (_stand)
     stand_reach = 8;
     attack_reach = 1;
     crit_chance = 0;
-    runes = [noone, noone, noone];
+    runes = [undefined, undefined, undefined];
     max_energy = 0;
     energy = max_energy;
     energy_regen_mult = 1;
@@ -682,15 +694,18 @@ return _stand;
 var _value = 1;
 switch(_rarity)
 {
+    case Rarity.Ordinary: _value = 0.1; break;
+    case Rarity.Tragic: _value = 0.5; break;
     case Rarity.Common: _value = 1; break;
     case Rarity.Uncommon: _value = 2; break;
     case Rarity.Rare: _value = 3; break;
     case Rarity.Epic: _value = 4; break;
     case Rarity.Legendary: _value = 5; break;
     case Rarity.Mythical: _value = 6; break;
-    case Rarity.Ascended: _value = 7; break;
+    case Rarity.Celestial: _value = 7; break;
     case Rarity.Ultimate: _value = 8; break;
-    case Rarity.Event: _value = 9; break;
+    case Rarity.Bizarre: _value = 9; break;
+    case Rarity.Event: _value = 10; break;
 }
 return _value;
 
@@ -698,44 +713,58 @@ return _value;
 
 switch(_rarity)
 {
-    case Rarity.Common: return Localize("commonName"); break;
-    case Rarity.Uncommon: return Localize("uncommonName"); break;
-    case Rarity.Rare: return Localize("rareName"); break;
-    case Rarity.Epic: return Localize("epicName"); break;
-    case Rarity.Legendary: return Localize("legendaryName"); break;
-    case Rarity.Mythical: return Localize("mythicalName"); break;
-    case Rarity.Ascended: return Localize("ascendedName"); break;
-    case Rarity.Ultimate: return Localize("ultimateName"); break;
-    case Rarity.Event: return Localize("eventName"); break;
+    case Rarity.Ordinary: return tr("ordinaryName"); break;
+    case Rarity.Tragic: return tr("tragicName"); break;
+    case Rarity.Common: return tr("commonName"); break;
+    case Rarity.Uncommon: return tr("uncommonName"); break;
+    case Rarity.Rare: return tr("rareName"); break;
+    case Rarity.Epic: return tr("epicName"); break;
+    case Rarity.Legendary: return tr("legendaryName"); break;
+    case Rarity.Mythical: return tr("mythicalName"); break;
+    case Rarity.Celestial: return tr("celestialName"); break;
+    case Rarity.Ultimate: return tr("ultimateName"); break;
+    case Rarity.Bizarre: return tr("bizarreName"); break;
+    case Rarity.Event: return tr("eventName"); break;
 }
 
 #define GetRarityColor(_rarity)
 
+var _cc = make_color_hsv(abs(sin(current_time / 500)) * 32, 255, 255);
+var _cu = make_color_hsv(64 + abs(sin(current_time / 500)) * 64, abs(sin(current_time / 250)) * 255, 255);
+var _cb = make_color_hsv((current_time / 10) mod 255, 255 - abs(sin(current_time / 250)) * 64, 255);
+var _ce = make_color_hsv(128 + abs(sin(current_time / 500)) * 32, abs(sin(current_time / 600)) * 255, abs(sin(current_time / 700)) * 255);
+
 switch(_rarity)
 {
-    case Rarity.Common: return c_white; break;
-    case Rarity.Uncommon: return c_lime; break;
-    case Rarity.Rare: return c_blue; break;
-    case Rarity.Epic: return c_purple; break;
-    case Rarity.Legendary: return c_yellow; break;
-    case Rarity.Mythical: return c_red; break;
-    case Rarity.Ascended: return c_orange; break;
-    case Rarity.Ultimate: return c_fuchsia; break;
-    case Rarity.Event: return c_aqua; break;
+    case Rarity.Ordinary: return 0x202020; break;
+    case Rarity.Tragic: return 0x808080; break;
+    case Rarity.Common: return 0xffffff; break;
+    case Rarity.Uncommon: return 0x50e599; break;
+    case Rarity.Rare: return 0xff9b63; break;
+    case Rarity.Epic: return 0x8a4276; break;
+    case Rarity.Legendary: return 0x36f2fb; break;
+    case Rarity.Mythical: return 0x6357d9; break;
+    case Rarity.Celestial: return _cc; break;
+    case Rarity.Ultimate: return _cu; break;
+    case Rarity.Bizarre: return _cb; break;
+    case Rarity.Event: return _ce; break;
 }
 
 #define GetRarityWeight(_rarity)
 
 switch(_rarity)
 {
-    case Rarity.Common: return global.common_arrow_weight; break;
-    case Rarity.Uncommon: return global.uncommon_arrow_weight; break;
-    case Rarity.Rare: return global.rare_arrow_weight; break;
-    case Rarity.Epic: return global.epic_arrow_weight; break;
-    case Rarity.Legendary: return global.legendary_arrow_weight; break;
-    case Rarity.Mythical: return global.mythical_arrow_weight; break;
-    case Rarity.Ascended: return global.ascended_arrow_weight; break;
-    case Rarity.Ultimate: return global.ultimate_arrow_weight; break;
+    case Rarity.Ordinary: return global.ordinary_rarity_weight; break;
+    case Rarity.Tragic: return global.tragic_rarity_weight; break;
+    case Rarity.Common: return global.common_rarity_weight; break;
+    case Rarity.Uncommon: return global.uncommon_rarity_weight; break;
+    case Rarity.Rare: return global.rare_rarity_weight; break;
+    case Rarity.Epic: return global.epic_rarity_weight; break;
+    case Rarity.Legendary: return global.legendary_rarity_weight; break;
+    case Rarity.Mythical: return global.mythical_rarity_weight; break;
+    case Rarity.Celestial: return global.celestial_rarity_weight; break;
+    case Rarity.Ultimate: return global.ultimate_rarity_weight; break;
+    case Rarity.Bizarre: return global.bizarre_rarity_weight; break;
     case Rarity.Event: return 0; break;
 }
 

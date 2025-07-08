@@ -4,10 +4,10 @@ global.sprDeliciousDirk = sprite_add("Seasonal/Christmas/DeliciousDirk.png", 1, 
 global.sprOfferingPillar = sprite_add("Seasonal/Christmas/OfferingPillar.png", 1, false, false, 8, 24);
 global.sprOfferingPillarWorn = sprite_add("Seasonal/Christmas/OfferingPillarWorn.png", 1, false, false, 8, 24);
 
-global.jjBizarreCandy = ItemCreate(
+global.jjsBizarreCandy = ItemCreate(
     undefined,
-    Localize("bizarreCandyName"),
-    Localize("bizarreCandyDescription"),
+    "jjsBizarreCandy",
+    "",
     global.sprBizarreCandy,
     ItemType.Material,
     ItemSubType.None,
@@ -19,11 +19,13 @@ global.jjBizarreCandy = ItemCreate(
     60 * 30,
     true
 );
+ItemEdit(global.jjsBizarreCandy, ItemData.Name, tr("bizarreCandyName"));
+ItemEdit(global.jjsBizarreCandy, ItemData.Description, tr("bizarreCandyDescription"));
 
-global.jjDeliciousDirkTWF = ItemCreate(
+global.jjsDeliciousDirkTWF = ItemCreate(
     undefined,
-    Localize("deliciousDirkName") + " (The World Frozen)",
-    Localize("deliciousDirkDescription"),
+    "jjsDeliciousDirkTWF",
+    "",
     global.sprDeliciousDirk,
     ItemType.Consumable,
     ItemSubType.None,
@@ -31,17 +33,19 @@ global.jjDeliciousDirkTWF = ItemCreate(
     0,
     0,
     [
-        global.jjBizarreCandy, 512
+        global.jjsBizarreCandy, 512
     ],
     ScriptWrap(GrantTWF),
     5 * 60,
     true
-)
+);
+ItemEdit(global.jjsDeliciousDirkTWF, ItemData.Name, tr("deliciousDirkName") + " (The World Frozen)");
+ItemEdit(global.jjsDeliciousDirkTWF, ItemData.Description, tr("deliciousDirkDescription"));
 
-global.jjDeliciousDirkKCF = ItemCreate(
+global.jjsDeliciousDirkKCF = ItemCreate(
     undefined,
-    Localize("deliciousDirkName") + " (King Crimson Festive)",
-    Localize("deliciousDirkDescription"),
+    "jjsDeliciousDirkKCF",
+    "",
     global.sprDeliciousDirk,
     ItemType.Consumable,
     ItemSubType.None,
@@ -49,17 +53,19 @@ global.jjDeliciousDirkKCF = ItemCreate(
     0,
     0,
     [
-        global.jjBizarreCandy, 512
+        global.jjsBizarreCandy, 512
     ],
     ScriptWrap(GrantKCF),
     5 * 60,
     true
-)
+);
+ItemEdit(global.jjsDeliciousDirkKCF, ItemData.Name, tr("deliciousDirkName") + " (King Crimson Festive)");
+ItemEdit(global.jjsDeliciousDirkKCF, ItemData.Description, tr("deliciousDirkDescription"));
 
-global.jjDeliciousDirkHE = ItemCreate(
+global.jjsDeliciousDirkHE = ItemCreate(
     undefined,
-    Localize("deliciousDirkName") + " (Hierophant Eve)",
-    Localize("deliciousDirkDescription"),
+    "jjsDeliciousDirkHE",
+    "",
     global.sprDeliciousDirk,
     ItemType.Consumable,
     ItemSubType.None,
@@ -67,55 +73,55 @@ global.jjDeliciousDirkHE = ItemCreate(
     0,
     0,
     [
-        global.jjBizarreCandy, 512
+        global.jjsBizarreCandy, 512
     ],
     ScriptWrap(GrantHE),
     5 * 60,
     true
-)
+);
+ItemEdit(global.jjsDeliciousDirkHE, ItemData.Name, tr("deliciousDirkName") + " (Hierophant Eve)");
+ItemEdit(global.jjsDeliciousDirkHE, ItemData.Description, tr("deliciousDirkDescription"));
 
-var _sprite = global.sprOfferingPillarWorn;
-var _items = undefined
-if (current_month == 12)
-{
-    _sprite = global.sprOfferingPillar
-    _items = [
-        global.jjDeliciousDirkTWF,
-        global.jjDeliciousDirkKCF,
-        global.jjDeliciousDirkHE
-    ]
-}
-global.jjOfferingPillar = StructureCreate(
+global.jjsOfferingPillar = StructureCreate(
     undefined,
-    Localize("offeringPillarName"),
-    Localize("offeringPillarDescription"),
+    "jjsOfferingPillar",
+    "",
     StructureType.Base,
-    _sprite,
+    global.sprOfferingPillar,
     undefined,
     [
-        global.jjBizarreCandy, 100,
+        global.jjsBizarreCandy, 100,
     ],
     1,
     true,
-    _items,
+    [
+        global.jjsDeliciousDirkTWF,
+        global.jjsDeliciousDirkKCF,
+        global.jjsDeliciousDirkHE
+    ],
     true,
     BuildMenuCategory.Magical,
     undefined,
     false
 );
-
-
+StructureEdit(global.jjsOfferingPillar, StructureData.Name, tr("offeringPillarName"));
+StructureEdit(global.jjsOfferingPillar, StructureData.Description, tr("offeringPillarDescription"));
+if (current_month != 12)
+{
+    StructureEdit(global.jjsOfferingPillar, StructureData.Sprite, global.sprOfferingPillarWorn);
+    StructureEdit(global.jjsOfferingPillar, StructureData.Items, undefined);
+}
 
 #define GrantTWF
 
-grant_ability_from_item(global.jjDeliciousDirkTWF, GiveTWF)
+grant_ability_from_item(global.jjsDeliciousDirkTWF, GiveTWF)
 
 #define GrantKCF
 
-grant_ability_from_item(global.jjDeliciousDirkKCF, GiveKCF)
+grant_ability_from_item(global.jjsDeliciousDirkKCF, GiveKCF)
 
 #define GrantHE
 
-grant_ability_from_item(global.jjDeliciousDirkHE, GiveHE)
+grant_ability_from_item(global.jjsDeliciousDirkHE, GiveHE)
 
 

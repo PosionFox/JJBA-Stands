@@ -1,8 +1,8 @@
 
 global.jjbamDiscKcau = ItemCreate(
     undefined,
-    Localize("standDiscName") + "KCAU",
-    Localize("standDiscDescription") + "King Crimson Alternate Universe",
+    tr("standDiscName") + "KCAU",
+    tr("standDiscDescription") + "King Crimson Alternate Universe",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -35,7 +35,7 @@ _skills[sk, StandSkill.Icon] = global.sprSkillScalpelSlash;
 _skills[sk, StandSkill.Damage] = 2;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.MaxCooldown] = 6;
-_skills[sk, StandSkill.Desc] = Localize("scalpelSlashDesc");
+_skills[sk, StandSkill.Desc] = tr("scalpelSlashDesc");
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = ScalpelThrow;
@@ -43,7 +43,7 @@ _skills[sk, StandSkill.Icon] = global.sprSkillScalpelThrow;
 _skills[sk, StandSkill.Damage] = 1.5;
 _skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.Desc] = Localize("scalpelThrowDesc");
+_skills[sk, StandSkill.Desc] = tr("scalpelThrowDesc");
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = KcBarrage;
@@ -52,7 +52,7 @@ _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 6;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
-_skills[sk, StandSkill.Desc] = Localize("kcBarrageDesc");
+_skills[sk, StandSkill.Desc] = tr("kcBarrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = KcChop;
@@ -65,19 +65,19 @@ _skills[sk, StandSkill.DamageAlt] = 15;
 _skills[sk, StandSkill.DamageScaleAlt] = 0.15;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillHeavyChop;
 _skills[sk, StandSkill.MaxCooldownAlt] = 15;
-_skills[sk, StandSkill.Desc] = Localize("chopDesc");
+_skills[sk, StandSkill.Desc] = tr("chopDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = TimeSkip;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimeSkip;
 _skills[sk, StandSkill.MaxCooldown] = 3;
-_skills[sk, StandSkill.Desc] = Localize("timeSkipDesc");
+_skills[sk, StandSkill.Desc] = tr("timeSkipDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = TimeErase;
 _skills[sk, StandSkill.MaxCooldown] = 35;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimeErase;
-_skills[sk, StandSkill.Desc] = Localize("timeEraseDesc");
+_skills[sk, StandSkill.Desc] = tr("timeEraseDesc");
 
 
 var _s = StandBuilder(_owner, _skills);

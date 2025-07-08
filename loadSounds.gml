@@ -29,6 +29,7 @@ global.sndTwTsResume = audio_create_stream(p + "tsResume.ogg");
 global.sndTsOld = audio_create_stream(p + "tsOld.ogg");
 global.sndSlamSound = audio_create_stream(p + "slamSound.ogg");
 global.sndStandLevelUp = audio_create_stream(p + "standLevelUp.ogg");
+global.sndThunderousStrike = audio_create_stream(p + "thunderousStrike.ogg");
 
 #endregion
 

@@ -2,8 +2,8 @@
 
 global.jjbamDiscSans = ItemCreate(
     undefined,
-    Localize("standDiscName") + "SANS",
-    Localize("standDiscDescription") + "Sans",
+    tr("standDiscName") + "SANS",
+    tr("standDiscDescription") + "Sans",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -82,7 +82,7 @@ _skills[sk, StandSkill.Skill] = GroundBone;
 _skills[sk, StandSkill.Damage] = 0.001;
 _skills[sk, StandSkill.Icon] = global.sprSkillJosephKnife;
 _skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.Desc] = Localize("diosKnifeDesc");
+_skills[sk, StandSkill.Desc] = tr("diosKnifeDesc");
 
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = SansTp;
@@ -96,7 +96,7 @@ _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 5;
-_skills[sk, StandSkill.Desc] = Localize("barrageDesc");
+_skills[sk, StandSkill.Desc] = tr("barrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = SpStrongPunch;
@@ -108,7 +108,7 @@ _skills[sk, StandSkill.SkillAlt] = MeleePull;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillMeleePull;
 _skills[sk, StandSkill.MaxCooldownAlt] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
-_skills[sk, StandSkill.Desc] = Localize("spStrongPunchDesc");
+_skills[sk, StandSkill.Desc] = tr("spStrongPunchDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = StarFinger;
@@ -117,7 +117,7 @@ _skills[sk, StandSkill.DamageScale] = 0.05;
 _skills[sk, StandSkill.Icon] = global.sprSkillStarFinger;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 0.7;
-_skills[sk, StandSkill.Desc] = Localize("starFingerDesc");
+_skills[sk, StandSkill.Desc] = tr("starFingerDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = SpTimestop;
@@ -126,7 +126,7 @@ _skills[sk, StandSkill.MaxCooldown] = 25;
 _skills[sk, StandSkill.SkillAlt] = SpEvolveToSptw;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillStwTw;
 _skills[sk, StandSkill.MaxHold] = 2;
-_skills[sk, StandSkill.Desc] = Localize("spTimestopDesc");
+_skills[sk, StandSkill.Desc] = tr("spTimestopDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)

@@ -1,10 +1,10 @@
 
 #region shards
 
-global.jjCommonShard = ItemCreate(
+global.jjsCommonShard = ItemCreate(
     undefined,
-    Localize("shardName") + " (" + Localize("commonName") + ")",
-    Localize("shardDescription"),
+    "jjsCommonShard",
+    "",
     global.sprCommonShard,
     ItemType.Material,
     ItemSubType.None,
@@ -16,11 +16,13 @@ global.jjCommonShard = ItemCreate(
     60 * 1,
     true
 );
+ItemEdit(global.jjsCommonShard, ItemData.Name, tr("shardName") + " (" + tr("commonName") + ")");
+ItemEdit(global.jjsCommonShard, ItemData.Description, tr("shardDescription"));
 
-global.jjUncommonShard = ItemCreate(
+global.jjsUncommonShard = ItemCreate(
     undefined,
-    Localize("shardName") + " (" + Localize("uncommonName") + ")",
-    Localize("shardDescription"),
+    "jjsUncommonShard",
+    "",
     global.sprUncommonShard,
     ItemType.Material,
     ItemSubType.None,
@@ -32,11 +34,13 @@ global.jjUncommonShard = ItemCreate(
     60 * 1,
     true
 );
+ItemEdit(global.jjsUncommonShard, ItemData.Name, tr("shardName") + " (" + tr("uncommonName") + ")");
+ItemEdit(global.jjsUncommonShard, ItemData.Description, tr("shardDescription"));
 
-global.jjRareShard = ItemCreate(
+global.jjsRareShard = ItemCreate(
     undefined,
-    Localize("shardName") + " (" + Localize("rareName") + ")",
-    Localize("shardDescription"),
+    "jjsRareShard",
+    "",
     global.sprRareShard,
     ItemType.Material,
     ItemSubType.None,
@@ -48,11 +52,13 @@ global.jjRareShard = ItemCreate(
     60 * 1,
     true
 );
+ItemEdit(global.jjsRareShard, ItemData.Name, tr("shardName") + " (" + tr("rareName") + ")");
+ItemEdit(global.jjsRareShard, ItemData.Description, tr("shardDescription"));
 
-global.jjEpicShard = ItemCreate(
+global.jjsEpicShard = ItemCreate(
     undefined,
-    Localize("shardName") + " (" + Localize("epicName") + ")",
-    Localize("shardDescription"),
+    "jjsEpicShard",
+    "",
     global.sprEpicShard,
     ItemType.Material,
     ItemSubType.None,
@@ -64,11 +70,13 @@ global.jjEpicShard = ItemCreate(
     60 * 1,
     true
 );
+ItemEdit(global.jjsEpicShard, ItemData.Name, tr("shardName") + " (" + tr("epicName") + ")");
+ItemEdit(global.jjsEpicShard, ItemData.Description, tr("shardDescription"));
 
-global.jjLegendaryShard = ItemCreate(
+global.jjsLegendaryShard = ItemCreate(
     undefined,
-    Localize("shardName") + " (" + Localize("legendaryName") + ")",
-    Localize("shardDescription"),
+    "jjsLegendaryShard",
+    "",
     global.sprLegendaryShard,
     ItemType.Material,
     ItemSubType.None,
@@ -80,11 +88,13 @@ global.jjLegendaryShard = ItemCreate(
     60 * 1,
     true
 );
+ItemEdit(global.jjsLegendaryShard, ItemData.Name, tr("shardName") + " (" + tr("legendaryName") + ")");
+ItemEdit(global.jjsLegendaryShard, ItemData.Description, tr("shardDescription"));
 
-global.jjMythicalShard = ItemCreate(
+global.jjsMythicalShard = ItemCreate(
     undefined,
-    Localize("shardName") + " (" + Localize("mythicalName") + ")",
-    Localize("shardDescription"),
+    "jjsMythicalShard",
+    "",
     global.sprMythicalShard,
     ItemType.Material,
     ItemSubType.None,
@@ -96,12 +106,14 @@ global.jjMythicalShard = ItemCreate(
     60 * 1,
     true
 );
+ItemEdit(global.jjsMythicalShard, ItemData.Name, tr("shardName") + " (" + tr("mythicalName") + ")");
+ItemEdit(global.jjsMythicalShard, ItemData.Description, tr("shardDescription"));
 
-global.jjAscendedShard = ItemCreate(
+global.jjsCelestialShard = ItemCreate(
     undefined,
-    Localize("shardName") + " (" + Localize("ascendedName") + ")",
-    Localize("shardDescription"),
-    global.sprAscendedShard,
+    "jjsCelestialShard",
+    "",
+    global.sprCelestialShard,
     ItemType.Material,
     ItemSubType.None,
     256,
@@ -112,11 +124,13 @@ global.jjAscendedShard = ItemCreate(
     60 * 1,
     true
 );
+ItemEdit(global.jjsCelestialShard, ItemData.Name, tr("shardName") + " (" + tr("celestialName") + ")");
+ItemEdit(global.jjsCelestialShard, ItemData.Description, tr("shardDescription"));
 
-global.jjUltimateShard = ItemCreate(
+global.jjsUltimateShard = ItemCreate(
     undefined,
-    Localize("shardName") + " (" + Localize("ultimateName") + ")",
-    Localize("shardDescription"),
+    "jjsUltimateShard",
+    "",
     global.sprUltimateShard,
     ItemType.Material,
     ItemSubType.None,
@@ -128,15 +142,17 @@ global.jjUltimateShard = ItemCreate(
     60 * 1,
     true
 );
+ItemEdit(global.jjsUltimateShard, ItemData.Name, tr("shardName") + " (" + tr("ultimateName") + ")");
+ItemEdit(global.jjsUltimateShard, ItemData.Description, tr("shardDescription"));
 
 #endregion
 
 #region concentrated arrows
 
-global.jjCommonConcentratedArrow = ItemCreate(
+global.jjsCommonConcentratedArrow = ItemCreate(
     undefined,
-    Localize("concentratedArrowName") + " (" + Localize("commonName") + ")",
-    Localize("concentratedArrowDescription"),
+    "jjsCommonConcentratedArrow",
+    "",
     global.sprCommonConcentratedArrow,
     ItemType.Consumable,
     ItemSubType.None,
@@ -144,18 +160,20 @@ global.jjCommonConcentratedArrow = ItemCreate(
     0,
     0,
     [
-        global.jjbamArrow, 1,
-        global.jjCommonShard, 64
+        global.jjsSuspiciousArrow, 1,
+        global.jjsCommonShard, 64
     ],
     ScriptWrap(GrantCommonAbility),
     60 * 1,
     true
 );
+ItemEdit(global.jjsCommonConcentratedArrow, ItemData.Name, tr("concentratedArrowName") + " (" + tr("commonName") + ")");
+ItemEdit(global.jjsCommonConcentratedArrow, ItemData.Description, tr("concentratedArrowDescription"));
 
-global.jjUncommonConcentratedArrow = ItemCreate(
+global.jjsUncommonConcentratedArrow = ItemCreate(
     undefined,
-    Localize("concentratedArrowName") + " (" + Localize("uncommonName") + ")",
-    Localize("concentratedArrowDescription"),
+    "jjsUncommonConcentratedArrow",
+    "",
     global.sprUncommonConcentratedArrow,
     ItemType.Consumable,
     ItemSubType.None,
@@ -163,18 +181,20 @@ global.jjUncommonConcentratedArrow = ItemCreate(
     0,
     0,
     [
-        global.jjbamArrow, 1,
-        global.jjUncommonShard, 32
+        global.jjsSuspiciousArrow, 1,
+        global.jjsUncommonShard, 32
     ],
     ScriptWrap(GrantUncommonAbility),
     60 * 1,
     true
 );
+ItemEdit(global.jjsUncommonConcentratedArrow, ItemData.Name, tr("concentratedArrowName") + " (" + tr("uncommonName") + ")");
+ItemEdit(global.jjsUncommonConcentratedArrow, ItemData.Description, tr("concentratedArrowDescription"));
 
-global.jjRareConcentratedArrow = ItemCreate(
+global.jjsRareConcentratedArrow = ItemCreate(
     undefined,
-    Localize("concentratedArrowName") + " (" + Localize("rareName") + ")",
-    Localize("concentratedArrowDescription"),
+    "jjsRareConcentratedArrow",
+    "",
     global.sprRareConcentratedArrow,
     ItemType.Consumable,
     ItemSubType.None,
@@ -182,18 +202,20 @@ global.jjRareConcentratedArrow = ItemCreate(
     0,
     0,
     [
-        global.jjbamArrow, 1,
-        global.jjRareShard, 16
+        global.jjsSuspiciousArrow, 1,
+        global.jjsRareShard, 16
     ],
     ScriptWrap(GrantRareAbility),
     60 * 1,
     true
 );
+ItemEdit(global.jjsRareConcentratedArrow, ItemData.Name, tr("concentratedArrowName") + " (" + tr("rareName") + ")");
+ItemEdit(global.jjsRareConcentratedArrow, ItemData.Description, tr("concentratedArrowDescription"));
 
-global.jjEpicConcentratedArrow = ItemCreate(
+global.jjsEpicConcentratedArrow = ItemCreate(
     undefined,
-    Localize("concentratedArrowName") + " (" + Localize("epicName") + ")",
-    Localize("concentratedArrowDescription"),
+    "jjsEpicConcentratedArrow",
+    "",
     global.sprEpicConcentratedArrow,
     ItemType.Consumable,
     ItemSubType.None,
@@ -201,18 +223,20 @@ global.jjEpicConcentratedArrow = ItemCreate(
     0,
     0,
     [
-        global.jjbamArrow, 1,
-        global.jjEpicShard, 8
+        global.jjsSuspiciousArrow, 1,
+        global.jjsEpicShard, 8
     ],
     ScriptWrap(GrantEpicAbility),
     60 * 1,
     true
 );
+ItemEdit(global.jjsEpicConcentratedArrow, ItemData.Name, tr("concentratedArrowName") + " (" + tr("epicName") + ")");
+ItemEdit(global.jjsEpicConcentratedArrow, ItemData.Description, tr("concentratedArrowDescription"));
 
-global.jjLegendaryConcentratedArrow = ItemCreate(
+global.jjsLegendaryConcentratedArrow = ItemCreate(
     undefined,
-    Localize("concentratedArrowName") + " (" + Localize("legendaryName") + ")",
-    Localize("concentratedArrowDescription"),
+    "jjsLegendaryConcentratedArrow",
+    "",
     global.sprLegendaryConcentratedArrow,
     ItemType.Consumable,
     ItemSubType.None,
@@ -220,18 +244,20 @@ global.jjLegendaryConcentratedArrow = ItemCreate(
     0,
     0,
     [
-        global.jjbamArrow, 1,
-        global.jjLegendaryShard, 4
+        global.jjsSuspiciousArrow, 1,
+        global.jjsLegendaryShard, 4
     ],
     ScriptWrap(GrantLegendaryAbility),
     60 * 1,
     true
 );
+ItemEdit(global.jjsLegendaryConcentratedArrow, ItemData.Name, tr("concentratedArrowName") + " (" + tr("legendaryName") + ")");
+ItemEdit(global.jjsLegendaryConcentratedArrow, ItemData.Description, tr("concentratedArrowDescription"));
 
-global.jjMythicalConcentratedArrow = ItemCreate(
+global.jjsMythicalConcentratedArrow = ItemCreate(
     undefined,
-    Localize("concentratedArrowName") + " (" + Localize("mythicalName") + ")",
-    Localize("concentratedArrowDescription"),
+    "jjsMythicalConcentratedArrow",
+    "",
     global.sprMythicalConcentratedArrow,
     ItemType.Consumable,
     ItemSubType.None,
@@ -239,37 +265,41 @@ global.jjMythicalConcentratedArrow = ItemCreate(
     0,
     0,
     [
-        global.jjbamArrow, 1,
-        global.jjMythicalShard, 3
+        global.jjsSuspiciousArrow, 1,
+        global.jjsMythicalShard, 3
     ],
     ScriptWrap(GrantMythicalAbility),
     60 * 1,
     true
 );
+ItemEdit(global.jjsMythicalConcentratedArrow, ItemData.Name, tr("concentratedArrowName") + " (" + tr("mythicalName") + ")");
+ItemEdit(global.jjsMythicalConcentratedArrow, ItemData.Description, tr("concentratedArrowDescription"));
 
-global.jjAscendedConcentratedArrow = ItemCreate(
+global.jjsCelestialConcentratedArrow = ItemCreate(
     undefined,
-    Localize("concentratedArrowName") + " (" + Localize("ascendedName") + ")",
-    Localize("concentratedArrowDescription"),
-    global.sprAscendedConcentratedArrow,
+    "jjsCelestialConcentratedArrow",
+    "",
+    global.sprCelestialConcentratedArrow,
     ItemType.Consumable,
     ItemSubType.None,
     128 * 7,
     0,
     0,
     [
-        global.jjbamArrow, 1,
-        global.jjAscendedShard, 2
+        global.jjsSuspiciousArrow, 1,
+        global.jjsCelestialShard, 2
     ],
-    ScriptWrap(GrantAscendedAbility),
+    ScriptWrap(GrantCelestialAbility),
     60 * 1,
     true
 );
+ItemEdit(global.jjsCelestialConcentratedArrow, ItemData.Name, tr("concentratedArrowName") + " (" + tr("celestialName") + ")");
+ItemEdit(global.jjsCelestialConcentratedArrow, ItemData.Description, tr("concentratedArrowDescription"));
 
-global.jjUltimateConcentratedArrow = ItemCreate(
+global.jjsUltimateConcentratedArrow = ItemCreate(
     undefined,
-    Localize("concentratedArrowName") + " (" + Localize("ultimateName") + ")",
-    Localize("concentratedArrowDescription"),
+    "jjsUltimateConcentratedArrow",
+    "",
     global.sprUltimateConcentratedArrow,
     ItemType.Consumable,
     ItemSubType.None,
@@ -277,13 +307,15 @@ global.jjUltimateConcentratedArrow = ItemCreate(
     0,
     0,
     [
-        global.jjbamArrow, 1,
-        global.jjUltimateShard, 1
+        global.jjsSuspiciousArrow, 1,
+        global.jjsUltimateShard, 1
     ],
     ScriptWrap(GrantUltimateAbility),
     60 * 1,
     true
 );
+ItemEdit(global.jjsUltimateConcentratedArrow, ItemData.Name, tr("concentratedArrowName") + " (" + tr("ultimateName") + ")");
+ItemEdit(global.jjsUltimateConcentratedArrow, ItemData.Description, tr("concentratedArrowDescription"));
 
 #endregion
 
@@ -291,158 +323,158 @@ global.jjUltimateConcentratedArrow = ItemCreate(
 
 if (room != rmGame)
 {
-    GainItem(global.jjCommonConcentratedArrow);
+    GainItem(global.jjsCommonConcentratedArrow);
     exit;
 }
 
 if (!instance_exists(STAND))
 {
     DmgPlayer(1, false);
-    var _abilities = get_all_from_weight(global.arrow_ability_pool, global.common_arrow_weight);
+    var _abilities = get_all_from_weight(global.arrow_ability_pool, global.common_rarity_weight);
     var _c = irandom(array_length(_abilities) - 1);
     script_execute(_abilities[_c], player);
 }
 else
 {
-    GainItem(global.jjCommonConcentratedArrow);
+    GainItem(global.jjsCommonConcentratedArrow);
 }
 
 #define GrantUncommonAbility
 
 if (room != rmGame)
 {
-    GainItem(global.jjUncommonConcentratedArrow);
+    GainItem(global.jjsUncommonConcentratedArrow);
     exit;
 }
 
 if (!instance_exists(STAND))
 {
     DmgPlayer(1, false);
-    var _abilities = get_all_from_weight(global.arrow_ability_pool, global.uncommon_arrow_weight);
+    var _abilities = get_all_from_weight(global.arrow_ability_pool, global.uncommon_rarity_weight);
     var _c = irandom(array_length(_abilities) - 1);
     script_execute(_abilities[_c], player);
 }
 else
 {
-    GainItem(global.jjUncommonConcentratedArrow);
+    GainItem(global.jjsUncommonConcentratedArrow);
 }
 
 #define GrantRareAbility
 
 if (room != rmGame)
 {
-    GainItem(global.jjRareConcentratedArrow);
+    GainItem(global.jjsRareConcentratedArrow);
     exit;
 }
 
 if (!instance_exists(STAND))
 {
     DmgPlayer(1, false);
-    var _abilities = get_all_from_weight(global.arrow_ability_pool, global.rare_arrow_weight);
+    var _abilities = get_all_from_weight(global.arrow_ability_pool, global.rare_rarity_weight);
     var _c = irandom(array_length(_abilities) - 1);
     script_execute(_abilities[_c], player);
 }
 else
 {
-    GainItem(global.jjRareConcentratedArrow);
+    GainItem(global.jjsRareConcentratedArrow);
 }
 
 #define GrantEpicAbility
 
 if (room != rmGame)
 {
-    GainItem(global.jjEpicConcentratedArrow);
+    GainItem(global.jjsEpicConcentratedArrow);
     exit;
 }
 
 if (!instance_exists(STAND))
 {
     DmgPlayer(1, false);
-    var _abilities = get_all_from_weight(global.arrow_ability_pool, global.epic_arrow_weight);
+    var _abilities = get_all_from_weight(global.arrow_ability_pool, global.epic_rarity_weight);
     var _c = irandom(array_length(_abilities) - 1);
     script_execute(_abilities[_c], player);
 }
 else
 {
-    GainItem(global.jjEpicConcentratedArrow);
+    GainItem(global.jjsEpicConcentratedArrow);
 }
 
 #define GrantLegendaryAbility
 
 if (room != rmGame)
 {
-    GainItem(global.jjLegendaryConcentratedArrow);
+    GainItem(global.jjsLegendaryConcentratedArrow);
     exit;
 }
 
 if (!instance_exists(STAND))
 {
     DmgPlayer(1, false);
-    var _abilities = get_all_from_weight(global.arrow_ability_pool, global.legendary_arrow_weight);
+    var _abilities = get_all_from_weight(global.arrow_ability_pool, global.legendary_rarity_weight);
     var _c = irandom(array_length(_abilities) - 1);
     script_execute(_abilities[_c], player);
 }
 else
 {
-    GainItem(global.jjLegendaryConcentratedArrow);
+    GainItem(global.jjsLegendaryConcentratedArrow);
 }
 
 #define GrantMythicalAbility
 
 if (room != rmGame)
 {
-    GainItem(global.jjMythicalConcentratedArrow);
+    GainItem(global.jjsMythicalConcentratedArrow);
     exit;
 }
 
 if (!instance_exists(STAND))
 {
     DmgPlayer(1, false);
-    var _abilities = get_all_from_weight(global.arrow_ability_pool, global.mythical_arrow_weight);
+    var _abilities = get_all_from_weight(global.arrow_ability_pool, global.mythical_rarity_weight);
     var _c = irandom(array_length(_abilities) - 1);
     script_execute(_abilities[_c], player);
 }
 else
 {
-    GainItem(global.jjMythicalConcentratedArrow);
+    GainItem(global.jjsMythicalConcentratedArrow);
 }
 
-#define GrantAscendedAbility
+#define GrantCelestialAbility
 
 if (room != rmGame)
 {
-    GainItem(global.jjAscendedConcentratedArrow);
+    GainItem(global.jjsCelestialConcentratedArrow);
     exit;
 }
 
 if (!instance_exists(STAND))
 {
     DmgPlayer(1, false);
-    var _abilities = get_all_from_weight(global.arrow_ability_pool, global.ascended_arrow_weight);
+    var _abilities = get_all_from_weight(global.arrow_ability_pool, global.celestial_rarity_weight);
     var _c = irandom(array_length(_abilities) - 1);
     script_execute(_abilities[_c], player);
 }
 else
 {
-    GainItem(global.jjAscendedConcentratedArrow);
+    GainItem(global.jjsCelestialConcentratedArrow);
 }
 
 #define GrantUltimateAbility
 
 if (room != rmGame)
 {
-    GainItem(global.jjUltimateConcentratedArrow);
+    GainItem(global.jjsUltimateConcentratedArrow);
     exit;
 }
 
 if (!instance_exists(STAND))
 {
     DmgPlayer(1, false);
-    var _abilities = get_all_from_weight(global.arrow_ability_pool, global.ultimate_arrow_weight);
+    var _abilities = get_all_from_weight(global.arrow_ability_pool, global.ultimate_rarity_weight);
     var _c = irandom(array_length(_abilities) - 1);
     script_execute(_abilities[_c], player);
 }
 else
 {
-    GainItem(global.jjUltimateConcentratedArrow);
+    GainItem(global.jjsUltimateConcentratedArrow);
 }

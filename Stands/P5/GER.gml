@@ -1,8 +1,8 @@
 
 global.jjbamDiscGer = ItemCreate(
     undefined,
-    Localize("standDiscName") + "GER",
-    Localize("standDiscDescription") + "Gold Experience Requiem",
+    tr("standDiscName") + "GER",
+    tr("standDiscDescription") + "Gold Experience Requiem",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -188,19 +188,19 @@ sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = LifeFormPlant;
 _skills[sk, StandSkill.Icon] = global.sprSkillLifeFormPlant;
 _skills[sk, StandSkill.MaxCooldown] = 15;
-_skills[sk, StandSkill.Desc] = Localize("lifeformPlantDesc");
+_skills[sk, StandSkill.Desc] = tr("lifeformPlantDesc");
 
 sk = StandState.SkillCOff;
 _skills[sk, StandSkill.Skill] = LifeFormScorpion;
 _skills[sk, StandSkill.Icon] = global.sprSkillLifeFormScorpion;
 _skills[sk, StandSkill.MaxCooldown] = 20;
-_skills[sk, StandSkill.Desc] = Localize("lifeformScorpionDesc");
+_skills[sk, StandSkill.Desc] = tr("lifeformScorpionDesc");
 
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = LifeFormFrog;
 _skills[sk, StandSkill.Icon] = global.sprSkillLifeFormFrog;
 _skills[sk, StandSkill.MaxCooldown] = 20;
-_skills[sk, StandSkill.Desc] = Localize("lifeformFrogDesc");
+_skills[sk, StandSkill.Desc] = tr("lifeformFrogDesc");
 
 
 sk = StandState.SkillA;
@@ -210,7 +210,7 @@ _skills[sk, StandSkill.DamageScale] = 0.01;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 7;
-_skills[sk, StandSkill.Desc] = Localize("barrageDesc");
+_skills[sk, StandSkill.Desc] = tr("barrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = LifePunch;
@@ -218,7 +218,7 @@ _skills[sk, StandSkill.Damage] = 3;
 _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 8;
-_skills[sk, StandSkill.Desc] = Localize("lifePunchDesc");
+_skills[sk, StandSkill.Desc] = tr("lifePunchDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = SelfHeal;
@@ -227,13 +227,13 @@ _skills[sk, StandSkill.DamageScale] = 0.15;
 _skills[sk, StandSkill.DamagePlayerStat] = false;
 _skills[sk, StandSkill.Icon] = global.sprSkillSelfHeal;
 _skills[sk, StandSkill.MaxCooldown] = 15;
-_skills[sk, StandSkill.Desc] = Localize("selfHealDesc");
+_skills[sk, StandSkill.Desc] = tr("selfHealDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = TransformIntoGer;
 _skills[sk, StandSkill.Icon] = global.sprSkillRequiem;
 _skills[sk, StandSkill.MaxCooldown] = 60;
-_skills[sk, StandSkill.Desc] = Localize("requiemDesc");
+_skills[sk, StandSkill.Desc] = tr("requiemDesc");
 
 #endregion
 
@@ -252,7 +252,7 @@ _skillsGer[sk, StandSkill.DamageScale] = 0.4;
 _skillsGer[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skillsGer[sk, StandSkill.MaxCooldown] = 3;
 _skillsGer[sk, StandSkill.MaxExecutionTime] = 9;
-_skillsGer[sk, StandSkill.Desc] = Localize("gerBarrageDesc");
+_skillsGer[sk, StandSkill.Desc] = tr("gerBarrageDesc");
 
 sk = StandState.SkillB;
 _skillsGer[sk, StandSkill.Skill] = LifePunch;
@@ -260,13 +260,13 @@ _skillsGer[sk, StandSkill.Damage] = 10;
 _skillsGer[sk, StandSkill.DamageScale] = 0.2;
 _skillsGer[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skillsGer[sk, StandSkill.MaxCooldown] = 4;
-_skillsGer[sk, StandSkill.Desc] = Localize("lifePunchDesc");
+_skillsGer[sk, StandSkill.Desc] = tr("lifePunchDesc");
 
 sk = StandState.SkillC;
 _skillsGer[sk, StandSkill.Skill] = ScorpionToss;
 _skillsGer[sk, StandSkill.Icon] = global.sprSkillLifeFormScorpion;
 _skillsGer[sk, StandSkill.MaxCooldown] = 5;
-_skillsGer[sk, StandSkill.Desc] = Localize("scorpionTossDesc");
+_skillsGer[sk, StandSkill.Desc] = tr("scorpionTossDesc");
 
 sk = StandState.SkillD;
 _skillsGer[sk, StandSkill.Skill] = SelfHeal;
@@ -275,7 +275,7 @@ _skillsGer[sk, StandSkill.DamageScale] = 0.15;
 _skillsGer[sk, StandSkill.DamagePlayerStat] = false;
 _skillsGer[sk, StandSkill.Icon] = global.sprSkillSelfHeal;
 _skillsGer[sk, StandSkill.MaxCooldown] = 6;
-_skillsGer[sk, StandSkill.Desc] = Localize("selfHealDesc");
+_skillsGer[sk, StandSkill.Desc] = tr("selfHealDesc");
 
 
 #endregion

@@ -1,8 +1,8 @@
 
 global.jjbamDiscHg = ItemCreate(
     undefined,
-    Localize("standDiscName") + "HG",
-    Localize("standDiscDescription") + "Hierophant Green",
+    tr("standDiscName") + "HG",
+    tr("standDiscDescription") + "Hierophant Green",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -183,7 +183,7 @@ _skills[sk, StandSkill.DamageScale] = 0.03;
 _skills[sk, StandSkill.Icon] = global.sprSkillEmeraldSplash;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
-_skills[sk, StandSkill.Desc] = Localize("emeraldSplashDesc");
+_skills[sk, StandSkill.Desc] = tr("emeraldSplashDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = StrongPunch;
@@ -191,7 +191,7 @@ _skills[sk, StandSkill.Damage] = 25;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 8;
-_skills[sk, StandSkill.Desc] = Localize("strongPunchDesc");
+_skills[sk, StandSkill.Desc] = tr("strongPunchDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = HierophantBarrier;
@@ -199,7 +199,7 @@ _skills[sk, StandSkill.Damage] = 2;
 _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillHierophantBarrier;
 _skills[sk, StandSkill.MaxCooldown] = 15;
-_skills[sk, StandSkill.Desc] = Localize("hierophantBarrierDesc");
+_skills[sk, StandSkill.Desc] = tr("hierophantBarrierDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = EmeraldSplash20Meters;
@@ -208,7 +208,7 @@ _skills[sk, StandSkill.DamageScale] = 0.03;
 _skills[sk, StandSkill.Icon] = global.sprSkillEmeraldSplash20Meters;
 _skills[sk, StandSkill.MaxCooldown] = 30;
 _skills[sk, StandSkill.MaxExecutionTime] = 5;
-_skills[sk, StandSkill.Desc] = Localize("emeraldSplash20MetersDesc");
+_skills[sk, StandSkill.Desc] = tr("emeraldSplash20MetersDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)

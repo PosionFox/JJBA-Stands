@@ -1,8 +1,8 @@
 
 global.jjbamDiscEg = ItemCreate(
     undefined,
-    Localize("standDiscName") + "Eg",
-    Localize("standDiscDescription") + "Evergreen",
+    tr("standDiscName") + "Eg",
+    tr("standDiscDescription") + "Evergreen",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -33,7 +33,7 @@ with (_s)
     name = "Evergreen";
     color = 0x50e599;
     colorAlt = 0x3c2845;
-    UpdateRarity(Rarity.Ascended);
+    UpdateRarity(Rarity.Celestial);
     auraParticleSprite = global.sprStandParticle6;
     saveKey = "jjbamEg";
     discType = global.jjbamDiscEg;

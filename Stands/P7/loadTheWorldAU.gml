@@ -1,8 +1,8 @@
 
 global.jjbamDiscTwau = ItemCreate(
     undefined,
-    Localize("standDiscName") + "TWAU",
-    Localize("standDiscDescription") + "The World Alternate Universe",
+    tr("standDiscName") + "TWAU",
+    tr("standDiscDescription") + "The World Alternate Universe",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -264,7 +264,7 @@ sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = RevolverReload;
 _skills[sk, StandSkill.Icon] = global.sprRevolverReload;
 _skills[sk, StandSkill.MaxCooldown] = 4;
-_skills[sk, StandSkill.Desc] = Localize("revolverReloadDesc");
+_skills[sk, StandSkill.Desc] = tr("revolverReloadDesc");
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = BulletVolley;
@@ -272,7 +272,7 @@ _skills[sk, StandSkill.Damage] = 3;
 _skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
 _skills[sk, StandSkill.MaxCooldown] = 1;
-_skills[sk, StandSkill.Desc] = Localize("bulletVolleyDesc");
+_skills[sk, StandSkill.Desc] = tr("bulletVolleyDesc");
 
 sk = StandState.SkillCOff;
 _skills[sk, StandSkill.Skill] = TripleKnifeThrow;
@@ -280,7 +280,7 @@ _skills[sk, StandSkill.Damage] = 5;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillTripleKnifeThrow;
 _skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.Desc] = Localize("tripleKnifeDesc");
+_skills[sk, StandSkill.Desc] = tr("tripleKnifeDesc");
 /*
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = Matches;
@@ -302,7 +302,7 @@ _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 4;
-_skills[sk, StandSkill.Desc] = Localize("barrageDesc");
+_skills[sk, StandSkill.Desc] = tr("barrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = KnifeBarrage;
@@ -311,7 +311,7 @@ _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillKnifeBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
-_skills[sk, StandSkill.Desc] = Localize("knifeBarrageDesc");
+_skills[sk, StandSkill.Desc] = tr("knifeBarrageDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = StrongPunch;
@@ -319,13 +319,13 @@ _skills[sk, StandSkill.Damage] = 20;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 7;
-_skills[sk, StandSkill.Desc] = Localize("strongPunchDesc");
+_skills[sk, StandSkill.Desc] = tr("strongPunchDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = TwauTimestop;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimestop;
 _skills[sk, StandSkill.MaxCooldown] = 25;
-_skills[sk, StandSkill.Desc] = Localize("twauTimestopDesc");
+_skills[sk, StandSkill.Desc] = tr("twauTimestopDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)

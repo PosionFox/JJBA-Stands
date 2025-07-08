@@ -1,8 +1,8 @@
 
 global.jjbamDiscTwau3000 = ItemCreate(
     undefined,
-    Localize("standDiscName") + "TWAU3000",
-    Localize("standDiscDescription") + "The World 3000 Alternate Universe",
+    tr("standDiscName") + "TWAU3000",
+    tr("standDiscDescription") + "The World 3000 Alternate Universe",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

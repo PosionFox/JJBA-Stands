@@ -2,8 +2,8 @@
 
 global.jjbamDiscSc = ItemCreate(
     undefined,
-    Localize("standDiscName") + "SC",
-    Localize("standDiscDescription") + "Silver Chariot",
+    tr("standDiscName") + "SC",
+    tr("standDiscDescription") + "Silver Chariot",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -131,7 +131,7 @@ _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillScBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 4;
-_skills[sk, StandSkill.Desc] = Localize("scBarrageDesc");
+_skills[sk, StandSkill.Desc] = tr("scBarrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = ScLunge;
@@ -140,7 +140,7 @@ _skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.Icon] = global.sprSkillScLunge;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
-_skills[sk, StandSkill.Desc] = Localize("scLungeDesc");
+_skills[sk, StandSkill.Desc] = tr("scLungeDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = ScSweep;
@@ -148,14 +148,14 @@ _skills[sk, StandSkill.Damage] = 5;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillScSweep;
 _skills[sk, StandSkill.MaxCooldown] = 4;
-_skills[sk, StandSkill.Desc] = Localize("scSweepDesc");
+_skills[sk, StandSkill.Desc] = tr("scSweepDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = ScFTL;
 _skills[sk, StandSkill.Icon] = global.sprSkillScFtl;
 _skills[sk, StandSkill.MaxCooldown] = 60;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
-_skills[sk, StandSkill.Desc] = Localize("ftlDesc");
+_skills[sk, StandSkill.Desc] = tr("ftlDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)

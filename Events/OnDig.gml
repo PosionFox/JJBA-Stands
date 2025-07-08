@@ -8,9 +8,18 @@ if (_x >= 968 and _y <= 1144 and _y >= 200)
         if (random(1) < 0.25)
         {
             var _pool = [
-                global.jjbamHeart,
-                global.jjbamEye,
-                global.jjbamLeftArm
+                global.jjsHolyHeart,
+                global.jjsHolyLeftArm,
+                global.jjsHolyRightArm,
+                global.jjsHolyLeftEye,
+                global.jjsHolyRightEye,
+                global.jjsHolySpine,
+                global.jjsHolyRibCage,
+                global.jjsHolyLeftEar,
+                global.jjsHolyRightEar,
+                global.jjsHolyLeftLeg,
+                global.jjsHolyRightLeg,
+                global.jjsHolySkull
             ]
             
             var _item = irandom(array_length(_pool) - 1);

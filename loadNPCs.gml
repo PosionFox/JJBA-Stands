@@ -6,32 +6,37 @@ global.pucciRef = noone;
 global.questPucciBlueprintCompleted = false;
 NPCQuestCreate(global.npcPucci, "PucciQuestBlueprint");
 NPCQuestAddState(global.npcPucci, "PucciQuestBlueprint", "FetchBones",
-    [Localize("questPucci1Talk1"), Localize("questPucci1Talk2")],
+    [tr("questPucci1Talk1"), tr("questPucci1Talk2")],
     "PucciReward", undefined, undefined
 );
 NPCQuestAddState(global.npcPucci, "PucciQuestBlueprint", "PucciReward",
-    [Localize("questPucci1Talk3"), Localize("questPucci1Talk4")],
+    [tr("questPucci1Talk3"), tr("questPucci1Talk4")],
     undefined, [Item.Bone, 24], undefined
 );
 
 NPCQuestCreate(global.npcPucci, "PucciQuestDiscs");
 NPCQuestAddState(global.npcPucci, "PucciQuestDiscs", "FetchBones",
-    [Localize("questPucci2Talk1"), Localize("questPucci2Talk2")],
+    [tr("questPucci2Talk1"), tr("questPucci2Talk2")],
     "PucciReward", undefined, undefined
 );
 NPCQuestAddState(global.npcPucci, "PucciQuestDiscs", "PucciReward",
-    [Localize("questPucci2Talk3"), Localize("questPucci2Talk4")],
+    [tr("questPucci2Talk3"), tr("questPucci2Talk4")],
     undefined, [Item.Bone, 100], undefined
 );
 
 #define QuestPucciBlueprintComplete
 
-DropItem(x, y, global.jjDiscBlueprint, 1);
+DropItem(x, y, global.jjsRuneBundle, 1);
+DropItem(x, y, global.jjsDiscBlueprint, 1);
 repeat (10) { FireEffect(c_white, c_purple); }
 DespawnPucci();
 
 #define QuestPucciDiscsComplete
 
+if (random(1) < 0.2)
+{
+    DropItem(x, y, global.jjsRuneBundle, 1);
+}
 var _p = [
     global.jjbamDiscSp,
     global.jjbamDiscStw,
@@ -46,7 +51,7 @@ repeat (2)
     var _c = irandom(array_length(_p) - 1);
     DropItem(x, y, _p[_c], 1);
 }
-DropItem(x, y, global.jjbamDisc, 1);
+DropItem(x, y, global.jjsBlankDisc, 1);
 repeat (10) { FireEffect(c_white, c_purple); }
 DespawnPucci();
 
@@ -83,7 +88,7 @@ var _stand = StandBuilder(o, _skills);
 with (_stand)
 {
     sprite_index = global.sprWhiteSnake;
-    color = /*#*/0xfcdbcb;
+    color = 0xfcdbcb;
     summonMethod = EventHandler;
     active = true;
     runDrawGUI = false;

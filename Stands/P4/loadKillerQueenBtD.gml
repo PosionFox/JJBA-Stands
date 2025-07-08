@@ -1,8 +1,8 @@
 
 global.jjbamDiscKqbtd = ItemCreate(
     undefined,
-    Localize("standDiscName") + "KQBTD",
-    Localize("standDiscDescription") + "KQ Bites the Dust",
+    tr("standDiscName") + "KQBTD",
+    tr("standDiscDescription") + "KQ Bites the Dust",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -368,7 +368,7 @@ sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = DetonateBomb;
 _skills[sk, StandSkill.Icon] = global.sprSkillDetonate;
 _skills[sk, StandSkill.MaxCooldown] = 2;
-_skills[sk, StandSkill.Desc] = Localize("detonateBombDesc");
+_skills[sk, StandSkill.Desc] = tr("detonateBombDesc");
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = TripleCoin;
@@ -376,7 +376,7 @@ _skills[sk, StandSkill.Damage] = 15;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillCoinBomb;
 _skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.Desc] = Localize("theWealthyDesc");
+_skills[sk, StandSkill.Desc] = tr("theWealthyDesc");
 
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = ShaSummon;
@@ -384,7 +384,7 @@ _skills[sk, StandSkill.Damage] = 40;
 _skills[sk, StandSkill.DamageScale] = 0.01;
 _skills[sk, StandSkill.Icon] = global.sprSkillSHA;
 _skills[sk, StandSkill.MaxCooldown] = 20;
-_skills[sk, StandSkill.Desc] = Localize("shaSummonDesc");
+_skills[sk, StandSkill.Desc] = tr("shaSummonDesc");
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;
@@ -392,7 +392,7 @@ _skills[sk, StandSkill.Damage] = 1;
 _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.Desc] = Localize("barrageDesc");
+_skills[sk, StandSkill.Desc] = tr("barrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = PlaceBomb;
@@ -400,7 +400,7 @@ _skills[sk, StandSkill.Damage] = 30;
 _skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.Icon] = global.sprSkillFirstBomb;
 _skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.Desc] = Localize("placeBombDesc");
+_skills[sk, StandSkill.Desc] = tr("placeBombDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = StrayCat;
@@ -408,14 +408,14 @@ _skills[sk, StandSkill.Damage] = 35;
 _skills[sk, StandSkill.DamageScale] = 0.5;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrayCat;
 _skills[sk, StandSkill.MaxCooldown] = 12;
-_skills[sk, StandSkill.Desc] = Localize("strayCatDesc");
+_skills[sk, StandSkill.Desc] = tr("strayCatDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = PlaceThirdBomb;
 _skills[sk, StandSkill.Icon] = global.sprSkillThirdBomb;
 _skills[sk, StandSkill.MaxCooldown] = 2;
 _skills[sk, StandSkill.MaxExecutionTime] = 20;
-_skills[sk, StandSkill.Desc] = Localize("thirdBombDesc");
+_skills[sk, StandSkill.Desc] = tr("thirdBombDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)

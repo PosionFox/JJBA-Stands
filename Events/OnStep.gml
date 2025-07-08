@@ -27,6 +27,10 @@ if (instance_exists(player))
                 global.jjNewGame = false;
             }
         }
+        else
+        {
+            global.jjsMenuRuneDeleteMode = false;
+        }
     }
     if (keyboard_check_pressed(vk_escape))
     {

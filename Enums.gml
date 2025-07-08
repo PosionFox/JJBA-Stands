@@ -50,13 +50,17 @@ enum StandSkill {
 }
 
 enum Rarity {
+    Ordinary = -2,
+    Tragic,
     Common,
     Uncommon,
     Rare,
     Epic,
     Legendary,
     Mythical,
-    Ascended,
+    Celestial,
     Ultimate,
-    Event
+    Bizarre,
+    Event,
+    LEN
 }

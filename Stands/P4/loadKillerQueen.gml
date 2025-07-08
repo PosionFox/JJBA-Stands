@@ -1,8 +1,8 @@
 
 global.jjbamDiscKq = ItemCreate(
     undefined,
-    Localize("standDiscName") + "KQ",
-    Localize("standDiscDescription") + "Killer Queen",
+    tr("standDiscName") + "KQ",
+    tr("standDiscDescription") + "Killer Queen",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -252,7 +252,7 @@ sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = DetonateBomb;
 _skills[sk, StandSkill.Icon] = global.sprSkillDetonate;
 _skills[sk, StandSkill.MaxCooldown] = 2;
-_skills[sk, StandSkill.Desc] = Localize("detonateBombDesc");
+_skills[sk, StandSkill.Desc] = tr("detonateBombDesc");
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;
@@ -261,7 +261,7 @@ _skills[sk, StandSkill.DamageScale] = 0.01;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 4;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
-_skills[sk, StandSkill.Desc] = Localize("barrageDesc");
+_skills[sk, StandSkill.Desc] = tr("barrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = PlaceBomb;
@@ -270,7 +270,7 @@ _skills[sk, StandSkill.DamageScale] = 0.01;
 _skills[sk, StandSkill.Icon] = global.sprSkillFirstBomb;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
-_skills[sk, StandSkill.Desc] = Localize("placeBombDesc");
+_skills[sk, StandSkill.Desc] = tr("placeBombDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = CoinBomb;
@@ -279,7 +279,7 @@ _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillCoinBomb;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
-_skills[sk, StandSkill.Desc] = Localize("coinBombDesc");
+_skills[sk, StandSkill.Desc] = tr("coinBombDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = ShaSummon;
@@ -288,7 +288,7 @@ _skills[sk, StandSkill.DamageScale] = 0.01;
 _skills[sk, StandSkill.Icon] = global.sprSkillSHA;
 _skills[sk, StandSkill.MaxCooldown] = 40;
 _skills[sk, StandSkill.MaxExecutionTime] = 20;
-_skills[sk, StandSkill.Desc] = Localize("shaSummonDesc");
+_skills[sk, StandSkill.Desc] = tr("shaSummonDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)

@@ -30,7 +30,7 @@ var _pool =
     // mythical
     ["jjBuff", 4],
     ["jjReflect", 4],
-    // ascended
+    // celestial
     ["jjRipped", 2],
     ["jjMirror", 2],
     // ultimate
@@ -105,7 +105,7 @@ switch (_trait_key)
         _user.trait.damage = 0;
         _user.trait.damage_reflected = 5;
     break;
-    // ascended
+    // celestial
     case "jjRipped":
         _user.trait.name = "ripped";
         _user.trait.key = _trait_key;

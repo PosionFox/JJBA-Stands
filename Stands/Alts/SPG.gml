@@ -1,8 +1,8 @@
 
 global.jjbamDiscSpg = ItemCreate(
     undefined,
-    Localize("standDiscName") + "SPG",
-    Localize("standDiscDescription") + "Star Platinum Gray",
+    tr("standDiscName") + "SPG",
+    tr("standDiscDescription") + "Star Platinum Gray",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

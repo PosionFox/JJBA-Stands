@@ -38,6 +38,9 @@ if (global.jjShowMenu and !instance_exists(objPlayerMenu))
         case "storage":
             menu_storage_draw(_cx, _cy);
         break;
+        case "runes":
+            menu_runes_draw(_cx, _cy);
+        break;
         case "variants":
             menu_variants_draw(_cx, _cy);
         break;
@@ -89,46 +92,17 @@ if (_bc)
 var _mtxt = "mod menu";
 draw_text(_cx, _ry1 + string_height(_mtxt), _mtxt);
 
-var _bi = draw_button_square(_cx - 128, _cy - 176 + (64 * 0), 256, 32, "info");
-if (_bi)
-{
-    global.jjMenuCurrent = "info";
-    global.jjMenuHover = undefined;
-}
+var _mbtns = ["info", "stats", "storage", "runes", "variants", "evolutions", "settings"]
+var _mlen = array_length(_mbtns);
 
-var _bs = draw_button_square(_cx - 128, _cy - 176 + (64 * 1), 256, 32, "stats");
-if (_bs)
+for (var i = 0; i < _mlen; i++)
 {
-    global.jjMenuCurrent = "stats";
-    global.jjMenuHover = undefined;
-}
-
-var _bst = draw_button_square(_cx - 128, _cy - 176 + (64 * 2), 256, 32, "storage");
-if (_bst)
-{
-    global.jjMenuCurrent = "storage";
-    global.jjMenuHover = undefined;
-}
-
-var _bv = draw_button_square(_cx - 128, _cy - 176 + (64 * 3), 256, 32, "variants");
-if (_bv)
-{
-    global.jjMenuCurrent = "variants";
-    global.jjMenuHover = undefined;
-}
-
-var _bst = draw_button_square(_cx - 128, _cy - 176 + (64 * 4), 256, 32, "evolutions");
-if (_bst)
-{
-    global.jjMenuCurrent = "evolutions";
-    global.jjMenuHover = undefined;
-}
-
-var _bse = draw_button_square(_cx - 128, _cy - 176 + (64 * 5), 256, 32, "settings");
-if (_bse)
-{
-    global.jjMenuCurrent = "settings";
-    global.jjMenuHover = undefined;
+    var _b = draw_button_square(_cx - 128, _cy - 208 + (64 * i), 256, 32, _mbtns[i]);
+    if (_b)
+    {
+        global.jjMenuCurrent = _mbtns[i];
+        global.jjMenuHover = undefined;
+    }
 }
 
 var _mv = "jjba stands v" + string(global.jjVersion);
@@ -185,7 +159,7 @@ switch (global.jjMenuSubCurrent)
         );
         draw_sprite_ext(sprMainMenuPlay, 0, _rx1 + 160, _ry2 - 128, 2, 2, 0, c_white, 1);
         draw_sprite_ext(global.sprArrow, 0, _cx, _ry2 - 128, 4, 4, 0, c_white, 1);
-        draw_sprite_ext(global.sprLeftArm, 0, _rx2 - 160, _ry2 - 128, 4, 4, 0, c_white, 1);
+        draw_sprite_ext(global.sprHolyLeftArm, 0, _rx2 - 160, _ry2 - 128, 4, 4, 0, c_white, 1);
     break;
     case "controls":
         draw_text_color(_cx, _ry1 + 64, "how to use your stand", c_white, c_white, c_aqua, c_aqua, 1);
@@ -249,9 +223,12 @@ some traits may be more complex, like giving you the ability to reflect damage t
 similar to traits, runes enchance you or your stand, the key different being that you can have up to 3 runes at a time instead of just one 1 trait.
 
 the only current method to get runes is by defeating dio.", 24, 1000);
-        draw_sprite_ext(global.sprRuneMending1, 0, _rx1 + 160, _ry2 - 128, 4, 4, 0, c_white, 1);
-        draw_sprite_ext(global.sprRuneStandMight4, 0, _cx, _ry2 - 128, 4, 4, 0, c_white, 1);
-        draw_sprite_ext(global.sprRuneEnergize8, 0, _rx2 - 160, _ry2 - 128, 4, 4, 0, c_white, 1);
+        draw_sprite_ext(global.sprBlankRune, 0, _rx1 + 160, _ry2 - 128, 4, 4, 0, c_white, 1);
+        draw_sprite_ext(global.sprRuneMending, 0, _rx1 + 160, _ry2 - 128, 4, 4, 0, c_lime, 1);
+        draw_sprite_ext(global.sprBlankRune, 0, _cx, _ry2 - 128, 4, 4, 0, c_white, 1);
+        draw_sprite_ext(global.sprRuneMight, 0, _cx, _ry2 - 128, 4, 4, 0, c_yellow, 1);
+        draw_sprite_ext(global.sprBlankRune, 0, _rx2 - 160, _ry2 - 128, 4, 4, 0, c_white, 1);
+        draw_sprite_ext(global.sprRuneEnergize, 0, _rx2 - 160, _ry2 - 128, 4, 4, 0, c_fuchsia, 1);
     break;
     case "more":
         draw_text_color(_cx, _ry1 + 64, "and more!", c_white, c_white, c_aqua, c_aqua, 1);
@@ -448,6 +425,80 @@ for (var i = global.jjMenuMinIndex; i < global.jjMenuMaxIndex; i++)
     }
 }
 
+#define menu_runes_draw(_cx, _cy)
+
+var _rx1 = _cx - 512;
+var _ry1 = _cy - 256;
+var _rx2 = _cx + 512;
+var _ry2 = _cy + 256;
+
+var _bb = draw_button_square(_rx1, _ry1, 128, 32, "back");
+if (_bb)
+{
+    global.jjMenuCurrent = "main";
+    global.jjsMenuRuneDeleteMode = false;
+}
+
+var _be = draw_button_square(_rx2 - 160, _ry1, 160, 32, "delete mode");
+if (_be)
+{
+    global.jjsMenuRuneDeleteMode = !global.jjsMenuRuneDeleteMode;
+}
+
+var _title = "rune storage";
+draw_text(_cx, _ry1 + string_height(_title), _title);
+
+var _bLeft = draw_button_square(_cx - 320 - 32, _cy, 32, 32, "-");
+var _bRight = draw_button_square(_cx + 320, _cy, 32, 32, "+");
+var _bLeftPlus = draw_button_square(_cx - (320 + 64 + 32), _cy, 32, 32, "--");
+var _bRightPlus = draw_button_square(_cx + (320 + 64), _cy, 32, 32, "++");
+
+var _arr_len = array_length(global.jjsRuneSlots);
+
+draw_text(_cx, _ry1 + 40, string(global.jjsMenuRuneMaxIndex) + "/" + string(_arr_len));
+
+if (_bLeft)
+{
+    global.jjsMenuRuneMinIndex -= 8;
+    global.jjsMenuRuneMaxIndex = global.jjsMenuRuneMinIndex + 8;
+    global.jjsMenuRuneMinIndex = clamp(global.jjsMenuRuneMinIndex, 0, _arr_len - 8);
+    global.jjsMenuRuneMaxIndex = clamp(global.jjsMenuRuneMaxIndex, 8, _arr_len);
+}
+if (_bRight)
+{
+    global.jjsMenuRuneMinIndex += 8;
+    global.jjsMenuRuneMaxIndex = global.jjsMenuRuneMinIndex + 8;
+    global.jjsMenuRuneMinIndex = clamp(global.jjsMenuRuneMinIndex, 0, _arr_len - 8);
+    global.jjsMenuRuneMaxIndex = clamp(global.jjsMenuRuneMaxIndex, 8, _arr_len);
+}
+if (_bLeftPlus)
+{
+    global.jjsMenuRuneMinIndex -= 16;
+    global.jjsMenuRuneMaxIndex = global.jjsMenuRuneMinIndex + 8;
+    global.jjsMenuRuneMinIndex = clamp(global.jjsMenuRuneMinIndex, 0, _arr_len - 8);
+    global.jjsMenuRuneMaxIndex = clamp(global.jjsMenuRuneMaxIndex, 8, _arr_len);
+}
+if (_bRightPlus)
+{
+    global.jjsMenuRuneMinIndex += 16;
+    global.jjsMenuRuneMaxIndex = global.jjsMenuRuneMinIndex + 8;
+    global.jjsMenuRuneMinIndex = clamp(global.jjsMenuRuneMinIndex, 0, _arr_len - 8);
+    global.jjsMenuRuneMaxIndex = clamp(global.jjsMenuRuneMaxIndex, 8, _arr_len);
+}
+
+for (var i = global.jjsMenuRuneMinIndex; i < global.jjsMenuRuneMaxIndex; i++)
+{
+    var _b = draw_button_rune(_cx - 192 + (96 * (i mod 4)), _cy - 64 + (96 * ((i - global.jjsMenuRuneMinIndex) div 4)), 64, 64, global.jjsRuneSlots[i]);
+    if (_b)
+    {
+        if (global.jjsRuneSlots[i] != undefined)
+        {
+            var _success = RuneEquip(player, global.jjsRuneSlots[i]);
+            if (_success) global.jjsRuneSlots[i] = undefined;
+        }
+    }
+}
+
 #define menu_variants_draw(_cx, _cy)
 
 var _rx1 = _cx - 512;
@@ -590,6 +641,22 @@ if (_cc != undefined)
     global.jjSettProjCollisions = _cc;
 }
 
+draw_text(_rx2 - 256, _ry1 + 48, "mod language");
+draw_text_color(_rx2 - 256, _ry1 + 80, "requires re-entering the world", c_white, c_white, c_orange, c_orange, 1);
+draw_text(_rx2 - 256, _ry1 + 112, "currently selected: " + string(global.jjsCurrentLang));
+
+var _ble = draw_button_square(_rx2 - 256, _ry1 + 128 + (48 * 0), 128, 32, "english");
+if (_ble)
+{
+    global.jjsCurrentLang = "english";
+}
+
+var _bls = draw_button_square(_rx2 - 256, _ry1 + 128 + (48 * 1), 128, 32, "spanish");
+if (_bls)
+{
+    global.jjsCurrentLang = "spanish";
+}
+
 #define draw_button_square(_x, _y, _w, _h, _txt)
 
 var _color1 = c_black;
@@ -608,15 +675,15 @@ if (_hover)
 {
     _btn_color = _color2;
     _btn2_color = _color1;
-    if (global.jjMenuHover != _x + _y)
+    if (global.jjMenuHover != _x - _y * _x + _y)
     {
         jj_play_audio(global.sndMenuHover, 0, false);
-        global.jjMenuHover = _x + _y;
+        global.jjMenuHover = _x - _y * _x + _y;
     }
 }
 else
 {
-    if (global.jjMenuHover == _x + _y)
+    if (global.jjMenuHover == _x - _y * _x + _y)
     {
         global.jjMenuHover = undefined;
     }
@@ -631,6 +698,84 @@ if (mouse_check_button_pressed(mb_left) and _hover)
 {
     jj_play_audio(global.sndMenuClick, 0, false);
     return true;
+}
+else
+{
+    return false;
+}
+
+#define draw_button_rune(_x, _y, _w, _h, _rune)
+
+var _cx = display_get_gui_width() / 2;
+var _cy = display_get_gui_height() / 2;
+
+var _color1 = c_black;
+var _color2 = c_gray;
+if (instance_exists(STAND))
+{
+    _color1 = STAND.color;
+    _color2 = STAND.colorAlt;
+}
+
+var _hover = point_in_rectangle(device_mouse_x_to_gui(0), device_mouse_y_to_gui(0), _x, _y, _x + _w, _y + _h);
+var _btn_color = _color1;
+var _btn2_color = _color2;
+
+if (_hover)
+{
+    _btn_color = _color2;
+    _btn2_color = _color1;
+    if (global.jjsMenuRuneDeleteMode)
+    {
+        _btn_color = c_red;
+        _btn2_color = c_black;
+    }
+    if (global.jjMenuHover != _x - _y * _x + _y)
+    {
+        jj_play_audio(global.sndMenuHover, 0, false);
+        global.jjMenuHover = _x - _y * _x + _y;
+    }
+    if (_rune != undefined)
+    {
+        draw_text(_cx, _cy - 160, GetRarityName(_rune.rarity) + " " + string(_rune.name));
+        draw_text(_cx, _cy - 160 + 16 + (string_height(_rune.description)), _rune.description);
+    }
+}
+else
+{
+    if (global.jjMenuHover == _x - _y * _x + _y)
+    {
+        global.jjMenuHover = undefined;
+    }
+}
+
+if (global.jjsMenuRuneDeleteMode)
+{
+    var _padding = 8 + sin(current_time / 100) * 4;
+    draw_rectangle_color(_x - _padding, _y - _padding, _x + _w + _padding, _y + _h + _padding, c_red, c_red, c_red, c_red, false);
+}
+draw_rectangle_color(_x - 4, _y - 4, _x + _w + 4, _y + _h + 4, _btn2_color, _btn2_color, _btn2_color, _btn2_color, false);
+draw_rectangle_color(_x, _y, _x + _w, _y + _h, _btn_color, _btn_color, _btn_color, _btn_color, false);
+
+if (_rune != undefined)
+{
+    var _rc = GetRarityColor(_rune.rarity);
+    draw_sprite_ext(_rune.base_sprite, 0, _x + 32, _y + 32, 4, 4, 0, c_white, 1);
+    draw_sprite_ext(_rune.sprite, 0, _x + 32, _y + 32, 4, 4, 0, _rc, 1);
+}
+
+if (mouse_check_button_pressed(mb_left) and _hover)
+{
+    if (global.jjsMenuRuneDeleteMode)
+    {
+        jj_play_audio(sndHitRock1, 0, false);
+        RuneStorageErase(_rune);
+    }
+    else
+    {
+        jj_play_audio(global.sndMenuClick, 0, false);
+        return true;
+    }
 }
 else
 {
@@ -655,15 +800,15 @@ if (_hover)
 {
     _btn_color = _color2;
     _btn2_color = _color1;
-    if (global.jjMenuHover != _x + _y)
+    if (global.jjMenuHover != _x - _y * _x + _y)
     {
         if (!global.jjNewGame) jj_play_audio(global.sndMenuHover, 0, false);
-        global.jjMenuHover = _x + _y;
+        global.jjMenuHover = _x - _y * _x + _y;
     }
 }
 else
 {
-    if (global.jjMenuHover == _x + _y)
+    if (global.jjMenuHover == _x - _y * _x + _y)
     {
         global.jjMenuHover = undefined;
     }
@@ -704,15 +849,15 @@ if (_hover)
 {
     _btn_color = _color2;
     _btn2_color = _color1;
-    if (global.jjMenuHover != _x * _y)
+    if (global.jjMenuHover != _x - _y * _x + _y)
     {
         jj_play_audio(global.sndMenuHover, 0, false);
-        global.jjMenuHover = _x * _y;
+        global.jjMenuHover = _x - _y * _x + _y;
     }
 }
 else
 {
-    if (global.jjMenuHover == _x * _y)
+    if (global.jjMenuHover == _x - _y * _x + _y)
     {
         global.jjMenuHover = undefined;
     }
@@ -767,19 +912,19 @@ if (_hover)
 {
     _btn_color = _color2;
     _btn2_color = _color1;
-    if (global.jjMenuHover != _x + _y)
+    if (global.jjMenuHover != _x - _y * _x + _y)
     {
         jj_play_audio(global.sndMenuHover, 0, false);
-        global.jjMenuHover = _x + _y;
+        global.jjMenuHover = _x - _y * _x + _y;
     }
 }
 
 var _handle_x = _var * _w;
-if (mouse_check_button(mb_left) and global.jjMenuHover == _x + _y)
+if (mouse_check_button(mb_left) and global.jjMenuHover == _x - _y * _x + _y)
 {
     _handle_x = clamp((_mx - _x) / _w, 0, 1) * _w;
 }
-if (mouse_check_button_released(mb_left) and global.jjMenuHover == _x + _y)
+if (mouse_check_button_released(mb_left) and global.jjMenuHover == _x - _y * _x + _y)
 {
     _var = clamp((_mx - _x) / _w, 0, 1);
     var _s = audio_play_sound(global.sndMenuClick, 0, false);
@@ -788,7 +933,7 @@ if (mouse_check_button_released(mb_left) and global.jjMenuHover == _x + _y)
 
 if (!_hover and !mouse_check_button(mb_left))
 {
-    if (global.jjMenuHover == _x + _y)
+    if (global.jjMenuHover == _x - _y * _x + _y)
     {
         global.jjMenuHover = undefined;
     }
@@ -823,15 +968,15 @@ if (_hover)
 {
     _btn_color = _color2;
     _btn2_color = _color1;
-    if (global.jjMenuHover != _x + _y)
+    if (global.jjMenuHover != _x - _y * _x + _y)
     {
         jj_play_audio(global.sndMenuHover, 0, false);
-        global.jjMenuHover = _x + _y;
+        global.jjMenuHover = _x - _y * _x + _y;
     }
 }
 else
 {
-    if (global.jjMenuHover == _x + _y)
+    if (global.jjMenuHover == _x - _y * _x + _y)
     {
         global.jjMenuHover = undefined;
     }

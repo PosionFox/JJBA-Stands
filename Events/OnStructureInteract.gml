@@ -1,7 +1,7 @@
 
 #define OnStructureInteract(type, structure, inst)
 
-if (structure == global.jjbamStandWorkshop)
+if (structure == global.jjsStandWorkshop)
 {
     if ("myStand" in player)
     {

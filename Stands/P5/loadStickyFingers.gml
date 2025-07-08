@@ -1,8 +1,8 @@
 
 global.jjbamDiscSf = ItemCreate(
     undefined,
-    Localize("standDiscName") + "SF",
-    Localize("standDiscDescription") + "Sticky Fingers",
+    tr("standDiscName") + "SF",
+    tr("standDiscDescription") + "Sticky Fingers",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -331,7 +331,7 @@ _skills[sk, StandSkill.DamageScale] = 0.01;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 6;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
-_skills[sk, StandSkill.Desc] = Localize("sfBarrageDesc");
+_skills[sk, StandSkill.Desc] = tr("sfBarrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = ZipperPunch;
@@ -340,14 +340,14 @@ _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 10;
-_skills[sk, StandSkill.Desc] = Localize("zipperPunchDesc");
+_skills[sk, StandSkill.Desc] = tr("zipperPunchDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = ZipperGrab;
 _skills[sk, StandSkill.Icon] = global.sprSkillZipperGrab;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
-_skills[sk, StandSkill.Desc] = Localize("zipperGrabDesc");
+_skills[sk, StandSkill.Desc] = tr("zipperGrabDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = SfPortal;
@@ -355,7 +355,7 @@ _skills[sk, StandSkill.Icon] = global.sprSkillZipPortal;
 _skills[sk, StandSkill.MaxCooldown] = 20;
 _skills[sk, StandSkill.MaxExecutionTime] = 20;
 _skills[sk, StandSkill.Vars] = { portalSkin : global.sprSfPortal };
-_skills[sk, StandSkill.Desc] = Localize("portalThroughDesc");
+_skills[sk, StandSkill.Desc] = tr("portalThroughDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)

@@ -1,8 +1,8 @@
 
 global.jjbamDiscSus = ItemCreate(
     undefined,
-    Localize("standDiscName") + "SUS",
-    Localize("standDiscDescription") + "Imposter",
+    tr("standDiscName") + "SUS",
+    tr("standDiscDescription") + "Imposter",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -120,7 +120,7 @@ _skills[sk, StandSkill.Damage] = 3;
 _skills[sk, StandSkill.DamageScale] = 0.3;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 0.2;
-_skills[sk, StandSkill.Desc] = Localize("knifesDesc");
+_skills[sk, StandSkill.Desc] = tr("knifesDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = MeetingCall;
@@ -128,7 +128,7 @@ _skills[sk, StandSkill.Icon] = global.sprSkillMeetingCall;
 _skills[sk, StandSkill.Damage] = 2;
 _skills[sk, StandSkill.DamageScale] = 0.5;
 _skills[sk, StandSkill.MaxCooldown] = 10;
-_skills[sk, StandSkill.Desc] = Localize("meetingCallDesc");
+_skills[sk, StandSkill.Desc] = tr("meetingCallDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = Kill;
@@ -136,7 +136,7 @@ _skills[sk, StandSkill.Icon] = global.sprSkillKill;
 _skills[sk, StandSkill.Damage] = 1;
 _skills[sk, StandSkill.DamageScale] = 10;
 _skills[sk, StandSkill.MaxCooldown] = 30;
-_skills[sk, StandSkill.Desc] = Localize("killDesc");
+_skills[sk, StandSkill.Desc] = tr("killDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)

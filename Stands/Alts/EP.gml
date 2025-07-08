@@ -1,8 +1,8 @@
 
 global.jjbamDiscEP = ItemCreate(
     undefined,
-    Localize("standDiscName") + "EP",
-    Localize("standDiscDescription") + "Estrella Platinada",
+    tr("standDiscName") + "EP",
+    tr("standDiscDescription") + "Estrella Platinada",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,

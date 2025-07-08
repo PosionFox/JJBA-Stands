@@ -1,8 +1,8 @@
 
 global.jjbamDiscSptw = ItemCreate(
     undefined,
-    Localize("standDiscName") + "SPTW",
-    Localize("standDiscDescription") + "Star Platinum: The World",
+    tr("standDiscName") + "SPTW",
+    tr("standDiscDescription") + "Star Platinum: The World",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -100,13 +100,13 @@ sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = JosephKnife;
 _skills[sk, StandSkill.Icon] = global.sprSkillJosephKnife;
 _skills[sk, StandSkill.MaxCooldown] = 10;
-_skills[sk, StandSkill.Desc] = Localize("diosKnifeDesc");
+_skills[sk, StandSkill.Desc] = tr("diosKnifeDesc");
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = Soda;
 _skills[sk, StandSkill.Icon] = global.sprSkillSoda;
 _skills[sk, StandSkill.MaxCooldown] = 15;
-_skills[sk, StandSkill.Desc] = Localize("sodaDesc");
+_skills[sk, StandSkill.Desc] = tr("sodaDesc");
 
 sk = StandState.SkillCOff;
 _skills[sk, StandSkill.Skill] = BearingShot;
@@ -114,13 +114,13 @@ _skills[sk, StandSkill.Damage] = 6;
 _skills[sk, StandSkill.DamageScale] = 0.5;
 _skills[sk, StandSkill.Icon] = global.sprSkillGunShot;
 _skills[sk, StandSkill.MaxCooldown] = 7;
-_skills[sk, StandSkill.Desc] = Localize("bearingShotDesc");
+_skills[sk, StandSkill.Desc] = tr("bearingShotDesc");
 
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = TimeStopTeleport;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimeSkip;
 _skills[sk, StandSkill.MaxCooldown] = 3;
-_skills[sk, StandSkill.Desc] = Localize("tsTpDesc");
+_skills[sk, StandSkill.Desc] = tr("tsTpDesc");
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;
@@ -134,7 +134,7 @@ _skills[sk, StandSkill.DamageAlt] = 40;
 _skills[sk, StandSkill.DamageScaleAlt] = 0.02;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillDetonate;
 _skills[sk, StandSkill.MaxCooldownAlt] = 12;
-_skills[sk, StandSkill.Desc] = Localize("barrageDesc");
+_skills[sk, StandSkill.Desc] = tr("barrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = StrongPunch;
@@ -147,7 +147,7 @@ _skills[sk, StandSkill.SkillAlt] = MeleePull;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillMeleePull;
 _skills[sk, StandSkill.MaxCooldownAlt] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
-_skills[sk, StandSkill.Desc] = Localize("spStrongPunchDesc");
+_skills[sk, StandSkill.Desc] = tr("spStrongPunchDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = StarFinger;
@@ -156,14 +156,14 @@ _skills[sk, StandSkill.DamageScale] = 0.05;
 _skills[sk, StandSkill.Icon] = global.sprSkillStarFinger;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 0.7;
-_skills[sk, StandSkill.Desc] = Localize("starFingerDesc");
+_skills[sk, StandSkill.Desc] = tr("starFingerDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = SptwTimestop;
 _skills[sk, StandSkill.Icon] = global.sprSkillTimestopSp;
 _skills[sk, StandSkill.MaxCooldown] = 25;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
-_skills[sk, StandSkill.Desc] = Localize("sptwTimestopDesc");
+_skills[sk, StandSkill.Desc] = tr("sptwTimestopDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)

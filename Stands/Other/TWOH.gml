@@ -1,8 +1,8 @@
 
 global.jjbamDiscTwoh = ItemCreate(
     undefined,
-    Localize("standDiscName") + "TWOH",
-    Localize("standDiscDescription") + "The World Over Heaven",
+    tr("standDiscName") + "TWOH",
+    tr("standDiscDescription") + "The World Over Heaven",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -321,12 +321,12 @@ with (_s)
     
     skills[StandState.SkillCOff, StandSkill.Skill] = RealityHeal;
     skills[StandState.SkillCOff, StandSkill.Icon] = global.sprSkillSelfHeal;
-    skills[StandState.SkillCOff, StandSkill.Desc] = Localize("realityHealDesc");
+    skills[StandState.SkillCOff, StandSkill.Desc] = tr("realityHealDesc");
     
     skills[StandState.SkillDOff, StandSkill.Skill] = TwohTsTp;
     skills[StandState.SkillDOff, StandSkill.Icon] = global.sprSkillTimeSkip;
     skills[StandState.SkillDOff, StandSkill.MaxCooldown] = 3;
-    skills[StandState.SkillDOff, StandSkill.Desc] = Localize("tsTpDesc");
+    skills[StandState.SkillDOff, StandSkill.Desc] = tr("tsTpDesc");
     
     skills[StandState.SkillA, StandSkill.Skill] = StandBarrage;
     skills[StandState.SkillA, StandSkill.Damage] = 3;
@@ -334,7 +334,7 @@ with (_s)
     skills[StandState.SkillA, StandSkill.DamageAlt] = 10;
     skills[StandState.SkillA, StandSkill.MaxCooldownAlt] = 8;
     skills[StandState.SkillA, StandSkill.IconAlt] = global.sprSkillDetonate;
-    skills[StandState.SkillA, StandSkill.Desc] = Localize("twohBarrageDesc");
+    skills[StandState.SkillA, StandSkill.Desc] = tr("twohBarrageDesc");
     
     skills[StandState.SkillB, StandSkill.Skill] = MeleeCombo;
     skills[StandState.SkillB, StandSkill.Damage] = 3;
@@ -344,7 +344,7 @@ with (_s)
     skills[StandState.SkillB, StandSkill.DamageAlt] = 5;
     skills[StandState.SkillB, StandSkill.MaxCooldownAlt] = 10;
     skills[StandState.SkillB, StandSkill.IconAlt] = global.sprSkillStrongPunch;
-    skills[StandState.SkillB, StandSkill.Desc] = Localize("meleeComboDesc");
+    skills[StandState.SkillB, StandSkill.Desc] = tr("meleeComboDesc");
     
     skills[StandState.SkillC, StandSkill.Skill] = LightningKnifes;
     skills[StandState.SkillC, StandSkill.Damage] = 15;
@@ -354,11 +354,11 @@ with (_s)
     skills[StandState.SkillC, StandSkill.DamageAlt] = 4;
     skills[StandState.SkillC, StandSkill.MaxCooldownAlt] = 15;
     skills[StandState.SkillC, StandSkill.IconAlt] = global.sprSkillPunishment;
-    skills[StandState.SkillC, StandSkill.Desc] = Localize("lightningKnifesDesc");
+    skills[StandState.SkillC, StandSkill.Desc] = tr("lightningKnifesDesc");
     
     skills[StandState.SkillD, StandSkill.Skill] = TwohTimestop;
     skills[StandState.SkillD, StandSkill.MaxCooldown] = 1;
-    skills[StandState.SkillD, StandSkill.Desc] = Localize("twohTimestopDesc");
+    skills[StandState.SkillD, StandSkill.Desc] = tr("twohTimestopDesc");
     
     variants = [
         [sprite_index, rarity.tier],

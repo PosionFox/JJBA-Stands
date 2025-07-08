@@ -1,8 +1,8 @@
 
 global.jjbamDiscSnw = ItemCreate(
     undefined,
-    Localize("standDiscName") + "SnW",
-    Localize("standDiscDescription") + "Soft and Wet",
+    tr("standDiscName") + "SnW",
+    tr("standDiscDescription") + "Soft and Wet",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -291,7 +291,7 @@ _skills[sk, StandSkill.Damage] = 5;
 _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillMoisturePlunder;
 _skills[sk, StandSkill.MaxCooldown] = 10;
-_skills[sk, StandSkill.Desc] = Localize("moisturePlunderDesc");
+_skills[sk, StandSkill.Desc] = tr("moisturePlunderDesc");
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = StopSign;
@@ -299,13 +299,13 @@ _skills[sk, StandSkill.Damage] = 30;
 _skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.Icon] = global.sprSkillShovel;
 _skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.Desc] = Localize("shovelDesc");
+_skills[sk, StandSkill.Desc] = tr("shovelDesc");
 
 sk = StandState.SkillCOff;
 _skills[sk, StandSkill.Skill] = BubbleShield;
 _skills[sk, StandSkill.Icon] = global.sprSkillBubbleShield;
 _skills[sk, StandSkill.MaxCooldown] = 30;
-_skills[sk, StandSkill.Desc] = Localize("bubbleShieldDesc");
+_skills[sk, StandSkill.Desc] = tr("bubbleShieldDesc");
 
 sk = StandState.SkillA;
 _skills[sk, StandSkill.Skill] = StandBarrage;
@@ -314,7 +314,7 @@ _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 3;
-_skills[sk, StandSkill.Desc] = Localize("barrageDesc");
+_skills[sk, StandSkill.Desc] = tr("barrageDesc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = BubbleBarrage;
@@ -322,7 +322,7 @@ _skills[sk, StandSkill.Damage] = 2;
 _skills[sk, StandSkill.DamageScale] = 0.05;
 _skills[sk, StandSkill.Icon] = global.sprSkillBubbleBarrage;
 _skills[sk, StandSkill.MaxCooldown] = 8;
-_skills[sk, StandSkill.Desc] = Localize("bubbleBarrageDesc");
+_skills[sk, StandSkill.Desc] = tr("bubbleBarrageDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = ScrewsAndNuts;
@@ -330,7 +330,7 @@ _skills[sk, StandSkill.Damage] = 15;
 _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillScrewsAndNuts;
 _skills[sk, StandSkill.MaxCooldown] = 10;
-_skills[sk, StandSkill.Desc] = Localize("screwsAndNutsDesc");
+_skills[sk, StandSkill.Desc] = tr("screwsAndNutsDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = BubbleTrap;
@@ -338,7 +338,7 @@ _skills[sk, StandSkill.Damage] = 2;
 _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBubbleTrap;
 _skills[sk, StandSkill.MaxCooldown] = 30;
-_skills[sk, StandSkill.Desc] = Localize("bubbleTrapDesc");
+_skills[sk, StandSkill.Desc] = tr("bubbleTrapDesc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)

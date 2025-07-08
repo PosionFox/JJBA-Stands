@@ -1,9 +1,9 @@
 
-global.jjStarShard = ItemCreate(
+global.jjsStarChunk = ItemCreate(
     undefined,
-    "Star shard",
-    "obtained from rocks or crafted, can be used to make stand arrows.",
-    global.sprStarShard,
+    "jjsStarChunk",
+    "",
+    global.sprStarChunk,
     ItemType.Material,
     ItemSubType.None,
     12,
@@ -13,11 +13,14 @@ global.jjStarShard = ItemCreate(
         Item.StarFragment, 1
     ]
 );
+ItemEdit(global.jjsStarChunk, ItemData.Name, tr("star_chunk_name"));
+ItemEdit(global.jjsStarChunk, ItemData.Description, tr("star_chunk_desc"));
+StructureAddItem(Structure.Forge, global.jjsStarChunk);
 
-global.jjbamArrow = ItemCreate(
+global.jjsSuspiciousArrow = ItemCreate(
     undefined,
-    Localize("susArrowName"),
-    Localize("susArrowDescription"),
+    "jjsSuspiciousArrow",
+    "",
     global.sprArrow,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -26,17 +29,20 @@ global.jjbamArrow = ItemCreate(
     0,
     [
         Item.Wood, 1,
-        global.jjStarShard, 1
+        global.jjsStarChunk, 1
     ],
     ScriptWrap(SusArrowUse),
     60 * 2,
     true
 );
+ItemEdit(global.jjsSuspiciousArrow, ItemData.Name, tr("susArrowName"));
+ItemEdit(global.jjsSuspiciousArrow, ItemData.Description, tr("susArrowDescription"));
+StructureAddItem(Structure.Forge, global.jjsSuspiciousArrow);
 
-global.jjbamRokakaka = ItemCreate(
+global.jjsRokakakaFruit = ItemCreate(
     undefined,
-    Localize("rokakakaName"),
-    Localize("rokakakaDescription"),
+    "jjsRokakakaFruit",
+    "",
     global.sprRokakaka,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -48,11 +54,13 @@ global.jjbamRokakaka = ItemCreate(
     60 * 2,
     true
 );
+ItemEdit(global.jjsRokakakaFruit, ItemData.Name, tr("rokakaka_fruit_name"));
+ItemEdit(global.jjsRokakakaFruit, ItemData.Description, tr("rokakaka_fruit_desc"));
 
-global.jjRokakakaStew = ItemCreate(
+global.jjsRokakakaStew = ItemCreate(
     undefined,
-    Localize("rokakakaStewName"),
-    Localize("rokakakaStewDescription"),
+    "jjsRokakakaStew",
+    "",
     global.sprRokakakaStew,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -60,7 +68,7 @@ global.jjRokakakaStew = ItemCreate(
     0,
     0,
     [
-        global.jjbamRokakaka, 1,
+        global.jjsRokakakaFruit, 1,
         Item.HotPepper, 1,
         Item.Egg, 2,
         Item.Beet, 5
@@ -69,11 +77,14 @@ global.jjRokakakaStew = ItemCreate(
     60 * 20,
     true
 );
+ItemEdit(global.jjsRokakakaStew, ItemData.Name, tr("rokakakaStewName"));
+ItemEdit(global.jjsRokakakaStew, ItemData.Description, tr("rokakakaStewDescription"));
+StructureAddItem(Structure.Cookpot, global.jjsRokakakaStew);
 
-global.jjbamRequiem = ItemCreate(
+global.jjsRequiemArrow = ItemCreate(
     undefined,
-    Localize("requiemArrowName"),
-    Localize("requiemArrowDescription"),
+    "jjsRequiemArrow",
+    "",
     global.sprArrowBeetle,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -88,11 +99,14 @@ global.jjbamRequiem = ItemCreate(
     60 * 20,
     true
 );
+ItemEdit(global.jjsRequiemArrow, ItemData.Name, tr("requiemArrowName"));
+ItemEdit(global.jjsRequiemArrow, ItemData.Description, tr("requiemArrowDescription"));
+StructureAddItem(Structure.Forge, global.jjsRequiemArrow);
 
-global.jjbamEternalArrow = ItemCreate(
+global.jjsEternalArrow = ItemCreate(
     undefined,
-    Localize("eternalArrowName"),
-    Localize("eternalArrowDescription"),
+    "jjsEternalArrow",
+    "",
     global.sprEternalArrow,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -100,7 +114,7 @@ global.jjbamEternalArrow = ItemCreate(
     0,
     0,
     [
-        global.jjbamArrow, 1,
+        global.jjsSuspiciousArrow, 1,
         Item.LegendaryGem, 1,
         Item.OnyxRelic, 1
     ],
@@ -108,11 +122,14 @@ global.jjbamEternalArrow = ItemCreate(
     60 * 10,
     true
 );
+ItemEdit(global.jjsEternalArrow, ItemData.Name, tr("eternalArrowName"));
+ItemEdit(global.jjsEternalArrow, ItemData.Description, tr("eternalArrowDescription"));
+StructureAddItem(Structure.Forge, global.jjsEternalArrow);
 
-global.jjDiscBlueprint = ItemCreate(
+global.jjsDiscBlueprint = ItemCreate(
     undefined,
-    Localize("discBlueprintName"),
-    Localize("discBlueprintDescription"),
+    "jjsDiscBlueprint",
+    "",
     global.sprDiscBlueprint,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -124,12 +141,14 @@ global.jjDiscBlueprint = ItemCreate(
     60 * 4,
     true
 );
+ItemEdit(global.jjsDiscBlueprint, ItemData.Name, tr("discBlueprintName"));
+ItemEdit(global.jjsDiscBlueprint, ItemData.Description, tr("discBlueprintDescription"));
 
 // stand discs were moved to their stand files
-global.jjbamDisc = ItemCreate(
+global.jjsBlankDisc = ItemCreate(
     undefined,
-    Localize("discName"),
-    Localize("discDescription"),
+    "jjsBlankDisc",
+    "",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -144,11 +163,14 @@ global.jjbamDisc = ItemCreate(
     60 * 4,
     false
 );
+ItemEdit(global.jjsBlankDisc, ItemData.Name, tr("blank_disc_name"));
+ItemEdit(global.jjsBlankDisc, ItemData.Description, tr("blank_disc_desc"));
+StructureAddItem(Structure.Factory, global.jjsBlankDisc);
 
-global.jjbamSteelBall = ItemCreate(
+global.jjsSteelBall = ItemCreate(
     undefined,
-    Localize("steelBallName"),
-    Localize("steelBallDescription"),
+    "jjsSteelBall",
+    "",
     global.sprSteelBall,
     ItemType.Gear,
     ItemSubType.None,
@@ -163,11 +185,14 @@ global.jjbamSteelBall = ItemCreate(
     60 * 20,
     true
 );
+ItemEdit(global.jjsSteelBall, ItemData.Name, tr("steelBallName"));
+ItemEdit(global.jjsSteelBall, ItemData.Description, tr("steelBallDescription"));
+//StructureAddItem(Structure.Forge, global.jjsSteelBall);
 
-global.jjbamAnubis = ItemCreate(
+global.jjsAnubis = ItemCreate(
     undefined,
-    Localize("anubisName"),
-    Localize("anubisDescription"),
+    "jjsAnubis",
+    "",
     global.sprAnubis,
     ItemType.Consumable,
     ItemSubType.None,
@@ -180,11 +205,13 @@ global.jjbamAnubis = ItemCreate(
     true,
     5
 );
+ItemEdit(global.jjsAnubis, ItemData.Name, tr("anubisName"));
+ItemEdit(global.jjsAnubis, ItemData.Description, tr("anubisDescription"));
 
-global.jjDiosDiary = ItemCreate(
+global.jjsDiosDiary = ItemCreate(
     undefined,
-    Localize("diosDiaryName"),
-    Localize("diosDiaryDescription"),
+    "jjsDiosDiary",
+    "",
     global.sprDiosDiary,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -196,11 +223,13 @@ global.jjDiosDiary = ItemCreate(
     60 * 4,
     false
 );
+ItemEdit(global.jjsDiosDiary, ItemData.Name, tr("diosDiaryName"));
+ItemEdit(global.jjsDiosDiary, ItemData.Description, tr("diosDiaryDescription"));
 
-global.jjDiosBone = ItemCreate(
+global.jjsDiosBone = ItemCreate(
     undefined,
-    Localize("diosBoneName"),
-    Localize("diosBoneDescription"),
+    "jjsDiosBone",
+    "",
     global.sprDiosBone,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -212,11 +241,13 @@ global.jjDiosBone = ItemCreate(
     60 * 4,
     false
 );
+ItemEdit(global.jjsDiosBone, ItemData.Name, tr("diosBoneName"));
+ItemEdit(global.jjsDiosBone, ItemData.Description, tr("diosBoneDescription"));
 
-global.jjEgyptianCrown = ItemCreate(
+global.jjsEgyptianCrown = ItemCreate(
     undefined,
-    Localize("egyptianCrownName"),
-    Localize("egyptianCrownDescription"),
+    "jjsEgyptianCrown",
+    "",
     global.sprEgyptianCrown,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -231,11 +262,13 @@ global.jjEgyptianCrown = ItemCreate(
     60 * 30,
     true
 );
+ItemEdit(global.jjsEgyptianCrown, ItemData.Name, tr("egyptianCrownName"));
+ItemEdit(global.jjsEgyptianCrown, ItemData.Description, tr("egyptianCrownDescription"));
 
-global.jjSuspiciousBolt = ItemCreate(
+global.jjsSuspiciousBolt = ItemCreate(
     undefined,
-    Localize("suspiciousBoltName"),
-    Localize("suspiciousBoltDescription"),
+    "jjsSuspiciousBolt",
+    "",
     global.sprSuspiciousBolt,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -253,11 +286,14 @@ global.jjSuspiciousBolt = ItemCreate(
     60 * 5,
     true
 );
+ItemEdit(global.jjsSuspiciousBolt, ItemData.Name, tr("suspiciousBoltName"));
+ItemEdit(global.jjsSuspiciousBolt, ItemData.Description, tr("suspiciousBoltDescription"));
+StructureAddItem(Structure.Forge, global.jjsSuspiciousBolt);
 
-global.jjPrisonerSoul = ItemCreate(
+global.jjsPrisonerSoul = ItemCreate(
     undefined,
-    "Prisoner Soul",
-    "the soul of an evil person.",
+    "jjsPrisonerSoul",
+    "",
     global.sprPrisonerSoul,
     ItemType.Material,
     ItemSubType.None,
@@ -265,11 +301,13 @@ global.jjPrisonerSoul = ItemCreate(
     0,
     0
 );
+ItemEdit(global.jjsPrisonerSoul, ItemData.Name, tr("prisoner_soul_name"));
+ItemEdit(global.jjsPrisonerSoul, ItemData.Description, tr("prisoner_soul_desc"));
 
-global.jjGreenBaby = ItemCreate(
+global.jjsGreenBaby = ItemCreate(
     undefined,
-    "green baby",
-    "a strange bizarre infant.",
+    "jjsGreenBaby",
+    "",
     global.sprGreenBaby,
     ItemType.Consumable,
     ItemSubType.None,
@@ -277,17 +315,19 @@ global.jjGreenBaby = ItemCreate(
     0,
     0,
     [
-        global.jjDiosBone, 1,
-        global.jjPrisonerSoul, 36
+        global.jjsDiosBone, 1,
+        global.jjsPrisonerSoul, 36
     ],
     ScriptWrap(GreenBabyOnUse)
 );
-StructureAddItem(Structure.SpiritCrystal, global.jjGreenBaby);
+ItemEdit(global.jjsGreenBaby, ItemData.Name, tr("green_baby_name"));
+ItemEdit(global.jjsGreenBaby, ItemData.Description, tr("green_baby_desc"));
+StructureAddItem(Structure.SpiritCrystal, global.jjsGreenBaby);
 
-global.jjCamera = ItemCreate(
+global.jjsCamera = ItemCreate(
     undefined,
-    "camera",
-    "a device for capturing landscapes.",
+    "jjsCamera",
+    "",
     global.sprCamera,
     ItemType.Consumable,
     ItemSubType.None,
@@ -303,12 +343,14 @@ global.jjCamera = ItemCreate(
     ScriptWrap(CameraOnUse),
     60 * 60
 );
-StructureAddItem(Structure.Factory, global.jjCamera);
+ItemEdit(global.jjsCamera, ItemData.Name, tr("camera_name"));
+ItemEdit(global.jjsCamera, ItemData.Description, tr("camera_desc"));
+StructureAddItem(Structure.Factory, global.jjsCamera);
 
-global.jjJotarosHat = ItemCreate(
+global.jjsJotarosHat = ItemCreate(
     undefined,
-    "jotaro's hat",
-    "a peculiar looking hat.",
+    "jjsJotarosHat",
+    "",
     global.sprJotarosHat,
     ItemType.Consumable,
     ItemSubType.None,
@@ -322,12 +364,14 @@ global.jjJotarosHat = ItemCreate(
     ScriptWrap(JotarosHatOnUse),
     60 * 60
 );
-StructureAddItem(Structure.SewingStation, global.jjJotarosHat);
+ItemEdit(global.jjsJotarosHat, ItemData.Name, tr("jotaros_hat_name"));
+ItemEdit(global.jjsJotarosHat, ItemData.Description, tr("jotaros_hat_desc"));
+StructureAddItem(Structure.SewingStation, global.jjsJotarosHat);
 
-global.jjStandOrb = ItemCreate(
+global.jjsStandOrb = ItemCreate(
     undefined,
-    "stand orb",
-    "used for increasing stand power.",
+    "jjsStandOrb",
+    "",
     global.sprStandOrb,
     ItemType.Consumable,
     ItemSubType.None,
@@ -342,63 +386,234 @@ global.jjStandOrb = ItemCreate(
     ScriptWrap(StandOrbOnUse),
     60 * 60
 );
+ItemEdit(global.jjsStandOrb, ItemData.Name, tr("stand_orb_name"));
+ItemEdit(global.jjsStandOrb, ItemData.Description, tr("stand_orb_desc"));
+StructureAddItem(Structure.SpiritCrystal, global.jjsStandOrb);
 
 #region holy parts
 
-global.jjbamHeart = ItemCreate(
+global.jjsHolyHeart = ItemCreate(
     undefined,
-    Localize("heartName"),
-    Localize("heartDescription"),
-    global.sprHeart,
+    "jjsHolyHeart",
+    "",
+    global.sprHolyHeart,
     ItemType.Consumable,
     ItemSubType.Potion,
     50,
     0,
     0,
     undefined,
-    ScriptWrap(HeartUse),
+    ScriptWrap(HolyHeartUse),
     5 * 20,
     true
 );
+ItemEdit(global.jjsHolyHeart, ItemData.Name, tr("holy_heart_name"));
+ItemEdit(global.jjsHolyHeart, ItemData.Description, tr("holy_heart_desc"));
 
-global.jjbamEye = ItemCreate(
+global.jjsHolyLeftArm = ItemCreate(
     undefined,
-    Localize("eyeName"),
-    Localize("eyeDescription"),
-    global.sprEye,
+    "jjsHolyLeftArm",
+    "",
+    global.sprHolyLeftArm,
     ItemType.Consumable,
     ItemSubType.Potion,
     50,
     0,
     0,
     undefined,
-    ScriptWrap(EyeUse),
+    ScriptWrap(HolyLeftArmUse),
     5 * 20,
     true
 )
+ItemEdit(global.jjsHolyLeftArm, ItemData.Name, tr("holy_left_arm_name"));
+ItemEdit(global.jjsHolyLeftArm, ItemData.Description, tr("holy_left_arm_desc"));
 
-global.jjbamLeftArm = ItemCreate(
+global.jjsHolyRightArm = ItemCreate(
     undefined,
-    Localize("leftArmName"),
-    Localize("leftArmDescription"),
-    global.sprLeftArm,
+    "jjsHolyRightArm",
+    "",
+    global.sprHolyRightArm,
     ItemType.Consumable,
     ItemSubType.Potion,
     50,
     0,
     0,
     undefined,
-    ScriptWrap(LeftArmUse),
+    ScriptWrap(HolyRightArmUse),
     5 * 20,
     true
 )
+ItemEdit(global.jjsHolyRightArm, ItemData.Name, tr("holy_right_arm_name"));
+ItemEdit(global.jjsHolyRightArm, ItemData.Description, tr("holy_right_arm_desc"));
+
+global.jjsHolyLeftEye = ItemCreate(
+    undefined,
+    "jjsHolyLeftEye",
+    "",
+    global.sprHolyEye,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    50,
+    0,
+    0,
+    undefined,
+    ScriptWrap(HolyLeftEyeUse),
+    5 * 20,
+    true
+)
+ItemEdit(global.jjsHolyLeftEye, ItemData.Name, tr("holy_left_eye_name"));
+ItemEdit(global.jjsHolyLeftEye, ItemData.Description, tr("holy_left_eye_desc"));
+
+global.jjsHolyRightEye = ItemCreate(
+    undefined,
+    "jjsHolyRightEye",
+    "",
+    global.sprHolyEye,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    50,
+    0,
+    0,
+    undefined,
+    ScriptWrap(HolyRightEyeUse),
+    5 * 20,
+    true
+)
+ItemEdit(global.jjsHolyRightEye, ItemData.Name, tr("holy_right_eye_name"));
+ItemEdit(global.jjsHolyRightEye, ItemData.Description, tr("holy_right_eye_desc"));
+
+global.jjsHolySpine = ItemCreate(
+    undefined,
+    "jjsHolySpine",
+    "",
+    global.sprHolySpine,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    50,
+    0,
+    0,
+    undefined,
+    ScriptWrap(HolySpineUse),
+    5 * 20,
+    true
+)
+ItemEdit(global.jjsHolySpine, ItemData.Name, tr("holy_spine_name"));
+ItemEdit(global.jjsHolySpine, ItemData.Description, tr("holy_spine_desc"));
+
+global.jjsHolyRibCage = ItemCreate(
+    undefined,
+    "jjsHolyRibCage",
+    "",
+    global.sprHolyRibCage,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    50,
+    0,
+    0,
+    undefined,
+    ScriptWrap(HolyRibCageUse),
+    5 * 20,
+    true
+)
+ItemEdit(global.jjsHolyRibCage, ItemData.Name, tr("holy_rib_cage_name"));
+ItemEdit(global.jjsHolyRibCage, ItemData.Description, tr("holy_rib_cage_desc"));
+
+global.jjsHolyLeftEar = ItemCreate(
+    undefined,
+    "jjsHolyLeftEar",
+    "",
+    global.sprHolyLeftEar,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    50,
+    0,
+    0,
+    undefined,
+    ScriptWrap(HolyLeftEarUse),
+    5 * 20,
+    true
+)
+ItemEdit(global.jjsHolyLeftEar, ItemData.Name, tr("holy_left_ear_name"));
+ItemEdit(global.jjsHolyLeftEar, ItemData.Description, tr("holy_left_ear_desc"));
+
+global.jjsHolyRightEar = ItemCreate(
+    undefined,
+    "jjsHolyRightEar",
+    "",
+    global.sprHolyRightEar,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    50,
+    0,
+    0,
+    undefined,
+    ScriptWrap(HolyRightEarUse),
+    5 * 20,
+    true
+)
+ItemEdit(global.jjsHolyRightEar, ItemData.Name, tr("holy_right_ear_name"));
+ItemEdit(global.jjsHolyRightEar, ItemData.Description, tr("holy_right_ear_desc"));
+
+global.jjsHolyLeftLeg = ItemCreate(
+    undefined,
+    "jjsHolyLeftLeg",
+    "",
+    global.sprHolyLeftLeg,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    50,
+    0,
+    0,
+    undefined,
+    ScriptWrap(HolyLeftLegUse),
+    5 * 20,
+    true
+)
+ItemEdit(global.jjsHolyLeftLeg, ItemData.Name, tr("holy_left_leg_name"));
+ItemEdit(global.jjsHolyLeftLeg, ItemData.Description, tr("holy_left_leg_desc"));
+
+global.jjsHolyRightLeg = ItemCreate(
+    undefined,
+    "jjsHolyRightLeg",
+    "",
+    global.sprHolyRightLeg,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    50,
+    0,
+    0,
+    undefined,
+    ScriptWrap(HolyRightLegUse),
+    5 * 20,
+    true
+)
+ItemEdit(global.jjsHolyRightLeg, ItemData.Name, tr("holy_right_leg_name"));
+ItemEdit(global.jjsHolyRightLeg, ItemData.Description, tr("holy_right_leg_desc"));
+
+global.jjsHolySkull = ItemCreate(
+    undefined,
+    "jjsHolySkull",
+    "",
+    global.sprHolySkull,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    50,
+    0,
+    0,
+    undefined,
+    ScriptWrap(HolySkullUse),
+    5 * 20,
+    true
+)
+ItemEdit(global.jjsHolySkull, ItemData.Name, tr("holy_skull_name"));
+ItemEdit(global.jjsHolySkull, ItemData.Description, tr("holy_skull_desc"));
 
 #endregion
 
-global.jjPrayerBeads = ItemCreate(
+global.jjsPrayerBeads = ItemCreate(
     undefined,
-    Localize("prayerBeadsName"),
-    Localize("prayerBeadsDescription"),
+    "jjsPrayerBeads",
+    "",
     global.sprPrayerBeads,
     ItemType.Consumable,
     ItemSubType.Potion,
@@ -414,78 +629,59 @@ global.jjPrayerBeads = ItemCreate(
     5 * 60,
     true
 )
-StructureAddItem(Structure.Forge, global.jjPrayerBeads);
-
-global.common_arrow_weight = 128;
-global.uncommon_arrow_weight = 64;
-global.rare_arrow_weight = 32;
-global.epic_arrow_weight = 16;
-global.legendary_arrow_weight = 8;
-global.mythical_arrow_weight = 4;
-global.ascended_arrow_weight = 2;
-global.ultimate_arrow_weight = 1;
+ItemEdit(global.jjsPrayerBeads, ItemData.Name, tr("prayerBeadsName"));
+ItemEdit(global.jjsPrayerBeads, ItemData.Description, tr("prayerBeadsDescription"));
+StructureAddItem(Structure.Forge, global.jjsPrayerBeads);
 
 global.arrow_ability_pool =
 [
     // common
-    [GiveStarPlatinum, global.common_arrow_weight],
-    [GiveShadowTheWorld, global.common_arrow_weight],
-    [GiveKillerQueen, global.common_arrow_weight],
-    [GiveStickyFingers, global.common_arrow_weight],
-    [GiveGoldExperience, global.common_arrow_weight],
-    [GiveKingCrimson, global.common_arrow_weight],
-    [GiveSilverChariot, global.common_arrow_weight],
-    [GiveWhiteSnake, global.common_arrow_weight],
-    [GiveHierophantGreen, global.common_arrow_weight],
+    [GiveStarPlatinum, global.common_rarity_weight],
+    [GiveShadowTheWorld, global.common_rarity_weight],
+    [GiveKillerQueen, global.common_rarity_weight],
+    [GiveStickyFingers, global.common_rarity_weight],
+    [GiveGoldExperience, global.common_rarity_weight],
+    [GiveKingCrimson, global.common_rarity_weight],
+    [GiveSilverChariot, global.common_rarity_weight],
+    [GiveWhiteSnake, global.common_rarity_weight],
+    [GiveHierophantGreen, global.common_rarity_weight],
     // uncommon
-    [GiveSpg, global.uncommon_arrow_weight],
-    [GiveSfg, global.uncommon_arrow_weight],
-    [GiveSfr, global.uncommon_arrow_weight],
-    [GiveKcg, global.uncommon_arrow_weight],
-    [GiveHr, global.uncommon_arrow_weight],
-    [GiveGreenSnake, global.uncommon_arrow_weight],
+    [GiveSpg, global.uncommon_rarity_weight],
+    [GiveSfg, global.uncommon_rarity_weight],
+    [GiveSfr, global.uncommon_rarity_weight],
+    [GiveKcg, global.uncommon_rarity_weight],
+    [GiveHr, global.uncommon_rarity_weight],
+    [GiveGreenSnake, global.uncommon_rarity_weight],
     // rare
-    [GiveScova, global.rare_arrow_weight],
-    [GiveKca, global.rare_arrow_weight],
-    [GiveHb, global.rare_arrow_weight],
-    [GiveBlueSnake, global.rare_arrow_weight],
+    [GiveScova, global.rare_rarity_weight],
+    [GiveKca, global.rare_rarity_weight],
+    [GiveHb, global.rare_rarity_weight],
+    [GiveBlueSnake, global.rare_rarity_weight],
     // epic
-    [GiveBs, global.epic_arrow_weight],
-    [GiveSpp, global.epic_arrow_weight],
-    [GivePurpleSnake, global.epic_arrow_weight],
+    [GiveBs, global.epic_rarity_weight],
+    [GiveSpp, global.epic_rarity_weight],
+    [GivePurpleSnake, global.epic_rarity_weight],
     // legendary
-    [GiveImposter, global.legendary_arrow_weight],
-    [GiveKcmo, global.legendary_arrow_weight],
-    [GiveDw, global.legendary_arrow_weight],
-    [GiveSpova, global.legendary_arrow_weight],
-    [GiveYellowSnake, global.legendary_arrow_weight],
+    [GiveImposter, global.legendary_rarity_weight],
+    [GiveKcmo, global.legendary_rarity_weight],
+    [GiveDw, global.legendary_rarity_weight],
+    [GiveSpova, global.legendary_rarity_weight],
+    [GiveYellowSnake, global.legendary_rarity_weight],
     // mythical
-    [GiveSpr, global.mythical_arrow_weight],
-    [GiveShadow, global.mythical_arrow_weight],
-    [GiveKcm, global.mythical_arrow_weight],
-    [GiveRedSnake, global.mythical_arrow_weight],
-    [GiveP03, global.mythical_arrow_weight],
-    // ascended
-    [GiveSPOH, global.ascended_arrow_weight],
-    [GiveKce, global.ascended_arrow_weight],
-    [GiveOrangeSnake, global.ascended_arrow_weight],
+    [GiveSpr, global.mythical_rarity_weight],
+    [GiveShadow, global.mythical_rarity_weight],
+    [GiveKcm, global.mythical_rarity_weight],
+    [GiveRedSnake, global.mythical_rarity_weight],
+    [GiveP03, global.mythical_rarity_weight],
+    // celestial
+    [GiveSPOH, global.celestial_rarity_weight],
+    [GiveKce, global.celestial_rarity_weight],
+    [GiveOrangeSnake, global.celestial_rarity_weight],
     // ultimate
-    [GiveSPROH, global.ultimate_arrow_weight],
-    [GivePinkSnake, global.ultimate_arrow_weight]
+    [GiveSPROH, global.ultimate_rarity_weight],
+    [GivePinkSnake, global.ultimate_rarity_weight]
+    // bizarre
 ];
-
-StructureAddItem(Structure.Forge, global.jjStarShard);
-StructureAddItem(Structure.Forge, global.jjbamArrow);
-StructureAddItem(Structure.Forge, global.jjSuspiciousBolt);
-StructureAddItem(Structure.Forge, global.jjbamEternalArrow);
-StructureAddItem(Structure.Forge, global.jjbamRequiem);
-//StructureAddItem(Structure.Forge, global.jjbamSteelBall);
-
-StructureAddItem(Structure.Factory, global.jjbamDisc);
-
-StructureAddItem(Structure.Cookpot, global.jjRokakakaStew);
-
-StructureAddItem(Structure.SpiritCrystal, global.jjStandOrb);
 
 #define StandOrbOnUse
 
@@ -493,7 +689,7 @@ if (instance_exists(STAND))
 {
     STAND.stat_points += 100;
 }
-else GainItem(global.jjStandOrb, 1);
+else GainItem(global.jjsStandOrb, 1);
 
 #define JotarosHatOnUse
 
@@ -504,9 +700,9 @@ if (instance_exists(STAND))
         RemoveStand(player);
         GiveSPTW(player);
     }
-    else GainItem(global.jjJotarosHat, 1);
+    else GainItem(global.jjsJotarosHat, 1);
 }
-else GainItem(global.jjJotarosHat, 1);
+else GainItem(global.jjsJotarosHat, 1);
 
 #define CameraOnUse
 
@@ -523,9 +719,9 @@ if (instance_exists(STAND))
             InstanceAssignMethod(self, "step", ScriptWrap(StwTheWorldStep), false);
         }
     }
-    else GainItem(global.jjCamera, 1);
+    else GainItem(global.jjsCamera, 1);
 }
-else GainItem(global.jjCamera, 1);
+else GainItem(global.jjsCamera, 1);
 
 #define GreenBabyOnUse
 
@@ -536,11 +732,11 @@ if (instance_exists(STAND))
         // RemoveStand(player);
         // GiveCMoon(player);
         Trace("not yet");
-        GainItem(global.jjGreenBaby, 1);
+        GainItem(global.jjsGreenBaby, 1);
     }
-    else GainItem(global.jjGreenBaby, 1);
+    else GainItem(global.jjsGreenBaby, 1);
 }
-else GainItem(global.jjGreenBaby, 1);
+else GainItem(global.jjsGreenBaby, 1);
 
 #define SuspiciousBoltUse
 
@@ -553,7 +749,7 @@ if (TimeControl.lightState == 0 or TimeControl.lightState == 3)
 {
     if (modSubtypeExists("DIO"))
     {
-        GainItem(global.jjEgyptianCrown, 1);
+        GainItem(global.jjsEgyptianCrown, 1);
     }
     else
     {
@@ -562,18 +758,18 @@ if (TimeControl.lightState == 0 or TimeControl.lightState == 3)
 }
 else
 {
-    GainItem(global.jjEgyptianCrown, 1);
+    GainItem(global.jjsEgyptianCrown, 1);
 }
 
 #define DiosBoneUse
 
-GainItem(global.jjDiosBone, 1);
+GainItem(global.jjsDiosBone, 1);
 
 #define RokakakaStewUse
 
 if (room != rmGame)
 {
-    GainItem(global.jjRokakakaStew);
+    GainItem(global.jjsRokakakaStew);
     exit;
 }
 
@@ -586,20 +782,20 @@ if (instance_exists(STAND))
         var _c = random(1);
         if (_c > 0.04)
         {
-            GainItem(global.jjRokakakaStew);
+            GainItem(global.jjsRokakakaStew);
         }
     }
 }
 else
 {
-    GainItem(global.jjRokakakaStew);
+    GainItem(global.jjsRokakakaStew);
 }
 
 #define DiosDiaryUse
 
 if (room != rmGame)
 {
-    GainItem(global.jjDiosDiary);
+    GainItem(global.jjsDiosDiary);
     exit;
 }
 
@@ -616,19 +812,19 @@ if (instance_exists(STAND))
         case "The World Runic":
             GiveTwruoh(player);
         break;
-        default: GainItem(global.jjDiosDiary); break;
+        default: GainItem(global.jjsDiosDiary); break;
     }
 }
 else
 {
-    GainItem(global.jjDiosDiary);
+    GainItem(global.jjsDiosDiary);
 }
 
 #define RokakakaUse
 
 if (room != rmGame)
 {
-    GainItem(global.jjbamRokakaka);
+    GainItem(global.jjsRokakakaFruit);
     exit;
 }
 
@@ -642,14 +838,14 @@ if (instance_exists(STAND))
 }
 else
 {
-    GainItem(global.jjbamRokakaka);
+    GainItem(global.jjsRokakakaFruit);
 }
 
 #define PrayerBeadsUse
 
 if (room != rmGame)
 {
-    GainItem(global.jjPrayerBeads);
+    GainItem(global.jjsPrayerBeads);
     exit;
 }
 
@@ -659,7 +855,7 @@ if (global.pucciSpawned == false)
 }
 else
 {
-    GainItem(global.jjPrayerBeads);
+    GainItem(global.jjsPrayerBeads);
 }
 
 #define AnubisUse
@@ -678,13 +874,13 @@ with (_p)
     stationary = true;
     destroyOnImpact = false;
 }
-GainItem(global.jjbamAnubis);
+GainItem(global.jjsAnubis);
 
 #define SusArrowUse
 
 if (room != rmGame)
 {
-    GainItem(global.jjbamArrow);
+    GainItem(global.jjsSuspiciousArrow);
     exit;
 }
 
@@ -695,14 +891,14 @@ if (!instance_exists(STAND))
 }
 else
 {
-    GainItem(global.jjbamArrow);
+    GainItem(global.jjsSuspiciousArrow);
 }
 
 #define EternalArrowUse
 
 if (room != rmGame)
 {
-    GainItem(global.jjbamEternalArrow);
+    GainItem(global.jjsEternalArrow);
     exit;
 }
 
@@ -713,19 +909,19 @@ if (!instance_exists(STAND))
     var _c = random(1);
     if (_c > 0.02)
     {
-        GainItem(global.jjbamEternalArrow);
+        GainItem(global.jjsEternalArrow);
     }
 }
 else
 {
-    GainItem(global.jjbamEternalArrow);
+    GainItem(global.jjsEternalArrow);
 }
 
 #define VerySusArrowUse
 
 if (room != rmGame)
 {
-    GainItem(global.jjbamRequiem);
+    GainItem(global.jjsRequiemArrow);
     exit;
 }
 
@@ -737,26 +933,26 @@ if (instance_exists(STAND))
         case "Killer Queen":
             RemoveStand(player);
             var _stands = [
-                [GiveKillerQueenBtD, global.common_arrow_weight],
-                [GiveSQBTD, global.epic_arrow_weight]
+                [GiveKillerQueenBtD, global.common_rarity_weight],
+                [GiveSQBTD, global.epic_rarity_weight]
             ]
             script_execute(random_weight(_stands), player);
-            Trace(Localize("requiemArrowMerge"));
+            Trace(tr("requiemArrowMerge"));
         break;
         case "Gold Experience":
             RemoveStand(player);
             GiveGer(player);
-            Trace(Localize("requiemArrowMerge"));
+            Trace(tr("requiemArrowMerge"));
         break;
         default:
-            Trace(Localize("requiemArrowRefuse"));
-            GainItem(global.jjbamRequiem);
+            Trace(tr("requiemArrowRefuse"));
+            GainItem(global.jjsRequiemArrow);
         break;
     }
 }
 else
 {
-    GainItem(global.jjbamRequiem);
+    GainItem(global.jjsRequiemArrow);
 }
 
 #define GiveRandomStand
@@ -767,7 +963,7 @@ script_execute(random_weight(global.arrow_ability_pool), player);
 
 if (room != rmGame)
 {
-    GainItem(global.jjbamDisc);
+    GainItem(global.jjsBlankDisc);
     exit;
 }
 
@@ -782,19 +978,53 @@ if (instance_exists(STAND))
 }
 else
 {
-    GainItem(global.jjbamDisc);
+    GainItem(global.jjsBlankDisc);
 }
 
 #define DiscBlueprintUse
 
-ItemEdit(global.jjbamDisc, ItemData.Unlocked, true);
+ItemEdit(global.jjsBlankDisc, ItemData.Unlocked, true);
 global.questPucciBlueprintCompleted = true;
 
-#define LeftArmUse
+#define HolyHeartUse
+if (room != rmGame)
+{
+    GainItem(global.jjsHolyHeart);
+    exit;
+}
+
+if (instance_exists(STAND))
+{
+    switch (STAND.saveKey)
+    {
+        case "jjbamTsk":
+            STAND.hasAct2 = true;
+        break;
+        // case "D4C":
+        //     STAND.hasHeart = true;
+        //     D4CEvolveIfCan();
+        // break;
+        default:
+            Trace(tr("holyPartRefuse"));
+            GainItem(global.jjsHolyHeart);
+        break;
+    }
+}
+else
+{
+    var _standPool =
+    [
+        [GiveD4C, global.common_rarity_weight],
+        [GivePd4c, global.epic_rarity_weight]
+    ]
+    script_execute(random_weight(_standPool), player);
+}
+
+#define HolyLeftArmUse
 
 if (room != rmGame)
 {
-    GainItem(global.jjbamLeftArm);
+    GainItem(global.jjsHolyLeftArm);
     exit;
 }
 
@@ -814,8 +1044,8 @@ if (instance_exists(STAND))
             PD4CEvolveIfCan();
         break;
         default:
-            Trace(Localize("holyPartRefuse"));
-            GainItem(global.jjbamLeftArm);
+            Trace(tr("holyPartRefuse"));
+            GainItem(global.jjsHolyLeftArm);
         break;
     }
 }
@@ -823,51 +1053,23 @@ else
 {
     var _standPool =
     [
-        [GiveSoftAndWet, global.common_arrow_weight],
-        [GiveSnwg, global.legendary_arrow_weight]
+        [GiveSoftAndWet, global.common_rarity_weight],
+        [GiveSnwg, global.legendary_rarity_weight]
     ]
     script_execute(random_weight(_standPool), player);
 }
 
-#define HeartUse
-if (room != rmGame)
-{
-    GainItem(global.jjbamHeart);
-    exit;
-}
+#define HolyRightArmUse
 
-if (instance_exists(STAND))
-{
-    switch (STAND.saveKey)
-    {
-        case "jjbamTsk":
-            STAND.hasAct2 = true;
-        break;
-        // case "D4C":
-        //     STAND.hasHeart = true;
-        //     D4CEvolveIfCan();
-        // break;
-        default:
-            Trace(Localize("holyPartRefuse"));
-            GainItem(global.jjbamHeart);
-        break;
-    }
-}
-else
-{
-    var _standPool =
-    [
-        [GiveD4C, global.common_arrow_weight],
-        [GivePd4c, global.epic_arrow_weight]
-    ]
-    script_execute(random_weight(_standPool), player);
-}
+GainItem(global.jjsHolyRightArm);
+Trace(tr("holyPartRefuse"));
+exit;
 
-#define EyeUse
+#define HolyLeftEyeUse
 
 if (room != rmGame)
 {
-    GainItem(global.jjbamEye);
+    GainItem(global.jjsHolyLeftEye);
     exit;
 }
 
@@ -893,8 +1095,8 @@ if (instance_exists(STAND))
             PD4CEvolveIfCan();
         break;
         default:
-            Trace(Localize("holyPartRefuse"));
-            GainItem(global.jjbamEye);
+            Trace(tr("holyPartRefuse"));
+            GainItem(global.jjsHolyLeftEye);
         break;
     }
 }
@@ -902,12 +1104,60 @@ else
 {
     var _standPool =
     [
-        [GiveTheWorldAU, global.common_arrow_weight],
-        [GiveNeo, global.epic_arrow_weight],
-        [GiveTwau3000, global.legendary_arrow_weight]
+        [GiveTheWorldAU, global.common_rarity_weight],
+        [GiveNeo, global.epic_rarity_weight],
+        [GiveTwau3000, global.legendary_rarity_weight]
     ]
     script_execute(random_weight(_standPool), player);
 }
+
+#define HolyRightEyeUse
+
+GainItem(global.jjsHolyRightEye);
+Trace(tr("holyPartRefuse"));
+exit;
+
+#define HolySpineUse
+
+GainItem(global.jjsHolySpine);
+Trace(tr("holyPartRefuse"));
+exit;
+
+#define HolyRibCageUse
+
+GainItem(global.jjsHolyRibCage);
+Trace(tr("holyPartRefuse"));
+exit;
+
+#define HolyLeftEarUse
+
+GainItem(global.jjsHolyLeftEar);
+Trace(tr("holyPartRefuse"));
+exit;
+
+#define HolyRightEarUse
+
+GainItem(global.jjsHolyRightEar);
+Trace(tr("holyPartRefuse"));
+exit;
+
+#define HolyLeftLegUse
+
+GainItem(global.jjsHolyLeftLeg);
+Trace(tr("holyPartRefuse"));
+exit;
+
+#define HolyRightLegUse
+
+GainItem(global.jjsHolyRightLeg);
+Trace(tr("holyPartRefuse"));
+exit;
+
+#define HolySkullUse
+
+GainItem(global.jjsHolySkull);
+Trace(tr("holyPartRefuse"));
+exit;
 
 #define SteelBallUse
 

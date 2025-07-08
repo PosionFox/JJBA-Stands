@@ -2,8 +2,8 @@
 
 global.jjbamDiscSproh = ItemCreate(
     undefined,
-    Localize("standDiscName") + "SPROH",
-    Localize("standDiscDescription") + "Star Platinum Retro Over Heaven",
+    tr("standDiscName") + "SPROH",
+    tr("standDiscDescription") + "Star Platinum Retro Over Heaven",
     global.sprDisc,
     ItemType.Consumable,
     ItemSubType.Potion,
