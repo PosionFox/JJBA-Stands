@@ -212,9 +212,12 @@ if you just started a new game, you can check your available evolutions by click
 @"every stand has a trait.
 most traits are pretty straightforward, they increase your damage or your health regeneration.
 some traits may be more complex, like giving you the ability to reflect damage taken.", 24, 1000);
-        draw_text_color(_rx1 + 160, _ry2 - 128, "fit", c_white, c_white, c_white, c_white, 1);
-        draw_text_color(_cx, _ry2 - 128, "mirror", c_orange, c_orange, c_orange, c_orange, 1);
-        draw_text_color(_rx2 - 160, _ry2 - 128, "hercules", c_fuchsia, c_fuchsia, c_fuchsia, c_fuchsia, 1);
+        var _cmn = GetRarityColor(Rarity.Common);
+        var _cll = GetRarityColor(Rarity.Celestial);
+        var _ult = GetRarityColor(Rarity.Ultimate);
+        draw_text_color(_rx1 + 160, _ry2 - 128, "fit", _cmn, _cmn, _cmn, _cmn, 1);
+        draw_text_color(_cx, _ry2 - 128, "mirror", _cll, _cll, _cll, _cll, 1);
+        draw_text_color(_rx2 - 160, _ry2 - 128, "hercules", _ult, _ult, _ult, _ult, 1);
     break;
     case "runes":
         draw_text_color(_cx, _ry1 + 64, "stand runes", c_white, c_white, c_aqua, c_aqua, 1);
@@ -224,11 +227,11 @@ similar to traits, runes enchance you or your stand, the key different being tha
 
 the only current method to get runes is by defeating dio.", 24, 1000);
         draw_sprite_ext(global.sprBlankRune, 0, _rx1 + 160, _ry2 - 128, 4, 4, 0, c_white, 1);
-        draw_sprite_ext(global.sprRuneMending, 0, _rx1 + 160, _ry2 - 128, 4, 4, 0, c_lime, 1);
+        draw_sprite_ext(global.sprRuneMending, 0, _rx1 + 160, _ry2 - 128, 4, 4, 0, GetRarityColor(Rarity.Uncommon), 1);
         draw_sprite_ext(global.sprBlankRune, 0, _cx, _ry2 - 128, 4, 4, 0, c_white, 1);
-        draw_sprite_ext(global.sprRuneMight, 0, _cx, _ry2 - 128, 4, 4, 0, c_yellow, 1);
+        draw_sprite_ext(global.sprRuneMight, 0, _cx, _ry2 - 128, 4, 4, 0, GetRarityColor(Rarity.Legendary), 1);
         draw_sprite_ext(global.sprBlankRune, 0, _rx2 - 160, _ry2 - 128, 4, 4, 0, c_white, 1);
-        draw_sprite_ext(global.sprRuneEnergize, 0, _rx2 - 160, _ry2 - 128, 4, 4, 0, c_fuchsia, 1);
+        draw_sprite_ext(global.sprRuneEnergize, 0, _rx2 - 160, _ry2 - 128, 4, 4, 0, GetRarityColor(Rarity.Ultimate), 1);
     break;
     case "more":
         draw_text_color(_cx, _ry1 + 64, "and more!", c_white, c_white, c_aqua, c_aqua, 1);

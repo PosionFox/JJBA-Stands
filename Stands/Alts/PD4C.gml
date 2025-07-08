@@ -53,8 +53,8 @@ with (_s)
     saveKey = "jjbamPd4c";
     discType = global.jjbamDiscPd4c;
     
-    evolutions[0] = [global.sprPD4CLT, [global.sprLeftArm, global.sprEye], Rarity.Epic];
-    evolutions[1] = [global.sprEvergreen, [global.sprLeftArm, global.sprEye], Rarity.Celestial];
+    evolutions[0] = [global.sprPD4CLT, [global.sprHolyLeftArm, global.sprHolyEye], Rarity.Epic];
+    evolutions[1] = [global.sprEvergreen, [global.sprHolyLeftArm, global.sprHolyEye], Rarity.Celestial];
 }
 return _s;
 

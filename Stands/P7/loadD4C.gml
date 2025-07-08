@@ -560,8 +560,8 @@ with (_s)
     variants[0] = [sprite_index, rarity.tier];
     variants[1] = [global.sprPD4C, Rarity.Epic];
     
-    evolutions[0] = [global.sprD4CLT, [global.sprLeftArm, global.sprEye], Rarity.Common];
-    evolutions[1] = [global.sprGloomist, [global.sprLeftArm, global.sprEye], Rarity.Mythical];
+    evolutions[0] = [global.sprD4CLT, [global.sprHolyLeftArm, global.sprHolyEye], Rarity.Common];
+    evolutions[1] = [global.sprGloomist, [global.sprHolyLeftArm, global.sprHolyEye], Rarity.Mythical];
     
     InstanceAssignMethod(self, "drawGUI", ScriptWrap(D4CDrawGui));
     InstanceAssignMethod(self, "destroy", ScriptWrap(D4Cdestroy));
@@ -603,9 +603,9 @@ if (hasEye)
 {
     _cEye = c_white;
 }
-draw_sprite_ext(global.sprLeftArm, 0, 368, _height - 96, 2, 2, 0, _cArm, 1);
-draw_sprite_ext(global.sprHeart, 0, 368 + 32, _height - 96, 2, 2, 0, _cHeart, 1);
-draw_sprite_ext(global.sprEye, 0, 368 + 64, _height - 96, 2, 2, 0, _cEye, 1);
+draw_sprite_ext(global.sprHolyLeftArm, 0, 368, _height - 96, 2, 2, 0, _cArm, 1);
+draw_sprite_ext(global.sprHolyHeart, 0, 368 + 32, _height - 96, 2, 2, 0, _cHeart, 1);
+draw_sprite_ext(global.sprHolyEye, 0, 368 + 64, _height - 96, 2, 2, 0, _cEye, 1);
 
 draw_sprite_ext(global.sprRevCylinderGUI, 0, 321, _height - 96, 2, 2, 0, c_white, 1);
 for (var i = 0; i < ammo; i++)
