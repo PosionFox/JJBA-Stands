@@ -169,7 +169,7 @@ var _o = ModObjectSpawn(_x, _y, 0);
 with (_o)
 {
     sprite_index = global.sprBullet;
-    mask_index = global.sprHitbox8x8;
+    mask_index = global.sprHitbox12x12;
     baseAnimSpd = 1;
     image_speed = baseAnimSpd;
     visible = false;

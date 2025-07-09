@@ -92,6 +92,7 @@ global.sprBulletGUI = sprite_add(p + "BulletGUI.png", 1, false, false, 16, 16);
 global.sprRevCylinderGUI = sprite_add(p + "RevCylinderGUI.png", 1, false, false, 16, 16);
 global.sprPunchEffect = sprite_add(p + "PunchEffect.png", 6, false, false, 8, 8);
 global.sprHitbox8x8 = sprite_add(p + "Hitbox8x8.png", 1, false, false, 4, 4);
+global.sprHitbox12x12 = sprite_add(p + "Hitbox12x12.png", 1, false, false, 6, 6);
 global.sprHitbox16x16 = sprite_add(p + "Hitbox16x16.png", 1, false, false, 8, 8);
 global.sprHitbox32x32 = sprite_add(p + "Hitbox32x32.png", 1, false, false, 16, 16);
 global.sprHitbox64x64 = sprite_add(p + "Hitbox64x64.png", 1, false, false, 32, 32);
