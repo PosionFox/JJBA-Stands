@@ -168,10 +168,7 @@ switch (state)
                 DropItem(x, y, global.jjsBizarreCandy, 8);
             }
             global.enemyDioSpawned = false;
-            if (instance_exists(STAND))
-            {
-                STAND.experience += hpMax * STAND.development_potential;
-            }
+            StandGainExp(STAND, hpMax);
             instance_destroy(self);
             exit;
         }
@@ -356,10 +353,7 @@ switch (state)
         image_angle = 90;
         image_speed = 0.1;
         DropItem(x, y, global.jjsPrisonerSoul, 1);
-        if (instance_exists(STAND))
-        {
-            STAND.experience += hpMax * STAND.development_potential;
-        }
+        StandGainExp(STAND, hpMax);
         instance_destroy(self);
         exit;
     break;

@@ -71,6 +71,8 @@ global.jjSettAudioVolume = 1.0;
 global.jjSettStandTalkIdle = true;
 global.jjSettProjShadows = true;
 global.jjSettProjCollisions = false;
+global.jjsSettLevelUpSound = true;
+global.jjsSettLevelUpParticle = true;
 
 #endregion
 

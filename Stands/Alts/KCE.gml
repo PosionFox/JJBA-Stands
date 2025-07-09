@@ -279,7 +279,7 @@ attackStateTimer += DT * GetStandSpeed(self);
 #define KceEpitaph(m, s)
 
 epitaphActive = true;
-epitaphTimer = 10 * GetStandTotalPower(self);
+epitaphTimer = 5 * GetStandTotalPower(self);
 var _e = EffectCircleCreate(x, y, 32, 4);
 _e.color = colorAlt;
 jj_play_audio(global.sndKcEpitaph, 5, false)

@@ -211,6 +211,8 @@ _map[? "jjAudioVolume"] = global.jjSettAudioVolume;
 _map[? "jjSettStandTalkIdle"] = global.jjSettStandTalkIdle;
 _map[? "jjSettProjShadows"] = global.jjSettProjShadows;
 _map[? "jjSettProjCollisions"] = global.jjSettProjCollisions;
+_map[? "jjsSettLevelUpSound"] = global.jjsSettLevelUpSound;
+_map[? "jjsSettLevelUpParticle"] = global.jjsSettLevelUpParticle;
 
 // stand storage
 var _ss = array_length(global.jjStandSlots);
@@ -380,6 +382,24 @@ if (_map[? "jjSettProjCollisions"] != undefined)
 else
 {
     global.jjSettProjCollisions = false;
+}
+
+if (_map[? "jjsSettLevelUpSound"] != undefined)
+{
+    global.jjsSettLevelUpSound = _map[? "jjsSettLevelUpSound"];
+}
+else
+{
+    global.jjsSettLevelUpSound = true;
+}
+
+if (_map[? "jjsSettLevelUpParticle"] != undefined)
+{
+    global.jjsSettLevelUpParticle = _map[? "jjsSettLevelUpParticle"];
+}
+else
+{
+    global.jjsSettLevelUpParticle = true;
 }
 
 #endregion

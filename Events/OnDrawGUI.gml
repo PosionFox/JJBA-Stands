@@ -626,10 +626,10 @@ if (_sv != undefined)
     global.jjSettAudioVolume = _sv;
 }
 
-var _st = draw_checkbox(_cx + 64, _cy - 32 + (48 * 1), 32, "stand talk when idle", global.jjSettStandTalkIdle);
-if (_st != undefined)
+var _ct = draw_checkbox(_cx + 64, _cy - 32 + (48 * 1), 32, "stand talk when idle", global.jjSettStandTalkIdle);
+if (_ct != undefined)
 {
-    global.jjSettStandTalkIdle = _st;
+    global.jjSettStandTalkIdle = _ct;
 }
 
 var _cs = draw_checkbox(_cx + 64, _cy - 32 + (48 * 2), 32, "attack shadows", global.jjSettProjShadows);
@@ -642,6 +642,18 @@ var _cc = draw_checkbox(_cx + 64, _cy - 32 + (48 * 3), 32, "attack collisions", 
 if (_cc != undefined)
 {
     global.jjSettProjCollisions = _cc;
+}
+
+var _cls = draw_checkbox(_cx + 64, _cy - 32 + (48 * 4), 32, "level up sound", global.jjsSettLevelUpSound);
+if (_cls != undefined)
+{
+    global.jjsSettLevelUpSound = _cls;
+}
+
+var _clp = draw_checkbox(_cx + 64, _cy - 32 + (48 * 5), 32, "level up particle", global.jjsSettLevelUpParticle);
+if (_clp != undefined)
+{
+    global.jjsSettLevelUpParticle = _clp;
 }
 
 draw_text(_rx2 - 256, _ry1 + 48, "mod language");

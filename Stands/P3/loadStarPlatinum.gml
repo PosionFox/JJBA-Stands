@@ -166,7 +166,7 @@ draw_line_width(owner.x, owner.y, owner.x + lengthdir_x(sprite_width, image_angl
 #define SpTimestop(m, s)
 
 jj_play_audio(global.sndSpTs, 5, false);
-var _time = 5 + (0.1 * player.level) * GetStandTotalPower(self);
+var _time = (5 + (0.1 * owner.level)) * GetStandTotalPower(self);
 TimestopCreate(_time);
 EndAtk(s);
 

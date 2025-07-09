@@ -765,3 +765,69 @@ if (WorldControl.default_zoom_height == 205)
     instance_destroy(self);
     exit;
 }
+
+#define EffectStandXPCreate(_stand, _xp)
+
+if (!instance_exists(_stand)) exit;
+
+var _xx = _stand.x + irandom_range(-8, 12);
+var _yy = _stand.y + irandom_range(-8, 12);
+
+var _o = ModObjectSpawn(_xx, _yy, _stand.depth - 1);
+with (_o)
+{
+    stand = _stand;
+    stand_xp = round(_xp);
+    scale = 0;
+    alpha = 1;
+    life = 1.5;
+    floating = 0;
+    spacing = 0;
+    spacing_target = random_range(-24, 24);
+    state = "idle";
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(EffectStandXPStep));
+    InstanceAssignMethod(self, "draw", ScriptWrap(EffectStandXPDraw));
+}
+return _o;
+
+#define EffectStandXPStep
+
+if (life <= 0)
+{
+    state = "despawn";
+}
+life -= DT;
+
+switch (state)
+{
+    case "idle":
+        scale = min(scale + DT, 1);
+        spacing = lerp(spacing, spacing_target, 0.01);
+        floating += DT * 8;
+    break;
+    case "despawn":
+        scale = lerp(scale, 0, 0.25);
+        if (scale < 0.02)
+        {
+            instance_destroy(self);
+            exit;
+        }
+    break;
+}
+
+
+#define EffectStandXPDraw
+
+var _c1 = c_yellow;
+var _c2 = c_yellow;
+var _c3 = c_yellow;
+var _c4 = c_yellow;
+if (instance_exists(stand))
+{
+    _c1 = stand.color;
+    _c2 = stand.colorAlt;
+}
+
+var _s = EaseOutBounce(scale, 0, 1, 1);
+draw_text_transformed_color(x + spacing, y - floating, "+" + string(stand_xp), 0.4 * _s, 0.4 * _s, 0, _c1, _c2, _c3, _c4, 1);

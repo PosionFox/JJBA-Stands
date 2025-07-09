@@ -14,7 +14,7 @@ CommandCreate("jjKillNPCs", true, ScriptWrap(jjbamKillNPCs));
 
 CommandCreate("jjVarSpy", true, ScriptWrap(jjVarSpy), "obj");
 
-CommandCreate("jjMaxExp", true, ScriptWrap(jjMaxExp));
+CommandCreate("jjsGrantXP", true, ScriptWrap(jjsGrantXP), "amount");
 
 CommandCreate("jjSpawnDio", true, ScriptWrap(jjSpawnDio));
 
@@ -87,12 +87,9 @@ else
 var _d = EnemyDioSpawn();
 _d.sun_immunity = true;
 
-#define jjMaxExp
+#define jjsGrantXP(_args)
 
-if (instance_exists(STAND))
-{
-    STAND.experience += 1000000;
-}
+StandGainExp(STAND, real(_args[0]));
 
 #define jjRemapKeybind(args)
 

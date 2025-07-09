@@ -22,12 +22,14 @@ if (!instance_exists(objPlayerMenu) and !instance_exists(uiCrafting))
     var _bx = 244;
     var _by = 80;
     var _length = 790;
+    var _thickness = experience_display_thick;
+    var _xp_bar = clamp(experience / experienceNext, 0, 1);
     
     draw_set_color(c_black);
-    draw_line_width(_bx, _by, _bx + _length, _by, 3);
+    draw_line_width(_bx, _by, _bx + _length, _by, 2 * _thickness);
     draw_set_color(c_yellow);
-    experience_display = lerp(experience_display, _bx + min(experience / experienceNext, 1) * _length, 0.2);
-    draw_line_width(_bx, _by, experience_display, _by, 4);
+    experience_display = lerp(experience_display, _xp_bar, 0.2);
+    draw_line_width(_bx, _by, _bx + experience_display * _length, _by, 4 * _thickness);
     draw_set_color(c_white);
     draw_text(_bx + 8 + string_width(_txt1) / 2, _by, _txt1);
     draw_text(_bx + 8 + _length - string_width(_txt2) / 2, _by, _txt2);
@@ -393,6 +395,7 @@ image_alpha = lerp(image_alpha, alphaTarget, 0.1);
 image_angle = lerp(image_angle, angleTarget * image_xscale, 0.1);
 image_xscale = lerp(image_xscale, scaleX, scaleXSpd);
 image_yscale = lerp(image_yscale, scaleY, scaleYSpd);
+experience_display_thick = lerp(experience_display_thick, 1, 0.3);
 
 if (active)
 {
@@ -476,18 +479,18 @@ if (experience >= experienceNext)
     if (level < 100)
     {
         level++;
-        experience -= experienceNext;
-        experience = max(experience, 0);
-        experienceNext = 3 * level * 1.25;
+        experience = max(experience - experienceNext, 0);
+        experience_display = 0;
+        experienceNext = (5 * level) / (1 + (level / 20));
         stat_points += irandom_range(1, powerMultiplier);
+        experience_display_thick += 8;
         
         var _e = ShrinkingCircleEffect(x, y);
         _e.color = c_yellow;
         _e.radius = 16;
         
-        if (!audio_is_playing(global.sndStandLevelUp))
+        if (global.jjsSettLevelUpSound and !audio_is_playing(global.sndStandLevelUp))
         {
-            
             var _s = audio_play_sound(global.sndStandLevelUp, 10, false);
             audio_sound_gain(_s, global.jjSettAudioVolume * 0.5, 0);
         }
@@ -654,8 +657,9 @@ with (_stand)
     // stats
     level = 1;
     experience = 0;
-    experienceNext = 3;
+    experienceNext = 5;
     experience_display = 0;
+    experience_display_thick = 1;
     trait = {};
     stat_points = 0;
     destructive_power = (random_range(0.5, 2));
@@ -688,6 +692,16 @@ with (_stand)
     _owner.myStand = self;
 }
 return _stand;
+
+#define StandGainExp(_stand, _xp)
+
+if (instance_exists(_stand) and bool("experience" in _stand) and _stand.level < 100)
+{
+    var _da_xp = _xp * _stand.development_potential;
+    _stand.experience += _da_xp;
+    _stand.experience_display_thick += 2;
+    if (global.jjsSettLevelUpParticle) EffectStandXPCreate(_stand, _da_xp);
+}
 
 #define GetPowerMultiplier(_rarity)
 

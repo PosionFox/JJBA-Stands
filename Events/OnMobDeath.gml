@@ -3,9 +3,9 @@
 
 if (instance_exists(player))
 {
+    StandGainExp(STAND, _mob.hpMax);
     if (instance_exists(STAND))
     {
-        STAND.experience += _mob.hpMax * STAND.development_potential;
         switch (STAND.saveKey)
         {
             case "jjbamTsk":

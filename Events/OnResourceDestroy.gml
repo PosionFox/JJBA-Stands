@@ -17,8 +17,5 @@ if (random(1) <= 0.04)
 
 if (instance_exists(player))
 {
-    if (instance_exists(STAND))
-    {
-        STAND.experience += (_ins.hpMax * 0.5) * STAND.development_potential;
-    }
+    StandGainExp(STAND, _ins.hpMax * 0.25);
 }

@@ -198,7 +198,7 @@ if (_tsExists)
 if (!_tsExists)
 {
     jj_play_audio(global.sndTwTs, 5, false);
-    var _time = 9 + (0.05 * owner.level) * GetStandTotalPower(self);
+    var _time = (9 + (0.05 * owner.level)) * GetStandTotalPower(self);
     TimestopCreate(_time);
     FireCD(skill);
 }

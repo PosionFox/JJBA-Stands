@@ -402,7 +402,7 @@ switch (attackState)
     case 2:
         var s = jj_play_audio(global.sndTsOld, 5, false);
         
-        var _time = 2 + (0.05 * player.level) * GetStandTotalPower(self);
+        var _time = (2 + (0.05 * owner.level)) * GetStandTotalPower(self);
         var ts = TimestopCreate(_time);
         ts.resumeSound = global.sndStwTsResume;
         attackState++;

@@ -62,7 +62,7 @@ global.sprHolySkull = sprite_add(p + "holy_skull.png", 1, false, false, 8, 8);
 #region structures
 
 p = "Resources/Sprites/Structures/";
-global.sprRokakakaTree = sprite_add(p + "RokakakaTree.png", 1, false, false, 8, 31);
+global.sprRokakakaTree = sprite_add(p + "RokakakaTree.png", 1, false, false, 8, 29);
 global.sprDiosCoffin = sprite_add(p + "DiosCoffin.png", 1, false, false, 16, 9);
 global.sprShardsTable = sprite_add(p + "ShardsTable.png", 1, false, false, 8, 9);
 
