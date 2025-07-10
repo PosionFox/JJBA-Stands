@@ -394,64 +394,161 @@ return splits;
 
 #define ConstructStandData(_stand)
 
-return (
-    string(STAND.saveKey) +
-    ":" +
-    string(STAND.name) +
-    ":" +
-    string(STAND.level) +
-    ":" +
-    string(STAND.experience) +
-    ":" +
-    string(STAND.experienceNext) +
-    ":" +
-    string(STAND.trait.key) +
-    ":" +
-    string(STAND.destructive_power) +
-    ":" +
-    string(STAND.spd) +
-    ":" +
-    string(STAND.range) +
-    ":" +
-    string(STAND.stamina) +
-    ":" +
-    string(STAND.precision) +
-    ":" +
-    string(STAND.development_potential) +
-    ":" +
-    string(STAND.stat_points)
-);
+var _storage_ver = global.jjsStandStorageVersion;
+
+switch (_storage_ver)
+{
+    case 1:
+        return (
+            string(STAND.saveKey) +
+            ":" +
+            string(STAND.name) +
+            ":" +
+            string(STAND.level) +
+            ":" +
+            string(STAND.experience) +
+            ":" +
+            string(STAND.experienceNext) +
+            ":" +
+            string(STAND.trait.key) +
+            ":" +
+            string(STAND.destructive_power) +
+            ":" +
+            string(STAND.spd) +
+            ":" +
+            string(STAND.range) +
+            ":" +
+            string(STAND.stamina) +
+            ":" +
+            string(STAND.precision) +
+            ":" +
+            string(STAND.development_potential) +
+            ":" +
+            string(STAND.stat_points)
+        );
+    break;
+    case 2:
+        var _metadata = ds_map_create();
+        _metadata[? "save_version"] = global.jjsStandStorageVersion;
+        
+        var _stand_data = ds_map_create();
+        // main data
+        _stand_data[? "save_key"] = STAND.saveKey;
+        _stand_data[? "level"] = STAND.level;
+        _stand_data[? "experience"] = STAND.experience;
+        _stand_data[? "experience_next"] = STAND.experienceNext;
+        _stand_data[? "trait_key"] = STAND.trait.key;
+        _stand_data[? "destructive_power"] = STAND.destructive_power;
+        _stand_data[? "speed"] = STAND.spd;
+        _stand_data[? "range"] = STAND.range;
+        _stand_data[? "stamina"] = STAND.stamina;
+        _stand_data[? "precision"] = STAND.precision;
+        _stand_data[? "development_potential"] = STAND.development_potential;
+        _stand_data[? "stat_points"] = STAND.stat_points;
+        // extra data
+        var _stand_extra_data = STAND.extra_serial_data;
+        // main body
+        var _data = ds_map_create();
+        _data[? "metadata"] = _metadata;
+        _data[? "stand_data"] = _stand_data;
+        _data[? "stand_extra_data"] = _stand_extra_data;
+        
+        var _string_data = json_stringify(_data);
+        
+        json_destroy(_metadata);
+        json_destroy(_stand_data);
+        ds_map_destroy(_data);
+        
+        return _string_data;
+    break;
+}
 
 #define DeconstructStandData(_standData)
 
 var _data = string_split(_standData, ":");
-var _key = _data[0];
-var _name = _data[1];
-var _level = _data[2];
-var _experience = _data[3];
-var _experienceNext = _data[4];
-var _traitKey = _data[5];
-var _destructive_power = _data[6];
-var _spd = _data[7];
-var _range = _data[8];
-var _stamina = _data[9];
-var _precision = _data[10];
-var _development_potential = _data[11];
-var _stat_points = _data[12];
 
-if _key != undefined GiveStandByKey(_key) else GiveStarPlatinum(player);
-//if _name != undefined  name
-if _level != undefined STAND.level = real(_level) else STAND.level = 1;
-if _experience != undefined STAND.experience = real(_experience) else STAND.experience = 0;
-if _experienceNext != undefined STAND.experienceNext = real(_experienceNext) else STAND.experienceNext = 5;
-if _traitKey != undefined trait_set_by_key(STAND, _traitKey) else trait_set_by_key(STAND, "jjFit");
-if _destructive_power != undefined STAND.destructive_power = real(_destructive_power) else STAND.destructive_power = 1;
-if _spd != undefined STAND.spd = real(_spd) else STAND.spd = 1;
-if _range != undefined STAND.range = real(_range) else STAND.range = 1;
-if _stamina != undefined STAND.stamina = real(_stamina) else STAND.stamina = 1;
-if _precision != undefined STAND.precision = real(_precision) else STAND.precision = 1;
-if _development_potential != undefined STAND.development_potential = real(_development_potential) else STAND.development_potential = 1;
-if _stat_points != undefined STAND.stat_points = real(_stat_points) else STAND.stat_points = 0;
+if (array_length(_data) == 13) // legacy load
+{
+    var _key = _data[0];
+    var _name = _data[1];
+    var _level = _data[2];
+    var _experience = _data[3];
+    var _experienceNext = _data[4];
+    var _traitKey = _data[5];
+    var _destructive_power = _data[6];
+    var _spd = _data[7];
+    var _range = _data[8];
+    var _stamina = _data[9];
+    var _precision = _data[10];
+    var _development_potential = _data[11];
+    var _stat_points = _data[12];
+    
+    if _key != undefined GiveStandByKey(_key) else GiveStarPlatinum(player);
+    //if _name != undefined  name
+    if _level != undefined STAND.level = real(_level) else STAND.level = 1;
+    if _experience != undefined STAND.experience = real(_experience) else STAND.experience = 0;
+    if _experienceNext != undefined STAND.experienceNext = real(_experienceNext) else STAND.experienceNext = 5;
+    if _traitKey != undefined trait_set_by_key(STAND, _traitKey) else trait_set_by_key(STAND, "jjFit");
+    if _destructive_power != undefined STAND.destructive_power = real(_destructive_power) else STAND.destructive_power = 1;
+    if _spd != undefined STAND.spd = real(_spd) else STAND.spd = 1;
+    if _range != undefined STAND.range = real(_range) else STAND.range = 1;
+    if _stamina != undefined STAND.stamina = real(_stamina) else STAND.stamina = 1;
+    if _precision != undefined STAND.precision = real(_precision) else STAND.precision = 1;
+    if _development_potential != undefined STAND.development_potential = real(_development_potential) else STAND.development_potential = 1;
+    if _stat_points != undefined STAND.stat_points = real(_stat_points) else STAND.stat_points = 0;
+}
+else
+{
+    var _jdata = json_parse(_standData);
+    var _mdata = _jdata[? "metadata"];
+    var _sdata = _jdata[? "stand_data"];
+    var _sedata = _jdata[? "stand_extra_data"];
+    
+    var _data_ver = _mdata[? "save_version"];
+    switch (_data_ver)
+    {
+        case 2:
+            var _key = _sdata[? "save_key"];
+            var _level = _sdata[? "level"];
+            var _experience = _sdata[? "experience"];
+            var _experienceNext = _sdata[? "experience_next"];
+            var _traitKey = _sdata[? "trait_key"];
+            var _destructive_power = _sdata[? "destructive_power"];
+            var _spd = _sdata[? "speed"];
+            var _range = _sdata[? "range"];
+            var _stamina = _sdata[? "stamina"];
+            var _precision = _sdata[? "precision"];
+            var _development_potential = _sdata[? "development_potential"];
+            var _stat_points = _sdata[? "stat_points"];
+            
+            if _key != undefined GiveStandByKey(_key) else GiveStarPlatinum(player);
+            if _level != undefined STAND.level = real(_level) else STAND.level = 1;
+            if _experience != undefined STAND.experience = real(_experience) else STAND.experience = 0;
+            if _experienceNext != undefined STAND.experienceNext = real(_experienceNext) else STAND.experienceNext = 5;
+            if _traitKey != undefined trait_set_by_key(STAND, _traitKey) else trait_set_by_key(STAND, "jjFit");
+            if _destructive_power != undefined STAND.destructive_power = real(_destructive_power) else STAND.destructive_power = 1;
+            if _spd != undefined STAND.spd = real(_spd) else STAND.spd = 1;
+            if _range != undefined STAND.range = real(_range) else STAND.range = 1;
+            if _stamina != undefined STAND.stamina = real(_stamina) else STAND.stamina = 1;
+            if _precision != undefined STAND.precision = real(_precision) else STAND.precision = 1;
+            if _development_potential != undefined STAND.development_potential = real(_development_potential) else STAND.development_potential = 1;
+            if _stat_points != undefined STAND.stat_points = real(_stat_points) else STAND.stat_points = 0;
+            
+            if (_sedata != undefined)
+            {
+                if (ds_map_valid(STAND.extra_serial_data))
+                {
+                    ds_map_destroy(STAND.extra_serial_data);
+                }
+                STAND.extra_serial_data = _sedata;
+            }
+            
+            json_destroy(_mdata);
+            json_destroy(_sdata);
+            ds_map_destroy(_jdata);
+        break;
+    }
+}
 
 #define power(base, exponent)
 
@@ -518,3 +615,26 @@ return string(day) + "-" + string(month) + "-" + string(year);
 #define is_leap_year(_y)
 
 return (_y % 4 == 0 and (_y % 100 != 0 or _y % 400 == 0));
+
+#define array_reverse(_array)
+
+var _alen = array_length(_array) - 1;
+
+var _reversed_array = array_create(_alen, undefined);
+
+for (var i = 0; i <= _alen; i++)
+{
+    _reversed_array[_alen - i] = _array[i];
+}
+return _reversed_array;
+
+#define get_vk_name(_key)
+
+var _name = "???";
+
+switch (_key)
+{
+    case vk_tab: _name = "tab"; break;
+}
+
+return _name;

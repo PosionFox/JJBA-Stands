@@ -7,7 +7,7 @@ p = "Resources/Sprites/Items/";
 global.sprArrow = sprite_add(p + "Arrow.png", 1, false, false, 8, 8);
 global.sprRokakaka = sprite_add(p + "Rokakaka.png", 1, false, false, 8, 8);
 
-global.sprDisc = sprite_add(p + "Disc.png", 1, false, false, 8, 8);
+global.sprDisc = sprite_add(p + "blank_disc.png", 1, false, false, 8, 8);
 global.sprDiscBlueprint = sprite_add(p + "DiscBlueprint.png", 1, false, false, 8, 8);
 global.sprArrowBeetle = sprite_add(p + "ArrowBeetle.png", 1, false, false, 8, 8);
 global.sprEternalArrow = sprite_add(p + "EternalArrow.png", 1, false, false, 8, 8);
@@ -24,6 +24,7 @@ global.sprCamera = sprite_add(p + "camera.png", 1, false, false, 8, 8);
 global.sprJotarosHat = sprite_add(p + "jotaros_hat.png", 1, false, false, 8, 8);
 global.sprStandOrb = sprite_add(p + "stand_orb.png", 1, false, false, 8, 8);
 global.sprRuneBundle = sprite_add(p + "rune_bundle.png", 1, false, false, 8, 8);
+global.sprWeatherReportDisc = sprite_add(p + "weather_report_disc.png", 1, false, false, 8, 8);
 
 // shards
 global.sprCommonShard = sprite_add(p + "CommonShard.png", 1, false, false, 8, 8);
@@ -565,5 +566,12 @@ global.sprTWR = sprite_add(p + "TWR.png", 1, false, false, 16, 19);
 p = "Resources/Sprites/prisoner/";
 global.sprPrisoner = sprite_add(p + "prisoner_idle.png", 4, false, false, 16, 19);
 global.sprPrisonerMoving = sprite_add(p + "prisoner_moving.png", 4, false, false, 16, 19);
+
+#endregion
+
+#region weather report
+
+p = "Resources/Sprites/WR/";
+global.sprWeatherReport = sprite_add(p + "weather_report.png", 1, false, false, 16, 19);
 
 #endregion

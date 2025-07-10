@@ -326,7 +326,7 @@ _skills[sk, StandSkill.Desc] = tr("bubbleBarrageDesc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = ScrewsAndNuts;
-_skills[sk, StandSkill.Damage] = 15;
+_skills[sk, StandSkill.Damage] = 8;
 _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillScrewsAndNuts;
 _skills[sk, StandSkill.MaxCooldown] = 10;

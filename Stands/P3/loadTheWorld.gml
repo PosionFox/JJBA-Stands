@@ -69,7 +69,7 @@ switch (attackState)
             _p.subtype = "stopSignSwing";
             _p.onHitSound = global.sndStopSign;
             _p.image_alpha = 0;
-            _p.mask_index = global.sprHorizontalSlash;
+            _p.col_size = 24;
             attackState++;
         }
     break;

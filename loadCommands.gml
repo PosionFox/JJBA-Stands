@@ -26,13 +26,34 @@ CommandCreate("jjTrait", true, ScriptWrap(jjTrait), "trait");
 
 CommandCreate("jjSpawnPrisoner", true, ScriptWrap(jjSpawnPrisoner));
 
-CommandCreate("jjDigWorldControl", false, ScriptWrap(jjDigWorldControl));
+CommandCreate("jjsInspectObj", false, ScriptWrap(jjsInspectObj), "obj");
 
-#define jjDigWorldControl
+#define jjsInspectObj(_args)
+
+var _obj = asset_get_index(_args[0]);
+
+if (!object_exists(_obj))
+{
+    Trace("obj not found");
+    exit;
+}
+else
+{
+    if (instance_number(_obj) < 1)
+    {
+        Trace("no instances of this obj found");
+        exit;
+    }
+}
 
 var _list = ds_list_create();
-_list = variable_instance_get_names(WorldControl);
-Trace(_list);
+variable_instance_get_names(_obj, _list);
+
+var _len = ds_list_size(_list);
+for (var i = 0; i < _len; i++)
+{
+    Trace(_list[| i]);
+}
 ds_list_destroy(_list);
 
 #define jjSpawnPrisoner

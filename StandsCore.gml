@@ -240,7 +240,7 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
 {
     if (state == StandState.Idle and active == skills[i, StandSkill.ActiveOnly])
     {
-        if (owner.hp != 0 and !instance_exists(objPlayerMenu))
+        if (owner.hp != 0 and !instance_exists(objPlayerMenu) and !global.jjShowMenu)
         {
             if (keyboard_check(ord(skills[i, StandSkill.Key]))/* or InputCheckDown(skills[i, StandSkill.GpBtn])*/)
             {
@@ -570,6 +570,21 @@ _arr[StandState.SkillD, StandSkill.EnergyCost] = 100;
 
 return _arr;
 
+#define StandUpdateKeybinds()
+
+if (instance_exists(player) and instance_exists(STAND))
+{
+    var _sk = STAND.skills;
+    _sk[@ StandState.SkillAOff][@ StandSkill.Key] = player.abilityKeybind1;
+    _sk[@ StandState.SkillBOff][@ StandSkill.Key] = player.abilityKeybind2;
+    _sk[@ StandState.SkillCOff][@ StandSkill.Key] = player.abilityKeybind3;
+    _sk[@ StandState.SkillDOff][@ StandSkill.Key] = player.abilityKeybind4;
+    _sk[@ StandState.SkillA][@ StandSkill.Key] = _sk[StandState.SkillAOff][StandSkill.Key];
+    _sk[@ StandState.SkillB][@ StandSkill.Key] = _sk[StandState.SkillBOff][StandSkill.Key];
+    _sk[@ StandState.SkillC][@ StandSkill.Key] = _sk[StandState.SkillCOff][StandSkill.Key];
+    _sk[@ StandState.SkillD][@ StandSkill.Key] = _sk[StandState.SkillDOff][StandSkill.Key];
+}
+
 #define StandBuilder(_owner, _skills)
 
 if (!instance_exists(_owner))
@@ -683,6 +698,8 @@ with (_stand)
     // variants and evolutions
     variants = [];
     evolutions = [];
+    // serializable data
+    extra_serial_data = ds_map_create();
     
     trait_give_random(self);
     
@@ -812,6 +829,7 @@ if (instance_exists(_owner) and instance_exists(_owner.myStand))
         {
             ResetCD(i);
         }
+        ds_map_destroy(extra_serial_data);
         instance_destroy(self);
     }
     _owner.myStand = noone;

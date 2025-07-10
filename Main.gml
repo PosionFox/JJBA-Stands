@@ -47,7 +47,8 @@ global.jjHTTPPost = http_post_string("https://api.steampowered.com/ISteamRemoteS
 global.jjVersion = "0.7.0";
 global.jjHTTPPost = undefined;
 global.jjSteamVersion = undefined;
-global.jjStandSlots = array_create(512, undefined);
+global.jjsStandStorageVersion = 2;
+global.jjStandSlots = array_create(512, undefined); // stand storage
 global.timeIsFrozen = false;    // unused
 global.jjNewGame = false;
 
@@ -57,8 +58,9 @@ global.jjShowMenu = false;
 global.jjMenuCurrent = "main";
 global.jjMenuSubCurrent = "default";
 global.jjMenuHover = undefined;
+global.jjsMenuWaitingInput = undefined;
 // storage
-global.jjMenuStorageSlots = undefined; // unused
+global.jjMenuStorageSlots = undefined; // unused?
 global.jjMenuStorageNames = array_create(512, undefined);
 global.jjMenuMinIndex = 0;
 global.jjMenuMaxIndex = 8;
@@ -73,6 +75,7 @@ global.jjSettProjShadows = true;
 global.jjSettProjCollisions = false;
 global.jjsSettLevelUpSound = true;
 global.jjsSettLevelUpParticle = true;
+global.jjsSettCustomModMenuSounds = true;
 
 #endregion
 
@@ -89,7 +92,7 @@ global.ultimate_rarity_weight = 2;
 global.bizarre_rarity_weight = 1;
 
 json_lib();
-localization();
+localization_core();
 loadSprites();
 loadSounds();
 loadItems();

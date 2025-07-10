@@ -173,7 +173,7 @@ repeat (len - global.__json_pos) {
 var numstr = string_copy(global.__json_str, start, global.__json_pos - start + 1);
 return real(numstr);
 
-#define _json_destroy()
+#define json_destroy()
 
 var data = argument0;
 
@@ -182,25 +182,24 @@ if (is_undefined(data)) {
 }
 
 if (ds_map_valid(data)) {
-    // Asumimos que es ds_map
+    // ds_map
     var keys = ds_map_keys(data);
     for (var i = 0; i < array_length(keys); i++) {
         var key = keys[i];
         var value = ds_map_find_value(data, key);
         
         if (is_struct_like(value)) {
-            _json_destroy(value);
+            json_destroy(value);
         }
     }
-    //ds_list_destroy(keys);
     ds_map_destroy(data);
 
 } else if (ds_list_valid(data)) {
-    // Asumimos que es ds_list
+    // ds_list
     for (var i = 0; i < ds_list_size(data); i++) {
         var value = ds_list_find_value(data, i);
         if (is_struct_like(value)) {
-            _json_destroy(value);
+            json_destroy(value);
         }
     }
     ds_list_destroy(data);
@@ -209,11 +208,6 @@ if (ds_map_valid(data)) {
 #define is_struct_like()
 
 var v = argument0;
-
-// if (is_undefined(v)) return false;
-// if (is_string(v)) return false;
-// if (is_real(v)) return false;
-// if (is_bool(v)) return false;
 
 return ds_map_valid(v) or ds_list_valid(v); // ds_map or ds_list
 
@@ -227,7 +221,7 @@ if (is_string(val)) return "\"" + _json_escape_string(val) + "\"";
 if (is_real(val)) return string(val);
 
 if (ds_map_valid(val)) {
-    // Es ds_map
+    // ds_map
     var str = "{";
     var keys = ds_map_keys(val);
     for (var i = 0; i < array_length(keys); i++) {
@@ -242,7 +236,7 @@ if (ds_map_valid(val)) {
 }
 
 if (ds_list_valid(val)) {
-    // Es ds_list
+    // ds_list
     var str = "[";
     for (var i = 0; i < ds_list_size(val); i++) {
         var v = ds_list_find_value(val, i);
@@ -253,7 +247,7 @@ if (ds_list_valid(val)) {
     return str;
 }
 
-// Si no es reconocible, devolver null
+// unknown
 return "null";
 
 #define _json_escape_string()

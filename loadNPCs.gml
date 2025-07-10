@@ -1,6 +1,8 @@
 
 global.npcPucci = NPCCreate(undefined, "Pucci");
 global.pucciSpawned = false;
+global.pucciSpawnX = undefined;
+global.pucciSpawnY = undefined;
 global.pucciRef = noone;
 
 global.questPucciBlueprintCompleted = false;
@@ -33,25 +35,11 @@ DespawnPucci();
 
 #define QuestPucciDiscsComplete
 
-if (random(1) < 0.2)
-{
-    DropItem(x, y, global.jjsRuneBundle, 1);
-}
-var _p = [
-    global.jjbamDiscSp,
-    global.jjbamDiscStw,
-    global.jjbamDiscKq,
-    global.jjbamDiscSf,
-    global.jjbamDiscGe,
-    global.jjbamDiscKc,
-    global.jjbamDiscSc
+var _pool = [
+    [global.jjsBlankDisc, 3],
+    [global.jjsRuneBundle, 2],
+    //[global.jjsWeatherReportDisc, 1]
 ];
-repeat (2)
-{
-    var _c = irandom(array_length(_p) - 1);
-    DropItem(x, y, _p[_c], 1);
-}
-DropItem(x, y, global.jjsBlankDisc, 1);
 repeat (10) { FireEffect(c_white, c_purple); }
 DespawnPucci();
 
@@ -104,4 +92,13 @@ instance_destroy(global.pucciRef);
 global.pucciSpawned = false;
 global.pucciRef = noone;
 
+#define LoadNPCs(_map)
 
+// enrico pucci
+global.pucciSpawned = _map[? "jjsPucciSpawned"];
+global.pucciSpawnX = _map[? "jjsPucciX"];
+global.pucciSpawnY = _map[? "jjsPucciY"];
+if (room == rmGame and global.pucciSpawned)
+{
+    SpawnPucci(global.pucciSpawnX, global.pucciSpawnY);
+}

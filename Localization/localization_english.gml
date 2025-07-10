@@ -1,6 +1,5 @@
 
 var _map = "english";
-tr_init(_map);
 
 #region items
 
@@ -85,6 +84,12 @@ tr_add(_map, "stand_orb_desc", "used for increasing stand power.");
 tr_add(_map, "rune_bundle_name", "rune bundle");
 tr_add(_map, "rune_bundle_desc", "seems like it contains runes, you don't know how many.");
 
+tr_add(_map, "weather_report_disc_name", "weather report disc");
+tr_add(_map, "weather_report_disc_desc", "this disc has some doodles on it and emits a faint mist.");
+
+tr_add(_map, "weather_report_memory_disc_name", "weather report's memory disc");
+tr_add(_map, "weather_report_memory_disc_desc", "this disc has the face of a peculiar man.");
+
 // saint's corpse
 
 tr_add(_map, "holy_heart_name", "holy heart");
@@ -146,6 +151,19 @@ tr_add(_map, "offeringPillarDescription", "create unique abilities.");
 #endregion
 
 tr_add(_map, "dmgDisplay", "damage");
+
+#region mod menu
+
+tr_add(_map, "mm_info_welcome", "welcome to jjba stands!");
+tr_add(_map, "mm_info_intro", @"
+this is a mod that tries to incorporate the
+entities of jojo's bizarre adventures known as
+'stands' into forager.
+
+you can click the buttons below to learn more about the mod.
+");
+
+#endregion
 
 #region tiers
 

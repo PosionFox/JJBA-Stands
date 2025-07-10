@@ -633,6 +633,43 @@ ItemEdit(global.jjsPrayerBeads, ItemData.Name, tr("prayerBeadsName"));
 ItemEdit(global.jjsPrayerBeads, ItemData.Description, tr("prayerBeadsDescription"));
 StructureAddItem(Structure.Forge, global.jjsPrayerBeads);
 
+global.jjsWeatherReportDisc = ItemCreate(
+    undefined,
+    "jjsWeatherReportDisc",
+    "",
+    global.sprWeatherReportDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    333,
+    0,
+    0,
+    undefined,
+    ScriptWrap(WeatherReportDiscUse),
+    1,
+    true
+)
+ItemEdit(global.jjsWeatherReportDisc, ItemData.Name, tr("weather_report_disc_name"));
+ItemEdit(global.jjsWeatherReportDisc, ItemData.Description, tr("weather_report_disc_desc"));
+
+global.jjsWeatherReportMemoryDisc = ItemCreate(
+    undefined,
+    "jjsWeatherReportMemoryDisc",
+    "",
+    global.sprWeatherReportDisc,
+    ItemType.Consumable,
+    ItemSubType.Potion,
+    333,
+    0,
+    0,
+    undefined,
+    ScriptWrap(WeatherReportMemoryDiscUse),
+    1,
+    true
+)
+ItemEdit(global.jjsWeatherReportMemoryDisc, ItemData.Name, tr("weather_report_memory_disc_name"));
+ItemEdit(global.jjsWeatherReportMemoryDisc, ItemData.Description, tr("weather_report_memory_disc_desc"));
+
+
 global.arrow_ability_pool =
 [
     // common
@@ -682,6 +719,26 @@ global.arrow_ability_pool =
     [GivePinkSnake, global.ultimate_rarity_weight]
     // bizarre
 ];
+
+#define WeatherReportDiscUse
+
+if (room != rmGame or instance_exists(STAND))
+{
+    GainItem(global.jjsWeatherReportDisc);
+    exit;
+}
+
+GiveWeatherReport(player);
+
+#define WeatherReportMemoryDiscUse
+
+if (room != rmGame or !instance_exists(STAND) or STAND.saveKey != "jjbamWr")
+{
+    GainItem(global.jjsWeatherReportMemoryDisc);
+    exit;
+}
+
+STAND.extra_serial_data[? "has_heavy_weather"] = true;
 
 #define StandOrbOnUse
 

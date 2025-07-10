@@ -1,6 +1,5 @@
 
 var _map = "spanish";
-tr_init(_map);
 
 #region items
 

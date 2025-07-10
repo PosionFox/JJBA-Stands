@@ -123,7 +123,7 @@ if (_bb)
     global.jjMenuCurrent = "main";
 }
 
-var _title = "welcome to jjba stands!";
+var _title = tr("mm_info_welcome");
 draw_text_color(_cx, _ry1 + string_height(_title), _title, c_white, c_white, c_yellow, c_yellow, 1);
 
 var _infos = ["intro", "stands", "controls", "stats", "storage", "evolution", "traits", "runes", "more"];
@@ -146,7 +146,7 @@ switch (global.jjMenuSubCurrent)
     break;
     case "intro":
         draw_text_color(_cx, _ry1 + 64, "intro", c_white, c_white, c_aqua, c_aqua, 1);
-        draw_text(_cx, _cy, "this is a mod that tries to incorporate the\nentities of jojo's bizarre bdventures known as\n'stands' into forager.\nyou can click the buttons below to learn more about the mod.");
+        draw_text(_cx, _cy, tr("mm_info_intro"));
     break;
     case "stands":
         draw_text_color(_cx, _ry1 + 64, "how to get a stand", c_white, c_white, c_aqua, c_aqua, 1);
@@ -169,11 +169,8 @@ some abilities can only be executed while your stand is active and vice versa.
 the default keybinds for using your stand's abilities are:
 r, f, c and g
 some stands have abilities that can be performed by holding the respective ability keybind.
-you can remap your keybinds with the jjremapkeybind command.
-
-examples:
-/jjremapkeybind summon z (changes your summon keybind to z)
-/jjremapkeybind ability3 h (changes your third ability keybind to h)", 24, 1000);
+you can remap your keybinds in the controls settings menu
+or with the jjremapkeybind command.", 24, 1000);
     break;
     case "stats":
         draw_text_color(_cx, _ry1 + 64, "stand stats", c_white, c_white, c_aqua, c_aqua, 1);
@@ -400,22 +397,33 @@ if (_bRightPlus)
 for (var i = global.jjMenuMinIndex; i < global.jjMenuMaxIndex; i++)
 {
     var _text = "text";
+    var _cr1 = c_white;
+    var _cr2 = c_white;
     if (global.jjStandSlots[i] == undefined)
     {
         _text = "";
     }
     else
     {
-        _text = global.jjMenuStorageNames[i];
+        if (is_array(global.jjMenuStorageNames[i]))
+        {
+            _text = string(global.jjMenuStorageNames[i][0]);
+            _cr1 = real(global.jjMenuStorageNames[i][1]);
+            _cr2 = real(global.jjMenuStorageNames[i][2]);
+        }
+        else
+        {
+            _text = string(global.jjMenuStorageNames[i]);
+        }
     }
     
-    var _b = draw_button_square(_stx - 256, _ry1 + 48 + (58 * (i - global.jjMenuMinIndex)), 512, 48, string_lower(_text));
+    var _b = draw_storage_button(_stx - 256, _ry1 + 48 + (58 * (i - global.jjMenuMinIndex)), 512, 48, string_lower(_text), _cr1, _cr2);
     if (_b)
     {
         if (global.jjStandSlots[i] == undefined and instance_exists(STAND))
         {
             global.jjStandSlots[i] = ConstructStandData(STAND);
-            global.jjMenuStorageNames[i] = STAND.name;
+            global.jjMenuStorageNames[i] = [STAND.name, STAND.color, STAND.colorAlt];
             RemoveStand(player);
         }
         else if (global.jjStandSlots[i] != undefined and !instance_exists(STAND))
@@ -614,62 +622,122 @@ var _ry2 = _cy + 256;
 var _title = "settings";
 draw_text(_cx, _ry1 + string_height(_title), _title);
 
+var _options = ["graphics", "audio", "controls", "debug"];
+var _olen = array_length(_options);
+
+for (var i = 0; i < _olen; i++)
+{
+    var _b = draw_button_square(_rx1 + (146 * (i mod 7)), _ry2 - 32 + (42 * (i div 7)) - (42 * (_olen div 8)), 138, 32, _options[i]);
+    if (_b)
+    {
+        global.jjsMenuWaitingInput = undefined;
+        global.jjMenuSubCurrent = _options[i];
+    }
+}
+
 var _bb = draw_button_square(_rx1, _ry1, 128, 32, "back");
 if (_bb)
 {
+    global.jjsMenuWaitingInput = undefined;
     global.jjMenuCurrent = "main";
 }
 
-var _sv = draw_slider(_cx - 64, _cy - 32 + (48 * 0), 128, 32, "volume " + string(round(global.jjSettAudioVolume * 100)) + "%", global.jjSettAudioVolume);
-if (_sv != undefined)
+switch (global.jjMenuSubCurrent)
 {
-    global.jjSettAudioVolume = _sv;
-}
-
-var _ct = draw_checkbox(_cx + 64, _cy - 32 + (48 * 1), 32, "stand talk when idle", global.jjSettStandTalkIdle);
-if (_ct != undefined)
-{
-    global.jjSettStandTalkIdle = _ct;
-}
-
-var _cs = draw_checkbox(_cx + 64, _cy - 32 + (48 * 2), 32, "attack shadows", global.jjSettProjShadows);
-if (_cs != undefined)
-{
-    global.jjSettProjShadows = _cs;
-}
-
-var _cc = draw_checkbox(_cx + 64, _cy - 32 + (48 * 3), 32, "attack collisions", global.jjSettProjCollisions);
-if (_cc != undefined)
-{
-    global.jjSettProjCollisions = _cc;
-}
-
-var _cls = draw_checkbox(_cx + 64, _cy - 32 + (48 * 4), 32, "level up sound", global.jjsSettLevelUpSound);
-if (_cls != undefined)
-{
-    global.jjsSettLevelUpSound = _cls;
-}
-
-var _clp = draw_checkbox(_cx + 64, _cy - 32 + (48 * 5), 32, "level up particle", global.jjsSettLevelUpParticle);
-if (_clp != undefined)
-{
-    global.jjsSettLevelUpParticle = _clp;
-}
-
-draw_text(_rx2 - 256, _ry1 + 48, "mod language");
-draw_text_color(_rx2 - 256, _ry1 + 80, "requires re-entering the world", c_white, c_white, c_orange, c_orange, 1);
-draw_text(_rx2 - 256, _ry1 + 112, "currently selected: " + string(global.jjsCurrentLang));
-
-var _ble = draw_button_square(_rx2 - 256, _ry1 + 128 + (48 * 0), 128, 32, "english");
-if (_ble)
-{
-    global.jjsCurrentLang = "english";
-}
-
-var _bls = draw_button_square(_rx2 - 256, _ry1 + 128 + (48 * 1), 128, 32, "spanish");
-if (_bls)
-{
-    global.jjsCurrentLang = "spanish";
+    case "graphics":
+        var _cs = draw_checkbox(_cx + 64, _cy - 32 + (48 * 0), 32, "attack shadows", global.jjSettProjShadows);
+        if (_cs != undefined)
+        {
+            global.jjSettProjShadows = _cs;
+        }
+        
+        var _clp = draw_checkbox(_cx + 64, _cy - 32 + (48 * 1), 32, "level up particle", global.jjsSettLevelUpParticle);
+        if (_clp != undefined)
+        {
+            global.jjsSettLevelUpParticle = _clp;
+        }
+    break;
+    case "audio":
+        var _sv = draw_slider(_cx - 64, _cy - 32 + (48 * 0), 128, 32, "volume " + string(round(global.jjSettAudioVolume * 100)) + "%", global.jjSettAudioVolume);
+        if (_sv != undefined)
+        {
+            global.jjSettAudioVolume = _sv;
+        }
+        
+        var _ct = draw_checkbox(_cx + 64, _cy - 32 + (48 * 1), 32, "stand talk when idle", global.jjSettStandTalkIdle);
+        if (_ct != undefined)
+        {
+            global.jjSettStandTalkIdle = _ct;
+        }
+        
+        var _cls = draw_checkbox(_cx + 64, _cy - 32 + (48 * 2), 32, "level up sound", global.jjsSettLevelUpSound);
+        if (_cls != undefined)
+        {
+            global.jjsSettLevelUpSound = _cls;
+        }
+        
+        var _cms = draw_checkbox(_cx + 64, _cy - 32 + (48 * 3), 32, "custom mod menu sounds", global.jjsSettCustomModMenuSounds);
+        if (_cms != undefined)
+        {
+            global.jjsSettCustomModMenuSounds = _cms;
+        }
+    break;
+    case "controls":
+        if (global.jjsMenuWaitingInput != undefined)
+        {
+            draw_text_color(_cx, _ry1 + 64, "waiting for input!", c_yellow, c_yellow, c_white, c_white, 1);
+        }
+        if (instance_exists(player) and instance_exists(STAND))
+        {
+            var _kbs = draw_keybind(_cx + 64, _cy - 160 + (48 * 0), 32, 32, "summon / dismiss stand", player.summonKeybind);
+            if (_kbs != false)
+            {
+                player.summonKeybind = _kbs;
+                StandUpdateKeybinds();
+            }
+            var _kba1 = draw_keybind(_cx + 64, _cy - 160 + (48 * 1), 32, 32, "stand ability 1", player.abilityKeybind1);
+            if (_kba1 != false)
+            {
+                player.abilityKeybind1 = _kba1;
+                StandUpdateKeybinds();
+            }
+            var _kba2 = draw_keybind(_cx + 64, _cy - 160 + (48 * 2), 32, 32, "stand ability 2", player.abilityKeybind2);
+            if (_kba2 != false)
+            {
+                player.abilityKeybind2 = _kba2;
+                StandUpdateKeybinds();
+            }
+            var _kba3 = draw_keybind(_cx + 64, _cy - 160 + (48 * 3), 32, 32, "stand ability 3", player.abilityKeybind3);
+            if (_kba3 != false)
+            {
+                player.abilityKeybind3 = _kba3;
+                StandUpdateKeybinds();
+            }
+            var _kba4 = draw_keybind(_cx + 64, _cy - 160 + (48 * 4), 32, 32, "stand ability 4", player.abilityKeybind4);
+            if (_kba4 != false)
+            {
+                player.abilityKeybind4 = _kba4;
+                StandUpdateKeybinds();
+            }
+            var _kbs1 = draw_keybind(_cx + 64, _cy - 160 + (48 * 5), 32, 32, "specialization ability 1", player.specKeybind1);
+            if (_kbs1 != false)
+            {
+                player.specKeybind1 = _kbs1;
+            }
+            var _kbs2 = draw_keybind(_cx + 64, _cy - 160 + (48 * 6), 32, 32, "specialization ability 2", player.specKeybind2);
+            if (_kbs2 != false)
+            {
+                player.specKeybind2 = _kbs2;
+            }
+        }
+    break;
+    case "debug":
+        var _cc = draw_checkbox(_cx + 64, _cy - 32 + (48 * 0), 32, "attack collisions", global.jjSettProjCollisions);
+        if (_cc != undefined)
+        {
+            global.jjSettProjCollisions = _cc;
+        }
+    break;
 }
 
 #define draw_button_square(_x, _y, _w, _h, _txt)
@@ -692,7 +760,14 @@ if (_hover)
     _btn2_color = _color1;
     if (global.jjMenuHover != _x - _y * _x + _y)
     {
-        jj_play_audio(global.sndMenuHover, 0, false);
+        if (global.jjsSettCustomModMenuSounds)
+        {
+            jj_play_audio(global.sndMenuHover, 0, false);
+        }
+        else
+        {
+            jj_play_audio(sndBuildHoverBig, 0, false);
+        }
         global.jjMenuHover = _x - _y * _x + _y;
     }
 }
@@ -711,7 +786,75 @@ draw_text(_x + (_w / 2) + 8, _y + (_h / 2) + 8, _txt);
 
 if (mouse_check_button_pressed(mb_left) and _hover)
 {
-    jj_play_audio(global.sndMenuClick, 0, false);
+    if (global.jjsSettCustomModMenuSounds)
+    {
+        jj_play_audio(global.sndMenuClick, 0, false);
+    }
+    else
+    {
+        jj_play_audio(sndUiSelect, 0, false);
+    }
+    return true;
+}
+else
+{
+    return false;
+}
+
+#define draw_storage_button(_x, _y, _w, _h, _txt, _txtcolor1, _txtcolor2)
+
+var _color1 = c_black;
+var _color2 = c_gray;
+if (instance_exists(STAND))
+{
+    _color1 = STAND.color;
+    _color2 = STAND.colorAlt;
+}
+
+var _hover = point_in_rectangle(device_mouse_x_to_gui(0), device_mouse_y_to_gui(0), _x, _y, _x + _w, _y + _h);
+var _btn_color = _color1;
+var _btn2_color = _color2;
+
+if (_hover)
+{
+    _btn_color = _color2;
+    _btn2_color = _color1;
+    if (global.jjMenuHover != _x - _y * _x + _y)
+    {
+        if (global.jjsSettCustomModMenuSounds)
+        {
+            jj_play_audio(global.sndMenuHover, 0, false);
+        }
+        else
+        {
+            jj_play_audio(sndBuildHoverBig, 0, false);
+        }
+        global.jjMenuHover = _x - _y * _x + _y;
+    }
+}
+else
+{
+    if (global.jjMenuHover == _x - _y * _x + _y)
+    {
+        global.jjMenuHover = undefined;
+    }
+}
+
+draw_rectangle_color(_x - 4, _y - 4, _x + _w + 4, _y + _h + 4, _btn2_color, _btn2_color, _btn2_color, _btn2_color, false);
+draw_rectangle_color(_x, _y, _x + _w, _y + _h, _btn_color, _btn_color, _btn_color, _btn_color, false);
+
+draw_text_color(_x + (_w / 2), _y + (_h / 2), _txt, _txtcolor1, _txtcolor2, _txtcolor1, _txtcolor2, 1);
+
+if (mouse_check_button_pressed(mb_left) and _hover)
+{
+    if (global.jjsSettCustomModMenuSounds)
+    {
+        jj_play_audio(global.sndMenuClick, 0, false);
+    }
+    else
+    {
+        jj_play_audio(sndUiSelect, 0, false);
+    }
     return true;
 }
 else
@@ -747,7 +890,14 @@ if (_hover)
     }
     if (global.jjMenuHover != _x - _y * _x + _y)
     {
-        jj_play_audio(global.sndMenuHover, 0, false);
+        if (global.jjsSettCustomModMenuSounds)
+        {
+            jj_play_audio(global.sndMenuHover, 0, false);
+        }
+        else
+        {
+            jj_play_audio(sndBuildHoverBig, 0, false);
+        }
         global.jjMenuHover = _x - _y * _x + _y;
     }
     if (_rune != undefined)
@@ -788,7 +938,14 @@ if (mouse_check_button_pressed(mb_left) and _hover)
     }
     else
     {
-        jj_play_audio(global.sndMenuClick, 0, false);
+        if (global.jjsSettCustomModMenuSounds)
+        {
+            jj_play_audio(global.sndMenuClick, 0, false);
+        }
+        else
+        {
+            jj_play_audio(sndUiSelect, 0, false);
+        }
         return true;
     }
 }
@@ -817,7 +974,17 @@ if (_hover)
     _btn2_color = _color1;
     if (global.jjMenuHover != _x - _y * _x + _y)
     {
-        if (!global.jjNewGame) jj_play_audio(global.sndMenuHover, 0, false);
+        if (!global.jjNewGame) 
+        {
+            if (global.jjsSettCustomModMenuSounds)
+            {
+                jj_play_audio(global.sndMenuHover, 0, false);
+            }
+            else
+            {
+                jj_play_audio(sndBuildHoverBig, 0, false);
+            }
+        }
         global.jjMenuHover = _x - _y * _x + _y;
     }
 }
@@ -838,7 +1005,14 @@ draw_set_alpha(1);
 
 if (mouse_check_button_pressed(mb_left) and _hover)
 {
-    jj_play_audio(global.sndMenuClick, 0, false);
+    if (global.jjsSettCustomModMenuSounds)
+    {
+        jj_play_audio(global.sndMenuClick, 0, false);
+    }
+    else
+    {
+        jj_play_audio(sndUiSelect, 0, false);
+    }
     return true;
 }
 else
@@ -866,7 +1040,14 @@ if (_hover)
     _btn2_color = _color1;
     if (global.jjMenuHover != _x - _y * _x + _y)
     {
-        jj_play_audio(global.sndMenuHover, 0, false);
+        if (global.jjsSettCustomModMenuSounds)
+        {
+            jj_play_audio(global.sndMenuHover, 0, false);
+        }
+        else
+        {
+            jj_play_audio(sndBuildHoverBig, 0, false);
+        }
         global.jjMenuHover = _x - _y * _x + _y;
     }
 }
@@ -897,7 +1078,14 @@ else
 {
     if (mouse_check_button_pressed(mb_left) and _hover)
     {
-        jj_play_audio(global.sndMenuClick, 0, false);
+        if (global.jjsSettCustomModMenuSounds)
+        {
+            jj_play_audio(global.sndMenuClick, 0, false);
+        }
+        else
+        {
+            jj_play_audio(sndUiSelect, 0, false);
+        }
         return true;
     }
     else
@@ -929,7 +1117,14 @@ if (_hover)
     _btn2_color = _color1;
     if (global.jjMenuHover != _x - _y * _x + _y)
     {
-        jj_play_audio(global.sndMenuHover, 0, false);
+        if (global.jjsSettCustomModMenuSounds)
+        {
+            jj_play_audio(global.sndMenuHover, 0, false);
+        }
+        else
+        {
+            jj_play_audio(sndBuildHoverBig, 0, false);
+        }
         global.jjMenuHover = _x - _y * _x + _y;
     }
 }
@@ -938,11 +1133,14 @@ var _handle_x = _var * _w;
 if (mouse_check_button(mb_left) and global.jjMenuHover == _x - _y * _x + _y)
 {
     _handle_x = clamp((_mx - _x) / _w, 0, 1) * _w;
+    _txt = string(round(clamp((_mx - _x) / _w, 0, 1) * 100)) + "%";
 }
 if (mouse_check_button_released(mb_left) and global.jjMenuHover == _x - _y * _x + _y)
 {
+    var _snd = global.sndMenuClick;
+    if (!global.jjsSettCustomModMenuSounds) _snd = sndUiSelect;
     _var = clamp((_mx - _x) / _w, 0, 1);
-    var _s = audio_play_sound(global.sndMenuClick, 0, false);
+    var _s = audio_play_sound(_snd, 0, false);
     audio_sound_gain(_s, _var, 0);
 }
 
@@ -985,7 +1183,14 @@ if (_hover)
     _btn2_color = _color1;
     if (global.jjMenuHover != _x - _y * _x + _y)
     {
-        jj_play_audio(global.sndMenuHover, 0, false);
+        if (global.jjsSettCustomModMenuSounds)
+        {
+            jj_play_audio(global.sndMenuHover, 0, false);
+        }
+        else
+        {
+            jj_play_audio(sndBuildHoverBig, 0, false);
+        }
         global.jjMenuHover = _x - _y * _x + _y;
     }
 }
@@ -1014,3 +1219,66 @@ draw_rectangle_color(_x, _y, _x + _size, _y + _size, _btn2_color, _btn2_color, _
 draw_text(_x + _size - 8, _y + _size - 8, _ctxt);
 
 return _var;
+
+#define draw_keybind(_x, _y, _w, _h, _txt, _var)
+
+var _color1 = c_black;
+var _color2 = c_gray;
+if (instance_exists(STAND))
+{
+    _color1 = STAND.color;
+    _color2 = STAND.colorAlt;
+}
+var _btn_color = _color1;
+var _btn2_color = _color2;
+
+var _mx = device_mouse_x_to_gui(0);
+var _my = device_mouse_y_to_gui(0);
+
+var _hover = point_in_rectangle(_mx, _my, _x, _y, _x + _w, _y + _h);
+
+if (_hover)
+{
+    _btn_color = _color2;
+    _btn2_color = _color1;
+    if (global.jjMenuHover != _x - _y * _x + _y)
+    {
+        if (global.jjsSettCustomModMenuSounds)
+        {
+            jj_play_audio(global.sndMenuHover, 0, false);
+        }
+        else
+        {
+            jj_play_audio(sndBuildHoverBig, 0, false);
+        }
+        global.jjMenuHover = _x - _y * _x + _y;
+    }
+}
+else
+{
+    if (global.jjMenuHover == _x - _y * _x + _y)
+    {
+        global.jjMenuHover = undefined;
+    }
+}
+
+draw_text(_x - (string_width(_txt) / 2) - 16, _y + string_height(_txt), _txt);
+draw_rectangle_color(_x - 4, _y - 4, _x + _w + 4, _y + _h + 4, _btn_color, _btn_color, _btn_color, _btn_color, false);
+draw_rectangle_color(_x, _y, _x + _w, _y + _h, _btn2_color, _btn2_color, _btn2_color, _btn2_color, false);
+draw_text(_x + _w - 8, _y + _h - 8, string_lower(_var));
+
+if (mouse_check_button_pressed(mb_left) and _hover and global.jjsMenuWaitingInput == undefined)
+{
+    global.jjsMenuWaitingInput = _var;
+}
+
+if (global.jjsMenuWaitingInput == _var and keyboard_check_pressed(vk_anykey))
+{
+    global.jjsMenuWaitingInput = undefined;
+    if (string_lettersdigits(keyboard_lastchar) != "")
+    {
+        return string_upper(keyboard_lastchar);
+    }
+}
+
+return false;

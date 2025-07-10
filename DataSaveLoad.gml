@@ -27,6 +27,7 @@ switch (_key)
     // p6
     case "jjbamWs": GiveWhiteSnake(player); break;
     case "jjbamCmn": GiveCMoon(player); break;
+    case "jjbamWr": GiveWeatherReport(player); break;
     // p7
     case "jjbamD4c": GiveD4C(player);
     break;
@@ -94,7 +95,7 @@ switch (_key)
 }
 
 #define LoadStand(_map)
-//  for non rmGame rooms
+
 var _stand = _map[? "jjbamAbility"];
 if (_stand != undefined)
 {
@@ -125,12 +126,10 @@ if (_stand != undefined)
 
 #define SaveData
 
-var _sett_map = ds_map_create();
+// var _sett_map = ds_map_create();
 
-_sett_map[? "jjsCurrentLang"] = global.jjsCurrentLang;
-
-ModSettingsSubmit(_sett_map);
-ds_map_destroy(_sett_map);
+// ModSettingsSubmit(_sett_map);
+// ds_map_destroy(_sett_map);
 
 
 var _map = ds_map_create();
@@ -184,14 +183,11 @@ if (instance_exists(player))
 // npcs
 _map[? "jjQuestPucciBlueprintCompleted"] = global.questPucciBlueprintCompleted;
 
-if (global.pucciSpawned == true)
+if (instance_exists(global.pucciRef))
 {
-    _map[? "jjbamPucciSpawned"] = global.pucciSpawned;
-    if (instance_exists(global.pucciRef))
-    {
-        _map[? "jjbamPucciX"] = global.pucciRef.x;
-        _map[? "jjbamPucciY"] = global.pucciRef.y;
-    }
+    _map[? "jjsPucciSpawned"] = global.pucciSpawned;
+    _map[? "jjsPucciX"] = global.pucciRef.x;
+    _map[? "jjsPucciY"] = global.pucciRef.y;
 }
 // enemies
 _map[? "jjEnemyDioSpawned"] = global.enemyDioSpawned;
@@ -213,13 +209,25 @@ _map[? "jjSettProjShadows"] = global.jjSettProjShadows;
 _map[? "jjSettProjCollisions"] = global.jjSettProjCollisions;
 _map[? "jjsSettLevelUpSound"] = global.jjsSettLevelUpSound;
 _map[? "jjsSettLevelUpParticle"] = global.jjsSettLevelUpParticle;
+_map[? "jjsSettCustomModMenuSounds"] = global.jjsSettCustomModMenuSounds;
 
 // stand storage
 var _ss = array_length(global.jjStandSlots);
 for (var i = 0; i < _ss; i++)
 {
+    // actual data
     var _key = "jjStandSlot" + string(i);
     _map[? _key] = global.jjStandSlots[i];
+    // storage display data
+    var _nkey = "jjMenuStorageName" + string(i);
+    if (global.jjMenuStorageNames[i] == undefined)
+    {
+        _map[? _nkey] = undefined;
+    }
+    else
+    {
+        _map[? _nkey] = string(global.jjMenuStorageNames[i][0]) + "|" + string(global.jjMenuStorageNames[i][1]) + "|" + string(global.jjMenuStorageNames[i][2]);
+    }
 }
 
 ModSaveDataSubmit(_map);
@@ -317,13 +325,7 @@ global.questPucciBlueprintCompleted = _map[? "jjQuestPucciBlueprintCompleted"];
 
 #region npcs
 
-// load pucci
-if (room == rmGame and _map[? "jjbamPucciSpawned"] == true)
-{
-    var xx = _map[? "jjbamPucciX"];
-    var yy = _map[? "jjbamPucciY"];
-    SpawnPucci(xx, yy);
-}
+LoadNPCs(_map);
 
 #endregion
 
@@ -402,11 +404,23 @@ else
     global.jjsSettLevelUpParticle = true;
 }
 
+if (_map[? "jjsSettCustomModMenuSounds"] != undefined)
+{
+    global.jjsSettCustomModMenuSounds = _map[? "jjsSettCustomModMenuSounds"];
+}
+else
+{
+    global.jjsSettCustomModMenuSounds = true;
+}
+
 #endregion
 
 #region stand storage
 
 var _ss = array_length(global.jjStandSlots);
+
+
+
 for (var i = 0; i < _ss; i++)
 {
     var _key = "jjStandSlot" + string(i);
@@ -414,7 +428,15 @@ for (var i = 0; i < _ss; i++)
     if (_loaded_stand != undefined)
     {
         global.jjStandSlots[i] = _loaded_stand;
-        global.jjMenuStorageNames[i] = string_split(_loaded_stand, ":")[1];
+        var _nkey = "jjMenuStorageName" + string(i);
+        if (_map[? _nkey] != undefined)
+        {
+            global.jjMenuStorageNames[i] = string_split(_map[? _nkey], "|");
+            if (array_length(global.jjMenuStorageNames[i]) < 3)
+            {
+                global.jjMenuStorageNames[i] = "???";
+            }
+        }
     }
     else
     {

@@ -169,7 +169,10 @@ var _o = ModObjectSpawn(_x, _y, 0);
 with (_o)
 {
     sprite_index = global.sprBullet;
-    mask_index = global.sprHitbox12x12;
+    mask_index = global.sprHitbox16x16;
+    col_size = 8;
+    col_cd_max = 0.05;
+    col_cd = 0;
     baseAnimSpd = 1;
     image_speed = baseAnimSpd;
     visible = false;
@@ -269,22 +272,51 @@ if (instance_exists(self))
     
     try
     {
-        for (var i = array_length(targets) - 1; i >= 0; i--)
+        // collision detection v3
+        if (col_cd <= 0)
         {
-            var obj = targets[i];
-            var hit = instance_place(x, y, obj);
-            
-            if (hit != noone)
+            for (var i = array_length(targets) - 1; i >= 0; i--)
             {
-                var valid = (obj == MOBJ) ? ("targetableFlag" in hit) : (hit.scale != 0);
-                if (valid)
+                var obj = targets[i];
+                var _hits = ds_list_create();
+                collision_circle_list(x, y, col_size, obj, false, true, _hits, false);
+                
+                var _hlen = ds_list_size(_hits);
+                for (var j = _hlen - 1; j >= 0; j--)
                 {
-                    ProjHitTarget(hit);
+                    var hit = _hits[| j];
+                    if (hit != noone)
+                    {
+                        var valid = (obj == MOBJ) ? ("targetableFlag" in hit) : (hit.scale != 0);
+                        if (valid)
+                        {
+                            ProjHitTarget(hit);
+                        }
+                    }
                 }
+                ds_list_destroy(_hits);
             }
+            col_cd = col_cd_max;
         }
+        col_cd -= DT;
         
-        // old collision code
+        // collision detection v2
+        // for (var i = array_length(targets) - 1; i >= 0; i--)
+        // {
+        //     var obj = targets[i];
+        //     var hit = instance_place(x, y, obj);
+        //
+        //     if (hit != noone)
+        //     {
+        //         var valid = (obj == MOBJ) ? ("targetableFlag" in hit) : (hit.scale != 0);
+        //         if (valid)
+        //         {
+        //             ProjHitTarget(hit);
+        //         }
+        //     }
+        // }
+        
+        // collision detection v1
         // for (var i = 0; i < array_length(targets); i++)
         // {
         //     if (targets[i] == MOBJ)
@@ -352,7 +384,9 @@ draw_sprite_ext(
 
 if (global.jjSettProjCollisions)
 {
-    draw_rectangle_color(bbox_left, bbox_top, bbox_right, bbox_bottom, c_red, c_red, c_red, c_red, true);
+    
+    draw_circle_color(x, y, col_size, c_red, c_red, true);
+    //draw_rectangle_color(bbox_left, bbox_top, bbox_right, bbox_bottom, c_red, c_red, c_red, c_red, true);
 }
 
 #define ProjectileDestroy

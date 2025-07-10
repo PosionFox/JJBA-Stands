@@ -59,7 +59,7 @@ switch (attackState)
         var _a = PunchCreate(x, y, 0, GetDmg(s), 16);
         with (_a)
         {
-            mask_index = global.sprHitbox64x64;
+            col_size = 32;
             image_alpha = 0;
             stationary = true;
             speed = 0;
