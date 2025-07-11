@@ -15,10 +15,6 @@ if (instance_exists(player))
     {
         player.spec = noone;
     }
-    if !bool("skCustomStands" in player)
-    {
-        player.skCustomStands = false;
-    }
     if !bool("summonKeybind" in player) { player.summonKeybind = "Q" }
     if !bool("abilityKeybind1" in player) { player.abilityKeybind1 = "R" }
     if !bool("abilityKeybind2" in player) { player.abilityKeybind2 = "F" }
@@ -52,6 +48,10 @@ global.jjStandSlots = array_create(512, undefined); // stand storage
 global.timeIsFrozen = false;    // unused
 global.jjNewGame = false;
 
+global.jjsStandWorkshopVersion = 1;
+global.jjsStandWorkshopUnlocked = false;
+global.jjsStandWorkshopStorage = array_create(64, undefined);
+
 #region mod menu
 
 global.jjShowMenu = false;
@@ -76,6 +76,7 @@ global.jjSettProjCollisions = false;
 global.jjsSettLevelUpSound = true;
 global.jjsSettLevelUpParticle = true;
 global.jjsSettCustomModMenuSounds = true;
+global.jjsSettDisplayEmptyRunes = true;
 
 #endregion
 
@@ -109,4 +110,5 @@ loadCommands();
 LoadOtherMods();
 
 get_steam_mod_version();
+
 

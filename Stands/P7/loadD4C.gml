@@ -172,8 +172,8 @@ switch (attackState)
         }
     break;
     case 2:
-        FireCD(skill);
-        state = StandState.Idle;
+        _dis = GetStandReach(self) * 1.5;
+        if (attackStateTimer > 1.25) EndAtk(skill);
     break;
 }
 attackStateTimer += DT * GetStandSpeed(self);

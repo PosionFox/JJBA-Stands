@@ -157,7 +157,9 @@ switch (attackState)
 
 if (!modTypeExists("loveTrain"))
 {
-    LoveTrainCreate((5 + (level / 5)) * GetStandTotalPower(self));
+    var _c = GetSkillVars(skill, "ray_colors");
+    if (_c == undefined) _c = c_yellow;
+    LoveTrainCreate(self, (5 + (level / 5)) * GetStandTotalPower(self), _c);
     FireCD(skill);
     state = StandState.Idle;
 }
@@ -167,16 +169,18 @@ else
     state = StandState.Idle;
 }
 
-#define LoveTrainCreate(_length)
+#define LoveTrainCreate(_owner, _length, _color)
 
 jj_play_audio(global.sndLoveTrain, 5, false);
 var _o = ModObjectSpawn(objPlayer.x, objPlayer.y, 0)
 with (_o)
 {
+    owner = _owner;
     depth = -1000;
+    color = _color;
     type = "loveTrain";
     size = 1;
-    length = _length;
+    length = 5 + _length; // add five to compensate for the initial animation
     rotSpeed = 0;
     range = 500;
     circRange = 500;
@@ -187,12 +191,15 @@ with (_o)
     for (var i = 0; i < amountRays; i++)
     {
         rays[i] = ModObjectSpawn(x, y, 0);
+        rays[i].state = "idle";
+        rays[i].color = color;
         rays[i].width = 1;
         rays[i].height = 1;
         InstanceAssignMethod(rays[i], "step", ScriptWrap(LoveTrainRayStep), false);
         InstanceAssignMethod(rays[i], "draw", ScriptWrap(LoveTrainRayDraw), false);
     }
 }
+return _o;
 
 #define LoveTrainStep
 
@@ -202,10 +209,10 @@ rotSpeed = lerp(rotSpeed, 100, 0.05);
 range = lerp(range, 24, 0.08);
 circRange = lerp(circRange, 0, 0.2);
 
-if (instance_exists(player))
+if (instance_exists(owner))
 {
-    x = player.x;
-    y = player.y;
+    x = owner.owner.x;
+    y = owner.owner.y;
     for (var i = 0; i < amountRays; i++)
     {
         var rr = cos((current_time / 1000) + i) * 2;
@@ -214,11 +221,15 @@ if (instance_exists(player))
     }
 }
 
-length -= 1 / room_speed;
-if (length <= 0)
+length -= DT;
+if (length <= 0 or !instance_exists(owner))
 {
     var _s = jj_play_audio(global.sndLtEnd, 5, false);
     audio_sound_pitch(_s, random_range(0.9, 1.1));
+    for (var i = 0; i < amountRays; i++)
+    {
+        rays[i].state = "despawn";
+    }
     instance_destroy(self);
 }
 
@@ -234,30 +245,30 @@ gpu_set_blendmode(bm_normal);
 
 depth = -y;
 
-if (modTypeExists("loveTrain"))
+switch (state)
 {
-    height *= 1.1;
-    height = clamp(height, 0, 1000);
-    width = cos(current_time / 1000) * 2;
-}
-else
-{
-    height *= 0.9;
-    width *= 0.9;
-    if (height <= 0)
-    {
-        instance_destroy(self);
-    }
+    case "idle":
+        height *= 1.1;
+        height = clamp(height, 0, 1000);
+        width = cos(current_time / 1000) * 2;
+    break;
+    case "despawn":
+        height = lerp(height, 0, 0.1);
+        width = lerp(width, 0, 0.1);
+        if (height <= 0.02)
+        {
+            instance_destroy(self);
+            exit;
+        }
+    break;
 }
 
 #define LoveTrainRayDraw
 
 gpu_set_blendmode(bm_add);
-draw_set_alpha(0.5);
-draw_set_color(c_yellow);
-draw_line_width(x, y, x, y - height, width);
-draw_circle(x, y, width, false);
-draw_set_color(c_white);
+draw_set_alpha(0.8);
+draw_line_width_color(x, y, x, y - height, width, color, c_yellow);
+draw_circle_color(x, y, width, color, c_yellow, false);
 draw_set_alpha(1);
 gpu_set_blendmode(bm_normal);
 
@@ -335,6 +346,7 @@ _skills[sk, StandSkill.Icon] = global.sprSkillLoveTrain;
 _skills[sk, StandSkill.MaxCooldown] = 45;
 _skills[sk, StandSkill.Damage] = 15;
 _skills[sk, StandSkill.DamageScale] = 0.1;
+_skills[sk, StandSkill.Vars] = { ray_colors : c_yellow };
 _skills[sk, StandSkill.SkillAlt] = DimensionalHop;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillDimensionalHop;
 _skills[sk, StandSkill.MaxCooldownAlt] = 20;

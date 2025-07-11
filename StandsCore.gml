@@ -77,16 +77,19 @@ for (var i = 0; i < _rlen; i++)
     
     if (_rune == undefined)
     {
-        draw_sprite_ext(global.sprBlankRune, 0, rx, ry - (34 * i), 2, 2, 0, c_black, 1);
-        
-        if (point_in_rectangle(gx, gy, rx - 16, ry - 16 - (34 * i), rx + 16, ry + 16 - (34 * i)))
+        if (global.jjsSettDisplayEmptyRunes)
         {
-            var txt = "no rune";
-            draw_set_halign(fa_left);
-            draw_set_valign(fa_top);
-            draw_text(rx + 32, (ry - string_height(txt)) + 16 - (34 * i), txt);
-            draw_set_halign(fa_center);
-            draw_set_valign(fa_middle);
+            draw_sprite_ext(global.sprBlankRune, 0, rx, ry - (34 * i), 2, 2, 0, c_black, 1);
+            
+            if (point_in_rectangle(gx, gy, rx - 16, ry - 16 - (34 * i), rx + 16, ry + 16 - (34 * i)))
+            {
+                var txt = "no rune";
+                draw_set_halign(fa_left);
+                draw_set_valign(fa_top);
+                draw_text(rx + 32, (ry - string_height(txt)) + 16 - (34 * i), txt);
+                draw_set_halign(fa_center);
+                draw_set_valign(fa_middle);
+            }
         }
     }
     else
@@ -146,8 +149,10 @@ for (var i = _start; i <= _end; i++)
     if (skills[i, StandSkill.Skill] != AttackHandler)
     {
         var _s = global.sprSkillTemplate;
-        if (color_get_value(color) < 80) { _s = global.sprSkillTemplateWhite; }
-        draw_sprite_ext(_s, 0, xx, yy, 2, 2, 0, c_white, 1);
+        //if (color_get_value(color) < 80) { _s = global.sprSkillTemplateWhite; }
+        if (state == i and !altAttack) { _s = global.sprSkillTemplateWhite; }
+        //draw_sprite_ext(_s, 0, xx, yy, 2, 2, 0, c_white, 1);
+        draw_sprite_general(_s, 0, 0, 0, 32, 32, xx - 32, yy - 32, 2, 2, 0, colorAlt, colorAlt, color, color, 1);
         //draw_sprite_ext(skills[i, StandSkill.Icon], 0, xx, yy, 2, 2, 0, color, 1);
         draw_sprite_general(skills[i, StandSkill.Icon], 0, 0, 0, 32, 32, xx - 32, yy - 32, 2, 2, 0, color, color, colorAlt, colorAlt, 1);
         if (skills[i, StandSkill.Cooldown] > 0)
@@ -165,8 +170,10 @@ for (var i = _start; i <= _end; i++)
     if (skills[i, StandSkill.SkillAlt] != AttackHandler)
     {
         var _s = global.sprSkillHoldTemplate;
-        if (color_get_value(color) < 80) { _s = global.sprSkillHoldTemplateWhite; }
-        draw_sprite_ext(_s, 0, xx, yy + 64, 2, 2, 0, c_white, 1);
+        //if (color_get_value(color) < 80) { _s = global.sprSkillHoldTemplateWhite; }
+        if (state == i and altAttack) { _s = global.sprSkillHoldTemplateWhite; }
+        //draw_sprite_ext(_s, 0, xx, yy + 64, 2, 2, 0, c_white, 1);
+        draw_sprite_general(_s, 0, 0, 0, 32, 32, xx - 32, yy - 32 + 64, 2, 2, 0, color, color, colorAlt, colorAlt, 1);
         //draw_sprite_ext(skills[i, StandSkill.IconAlt], 0, xx, yy + 64, 2, 2, 0, color, 1);
         draw_sprite_general(skills[i, StandSkill.IconAlt], 0, 0, 0, 32, 32, xx - 32, yy - 32 + 64, 2, 2, 0, colorAlt, colorAlt, color, color, 1);
         var _hold = (skills[i, StandSkill.Hold] / skills[i, StandSkill.MaxHold]) * 2;
@@ -523,6 +530,7 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
     _arr[_s, StandSkill.MaxCooldown] = 1;
     _arr[_s, StandSkill.Cooldown] = 0;
     _arr[_s, StandSkill.Vars] = {};
+    _arr[_s, StandSkill.Custom] = false;
     // hold
     _arr[_s, StandSkill.SkillAlt] = AttackHandler;
     _arr[_s, StandSkill.IconAlt] = global.sprSkillSkip;
@@ -532,6 +540,7 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
     _arr[_s, StandSkill.MaxCooldownAlt] = 1;
     _arr[_s, StandSkill.CooldownAlt] = 0;
     _arr[_s, StandSkill.VarsAlt] = {};
+    _arr[_s, StandSkill.CustomAlt] = false;
     // both
     _arr[_s, StandSkill.Key] = "";
     _arr[_s, StandSkill.GpBtn] = Input.DPad;

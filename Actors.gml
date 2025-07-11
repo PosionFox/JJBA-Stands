@@ -1,4 +1,7 @@
 
+#define is_actor(_ins)
+
+return _ins.object_index == MOBJ and _ins.type == "Actor";
 
 #define ActorCreate(_x, _y)
 

@@ -49,6 +49,11 @@ if (max_energy > 0)
 
 angleTarget = 0;
 angleTargetSpd = 0.1;
+scaleX = 1;
+scaleY = 1;
+scaleXSpd = 0.1;
+scaleYSpd = 0.1;
+
 attackStateTimer = 0;
 FireCD(skill);
 state = StandState.Idle;
@@ -124,6 +129,8 @@ if (array_find_index(instancesHit, _target.id) == -1)
         _e.image_blend = c_red;
         _e.image_xscale = crit_damage;
         _e.image_yscale = crit_damage;
+        var _sn = jj_play_audio(global.sndCritHit, 0, false);
+        audio_sound_gain(_sn, global.jjSettAudioVolume * 0.5, 0);
     }
     DustEntityAdd(x, y);
     with (owner)
@@ -709,6 +716,8 @@ switch (attackState)
         {
             if (attackStateTimer >= (0.08 / GetStandSpeed(self)))
             {
+                var _snd = jj_play_audio(global.sndPunchAir, 0, false);
+                audio_sound_pitch(_snd, random_range(0.9, 1.1));
                 var xx = x + random_range(-4, 4);
                 var yy = y + random_range(-8, 8);
                 var _p = PunchSwingCreate(xx, yy, owner.attack_direction, 45, GetDmg(s));
@@ -794,7 +803,9 @@ switch (attackState)
     break;
     case 2:
         var _hs = GetSkillVars(skill, "hit_sound");
-        var _p = PunchCreate(x, y, _dir, GetDmg(skill), 3);
+        var _snd = jj_play_audio(global.sndPunchAir, 0, false);
+        audio_sound_pitch(_snd, random_range(0.9, 1.1));
+        var _p = PunchSwingCreate(x, y, _dir, 45, GetDmg(skill));
         with (_p)
         {
             crit_change = 0.2;
@@ -802,7 +813,10 @@ switch (attackState)
             onHitSound = global.sndStrongPunch;
             if (_hs) onHitSound = _hs;
         }
-        EndAtk(skill);
+        attackState++;
+    break;
+    case 3:
+        if (attackStateTimer >= 1.05) EndAtk(skill);
     break;
 }
 attackStateTimer += DT * GetStandSpeed(self);

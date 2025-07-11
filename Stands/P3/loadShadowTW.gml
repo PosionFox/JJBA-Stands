@@ -31,8 +31,9 @@ yTo = objPlayer.y;
 alphaTarget = 0;
 
 #define StwXXI(method, skill) //attacks
-var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-var _dis = GetStandReach(self) * 1.5;
+
+var _dir = owner.attack_direction;
+var _dis = GetStandReach(self) * 1.5 + (attackStateTimer * 16);
 alphaTarget = 1;
 
 switch (attackState)
@@ -66,12 +67,29 @@ switch (attackState)
         }
     break;
     case 5:
-        _dis = GetStandReach(self) * 2;
         var _snd = jj_play_audio(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         PunchSwingCreate(x, y, _dir, 45, GetDmg(skill) * 2);
-        jj_play_audio(desummonSound, 0, false);
-        EndAtk(skill);
+        attackState++;
+    break;
+    case 6:
+        if (attackStateTimer >= 1.05) 
+        {
+            jj_play_audio(desummonSound, 0, false);
+            scaleXSpd = 0.5;
+            scaleYSpd = 0.5;
+            scaleX = 0;
+            scaleY = 2;
+            attackState++;
+        }
+    break;
+    case 7:
+        if (attackStateTimer >= 1.15)
+        {
+            alphaTarget = 0;
+            image_alpha = 0;
+            EndAtk(skill);
+        }
     break;
 }
 xTo = objPlayer.x + lengthdir_x(_dis, _dir);
@@ -80,8 +98,8 @@ attackStateTimer += DT * GetStandSpeed(self);
 
 #define StwPunishment(method, skill)
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-xTo = objPlayer.x + lengthdir_x(GetStandReach(self) * 1.5, _dir);
-yTo = objPlayer.y + lengthdir_y(GetStandReach(self) * 1.5, _dir);
+xTo = objPlayer.x + lengthdir_x(GetStandReach(self) * 1.5 + (attackStateTimer * 32), _dir);
+yTo = objPlayer.y + lengthdir_y(GetStandReach(self) * 1.5 + (attackStateTimer * 32), _dir);
 alphaTarget = 1;
 
 switch (attackState)
@@ -99,16 +117,33 @@ switch (attackState)
     case 2:
         var _snd = jj_play_audio(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
-        var _p = PunchCreate(x, y, _dir, GetDmg(skill), 2);
+        var _p = PunchSwingCreate(x, y, _dir, 45, GetDmg(skill));
         with (_p)
         {
             knifeSprite = other.knifeSprite;
             onHitEvent = KnifeCoffin;
             destroyOnImpact = true;
         }
-        jj_play_audio(global.sndStw2Desummon, 0, false);
-        FireCD(skill);
-        state = StandState.Idle;
+        attackState++;
+    break;
+    case 3:
+        if (attackStateTimer >= 1.05) 
+        {
+            jj_play_audio(desummonSound, 0, false);
+            scaleXSpd = 0.5;
+            scaleYSpd = 0.5;
+            scaleX = 0;
+            scaleY = 2;
+            attackState++;
+        }
+    break;
+    case 4:
+        if (attackStateTimer >= 1.15)
+        {
+            alphaTarget = 0;
+            image_alpha = 0;
+            EndAtk(skill);
+        }
     break;
 }
 attackStateTimer += DT * GetStandSpeed(self);

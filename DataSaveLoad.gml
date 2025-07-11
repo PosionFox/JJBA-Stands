@@ -210,6 +210,7 @@ _map[? "jjSettProjCollisions"] = global.jjSettProjCollisions;
 _map[? "jjsSettLevelUpSound"] = global.jjsSettLevelUpSound;
 _map[? "jjsSettLevelUpParticle"] = global.jjsSettLevelUpParticle;
 _map[? "jjsSettCustomModMenuSounds"] = global.jjsSettCustomModMenuSounds;
+_map[? "jjsSettDisplayEmptyRunes"] = global.jjsSettDisplayEmptyRunes;
 
 // stand storage
 var _ss = array_length(global.jjStandSlots);
@@ -228,6 +229,14 @@ for (var i = 0; i < _ss; i++)
     {
         _map[? _nkey] = string(global.jjMenuStorageNames[i][0]) + "|" + string(global.jjMenuStorageNames[i][1]) + "|" + string(global.jjMenuStorageNames[i][2]);
     }
+}
+
+// skills storage
+var _sks = array_length(global.jjsStandWorkshopStorage);
+for (var i = 0; i < _sks; i++)
+{
+    var _key = "jjsStandWorkshopStorageSlot" + string(i);
+    _map[? _key] = global.jjsStandWorkshopStorage[i];
 }
 
 ModSaveDataSubmit(_map);
@@ -413,6 +422,15 @@ else
     global.jjsSettCustomModMenuSounds = true;
 }
 
+if (_map[? "jjsSettDisplayEmptyRunes"] != undefined)
+{
+    global.jjsSettDisplayEmptyRunes = _map[? "jjsSettDisplayEmptyRunes"];
+}
+else
+{
+    global.jjsSettDisplayEmptyRunes = true;
+}
+
 #endregion
 
 #region stand storage
@@ -444,6 +462,25 @@ for (var i = 0; i < _ss; i++)
         global.jjMenuStorageNames[i] = undefined;
     }
 }
+
+#endregion
+
+#region skills storage
+
+// var _sks = array_length(global.jjsStandWorkshopStorage);
+// for (var i = 0; i < _sks; i++)
+// {
+//     var _key = "jjsStandWorkshopStorageSlot" + string(i);
+//     var _loaded_data = _map[? _key];
+//     if (_loaded_data != undefined)
+//     {
+//         global.jjsStandWorkshopStorage[i] = _loaded_data;
+//     }
+//     else
+//     {
+//         global.jjsStandWorkshopStorage[i] = undefined;
+//     }
+// }
 
 #endregion
 

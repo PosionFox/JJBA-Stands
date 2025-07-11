@@ -145,6 +145,109 @@ else
     ResetAtk(s);
 }
 
+#define TwDonutPunch(_, s)
+
+var _dir = 0;
+var _xx = x;
+var _yy = y;
+if (instance_exists(owner))
+{
+    _dir = owner.attack_direction;
+    
+    _xx = owner.x + lengthdir_x(GetStandReach(self) + (attackStateTimer * 4), _dir);
+    _yy = owner.y + lengthdir_y(GetStandReach(self) + (attackStateTimer * 4), _dir);
+}
+xTo = _xx;
+yTo = _yy;
+image_xscale = sign(dcos(_dir));
+
+switch (attackState)
+{
+    case 0:
+        var _sc = global.sndTwWindup;
+        if (_sc) jj_play_audio(_sc, 0, false);
+        attackState++;
+    break;
+    case 1:
+        if (attackStateTimer >= 1.25)
+        {
+            attackState++;
+        }
+    break;
+    case 2:
+        var _hs = global.sndTwDonut;
+        var _snd = jj_play_audio(global.sndPunchAir, 0, false);
+        audio_sound_pitch(_snd, random_range(0.9, 1.1));
+        var _p = PunchSwingCreate(x, y, _dir, 45, GetDmg(s));
+        with (_p)
+        {
+            onHitEvent = DonutSE;
+            crit_change = 0.1;
+            RollCrit();
+            onHitSound = global.sndStrongPunch;
+            if (_hs) onHitSound = _hs;
+        }
+        attackState++;
+    break;
+    case 3:
+        if (attackStateTimer >= 1.5) EndAtk(s);
+    break;
+}
+attackStateTimer += DT * GetStandSpeed(self);
+
+#define StatusEffect(_args, _target)
+
+var _o = ModObjectSpawn(x, y, 0);
+with (_o)
+{
+    target = _target;
+    life = 5;
+    damage = 0;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(StatusEffectStep), false);
+}
+return _o;
+
+#define StatusEffectStep
+
+if (life <= 0 or !instance_exists(target))
+{
+    instance_destroy(self);
+    exit;
+}
+life -= DT;
+
+depth = target.depth - 2;
+
+if (damage > 0)
+{
+    target.hp -= damage;
+}
+
+#define DonutSE(_, _a, _t)
+
+var _se = StatusEffect(_a, _t);
+with (_se)
+{
+    damage = 0.01;
+    hole_x = x;
+    hole_y = y;
+    
+    InstanceAssignMethod(self, "draw", ScriptWrap(DonutSEDraw));
+}
+
+#define DonutSEDraw
+
+if (instance_exists(target))
+{
+    if (object_is_ancestor(target.object_index, ENEMY) or is_enemy(target))
+    {
+        hole_x = target.bbox_left + (target.bbox_right - target.bbox_left) * 0.5;
+        hole_y = target.bbox_top + (target.bbox_bottom - target.bbox_top) * 0.5;
+        draw_circle_color(hole_x , hole_y, 4, c_purple, c_red, false);
+    }
+}
+
 #define TwKnifeWall(method, skill)
 
 var _kws = GetSkillVars(skill, "toss_sound");
@@ -254,12 +357,12 @@ _skills[sk, StandSkill.MaxExecutionTime] = 5;
 _skills[sk, StandSkill.Desc] = tr("barrageDesc");
 
 sk = StandState.SkillB;
-_skills[sk, StandSkill.Skill] = StrongPunch;
-_skills[sk, StandSkill.Damage] = 25;
+_skills[sk, StandSkill.Skill] = TwDonutPunch;
+_skills[sk, StandSkill.Damage] = 20;
 _skills[sk, StandSkill.DamageScale] = 0.1;
-_skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
+_skills[sk, StandSkill.Icon] = global.sprSkillDonutPunch;
 _skills[sk, StandSkill.MaxCooldown] = 8;
-_skills[sk, StandSkill.Desc] = tr("strongPunchDesc");
+_skills[sk, StandSkill.Desc] = tr("donut_punch_desc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = TwKnifeWall;

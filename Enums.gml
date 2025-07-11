@@ -46,6 +46,8 @@ enum StandSkill {
     EnergyCost,
     Vars,
     VarsAlt,
+    Custom,
+    CustomAlt,
     LEN
 }
 

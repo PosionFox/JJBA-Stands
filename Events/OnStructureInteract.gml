@@ -3,11 +3,12 @@
 
 if (structure == global.jjsStandWorkshop)
 {
-    if ("myStand" in player)
+    if (instance_exists(player) and instance_exists(STAND))
     {
-        if (instance_exists(player))
-        {
-            OpenStandWorkshop();
-        }
+        OpenStandWorkshop();
+    }
+    else
+    {
+        Trace("the structure refuses to interact with you.");
     }
 }

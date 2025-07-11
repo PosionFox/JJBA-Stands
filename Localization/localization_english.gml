@@ -184,6 +184,9 @@ tr_add(_map, "eventName", "event");
 
 #region stand abilities
 
+tr_add(_map, "barrageDesc", "barrage:\nlaunches a barrage of punches.");
+tr_add(_map, "strongPunchDesc", "strong punch:\ncharges and launches a strong punch.");
+
 #region part 3
 
 // stw
@@ -218,7 +221,6 @@ tr_add(_map, "emeraldSplash20MetersDesc", "20 meter emerald splash:\nshoots out 
 
 // sp
 tr_add(_map, "diosKnifeDesc", "dio's knife:\ntoss one of dio's knife.");
-tr_add(_map, "barrageDesc", "barrage:\nlaunches a barrage of punches.");
 tr_add(_map, "spStrongPunchDesc", @"strong punch:
 charges and launches a strong punch.
 
@@ -237,7 +239,7 @@ star platinum evolves into star platinum: the world.");
 tr_add(_map, "josephKnifeDesc", "joseph knife:\nsend out a knife that causes bleed on impact.");
 tr_add(_map, "stopSignDesc", "stop sign:\nstrike with a stop sign.");
 tr_add(_map, "bloodDrainDesc", "blood drain:\ndrain the target's health and heals the user.");
-tr_add(_map, "strongPunchDesc", "strong punch:\ncharges and launches a strong punch.");
+tr_add(_map, "donut_punch_desc", "donut punch:\nthe stand looms forward and strikes with a piercing blow.");
 tr_add(_map, "knifeWallDesc", "knife wall:\nsends out a wall of knives.");
 tr_add(_map, "twTimestopDesc", "time, stop!:\nstops the time, most enemies are not allowed to move\nand makes your projectiles freeze in place.");
 

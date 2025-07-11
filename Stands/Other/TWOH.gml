@@ -222,7 +222,10 @@ switch (attackState)
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
         var _p = PunchSwingCreate(x, y, _dir, 45, GetDmg(s) * 2);
         _p.onHitSound = global.sndStrongPunch;
-        EndAtk(s);
+        attackState++;
+    break;
+    case 6:
+        if (attackStateTimer >= 1.05) EndAtk(s);
     break;
 }
 
@@ -249,13 +252,18 @@ switch (attackState)
         {
             attackState++;
         }
-        break;
+    break;
     case 2:
-        var _p = PunchCreate(x, y, _dir, GetDmg(s), 3);
+        var _snd = jj_play_audio(global.sndPunchAir, 0, false);
+        audio_sound_pitch(_snd, random_range(0.9, 1.1));
+        var _p = PunchSwingCreate(x, y, _dir, 45, GetDmg(s));
         _p.onHitSound = global.sndTwohRealityOverwrite;
         _p.onHitEvent = OverwriteHealth;
-        EndAtk(s);
-        break;
+        attackState++;
+    break;
+    case 3:
+        if (attackStateTimer >= 1.05) EndAtk(s);
+    break;
 }
 attackStateTimer += DT * GetStandSpeed(self);
 

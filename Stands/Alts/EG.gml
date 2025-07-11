@@ -37,5 +37,7 @@ with (_s)
     auraParticleSprite = global.sprStandParticle6;
     saveKey = "jjbamEg";
     discType = global.jjbamDiscEg;
+    
+    skills[StandState.SkillD, StandSkill.Vars] = { ray_colors : color };
 }
 return _s;

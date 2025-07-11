@@ -172,139 +172,269 @@ if (selected)
 
 var xx = 0;
 var yy = 0;
-if (instance_exists(objPlayer))
+if (instance_exists(player))
 {
-    xx = objPlayer.x;
-    yy = objPlayer.y;
+    xx = player.x;
+    yy = player.y;
 }
 var _o = ModObjectSpawn(xx, yy, -1000);
 with (_o)
 {
     type = "StandWorkshop";
     
-    x1 = WorldControl.x;
-    x2 = WorldControl.x;
-    y1 = WorldControl.y;
-    y2 = WorldControl.y;
+    x1 = CAM.x;
+    x2 = CAM.x;
+    y1 = CAM.y;
+    y2 = CAM.y;
     selectedNewSkill = noone;
+    replaced_skill = noone;
     scroll = 0;
     
-    buttons = [];
+    current_skills = [];
     for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
     {
         var _button = StandWorkshopButton(i);
+        _button.depth = depth - 1;
         _button.owner = self;
-        array_push(buttons, _button);
+        _button.icon = STAND.skills[i, StandSkill.Icon];
+        _button.color = STAND.color;
+        _button.colorAlt = STAND.colorAlt;
+        array_push(current_skills, _button);
     }
     
-    availableSkills = [];
-    
-    skillButtons = [];
-    for (var i = 0; i < array_length(availableSkills); i++)
+    available_skills = [];
+    var _skslen = array_length(global.jjsStandWorkshopStorage);
+    for (var i = 0; i < _skslen; i++)
     {
-        var _skillB = StandWorkshopSkillDrag();
-        _skillB.owner = self;
-        _skillB.skill = availableSkills[i, 0];
-        _skillB.icon = availableSkills[i, 1];
-        array_push(skillButtons, _skillB);
+        if (global.jjsStandWorkshopStorage[i] != undefined)
+        {
+            var _skill_data;
+            var _skill_button = StandWorkshopSkillDrag();
+            _skill_button.depth = depth - 2;
+            _skill_button.owner = self;
+            if (is_string(global.jjsStandWorkshopStorage[i]))
+            {
+                Trace(global.jjsStandWorkshopStorage[i]);
+                _skill_data = json_parse(global.jjsStandWorkshopStorage[i]);
+                if _skill_data[? "skill_name"] != undefined _skill_button.skill = script_get_index(_skill_data[? "skill_name"]);
+                if _skill_data[? "icon"] != undefined _skill_button.icon = _skill_data[? "icon"];
+                if _skill_data[? "color"] != undefined _skill_button.color = _skill_data[? "color"];
+                if _skill_data[? "color_alt"] != undefined _skill_button.colorAlt = _skill_data[? "color_alt"];
+            }
+            array_push(available_skills, _skill_button);
+            json_destroy(_skill_data);
+        }
     }
     
     InstanceAssignMethod(self, "step", ScriptWrap(StandWorkshopStep), false);
     InstanceAssignMethod(self, "drawGUI", ScriptWrap(StandWorkshopDrawGUI), false);
 }
 
+#define CloseStandWorkshop
+
+var _sw = modTypeFind("StandWorkshop");
+    if (instance_exists(_sw))
+    {
+    for (var i = 0; i < array_length(current_skills); i++)
+    {
+        instance_destroy(current_skills[i]);
+    }
+    for (var i = 0; i < array_length(available_skills); i++)
+    {
+        instance_destroy(available_skills[i]);
+    }
+    instance_destroy(self);
+    exit;
+}
+
 #define StandWorkshopStep
+
+var _cx = display_get_gui_width() / 2;
+var _cy = display_get_gui_height() / 2;
+var _gw = display_get_gui_width();
+var _gh = display_get_gui_height();
 
 x1 = lerp(x1, 0, 0.2);
 x2 = lerp(x2, display_get_gui_width() - 1, 0.2);
 y1 = lerp(y1, 0, 0.2);
 y2 = lerp(y2, display_get_gui_height() - 1, 0.2);
 
-if (keyboard_check_pressed(vk_escape) or !instance_exists(objPlayer) or !instance_exists(objPlayer.myStand))
+var _btlen = array_length(current_skills); // current skills
+for (var i = 0; i < _btlen; i++)
 {
-    for (var i = 0; i < array_length(buttons); i++)
-    {
-        instance_destroy(buttons[i]);
-    }
-    for (var i = 0; i < array_length(skillButtons); i++)
-    {
-        instance_destroy(skillButtons[i]);
-    }
-    instance_destroy(self);
-    exit;
+    current_skills[i].uix = _cx + (96 * i) - (42 * _btlen);
+    current_skills[i].uiy = _cy - 128;
 }
 
-for (var i = 0; i < array_length(buttons); i++)
-{
-    buttons[i].x = (WorldControl.x - 112) + (32 * i);
-    buttons[i].y = WorldControl.y - 32;
-}
-
-var _len = array_length(skillButtons);
+var _len = array_length(available_skills); // available skills
 for (var i = 0; i < _len; i++)
 {
-    skillButtons[i].x = (WorldControl.x - 112) + (32 * (i mod 8));
-    skillButtons[i].y = ((WorldControl.y + 16) - scroll) + (32 * (i div 8));
+    available_skills[i].uix = _cx + (96 * (i mod 8)) - (42 * 8);
+    available_skills[i].uiy = (_cy + 128 - scroll) + (96 * (i div 8));
 }
 
-if (keyboard_check_pressed(ord("K")))
-{
-    for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
-    {
-        var _skill = [];
-        array_push(_skill, objPlayer.myStand.skills[i, StandSkill.Skill]);
-        array_push(_skill, objPlayer.myStand.skills[i, StandSkill.Icon]);
-        array_push(availableSkills, _skill);
-    }
-    
-    for (var i = 0; i < array_length(skillButtons); i++)
-    {
-        instance_destroy(skillButtons[i]);
-    }
-    skillButtons = [];
-    
-    for (var i = 0; i < array_length(availableSkills); i++)
-    {
-        var _skillB = StandWorkshopSkillDrag();
-        _skillB.owner = self;
-        _skillB.skill = availableSkills[i, 0];
-        _skillB.icon = availableSkills[i, 1];
-        array_push(skillButtons, _skillB);
-    }
-}
+// if (keyboard_check_pressed(ord("K")))
+// {
+//     repeat (8)
+//     {
+//         for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
+//         {
+//             var _skill = [];
+//             array_push(_skill, STAND.skills[i, StandSkill.Skill]);
+//             array_push(_skill, STAND.skills[i, StandSkill.Icon]);
+//             array_push(available_skills, _skill);
+//         }
+        
+//         for (var i = 0; i < array_length(available_skills); i++)
+//         {
+//             instance_destroy(available_skills[i]);
+//         }
+//         available_skills = [];
+        
+//         for (var i = 0; i < array_length(available_skills); i++)
+//         {
+//             var _skillB = StandWorkshopSkillDrag();
+//             _skillB.owner = self;
+//             _skillB.skill = available_skills[i, 0];
+//             _skillB.icon = available_skills[i, 1];
+//             array_push(available_skills, _skillB);
+//         }
+//     }
+// }
 
 if (mouse_wheel_up())
 {
-    scroll += 4;
+    scroll -= 8;
 }
 if (mouse_wheel_down())
 {
-    scroll -= 4;
+    scroll += 8;
 }
-scroll = clamp(scroll, 0, (array_length(availableSkills) * 4) - 32)
+scroll = clamp(scroll, 0, (_len div 8) * 96);
+
+if (instance_exists(replaced_skill))
+{
+    STAND.skills[replaced_skill.skillId, StandSkill.Skill] = selectedNewSkill.skill;
+    STAND.skills[replaced_skill.skillId, StandSkill.Icon] = selectedNewSkill.icon;
+    STAND.skills[replaced_skill.skillId, StandSkill.Custom] = true;
+    
+    for (var i = 0; i < array_length(current_skills); i++)
+    {
+        if (instance_exists(current_skills[i])) instance_destroy(current_skills[i]);
+    }
+    current_skills = [];
+    for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
+    {
+        var _button = StandWorkshopButton(i);
+        _button.depth = depth - 1;
+        _button.owner = self;
+        _button.icon = STAND.skills[i, StandSkill.Icon];
+        _button.color = STAND.color;
+        _button.colorAlt = STAND.colorAlt;
+        array_push(current_skills, _button);
+    }
+    
+    selectedNewSkill = noone;
+    replaced_skill = noone;
+}
+
+if (keyboard_check_pressed(vk_escape) or !instance_exists(player) or !instance_exists(STAND))
+{
+    CloseStandWorkshop();
+}
 
 #define StandWorkshopDrawGUI
 
-var w = display_get_gui_width();
-var h = display_get_gui_height();
+var _cx = display_get_gui_width() / 2;
+var _cy = display_get_gui_height() / 2;
+var _gw = display_get_gui_width();
+var _gh = display_get_gui_height();
 
 draw_set_alpha(0.5);
-draw_set_color(objPlayer.myStand.color);
+draw_set_color(STAND.color);
 draw_rectangle(x1, y1, x2, y2, true);
 draw_set_color(image_blend);
 draw_set_alpha(image_alpha);
 
+var _xx = _cx - 384;
+var _yy = _cy;
+var _w = 768;
+var _h = 256;
+draw_rectangle_color(_xx - 4, _yy - 4, _xx + _w + 4, _yy + _h + 4, c_dkgray, c_dkgray, c_black, c_black, false);
+draw_rectangle_color(_xx, _yy, _xx + _w, _yy + _h, c_black, c_black, c_dkgray, c_dkgray, false);
+
 draw_set_halign(fa_middle);
-draw_text(w * 0.5, h * 0.5, "drag and drop the abilites you want from below");
+draw_text(_cx, _cy, "-drag and drop the abilites you want from below-");
 draw_set_halign(fa_left);
 
-var _len = array_length(availableSkills);
-draw_set_color(c_ltgray);
-draw_line_width(w - 64, h * 0.5, w - 64, (h * 0.5) + 100, 2);
-draw_set_color(objPlayer.myStand.color);
-draw_circle(w - 64, (h * 0.5) + (scroll / (_len * 4)) * 100, 5, false);
-draw_set_color(image_blend);
+var _len = array_length(available_skills); // draw available skills
+for (var i = _len - 1; i >= 0; i--)
+{
+    var _sb = available_skills[i];
+    if (_sb.drag or _sb.uiy > _cy + 16 and _sb.uiy < _cy + 240)
+    {
+        _sb.can_draw = true;
+    }
+    else
+    {
+        _sb.can_draw = false;
+    }
+    
+    if (_sb.scale > 0.02)
+    {
+        draw_sprite_general(global.sprSkillTemplate, 0, 0, 0, 32, 32, _sb.uix - 16 * _sb.image_xscale, _sb.uiy - 16 * _sb.image_yscale, _sb.image_xscale * _sb.scale, _sb.image_yscale * _sb.scale, _sb.image_angle, _sb.color, _sb.color, _sb.colorAlt, _sb.colorAlt, _sb.image_alpha);
+        draw_sprite_general(_sb.icon, 0, 0, 0, 32, 32, _sb.uix - 16 * _sb.image_xscale, _sb.uiy - 16 * _sb.image_yscale, _sb.image_xscale * _sb.scale, _sb.image_yscale * _sb.scale, _sb.image_angle, _sb.colorAlt, _sb.colorAlt, _sb.color, _sb.color, _sb.image_alpha);
+    }
+}
 
+_xx = _gw - 224;
+_yy = _cy;
+_w = 768;
+_h = 256;
+
+var _vsh = draw_vscroll(_xx, _yy, 256, 16, ((_len div 8) * 96), scroll);
+if (_vsh != undefined)
+{
+    scroll = _vsh;
+}
+
+var _bs = draw_button_square(_cy + 576, _cy - 288, 256, 32, "!sacrifice stand!");
+if (_bs)
+{
+    var _storage_full = true;
+    var _skslen = array_length(global.jjsStandWorkshopStorage);
+    for (var i = 0; i < _skslen; i++)
+    {
+        if (global.jjsStandWorkshopStorage[i] == undefined)
+        {
+            _storage_full = false;
+            var _new_skill = ds_map_create();
+            _new_skill[? "skill_name"] = string(script_get_name(STAND.skills[StandState.SkillA, StandSkill.Skill]));
+            _new_skill[? "icon"] = STAND.skills[StandState.SkillA, StandSkill.Icon];
+            _new_skill[? "damage"] = STAND.skills[StandState.SkillA, StandSkill.Damage];
+            _new_skill[? "damage_scale"] = STAND.skills[StandState.SkillA, StandSkill.DamageScale];
+            _new_skill[? "damage_player_stat"] = STAND.skills[StandState.SkillA, StandSkill.DamagePlayerStat];
+            _new_skill[? "max_cooldown"] = STAND.skills[StandState.SkillA, StandSkill.MaxCooldown];
+            _new_skill[? "max_execution_time"] = STAND.skills[StandState.SkillA, StandSkill.MaxExecutionTime];
+            _new_skill[? "color"] = real(STAND.color);
+            _new_skill[? "color_alt"] = real(STAND.colorAlt);
+            _new_skill[? "custom"] = true;
+            global.jjsStandWorkshopStorage[i] = json_stringify(_new_skill);
+            json_destroy(_new_skill);
+            RemoveStand(player);
+            break;
+        }
+    }
+    if (_storage_full)
+    {
+        Trace("skills storage full!");
+    }
+}
+
+// var _mx = device_mouse_x_to_gui(0);
+// var _my = device_mouse_y_to_gui(0);
+// draw_text(_mx, _my, string(_mx));
+// draw_text(_mx, _my + 32, string(_my));
 // var xo = 64;
 // var yo = 256;
 // var mx = device_mouse_x_to_gui(0);
@@ -319,20 +449,24 @@ draw_set_color(image_blend);
 
 #define StandWorkshopButton(_id)
 
-var _o = ModObjectSpawn(WorldControl.x, WorldControl.y, -1000000);
+var _o = ModObjectSpawn(CAM.x, CAM.y, 0);//-1000000);
 with (_o)
 {
     owner = noone;
     type = "StandWorkshopButton";
+    icon = global.sprSkillTemplate;
     skillId = _id;
-    sprite_index = global.sprSkillTemplate;
-    image_xscale = 0.5;
-    image_yscale = 0.5;
+    uix = 0;
+    uiy = 0;
+    image_xscale = 2;
+    image_yscale = 2;
+    color = c_white;
+    colorAlt = c_ltgray;
     
     hover = false;
     
     InstanceAssignMethod(self, "step", ScriptWrap(StandWorkshopButtonStep), false);
-    InstanceAssignMethod(self, "draw", ScriptWrap(StandWorkshopButtonDraw), false);
+    InstanceAssignMethod(self, "drawGUI", ScriptWrap(StandWorkshopButtonDrawGUI), false);
 }
 return _o;
 
@@ -340,16 +474,18 @@ return _o;
 
 if (hover)
 {
-    image_xscale = 0.8;
-    image_yscale = 0.8;
+    image_xscale = 4;
+    image_yscale = 4;
 }
 else
 {
-    image_xscale = 0.5;
-    image_yscale = 0.5;
+    image_xscale = 2;
+    image_yscale = 2;
 }
 
-if (position_meeting(mouse_x, mouse_y, self))
+var _mx = device_mouse_x_to_gui(0);
+var _my = device_mouse_y_to_gui(0);
+if (point_in_rectangle(_mx, _my, uix - 32, uiy - 32, uix + 32, uiy + 32))
 {
     hover = true;
     
@@ -357,8 +493,7 @@ if (position_meeting(mouse_x, mouse_y, self))
     {
         if (owner.selectedNewSkill != noone)
         {
-            objPlayer.myStand.skills[skillId, StandSkill.Skill] = owner.selectedNewSkill.skill;
-            objPlayer.myStand.skills[skillId, StandSkill.Icon] = owner.selectedNewSkill.icon;
+            owner.replaced_skill = self;
         }
     }
 }
@@ -367,71 +502,90 @@ else
     hover = false;
 }
 
-#define StandWorkshopButtonDraw
+#define StandWorkshopButtonDrawGUI
 
-draw_self();
-draw_sprite_ext(objPlayer.myStand.skills[skillId, StandSkill.Icon], 0, x, y, image_xscale, image_yscale, image_angle, objPlayer.myStand.color, image_alpha);
+draw_sprite_general(global.sprSkillTemplate, 0, 0, 0, 32, 32, uix - 16 * image_xscale, uiy - 16 * image_yscale, image_xscale, image_yscale, image_angle, colorAlt, colorAlt, color, color, image_alpha);
+draw_sprite_general(icon, 0, 0, 0, 32, 32, uix - 16 * image_xscale, uiy - 16 * image_yscale, image_xscale, image_yscale, image_angle, color, color, colorAlt, colorAlt, image_alpha);
+// draw_text(uix, uiy, string(uix));
+// draw_text(uix, uiy + 32, string(uiy));
 
 #define StandWorkshopSkillDrag
 
-var _o = ModObjectSpawn(WorldControl.x, WorldControl.y, -1000001);
+var _o = ModObjectSpawn(CAM.x, CAM.y, -1);
 with (_o)
 {
     owner = noone;
     type = "StandWorkshopSkill";
-    sprite_index = global.sprSkillTemplate;
-    image_xscale = 0.5;
-    image_yscale = 0.5;
+    uix = 0;
+    uiy = 0;
+    image_xscale = 2;
+    image_yscale = 2;
+    color = c_white;
+    colorAlt = c_white;
     
-    skill = noone;
+    skill = StandBarrage;
     icon = global.sprSkillBarrage;
+    can_draw = false;
     
     drag = false;
+    hover = false;
+    scale = 1;
     
     InstanceAssignMethod(self, "step", ScriptWrap(StandWorkshopSkillDragStep), false);
-    InstanceAssignMethod(self, "draw", ScriptWrap(StandWorkshopSkillDragDraw), false);
 }
 return _o;
 
 #define StandWorkshopSkillDragStep
 
-if (y < WorldControl.y + 16 or y > WorldControl.y + 64)
+if (can_draw)
 {
-    visible = false;
+    scale = lerp(scale, 1, 0.2);
 }
 else
 {
-    visible = true;
+    scale = lerp(scale, 0, 0.2);
+    exit;
+}
+
+var _mx = device_mouse_x_to_gui(0);
+var _my = device_mouse_y_to_gui(0);
+
+if (hover)
+{
+    image_xscale = 3;
+    image_yscale = 3;
+}
+else
+{
+    image_xscale = 2;
+    image_yscale = 2;
 }
 
 if (drag)
 {
-    x = mouse_x;
-    y = mouse_y;
+    uix = _mx;
+    uiy = _my;
 }
 
-if (mouse_check_button_pressed(mb_left) and skill != noone and visible)
+if (point_in_rectangle(_mx, _my, uix - 32, uiy - 32, uix + 32, uiy + 32))
 {
-    if (position_meeting(mouse_x, mouse_y, self))
+    hover = true;
+    if (mouse_check_button_pressed(mb_left) and skill != noone and can_draw)
     {
         owner.selectedNewSkill = self;
         drag = true;
     }
-}
-if (mouse_check_button_released(mb_left))
-{
-    if (drag)
+    if (mouse_check_button_released(mb_left))
     {
-        owner.selectedNewSkill = noone;
-        drag = false;
+        if (drag)
+        {
+            drag = false;
+        }
     }
 }
-
-#define StandWorkshopSkillDragDraw
-
-draw_self();
-draw_sprite_ext(icon, 0, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
-
-
+else
+{
+    hover = false;
+}
 
 

@@ -1,6 +1,10 @@
 
 global.enemyDioSpawned = false;
 
+#define is_enemy(_ins)
+
+return _ins.object_index == MOBJ and _ins.type == "Enemy";
+
 #define EnemyDioCreate(_x, _y)
 
 jj_play_audio(global.sndDioSpawn, 1, false);

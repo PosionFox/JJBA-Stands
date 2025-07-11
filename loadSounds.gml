@@ -18,6 +18,7 @@ global.sndMenuClick = audio_create_stream(p + "menu_click.ogg");
 
 p = "Resources/Sounds/Generic/";
 global.sndEnergyOrb = audio_create_stream(p + "energy_orb.ogg");
+global.sndCritHit = audio_create_stream(p + "crit_hit.ogg");
 
 #endregion
 
@@ -190,6 +191,8 @@ global.sndTwSummon = audio_create_stream(p + "twSummon.ogg");
 global.sndTwTs = audio_create_stream(p + "twTs.ogg");
 global.sndStopSign = audio_create_stream(p + "stopSign.ogg");
 global.sndTwBarrage = audio_create_stream(p + "twBarrage.ogg");
+global.sndTwWindup = audio_create_stream(p + "tw_windup.ogg");
+global.sndTwDonut = audio_create_stream(p + "tw_donut.ogg");
 
 // ova
 p = "Resources/Sounds/TW/OVA/";

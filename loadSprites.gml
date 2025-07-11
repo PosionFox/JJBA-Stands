@@ -192,6 +192,7 @@ global.sprStopSign = sprite_add(p + "StopSign.png", 1, false, false, 1, 16);
 
 // skills
 global.sprSkillJosephKnife = sprite_add(p + "SkillJosephKnife.png", 1, false, false, 16, 16);
+global.sprSkillDonutPunch = sprite_add(p + "SkillDonutPunch.png", 1, false, false, 16, 16);
 global.sprSkillStopSign = sprite_add(p + "SkillStopSign.png", 1, false, false, 16, 16);
 global.sprSkillTripleKnifeThrow = sprite_add(p + "SkillTripleKnifeThrow.png", 1, false, false, 16, 16);
 
