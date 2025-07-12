@@ -508,7 +508,8 @@ if (experience >= experienceNext)
 
 if (active or image_alpha > 0)
 {
-    draw_sprite_ext(sprShadow, 0, x, y + 2, min(1, abs(image_xscale / (height * 0.2))), min(1, abs(image_yscale / (height * 0.2))), 0, c_white, image_alpha * 0.5);
+    var _sf = clamp(1 / (1 + (height * 0.04)), 0.2, 1);
+    draw_sprite_ext(sprShadow, 0, x, y + 2, image_xscale * _sf, image_yscale * _sf, 0, c_white, image_alpha * 0.5);
 }
 draw_sprite_ext(sprite_index, image_index, x, y - height, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
 

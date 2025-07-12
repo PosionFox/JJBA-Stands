@@ -197,25 +197,24 @@ attackStateTimer += DT * GetStandSpeed(self);
 
 #define LifeSoul(_, _args, _target) //attack properties
 
-var _p;
-with (owner)
+if (instance_exists(_target) and is_enemy(_target))
 {
-    _p = ProjectileCreate(other.x, other.y);
-}
-with (_p)
-{
-    target = noone
-    if (enemy_instance_exists())
+    var _p;
+    with (owner)
+    {
+        _p = ProjectileCreate(other.x, other.y);
+    }
+    with (_p)
     {
         target = _target;
         sprite_index = target.sprite_index;
         image_speed = 0;
+        damage = 2 + (player.level * 0.1) + player.dmg;
+        destroyOnImpact = false;
+        direction = _args;
+        
+        InstanceAssignMethod(self, "step", ScriptWrap(LifeSoulStep), true);
     }
-    damage = 2 + (objPlayer.level * 0.1) + objPlayer.dmg;
-    destroyOnImpact = false;
-    direction = _args;
-    
-    InstanceAssignMethod(self, "step", ScriptWrap(LifeSoulStep), true);
 }
 
 #define LifeSoulStep

@@ -53,6 +53,8 @@ scaleX = 1;
 scaleY = 1;
 scaleXSpd = 0.1;
 scaleYSpd = 0.1;
+height_speed = 0.2;
+height_target = 0;
 
 attackStateTimer = 0;
 FireCD(skill);
@@ -90,11 +92,48 @@ var _final_damage = _damage * (powerMultiplier * GetStandDestructivePower(self))
 
 return _final_damage;
 
-#define GetSkillVars(skill, _name)
+#define SetSkillVar(_skill, _name, _value)
 
-var _vars = variable_instance_get(skills[skill, StandSkill.Vars], _name, undefined);
-if (altAttack) _vars = variable_instance_get(skills[skill, StandSkill.VarsAlt], _name, undefined);
+var _var_type = StandSkill.Vars;
+if (altAttack) _var_type = StandSkill.VarsAlt;
+if (skills[_skill, _var_type] == undefined) skills[_skill, _var_type] = {};
+variable_instance_set(skills[_skill, _var_type], _name, _value);
+
+#define GetSkillVars(_skill, _name)
+
+var _var_type = StandSkill.Vars;
+if (altAttack) _var_type = StandSkill.VarsAlt;
+var _vars = variable_instance_get(skills[_skill, _var_type], _name, undefined);
 return _vars;
+
+#define AttackCollisionDetect
+
+if (col_cd <= 0)
+{
+    for (var i = array_length(targets) - 1; i >= 0; i--)
+    {
+        var obj = targets[i];
+        var _hits = ds_list_create();
+        collision_circle_list(x, y, col_size, obj, false, true, _hits, false);
+        
+        var _hlen = ds_list_size(_hits);
+        for (var j = _hlen - 1; j >= 0; j--)
+        {
+            var hit = _hits[| j];
+            if (hit != noone)
+            {
+                var valid = (obj == MOBJ) ? ("targetableFlag" in hit) : (hit.scale != 0);
+                if (valid)
+                {
+                    ProjHitTarget(hit);
+                }
+            }
+        }
+        ds_list_destroy(_hits);
+    }
+    col_cd = col_cd_max;
+}
+col_cd -= DT;
 
 #define ProjHitTarget(_target)
 
@@ -176,6 +215,7 @@ var _o = ModObjectSpawn(_x, _y, 0);
 with (_o)
 {
     sprite_index = global.sprBullet;
+    show_projectile = true;
     mask_index = global.sprHitbox16x16;
     col_size = 8;
     col_cd_max = 0.05;
@@ -194,6 +234,7 @@ with (_o)
     despawnTime = 5;
     baseSpd = 5;
     velocity = baseSpd;
+    lerping_speed = 1;
     baseDamage = 0;
     damage = baseDamage;
     destroyOnImpact = true;
@@ -258,54 +299,29 @@ if (instance_exists(self))
         {
             velocity = baseSpd;
             image_speed = baseAnimSpd;
-            x += lengthdir_x(velocity, direction);
-            y += lengthdir_y(velocity, direction);
+            x = lerp(x, x + lengthdir_x(velocity, direction), lerping_speed);
+            y = lerp(y, y + lengthdir_y(velocity, direction), lerping_speed);
         }
         else if (global.timeIsFrozen and canMoveInTs)
         {
             velocity = baseSpd;
             image_speed = baseAnimSpd;
-            x += lengthdir_x(velocity, direction);
-            y += lengthdir_y(velocity, direction);
+            x = lerp(x, x + lengthdir_x(velocity, direction), lerping_speed);
+            y = lerp(y, y + lengthdir_y(velocity, direction), lerping_speed);
         }
         else if (global.timeIsFrozen and !canMoveInTs)
         {
             velocity = lerp(velocity, 0, 0.15);
             image_speed = lerp(image_speed, 0, 0.1);
-            x += lengthdir_x(velocity, direction);
-            y += lengthdir_y(velocity, direction);
+            x = lerp(x, x + lengthdir_x(velocity, direction), lerping_speed);
+            y = lerp(y, y + lengthdir_y(velocity, direction), lerping_speed);
         }
     }
     
     try
     {
         // collision detection v3
-        if (col_cd <= 0)
-        {
-            for (var i = array_length(targets) - 1; i >= 0; i--)
-            {
-                var obj = targets[i];
-                var _hits = ds_list_create();
-                collision_circle_list(x, y, col_size, obj, false, true, _hits, false);
-                
-                var _hlen = ds_list_size(_hits);
-                for (var j = _hlen - 1; j >= 0; j--)
-                {
-                    var hit = _hits[| j];
-                    if (hit != noone)
-                    {
-                        var valid = (obj == MOBJ) ? ("targetableFlag" in hit) : (hit.scale != 0);
-                        if (valid)
-                        {
-                            ProjHitTarget(hit);
-                        }
-                    }
-                }
-                ds_list_destroy(_hits);
-            }
-            col_cd = col_cd_max;
-        }
-        col_cd -= DT;
+        AttackCollisionDetect();
         
         // collision detection v2
         // for (var i = array_length(targets) - 1; i >= 0; i--)
@@ -377,17 +393,20 @@ if (global.jjSettProjShadows and shadow_enabled)
     );
 }
 
-draw_sprite_ext(
-    sprite_index,
-    image_index,
-    x,
-    y - z,
-    image_xscale * scale,
-    image_yscale * scale,
-    image_angle,
-    image_blend,
-    image_alpha
-);
+if (show_projectile)
+{
+    draw_sprite_ext(
+        sprite_index,
+        image_index,
+        x,
+        y - z,
+        image_xscale * scale,
+        image_yscale * scale,
+        image_angle,
+        image_blend,
+        image_alpha
+    );
+}
 
 if (global.jjSettProjCollisions)
 {
@@ -966,7 +985,7 @@ with (_o)
     
     xoffset = _xoffset;
     yoffset = _yoffset;
-    life = 100;
+    life = 300;
     
     target = noone;
     grab = false;
@@ -974,6 +993,7 @@ with (_o)
     InstanceAssignMethod(self, "step", ScriptWrap(GrabStep));
     InstanceAssignMethod(self, "destroy", ScriptWrap(GrabDestroy));
 }
+return _o;
 
 #define GrabStep
 

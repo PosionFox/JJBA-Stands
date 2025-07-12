@@ -236,7 +236,8 @@ switch (attackState)
             {
                 x = _n.x;
                 y = _n.y;
-                jj_play_audio(global.sndKcGrowl, 5, false);
+                var _s = GetSkillVars(s, "windup_sound");
+                if (_s != undefined) jj_play_audio(_s, 5, false);
                 attackState++;
             }
             else
@@ -259,12 +260,14 @@ switch (attackState)
         else
         {
             armChopShow = false;
+            if (GetSkillVars(s, "windup_sound") != undefined) audio_stop_sound(GetSkillVars(s, "windup_sound"));
             ResetAtk(s);
         }
         if (distance_to_object(owner) > (armChopRange * GetStandRange(self)))
         {
             armChopShow = false;
-            ResetAtk(s);
+            if (GetSkillVars(s, "windup_sound") != undefined) audio_stop_sound(GetSkillVars(s, "windup_sound"));
+            EndAtk(s);
         }
         xTo = _t.x - 8;
         yTo = _t.y - 8;
@@ -507,6 +510,7 @@ _skills[sk, StandSkill.DamageAlt] = 15;
 _skills[sk, StandSkill.DamageScaleAlt] = 0.15;
 _skills[sk, StandSkill.IconAlt] = global.sprSkillHeavyChop;
 _skills[sk, StandSkill.MaxCooldownAlt] = 15;
+_skills[sk, StandSkill.VarsAlt] = { windup_sound : global.sndKcGrowl };
 _skills[sk, StandSkill.Desc] = tr("chopDesc");
 
 sk = StandState.SkillC;

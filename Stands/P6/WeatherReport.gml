@@ -48,6 +48,138 @@ switch (attackState)
 }
 attackStateTimer += DT;
 
+#define Tornado(_, s)
+
+var _dir = owner.attack_direction;
+image_xscale = sign(dcos(_dir));
+
+switch (attackState)
+{
+    case 0:
+        jj_play_audio(global.sndHeavyWeather, 0, false);
+        height_speed = 0.01;
+        height_target = 64;
+        angleTarget = 25;
+        attackState++;
+    break;
+    case 1:
+        if (attackStateTimer >= 1.5)
+        {
+            height_speed = 0.1;
+            height_target = 256;
+            angleTarget = -25;
+            attackState++;
+        }
+    break;
+    case 2:
+        if (attackStateTimer >= 1.8) attackState++;
+    break;
+    case 3:
+        var _t = TornadoCreate(x, y);
+        _t.damage = GetDmg(s);
+        _t.direction = _dir;
+        attackState++;
+    break;
+    case 4:
+        height_target = 0;
+        if (attackStateTimer >= 2.5) EndAtk(s);
+    break;
+}
+attackStateTimer += DT;
+
+#define TornadoCreate(_x, _y)
+
+var _o = ProjectileCreate(_x, _y);
+with (_o)
+{
+    despawnTime = 30;
+    baseSpd = 8;
+    destroyOnImpact = false;
+    show_projectile = false;
+    col_size = 64;
+    col_cd_max = 1;
+    multihit = true;
+    lerping_speed = 0.1;
+    
+    rot = 0;
+    start_anim = 0;
+    
+    debris = array_create(16, undefined);
+    for (var i = 0; i < array_length(debris); i++)
+    {
+        debris[i] = {
+            distance : irandom(32) + 32
+        }
+    }
+    
+    segments = 8;
+    segments_x = array_create(segments, x);
+    segments_y = array_create(segments, y);
+    
+    move_time = 2;
+    
+    tornado_sound = jj_play_audio(global.sndTornado, 5, true);
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(TornadoStep));
+    InstanceAssignMethod(self, "draw", ScriptWrap(TornadoDraw), false);
+    InstanceAssignMethod(self, "destroy", ScriptWrap(TornadoDestroy));
+}
+return _o;
+
+#define TornadoStep
+
+start_anim = lerp(start_anim, 1, 0.1);
+
+if (move_time <= 0)
+{
+    if (instance_exists(owner))
+    {
+        xTo = owner.x + irandom_range(-64, 64);
+        yTo = owner.y + irandom_range(-64, 64);
+        direction = point_direction(x, y, xTo, yTo);
+    }
+    else
+    {
+        xTo += irandom_range(-64, 64);
+        yTo += irandom_range(-64, 64);
+        direction = point_direction(x, y, xTo, yTo);
+    }
+    move_time = 2;
+}
+move_time -= DT;
+
+rot += DT * 2;
+
+if (instance_exists(owner) and audio_is_playing(tornado_sound))
+{
+    var _dis = clamp(1 - (distance_to_object(owner) / 128), 0, 1);
+    audio_sound_gain(tornado_sound, _dis * global.jjSettAudioVolume, 0);
+}
+
+#define TornadoDraw
+
+var _dlen = array_length(debris);
+for (var i = 0; i < _dlen; i++)
+{
+    var _xx = x + lengthdir_x(debris[i].distance, rot * (i * i + 32));
+    var _yy = y + lengthdir_y(debris[i].distance, rot * (i * i + 32));
+    draw_sprite(global.sprStandParticle2, 0, _xx, _yy);
+}
+
+for (var i = 0; i < segments; i++)
+{
+    segments_x[i] = lerp(segments_x[i], x, 0.1 / (1 + i));
+    segments_y[i] = lerp(segments_y[i], y, 0.1 / (1 + i));
+    draw_sprite_ext(global.sprTornado, i, segments_x[i], (segments_y[i] - (12 * i)) * start_anim, 1 * i, 1 * i, rot * (i * i + 32), c_white, image_alpha * start_anim);
+}
+
+#define TornadoDestroy
+
+if (audio_is_playing(tornado_sound))
+{
+    audio_stop_sound(tornado_sound);
+}
+
 #define GiveWeatherReport(_owner)
 
 var _skills = StandSkillInit();
@@ -70,8 +202,8 @@ _skills[sk, StandSkill.MaxExecutionTime] = 5;
 _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 
 sk = StandState.SkillC;
-_skills[sk, StandSkill.Skill] = AttackHandler;
-_skills[sk, StandSkill.Damage] = 3;
+_skills[sk, StandSkill.Skill] = Tornado;
+_skills[sk, StandSkill.Damage] = 1;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.Icon] = global.sprSkillStarFinger;
 

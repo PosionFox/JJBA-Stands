@@ -102,16 +102,25 @@ var _dir = point_direction(x, y, mouse_x, mouse_y);
 
 xTo = owner.x + lengthdir_x(GetStandReach(self), _dir);
 yTo = owner.y + lengthdir_y(GetStandReach(self), _dir);
+image_xscale = -sign(dcos(_dir + 180));
 
 switch (attackState)
 {
     case 0:
-        if (attackStateTimer >= 0.3)
+        var _sp = GetSkillVars(s, "pistol_sprite");
+        if (_sp != undefined)
         {
-            attackState++;
+            var _p = ModObjectSpawn(x, y, depth - 1);
+            _p.sprite_index = _sp;
+            _p.image_blend = c_dkgray;
+            SetSkillVar(s, "pistol", _p);
         }
+        attackState++;
     break;
     case 1:
+        if (attackStateTimer >= 0.3) attackState++;
+    break;
+    case 2:
         if (attackStateTimer >= 0.5)
         {
             jj_play_audio(global.sndGunShot, 0, false);
@@ -119,7 +128,7 @@ switch (attackState)
             attackState++;
         }
     break;
-    case 2:
+    case 3:
         if (attackStateTimer >= 0.7)
         {
             jj_play_audio(global.sndGunShot, 0, false);
@@ -127,20 +136,35 @@ switch (attackState)
             attackState++;
         }
     break;
-    case 3:
+    case 4:
         if (attackStateTimer >= 0.9)
         {
+            var _p = GetSkillVars(s, "pistol");
+            if (instance_exists(_p)) instance_destroy(_p);
             jj_play_audio(global.sndGunShot, 0, false);
             var _b = BulletCreate(x, y, _dir, GetDmg(s));
             var _p = EffectGeParticleCreate(x, y, c_dkgray);
             _p.sprite_index = global.sprGun;
             _p.bouncy = 0.8;
             _p.image_angle = random(360);
-            EndAtk(s);
+            attackState++;
         }
+    break;
+    case 5:
+        if (attackStateTimer >= 1) EndAtk(s);
     break;
 }
 attackStateTimer += DT * GetStandSpeed(self);
+
+var _p = GetSkillVars(s, "pistol");
+if (instance_exists(_p))
+{
+    _p.x = x + lengthdir_x(6, _dir);
+    _p.y = y + lengthdir_y(6, _dir);
+    _p.depth = depth - 1;
+    _p.image_yscale = -sign(dcos(_dir + 180));
+    _p.image_angle = _dir;
+}
 
 #define AcidicSpit(m, s)
 
@@ -400,6 +424,7 @@ _skills[sk, StandSkill.Damage] = 5;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
 _skills[sk, StandSkill.MaxCooldown] = 5;
+_skills[sk, StandSkill.Vars] = { pistol_sprite : global.sprGun };
 _skills[sk, StandSkill.Desc] = tr("quickDisposalDesc");
 
 sk = StandState.SkillC;

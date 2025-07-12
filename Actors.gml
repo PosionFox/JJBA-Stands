@@ -116,7 +116,7 @@ depth = -y;
 
 #define ActorDraw
 
-draw_sprite_ext(sprShadow, 0, x, y + 3, image_xscale, image_yscale, 0, c_white, 0.5);
+draw_sprite_ext(sprShadow, 0, x, y + 2, image_xscale, image_yscale, 0, c_white, 0.5);
 draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
 //draw_rectangle_color(bbox_left, bbox_top, bbox_right, bbox_bottom, c_red, c_red, c_red, c_red, true);
 
@@ -128,8 +128,7 @@ with (_o)
 {
     subtype = "SHA";
     sprite_index = global.sprSHA;
-    image_xscale = 0.5;
-    image_yscale = 0.5;
+    image_speed = 0;
     damage = _dmg;
     range = 32;
     rangeMult = 1;
@@ -174,7 +173,8 @@ switch (state)
             var _dir = point_direction(x, y, objPlayer.x, objPlayer.y);
             var _dis = distance_to_point(objPlayer.x, objPlayer.y);
             
-            image_xscale = sign(dcos(_dir)) * 0.5;
+            var _fd = round(_dir / 90);
+            image_index = _fd;
             velocity = lerp(velocity, maxSpd, 0.1);
             mp_potential_step_object(player.x, player.y, velocity, parSolid);
             
@@ -205,7 +205,8 @@ switch (state)
             
             if (_dis > 8)
             {
-                image_xscale = sign(dcos(_dir)) * 0.5;
+                var _fd = round(_dir / 90);
+                image_index = _fd;
                 velocity = lerp(velocity, maxSpd, 0.1);
                 mp_potential_step_object(_near.x, _near.y, velocity, parSolid);
             }
@@ -277,13 +278,14 @@ switch (state)
             image_yscale = 0.1;
             FireEffect(c_white, c_fuchsia);
             canCollide = false;
-            var _dir = point_direction(x, y, objPlayer.myStand.x, objPlayer.myStand.y);
+            var _dir = point_direction(x, y, objPlayer.x, objPlayer.y);
             x += lengthdir_x(5, _dir);
             y += lengthdir_y(5, _dir);
             
-            if (place_meeting(x, y, objPlayer.myStand))
+            if (place_meeting(x, y, objPlayer))
             {
                 instance_destroy(self);
+                exit;
             }
         }
     break;

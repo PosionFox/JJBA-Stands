@@ -3,7 +3,7 @@ global.enemyDioSpawned = false;
 
 #define is_enemy(_ins)
 
-return _ins.object_index == MOBJ and _ins.type == "Enemy";
+return object_is_ancestor(_ins.object_index, ENEMY) or _ins.object_index == MOBJ and _ins.type == "Enemy";
 
 #define EnemyDioCreate(_x, _y)
 

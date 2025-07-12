@@ -292,7 +292,7 @@ global.sprKillerQueen = sprite_add(p + "KillerQueen.png", 1, false, false, 16, 1
 global.sprCoin = sprite_add(p + "Coin.png", 1, false, false, 16, 16);
 global.sprKqPunch = sprite_add(p + "KillerQueenPunch.png", 1, false, false, 16, 16);
 global.sprBombEffect = sprite_add(p + "BombEffect.png", 1, false, false, 16, 16);
-global.sprSHA = sprite_add(p + "SHA.png", 1, false, false, 16, 16);
+global.sprSHA = sprite_add(p + "SHA.png", 4, false, false, 8, 9);
 
 // skills
 global.sprSkillBarrageKq = sprite_add(p + "SkillBarrageKq.png", 1, false, false, 16, 16);
@@ -321,7 +321,7 @@ global.sprSkillBtD = sprite_add(p + "SkillBtD.png", 1, false, false, 16, 16);
 p = "Resources/Sprites/GE/";
 global.sprGoldExperience = sprite_add(p + "GoldExperience.png", 1, false, false, 16, 19);
 global.sprGeFrog = sprite_add(p + "GeFrog.png", 1, false, false, 16, 16);
-global.sprGeScorpion = sprite_add(p + "GeScorpion.png", 2, false, false, 16, 16);
+global.sprGeScorpion = sprite_add(p + "GeScorpion.png", 2, false, false, 8, 7);
 
 // skills
 global.sprSkillLifeFormPlant = sprite_add(p + "SkillLifeFormPlant.png", 1, false, false, 16, 16);
@@ -574,5 +574,6 @@ global.sprPrisonerMoving = sprite_add(p + "prisoner_moving.png", 4, false, false
 
 p = "Resources/Sprites/WR/";
 global.sprWeatherReport = sprite_add(p + "weather_report.png", 1, false, false, 16, 19);
+global.sprTornado = sprite_add(p + "tornado.png", 1, false, false, 8, 8);
 
 #endregion

@@ -78,30 +78,28 @@ if (instance_exists(_target))
 switch (attackState)
 {
     case 0:
-        GrabCreate(0, 0);
+        SetSkillVar(s, "grab", GrabCreate(0, 0));
         attackState++;
     break;
     case 1:
-        xTo = player.x + lengthdir_x(GetStandReach(self) * 4, DIR_PLAYER_TO_MOUSE);
-        yTo = player.y + lengthdir_y(GetStandReach(self) * 4, DIR_PLAYER_TO_MOUSE);
-        if (attackStateTimer > 0.8)
+        xTo = player.x + lengthdir_x(GetStandReach(self) * (attackStateTimer * 16), DIR_PLAYER_TO_MOUSE);
+        yTo = player.y + lengthdir_y(GetStandReach(self) * (attackStateTimer * 16), DIR_PLAYER_TO_MOUSE);
+        if (instance_exists(GetSkillVars(s, "grab").target)) 
         {
+            jj_play_audio(global.sndPunchHit, 0, false);
             attackState++;
         }
+        if (attackStateTimer > 0.75) attackState = 3;
     break;
     case 2:
-        xTo = player.x + lengthdir_x(GetStandReach(self) * 4, DIR_PLAYER_TO_MOUSE);
-        yTo = player.y + lengthdir_y(GetStandReach(self) * 4, DIR_PLAYER_TO_MOUSE);
-        if (attackStateTimer > 1)
-        {
-            attackState++;
-        }
+        xTo = player.x + lengthdir_x(GetStandReach(self) * 2, DIR_PLAYER_TO_MOUSE);
+        yTo = player.y + lengthdir_y(GetStandReach(self) * 2, DIR_PLAYER_TO_MOUSE);
+        if (attackStateTimer > 0.75) attackState++;
     break;
     case 3:
-        var _o = modTypeFind("grab");
-        if (instance_exists(_o))
+        if (instance_exists(GetSkillVars(s, "grab")))
         {
-            instance_destroy(_o);
+            instance_destroy(GetSkillVars(s, "grab"));
         }
         EndAtk(s);
     break;

@@ -181,6 +181,7 @@ switch (attackState)
         var _p = PunchSwingCreate(x, y, _dir, 45, GetDmg(s));
         with (_p)
         {
+            destroyOnImpact = true;
             onHitEvent = DonutSE;
             crit_change = 0.1;
             RollCrit();
@@ -240,7 +241,7 @@ with (_se)
 
 if (instance_exists(target))
 {
-    if (object_is_ancestor(target.object_index, ENEMY) or is_enemy(target))
+    if (is_enemy(target))
     {
         hole_x = target.bbox_left + (target.bbox_right - target.bbox_left) * 0.5;
         hole_y = target.bbox_top + (target.bbox_bottom - target.bbox_top) * 0.5;

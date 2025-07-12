@@ -393,6 +393,7 @@ global.sndTa4Summon = audio_create_stream(p + "ta4Summon.ogg");
 p = "Resources/Sounds/WR/";
 global.sndSummonWR = audio_create_stream(p + "summon_wr.ogg");
 global.sndHeavyWeather = audio_create_stream(p + "heavy_weather.ogg");
+global.sndTornado = audio_create_stream(p + "tornado.ogg");
 
 #endregion
 

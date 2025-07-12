@@ -25,6 +25,56 @@ if (instance_exists(STAND) or room != rmGame)
 }
 GiveSilverChariot(player);
 
+#define ScStabBarrage(_, s)
+
+xTo = owner.x + lengthdir_x(GetStandReach(self), owner.attack_direction + random_range(-4, 4));
+yTo = owner.y + lengthdir_y(GetStandReach(self), owner.attack_direction + random_range(-4, 4));
+var _px = owner.x + lengthdir_x(GetStandReach(self) + 32, owner.attack_direction);
+var _py = owner.y + lengthdir_y(GetStandReach(self) + 32, owner.attack_direction);
+image_xscale = mouse_x > owner.x ? 1 : -1;
+
+switch (attackState)
+{
+    case 0:
+        if barrageData.sound != noone jj_play_audio(barrageData.sound, 10, false);
+        attackState++;
+    break;
+    case 1:
+        if (distance_to_point(xTo, yTo) < 2)
+        {
+            if (attackStateTimer >= (0.08 / (GetStandSpeed(self) * (1 + (isFtl * 2)))))
+            {
+                var _snd = jj_play_audio(global.sndPunchAir, 0, false);
+                audio_sound_pitch(_snd, random_range(0.9, 1.1));
+                var xx = x + random_range(-8, 8);
+                var yy = y + random_range(-12, 12);
+                var _p = PunchCreate(xx, yy, 0, GetDmg(s), 0.1);
+                with (_p)
+                {
+                    sprite_index = global.sprScAttack;
+                    direction = point_direction(x, y, _px, _py);
+                    if other.barrageData.hitSound != noone onHitSound = other.barrageData.hitSound;
+                    if other.barrageData.hitEvent != noone onHitEvent = other.barrageData.hitEvent;
+                    if other.barrageData.hitEventArgs != noone onHitEventArg = other.barrageData.hitEventArgs;
+                }
+                attackStateTimer = 0;
+            }
+            skills[s, StandSkill.ExecutionTime] += DT;
+        }
+        
+        if (keyboard_check_pressed(ord(skills[s, StandSkill.Key])))
+        {
+            if barrageData.sound != noone audio_stop_sound(barrageData.sound);
+            EndAtk(s);
+        }
+        if (skills[s, StandSkill.ExecutionTime] >= skills[s, StandSkill.MaxExecutionTime])
+        {
+            if barrageData.sound != noone audio_stop_sound(barrageData.sound);
+        }
+    break;
+}
+attackStateTimer += DT;
+
 #define ScLunge(m, s)
 
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
@@ -125,7 +175,7 @@ var _skills = StandSkillInit();
 
 var sk;
 sk = StandState.SkillA;
-_skills[sk, StandSkill.Skill] = StandBarrage;
+_skills[sk, StandSkill.Skill] = ScStabBarrage;
 _skills[sk, StandSkill.Damage] = 1;
 _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillScBarrage;

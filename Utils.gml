@@ -277,7 +277,7 @@ else if instance_exists(MOBJ)
 {
     with (MOBJ)
     {
-        if bool("type" in self and type == "Enemy")
+        if (bool("type" in self) and type == "Enemy")
         {
             return true;
         }
