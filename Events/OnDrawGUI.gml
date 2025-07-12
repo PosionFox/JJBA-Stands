@@ -122,7 +122,7 @@ switch (global.jjMenuSubCurrent)
         }
     break;
     case "changelog":
-        draw_text_color(_cx, _ry1 + 64, "changelog", c_white, c_white, c_yellow, c_yellow, 1);
+        draw_text_color(_cx, _ry1 + 64, "changelog (online)", c_white, c_white, c_yellow, c_yellow, 1);
         
         var _bb = draw_button_square(_rx1, _ry1, 128, 32, "back");
         if (_bb)
@@ -141,10 +141,9 @@ switch (global.jjMenuSubCurrent)
             surface_set_target(global.jjsModChangelogSurf);
             draw_clear_alpha(c_white, 0);
             draw_text_ext(522, 40 - global.jjsModChangelogScroll, _txt, 24, 896);
-            
             surface_reset_target();
             draw_surface(global.jjsModChangelogSurf, _rx1, _ry1 + 72);
-            var _vsc = draw_vscroll(_rx2 - 28, _ry1 + 28, 457, 32, string_height(_txt), global.jjsModChangelogScroll);
+            var _vsc = draw_vscroll(_rx2 - 28, _ry1 + 28, 457, 32, string_height(_txt) * 1.1, global.jjsModChangelogScroll);
             if (_vsc != undefined)
             {
                 global.jjsModChangelogScroll = _vsc;

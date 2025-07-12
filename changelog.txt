@@ -20,6 +20,7 @@ Some abilities got updated:
 Other changes:
 -Added new setting for displaying empty runes or not
 -Added sound when scoring a critical hit
+-Added ingame changelog
 
 
 10/7/2025
