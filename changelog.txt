@@ -1,32 +1,30 @@
-testttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt
-wow
+12/7/2025
 
-wow
+Some abilities got updated:
+-Added a bit of end lag to some abilities
+-Ability backgrounds now change colors too
+-Ability backgrounds now get highlighted when they are being used
+-Basic barrages and strong punches are no longer mute
+-Changed The World's strong punch to a new move (donut punch)
+-Changed the animations of Shadow The World's XXI and Punishment
+-Updated Sheer Heart Attack's sprite
+-Updated Gold Experience's scorpion sprite
+-Gold Experience's life punch no longer affects resources
+-Updated Silver Chariot's stab barrage
+-Made WhiteSnake actually hold the gun now
+-Melee pull is now more reliable
+-Love Train rays now change colors too
+-Fixed Love Train rays not getting cleaned up properly
+-Fixed King Crimson's heavy chop refunding its cooldown when you leave the area
+
+Other changes:
+-Added new setting for displaying empty runes or not
+-Added sound when scoring a critical hit
 
 
-wow
+10/7/2025
 
-
-
-wow
-asd
-asd
-asd
-asd
-asd
-asd
-asd
-asd
-asd
-asd
-asd
-asd
-asd
-asd
-asd
-asd
-asd
-asd
-asd
-asd
-asd
+There has been a major change to Stand storage and Stand saving, previously owned Stands should be unaffected besides the "undefined" text in storage which can be fixed by just re-storing the Stand.
+Also once again attack collisions and localization system were changed.
+Improved the settings menu and added a controls section to remap keybinds
+Reduced S&W's screws and nuts ability damage to 8 from 15.
