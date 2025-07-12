@@ -36,13 +36,19 @@ Christmas();
 #define get_steam_mod_version
 
 var params = "itemcount=1&publishedfileids[0]=2597172322";
-global.jjHTTPPost = http_post_string("https://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/v1/", params);
+global.jjsSteamVersionHTTP = http_post_string("https://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/v1/", params);
+
+#define get_mod_changelog
+
+global.jjsModChangelogHTTP = http_get("https://raw.githubusercontent.com/PosionFox/JJBA-Stands/v0.7.0/changelog.txt");
 
 #define Main
 
 global.jjVersion = "0.7.0";
-global.jjHTTPPost = undefined;
+global.jjsSteamVersionHTTP = undefined;
+global.jjsModChangelogHTTP = undefined;
 global.jjSteamVersion = undefined;
+global.jjsModChangelog = undefined;
 global.jjsStandStorageVersion = 2;
 global.jjStandSlots = array_create(512, undefined); // stand storage
 global.timeIsFrozen = false;    // unused
@@ -110,5 +116,5 @@ loadCommands();
 LoadOtherMods();
 
 get_steam_mod_version();
-
+get_mod_changelog();
 

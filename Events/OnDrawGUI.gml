@@ -83,32 +83,63 @@ var _ry1 = _cy - 256;
 var _rx2 = _cx + 512;
 var _ry2 = _cy + 256;
 
-var _bc = draw_button_square(_rx1, _ry1, 128, 32, "close");
-if (_bc)
-{
-    global.jjShowMenu = false;
-}
+
 
 var _mtxt = "mod menu";
 draw_text(_cx, _ry1 + string_height(_mtxt), _mtxt);
 
-var _mbtns = ["info", "stats", "storage", "runes", "variants", "evolutions", "settings"]
-var _mlen = array_length(_mbtns);
 
-for (var i = 0; i < _mlen; i++)
+switch (global.jjMenuSubCurrent)
 {
-    var _b = draw_button_square(_cx - 128, _cy - 208 + (64 * i), 256, 32, _mbtns[i]);
-    if (_b)
-    {
-        global.jjMenuCurrent = _mbtns[i];
-        global.jjMenuHover = undefined;
-    }
+    case "default":
+        var _bc = draw_button_square(_rx1, _ry1, 128, 32, "close");
+        if (_bc)
+        {
+            global.jjShowMenu = false;
+        }
+        
+        var _mbtns = ["info", "stats", "storage", "runes", "variants", "evolutions", "settings"]
+        var _mlen = array_length(_mbtns);
+        
+        for (var i = 0; i < _mlen; i++)
+        {
+            var _b = draw_button_square(_cx - 128, _cy - 208 + (64 * i), 256, 32, _mbtns[i]);
+            if (_b)
+            {
+                global.jjMenuCurrent = _mbtns[i];
+                global.jjMenuHover = undefined;
+            }
+        }
+        
+        var _mv = "jjba stands v" + string(global.jjVersion);
+        draw_text(_rx1 + 8 + string_width(_mv) / 2, _ry2, _mv);
+        var _sv = "steam date version " + string(global.jjSteamVersion) + " (dmy)";
+        var _bx = _rx2 + 8 - string_width(_sv) / 2;
+        var _by = _ry2;
+        draw_text(_bx, _by, _sv);
+        
+        var _bc = draw_button_square(_rx2 - 128, _ry1, 128, 32, "changelog");
+        if (_bc)
+        {
+            global.jjMenuSubCurrent = "changelog";
+        }
+    break;
+    case "changelog":
+        var _title = "changelog";
+        draw_text_color(_cx, _ry1 + string_height(_title), _title, c_white, c_white, c_yellow, c_yellow, 1);
+        
+        var _bb = draw_button_square(_rx1, _ry1, 128, 32, "back");
+        if (_bb)
+        {
+            global.jjMenuSubCurrent = "default";
+        }
+        
+        if (global.jjsModChangelog != undefined)
+        {
+            draw_text(_cx, _cy, string(global.jjsModChangelog));
+        }
+    break;
 }
-
-var _mv = "jjba stands v" + string(global.jjVersion);
-var _sv = "steam date version " + string(global.jjSteamVersion) + " (dmy)";
-draw_text(_rx1 + 8 + string_width(_mv) / 2, _ry2, _mv);
-draw_text(_rx2 + 8 - string_width(_sv) / 2, _ry2, _sv);
 
 #define menu_info_draw(_cx, _cy)
 

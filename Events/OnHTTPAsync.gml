@@ -5,9 +5,9 @@ var _id = _async_load[? "id"];
 var _status = _async_load[? "status"];
 var _result = _async_load[? "result"];
 
-if (_id == global.jjHTTPPost)
+if (_status == 0)
 {
-    if (_status == 0)
+    if (_id == global.jjsSteamVersionHTTP)
     {
         var _data = string_split(_result, ",");
         var _unix = 0;
@@ -19,5 +19,9 @@ if (_id == global.jjHTTPPost)
             }
         }
         global.jjSteamVersion = unix_to_iso8601(_unix);
+    }
+    if (_id == global.jjsModChangelogHTTP)
+    {
+        global.jjsModChangelog = _result;
     }
 }
