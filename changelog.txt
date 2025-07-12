@@ -16,6 +16,7 @@ Some abilities got updated:
 -Love Train rays now change colors too
 -Fixed Love Train rays not getting cleaned up properly
 -Fixed King Crimson's heavy chop refunding its cooldown when you leave the area
+-Fixed error when exiting the game skills menu
 
 Other changes:
 -Added new setting for displaying empty runes or not

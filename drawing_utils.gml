@@ -217,7 +217,7 @@ else
 
 var _color1 = c_black;
 var _color2 = c_gray;
-if (instance_exists(STAND))
+if (bool("myStand" in player) and instance_exists(STAND))
 {
     _color1 = STAND.color;
     _color2 = STAND.colorAlt;
