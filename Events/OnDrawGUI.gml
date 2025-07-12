@@ -83,11 +83,8 @@ var _ry1 = _cy - 256;
 var _rx2 = _cx + 512;
 var _ry2 = _cy + 256;
 
-
-
 var _mtxt = "mod menu";
-draw_text(_cx, _ry1 + string_height(_mtxt), _mtxt);
-
+draw_text_color(_cx, _ry1 + string_height(_mtxt), _mtxt, c_white, c_white, c_ltgray, c_ltgray, 1);
 
 switch (global.jjMenuSubCurrent)
 {
@@ -135,16 +132,22 @@ switch (global.jjMenuSubCurrent)
         
         if (!surface_exists(global.jjsModChangelogSurf))
         {
-            global.jjsModChangelogSurf = surface_create(768, 512);
+            global.jjsModChangelogSurf = surface_create(992, 512);
         }
         if (global.jjsModChangelog != undefined)
         {
-            var _txt = string(global.jjsModChangelog);
+            var _txt = global.jjsModChangelog;
+            draw_set_valign(fa_top);
             surface_set_target(global.jjsModChangelogSurf);
-            draw_text(32, 32, _txt);
+            draw_clear_alpha(c_white, 0);
+            draw_text(520, 40 - global.jjsModChangelogScroll, _txt);
             surface_reset_target();
-            draw_surface(global.jjsModChangelogSurf, _rx1, _ry1 + 32);
-            draw_vscroll(_rx2, _ry1, 512, 32, string_height(_txt), global.jjsModChangelogSurf);
+            draw_surface(global.jjsModChangelogSurf, _rx1, _ry1 + 72);
+            var _vsc = draw_vscroll(_rx2 - 28, _ry1 + 28, 457, 32, string_height(_txt), global.jjsModChangelogScroll);
+            if (_vsc != undefined)
+            {
+                global.jjsModChangelogScroll = _vsc;
+            }
         }
         if (surface_exists(global.jjsModChangelogSurf))
         {
@@ -164,6 +167,7 @@ var _bb = draw_button_square(_rx1, _ry1, 128, 32, "back");
 if (_bb)
 {
     global.jjMenuCurrent = "main";
+    global.jjMenuSubCurrent = "default";
 }
 
 var _title = tr("mm_info_welcome");

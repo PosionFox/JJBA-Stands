@@ -641,6 +641,16 @@ if (!_hover and !mouse_check_button(mb_left))
     }
 }
 
+if (mouse_wheel_up())
+{
+    _var -= 8;
+}
+if (mouse_wheel_down())
+{
+    _var += 8;
+}
+_var = clamp(_var, 0, _max_var);
+
 var _handle_pos = (_var / _max_var) * _h;
 
 draw_rectangle_color(_x, _y - _center, _x + _thick, _y + _h + _center, _btn_color, _btn_color, _btn_color, _btn_color, false);
