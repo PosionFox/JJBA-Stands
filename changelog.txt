@@ -24,7 +24,117 @@ Other changes:
 
 10/7/2025
 
-There has been a major change to Stand storage and Stand saving, previously owned Stands should be unaffected besides the "undefined" text in storage which can be fixed by just re-storing the Stand.
-Also once again attack collisions and localization system were changed.
-Improved the settings menu and added a controls section to remap keybinds
-Reduced S&W's screws and nuts ability damage to 8 from 15.
+-There has been a major change to Stand storage and Stand saving, previously owned Stands should be unaffected besides the "undefined" text in storage which can be fixed by just re-storing the Stand.
+-Also once again attack collisions and localization system were changed.
+-Improved the settings menu and added a controls section to remap keybinds
+-Reduced S&W's screws and nuts ability damage to 8 from 15.
+
+
+9/7/2025
+
+Changes to Stand XP:
+-Changed XP formula
+-Added new XP bar effects
+-Added text effects when gaining XP
+-Reduced the amount of XP from resources
+-Added new XP related settings
+-Changed jjMaxExp command to jjsGrantXP
+
+Other changes:
+-Updated Rokakaka tree sprite
+-Changed attacks' hitbox again
+-Reduced Epitaph's base duration to 5 from 10
+-Changed Timestop and Love Train duration calculations with Stand total power to be more consistent
+
+
+8/7/2025
+
+Rune System has been reworked:
+-Runes are no longer items
+-Runes can now be stored through the mod menu
+-Added Rune Bundle (gives you runes)
+-DIO now drops a Rune bundle instead of runes
+-Pucci may now reward you with rune bundles
+-Added new rune
+
+Other changes:
+-Reimplemented localization system, you may lose some items but the world no longer crashes when switching languages
+-Added 3 new rarities and renamed ascended to celestial
+-Changed rarities' colors
+-Added new holy parts (not functional yet)
+-Reduced DIO's hp to 6000 from 8000
+-Reduced Prisoner's hp to 120 from 500
+-Updated DIO's coffin and Shards table sprites
+-Cooldowns will now round unless if less than 1
+
+
+7/7/2025
+
+-Added Stand talk setting
+-Fixed stats not randomizing properly
+
+
+6/7/2025
+
+The mod menu has been overhauled, here are some key changes:
+-Menu colors now change with your current Stand
+-Added Info section for teaching new players
+-Added Variants section which allows you to see different variants of your current Stand
+-Added Evolutions section which allows you to view the available evolution options of your current Stand
+-Added Settings section, Stand volume setting was moved here
+-Added Stats section, relevant stat info was moved here
+-Added Storage section, storage UI was moved here
+-Improved Storage drawing performance
+-Empty storages now display nothing instead of "empty"
+
+Other changes:
+-Changed collision for actors and attacks
+-Stands now get XP from destroying resources
+-Stand XP bar got minor changes
+-Stand power multiplier is no longer exponential
+-Stands get more stats points depending on their power multiplier now
+-Reduced value of Blank Disks to 1 (you can no longer become rich with whitesnake)
+-Holy parts and requiem arrows now use proper rarity weight values
+-Increased TWAU panic timestop base duration to 10 from 8
+-Game now makes an HTTP request to get the latest mod version on steam
+-Fixed SPOH and TWOH not displaying their alt color properly
+-Fixed Star Platinum Star Finger not working properly (finally)
+-Fixed HTTP split crash (oops)
+
+
+5/7/2025
+
+Changes to the Rune system and Energize:
+-Rune remover is now unobtainable as it is no longer needed
+-Runes can now be removed by clicking them on the UI
+-Changed Energize Runes scaling, common runes now grant 200 max energy and each tier adds 50
+-Energy regeneration scales up to 8 times overtime and resets to 1 upon using an ability
+
+Changes to Energy orbs:
+-Reduced spawn chance to 20% from 50%
+-Added pick up sound
+-Despawns after one minute
+-Doubled detection range
+-Now 5% of max energy is also restored when picked up
+-Added a simple animation
+-Fixed error when checking for player Stand
+
+Other changes:
+-Moved Green Baby to spirit forges
+-Fixed stationary attacks error
+
+
+1/7/2025
+
+-Updated Rokakaka description
+-Camera now takes into account other possible evolutions
+-Added new Sticky Fingers mythic skin (P03)
+-Stand names are now colored as well
+-Reduced the value of Rokakaka and stew
+-Fixed enemies throwing errors when trying to yield XP to standless
+-Fixed Shadow Queen crashing when stored
+-Fixed DIO dropping candy even if it wasnt xmas
+-Fixed KC slam attack dealing too little damage
+
+
+Check steam mod page for older changelogs

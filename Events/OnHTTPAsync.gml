@@ -22,6 +22,6 @@ if (_status == 0)
     }
     if (_id == global.jjsModChangelogHTTP)
     {
-        global.jjsModChangelog = string(_result);
+        global.jjsModChangelog = string_lower(string(_result));
     }
 }

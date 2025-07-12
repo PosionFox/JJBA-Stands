@@ -140,7 +140,8 @@ switch (global.jjMenuSubCurrent)
             draw_set_valign(fa_top);
             surface_set_target(global.jjsModChangelogSurf);
             draw_clear_alpha(c_white, 0);
-            draw_text(522, 40 - global.jjsModChangelogScroll, _txt);
+            draw_text_ext(522, 40 - global.jjsModChangelogScroll, _txt, 24, 896);
+            
             surface_reset_target();
             draw_surface(global.jjsModChangelogSurf, _rx1, _ry1 + 72);
             var _vsc = draw_vscroll(_rx2 - 28, _ry1 + 28, 457, 32, string_height(_txt), global.jjsModChangelogScroll);
