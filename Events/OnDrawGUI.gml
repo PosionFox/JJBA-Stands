@@ -125,8 +125,7 @@ switch (global.jjMenuSubCurrent)
         }
     break;
     case "changelog":
-        var _title = "changelog";
-        draw_text_color(_cx, _ry1 + string_height(_title), _title, c_white, c_white, c_yellow, c_yellow, 1);
+        draw_text_color(_cx, _ry1 + 64, "changelog", c_white, c_white, c_yellow, c_yellow, 1);
         
         var _bb = draw_button_square(_rx1, _ry1, 128, 32, "back");
         if (_bb)
@@ -134,9 +133,22 @@ switch (global.jjMenuSubCurrent)
             global.jjMenuSubCurrent = "default";
         }
         
+        if (!surface_exists(global.jjsModChangelogSurf))
+        {
+            global.jjsModChangelogSurf = surface_create(768, 512);
+        }
         if (global.jjsModChangelog != undefined)
         {
-            draw_text(_cx, _cy, string(global.jjsModChangelog));
+            var _txt = string(global.jjsModChangelog);
+            surface_set_target(global.jjsModChangelogSurf);
+            draw_text(32, 32, _txt);
+            surface_reset_target();
+            draw_surface(global.jjsModChangelogSurf, _rx1, _ry1 + 32);
+            draw_vscroll(_rx2, _ry1, 512, 32, string_height(_txt), global.jjsModChangelogSurf);
+        }
+        if (surface_exists(global.jjsModChangelogSurf))
+        {
+            surface_free(global.jjsModChangelogSurf);
         }
     break;
 }
