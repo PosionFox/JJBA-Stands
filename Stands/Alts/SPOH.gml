@@ -33,6 +33,7 @@ with (_s)
     sprite_index = global.sprSPOH;
     color = c_white;
     colorAlt = c_yellow;
+    scarf_color = 0x36f2fb;
     UpdateRarity(Rarity.Celestial);
     saveKey = "jjbamSpoh";
     discType = global.jjbamDiscSpoh;

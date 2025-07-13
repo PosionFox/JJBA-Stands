@@ -33,6 +33,7 @@ with (_s)
     sprite_index = global.sprSPG;
     color = c_gray;
     colorAlt = c_ltgray;
+    scarf_color = c_dkgray;
     UpdateRarity(Rarity.Uncommon);
     saveKey = "jjbamSpg";
     discType = global.jjbamDiscSpg;

@@ -36,6 +36,7 @@ with (_s)
     UpdateRarity(Rarity.Epic);
     saveKey = "jjbamSpp";
     discType = global.jjbamDiscSpp;
+    ik_scarf = ik_create(8, 2);
     
     skills[StandState.SkillD, StandSkill.SkillAlt] = AttackHandler;
 }

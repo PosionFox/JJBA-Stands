@@ -94,7 +94,7 @@ switch (attackState)
 {
     case 0:
         var _ss = GetSkillVars(skill, "star_sound");
-        if (_ss) jj_play_audio(_ss, 5, false);
+        if (_ss != undefined) jj_play_audio(_ss, 5, false);
         attackState++;
     break;
     case 1:
@@ -105,7 +105,7 @@ switch (attackState)
     break;
     case 2:
         var _fs = GetSkillVars(skill, "finger_sound");
-        if (_fs) jj_play_audio(_fs, 5, false);
+        if (_fs != undefined) jj_play_audio(_fs, 5, false);
         var _dmg = GetDmg(skill);
         var _p = ProjectileCreate(x, y);
         with (_p)
@@ -279,6 +279,7 @@ with (_s)
     barrageData.sound = global.sndSpBarrage;
     knifeSprite = global.sprKnife;
     
+    
     variants[0] = [sprite_index, rarity.tier];
     variants[1] = [global.sprSPG, Rarity.Uncommon];
     variants[2] = [global.sprSPP, Rarity.Epic];
@@ -291,5 +292,28 @@ with (_s)
     evolutions[1] = [global.sprTimeEmperor, "lv100", Rarity.Epic];
     evolutions[2] = [global.sprEP, "lv100", Rarity.Ultimate];
     evolutions[3] = [global.sprSptw, global.sprJotarosHat, Rarity.Common];
+    
+    scarf_sprite = global.sprScarf;
+    scarf_color = 0x3232ac;
+    target_x = x;
+    target_y = y;
+    ik_scarf = ik_create(5, 2);
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(StarPlatinumStep), false);
+    pre_draw = ScriptWrap(StarPlatinumPreDraw);
 }
 return _s;
+
+#define StarPlatinumStep
+
+target_x = lerp(target_x, x - (16 * image_xscale), 0.1);
+target_y = lerp(target_y, y + 8 + (sin(current_time / 1000) * 4), 0.1);
+
+inverse_kinematics(ik_scarf, x - (3 * scaleX), y - height - 2, target_x, target_y);
+
+#define StarPlatinumPreDraw
+
+if (alphaTarget > 0)
+{
+    draw_ik(ik_scarf, scarf_sprite, scarf_color);
+}

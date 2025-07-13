@@ -811,7 +811,7 @@ switch (attackState)
 {
     case 0:
         var _sc = GetSkillVars(skill, "cry_sound");
-        if (_sc) jj_play_audio(_sc, 0, false);
+        if (_sc != undefined) jj_play_audio(_sc, 0, false);
         attackState++;
     break;
     case 1:
@@ -830,7 +830,7 @@ switch (attackState)
             crit_change = 0.2;
             RollCrit();
             onHitSound = global.sndStrongPunch;
-            if (_hs) onHitSound = _hs;
+            if (_hs != undefined) onHitSound = _hs;
         }
         attackState++;
     break;

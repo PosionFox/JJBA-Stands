@@ -170,17 +170,25 @@ with (_s)
 {
     name = "Star Platinum\nThe World";
     sprite_index = global.sprSptw;
-    color = 0xff9b63;
-    colorAlt = c_aqua;
+    color = 0xe16e5b;
+    colorAlt = 0xba7bd7;
     summonSound = global.sndSpSummon;
     saveKey = "jjbamSptw";
     discType = global.jjbamDiscSptw;
     
     knifeSprite = global.sprKnife;
     barrageData.sound = global.sndSpBarrage;
+    scarf_sprite = global.sprScarf;
+    scarf_color = 0xffffff;
+    target_x = x;
+    target_y = y;
+    ik_scarf = ik_create(5, 2);
     
     variants[0] = [sprite_index, rarity.tier];
     variants[1] = [global.sprTimeEmperor, Rarity.Epic];
     variants[2] = [global.sprEP, Rarity.Ultimate];
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(StarPlatinumStep), false);
+    pre_draw = ScriptWrap(StarPlatinumPreDraw);
 }
 return _s;

@@ -1,3 +1,9 @@
+13/7/2025
+
+-Added colored scarfs for Star Platinum, Star Platinum The World and their variants
+-Fixed rarity color display from the star above the stand's abilities UI
+
+
 12/7/2025
 
 Some abilities got updated:
@@ -16,13 +22,13 @@ Some abilities got updated:
 -Love Train rays now change colors too
 -Fixed Love Train rays not getting cleaned up properly
 -Fixed King Crimson's heavy chop refunding its cooldown when you leave the area
--Fixed error when exiting the game skills menu
--Fixed empty mod menu when exiting settings menu
 
 Other changes:
 -Added new setting for displaying empty runes or not
 -Added sound when scoring a critical hit
 -Added ingame changelog
+-Fixed error when exiting the game skills menu
+-Fixed empty mod menu when exiting settings menu
 
 
 10/7/2025

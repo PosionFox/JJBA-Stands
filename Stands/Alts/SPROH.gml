@@ -34,6 +34,7 @@ with (_s)
     sprite_index = global.sprSPROH;
     color = c_orange;
     colorAlt = 0x342022;
+    scarf_color = c_orange;
     UpdateRarity(Rarity.Ultimate);
     saveKey = "jjbamSproh";
     discType = global.jjbamDiscSproh;

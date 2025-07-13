@@ -46,8 +46,10 @@ with (_s)
     summonSound = global.sndSpovaSummon;
     
     barrageData.sound = global.sndSpovaBarrage;
+    scarf_color = 0xb7ad9b;
     
     skills[StandState.SkillB, StandSkill.Vars] = { cry_sound : global.sndSpovaStrongPunch };
+    skills[StandState.SkillC, StandSkill.Vars] = { star_sound : undefined };
     skills[StandState.SkillD, StandSkill.Skill] = SpovaTimestop;
     skills[StandState.SkillD, StandSkill.SkillAlt] = AttackHandler;
     

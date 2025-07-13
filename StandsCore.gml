@@ -40,7 +40,7 @@ var _tx = xx;
 var _ty = yy - 64;
 var _ss = random_range(0.85, 1.15);
 var _spr = global.sprStarTier;
-var _c = rarity.color;
+var _c = GetRarityColor(rarity.tier);
 
 draw_sprite_ext(_spr, 0, _tx - 4, _ty, _ss, _ss, 0, _c, 0.8);
 
@@ -506,12 +506,22 @@ if (experience >= experienceNext)
 
 #define StandDefaultDraw
 
+if (pre_draw != undefined)
+{
+    ScriptCall(pre_draw);
+}
+
 if (active or image_alpha > 0)
 {
     var _sf = clamp(1 / (1 + (height * 0.04)), 0.2, 1);
     draw_sprite_ext(sprShadow, 0, x, y + 2, image_xscale * _sf, image_yscale * _sf, 0, c_white, image_alpha * 0.5);
 }
 draw_sprite_ext(sprite_index, image_index, x, y - height, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
+
+if (post_draw != undefined)
+{
+    ScriptCall(post_draw);
+}
 
 #define StandSkillInit()
 
@@ -714,7 +724,9 @@ with (_stand)
     trait_give_random(self);
     
     InstanceAssignMethod(self, "step", ScriptWrap(StandDefaultStep), false);
+    pre_draw = undefined;
     InstanceAssignMethod(self, "draw", ScriptWrap(StandDefaultDraw), false);
+    post_draw = undefined;
     InstanceAssignMethod(self, "drawGUI", ScriptWrap(StandSkillDrawGUI), false);
     _owner.myStand = self;
 }

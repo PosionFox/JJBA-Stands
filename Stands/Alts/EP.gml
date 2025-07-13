@@ -63,7 +63,9 @@ with (_s)
 {
     name = "Estrella Platinada";
     sprite_index = global.sprEP;
-    color = 0x6e9437;
+    color = 0x50e599;
+    colorAlt = 0xba7bd7;
+    scarf_color = 0xe16e5b;
     UpdateRarity(Rarity.Ultimate);
     saveKey = "jjbamEp";
     discType = global.jjbamDiscEP;

@@ -228,6 +228,7 @@ global.sprSkillKnifeBarrage = sprite_add(p + "SkillKnifeBarrage.png", 1, false, 
 
 p = "Resources/Sprites/SP/";
 global.sprStarPlatinum = sprite_add(p + "StarPlatinum.png", 1, false, false, 16, 19);
+global.sprScarf = sprite_add(p + "scarf.png", 1, false, false, 0, 0);
 global.sprSPG = sprite_add(p + "SPGray.png", 1, false, false, 16, 19);
 global.sprSPP = sprite_add(p + "StarPlatinumPrime.png", 1, false, false, 16, 19);
 global.sprStarPlatinumPunch = sprite_add(p + "StarPlatinumPunch.png", 1, false, false, 16, 16);

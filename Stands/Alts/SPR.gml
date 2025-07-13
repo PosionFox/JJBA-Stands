@@ -68,6 +68,7 @@ with (_s)
     UpdateRarity(Rarity.Mythical);
     saveKey = "jjbamSpr";
     discType = global.jjbamDiscSpr;
+    scarf_color = 0x36f2fb;
     
     summonSound = global.sndSprSummon;
     soundWhenHurt = [global.sndSprHurt1, global.sndSprHurt2, global.sndSprHurt3];
