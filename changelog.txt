@@ -17,6 +17,7 @@ Some abilities got updated:
 -Fixed Love Train rays not getting cleaned up properly
 -Fixed King Crimson's heavy chop refunding its cooldown when you leave the area
 -Fixed error when exiting the game skills menu
+-Fixed empty mod menu when exiting settings menu
 
 Other changes:
 -Added new setting for displaying empty runes or not

@@ -687,6 +687,7 @@ if (_bb)
 {
     global.jjsMenuWaitingInput = undefined;
     global.jjMenuCurrent = "main";
+    global.jjMenuSubCurrent = "default";
 }
 
 switch (global.jjMenuSubCurrent)
