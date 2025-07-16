@@ -526,11 +526,13 @@ with (o)
     sprite_index = global.sprStandParticle;
     image_blend = _c;
     z = 0;
-    zGrav = 4;
-    bouncy = 0.9;
-    zSpdMax = random_range(10, 15);
-    zSpd = zSpdMax;
+    zGrav = 0.5;
+    bouncy = 0.8;
+    rotate = false;
+    //zSpdMax = random_range(10, 15);
+    zSpd = irandom_range(3, 7);
     speed = random(2);
+    fric = 0.9;
     direction = random(360);
     life = 5;
     
@@ -547,16 +549,19 @@ if (life <= 0)
     exit;
 }
 life -= DT;
+
+depth = -y;
 image_alpha = min(life, 1);
 
-speed *= 0.98;
-z += zSpd - zGrav;
-zSpd *= bouncy;
+zSpd -= zGrav;
+z += zSpd;
 
 if (z <= 0)
 {
-    zSpdMax *= bouncy;
-    zSpd = zSpdMax;
+    //zSpdMax *= bouncy;
+    //zSpd = zSpdMax;
+    zSpd *= -bouncy;
+    speed *= fric;
     if (WaterCollision(x, y))
     {
         instance_destroy(self);
@@ -579,6 +584,7 @@ draw_sprite_ext(
     image_alpha * 0.5
 );
 
+var _rot = image_angle + ((current_time / 100000 * z) * real(rotate));
 draw_sprite_ext(
     sprite_index,
     image_index,
@@ -586,7 +592,7 @@ draw_sprite_ext(
     y - z,
     image_xscale,
     image_yscale,
-    image_angle,
+    _rot,
     image_blend,
     image_alpha
 );

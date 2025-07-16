@@ -11,13 +11,13 @@ global.jjsCommonShard = ItemCreate(
     4,
     0,
     0,
-    undefined,
+    [Item.Poop, 128],
     ScriptWrap(EventHandler),
     60 * 1,
     true
 );
-ItemEdit(global.jjsCommonShard, ItemData.Name, tr("shardName") + " (" + tr("commonName") + ")");
-ItemEdit(global.jjsCommonShard, ItemData.Description, tr("shardDescription"));
+ItemEdit(global.jjsCommonShard, ItemData.Name, tr("common_shard_name"));
+ItemEdit(global.jjsCommonShard, ItemData.Description, tr("common_shard_desc"));
 
 global.jjsUncommonShard = ItemCreate(
     undefined,
@@ -29,13 +29,13 @@ global.jjsUncommonShard = ItemCreate(
     8,
     0,
     0,
-    undefined,
+    [global.jjsCommonShard, 64],
     ScriptWrap(EventHandler),
     60 * 1,
     true
 );
-ItemEdit(global.jjsUncommonShard, ItemData.Name, tr("shardName") + " (" + tr("uncommonName") + ")");
-ItemEdit(global.jjsUncommonShard, ItemData.Description, tr("shardDescription"));
+ItemEdit(global.jjsUncommonShard, ItemData.Name, tr("uncommon_shard_name"));
+ItemEdit(global.jjsUncommonShard, ItemData.Description, tr("uncommon_shard_desc"));
 
 global.jjsRareShard = ItemCreate(
     undefined,
@@ -47,13 +47,13 @@ global.jjsRareShard = ItemCreate(
     16,
     0,
     0,
-    undefined,
+    [global.jjsUncommonShard, 32],
     ScriptWrap(EventHandler),
     60 * 1,
     true
 );
-ItemEdit(global.jjsRareShard, ItemData.Name, tr("shardName") + " (" + tr("rareName") + ")");
-ItemEdit(global.jjsRareShard, ItemData.Description, tr("shardDescription"));
+ItemEdit(global.jjsRareShard, ItemData.Name, tr("rare_shard_name"));
+ItemEdit(global.jjsRareShard, ItemData.Description, tr("rare_shard_desc"));
 
 global.jjsEpicShard = ItemCreate(
     undefined,
@@ -65,13 +65,13 @@ global.jjsEpicShard = ItemCreate(
     32,
     0,
     0,
-    undefined,
+    [global.jjsRareShard, 16],
     ScriptWrap(EventHandler),
     60 * 1,
     true
 );
-ItemEdit(global.jjsEpicShard, ItemData.Name, tr("shardName") + " (" + tr("epicName") + ")");
-ItemEdit(global.jjsEpicShard, ItemData.Description, tr("shardDescription"));
+ItemEdit(global.jjsEpicShard, ItemData.Name, tr("epic_shard_name"));
+ItemEdit(global.jjsEpicShard, ItemData.Description, tr("epic_shard_desc"));
 
 global.jjsLegendaryShard = ItemCreate(
     undefined,
@@ -83,13 +83,13 @@ global.jjsLegendaryShard = ItemCreate(
     64,
     0,
     0,
-    undefined,
+    [global.jjsEpicShard, 8],
     ScriptWrap(EventHandler),
     60 * 1,
     true
 );
-ItemEdit(global.jjsLegendaryShard, ItemData.Name, tr("shardName") + " (" + tr("legendaryName") + ")");
-ItemEdit(global.jjsLegendaryShard, ItemData.Description, tr("shardDescription"));
+ItemEdit(global.jjsLegendaryShard, ItemData.Name, tr("legendary_shard_name"));
+ItemEdit(global.jjsLegendaryShard, ItemData.Description, tr("legendary_shard_desc"));
 
 global.jjsMythicalShard = ItemCreate(
     undefined,
@@ -101,13 +101,13 @@ global.jjsMythicalShard = ItemCreate(
     128,
     0,
     0,
-    undefined,
+    [global.jjsLegendaryShard, 4],
     ScriptWrap(EventHandler),
     60 * 1,
     true
 );
-ItemEdit(global.jjsMythicalShard, ItemData.Name, tr("shardName") + " (" + tr("mythicalName") + ")");
-ItemEdit(global.jjsMythicalShard, ItemData.Description, tr("shardDescription"));
+ItemEdit(global.jjsMythicalShard, ItemData.Name, tr("mythical_shard_name"));
+ItemEdit(global.jjsMythicalShard, ItemData.Description, tr("mythical_shard_desc"));
 
 global.jjsCelestialShard = ItemCreate(
     undefined,
@@ -119,13 +119,13 @@ global.jjsCelestialShard = ItemCreate(
     256,
     0,
     0,
-    undefined,
+    [global.jjsMythicalShard, 3],
     ScriptWrap(EventHandler),
     60 * 1,
     true
 );
-ItemEdit(global.jjsCelestialShard, ItemData.Name, tr("shardName") + " (" + tr("celestialName") + ")");
-ItemEdit(global.jjsCelestialShard, ItemData.Description, tr("shardDescription"));
+ItemEdit(global.jjsCelestialShard, ItemData.Name, tr("celestial_shard_name"));
+ItemEdit(global.jjsCelestialShard, ItemData.Description, tr("celestial_shard_desc"));
 
 global.jjsUltimateShard = ItemCreate(
     undefined,
@@ -137,13 +137,36 @@ global.jjsUltimateShard = ItemCreate(
     512,
     0,
     0,
-    undefined,
+    [global.jjsCelestialShard, 2],
     ScriptWrap(EventHandler),
     60 * 1,
     true
 );
-ItemEdit(global.jjsUltimateShard, ItemData.Name, tr("shardName") + " (" + tr("ultimateName") + ")");
-ItemEdit(global.jjsUltimateShard, ItemData.Description, tr("shardDescription"));
+ItemEdit(global.jjsUltimateShard, ItemData.Name, tr("ultimate_shard_name"));
+ItemEdit(global.jjsUltimateShard, ItemData.Description, tr("ultimate_shard_desc"));
+
+global.jjsBizarreMass = ItemCreate(
+    undefined,
+    "jjsBizarreMass",
+    "",
+    global.sprBizarreMass,
+    ItemType.Material,
+    ItemSubType.None,
+    1024,
+    0,
+    0,
+    [
+        global.jjsLegendaryShard, 8,
+        global.jjsMythicalShard, 4,
+        global.jjsCelestialShard, 2,
+        global.jjsUltimateShard, 1
+    ],
+    ScriptWrap(EventHandler),
+    60 * 1,
+    true
+);
+ItemEdit(global.jjsBizarreMass, ItemData.Name, tr("bizarre_mass_name"));
+ItemEdit(global.jjsBizarreMass, ItemData.Description, tr("bizarre_mass_desc"));
 
 #endregion
 
@@ -167,8 +190,8 @@ global.jjsCommonConcentratedArrow = ItemCreate(
     60 * 1,
     true
 );
-ItemEdit(global.jjsCommonConcentratedArrow, ItemData.Name, tr("concentratedArrowName") + " (" + tr("commonName") + ")");
-ItemEdit(global.jjsCommonConcentratedArrow, ItemData.Description, tr("concentratedArrowDescription"));
+ItemEdit(global.jjsCommonConcentratedArrow, ItemData.Name, tr("common_arrow_name"));
+ItemEdit(global.jjsCommonConcentratedArrow, ItemData.Description, tr("common_arrow_desc"));
 
 global.jjsUncommonConcentratedArrow = ItemCreate(
     undefined,
@@ -188,8 +211,8 @@ global.jjsUncommonConcentratedArrow = ItemCreate(
     60 * 1,
     true
 );
-ItemEdit(global.jjsUncommonConcentratedArrow, ItemData.Name, tr("concentratedArrowName") + " (" + tr("uncommonName") + ")");
-ItemEdit(global.jjsUncommonConcentratedArrow, ItemData.Description, tr("concentratedArrowDescription"));
+ItemEdit(global.jjsUncommonConcentratedArrow, ItemData.Name, tr("uncommon_arrow_name"));
+ItemEdit(global.jjsUncommonConcentratedArrow, ItemData.Description, tr("uncommon_arrow_desc"));
 
 global.jjsRareConcentratedArrow = ItemCreate(
     undefined,
@@ -209,8 +232,8 @@ global.jjsRareConcentratedArrow = ItemCreate(
     60 * 1,
     true
 );
-ItemEdit(global.jjsRareConcentratedArrow, ItemData.Name, tr("concentratedArrowName") + " (" + tr("rareName") + ")");
-ItemEdit(global.jjsRareConcentratedArrow, ItemData.Description, tr("concentratedArrowDescription"));
+ItemEdit(global.jjsRareConcentratedArrow, ItemData.Name, tr("rare_arrow_name"));
+ItemEdit(global.jjsRareConcentratedArrow, ItemData.Description, tr("rare_arrow_desc"));
 
 global.jjsEpicConcentratedArrow = ItemCreate(
     undefined,
@@ -230,8 +253,8 @@ global.jjsEpicConcentratedArrow = ItemCreate(
     60 * 1,
     true
 );
-ItemEdit(global.jjsEpicConcentratedArrow, ItemData.Name, tr("concentratedArrowName") + " (" + tr("epicName") + ")");
-ItemEdit(global.jjsEpicConcentratedArrow, ItemData.Description, tr("concentratedArrowDescription"));
+ItemEdit(global.jjsEpicConcentratedArrow, ItemData.Name, tr("epic_arrow_name"));
+ItemEdit(global.jjsEpicConcentratedArrow, ItemData.Description, tr("epic_arrow_desc"));
 
 global.jjsLegendaryConcentratedArrow = ItemCreate(
     undefined,
@@ -251,8 +274,8 @@ global.jjsLegendaryConcentratedArrow = ItemCreate(
     60 * 1,
     true
 );
-ItemEdit(global.jjsLegendaryConcentratedArrow, ItemData.Name, tr("concentratedArrowName") + " (" + tr("legendaryName") + ")");
-ItemEdit(global.jjsLegendaryConcentratedArrow, ItemData.Description, tr("concentratedArrowDescription"));
+ItemEdit(global.jjsLegendaryConcentratedArrow, ItemData.Name, tr("legendary_arrow_name"));
+ItemEdit(global.jjsLegendaryConcentratedArrow, ItemData.Description, tr("legendary_arrow_desc"));
 
 global.jjsMythicalConcentratedArrow = ItemCreate(
     undefined,
@@ -272,8 +295,8 @@ global.jjsMythicalConcentratedArrow = ItemCreate(
     60 * 1,
     true
 );
-ItemEdit(global.jjsMythicalConcentratedArrow, ItemData.Name, tr("concentratedArrowName") + " (" + tr("mythicalName") + ")");
-ItemEdit(global.jjsMythicalConcentratedArrow, ItemData.Description, tr("concentratedArrowDescription"));
+ItemEdit(global.jjsMythicalConcentratedArrow, ItemData.Name, tr("mythical_arrow_name"));
+ItemEdit(global.jjsMythicalConcentratedArrow, ItemData.Description, tr("mythical_arrow_desc"));
 
 global.jjsCelestialConcentratedArrow = ItemCreate(
     undefined,
@@ -293,8 +316,8 @@ global.jjsCelestialConcentratedArrow = ItemCreate(
     60 * 1,
     true
 );
-ItemEdit(global.jjsCelestialConcentratedArrow, ItemData.Name, tr("concentratedArrowName") + " (" + tr("celestialName") + ")");
-ItemEdit(global.jjsCelestialConcentratedArrow, ItemData.Description, tr("concentratedArrowDescription"));
+ItemEdit(global.jjsCelestialConcentratedArrow, ItemData.Name, tr("celestial_arrow_name"));
+ItemEdit(global.jjsCelestialConcentratedArrow, ItemData.Description, tr("celestial_arrow_desc"));
 
 global.jjsUltimateConcentratedArrow = ItemCreate(
     undefined,
@@ -314,8 +337,29 @@ global.jjsUltimateConcentratedArrow = ItemCreate(
     60 * 1,
     true
 );
-ItemEdit(global.jjsUltimateConcentratedArrow, ItemData.Name, tr("concentratedArrowName") + " (" + tr("ultimateName") + ")");
-ItemEdit(global.jjsUltimateConcentratedArrow, ItemData.Description, tr("concentratedArrowDescription"));
+ItemEdit(global.jjsUltimateConcentratedArrow, ItemData.Name, tr("ultimate_arrow_name"));
+ItemEdit(global.jjsUltimateConcentratedArrow, ItemData.Description, tr("ultimate_arrow_desc"));
+
+global.jjsBizarreArrow = ItemCreate(
+    undefined,
+    "jjsBizarreArrow",
+    "",
+    global.sprBizarreArrow,
+    ItemType.Consumable,
+    ItemSubType.None,
+    128 * 9,
+    0,
+    0,
+    [
+        global.jjsEternalArrow, 1,
+        global.jjsBizarreMass, 1
+    ],
+    ScriptWrap(GrantUltimateAbility),
+    60 * 1,
+    true
+);
+ItemEdit(global.jjsBizarreArrow, ItemData.Name, tr("bizarre_arrow_name"));
+ItemEdit(global.jjsBizarreArrow, ItemData.Description, tr("bizarre_arrow_desc"));
 
 #endregion
 
@@ -477,4 +521,27 @@ if (!instance_exists(STAND))
 else
 {
     GainItem(global.jjsUltimateConcentratedArrow);
+}
+
+#define GrantBizarreAbility
+
+GainItem(global.jjsBizarreArrow);
+exit;
+
+if (room != rmGame)
+{
+    GainItem(global.jjsBizarreArrow);
+    exit;
+}
+
+if (!instance_exists(STAND))
+{
+    DmgPlayer(1, false);
+    var _abilities = get_all_from_weight(global.arrow_ability_pool, global.bizarre_rarity_weight);
+    var _c = irandom(array_length(_abilities) - 1);
+    script_execute(_abilities[_c], player);
+}
+else
+{
+    GainItem(global.jjsBizarreArrow);
 }

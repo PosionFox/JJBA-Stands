@@ -716,7 +716,8 @@ global.arrow_ability_pool =
     [GiveOrangeSnake, global.celestial_rarity_weight],
     // ultimate
     [GiveSPROH, global.ultimate_rarity_weight],
-    [GivePinkSnake, global.ultimate_rarity_weight]
+    [GivePinkSnake, global.ultimate_rarity_weight],
+    [GiveWsu, global.ultimate_rarity_weight]
     // bizarre
 ];
 

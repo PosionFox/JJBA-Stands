@@ -313,11 +313,11 @@ if (instance_exists(STAND))
     draw_text_color(_sx, _sy - 48, string_lower(string(STAND.name)), STAND.color, STAND.colorAlt, STAND.color, STAND.colorAlt, 1);
     
     var _stats = [
-        ["destructive power", STAND.destructive_power, "destructive_power", c_orange],
-        ["speed", STAND.spd, "spd", c_red],
-        ["range", STAND.range, "range", c_aqua],
-        ["stamina", STAND.stamina, "stamina", c_lime],
-        ["precision", STAND.precision, "precision", c_fuchsia]
+        ["destructive power", STAND.destructive_power, "destructive_power", c_orange, STAND.mod_destructive_power],
+        ["speed", STAND.spd, "spd", c_red, STAND.mod_spd],
+        ["range", STAND.range, "range", c_aqua, STAND.mod_range],
+        ["stamina", STAND.stamina, "stamina", c_lime, STAND.mod_stamina],
+        ["precision", STAND.precision, "precision", c_fuchsia, STAND.mod_precision]
     ]
     
     for (var i = 0; i < array_length(_stats); i++)
@@ -335,7 +335,9 @@ if (instance_exists(STAND))
         if (_stp < 1) _quality = "d";
         if (_stp < 0.75) _quality = "e";
         if (_stp < 0.55) _quality = "f";
-        draw_text_color(_sx, _sy + (48 * i) + 12, string(_stats[i][0]) + ": " + string(round(_stats[i][1] * 100)) + "% (" + string(_quality) + ")", _stats[i][3], _stats[i][3], c_white, c_white, 1);
+        var _txt = string(_stats[i][0]) + ": " + string(round(_stats[i][1] * 100)) + "% (" + string(_quality) + ")";
+        if (_stats[i][4] > 0) _txt += " +" + string(round(_stats[i][4] * 100)) + "% buff";
+        draw_text_color(_sx, _sy + (48 * i) + 12, _txt, _stats[i][3], _stats[i][3], c_white, c_white, 1);
         draw_rectangle_color(_sx - 56, _sy + (48 * i) + 24, _sx + 56, _sy + (48 * i) + 24 + 16, c_white, c_white, _stats[i][3], _stats[i][3], false);
         
         if (draw_button_circle(_sx - 48, _sy + (48 * i) + 34, 10, "--", true))

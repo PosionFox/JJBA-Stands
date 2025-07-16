@@ -193,7 +193,7 @@ _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.MaxExecutionTime] = 1;
 _skills[sk, StandSkill.SkillAlt] = GroundSlam;
 _skills[sk, StandSkill.DamageAlt] = 30;
-_skills[sk, StandSkill.IconAlt] = global.sprSkillDetonate;
+_skills[sk, StandSkill.IconAlt] = global.sprSkillGroundSlam;
 _skills[sk, StandSkill.MaxCooldownAlt] = 12;
 
 sk = StandState.SkillC;

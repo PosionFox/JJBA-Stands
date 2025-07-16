@@ -104,7 +104,7 @@ with (_o)
     rot = 0;
     start_anim = 0;
     
-    debris = array_create(16, undefined);
+    debris = array_create(24, undefined);
     for (var i = 0; i < array_length(debris); i++)
     {
         debris[i] = {
@@ -179,6 +179,26 @@ if (audio_is_playing(tornado_sound))
 {
     audio_stop_sound(tornado_sound);
 }
+
+#define FrogRain(_, s)
+
+
+
+#define LightningStrike(_, s)
+
+
+
+#define HeavyWeather(_, s)
+
+
+
+#define CrushingPressure(_, s)
+
+
+
+#define O2Overload(_, s)
+
+
 
 #define GiveWeatherReport(_owner)
 

@@ -25,28 +25,58 @@ if (instance_exists(STAND) or room != rmGame)
 }
 GiveWhiteSnake(player);
 
-#define SuddenStrike(m, s)
+#define QuickHand(m, s)
 
 var _dir = DIR_PLAYER_TO_MOUSE;
 var _snd = jj_play_audio(global.sndPunchAir, 0, false);
 audio_sound_pitch(_snd, random_range(0.9, 1.1));
 var xx = x + random_range(-4, 4);
 var yy = y + random_range(-8, 8);
-PunchSwingCreate(xx, yy, _dir, 45, GetDmg(s));
+var _p = PunchSwingCreate(xx, yy, _dir, 45, GetDmg(s));
+with (_p)
+{
+    onHitEvent = DiscRetrieveSE;
+    onHitSound = global.sndWsHit;
+}
 EndAtk(s);
+
+#define DiscRetrieveSE(_, _a, _t)
+
+var _s = StatusEffectTargetGet(_t, "disc_steal");
+if (instance_exists(_s) and !_s.taken)
+{
+    STAND.discs++;
+    jj_play_audio(global.sndWsDiscGot, 5, false);
+    _s.taken = true;
+}
 
 #define ExplosiveSurprise(m, s)
 
-var _dir = DIR_PLAYER_TO_MOUSE;
-var _snd = jj_play_audio(global.sndPunchAir, 0, false);
-audio_sound_pitch(_snd, 2);
-var _b = BulletCreate(x, y, _dir, GetDmg(s));
-with (_b)
+if (discs > 0)
 {
-    onHitEvent = ExplodeProjectile;
-    onHitEventArg = GetStandRange(other);
+    var _dir = DIR_PLAYER_TO_MOUSE;
+    var _dmg = GetDmg(s);
+    var _snd = jj_play_audio(global.sndWsToss, 0, false);
+    audio_sound_pitch(_snd, random_range(0.9, 1.1));
+    var _b = ProjectileCreate(x, y);
+    with (_b)
+    {
+        damage = _dmg;
+        sprite_index = global.sprDiscProjectile;
+        direction = _dir;
+        baseSpd = 7;
+        rotation = 25;
+        onHitEvent = ExplodeProjectile;
+        onHitEventArg = GetStandRange(other);
+    }
+    discs--;
+    EndAtk(s);
 }
-EndAtk(s);
+else
+{
+    disc_warning_alpha = 1;
+    ResetAtk(s);
+}
 
 #define ExplodeProjectile(_, _args, _target)
 
@@ -55,47 +85,130 @@ if (instance_exists(_target))
     ExplosionCreate(_target.x, _target.y, 16 * _args, true);
 }
 
-#define DiscProduce(m, s)
+#define DiscSelfInsert(m, s)
 
-DropItem(x, y, global.jjsBlankDisc, 1);
-EndAtk(s);
+if (discs > 0)
+{
+    jj_play_audio(global.sndWsInsert, 5, false);
+    DiscBuffSE(undefined, undefined, owner);
+    discs--;
+    EndAtk(s);
+}
+else
+{
+    disc_warning_alpha = 1;
+    ResetAtk(s);
+}
 
-#define WsBarrage(method, skill) //attacks
-var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
-var _dir = DIR_PLAYER_TO_MOUSE;
+#define DiscBuffSE(_, _a, _t)
 
-var _exdir = skills[skill, StandSkill.ExecutionTime] * 20;
-xTo = owner.x + lengthdir_x(GetStandReach(self) + _exdir, _dir + random_range(-2, 2));
-yTo = owner.y + lengthdir_y(GetStandReach(self) + _exdir, _dir + random_range(-2, 2));
-image_xscale = mouse_x > owner.x ? 1 : -1;
+if (!instance_exists(_t) or !instance_exists(_t.myStand)) exit;
+
+var _se = StatusEffect(_a, _t);
+with (_se)
+{
+    subtype = "disc_buff";
+    life = 30;
+    
+    buffs = [
+        "mod_destructive_power",
+        "mod_rspd",
+        "mod_range",
+        "mod_stamina",
+        "mod_precision"
+    ];
+    buff_index = irandom(array_length(buffs) - 1);
+    
+    var _v = variable_instance_get(_t.myStand, buffs[buff_index], 0);
+    variable_instance_set(_t.myStand, buffs[buff_index], _v + 0.5)
+    
+    InstanceAssignMethod(self, "destroy", ScriptWrap(DiscBuffSEDestroy));
+}
+
+#define DiscBuffSEDestroy
+
+if (instance_exists(target) and instance_exists(target.myStand))
+{
+    var _v = variable_instance_get(target.myStand, buffs[buff_index], 0);
+    variable_instance_set(target.myStand, buffs[buff_index], min(0, _v - 0.5))
+}
+
+#define PalePursuit(_, s)
+
+switch (attackState)
+{
+    case 0:
+        if (enemy_instance_exists())
+        {
+            var _n = get_nearest_enemy(mouse_x, mouse_y);
+            if (distance_to_object(_n) < 512)
+            {
+                velocity = 0.1;
+                SetSkillVar(s, "target", _n);
+                SetSkillVar(s, "barrage_cd", 0.2);
+                attackState++;
+            }
+            else
+            {
+                ResetAtk(s);
+            }
+        }
+        else
+        {
+            ResetAtk(s);
+        }
+    break;
+    case 1:
+        var _t = GetSkillVars(s, "target");
+        var _cd = GetSkillVars(s, "barrage_cd");
+        if (instance_exists(_t) and _cd != undefined)
+        {
+            xTo = _t.x - (sign(scaleX) * 8);
+            yTo = _t.y;
+            if (_cd <= 0 and distance_to_object(_t) < 24)
+            {
+                var _dir = point_direction(x, y, _t.x, _t.y);
+                var _snd = jj_play_audio(global.sndPunchAir, 0, false);
+                audio_sound_pitch(_snd, random_range(0.9, 1.1));
+                var xx = x + random_range(-4, 4);
+                var yy = y + random_range(-8, 8);
+                var _p = PunchSwingCreate(xx, yy, _dir, 45, GetDmg(s));
+                _p.onHitSound = global.sndWsHit;
+                SetSkillVar(s, "barrage_cd", 0.15);
+            } else SetSkillVar(s, "barrage_cd", _cd - DT);
+            if (attackStateTimer >= 2.5)
+            {
+                var _dir = point_direction(x, y, _t.x, _t.y);
+                var _snd = jj_play_audio(global.sndPunchAir, 0, false);
+                audio_sound_pitch(_snd, random_range(0.9, 1.1));
+                var _p = PunchSwingCreate(x, y, _dir, 25, GetDmg(s) * 4);
+                with (_p)
+                {
+                    crit_change = 0.1;
+                    RollCrit();
+                    onHitSound = global.sndStrongPunch;
+                    onHitEvent = AcidSE;
+                }
+                attackState++;
+            }
+        }
+        else
+        {
+            attackState++;
+        }
+    break;
+    case 2:
+        var _t = GetSkillVars(s, "target");
+        if (instance_exists(_t))
+        {
+            xTo = _t.x - (sign(scaleX) * 16);
+            yTo = _t.y;
+        }
+        if (attackStateTimer >= 2.2) EndAtk(s);
+    break;
+}
 
 attackStateTimer += DT;
-if (distance_to_point(xTo, yTo) < 2)
-{
-    if (attackStateTimer >= 0.12 / GetStandSpeed(self))
-    {
-        var _snd = jj_play_audio(global.sndPunchAir, 0, false);
-        audio_sound_pitch(_snd, random_range(0.9, 1.1));
-        var xx = x + random_range(-4, 4);
-        var yy = y + random_range(-8, 8);
-        PunchSwingCreate(xx, yy, _dir, 45, GetDmg(skill));
-        attackStateTimer = 0;
-    }
-    skills[skill, StandSkill.ExecutionTime] += DT;
-}
-
-if (keyboard_check_pressed(ord(skills[skill, StandSkill.Key])))
-{
-    if (skills[skill, StandSkill.ExecutionTime] > 0)
-    {
-        FireCD(skill);
-    }
-    else
-    {
-        ResetCD(skill);
-    }
-    state = StandState.Idle;
-}
 
 #define WsGun(m, s)
 var _dir = point_direction(x, y, mouse_x, mouse_y);
@@ -145,8 +258,9 @@ switch (attackState)
             var _b = BulletCreate(x, y, _dir, GetDmg(s));
             var _p = EffectGeParticleCreate(x, y, c_dkgray);
             _p.sprite_index = global.sprGun;
-            _p.bouncy = 0.8;
+            _p.bouncy = 0.5;
             _p.image_angle = random(360);
+            _p.rotate = true;
             attackState++;
         }
     break;
@@ -186,15 +300,23 @@ switch (attackState)
         }
     break;
     case 2:
-        var _p = ProjectileCreate(x, y);
-        with (_p)
+        for (var i = 0; i < 5; i++)
         {
-            damage = other.skills[s, StandSkill.Damage];
-            baseSpd = 8;
-            direction = _dir;
-            canMoveInTs = false;
-            sprite_index = global.sprStandParticle3;
-            onHitEvent = StuckKnife;
+            var _d = (_dir - 4) + (i * 4);
+            var _p = ProjectileCreate(x, y);
+            with (_p)
+            {
+                damage = other.skills[s, StandSkill.Damage];
+                destroyOnImpact = false;
+                baseSpd = 8;
+                direction = _d;
+                spd_decay = 0.9;
+                z_grav = 0.2;
+                scale_with_velocity = true;
+                canMoveInTs = false;
+                sprite_index = global.sprAcidicSpit;
+                onHitEvent = StuckKnife;
+            }
         }
         EndAtk(s);
     break;
@@ -300,7 +422,7 @@ yTo = owner.y + lengthdir_y(8, _dir);
 switch (attackState)
 {
     case 0:
-        if (attackStateTimer >= 1.5)
+        if (attackStateTimer >= 0.5)
         {
             attackState++;
         }
@@ -308,18 +430,19 @@ switch (attackState)
     case 1:
         var xx = x + random_range(-4, 4);
         var yy = y + random_range(-8, 8);
-        var _p = PunchSwingCreate(xx, yy, _dir, 45, GetDmg(s));
+        var _p = PunchSwingCreate(xx, yy, _dir, 25, GetDmg(s));
         with (_p)
         {
-            onHitEvent = DiscStolen;
-            onHitSound = global.sndWsDiscSteal;
+            destroyOnImpact = true;
+            onHitEvent = DiscStolenSE;
+            onHitSound = global.sndWsHit;
         }
         attackState++;
     break;
     case 2:
         player.h = 0;
         player.v = 0;
-        if (attackStateTimer >= 3)
+        if (attackStateTimer >= 1)
         {
             EndAtk(s);
         }
@@ -327,38 +450,25 @@ switch (attackState)
 }
 attackStateTimer += DT * GetStandSpeed(self);
 
-#define DiscStolen
+#define DiscStolenSE(_, _a, _t)
 
-var _near = noone;
-if (enemy_instance_exists())
-{
-    _near = get_nearest_enemy(x, y);
-}
-if (_near != noone)
-{
-    STAND.discs++;
-    DiscStolenCreate(_near);
-    var _p = EffectGeParticleCreate(_near.x, _near.y, c_dkgray);
-    _p.sprite_index = global.sprDisc;
-    _p.bouncy = 0.8;
-    _p.direction = point_direction(_near.x, _near.y, player.x, player.y);
-    _p.image_xscale = 0.5;
-    _p.image_yscale = 0.5;
-    _p.life = 1;
-}
+if (!instance_exists(_t) or !is_enemy(_t) or StatusEffectTargetHas(_t, "disc_steal")) exit;
 
-#define DiscStolenCreate(_id)
+jj_play_audio(global.sndWsDiscSteal, 5, false);
 
-var _o = ModObjectSpawn(_id.x, _id.y, 0);
-with (_o)
+var _se = StatusEffect(_a, _t);
+with (_se)
 {
-    target = _id;
+    subtype = "disc_steal";
+    life = 9999;
+    taken = false;
+    destroy_when_target_empty = false;
     
-    InstanceAssignMethod(self, "step", ScriptWrap(DiscStolenStep))
-    InstanceAssignMethod(self, "draw", ScriptWrap(DiscStolenDraw))
+    InstanceAssignMethod(self, "step", ScriptWrap(DiscStolenSEStep));
+    InstanceAssignMethod(self, "draw", ScriptWrap(DiscStolenSEDraw));
 }
 
-#define DiscStolenStep
+#define DiscStolenSEStep
 
 if (instance_exists(target))
 {
@@ -367,12 +477,57 @@ if (instance_exists(target))
     depth = target.depth - 1;
 }
 
-#define DiscStolenDraw
+#define DiscStolenSEDraw
 
 if (instance_exists(target))
 {
-    draw_sprite_ext(global.sprDisc, 0, target.x, target.y - 32, 0.5, 0.5, 0, c_white, 0.5);
+    var _col = c_white;
+    if (taken) _col = c_black;
+    draw_sprite_ext(global.sprDisc, 0, target.x, target.y - 32, 0.5, 0.5, 0, _col, 0.75);
 }
+
+#define AcidSE(_, _a, _t)
+
+var _se = StatusEffect(_a, _t);
+with (_se)
+{
+    damage = 0.01;
+    p_time = 0.5;
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(AcidSEStep));
+    InstanceAssignMethod(self, "draw", ScriptWrap(AcidSEDraw));
+}
+
+#define AcidSEStep
+
+if (p_time <= 0)
+{
+    var _e = EffectGeParticleCreate(target.x, target.y, c_white);
+    with (_e)
+    {
+        bouncy = 0.2;
+    }
+    p_time = 0.5;
+}
+p_time -= DT;
+
+#define AcidSEDraw
+
+// if (!instance_exists(target)) exit;
+
+// if (!surface_exists(surf))
+// {
+//     surf = surface_create(target.sprite_width, target.sprite_height);
+// }
+
+// surface_set_target(surf);
+// draw_clear_alpha(c_black, 0);
+// draw_sprite_ext(target.sprite_index, target.image_index, target.sprite_xoffset, target.sprite_yoffset, target.image_xscale, target.image_yscale, target.image_angle, target.image_blend, target.image_alpha);
+// gpu_set_colorwriteenable(true, true, true, false);
+// draw_sprite_ext(global.sprAcidicPool, 0, 0, 0, 1, 1, 0, c_white, 0.5);
+// gpu_set_colorwriteenable(true, true, true, true);
+// surface_reset_target();
+// draw_surface(surf, target.x - target.sprite_xoffset, target.y - target.sprite_yoffset);
 
 #define GiveWhiteSnake(_owner) //stand
 
@@ -380,68 +535,67 @@ var _skills = StandSkillInit();
 
 var sk;
 sk = StandState.SkillAOff;
-_skills[sk, StandSkill.Skill] = SuddenStrike;
+_skills[sk, StandSkill.Skill] = QuickHand;
 _skills[sk, StandSkill.Damage] = 15;
 _skills[sk, StandSkill.DamageScale] = 0.2;
-_skills[sk, StandSkill.Icon] = global.sprSkillUry;
-_skills[sk, StandSkill.MaxCooldown] = 5;
+_skills[sk, StandSkill.Icon] = global.sprSkillQuickHand;
+_skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 2;
-_skills[sk, StandSkill.Desc] = tr("suddenStrikeDesc");
+_skills[sk, StandSkill.Desc] = tr("quick_hand_desc");
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = ExplosiveSurprise;
 _skills[sk, StandSkill.Damage] = 1;
 _skills[sk, StandSkill.DamageScale] = 0.02;
-_skills[sk, StandSkill.Icon] = global.sprSkillExplosiveSurprise;
-_skills[sk, StandSkill.MaxCooldown] = 7;
+_skills[sk, StandSkill.Icon] = global.sprSkillExplosiveCommand;
+_skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 2;
-_skills[sk, StandSkill.Desc] = tr("explosiveSurpriseDesc");
+_skills[sk, StandSkill.Desc] = tr("explosive_command_desc");
 
 sk = StandState.SkillCOff;
-_skills[sk, StandSkill.Skill] = DiscProduce;
-_skills[sk, StandSkill.Icon] = global.sprSkillDiscProduce;
-_skills[sk, StandSkill.MaxCooldown] = 20;
-_skills[sk, StandSkill.Desc] = tr("discProduceDesc");
+_skills[sk, StandSkill.Skill] = DiscSelfInsert;
+_skills[sk, StandSkill.Icon] = global.sprSkillDiscSelfInsert;
+_skills[sk, StandSkill.MaxCooldown] = 8;
+_skills[sk, StandSkill.Desc] = tr("disc_self_insert_desc");
 
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = MeltYourHeart;
 _skills[sk, StandSkill.Icon] = global.sprSkillMeltYourHeart;
 _skills[sk, StandSkill.MaxCooldown] = 40;
-_skills[sk, StandSkill.Desc] = tr("meltYourHeartDesc");
+_skills[sk, StandSkill.Desc] = tr("melt_your_heart_desc");
 
 sk = StandState.SkillA;
-_skills[sk, StandSkill.Skill] = WsBarrage;
+_skills[sk, StandSkill.Skill] = PalePursuit;
 _skills[sk, StandSkill.Damage] = 3;
 _skills[sk, StandSkill.DamageScale] = 0.01;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
-_skills[sk, StandSkill.MaxCooldown] = 4;
-_skills[sk, StandSkill.MaxExecutionTime] = 2;
-_skills[sk, StandSkill.Desc] = tr("wsBarrageDesc");
+_skills[sk, StandSkill.MaxCooldown] = 8;
+_skills[sk, StandSkill.Desc] = tr("pale_pursuit_desc");
 
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = WsGun;
-_skills[sk, StandSkill.Damage] = 5;
+_skills[sk, StandSkill.Damage] = 8;
 _skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillBulletVolley;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.Vars] = { pistol_sprite : global.sprGun };
-_skills[sk, StandSkill.Desc] = tr("quickDisposalDesc");
+_skills[sk, StandSkill.Desc] = tr("quick_disposal_desc");
 
 sk = StandState.SkillC;
 _skills[sk, StandSkill.Skill] = AcidicSpit;
-_skills[sk, StandSkill.Damage] = 1;
+_skills[sk, StandSkill.Damage] = 3;
 _skills[sk, StandSkill.DamageScale] = 0.05;
 _skills[sk, StandSkill.Icon] = global.sprSkillAcidicSpit;
-_skills[sk, StandSkill.MaxCooldown] = 8;
-_skills[sk, StandSkill.Desc] = tr("acidicSpitDesc");
+_skills[sk, StandSkill.MaxCooldown] = 15;
+_skills[sk, StandSkill.Desc] = tr("acidic_spit_desc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = DiscSteal;
-_skills[sk, StandSkill.Damage] = 1;
-_skills[sk, StandSkill.DamageScale] = 0.05;
+_skills[sk, StandSkill.Damage] = 0;
+_skills[sk, StandSkill.DamageScale] = 0;
 _skills[sk, StandSkill.Icon] = global.sprSkillDiscSteal;
-_skills[sk, StandSkill.MaxCooldown] = 35;
-_skills[sk, StandSkill.Desc] = tr("discStealDesc");
+_skills[sk, StandSkill.MaxCooldown] = 6;
+_skills[sk, StandSkill.Desc] = tr("disc_steal_desc");
 
 var _s = StandBuilder(_owner, _skills);
 with (_s)
@@ -449,12 +603,13 @@ with (_s)
     name = "WhiteSnake";
     sprite_index = global.sprWhiteSnake;
     color = 0xfcdbcb;
-    colorAlt = c_dkgray;
+    colorAlt = 0x342022;
     summonSound = global.sndWsSummon;
     saveKey = "jjbamWs";
     discType = global.jjbamDiscWs;
     
     discs = 0;
+    disc_warning_alpha = 0;
     
     variants[0] = [sprite_index, rarity.tier];
     variants[1] = [global.sprGreenSnake, Rarity.Uncommon];
@@ -464,6 +619,7 @@ with (_s)
     variants[5] = [global.sprRedSnake, Rarity.Mythical];
     variants[6] = [global.sprOrangeSnake, Rarity.Celestial];
     variants[7] = [global.sprPinkSnake, Rarity.Ultimate];
+    variants[8] = [global.sprWhiteSnakeUltimate, Rarity.Ultimate];
     
     evolutions[0] = [global.sprCMoon, "???", Rarity.Common];
     
@@ -475,11 +631,16 @@ return _s;
 #define WhiteSnakeStep
 
 discs = clamp(discs, 0, 10);
+disc_warning_alpha = lerp(disc_warning_alpha, 0, 0.1);
 
 #define WhiteSnakeDrawGUI
 
 var _width = display_get_gui_width();
 var _height = display_get_gui_height() - 40;
+
+draw_set_alpha(disc_warning_alpha);
+draw_rectangle_color(296, _height - 104, 456, _height - 88, c_red, c_red, c_red, c_red, false);
+draw_set_alpha(1);
 
 for (var i = 0; i < 10; i++)
 {

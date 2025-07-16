@@ -703,6 +703,11 @@ with (_stand)
     stamina = (random_range(0.5, 2));
     precision = (random_range(0.5, 2));
     development_potential = (random_range(0.5, 3));
+    mod_destructive_power = 0;
+    mod_spd = 0;
+    mod_range = 0;
+    mod_stamina = 0;
+    mod_precision = 0;
     combo = 0;
     powerMultiplier = GetPowerMultiplier(rarity.tier);
     velocity = 0.5;
@@ -859,23 +864,23 @@ if (instance_exists(_owner) and instance_exists(_owner.myStand))
 
 #define GetStandDestructivePower(_stand)
 
-return (_stand.destructive_power);
+return (_stand.destructive_power + _stand.mod_destructive_power);
 
 #define GetStandSpeed(_stand)
 
-return (_stand.spd);
+return (_stand.spd + _stand.mod_spd);
 
 #define GetStandRange(_stand)
 
-return (_stand.range);
+return (_stand.range + _stand.mod_range);
 
 #define GetStandStamina(_stand)
 
-return (_stand.stamina);
+return (_stand.stamina + _stand.mod_stamina);
 
 #define GetStandPrecision(_stand)
 
-return (_stand.precision);
+return (_stand.precision + _stand.mod_precision);
 
 #define GetStandTotalPower(_stand)
 
@@ -883,7 +888,7 @@ return (_stand.destructive_power + _stand.spd + _stand.range + _stand.stamina + 
 
 #define GetStandReach(_stand)
 
-return ((_stand.stand_reach * GetRunesStandReach(_stand)) * _stand.range);
+return ((_stand.stand_reach * GetRunesStandReach(_stand)) * GetStandRange(_stand));
 
 #define AddCombo
 

@@ -196,35 +196,6 @@ switch (attackState)
 }
 attackStateTimer += DT * GetStandSpeed(self);
 
-#define StatusEffect(_args, _target)
-
-var _o = ModObjectSpawn(x, y, 0);
-with (_o)
-{
-    target = _target;
-    life = 5;
-    damage = 0;
-    
-    InstanceAssignMethod(self, "step", ScriptWrap(StatusEffectStep), false);
-}
-return _o;
-
-#define StatusEffectStep
-
-if (life <= 0 or !instance_exists(target))
-{
-    instance_destroy(self);
-    exit;
-}
-life -= DT;
-
-depth = target.depth - 2;
-
-if (damage > 0)
-{
-    target.hp -= damage;
-}
-
 #define DonutSE(_, _a, _t)
 
 var _se = StatusEffect(_a, _t);

@@ -338,7 +338,5 @@ var _height = display_get_gui_height() - 40;
 var _txt = "";
 if (requiemActive) _txt = "requiem";
 
-draw_set_color(c_yellow);
-draw_text(256+60, _height - (160-10), _txt);
-draw_set_color(c_white);
+draw_text_color(256+60, _height - (160-10), _txt, c_yellow, c_orange, c_orange, c_yellow, 1);
 

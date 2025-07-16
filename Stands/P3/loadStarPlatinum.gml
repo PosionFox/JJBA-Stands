@@ -229,7 +229,7 @@ _skills[sk, StandSkill.MaxExecutionTime] = 5;
 _skills[sk, StandSkill.SkillAlt] = GroundSlam;
 _skills[sk, StandSkill.DamageAlt] = 35;
 _skills[sk, StandSkill.DamageScaleAlt] = 0.01;
-_skills[sk, StandSkill.IconAlt] = global.sprSkillDetonate;
+_skills[sk, StandSkill.IconAlt] = global.sprSkillGroundSlam;
 _skills[sk, StandSkill.MaxCooldownAlt] = 10;
 _skills[sk, StandSkill.Desc] = tr("barrageDesc");
 

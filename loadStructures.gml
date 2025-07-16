@@ -54,6 +54,15 @@ global.jjsShardsTable = StructureCreate(
     1,
     true,
     [
+        global.jjsCommonShard,
+        global.jjsUncommonShard,
+        global.jjsRareShard,
+        global.jjsEpicShard,
+        global.jjsLegendaryShard,
+        global.jjsMythicalShard,
+        global.jjsCelestialShard,
+        global.jjsUltimateShard,
+        global.jjsBizarreMass,
         global.jjsCommonConcentratedArrow,
         global.jjsUncommonConcentratedArrow,
         global.jjsRareConcentratedArrow,
@@ -61,7 +70,8 @@ global.jjsShardsTable = StructureCreate(
         global.jjsLegendaryConcentratedArrow,
         global.jjsMythicalConcentratedArrow,
         global.jjsCelestialConcentratedArrow,
-        global.jjsUltimateConcentratedArrow
+        global.jjsUltimateConcentratedArrow,
+        global.jjsBizarreArrow
     ],
     true,
     BuildMenuCategory.Magical,

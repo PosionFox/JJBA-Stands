@@ -55,6 +55,7 @@ scaleXSpd = 0.1;
 scaleYSpd = 0.1;
 height_speed = 0.2;
 height_target = 0;
+velocity = 0.5;
 
 attackStateTimer = 0;
 FireCD(skill);
@@ -228,16 +229,22 @@ with (_o)
     owner = other;
     targets = other.targets;
     z = 5;
+    z_grav = 0;
+    rotation = 0;
+    rotation_amount = 0;
     shadow_enabled = true;
     scale = 1;
     despawnFade = true;
     despawnTime = 5;
     baseSpd = 5;
     velocity = baseSpd;
+    scale_with_velocity = false;
+    spd_decay = 1;
     lerping_speed = 1;
     baseDamage = 0;
     damage = baseDamage;
     destroyOnImpact = true;
+    destroy_in_water = true;
     last_instance_hit = undefined;
     instancesHit = [];
     multihit = false;
@@ -301,6 +308,8 @@ if (instance_exists(self))
             image_speed = baseAnimSpd;
             x = lerp(x, x + lengthdir_x(velocity, direction), lerping_speed);
             y = lerp(y, y + lengthdir_y(velocity, direction), lerping_speed);
+            z -= z_grav;
+            baseSpd *= spd_decay;
         }
         else if (global.timeIsFrozen and canMoveInTs)
         {
@@ -308,6 +317,8 @@ if (instance_exists(self))
             image_speed = baseAnimSpd;
             x = lerp(x, x + lengthdir_x(velocity, direction), lerping_speed);
             y = lerp(y, y + lengthdir_y(velocity, direction), lerping_speed);
+            z -= z_grav;
+            baseSpd *= spd_decay;
         }
         else if (global.timeIsFrozen and !canMoveInTs)
         {
@@ -316,6 +327,19 @@ if (instance_exists(self))
             x = lerp(x, x + lengthdir_x(velocity, direction), lerping_speed);
             y = lerp(y, y + lengthdir_y(velocity, direction), lerping_speed);
         }
+    }
+    z = clamp(z, 0, 99999);
+    
+    rotation += rotation_amount;
+    
+    if (scale_with_velocity)
+    {
+        image_xscale = max(1, velocity);
+    }
+    
+    if (destroy_in_water and z <= 0 and WaterCollision(x, y))
+    {
+        despawnTime = 0;
     }
     
     try
@@ -402,7 +426,7 @@ if (show_projectile)
         y - z,
         image_xscale * scale,
         image_yscale * scale,
-        image_angle,
+        image_angle + rotation,
         image_blend,
         image_alpha
     );
@@ -431,15 +455,11 @@ with (_o)
     damage = _dmg
     baseSpd = 10;
     canMoveInTs = false;
+    scale_with_velocity = true;
     
     GlowOrderCreate(self, 0.1, c_yellow);
-    InstanceAssignMethod(self, "step", ScriptWrap(BulletStep));
 }
 return _o;
-
-#define BulletStep
-
-image_xscale = max(1, velocity);
 
 #define KnockbackCreate(_target, _strength, _direction, _duration)
 

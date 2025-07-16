@@ -51,12 +51,6 @@ tr_add(_map, "egyptianCrownDescription", "summons dio during night.");
 tr_add(_map, "runeRemoverName", "rune remover");
 tr_add(_map, "runeRemoverDescription", "removes your runes.");
 
-tr_add(_map, "shardName", "shard");
-tr_add(_map, "shardDescription", "The fragmentation of the forgotten, used to create new abilities.");
-
-tr_add(_map, "concentratedArrowName", "concentrated arrow");
-tr_add(_map, "concentratedArrowDescription", "grants the user a specific ability.");
-
 tr_add(_map, "bizarreCandyName", "bizarre candy");
 tr_add(_map, "bizarreCandyDescription", "a bizarre looking candy.");
 
@@ -127,6 +121,62 @@ tr_add(_map, "holy_right_leg_desc", "the right leg of the saint.");
 
 tr_add(_map, "holy_skull_name", "holy skull");
 tr_add(_map, "holy_skull_desc", "the skull of the saint.");
+
+// shards
+
+tr_add(_map, "common_shard_name", "common shard");
+tr_add(_map, "common_shard_desc", "the fragmentation of the forgotten, used to create new abilities, smells weird.");
+
+tr_add(_map, "uncommon_shard_name", "uncommon shard");
+tr_add(_map, "uncommon_shard_desc", "the fragmentation of the forgotten, used to create new abilities.");
+
+tr_add(_map, "rare_shard_name", "rare shard");
+tr_add(_map, "rare_shard_desc", "the fragmentation of the forgotten, used to create new abilities.");
+
+tr_add(_map, "epic_shard_name", "epic shard");
+tr_add(_map, "epic_shard_desc", "the fragmentation of the forgotten, used to create new abilities.");
+
+tr_add(_map, "legendary_shard_name", "legendary shard");
+tr_add(_map, "legendary_shard_desc", "the fragmentation of the forgotten, used to create new abilities.");
+
+tr_add(_map, "mythical_shard_name", "mythical shard");
+tr_add(_map, "mythical_shard_desc", "the fragmentation of the forgotten, used to create new abilities.");
+
+tr_add(_map, "celestial_shard_name", "celestial shard");
+tr_add(_map, "celestial_shard_desc", "the fragmentation of the forgotten, used to create new abilities.");
+
+tr_add(_map, "ultimate_shard_name", "ultimate shard");
+tr_add(_map, "ultimate_shard_desc", "the fragmentation of the forgotten, used to create new abilities.");
+
+tr_add(_map, "bizarre_mass_name", "bizarre mass");
+tr_add(_map, "bizarre_mass_desc", "the zenith of the universe, looks like it tastes sweet.");
+
+tr_add(_map, "common_arrow_name", "common arrow");
+tr_add(_map, "common_arrow_desc", "grants the user a common ability.");
+
+tr_add(_map, "uncommon_arrow_name", "uncommon arrow");
+tr_add(_map, "uncommon_arrow_desc", "grants the user an uncommon ability.");
+
+tr_add(_map, "rare_arrow_name", "rare arrow");
+tr_add(_map, "rare_arrow_desc", "grants the user a rare ability.");
+
+tr_add(_map, "epic_arrow_name", "epic arrow");
+tr_add(_map, "epic_arrow_desc", "grants the user an epic ability.");
+
+tr_add(_map, "legendary_arrow_name", "legendary arrow");
+tr_add(_map, "legendary_arrow_desc", "grants the user a legendary ability.");
+
+tr_add(_map, "mythical_arrow_name", "mythical arrow");
+tr_add(_map, "mythical_arrow_desc", "grants the user a mythical ability.");
+
+tr_add(_map, "celestial_arrow_name", "celestial arrow");
+tr_add(_map, "celestial_arrow_desc", "grants the user a celestial ability.");
+
+tr_add(_map, "ultimate_arrow_name", "ultimate arrow");
+tr_add(_map, "ultimate_arrow_desc", "grants the user an ultimate ability.");
+
+tr_add(_map, "bizarre_arrow_name", "bizarre arrow");
+tr_add(_map, "bizarre_arrow_desc", "this arrow emanates a bizarre aura.");
 
 // item usage
 
@@ -315,14 +365,14 @@ tr_add(_map, "portalThroughDesc", "portal through:\nopens two portals, one below
 #region part 6
 
 // ws
-tr_add(_map, "suddenStrikeDesc", "sudden strike:\nlaunch a surpise attack.");
-tr_add(_map, "explosiveSurpriseDesc", "explosive surprise:\ntoss an explosive disc forward.");
-tr_add(_map, "discProduceDesc", "disc produce:\nwhitesnake produces a new blank disc.");
-tr_add(_map, "meltYourHeartDesc", "melt your heart:\nrelease an illusory pool of acid.");
-tr_add(_map, "wsBarrageDesc", "acidic barrage:\nlaunches a ranged barrage of acidic punches.");
-tr_add(_map, "quickDisposalDesc", "quick disposal:\nunloads a volley of bullets forward.");
-tr_add(_map, "acidicSpitDesc", "acidic spit:\nspits a projectile forwards that deals damage over time.");
-tr_add(_map, "discStealDesc", "disc steal:\nsteals your target's memory disc rendering them useless.");
+tr_add(_map, "quick_hand_desc", "quick hand:\nlaunch a surpise attack.\nwill take any available discs.");
+tr_add(_map, "explosive_command_desc", "explosive command:\ntoss an explosive disc forward.\nrequires a disc.");
+tr_add(_map, "disc_self_insert_desc", "disc self insert:\ninsert a disc into yourself and gain a temporary stat buff.\nrequires a disc.");
+tr_add(_map, "melt_your_heart_desc", "melt your heart:\nrelease an illusory pool of acid.");
+tr_add(_map, "pale_pursuit_desc", "pale pursuit:\nchases the target closest to the cursor and unleashes a barrage of blows.\napplies acidic status effect.");
+tr_add(_map, "quick_disposal_desc", "quick disposal:\nunloads a volley of bullets forward.");
+tr_add(_map, "acidic_spit_desc", "acidic spit:\nspits and bathes the enemy in acid.\napplies acidic status effect.");
+tr_add(_map, "disc_steal_desc", "disc steal:\nsteals your target's memory disc rendering them useless.\nuse quick hand to take the disc.");
 
 #endregion
 

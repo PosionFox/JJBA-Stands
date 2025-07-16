@@ -475,7 +475,7 @@ sk = StandState.SkillCOff;
 _skills[sk, StandSkill.Skill] = GroundSlam;
 _skills[sk, StandSkill.Damage] = 25;
 _skills[sk, StandSkill.DamageScale] = 0.01;
-_skills[sk, StandSkill.Icon] = global.sprSkillDetonate;
+_skills[sk, StandSkill.Icon] = global.sprSkillGroundSlam;
 _skills[sk, StandSkill.MaxCooldown] = 10;
 _skills[sk, StandSkill.Desc] = "ground slam:\nstrike the earth with a mighty blow.";
 

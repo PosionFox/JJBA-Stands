@@ -105,7 +105,7 @@ _skills[sk, StandSkill.MaxExecutionTime] = 5;
 sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = GroundSlam;
 _skills[sk, StandSkill.Damage] = 5;
-_skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
+_skills[sk, StandSkill.Icon] = global.sprSkillGroundSlam;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 
 sk = StandState.SkillC;

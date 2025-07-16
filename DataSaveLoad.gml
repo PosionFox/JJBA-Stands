@@ -92,6 +92,7 @@ switch (_key)
     case "jjRedSnake": GiveRedSnake(player); break;
     case "jjOrangeSnake": GiveOrangeSnake(player); break;
     case "jjPinkSnake": GivePinkSnake(player); break;
+    case "jjbamWsu": GiveWsu(player); break;
 }
 
 #define LoadStand(_map)

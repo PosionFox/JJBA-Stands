@@ -400,10 +400,14 @@ global.sndTornado = audio_create_stream(p + "tornado.ogg");
 #region whitesnake
 
 p = "Resources/Sounds/Pucci/WS/";
-global.sndWsSummon = audio_create_stream(p + "wsSummon.ogg");
+global.sndWsSummon = audio_create_stream(p + "ws_summon.ogg");
 global.sndAcidicSpit = audio_create_stream(p + "wsAcidicSpit.ogg");
 global.sndMeltYourHeart = audio_create_stream(p + "wsMeltYourHeart.ogg");
-global.sndWsDiscSteal = audio_create_stream(p + "wsDiscSteal.ogg");
+global.sndWsDiscSteal = audio_create_stream(p + "ws_steal.ogg");
+global.sndWsDiscGot = audio_create_stream(p + "ws_disc.ogg");
+global.sndWsHit = audio_create_stream(p + "ws_hit.ogg");
+global.sndWsToss = audio_create_stream(p + "ws_toss.ogg");
+global.sndWsInsert = audio_create_stream(p + "ws_insert.ogg");
 
 #endregion
 

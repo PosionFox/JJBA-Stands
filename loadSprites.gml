@@ -27,6 +27,7 @@ global.sprRuneBundle = sprite_add(p + "rune_bundle.png", 1, false, false, 8, 8);
 global.sprWeatherReportDisc = sprite_add(p + "weather_report_disc.png", 1, false, false, 8, 8);
 
 // shards
+p = "Resources/Sprites/Items/shards/";
 global.sprCommonShard = sprite_add(p + "CommonShard.png", 1, false, false, 8, 8);
 global.sprUncommonShard = sprite_add(p + "UncommonShard.png", 1, false, false, 8, 8);
 global.sprRareShard = sprite_add(p + "RareShard.png", 1, false, false, 8, 8);
@@ -35,6 +36,9 @@ global.sprLegendaryShard = sprite_add(p + "LegendaryShard.png", 1, false, false,
 global.sprMythicalShard = sprite_add(p + "MythicalShard.png", 1, false, false, 8, 8);
 global.sprCelestialShard = sprite_add(p + "CelestialShard.png", 1, false, false, 8, 8);
 global.sprUltimateShard = sprite_add(p + "UltimateShard.png", 1, false, false, 8, 8);
+global.sprBizarreMass = sprite_add(p + "bizarre_mass.png", 4, false, false, 8, 8);
+sprite_set_speed(global.sprBizarreMass, 5, 0);
+
 global.sprCommonConcentratedArrow = sprite_add(p + "CommonConcentratedArrow.png", 1, false, false, 8, 8);
 global.sprUncommonConcentratedArrow = sprite_add(p + "UncommonConcentratedArrow.png", 1, false, false, 8, 8);
 global.sprRareConcentratedArrow = sprite_add(p + "RareConcentratedArrow.png", 1, false, false, 8, 8);
@@ -43,6 +47,7 @@ global.sprLegendaryConcentratedArrow = sprite_add(p + "LegendaryConcentratedArro
 global.sprMythicalConcentratedArrow = sprite_add(p + "MythicalConcentratedArrow.png", 1, false, false, 8, 8);
 global.sprCelestialConcentratedArrow = sprite_add(p + "CelestialConcentratedArrow.png", 1, false, false, 8, 8);
 global.sprUltimateConcentratedArrow = sprite_add(p + "UltimateConcentratedArrow.png", 1, false, false, 8, 8);
+global.sprBizarreArrow = sprite_add(p + "bizarre_arrow.png", 1, false, false, 8, 8);
 
 // corpse parts
 p = "Resources/Sprites/Items/corpse_parts/";
@@ -131,6 +136,7 @@ global.sprSkillHold = sprite_add(p + "SkillHold.png", 1, false, false, 16, 16);
 global.sprSkillBarrage = sprite_add(p + "SkillBarrage.png", 1, false, false, 16, 16);
 global.sprSkillStrongPunch = sprite_add(p + "SkillStrongPunch.png", 1, false, false, 16, 16);
 global.sprSkillMeleePull = sprite_add(p + "SkillMeleeGrab.png", 1, false, false, 16, 16);
+global.sprSkillGroundSlam = sprite_add(p + "SkillGroundSlam.png", 1, false, false, 16, 16);
 
 global.sprSkillGunShot = sprite_add(p + "SkillGunShot.png", 1, false, false, 16, 16);
 global.sprSkillBulletVolley = sprite_add(p + "SkillVolleyShot.png", 1, false, false, 16, 16);
@@ -466,13 +472,18 @@ global.sprEnricoPucci = sprite_add(p + "EnricoPucci.png", 4, false, false, 16, 1
 
     // whitesnake
 global.sprWhiteSnake = sprite_add(p + "WS/Whitesnake.png", 1, false, false, 16, 19);
+global.sprAcidicSpit = sprite_add(p + "WS/acidic_spit.png", 1, false, false, 5, 3);
 global.sprAcidicPool = sprite_add(p + "WS/AcidicPool.png", 1, false, false, 32, 32);
-global.sprSkillExplosiveSurprise = sprite_add(p + "WS/SkillExplosiveSurprise.png", 1, false, false, 16, 16);
-global.sprSkillDiscProduce = sprite_add(p + "WS/SkillDiscProduce.png", 1, false, false, 16, 16);
+global.sprDiscProjectile = sprite_add(p + "WS/disc_projectile.png", 1, false, false, 4, 4);
+
+global.sprSkillQuickHand = sprite_add(p + "WS/SkillQuickHand.png", 1, false, false, 16, 16);
+global.sprSkillExplosiveCommand = sprite_add(p + "WS/SkillExplosiveCommand.png", 1, false, false, 16, 16);
+global.sprSkillDiscSelfInsert = sprite_add(p + "WS/SkillDiscSelfInsert.png", 1, false, false, 16, 16);
 global.sprSkillMeltYourHeart = sprite_add(p + "WS/SkillMeltYourHeart.png", 1, false, false, 16, 16);
 global.sprSkillAcidicSpit = sprite_add(p + "WS/SkillAcidicSpit.png", 1, false, false, 16, 16);
 global.sprSkillDiscSteal = sprite_add(p + "WS/SkillDiscSteal.png", 1, false, false, 16, 16);
 
+// variants
 global.sprBlackSnake = sprite_add(p + "WS/Blacksnake.png", 1, false, false, 16, 19);
 global.sprGreenSnake = sprite_add(p + "WS/Greensnake.png", 1, false, false, 16, 19);
 global.sprBlueSnake = sprite_add(p + "WS/Bluesnake.png", 1, false, false, 16, 19);
@@ -481,6 +492,7 @@ global.sprYellowSnake = sprite_add(p + "WS/Yellowsnake.png", 1, false, false, 16
 global.sprRedSnake = sprite_add(p + "WS/Redsnake.png", 1, false, false, 16, 19);
 global.sprOrangeSnake = sprite_add(p + "WS/Orangesnake.png", 1, false, false, 16, 19);
 global.sprPinkSnake = sprite_add(p + "WS/Pinksnake.png", 1, false, false, 16, 19);
+global.sprWhiteSnakeUltimate = sprite_add(p + "WS/whitesnake_ultimate.png", 1, false, false, 16, 19);
 
     // c-moon
 global.sprCMoon = sprite_add(p + "CMoon/CMoon.png", 1, false, false, 16, 19);
