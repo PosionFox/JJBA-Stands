@@ -1,3 +1,24 @@
+
+16/07/2025
+
+In preparation for the future releases of Weather Report and C-Moon, I decided to rework WhiteSnake:
+-Sudden Strike was renamed to Quick Hand and its cooldown was lowered from 5 to 3, now it will take any enemy disc instead of the Disc Steal ability.
+-Explosive Surprise was renamed to Explosive Command and its cooldown was lowered to 5 from 7, it now requires a disc to be used.
+-Disc Produce was replaced with Disc Self Insert as producing discs was no longer useful, cooldown was reduced to 8 from 20, this new ability grants you a random +50% stat buff and requires a disc to be used.
+-WhiteSnake's barrage was changed to Pale Pursuit, cooldown was increased to 8 from 4, WhiteSnake will now start chasing the enemy you aim at and then barrage them with a finishing punch that applies a status effect to the target.
+-Acidic Spit now shoots more than one acidic projectile, cooldown was increased to 15 from 8 will hit multiple times and stay on the floor, also applies the status effect.
+-Disc Steal cooldown was reduced to 6 from 35, reduced damage and scaling to 0 (player damage still counts), will no longer take the discs directly and can only be used against enemies.
+-Some WhiteSnake sounds were changed/added
+
+Other changes:
+-Ground slams now have a unique icon.
+-Shards can now be crafted.
+-Updated Shards sprites and text.
+-Added Bizarre Mass and Arrow.
+-Added WhiteSnake Ultimate variant.
+-Fixed GER's requiem text UI alignment.
+
+
 13/7/2025
 
 -Added colored scarfs for Star Platinum, Star Platinum The World and their variants
