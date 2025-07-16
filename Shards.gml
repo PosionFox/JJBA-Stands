@@ -354,7 +354,7 @@ global.jjsBizarreArrow = ItemCreate(
         global.jjsEternalArrow, 1,
         global.jjsBizarreMass, 1
     ],
-    ScriptWrap(GrantUltimateAbility),
+    ScriptWrap(GrantBizarreAbility),
     60 * 1,
     true
 );

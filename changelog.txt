@@ -17,6 +17,7 @@ Other changes:
 -Added Bizarre Mass and Arrow.
 -Added WhiteSnake Ultimate variant.
 -Fixed GER's requiem text UI alignment.
+-Fixed Bizarre Arrow giving Ultimate Arrow.
 
 
 13/7/2025
