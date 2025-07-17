@@ -77,15 +77,17 @@ state = StandState.Idle;
 
 var _skillDamage = StandSkill.Damage;
 var _skillDamageScale = StandSkill.DamageScale;
+var _skillDamagePlayerStat = StandSkill.DamagePlayerStat;
 if (altAttack)
 {
     _skillDamage = StandSkill.DamageAlt;
     _skillDamageScale = StandSkill.DamageScaleAlt;
+    _skillDamagePlayerStat = StandSkill.DamagePlayerStatAlt;
 }
 
 var _damage = 0;
-_damage += skills[skill, _skillDamage] + (owner.level * skills[skill, _skillDamageScale]);
-if (skills[skill, StandSkill.DamagePlayerStat])
+_damage += skills[skill, _skillDamage] + ((level + owner.level) * skills[skill, _skillDamageScale]);
+if (skills[skill, _skillDamagePlayerStat])
 {
     _damage += owner.dmg;
 }
@@ -115,7 +117,7 @@ if (col_cd <= 0)
     {
         var obj = targets[i];
         var _hits = ds_list_create();
-        collision_circle_list(x, y, col_size, obj, false, true, _hits, false);
+        collision_circle_list(x, y, col_size * scale, obj, false, true, _hits, false);
         
         var _hlen = ds_list_size(_hits);
         for (var j = _hlen - 1; j >= 0; j--)
@@ -224,6 +226,7 @@ with (_o)
     baseAnimSpd = 1;
     image_speed = baseAnimSpd;
     visible = false;
+    depth_sort = true;
     type = "projectile";
     subtype = "projectile";
     owner = other;
@@ -273,7 +276,7 @@ return _o;
 #define ProjectileStep
 
 if (!visible) { visible = true; }
-depth = -y;
+if (depth_sort) depth = -y;
 
 if (despawnFade)
 {
@@ -435,7 +438,7 @@ if (show_projectile)
 if (global.jjSettProjCollisions)
 {
     
-    draw_circle_color(x, y, col_size, c_red, c_red, true);
+    draw_circle_color(x, y, col_size * scale, c_red, c_red, true);
     //draw_rectangle_color(bbox_left, bbox_top, bbox_right, bbox_bottom, c_red, c_red, c_red, c_red, true);
 }
 
@@ -742,7 +745,7 @@ return _p;
 
 xTo = owner.x + lengthdir_x(GetStandReach(self), owner.attack_direction + random_range(-4, 4));
 yTo = owner.y + lengthdir_y(GetStandReach(self), owner.attack_direction + random_range(-4, 4));
-image_xscale = mouse_x > owner.x ? 1 : -1;
+image_xscale = look_x > owner.x ? 1 : -1;
 
 switch (attackState)
 {
@@ -800,11 +803,12 @@ return _p;
 
 #define PunchSwingStep
 
-var pd = player.attack_direction;
+var pd = direction;
 var xx = x;
 var yy = y;
 if (instance_exists(owner))
 {
+    pd = owner.owner.attack_direction;
     xx = owner.x + lengthdir_x(32, pd);
     yy = owner.y + lengthdir_y(32, pd);
 }

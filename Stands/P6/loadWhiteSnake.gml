@@ -67,7 +67,7 @@ if (discs > 0)
         baseSpd = 7;
         rotation = 25;
         onHitEvent = ExplodeProjectile;
-        onHitEventArg = GetStandRange(other);
+        onHitEventArg = [_dmg, GetStandRange(other)];
     }
     discs--;
     EndAtk(s);
@@ -82,7 +82,8 @@ else
 
 if (instance_exists(_target))
 {
-    ExplosionCreate(_target.x, _target.y, 16 * _args, true);
+    var _e = ExplosionCreate(_target.x, _target.y, 16 * _args[1], true);
+    _e.dmg = _args[0];
 }
 
 #define DiscSelfInsert(m, s)
@@ -315,7 +316,7 @@ switch (attackState)
                 scale_with_velocity = true;
                 canMoveInTs = false;
                 sprite_index = global.sprAcidicSpit;
-                onHitEvent = StuckKnife;
+                onHitEvent = AcidSE;
             }
         }
         EndAtk(s);
@@ -345,7 +346,8 @@ switch (attackState)
     break;
     case 2:
         var _p = AcidicPoolCreate(x, y);
-        _p.scale *= GetStandRange(self);
+        _p.damage = GetDmg(s);
+        _p.size_target *= GetStandRange(self);
         EndAtk(s);
     break;
 }
@@ -353,17 +355,25 @@ attackStateTimer += DT * GetStandSpeed(self);
 
 #define AcidicPoolCreate(_x, _y)
 
-var _o = ModObjectSpawn(_x, _y, 0);
+var _o = ProjectileCreate(_x, _y);
 with (_o)
 {
     sprite_index = global.sprAcidicPool;
-    image_xscale = 0;
-    image_yscale = 0;
     image_angle = irandom(360);
     image_blend = other.color;
-    life = 20;
-    scale = 1;
-    enemiesHit = ds_list_create();
+    baseSpd = 0;
+    despawnTime = 20;
+    scale = 0;
+    col_size = 32;
+    col_cd_max = 0.5;
+    destroyOnImpact = false;
+    multihit = true;
+    destroy_in_water = false;
+    depth_sort = false;
+    depth = 1;
+    onHitEvent = AcidicPoolOnHit;
+    
+    size_target = 1;
     
     InstanceAssignMethod(self, "step", ScriptWrap(AcidicPoolStep));
 }
@@ -371,45 +381,13 @@ return _o;
 
 #define AcidicPoolStep
 
-life -= DT;
-if (life <= 0)
-{
-    image_alpha -= 0.1;
-    if (image_alpha <= 0)
-    {
-        instance_destroy(self);
-        exit;
-    }
-}
+scale = lerp(scale, size_target, 0.1);
 
-image_xscale = lerp(image_xscale, 1 * scale, 0.02);
-image_yscale = lerp(image_yscale, 1 * scale, 0.02);
-image_xscale = clamp(image_xscale, 0, 1 * scale);
-image_yscale = clamp(image_yscale, 0, 1 * scale);
+#define AcidicPoolOnHit(_, _a, _t)
 
-with (ENEMY)
+if (instance_exists(_t))
 {
-    if (place_meeting(x, y, other))
-    {
-        hp -= 0.001 + (hpMax * 0.001);
-        freeze = 2;
-    }
-}
-with (NATURAL)
-{
-    if (place_meeting(x, y, other))
-    {
-        hp -= 0.001 + (hpMax * 0.001);
-        freeze = 2;
-    }
-}
-with (CRITTER)
-{
-    if (place_meeting(x, y, other))
-    {
-        hp -= 0.001 + (hpMax * 0.001);
-        freeze = 2;
-    }
+    _t.freeze = 50;
 }
 
 #define DiscSteal(m, s)
@@ -463,6 +441,7 @@ with (_se)
     life = 9999;
     taken = false;
     destroy_when_target_empty = false;
+    cc_time = 30;
     
     InstanceAssignMethod(self, "step", ScriptWrap(DiscStolenSEStep));
     InstanceAssignMethod(self, "draw", ScriptWrap(DiscStolenSEDraw));
@@ -470,10 +449,17 @@ with (_se)
 
 #define DiscStolenSEStep
 
+if (cc_time > 0)
+{
+    cc_time -= DT;
+}
 if (instance_exists(target))
 {
-    target.freeze = 2;
-    target.pathfindSpeed = 0;
+    if (cc_time > 0)
+    {
+        target.freeze = 2;
+        target.pathfindSpeed = 0;
+    }
     depth = target.depth - 1;
 }
 
@@ -492,42 +478,28 @@ var _se = StatusEffect(_a, _t);
 with (_se)
 {
     damage = 0.01;
+    damage_percent = 0.0002;
     p_time = 0.5;
     
     InstanceAssignMethod(self, "step", ScriptWrap(AcidSEStep));
-    InstanceAssignMethod(self, "draw", ScriptWrap(AcidSEDraw));
 }
 
 #define AcidSEStep
 
 if (p_time <= 0)
 {
-    var _e = EffectGeParticleCreate(target.x, target.y, c_white);
-    with (_e)
+    if (instance_exists(target))
     {
-        bouncy = 0.2;
+        var _e = EffectGeParticleCreate(target.x, target.y, c_white);
+        with (_e)
+        {
+            bouncy = 0.2;
+            life = 2;
+        }
     }
     p_time = 0.5;
 }
 p_time -= DT;
-
-#define AcidSEDraw
-
-// if (!instance_exists(target)) exit;
-
-// if (!surface_exists(surf))
-// {
-//     surf = surface_create(target.sprite_width, target.sprite_height);
-// }
-
-// surface_set_target(surf);
-// draw_clear_alpha(c_black, 0);
-// draw_sprite_ext(target.sprite_index, target.image_index, target.sprite_xoffset, target.sprite_yoffset, target.image_xscale, target.image_yscale, target.image_angle, target.image_blend, target.image_alpha);
-// gpu_set_colorwriteenable(true, true, true, false);
-// draw_sprite_ext(global.sprAcidicPool, 0, 0, 0, 1, 1, 0, c_white, 0.5);
-// gpu_set_colorwriteenable(true, true, true, true);
-// surface_reset_target();
-// draw_surface(surf, target.x - target.sprite_xoffset, target.y - target.sprite_yoffset);
 
 #define GiveWhiteSnake(_owner) //stand
 
@@ -536,8 +508,8 @@ var _skills = StandSkillInit();
 var sk;
 sk = StandState.SkillAOff;
 _skills[sk, StandSkill.Skill] = QuickHand;
-_skills[sk, StandSkill.Damage] = 15;
-_skills[sk, StandSkill.DamageScale] = 0.2;
+_skills[sk, StandSkill.Damage] = 10;
+_skills[sk, StandSkill.DamageScale] = 0.1;
 _skills[sk, StandSkill.Icon] = global.sprSkillQuickHand;
 _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.MaxExecutionTime] = 2;
@@ -545,8 +517,8 @@ _skills[sk, StandSkill.Desc] = tr("quick_hand_desc");
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = ExplosiveSurprise;
-_skills[sk, StandSkill.Damage] = 1;
-_skills[sk, StandSkill.DamageScale] = 0.02;
+_skills[sk, StandSkill.Damage] = 15;
+_skills[sk, StandSkill.DamageScale] = 0.4;
 _skills[sk, StandSkill.Icon] = global.sprSkillExplosiveCommand;
 _skills[sk, StandSkill.MaxCooldown] = 5;
 _skills[sk, StandSkill.MaxExecutionTime] = 2;
@@ -560,6 +532,8 @@ _skills[sk, StandSkill.Desc] = tr("disc_self_insert_desc");
 
 sk = StandState.SkillDOff;
 _skills[sk, StandSkill.Skill] = MeltYourHeart;
+_skills[sk, StandSkill.Damage] = 2;
+_skills[sk, StandSkill.DamageScale] = 0.4;
 _skills[sk, StandSkill.Icon] = global.sprSkillMeltYourHeart;
 _skills[sk, StandSkill.MaxCooldown] = 40;
 _skills[sk, StandSkill.Desc] = tr("melt_your_heart_desc");

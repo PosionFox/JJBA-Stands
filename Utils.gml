@@ -483,7 +483,7 @@ if (array_length(_data) == 13) // legacy load
     var _development_potential = _data[11];
     var _stat_points = _data[12];
     
-    if _key != undefined GiveStandByKey(_key) else GiveStarPlatinum(player);
+    if _key != undefined GiveStandByKey(_key, player) else GiveStarPlatinum(player);
     //if _name != undefined  name
     if _level != undefined STAND.level = real(_level) else STAND.level = 1;
     if _experience != undefined STAND.experience = real(_experience) else STAND.experience = 0;
@@ -521,7 +521,7 @@ else
             var _development_potential = _sdata[? "development_potential"];
             var _stat_points = _sdata[? "stat_points"];
             
-            if _key != undefined GiveStandByKey(_key) else GiveStarPlatinum(player);
+            if _key != undefined GiveStandByKey(_key, player) else GiveStarPlatinum(player);
             if _level != undefined STAND.level = real(_level) else STAND.level = 1;
             if _experience != undefined STAND.experience = real(_experience) else STAND.experience = 0;
             if _experienceNext != undefined STAND.experienceNext = real(_experienceNext) else STAND.experienceNext = 5;

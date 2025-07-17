@@ -394,6 +394,15 @@ if (!instance_exists(objPlayerMenu))
 if (instance_exists(owner))
 {
     mouseXSide = sign(owner.facing);
+    if (bool("hp" in owner) and owner.hp <= 0)
+    {
+        state = StandState.Idle;
+        active = false;
+        if (barrageData.sound != noone and audio_is_playing(barrageData.sound))
+        {
+            audio_stop_sound(barrageData.sound);
+        }
+    }
 }
 
 x = lerp(x, xTo, velocity);
@@ -404,30 +413,38 @@ image_xscale = lerp(image_xscale, scaleX, scaleXSpd);
 image_yscale = lerp(image_yscale, scaleY, scaleYSpd);
 experience_display_thick = lerp(experience_display_thick, 1, 0.3);
 
-if (active)
+if (instance_exists(owner))
 {
-    if (state == StandState.Idle)
+    if (active)
     {
-        scaleX = mouseXSide;
-        image_xscale = mouseXSide;
-        alphaTarget = 1;
-        if (runIdlePos)
+        if (owner.freeze < 1)
         {
-            script_execute(idlePos);
+            if (state == StandState.Idle)
+            {
+                scaleX = mouseXSide;
+                image_xscale = mouseXSide;
+                alphaTarget = 1;
+                if (runIdlePos)
+                {
+                    script_execute(idlePos);
+                }
+                height = 2 + (cos(current_time / 1000) * 2);
+            }
+            var _e = EffectStandAuraCreate(x, y - height, auraParticleSprite, color);
+            _e.depth = depth + 2;
+            _e.owner = self;
+            _e.rotation = auraParticleRotation;
         }
-        height = 2 + (cos(current_time / 1000) * 2);
     }
-    var _e = EffectStandAuraCreate(x, y - height, auraParticleSprite, color);
-    _e.rotation = auraParticleRotation;
-}
-else
-{
-    if (state == StandState.Idle)
+    else
     {
-        scaleX = 0;
-        alphaTarget = 0;
-        xTo = owner.x;
-        yTo = owner.y;
+        if (state == StandState.Idle)
+        {
+            scaleX = 0;
+            alphaTarget = 0;
+            xTo = owner.x;
+            yTo = owner.y;
+        }
     }
 }
 height = lerp(height, height_target, height_speed);
@@ -488,7 +505,7 @@ if (experience >= experienceNext)
         level++;
         experience = max(experience - experienceNext, 0);
         experience_display = 0;
-        experienceNext = (5 * level) / (1 + (level / 20));
+        experienceNext = (12 * level) / (1 + (level / 20));
         stat_points += irandom_range(1, powerMultiplier);
         experience_display_thick += 8;
         
@@ -678,6 +695,8 @@ with (_stand)
     scaleXSpd = 0.1;
     scaleY = 1;
     scaleYSpd = 0.1;
+    look_x = x;
+    look_y = y;
     target = noone;
     altAttack = false;
     soundIdle = undefined;
@@ -692,7 +711,7 @@ with (_stand)
     // stats
     level = 1;
     experience = 0;
-    experienceNext = 5;
+    experienceNext = 12;
     experience_display = 0;
     experience_display_thick = 1;
     trait = {};
@@ -851,6 +870,10 @@ if (instance_exists(_owner) and instance_exists(_owner.myStand))
     RunesRemove(_owner);
     with (_owner.myStand)
     {
+        if (barrageData.sound != noone and audio_is_playing(barrageData.sound))
+        {
+            audio_stop_sound(barrageData.sound);
+        }
         state = StandState.Idle;
         for (var i = StandState.SkillAOff; i < StandState.SkillD; i++)
         {

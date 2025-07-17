@@ -28,6 +28,6 @@ with (_s)
     color = 0xffffff;
     sprite_index = global.sprCoin;
     UpdateRarity(Rarity.Common);
-    saveKey = "jjbamPs";
+    saveKey = "jjsPs";
 }
 return _s;

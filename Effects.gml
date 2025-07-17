@@ -348,6 +348,7 @@ draw_line_width_color(x, y, x, y - 256, width, c_red, c_yellow);
 var o = ModObjectSpawn(_x, _y, 0);
 with (o)
 {
+    owner = self;
     sprite_index = _sprite;
     image_blend = _color;
     life = 20;
@@ -362,6 +363,11 @@ with (o)
 return o;
 
 #define EffectStandAuraStep
+
+if (instance_exists(owner) and instance_exists(owner.owner) and owner.owner.freeze >= 1)
+{
+    exit;
+}
 
 x += hspd;
 y += vspd;

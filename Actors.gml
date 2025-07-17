@@ -104,7 +104,7 @@ if (canCollide)
 var _a = instance_place(x, y, MOBJ);
 if (instance_exists(_a) and bool("type" in _a))
 {
-    if (_a.type == "Actor" and id < _a.id)
+    if (_a.type == "Actor" or _a.type == "Enemy" and id < _a.id)
     {
         var _dir = point_direction(x, y, _a.x, _a.y);
         h = lengthdir_x(-1, _dir);

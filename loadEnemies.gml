@@ -5,33 +5,84 @@ global.enemyDioSpawned = false;
 
 return object_is_ancestor(_ins.object_index, ENEMY) or _ins.object_index == MOBJ and _ins.type == "Enemy";
 
-#define EnemyDioCreate(_x, _y)
+#define JjsEnemyCreate(_x, _y)
 
-jj_play_audio(global.sndDioSpawn, 1, false);
 var _o = ActorCreate(_x, _y);
 with (_o)
 {
     type = "Enemy";
-    subtype = "DIO";
     targetableFlag = true;
-    sprIdle = global.sprDIO;
-    sprWalk = global.sprDIOMoving;
-    sprite_index = sprIdle;
-    image_speed = 0.35;
-    level = 65;
-    hpMax = 6000;
+    sprIdle = sprPlayerIdle;
+    sprWalk = sprPlayerWalk;
+    level = 1;
+    hpMax = 100;
     hp = hpMax;
-    life = 512;
-    sun_immunity = false;
+    hp_display = hp;
+    life = 512; // despawn timer
     attack_direction = 0;
-    attack_cooldown = 0;
-    dying_timer = 0;
+    attack_cooldown = 2;
+    dying_sound = undefined;
     
-    init_trait(self);
     
-    myStand = GiveTheWorld(self);
+    InstanceAssignMethod(self, "step", ScriptWrap(JjsEnemyStep));
+}
+return _o;
+
+#define JjsEnemyStep
+
+if (hp <= 0 and state != "dying")
+{
+    state = "dying";
+    if (dying_sound != undefined) jj_play_audio(dying_sound, 5, false);
+}
+hp = clamp(hp, 0, hpMax);
+
+if (freeze > 0 and state != "dying")
+{
+    state = "freeze";
+}
+
+if (attack_cooldown > 0)
+{
+    attack_cooldown -= DT;
+}
+
+if (place_meeting(x, y, objSwordCollision))
+{
+    hp -= player.dmg;
+    PunchEffectCreate(x, y);
+    jj_play_audio(sndHitMeat, 0, false);
+}
+if (place_meeting(x, y, objArrow))
+{
+    hp -= player.dmg;
+    PunchEffectCreate(x, y);
+    jj_play_audio(sndHitMeat, 0, false);
+}
+if (place_meeting(x, y, objExplosion))
+{
+    hp -= player.dmg;
+    PunchEffectCreate(x, y);
+    jj_play_audio(sndHitMeat, 0, false);
+}
+
+h = lerp(h, 0, 0.1);
+v = lerp(v, 0, 0.1);
+image_xscale = facing;
+
+#define EnemyStandUserCreate(_x, _y, _standkey)
+
+var _o = JjsEnemyCreate(_x, _y);
+with (_o)
+{
+    GiveStandByKey(_standkey, self);
     with (myStand)
     {
+        destructive_power = 1;
+        spd = 1;
+        range = 1;
+        stamina = 1;
+        precision = 1;
         targets = [player];
         summonMethod = EventHandler;
         active = true;
@@ -42,8 +93,61 @@ with (_o)
         }
     }
     
-    InstanceAssignMethod(self, "step", ScriptWrap(EnemyDioStep), true);
-    InstanceAssignMethod(self, "drawGUI", ScriptWrap(EnemyDioDrawGUI), true);
+    trait_give_random(myStand);
+    
+    close_attacks = [];
+    ranged_attacks = [];
+    
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(EnemyStandUserStep));
+}
+return _o;
+
+#define EnemyStandUserStep
+
+if (instance_exists(myStand))
+{
+    if (instance_exists(player))
+    {
+        myStand.look_x = player.x;
+        myStand.look_y = player.y;
+    }
+}
+
+#define EnemyDioCreate(_x, _y)
+
+jj_play_audio(global.sndDioSpawn, 1, false);
+var _o = EnemyStandUserCreate(_x, _y, "jjbamTw");
+with (_o)
+{
+    subtype = "DIO";
+    sprIdle = global.sprDIO;
+    sprWalk = global.sprDIOMoving;
+    sprite_index = sprIdle;
+    image_speed = 0.35;
+    level = 65;
+    hpMax = 6000;
+    hp = hpMax;
+    sun_immunity = false;
+    dying_timer = 0;
+    dying_sound = global.sndDioDeath;
+    
+    close_attacks = [
+        StandState.SkillBOff,
+        StandState.SkillCOff,
+        StandState.SkillA,
+        StandState.SkillB,
+        StandState.SkillD
+    ];
+    ranged_attacks = [
+        StandState.SkillAOff,
+        StandState.SkillDOff,
+        StandState.SkillC,
+        StandState.SkillD
+    ];
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(EnemyDioStep));
+    InstanceAssignMethod(self, "drawGUI", ScriptWrap(EnemyDioDrawGUI));
 }
 return _o;
 
@@ -59,41 +163,18 @@ if (sun_immunity == false)
     }
 }
 
-if (attack_cooldown > 0)
-{
-    attack_cooldown -= DT;
-    if (instance_exists(myStand))
-    {
-        for (var i = 0; i < array_length(myStand.skills); i++)
-        {
-            myStand.skills[i, StandSkill.Key] = "null";
-        }
-    }
-}
-
-if (freeze > 0)
-{
-    state = "freeze";
-}
-
-if (hp <= 0 and state != "dying")
-{
-    state = "dying";
-    jj_play_audio(global.sndDioDeath, 5, false);
-}
-hp = clamp(hp, 0, hpMax);
-
 switch (state)
 {
     case "idle":
         sprite_index = sprIdle;
         image_speed = 0.35;
-        if (distance_to_object(player) < 128)
+        if (distance_to_object(player) < 1024)
         {
-            state = "chase"
+            state = "chase";
         }
     break;
     case "chase":
+        facing = player.x > x ? 1 : -1;
         if (distance_to_object(player) > 16)
         {
             sprite_index = sprWalk;
@@ -101,24 +182,79 @@ switch (state)
         }
         else
         {
+            sprite_index = sprIdle;
+        }
+        if (attack_cooldown <= 0)
+        {
             state = "attack";
         }
     break;
     case "attack":
         sprite_index = sprIdle;
-        attack_direction = point_direction(x, y, player.x, player.y);
-        facing = player.x > x ? 1 : -1;
         if (attack_cooldown <= 0)
         {
-            for (var i = 0; i < array_length(myStand.skills); i++)
+            attack_direction = point_direction(x, y, player.x, player.y);
+            var _rattack;
+            
+            if (distance_to_object(player) > 16)
             {
-                myStand.skills[i, StandSkill.Key] = "";
+                var _rl = array_length(ranged_attacks);
+                if (_rl < 1)
+                {
+                    attack_cooldown = 0.5;
+                    state = "idle";
+                    exit;
+                }
+                var _ri = irandom(_rl - 1);
+                _rattack = ranged_attacks[_ri];
             }
-            attack_cooldown = 1;
+            else
+            {
+                var _cl = array_length(close_attacks);
+                if (_cl < 1)
+                {
+                    attack_cooldown = 0.5;
+                    state = "idle";
+                    exit;
+                }
+                var _ci = irandom(_cl - 1);
+                _rattack = close_attacks[_ci];
+            }
+            
+            if (myStand.skills[_rattack, StandSkill.Cooldown] > 0)
+            {
+                attack_cooldown = 0.5;
+                state = "idle";
+            }
+            else
+            {
+                if (_rattack < 5)
+                {
+                    myStand.active = false;
+                }
+                myStand.state = _rattack;
+                state = "attacking";
+            }
         }
-        if (distance_to_object(player) > 16)
+        else if (distance_to_object(player) > 16)
         {
             state = "chase";
+        }
+    break;
+    case "attacking":
+        sprite_index = sprIdle;
+        facing = player.x > x ? 1 : -1;
+        attack_direction = point_direction(x, y, player.x, player.y);
+        if (distance_to_object(player) > 16)
+        {
+            sprite_index = sprWalk;
+            mp_potential_step_object(player.x, player.y, maxSpd, parSolid);
+        }
+        if (myStand.state == StandState.Idle)
+        {
+            attack_cooldown = random_range(1, 2);
+            myStand.active = true;
+            state = "idle";
         }
     break;
     case "freeze":
@@ -126,10 +262,6 @@ switch (state)
         image_blend = c_aqua;
         h = 0;
         v = 0;
-        for (var i = 0; i < array_length(myStand.skills); i++)
-        {
-            myStand.skills[i, StandSkill.Key] = "null";
-        }
         if (freeze <= 0)
         {
             image_blend = c_white;
@@ -185,35 +317,23 @@ switch (state)
     break;
 }
 
-h = lerp(h, 0, 0.1);
-v = lerp(v, 0, 0.1);
-image_xscale = facing;
-
-if (place_meeting(x, y, objSwordCollision))
-{
-    hp -= player.dmg;
-}
-if (place_meeting(x, y, objArrow))
-{
-    hp -= player.dmg;
-}
-if (place_meeting(x, y, objExplosion))
-{
-    hp -= player.dmg;
-}
-
 #define EnemyDioDrawGUI
 
 var xx = 372;
-var yy = display_get_gui_height() - 128;
+var yy = display_get_gui_height() - 96;
 var length = 534;
+hp_display = lerp(hp_display, hp, 0.1);
 
 draw_set_color(c_black);
 draw_line_width(xx, yy, xx + length, yy, 8);
+draw_set_color(c_orange);
+draw_line_width(xx, yy, xx + (hp_display / hpMax) * length, yy, 8);
 draw_set_color(c_red);
 draw_line_width(xx, yy, xx + (hp / hpMax) * length, yy, 8);
 draw_set_color(c_white);
-draw_text(xx + (length / 2), yy, "dio");
+var _trait = "";
+//if (instance_exists(myStand)) _trait = myStand.trait.name;
+draw_text_color(xx + (length / 2), yy, string(_trait) + "dio", c_yellow, c_yellow, c_yellow, c_yellow, 1);
 
 #define EnemyDioSpawn
 
@@ -224,19 +344,16 @@ if (instance_exists(player))
     _xx = player.x;
     _yy = player.y;
 }
-ExplosionCreate(_xx, _yy, 32, false);
 var _d = EnemyDioCreate(_xx, _yy);
 global.enemyDioSpawned = true;
 return _d;
 
 #define EnemyPrisonerCreate(_x, _y)
 
-var _o = ActorCreate(_x, _y);
+var _o = EnemyStandUserCreate(_x, _y, "jjsPs");
 with (_o)
 {
-    type = "Enemy";
     subtype = "Prisoner";
-    targetableFlag = true;
     sprIdle = global.sprPrisoner;
     sprWalk = global.sprPrisonerMoving;
     sprite_index = sprIdle;
@@ -245,23 +362,14 @@ with (_o)
     hpMax = 120;
     hp = hpMax;
     life = 240;
-    attack_direction = 0;
-    attack_cooldown = 0;
     state = "waiting";
     
-    init_trait(self);
+    myStand.active = false;
     
-    myStand = GivePrisoner(self);
-    with (myStand)
-    {
-        targets = [player];
-        summonMethod = EventHandler;
-        runDrawGUI = false;
-        for (var i = 0; i < array_length(skills); i++)
-        {
-            skills[i, StandSkill.Key] = "null";
-        }
-    }
+    close_attacks = [
+        StandState.SkillAOff,
+        StandState.SkillBOff
+    ];
     
     InstanceAssignMethod(self, "step", ScriptWrap(EnemyPrisonerStep));
     InstanceAssignMethod(self, "draw", ScriptWrap(EnemyPrisonerDraw));
@@ -269,29 +377,6 @@ with (_o)
 return _o;
 
 #define EnemyPrisonerStep
-
-if (attack_cooldown > 0)
-{
-    attack_cooldown -= DT;
-    if (instance_exists(myStand))
-    {
-        for (var i = 0; i < array_length(myStand.skills); i++)
-        {
-            myStand.skills[i, StandSkill.Key] = "null";
-        }
-    }
-}
-
-if (freeze > 0)
-{
-    state = "freeze";
-}
-
-if (hp <= 0 and state != "dying")
-{
-    state = "dying";
-}
-hp = clamp(hp, 0, hpMax);
 
 switch (state)
 {
@@ -304,12 +389,13 @@ switch (state)
     case "idle":
         sprite_index = sprIdle;
         image_speed = 0.35;
-        if (distance_to_object(player) < 128)
+        if (distance_to_object(player) < 1024)
         {
             state = "chase";
         }
     break;
     case "chase":
+        facing = player.x > x ? 1 : -1;
         if (distance_to_object(player) > 16)
         {
             sprite_index = sprWalk;
@@ -317,24 +403,74 @@ switch (state)
         }
         else
         {
-            state = "attack";
+            sprite_index = sprIdle;
+            if (attack_cooldown <= 0)
+            {
+                state = "attack";
+            }
         }
     break;
     case "attack":
         sprite_index = sprIdle;
-        attack_direction = point_direction(x, y, player.x, player.y);
-        facing = player.x > x ? 1 : -1;
         if (attack_cooldown <= 0)
         {
-            for (var i = 0; i < array_length(myStand.skills); i++)
+            attack_direction = point_direction(x, y, player.x, player.y);
+            var _rattack;
+            
+            if (distance_to_object(player) > 16)
             {
-                myStand.skills[i, StandSkill.Key] = "";
+                var _rl = array_length(ranged_attacks);
+                if (_rl < 1)
+                {
+                    attack_cooldown = 0.5;
+                    state = "idle";
+                    exit;
+                }
+                var _ri = irandom(_rl - 1);
+                _rattack = ranged_attacks[_ri];
             }
-            attack_cooldown = 1;
+            else
+            {
+                var _cl = array_length(close_attacks);
+                if (_cl < 1)
+                {
+                    attack_cooldown = 0.5;
+                    state = "idle";
+                    exit;
+                }
+                var _ci = irandom(_cl - 1);
+                _rattack = close_attacks[_ci];
+            }
+            
+            if (myStand.skills[_rattack, StandSkill.Cooldown] > 0)
+            {
+                attack_cooldown = 0.5;
+                state = "idle";
+            }
+            else
+            {
+                myStand.state = _rattack;
+                state = "attacking";
+            }
         }
-        if (distance_to_object(player) > 16)
+        else if (distance_to_object(player) > 16)
         {
             state = "chase";
+        }
+    break;
+    case "attacking":
+        sprite_index = sprIdle;
+        facing = player.x > x ? 1 : -1;
+        attack_direction = point_direction(x, y, player.x, player.y);
+        if (distance_to_object(player) > 16)
+        {
+            sprite_index = sprWalk;
+            mp_potential_step_object(player.x, player.y, maxSpd, parSolid);
+        }
+        if (myStand.state == StandState.Idle)
+        {
+            attack_cooldown = random_range(1, 2);
+            state = "idle";
         }
     break;
     case "freeze":
@@ -342,10 +478,6 @@ switch (state)
         image_blend = c_aqua;
         h = 0;
         v = 0;
-        for (var i = 0; i < array_length(myStand.skills); i++)
-        {
-            myStand.skills[i, StandSkill.Key] = "null";
-        }
         if (freeze <= 0)
         {
             image_blend = c_white;
@@ -366,23 +498,6 @@ switch (state)
         instance_destroy(self);
         exit;
     break;
-}
-
-h = lerp(h, 0, 0.1);
-v = lerp(v, 0, 0.1);
-image_xscale = facing;
-
-if (place_meeting(x, y, objSwordCollision))
-{
-    hp -= player.dmg;
-}
-if (place_meeting(x, y, objArrow))
-{
-    hp -= player.dmg;
-}
-if (place_meeting(x, y, objExplosion))
-{
-    hp -= player.dmg;
 }
 
 #define EnemyPrisonerDraw

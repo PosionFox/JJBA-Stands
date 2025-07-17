@@ -147,7 +147,7 @@ switch (args[0])
 
 RemoveStand(player);
 
-GiveStandByKey(args[0]);
+GiveStandByKey(args[0], player);
 
 #define jjTestCommand
 

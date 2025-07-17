@@ -132,12 +132,12 @@ attackStateTimer += DT * GetStandSpeed(self);
 
 #define TwTsTp(m, s)
 
-if (!WaterCollision(mouse_x, mouse_y) and !modTypeExists("timestop"))
+if (!WaterCollision(look_x, look_y) and !modTypeExists("timestop"))
 {
     EffectWhiteScreen(0.1);
     jj_play_audio(global.sndTwohTp, 5, false);
-    player.x = mouse_x;
-    player.y = mouse_y;
+    owner.x = look_x;
+    owner.y = look_y;
     EndAtk(s);
 }
 else
@@ -164,8 +164,9 @@ image_xscale = sign(dcos(_dir));
 switch (attackState)
 {
     case 0:
-        var _sc = global.sndTwWindup;
-        if (_sc) jj_play_audio(_sc, 0, false);
+        jj_play_audio(global.sndTwWindup, 0, false);
+        var _sc = GetSkillVars(s, "cry_sound");
+        if (_sc != undefined) jj_play_audio(_sc, 0, false);
         attackState++;
     break;
     case 1:

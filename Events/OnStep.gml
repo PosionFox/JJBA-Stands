@@ -10,6 +10,8 @@ if (instance_exists(player))
     
     if (bool("myStand" in player) and instance_exists(player.myStand))
     {
+        player.myStand.look_x = mouse_x;
+        player.myStand.look_y = mouse_y;
         RunRunesUpdate(STAND);
         RunRunesHealing(player, STAND);
     }

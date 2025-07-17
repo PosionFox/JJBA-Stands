@@ -9,6 +9,7 @@ with (_o)
     destroy_when_target_empty = true;
     life = 5;
     damage = 0;
+    damage_percent = 0;
     
     
     InstanceAssignMethod(self, "step", ScriptWrap(StatusEffectStep), false);
@@ -37,6 +38,11 @@ depth = target.depth - 2;
 if (damage > 0)
 {
     target.hp -= damage;
+}
+
+if (damage_percent > 0)
+{
+    target.hp -= target.hpMax * damage_percent;
 }
 
 #define StatusEffectDestroy
