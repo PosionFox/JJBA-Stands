@@ -1,5 +1,34 @@
+17/7/2025
 
-16/07/2025
+Improvements to enemy AI:
+-Enemy attack cooldown is now 2 seconds on spawn.
+-Enemies can now use close or ranged attacks depending on player distance.
+-Added visual feedback when attacking Enemies with sword, bow and explosions.
+-DIO's Stand no longer has randomized stats.
+-Tweaked DIO's health bar.
+-Fixed DIO's Stand trait being set wrongly.
+
+WhiteSnake rebalance:
+-Reduced Quick Hand damage to 10 from 15 and damage scaling to 10% from 20%.
+-Increased Explosive Command damage to 15 from 1 and damage scaling to 40% from 2%.
+-MYH(Melt Your Heart) no longer does health percent damage.
+-MYH damage is now set to 2 and scaling to 40%.
+-MYH now deals damage every 0.5 seconds.
+-Acidic Spit now applies the correct status effect.
+-Acidic Status Effect now also does health percent damage.
+-Disc Steal no longer stuns enemies indefinitely and now wears off after 30 seconds.
+
+Other changes:
+-The World Retro and The World OVA got their strong punch sound effects back.
+-Stand damage scaling now takes into account Stand level besides Player level.
+-Increased XP requirements to level up.
+-Stands no longer animate if frozen when idle.
+-Stand aura no longer animates when frozen.
+-Fixed Stand ability(hold) damage scaling.
+-Fixed Stand still active after Player death.
+
+
+16/7/2025
 
 In preparation for the future releases of Weather Report and C-Moon, I decided to rework WhiteSnake:
 -Sudden Strike was renamed to Quick Hand and its cooldown was lowered from 5 to 3, now it will take any enemy disc instead of the Disc Steal ability.
