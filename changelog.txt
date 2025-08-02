@@ -1,3 +1,19 @@
+2/8/2025
+
+The mod's visuals were updated to match Forager's color palette, many sprites also got some touch ups.
+
+WhiteSnake adjustments:
+-Explosive Command range increased to 32 from 16.
+-Pale Pursuit now chases enemies down instead of idling after killing the first.
+
+Other changes:
+-Added DIO cosmetic unlockable by defeating DIO.
+-Camera is now cheaper and has value.
+-BlackSnake is now ordinary.
+-Mod Menu now freezes the player.
+-Basic buttons are now rounded.
+
+
 17/7/2025
 
 Improvements to enemy AI:
