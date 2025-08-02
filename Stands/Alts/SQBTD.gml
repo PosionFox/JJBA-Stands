@@ -31,8 +31,8 @@ with (_s)
 {
     sprite_index = global.sprSQBTD;
     name = "Shadow Queen\nBites the Dust";
-    color = 0xba7bd7;
-    colorAlt = 0x3c2845;
+    color = Color.FaintPurple;
+    colorAlt = Color.BrightRed;
     UpdateRarity(Rarity.Epic);
     auraParticleSprite = global.sprStandParticle2;
     saveKey = "jjbamSqbtd";

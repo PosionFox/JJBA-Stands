@@ -270,8 +270,8 @@ with (_s)
 {
     name = "Star Platinum";
     sprite_index = global.sprStarPlatinum;
-    color = 0x8a4276;
-    colorAlt = 0xff9b63;
+    color = Color.Teal;
+    colorAlt = Color.MiddleBlue1;
     summonSound = global.sndSpSummon;
     discType = global.jjbamDiscSp;
     saveKey = "jjbamSp";
@@ -294,7 +294,7 @@ with (_s)
     evolutions[3] = [global.sprSptw, global.sprJotarosHat, Rarity.Common];
     
     scarf_sprite = global.sprScarf;
-    scarf_color = 0x3232ac;
+    scarf_color = Color.Red;
     target_x = x;
     target_y = y;
     ik_scarf = ik_create(5, 2);

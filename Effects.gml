@@ -364,7 +364,7 @@ return o;
 
 #define EffectStandAuraStep
 
-if (instance_exists(owner) and instance_exists(owner.owner) and owner.owner.freeze >= 1)
+if (instance_exists(owner) and instance_exists(owner.owner) and bool("freeze" in owner.owner) and owner.owner.freeze >= 1)
 {
     exit;
 }

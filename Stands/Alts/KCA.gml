@@ -31,8 +31,8 @@ with (_s)
 {
     sprite_index = global.sprKingCrimsonAqua;
     name = "King Crimson Aqua";
-    color = 0xff9b63;
-    colorAlt = c_aqua;
+    color = Color.Blue;
+    colorAlt = Color.Aqua;
     UpdateRarity(Rarity.Rare);
     saveKey = "jjbamKca";
     discType = global.jjbamDiscKca;

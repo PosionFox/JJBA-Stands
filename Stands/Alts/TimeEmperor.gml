@@ -31,9 +31,9 @@ with (_s)
 {
     name = "Time Emperor"
     sprite_index = global.sprTimeEmperor;
-    color = 0xe16e5b;
-    colorAlt = 0xe4cd5f;
-    scarf_color = 0xe4cd5f;
+    color = Color.Teal;
+    colorAlt = Color.Aqua;
+    scarf_color = Color.Aqua;
     UpdateRarity(Rarity.Epic);
     auraParticleSprite = global.sprStandParticle6;
     auraParticleRotation = 4;

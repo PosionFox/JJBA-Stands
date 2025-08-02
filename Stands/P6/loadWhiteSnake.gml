@@ -82,7 +82,7 @@ else
 
 if (instance_exists(_target))
 {
-    var _e = ExplosionCreate(_target.x, _target.y, 16 * _args[1], true);
+    var _e = ExplosionCreate(_target.x, _target.y, 32 * _args[1], true);
     _e.dmg = _args[0];
 }
 
@@ -191,6 +191,15 @@ switch (attackState)
                     onHitEvent = AcidSE;
                 }
                 attackState++;
+            }
+        }
+        else if (enemy_instance_exists())
+        {
+            var _n = get_nearest_enemy(x, y);
+            if (distance_to_object(_n) < 512)
+            {
+                SetSkillVar(s, "target", _n);
+                SetSkillVar(s, "barrage_cd", 0.2);
             }
         }
         else
@@ -576,8 +585,8 @@ with (_s)
 {
     name = "WhiteSnake";
     sprite_index = global.sprWhiteSnake;
-    color = 0xfcdbcb;
-    colorAlt = 0x342022;
+    color = Color.DimWhite;
+    colorAlt = Color.DarkBlue;
     summonSound = global.sndWsSummon;
     saveKey = "jjbamWs";
     discType = global.jjbamDiscWs;
@@ -586,14 +595,15 @@ with (_s)
     disc_warning_alpha = 0;
     
     variants[0] = [sprite_index, rarity.tier];
-    variants[1] = [global.sprGreenSnake, Rarity.Uncommon];
-    variants[2] = [global.sprBlueSnake, Rarity.Rare];
-    variants[3] = [global.sprPurpleSnake, Rarity.Epic];
-    variants[4] = [global.sprYellowSnake, Rarity.Legendary];
-    variants[5] = [global.sprRedSnake, Rarity.Mythical];
-    variants[6] = [global.sprOrangeSnake, Rarity.Celestial];
-    variants[7] = [global.sprPinkSnake, Rarity.Ultimate];
-    variants[8] = [global.sprWhiteSnakeUltimate, Rarity.Ultimate];
+    variants[1] = [global.sprBlackSnake, Rarity.Ordinary];
+    variants[2] = [global.sprGreenSnake, Rarity.Uncommon];
+    variants[3] = [global.sprBlueSnake, Rarity.Rare];
+    variants[4] = [global.sprPurpleSnake, Rarity.Epic];
+    variants[5] = [global.sprYellowSnake, Rarity.Legendary];
+    variants[6] = [global.sprRedSnake, Rarity.Mythical];
+    variants[7] = [global.sprOrangeSnake, Rarity.Celestial];
+    variants[8] = [global.sprPinkSnake, Rarity.Ultimate];
+    variants[9] = [global.sprWhiteSnakeUltimate, Rarity.Ultimate];
     
     evolutions[0] = [global.sprCMoon, "???", Rarity.Common];
     

@@ -37,8 +37,8 @@ with (_s)
 {
     name = "Star Platinum OVA";
     sprite_index = global.sprSPOVA;
-    color = 0x826030;
-    colorAlt = 0xff9b63;
+    color = Color.Blue;
+    colorAlt = Color.MiddleBlue1;
     UpdateRarity(Rarity.Legendary);
     saveKey = "jjbamSpova";
     discType = global.jjbamDiscSpova;
@@ -46,7 +46,7 @@ with (_s)
     summonSound = global.sndSpovaSummon;
     
     barrageData.sound = global.sndSpovaBarrage;
-    scarf_color = 0xb7ad9b;
+    scarf_color = Color.Gray;
     
     skills[StandState.SkillB, StandSkill.Vars] = { cry_sound : global.sndSpovaStrongPunch };
     skills[StandState.SkillC, StandSkill.Vars] = { star_sound : undefined };

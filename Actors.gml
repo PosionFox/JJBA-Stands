@@ -10,6 +10,7 @@ with (_o)
 {
     owner = other;
     type = "Actor";
+    
     sprite_index = sprPlayerIdle;
     mask_index = sprPlayerIdle;
     
@@ -119,6 +120,33 @@ depth = -y;
 draw_sprite_ext(sprShadow, 0, x, y + 2, image_xscale, image_yscale, 0, c_white, 0.5);
 draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
 //draw_rectangle_color(bbox_left, bbox_top, bbox_right, bbox_bottom, c_red, c_red, c_red, c_red, true);
+
+#define HumanoidCreate(_x, _y)
+
+var _o = ActorCreate(_x, _y);
+with (_o)
+{
+    subtype = "humanoid";
+    
+    sprIdle = sprPlayerIdle;
+    sprWalk = sprPlayerWalk;
+    sprHatIdle = undefined;
+    sprHatWalk = undefined;
+    hat_sprite = undefined;
+    
+    sprite_index = sprIdle;
+    mask_index = sprIdle;
+
+    InstanceAssignMethod(self, "draw", ScriptWrap(HumanoidDraw), false);
+}
+return _o;
+
+#define HumanoidDraw
+
+if (hat_sprite != undefined)
+{
+    draw_sprite_ext(hat_sprite, image_index, x, y, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
+}
 
 #define ShaCreate(_x, _y, _dmg)
 

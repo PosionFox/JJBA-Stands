@@ -73,7 +73,8 @@ with (_s)
 {
     name = "The World Retro\nOver Heaven";
     sprite_index = global.sprTWROH;
-    color = 0x50e599;
+    color = Color.LightGreen;
+    colorAlt = Color.DimWhite;
     UpdateRarity(Rarity.Mythical);
     auraParticleSprite = global.sprStandParticle3;
     saveKey = "jjbamTwroh";

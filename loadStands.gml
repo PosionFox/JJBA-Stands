@@ -1,5 +1,5 @@
 
-// scripts for loading mostly items
+// scripts for loading mostly items (this is probably deprecated)
 
 #region p3
 

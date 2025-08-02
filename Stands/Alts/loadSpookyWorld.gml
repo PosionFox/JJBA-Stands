@@ -31,7 +31,8 @@ with (_s)
 {
     name = "Spooky World";
     sprite_index = global.sprSpookyWorld;
-    color = 0x322022;
+    color = Color.DarkBlue;
+    colorAlt = Color.Orange;
     UpdateRarity(Rarity.Rare);
     auraParticleSprite = global.sprStandParticle2;
     saveKey = "jjbamSw";

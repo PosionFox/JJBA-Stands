@@ -103,6 +103,7 @@ global.bizarre_rarity_weight = 1;
 json_lib();
 localization_core();
 loadSprites();
+cosmetics();
 loadSounds();
 loadItems();
 RunesCore();

@@ -31,8 +31,8 @@ with (_s)
 {
     sprite_index = global.sprKCF;
     name = "King Crimson Festive";
-    color = 0x6357d9;
-    colorAlt = c_lime;
+    color = Color.BrightRed;
+    colorAlt = Color.Lime;
     UpdateRarity(Rarity.Event);
     saveKey = "jjbamKcf";
     discType = global.jjbamDiscKcf;

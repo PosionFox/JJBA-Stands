@@ -6,8 +6,8 @@ with (_s)
 {
     sprite_index = global.sprP03;
     name = "P03";
-    color = 0xe4cd5f;
-    colorAlt = 0x826030;
+    color = Color.Aqua;
+    colorAlt = Color.Teal;
     UpdateRarity(Rarity.Mythical);
     auraParticleSprite = global.sprStandParticle8;
     saveKey = "jjsP03";

@@ -6,8 +6,8 @@ with (_s)
 {
     name = "YellowSnake"
     sprite_index = global.sprYellowSnake;
-    color = 0x36f2fb;
-    colorAlt = c_dkgray;
+    color = Color.Yellow;
+    colorAlt = Color.DarkBlue;
     UpdateRarity(Rarity.Legendary);
     saveKey = "jjYellowSnake";
 }

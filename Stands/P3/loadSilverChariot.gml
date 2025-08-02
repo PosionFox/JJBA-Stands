@@ -214,8 +214,8 @@ with (_s)
     sprite_index = global.sprSilverChariot;
     sprArmored = sprite_index;
     sprArmorless = global.sprSCarmorless;
-    color = 0x877e84;
-    colorAlt = c_ltgray;
+    color = Color.Gray;
+    colorAlt = Color.MiddleBlue2;
     summonSound = global.sndScSummon;
     saveKey = "jjbamSc";
     discType = global.jjbamDiscSc;

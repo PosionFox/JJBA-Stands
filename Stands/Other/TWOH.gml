@@ -317,8 +317,8 @@ with (_s)
 {
     name = "The World\nOver Heaven";
     sprite_index = global.sprTWOH;
-    color = 0xffffff;
-    colorAlt = 0x36f2fb;
+    color = Color.White;
+    colorAlt = Color.Gold;
     desummonSound = summonSound;
     UpdateRarity(Rarity.Common);
     saveKey = "jjbamTwoh";

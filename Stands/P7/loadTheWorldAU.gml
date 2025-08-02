@@ -332,8 +332,8 @@ with (_s)
 {
     name = "The World\nAlternate Universe";
     sprite_index = global.sprTheWorldAU;
-    color = 0x36c7fb;
-    colorAlt = 0x9ac3ee;
+    color = Color.Gold;
+    colorAlt = Color.DarkGold;
     summonSound = global.sndTwSummon;
     sprKnife = global.sprKnife;
     saveKey = "jjbamTwau";

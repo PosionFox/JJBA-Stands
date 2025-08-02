@@ -1,6 +1,25 @@
 
 var p = ""; // path short
 
+#region Skins
+
+p = "Resources/Sprites/skins/";
+var ps = "";
+
+// DIO
+ps = p + "dio/";
+global.sprDIOIdle = sprite_add(ps + "DIO_idle.png", 6, false, false, 16, 19);
+global.sprDIOIdleHead = sprite_add(ps + "DIO_idle_head.png", 6, false, false, 16, 19);
+global.sprDIOWalk = sprite_add(ps + "DIO_walk.png", 6, false, false, 16, 19);
+global.sprDIOWalkHead = sprite_add(ps + "DIO_walk_head.png", 6, false, false, 16, 19);
+
+// Prisoner
+ps = p + "prisoner/";
+global.sprPrisonerIdle = sprite_add(ps + "prisoner_idle.png", 6, false, false, 16, 19);
+global.sprPrisonerWalk = sprite_add(ps + "prisoner_walk.png", 6, false, false, 16, 19);
+
+#endregion
+
 #region Items
 
 p = "Resources/Sprites/Items/";
@@ -178,14 +197,6 @@ global.sprHorizontalSlash = sprite_add(p + "HorizontalSlash.png", 1, false, fals
 
 #endregion
 
-#region DIO
-
-p = "Resources/Sprites/DIO/";
-global.sprDIO = sprite_add(p + "DIO_idle.png", 4, false, false, 16, 19);
-global.sprDIOMoving = sprite_add(p + "DIO_moving.png", 4, false, false, 16, 19);
-
-#endregion
-
 #region the world
 
 p = "Resources/Sprites/TW/";
@@ -203,7 +214,10 @@ global.sprSkillStopSign = sprite_add(p + "SkillStopSign.png", 1, false, false, 1
 global.sprSkillTripleKnifeThrow = sprite_add(p + "SkillTripleKnifeThrow.png", 1, false, false, 16, 16);
 
 // alts
+global.sprSpookyWorld = sprite_add(p + "SpookyWorld.png", 1, false, false, 16, 19);
+global.sprTWR = sprite_add(p + "TWR.png", 1, false, false, 16, 19);
 global.sprTheWorldFrozen = sprite_add(p + "TheWorldFrozen.png", 1, false, false, 16, 19);
+global.sprTWFCape = sprite_add(p + "twfcape.png", 1, false, false, 0, 2);
 global.sprTWOVA = sprite_add(p + "TWOVA.png", 1, false, false, 16, 19);
 
 #endregion
@@ -248,6 +262,7 @@ global.sprSkillStarFinger = sprite_add(p + "SkillStarFinger.png", 1, false, fals
 global.sprSkillTimestopSp = sprite_add(p + "SkillTimestopSp.png", 1, false, false, 16, 16);
 
 // alts
+global.sprSPR = sprite_add(p + "SPR.png", 1, false, false, 16, 19);
 global.sprSPOH = sprite_add(p + "SPOH.png", 1, false, false, 16, 19);
 global.sprSPROH = sprite_add(p + "SPROH.png", 1, false, false, 16, 19);
 global.sprSPOVA = sprite_add(p + "SPOVA.png", 1, false, false, 16, 19);
@@ -563,23 +578,6 @@ global.sprCrazyDiamond = sprite_add(p + "CrazyDiamond.png", 1, false, false, 16,
 p = "Resources/Sprites/SANS/";
 global.sprSans = sprite_add(p + "Sans.png", 1, false, false, 16, 19);
 global.sprGroundBone = sprite_add(p + "GroundBone.png", 3, false, false, 8, 16);
-
-#endregion
-
-#region Alts
-
-p = "Resources/Sprites/Alts/";
-global.sprSpookyWorld = sprite_add(p + "SpookyWorld.png", 1, false, false, 16, 19);
-global.sprSPR = sprite_add(p + "SPR.png", 1, false, false, 16, 19);
-global.sprTWR = sprite_add(p + "TWR.png", 1, false, false, 16, 19);
-
-#endregion
-
-#region prisoner
-
-p = "Resources/Sprites/prisoner/";
-global.sprPrisoner = sprite_add(p + "prisoner_idle.png", 4, false, false, 16, 19);
-global.sprPrisonerMoving = sprite_add(p + "prisoner_moving.png", 4, false, false, 16, 19);
 
 #endregion
 

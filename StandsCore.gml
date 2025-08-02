@@ -813,14 +813,14 @@ var _ce = make_color_hsv(128 + abs(sin(current_time / 500)) * 32, abs(sin(curren
 
 switch(_rarity)
 {
-    case Rarity.Ordinary: return 0x202020; break;
-    case Rarity.Tragic: return 0x808080; break;
-    case Rarity.Common: return 0xffffff; break;
-    case Rarity.Uncommon: return 0x50e599; break;
-    case Rarity.Rare: return 0xff9b63; break;
-    case Rarity.Epic: return 0x8a4276; break;
-    case Rarity.Legendary: return 0x36f2fb; break;
-    case Rarity.Mythical: return 0x6357d9; break;
+    case Rarity.Ordinary: return Color.DarkBlue; break;
+    case Rarity.Tragic: return Color.GrayBlue; break;
+    case Rarity.Common: return Color.White; break;
+    case Rarity.Uncommon: return Color.LightGreen; break;
+    case Rarity.Rare: return Color.Blue; break;
+    case Rarity.Epic: return Color.Purple; break;
+    case Rarity.Legendary: return Color.Gold; break;
+    case Rarity.Mythical: return Color.Red; break;
     case Rarity.Celestial: return _cc; break;
     case Rarity.Ultimate: return _cu; break;
     case Rarity.Bizarre: return _cb; break;

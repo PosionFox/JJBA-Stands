@@ -32,9 +32,9 @@ with (_s)
 {
     name = "Star Platinum Retro\nOver Heaven";
     sprite_index = global.sprSPROH;
-    color = c_orange;
-    colorAlt = 0x342022;
-    scarf_color = c_orange;
+    color = Color.Orange;
+    colorAlt = Color.DarkGreen;
+    scarf_color = Color.Orange;
     UpdateRarity(Rarity.Ultimate);
     saveKey = "jjbamSproh";
     discType = global.jjbamDiscSproh;

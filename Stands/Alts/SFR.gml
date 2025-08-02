@@ -31,8 +31,8 @@ with (_s)
 {
     sprite_index = global.sprSFR;
     name = "Sticky Fingers Red";
-    color = 0xfcdbcb;
-    colorAlt = 0x6357d9;
+    color = Color.BrightRed;
+    colorAlt = Color.DimWhite;
     UpdateRarity(Rarity.Uncommon);
     saveKey = "jjbamSfr";
     discType = global.jjbamDiscSfr;

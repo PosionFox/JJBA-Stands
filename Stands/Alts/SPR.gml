@@ -63,12 +63,12 @@ with (_s)
 {
     name = "Star Platinum Retro";
     sprite_index = global.sprSPR;
-    color = 0xe4cd5f;
-    colorAlt = 0xff9b63;
+    color = Color.Lime;
+    colorAlt = Color.DarkGreen;
     UpdateRarity(Rarity.Mythical);
     saveKey = "jjbamSpr";
     discType = global.jjbamDiscSpr;
-    scarf_color = 0x36f2fb;
+    scarf_color = Color.Gold;
     
     summonSound = global.sndSprSummon;
     soundWhenHurt = [global.sndSprHurt1, global.sndSprHurt2, global.sndSprHurt3];

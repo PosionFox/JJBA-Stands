@@ -7,6 +7,7 @@ if (instance_exists(STAND))
 {
     _color1 = STAND.color;
     _color2 = STAND.colorAlt;
+    
 }
 
 var _hover = point_in_rectangle(device_mouse_x_to_gui(0), device_mouse_y_to_gui(0), _x, _y, _x + _w, _y + _h);
@@ -38,8 +39,11 @@ else
     }
 }
 
-draw_rectangle_color(_x - 4, _y - 4, _x + _w + 4, _y + _h + 4, _btn2_color, _btn2_color, _btn2_color, _btn2_color, false);
-draw_rectangle_color(_x, _y, _x + _w, _y + _h, _btn_color, _btn_color, _btn_color, _btn_color, false);
+//draw_rectangle_color(_x - 4, _y - 4, _x + _w + 4, _y + _h + 4, _btn2_color, _btn2_color, _btn2_color, _btn2_color, false);
+//draw_rectangle_color(_x, _y, _x + _w, _y + _h, _btn_color, _btn_color, _btn_color, _btn_color, false);
+
+draw_roundrect_color(_x - 4, _y - 4, _x + _w + 4, _y + _h + 4, _btn2_color, _btn2_color, false);
+draw_roundrect_color(_x, _y, _x + _w, _y + _h, _btn_color, _btn_color, false);
 
 draw_text(_x + (_w / 2) + 8, _y + (_h / 2) + 8, _txt);
 

@@ -215,8 +215,8 @@ with (_s)
 {
     name = "Hierophant Green";
     sprite_index = global.sprHierophantGreen;
-    color = 0x30be6a;
-    colorAlt = 0x877e84;
+    color = Color.LightGreen;
+    colorAlt = Color.DimWhite;
     discType = global.jjbamDiscHg;
     saveKey = "jjbamHg";
     stand_reach = 16;

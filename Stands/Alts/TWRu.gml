@@ -31,8 +31,8 @@ with (_s)
 {
     name = "The World Runic";
     sprite_index = global.sprTWRu;
-    color = 0x36f2fb;
-    colorAlt = 0x342022;
+    color = Color.Gold;
+    colorAlt = Color.DarkBlue;
     UpdateRarity(Rarity.Mythical);
     auraParticleSprite = global.sprStandParticle6;
     saveKey = "jjbamTwru";

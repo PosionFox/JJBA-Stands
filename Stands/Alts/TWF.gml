@@ -72,8 +72,8 @@ with (_s)
 {
     name = "The World Frozen";
     sprite_index = global.sprTheWorldFrozen;
-    color = 0xe4cd5f;
-    colorAlt = 0x6357d9;
+    color = Color.Aqua;
+    colorAlt = Color.Red;
     UpdateRarity(Rarity.Event);
     saveKey = "jjbamTwf";
     discType = global.jjbamDiscTwf;
@@ -87,5 +87,28 @@ with (_s)
     skills[StandState.SkillD, StandSkill.Skill] = TwfTimestop;
     
     evolutions = [];
+    
+    cape_sprite = global.sprTWFCape;
+    cape_color = Color.Red;
+    target_x = x;
+    target_y = y;
+    ik_scarf = ik_create(4, 2);
+    
+    InstanceAssignMethod(self, "step", ScriptWrap(TheWorldFrozenStep), false);
+    pre_draw = ScriptWrap(TheWorldFrozenPreDraw);
 }
 return _s;
+
+#define TheWorldFrozenStep
+
+target_x = lerp(target_x, x - (16 * image_xscale), 0.1);
+target_y = lerp(target_y, y + 8 + (sin(current_time / 1000) * 4), 0.1);
+
+inverse_kinematics(ik_scarf, x - (3 * scaleX), y - height - 2, target_x, target_y);
+
+#define TheWorldFrozenPreDraw
+
+if (alphaTarget > 0)
+{
+    draw_ik(ik_scarf, cape_sprite, cape_color);
+}

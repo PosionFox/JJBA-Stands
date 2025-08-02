@@ -335,8 +335,8 @@ with (_s)
 {
     sprite_index = global.sprKCE;
     name = "King Crimson Enderman";
-    color = 0xba7bd7;
-    colorAlt = 0x342022;
+    color = Color.Lavender;
+    colorAlt = Color.DarkBlue;
     UpdateRarity(Rarity.Celestial);
     saveKey = "jjbamKce";
     

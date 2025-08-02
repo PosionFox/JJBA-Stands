@@ -5,6 +5,8 @@ if (!instance_exists(player)) exit;
 
 if (global.jjShowMenu and !instance_exists(objPlayerMenu))
 {
+    player.freeze = 5;
+    
     var _color1 = c_black;
     var _color2 = c_gray;
     if (instance_exists(STAND))

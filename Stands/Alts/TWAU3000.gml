@@ -31,8 +31,8 @@ with (_s)
 {
     sprite_index = global.sprTWAU3000;
     name = "The World 3000\nAlternate Universe";
-    color = 0x3c2845;
-    colorAlt = c_orange;
+    color = Color.FaintPurple;
+    colorAlt = Color.Gold;
     UpdateRarity(Rarity.Legendary);
     auraParticleSprite = global.sprStandParticle4;
     saveKey = "jjbamTwau3000";

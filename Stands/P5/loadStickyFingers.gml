@@ -362,8 +362,8 @@ with (_s)
 {
     name = "Sticky Fingers";
     sprite_index = global.sprStickyFingers;
-    color = 0xfcdbcb;
-    colorAlt = 0xe4cd5f;
+    color = Color.Blue;
+    colorAlt = Color.DimWhite;
     summonSound = global.sndSfSummon;
     discType = global.jjbamDiscSf;
     saveKey = "jjbamSf";

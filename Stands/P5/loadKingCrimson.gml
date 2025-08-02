@@ -531,8 +531,8 @@ with (_s)
 {
     name = "King Crimson";
     sprite_index = global.sprKingCrimson;
-    color = 0x3232ac;
-    colorAlt = c_fuchsia;
+    color = Color.Red;
+    colorAlt = Color.Pink;
     dmgStack = 1;
     armChopRange = 72;
     armChopShow = false;

@@ -67,7 +67,7 @@ tr_add(_map, "green_baby_name", "green baby");
 tr_add(_map, "green_baby_desc", "a strange and bizarre infant.");
 
 tr_add(_map, "camera_name", "camera");
-tr_add(_map, "camera_desc", "a device for capturing landscapes.");
+tr_add(_map, "camera_desc", "an antiquity for capturing landscapes.");
 
 tr_add(_map, "jotaros_hat_name", "jotaro's hat");
 tr_add(_map, "jotaros_hat_desc", "a peculiar looking hat.");

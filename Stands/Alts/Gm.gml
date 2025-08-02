@@ -31,8 +31,8 @@ with (_s)
 {
     sprite_index = global.sprGloomist;
     name = "Gloomist";
-    color = 0x8a4276;
-    colorAlt = c_purple;
+    color = Color.Magenta;
+    colorAlt = Color.DarkBlue;
     UpdateRarity(Rarity.Mythical);
     auraParticleSprite = global.sprStandParticle4;
     saveKey = "jjbamGm";

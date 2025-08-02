@@ -31,8 +31,8 @@ with (_s)
 {
     sprite_index = global.sprPD4CLT;
     name = "Patriot D4C\nLove Train";
-    color = 0xff9b63;
-    colorAlt = 0x3232ac;
+    color = Color.Blue;
+    colorAlt = Color.BrightRed;
     UpdateRarity(Rarity.Epic);
     auraParticleSprite = global.sprStandParticle4;
     saveKey = "jjbamPd4clt";

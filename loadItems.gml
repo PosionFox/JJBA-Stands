@@ -331,13 +331,13 @@ global.jjsCamera = ItemCreate(
     global.sprCamera,
     ItemType.Consumable,
     ItemSubType.None,
-    0,
+    3000,
     0,
     0,
     [
         Item.Electronics, 1,
-        Item.RoyalSteel, 5,
-        Item.Plastic, 10,
+        Item.RoyalSteel, 2,
+        Item.Plastic, 4,
         Item.Glass, 25
     ],
     ScriptWrap(CameraOnUse),
@@ -672,6 +672,10 @@ ItemEdit(global.jjsWeatherReportMemoryDisc, ItemData.Description, tr("weather_re
 
 global.arrow_ability_pool =
 [
+    // ordinary
+    [GiveBs, global.ordinary_rarity_weight],
+    // tragic
+    
     // common
     [GiveStarPlatinum, global.common_rarity_weight],
     [GiveShadowTheWorld, global.common_rarity_weight],
@@ -695,7 +699,6 @@ global.arrow_ability_pool =
     [GiveHb, global.rare_rarity_weight],
     [GiveBlueSnake, global.rare_rarity_weight],
     // epic
-    [GiveBs, global.epic_rarity_weight],
     [GiveSpp, global.epic_rarity_weight],
     [GivePurpleSnake, global.epic_rarity_weight],
     // legendary

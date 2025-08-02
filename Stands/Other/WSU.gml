@@ -6,8 +6,8 @@ with (_s)
 {
     name = "WhiteSnake Ultimate"
     sprite_index = global.sprWhiteSnakeUltimate;
-    color = 0xfcdbcb;
-    colorAlt = 0x342022;
+    color = Color.DimWhite;
+    colorAlt = Color.DarkBlue;
     UpdateRarity(Rarity.Ultimate);
     auraParticleSprite = global.sprStandParticle5;
     saveKey = "jjbamWsu";

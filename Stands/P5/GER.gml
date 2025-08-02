@@ -287,8 +287,8 @@ with (_s)
 {
     name = "Gold Experience";
     sprite_index = global.sprGoldExperience;
-    color = 0x36f2fb;
-    colorAlt = c_orange;
+    color = Color.Skin2;
+    colorAlt = Color.Gold;
     summonSound = global.sndGeSummon;
     requiemActive = false;
     requiemTimer = 0;

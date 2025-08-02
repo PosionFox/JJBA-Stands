@@ -170,8 +170,8 @@ with (_s)
 {
     name = "Star Platinum\nThe World";
     sprite_index = global.sprSptw;
-    color = 0xe16e5b;
-    colorAlt = 0xba7bd7;
+    color = Color.Blue;
+    colorAlt = Color.Pink;
     summonSound = global.sndSpSummon;
     saveKey = "jjbamSptw";
     discType = global.jjbamDiscSptw;
@@ -179,7 +179,7 @@ with (_s)
     knifeSprite = global.sprKnife;
     barrageData.sound = global.sndSpBarrage;
     scarf_sprite = global.sprScarf;
-    scarf_color = 0xffffff;
+    scarf_color = Color.White;
     target_x = x;
     target_y = y;
     ik_scarf = ik_create(5, 2);

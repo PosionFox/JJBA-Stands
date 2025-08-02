@@ -7,13 +7,11 @@ return object_is_ancestor(_ins.object_index, ENEMY) or _ins.object_index == MOBJ
 
 #define JjsEnemyCreate(_x, _y)
 
-var _o = ActorCreate(_x, _y);
+var _o = HumanoidCreate(_x, _y);
 with (_o)
 {
     type = "Enemy";
     targetableFlag = true;
-    sprIdle = sprPlayerIdle;
-    sprWalk = sprPlayerWalk;
     level = 1;
     hpMax = 100;
     hp = hpMax;
@@ -121,8 +119,10 @@ var _o = EnemyStandUserCreate(_x, _y, "jjbamTw");
 with (_o)
 {
     subtype = "DIO";
-    sprIdle = global.sprDIO;
-    sprWalk = global.sprDIOMoving;
+    sprIdle = global.sprDIOIdle;
+    sprWalk = global.sprDIOWalk;
+    sprHatIdle = global.sprDIOIdleHead;
+    sprHatWalk = global.sprDIOWalkHead;
     sprite_index = sprIdle;
     image_speed = 0.35;
     level = 65;
@@ -167,6 +167,7 @@ switch (state)
 {
     case "idle":
         sprite_index = sprIdle;
+        hat_sprite = sprHatIdle;
         image_speed = 0.35;
         if (distance_to_object(player) < 1024)
         {
@@ -178,11 +179,13 @@ switch (state)
         if (distance_to_object(player) > 16)
         {
             sprite_index = sprWalk;
+            hat_sprite = sprHatWalk;
             mp_potential_step_object(player.x, player.y, maxSpd, parSolid);
         }
         else
         {
             sprite_index = sprIdle;
+            hat_sprite = sprHatIdle;
         }
         if (attack_cooldown <= 0)
         {
@@ -191,6 +194,7 @@ switch (state)
     break;
     case "attack":
         sprite_index = sprIdle;
+        hat_sprite = sprHatIdle;
         if (attack_cooldown <= 0)
         {
             attack_direction = point_direction(x, y, player.x, player.y);
@@ -243,11 +247,13 @@ switch (state)
     break;
     case "attacking":
         sprite_index = sprIdle;
+        hat_sprite = sprHatIdle;
         facing = player.x > x ? 1 : -1;
         attack_direction = point_direction(x, y, player.x, player.y);
         if (distance_to_object(player) > 16)
         {
             sprite_index = sprWalk;
+            hat_sprite = sprHatWalk;
             mp_potential_step_object(player.x, player.y, maxSpd, parSolid);
         }
         if (myStand.state == StandState.Idle)
@@ -270,6 +276,8 @@ switch (state)
     break;
     case "dying":
         RemoveStand(self);
+        sprite_index = sprIdle;
+        hat_sprite = sprHatIdle;
         image_angle = 90;
         image_speed = 0.1;
         EffectArmChopCreate(x, y);
@@ -302,6 +310,14 @@ switch (state)
             if (current_month == 12)
             {
                 DropItem(x, y, global.jjsBizarreCandy, 8);
+            }
+            if (CosmeticGet(global.jjs_skin_dio_hair, CosmeticData.Unlocked) == false)
+            {
+                CosmeticEdit(global.jjs_skin_dio_hair, CosmeticData.Unlocked, true);
+            }
+            if (CosmeticGet(global.jjs_skin_dio_body, CosmeticData.Unlocked) == false)
+            {
+                CosmeticEdit(global.jjs_skin_dio_body, CosmeticData.Unlocked, true);
             }
             global.enemyDioSpawned = false;
             StandGainExp(STAND, hpMax);
@@ -354,8 +370,8 @@ var _o = EnemyStandUserCreate(_x, _y, "jjsPs");
 with (_o)
 {
     subtype = "Prisoner";
-    sprIdle = global.sprPrisoner;
-    sprWalk = global.sprPrisonerMoving;
+    sprIdle = global.sprPrisonerIdle;
+    sprWalk = global.sprPrisonerWalk;
     sprite_index = sprIdle;
     image_speed = 0.35;
     level = 10;
