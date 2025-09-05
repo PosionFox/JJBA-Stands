@@ -1,13 +1,12 @@
 
 #define draw_button_square(_x, _y, _w, _h, _txt)
 
-var _color1 = c_black;
-var _color2 = c_gray;
+var _color1 = Color.DarkBlue;
+var _color2 = Color.Magenta;
 if (instance_exists(STAND))
 {
     _color1 = STAND.color;
     _color2 = STAND.colorAlt;
-    
 }
 
 var _hover = point_in_rectangle(device_mouse_x_to_gui(0), device_mouse_y_to_gui(0), _x, _y, _x + _w, _y + _h);
@@ -66,8 +65,8 @@ else
 
 #define draw_storage_button(_x, _y, _w, _h, _txt, _txtcolor1, _txtcolor2)
 
-var _color1 = c_black;
-var _color2 = c_gray;
+var _color1 = Color.DarkBlue;
+var _color2 = Color.Magenta;
 if (instance_exists(STAND))
 {
     _color1 = STAND.color;
@@ -130,8 +129,8 @@ else
 var _cx = display_get_gui_width() / 2;
 var _cy = display_get_gui_height() / 2;
 
-var _color1 = c_black;
-var _color2 = c_gray;
+var _color1 = Color.DarkBlue;
+var _color2 = Color.Magenta;
 if (instance_exists(STAND))
 {
     _color1 = STAND.color;
@@ -219,8 +218,8 @@ else
 
 #define draw_button_square_alpha(_x, _y, _w, _h, _txt, _alpha)
 
-var _color1 = c_black;
-var _color2 = c_gray;
+var _color1 = Color.DarkBlue;
+var _color2 = Color.Magenta;
 if (bool("myStand" in player) and instance_exists(STAND))
 {
     _color1 = STAND.color;
@@ -285,8 +284,8 @@ else
 
 #define draw_button_circle(_x, _y, _radius, _txt, _continuous)
 
-var _color1 = c_black;
-var _color2 = c_gray;
+var _color1 = Color.DarkBlue;
+var _color2 = Color.Magenta;
 if (instance_exists(STAND))
 {
     _color1 = STAND.color;
@@ -359,8 +358,8 @@ else
 
 #define draw_slider(_x, _y, _w, _h, _txt, _var)
 
-var _color1 = c_black;
-var _color2 = c_gray;
+var _color1 = Color.DarkBlue;
+var _color2 = Color.Magenta;
 if (instance_exists(STAND))
 {
     _color1 = STAND.color;
@@ -400,11 +399,8 @@ if (mouse_check_button(mb_left) and global.jjMenuHover == _x - _y * _x + _y)
 }
 if (mouse_check_button_released(mb_left) and global.jjMenuHover == _x - _y * _x + _y)
 {
-    var _snd = global.sndMenuClick;
-    if (!global.jjsSettCustomModMenuSounds) _snd = sndUiSelect;
     _var = clamp((_mx - _x) / _w, 0, 1);
-    var _s = audio_play_sound(_snd, 0, false);
-    audio_sound_gain(_s, _var, 0);
+    return _var;
 }
 
 if (!_hover and !mouse_check_button(mb_left))
@@ -421,12 +417,12 @@ draw_text(_x + 8 + (_w / 2), _y + 8 - 32, _txt);
 draw_rectangle_color(_x, _y, _x + _w, _y + _h, _btn_color, _btn_color, _btn_color, _btn_color, false);
 draw_rectangle_color(_x + _handle_x - (_sw / 2), _y, _x + _handle_x + (_sw / 2), _y + _h, _btn2_color, _btn2_color, _btn2_color, _btn2_color, false);
 
-return _var;
+return undefined;
 
 #define draw_checkbox(_x, _y, _size, _txt, _var)
 
-var _color1 = c_black;
-var _color2 = c_gray;
+var _color1 = Color.DarkBlue;
+var _color2 = Color.Magenta;
 if (instance_exists(STAND))
 {
     _color1 = STAND.color;
@@ -488,8 +484,8 @@ return _var;
 
 #define draw_keybind(_x, _y, _w, _h, _txt, _var)
 
-var _color1 = c_black;
-var _color2 = c_gray;
+var _color1 = Color.DarkBlue;
+var _color2 = Color.Magenta;
 if (instance_exists(STAND))
 {
     _color1 = STAND.color;
@@ -590,8 +586,8 @@ return _rval;
 
 #define draw_vscroll(_x, _y, _h, _thick, _max_var, _var)
 
-var _color1 = c_black;
-var _color2 = c_gray;
+var _color1 = Color.DarkBlue;
+var _color2 = Color.Magenta;
 if (instance_exists(STAND))
 {
     _color1 = STAND.color;
@@ -661,3 +657,4 @@ draw_rectangle_color(_x, _y - _center, _x + _thick, _y + _h + _center, _btn_colo
 draw_rectangle_color(_x, _y + _handle_pos - _center, _x + _thick, _y + _handle_pos + _center, _btn2_color, _btn2_color, _btn2_color, _btn2_color, false);
 
 return _var;
+

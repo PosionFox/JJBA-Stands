@@ -14,6 +14,8 @@ var _height = display_get_gui_height() - 40;
 var xx = 168;
 var yy = _height - 200;
 
+draw_set_alpha(global.jjsSettGuiVisibility);
+
 // xp bar
 if (!instance_exists(objPlayerMenu) and !instance_exists(uiCrafting))
 {
@@ -42,7 +44,11 @@ var _ss = random_range(0.85, 1.15);
 var _spr = global.sprStarTier;
 var _c = GetRarityColor(rarity.tier);
 
-draw_sprite_ext(_spr, 0, _tx - 4, _ty, _ss, _ss, 0, _c, 0.8);
+draw_sprite_ext(_spr, 0, _tx - 4, _ty, _ss, _ss, 0, _c, 0.8 * global.jjsSettGuiVisibility);
+if (rarity.tier == Rarity.WIP)
+{
+    draw_text_color(_tx - 4, _ty + 32, "-wip-", Color.Lavender, Color.Lavender, Color.Lavender, Color.Lavender, global.jjsSettGuiVisibility);
+}
 
 var gx = device_mouse_x_to_gui(0);
 var gy = device_mouse_y_to_gui(0);
@@ -61,7 +67,7 @@ if (combo > 75) _ccolor = c_yellow;
 if (combo > 100) _ccolor = c_red;
 if (combo > 0)
 {
-    draw_text_ext_transformed_color(_cx, _cy, string(combo), 1, 128, 1 + (combo / 100) + comboCounterLerp, 1 + (combo / 100) + comboCounterLerp, 0, _ccolor, _ccolor, _ccolor, _ccolor, 0.8);
+    draw_text_ext_transformed_color(_cx, _cy, string(combo), 1, 128, 1 + (combo / 100) + comboCounterLerp, 1 + (combo / 100) + comboCounterLerp, 0, _ccolor, _ccolor, _ccolor, _ccolor, 0.8 * global.jjsSettGuiVisibility);
 }
 
 //draw_text(mouse_x, mouse_y, string(energy_regen_mult));
@@ -79,7 +85,7 @@ for (var i = 0; i < _rlen; i++)
     {
         if (global.jjsSettDisplayEmptyRunes)
         {
-            draw_sprite_ext(global.sprBlankRune, 0, rx, ry - (34 * i), 2, 2, 0, c_black, 1);
+            draw_sprite_ext(global.sprBlankRune, 0, rx, ry - (34 * i), 2, 2, 0, c_black, global.jjsSettGuiVisibility);
             
             if (point_in_rectangle(gx, gy, rx - 16, ry - 16 - (34 * i), rx + 16, ry + 16 - (34 * i)))
             {
@@ -95,8 +101,8 @@ for (var i = 0; i < _rlen; i++)
     else
     {
         var _rc = GetRarityColor(_rune.rarity);
-        draw_sprite_ext(_rune.base_sprite, 0, rx, ry - (34 * i), 2, 2, 0, c_white, 1);
-        draw_sprite_ext(_rune.sprite, 0, rx, ry - (34 * i), 2, 2, 0, _rc, 1);
+        draw_sprite_ext(_rune.base_sprite, 0, rx, ry - (34 * i), 2, 2, 0, c_white, global.jjsSettGuiVisibility);
+        draw_sprite_ext(_rune.sprite, 0, rx, ry - (34 * i), 2, 2, 0, _rc, global.jjsSettGuiVisibility);
         
         if (point_in_rectangle(gx, gy, rx - 16, ry - 16 - (34 * i), rx + 16, ry + 16 - (34 * i)))
         {
@@ -121,10 +127,9 @@ for (var i = 0; i < _rlen; i++)
 // trait
 draw_set_halign(fa_left);
 draw_set_valign(fa_bottom);
-draw_set_color(trait.color);
-draw_text(32, _height - 186, string_lower(string(trait.name)));
-draw_set_color(c_white);
-draw_text_color(32, _height - 138, string_lower(string(name)), color, colorAlt, color, colorAlt, 1);
+var _tc = GetRarityColor(trait.rarity);
+draw_text_color(32, _height - 186, string_lower(string(trait.name)), _tc, _tc, _tc, _tc, global.jjsSettGuiVisibility);
+draw_text_color(32, _height - 138, string_lower(string(name)), color, colorAlt, color, colorAlt, global.jjsSettGuiVisibility);
 draw_line_color(32, _height - 144, 32 + 255, _height - 144, color, c_black);
 draw_set_valign(fa_middle);
 draw_set_halign(fa_center);
@@ -152,15 +157,15 @@ for (var i = _start; i <= _end; i++)
         //if (color_get_value(color) < 80) { _s = global.sprSkillTemplateWhite; }
         if (state == i and !altAttack) { _s = global.sprSkillTemplateWhite; }
         //draw_sprite_ext(_s, 0, xx, yy, 2, 2, 0, c_white, 1);
-        draw_sprite_general(_s, 0, 0, 0, 32, 32, xx - 32, yy - 32, 2, 2, 0, colorAlt, colorAlt, color, color, 1);
+        draw_sprite_general(_s, 0, 0, 0, 32, 32, xx - 32, yy - 32, 2, 2, 0, colorAlt, colorAlt, color, color, global.jjsSettGuiVisibility);
         //draw_sprite_ext(skills[i, StandSkill.Icon], 0, xx, yy, 2, 2, 0, color, 1);
-        draw_sprite_general(skills[i, StandSkill.Icon], 0, 0, 0, 32, 32, xx - 32, yy - 32, 2, 2, 0, color, color, colorAlt, colorAlt, 1);
+        draw_sprite_general(skills[i, StandSkill.Icon], 0, 0, 0, 32, 32, xx - 32, yy - 32, 2, 2, 0, color, color, colorAlt, colorAlt, global.jjsSettGuiVisibility);
         if (skills[i, StandSkill.Cooldown] > 0)
         {
             var _ctxt = string(skills[i, StandSkill.Cooldown]);
             if (skills[i, StandSkill.Cooldown] > 1) _ctxt = string(round(skills[i, StandSkill.Cooldown]));
             var cyy = ((skills[i, StandSkill.Cooldown] / skills[i, StandSkill.MaxCooldown]) * 2) * GetStandStamina(self);
-            draw_sprite_ext(global.sprSkillCooldown, 0, xx, yy, 2, cyy, 0, c_white, 0.8);
+            draw_sprite_ext(global.sprSkillCooldown, 0, xx, yy, 2, cyy, 0, c_white, 0.8 * global.jjsSettGuiVisibility);
             draw_text(xx + 8, yy + 10, _ctxt);
         }
         
@@ -173,17 +178,17 @@ for (var i = _start; i <= _end; i++)
         //if (color_get_value(color) < 80) { _s = global.sprSkillHoldTemplateWhite; }
         if (state == i and altAttack) { _s = global.sprSkillHoldTemplateWhite; }
         //draw_sprite_ext(_s, 0, xx, yy + 64, 2, 2, 0, c_white, 1);
-        draw_sprite_general(_s, 0, 0, 0, 32, 32, xx - 32, yy - 32 + 64, 2, 2, 0, color, color, colorAlt, colorAlt, 1);
+        draw_sprite_general(_s, 0, 0, 0, 32, 32, xx - 32, yy - 32 + 64, 2, 2, 0, color, color, colorAlt, colorAlt, global.jjsSettGuiVisibility);
         //draw_sprite_ext(skills[i, StandSkill.IconAlt], 0, xx, yy + 64, 2, 2, 0, color, 1);
-        draw_sprite_general(skills[i, StandSkill.IconAlt], 0, 0, 0, 32, 32, xx - 32, yy - 32 + 64, 2, 2, 0, colorAlt, colorAlt, color, color, 1);
+        draw_sprite_general(skills[i, StandSkill.IconAlt], 0, 0, 0, 32, 32, xx - 32, yy - 32 + 64, 2, 2, 0, colorAlt, colorAlt, color, color, global.jjsSettGuiVisibility);
         var _hold = (skills[i, StandSkill.Hold] / skills[i, StandSkill.MaxHold]) * 2;
-        draw_sprite_ext(global.sprSkillHold, 0, xx, yy + 64, 2, _hold, 0, color, 0.8);
+        draw_sprite_ext(global.sprSkillHold, 0, xx, yy + 64, 2, _hold, 0, color, 0.8 * global.jjsSettGuiVisibility);
         if (skills[i, StandSkill.CooldownAlt] > 0)
         {
             var _ctxt = string(skills[i, StandSkill.CooldownAlt]);
             if (skills[i, StandSkill.CooldownAlt] > 1) _ctxt = string(round(skills[i, StandSkill.CooldownAlt]));
             var cyy = ((skills[i, StandSkill.CooldownAlt] / skills[i, StandSkill.MaxCooldownAlt]) * 2) * GetStandStamina(self);
-            draw_sprite_ext(global.sprSkillCooldown, 0, xx, yy + 64, 2, cyy, 0, c_white, 0.8);
+            draw_sprite_ext(global.sprSkillCooldown, 0, xx, yy + 64, 2, cyy, 0, c_white, 0.8 * global.jjsSettGuiVisibility);
             draw_text(xx + 8, yy + 74, _ctxt);
         }
     }
@@ -222,6 +227,8 @@ if (max_energy > 0)
     var _color = make_color_rgb(0, abs(sin(current_time / 1000)) * 254, abs(sin(current_time / 1000)) * 254);
     draw_line_width_color(xx - 134, yy + 134, (xx - 134) + ((energy / max_energy) * 250), yy + 134, abs(sin(current_time / 1000)) * 5, _color, _color);
 }
+
+draw_set_alpha(1);
 
 #define StandSkillRunCD(s)
 
@@ -430,10 +437,13 @@ if (instance_exists(owner))
                 }
                 height = 2 + (cos(current_time / 1000) * 2);
             }
-            var _e = EffectStandAuraCreate(x, y - height, auraParticleSprite, color);
-            _e.depth = depth + 2;
-            _e.owner = self;
-            _e.rotation = auraParticleRotation;
+            if (global.jjsSettShowStandAura)
+            {
+                var _e = EffectStandAuraCreate(x, y - height, auraParticleSprite, color);
+                _e.depth = depth + 2;
+                _e.owner = self;
+                _e.rotation = auraParticleRotation;
+            }
         }
     }
     else
@@ -739,6 +749,7 @@ with (_stand)
     energy_regen_mult = 1;
     // skills
     skills = array_clone(_skills);
+    movesets = [skills];
     // variants and evolutions
     variants = [];
     evolutions = [];
@@ -771,6 +782,7 @@ if (instance_exists(_stand) and bool("experience" in _stand) and _stand.level < 
 var _value = 1;
 switch(_rarity)
 {
+    case Rarity.WIP: _value = 1; break;
     case Rarity.Ordinary: _value = 0.1; break;
     case Rarity.Tragic: _value = 0.5; break;
     case Rarity.Common: _value = 1; break;
@@ -790,6 +802,7 @@ return _value;
 
 switch(_rarity)
 {
+    case Rarity.WIP: return "wip"; break;
     case Rarity.Ordinary: return tr("ordinaryName"); break;
     case Rarity.Tragic: return tr("tragicName"); break;
     case Rarity.Common: return tr("commonName"); break;
@@ -813,6 +826,7 @@ var _ce = make_color_hsv(128 + abs(sin(current_time / 500)) * 32, abs(sin(curren
 
 switch(_rarity)
 {
+    case Rarity.WIP: return Color.Lavender; break;
     case Rarity.Ordinary: return Color.DarkBlue; break;
     case Rarity.Tragic: return Color.GrayBlue; break;
     case Rarity.Common: return Color.White; break;
@@ -831,6 +845,7 @@ switch(_rarity)
 
 switch(_rarity)
 {
+    case Rarity.WIP: return 0; break;
     case Rarity.Ordinary: return global.ordinary_rarity_weight; break;
     case Rarity.Tragic: return global.tragic_rarity_weight; break;
     case Rarity.Common: return global.common_rarity_weight; break;

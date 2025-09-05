@@ -585,6 +585,11 @@ global.sprGroundBone = sprite_add(p + "GroundBone.png", 3, false, false, 8, 16);
 
 p = "Resources/Sprites/WR/";
 global.sprWeatherReport = sprite_add(p + "weather_report.png", 1, false, false, 16, 19);
+global.sprBloodSpike = sprite_add(p + "blood_spike.png", 5, false, false, 8, 13);
 global.sprTornado = sprite_add(p + "tornado.png", 1, false, false, 8, 8);
+global.sprWind = sprite_add(p + "wind.png", 1, false, false, 8, 8);
+global.sprRain = sprite_add(p + "rain.png", 1, false, false, 8, 8);
+global.sprLightning = sprite_add(p + "lightning.png", 1, false, false, 8, 8);
+global.sprHeat = sprite_add(p + "heat.png", 1, false, false, 8, 8);
 
 #endregion

@@ -131,5 +131,6 @@ with (_s)
     colorAlt = 0xfcdbcb;
     summonSound = global.sndCmSummon;
     saveKey = "jjbamCmn";
+    UpdateRarity(Rarity.WIP);
 }
 return _s;

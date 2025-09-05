@@ -6,7 +6,7 @@ if !bool("trait" in _user)
     _user.trait = {
         name : "none",
         key : "jjNone",
-        color : c_white,
+        rarity : Rarity.Common,
         damage : 0,
         damage_reflected : 0
     }
@@ -47,7 +47,7 @@ switch (_trait_key)
     case "jjFit":
         _user.trait.name = "fit";
         _user.trait.key = _trait_key;
-        _user.trait.color = GetRarityColor(Rarity.Common);
+        _user.trait.rarity = Rarity.Common;
         _user.trait.damage = 0.05;
         _user.trait.damage_reflected = 0;
     break;
@@ -55,7 +55,7 @@ switch (_trait_key)
     case "jjHefty":
         _user.trait.name = "hefty";
         _user.trait.key = _trait_key;
-        _user.trait.color = GetRarityColor(Rarity.Uncommon);
+        _user.trait.rarity = Rarity.Uncommon;
         _user.trait.damage = 0.10;
         _user.trait.damage_reflected = 0;
     break;
@@ -63,7 +63,7 @@ switch (_trait_key)
     case "jjStrong":
         _user.trait.name = "strong";
         _user.trait.key = _trait_key;
-        _user.trait.color = GetRarityColor(Rarity.Rare);
+        _user.trait.rarity = Rarity.Rare;
         _user.trait.damage = 0.15;
         _user.trait.damage_reflected = 0;
     break;
@@ -71,7 +71,7 @@ switch (_trait_key)
     case "jjMuscular":
         _user.trait.name = "muscular";
         _user.trait.key = _trait_key;
-        _user.trait.color = GetRarityColor(Rarity.Epic);
+        _user.trait.rarity = Rarity.Epic;
         _user.trait.damage = 0.20;
         _user.trait.damage_reflected = 0;
     break;
@@ -79,14 +79,14 @@ switch (_trait_key)
     case "jjJacked":
         _user.trait.name = "jacked";
         _user.trait.key = _trait_key;
-        _user.trait.color = GetRarityColor(Rarity.Legendary);
+        _user.trait.rarity = Rarity.Legendary;
         _user.trait.damage = 0.25;
         _user.trait.damage_reflected = 0;
     break;
     case "jjRepeat":
         _user.trait.name = "repeat";
         _user.trait.key = _trait_key;
-        _user.trait.color = GetRarityColor(Rarity.Legendary);
+        _user.trait.rarity = Rarity.Legendary;
         _user.trait.damage = 0;
         _user.trait.damage_reflected = 1;
     break;
@@ -94,14 +94,14 @@ switch (_trait_key)
     case "jjBuff":
         _user.trait.name = "buff";
         _user.trait.key = _trait_key;
-        _user.trait.color = GetRarityColor(Rarity.Mythical);
+        _user.trait.rarity = Rarity.Mythical;
         _user.trait.damage = 0.30;
         _user.trait.damage_reflected = 0;
     break;
     case "jjReflect":
         _user.trait.name = "reflect";
         _user.trait.key = _trait_key;
-        _user.trait.color = GetRarityColor(Rarity.Mythical);
+        _user.trait.rarity = Rarity.Mythical;
         _user.trait.damage = 0;
         _user.trait.damage_reflected = 5;
     break;
@@ -109,14 +109,14 @@ switch (_trait_key)
     case "jjRipped":
         _user.trait.name = "ripped";
         _user.trait.key = _trait_key;
-        _user.trait.color = GetRarityColor(Rarity.Celestial);
+        _user.trait.rarity = Rarity.Celestial;
         _user.trait.damage = 0.35;
         _user.trait.damage_reflected = 0;
     break;
     case "jjMirror":
         _user.trait.name = "mirror";
         _user.trait.key = _trait_key;
-        _user.trait.color = GetRarityColor(Rarity.Celestial);
+        _user.trait.rarity = Rarity.Celestial;
         _user.trait.damage = 0;
         _user.trait.damage_reflected = 10;
     break;
@@ -124,14 +124,14 @@ switch (_trait_key)
     case "jjHercules":
         _user.trait.name = "hercules";
         _user.trait.key = _trait_key;
-        _user.trait.color = GetRarityColor(Rarity.Ultimate);
+        _user.trait.rarity = Rarity.Ultimate;
         _user.trait.damage = 0.40;
         _user.trait.damage_reflected = 0;
     break;
     case "jjEcho":
         _user.trait.name = "echo";
         _user.trait.key = _trait_key;
-        _user.trait.color = GetRarityColor(Rarity.Ultimate);
+        _user.trait.rarity = Rarity.Ultimate;
         _user.trait.damage = 0;
         _user.trait.damage_reflected = 15;
     break;

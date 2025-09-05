@@ -622,16 +622,16 @@ disc_warning_alpha = lerp(disc_warning_alpha, 0, 0.1);
 var _width = display_get_gui_width();
 var _height = display_get_gui_height() - 40;
 
-draw_set_alpha(disc_warning_alpha);
+draw_set_alpha(disc_warning_alpha * global.jjsSettGuiVisibility);
 draw_rectangle_color(296, _height - 104, 456, _height - 88, c_red, c_red, c_red, c_red, false);
 draw_set_alpha(1);
 
 for (var i = 0; i < 10; i++)
 {
-    draw_sprite_ext(global.sprDisc, 0, 304 + (16 * i), _height - 96, 1, 1, 0, c_black, 1);
+    draw_sprite_ext(global.sprDisc, 0, 304 + (16 * i), _height - 96, 1, 1, 0, c_black, global.jjsSettGuiVisibility);
 }
 
 for (var i = 0; i < discs; i++)
 {
-    draw_sprite_ext(global.sprDisc, 0, 304 + (16 * i), _height - 96, 1, 1, 0, c_white, 1);
+    draw_sprite_ext(global.sprDisc, 0, 304 + (16 * i), _height - 96, 1, 1, 0, c_white, global.jjsSettGuiVisibility);
 }

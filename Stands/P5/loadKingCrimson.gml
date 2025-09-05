@@ -596,7 +596,7 @@ if (dmgStack > 1)
 {
     var _h = display_get_gui_height();
     //draw_sprite_ext(global.sprSteelBall, 0, 320, _h - 136, dmgStack * 2, dmgStack * 2, cos(current_time / 1000) * 5, color, 1);
-    draw_text_color(380, _h - 100, "dmg x" + string(dmgStack), color, color, colorAlt, colorAlt, 1);
+    draw_text_color(380, _h - 100, "dmg x" + string(dmgStack), color, color, colorAlt, colorAlt, global.jjsSettGuiVisibility);
 }
 
 

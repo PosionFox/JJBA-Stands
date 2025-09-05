@@ -1,29 +1,4 @@
 
-global.jjbamDiscCd = ItemCreate(
-    undefined,
-    tr("standDiscName") + "CD",
-    tr("standDiscDescription") + "Crazy Diamond",
-    global.sprDisc,
-    ItemType.Consumable,
-    ItemSubType.Potion,
-    1248,
-    0,
-    0,
-    [],
-    ScriptWrap(DiscHeUse),
-    5 * 10,
-    true
-);
-
-#define DiscCdUse
-
-if (instance_exists(STAND) or room != rmGame)
-{
-    GainItem(global.jjbamDiscCd);
-    exit;
-}
-GiveCrazyDiamond(player);
-
 #define CdStrongPunch(m, s)
 
 var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
@@ -242,9 +217,8 @@ with (_s)
     colorAlt = 0xba7bd7;
     healingMode = false;
     summonSound = global.sndCdSummon;
-    UpdateRarity(Rarity.Common);
+    UpdateRarity(Rarity.WIP);
     saveKey = "jjbamCd";
-    discType = global.jjbamDiscCd;
     barrageData.sound = global.sndCdBarrage;
     barrageData.hitSound = [global.sndCdHit1, global.sndCdHit2, global.sndCdHit3, global.sndCdHit4, global.sndCdHit5];
     

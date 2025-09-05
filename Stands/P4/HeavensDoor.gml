@@ -1,49 +1,24 @@
 
-global.jjbamDiscHd = ItemCreate(
-    undefined,
-    tr("standDiscName") + "HD",
-    tr("standDiscDescription") + "Heaven's Door",
-    global.sprDisc,
-    ItemType.Consumable,
-    ItemSubType.Potion,
-    416,
-    0,
-    0,
-    [],
-    ScriptWrap(DiscHdUse),
-    5 * 10,
-    true
-);
-
-#define DiscHdUse
-
-if (instance_exists(STAND) or room != rmGame)
-{
-    GainItem(global.jjbamDiscHd);
-    exit;
-}
-GiveHeavensDoor(player);
-
 #define GiveHeavensDoor(_owner) //stand
 
 var _skills = StandSkillInit();
 
 var sk;
 sk = StandState.SkillAOff;
-_skills[sk, StandSkill.Skill] = JosephKnife;
-_skills[sk, StandSkill.Damage] = 3;
-_skills[sk, StandSkill.DamageScale] = 0.1;
-_skills[sk, StandSkill.Icon] = global.sprSkillJosephKnife;
-_skills[sk, StandSkill.MaxCooldown] = 6;
-_skills[sk, StandSkill.Desc] = tr("josephKnifeDesc");
+// _skills[sk, StandSkill.Skill] = JosephKnife;
+// _skills[sk, StandSkill.Damage] = 3;
+// _skills[sk, StandSkill.DamageScale] = 0.1;
+// _skills[sk, StandSkill.Icon] = global.sprSkillJosephKnife;
+// _skills[sk, StandSkill.MaxCooldown] = 6;
+// _skills[sk, StandSkill.Desc] = tr("josephKnifeDesc");
 
-sk = StandState.SkillBOff;
-_skills[sk, StandSkill.Skill] = StopSign;
-_skills[sk, StandSkill.Damage] = 30;
-_skills[sk, StandSkill.DamageScale] = 0.15;
-_skills[sk, StandSkill.Icon] = global.sprSkillStopSign;
-_skills[sk, StandSkill.MaxCooldown] = 10;
-_skills[sk, StandSkill.Desc] = tr("stopSignDesc");
+// sk = StandState.SkillBOff;
+// _skills[sk, StandSkill.Skill] = StopSign;
+// _skills[sk, StandSkill.Damage] = 30;
+// _skills[sk, StandSkill.DamageScale] = 0.15;
+// _skills[sk, StandSkill.Icon] = global.sprSkillStopSign;
+// _skills[sk, StandSkill.MaxCooldown] = 10;
+// _skills[sk, StandSkill.Desc] = tr("stopSignDesc");
 
 sk = StandState.SkillCOff;
 _skills[sk, StandSkill.Skill] = TwBloodDrain;
@@ -58,7 +33,7 @@ _skills[sk, StandSkill.MaxCooldown] = 3;
 _skills[sk, StandSkill.Desc] = tr("tsTpDesc");
 
 sk = StandState.SkillA;
-_skills[sk, StandSkill.Skill] = TwBarrage;
+_skills[sk, StandSkill.Skill] = StandBarrage;
 _skills[sk, StandSkill.Damage] = 1.5;
 _skills[sk, StandSkill.DamageScale] = 0.02;
 _skills[sk, StandSkill.Icon] = global.sprSkillBarrage;
@@ -74,13 +49,13 @@ _skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.Desc] = tr("strongPunchDesc");
 
-sk = StandState.SkillC;
-_skills[sk, StandSkill.Skill] = TwKnifeWall;
-_skills[sk, StandSkill.Damage] = 2;
-_skills[sk, StandSkill.DamageScale] = 0.02;
-_skills[sk, StandSkill.Icon] = global.sprSkillKnifeBarrage;
-_skills[sk, StandSkill.MaxCooldown] = 5;
-_skills[sk, StandSkill.Desc] = tr("knifeWallDesc");
+// sk = StandState.SkillC;
+// _skills[sk, StandSkill.Skill] = TwKnifeWall;
+// _skills[sk, StandSkill.Damage] = 2;
+// _skills[sk, StandSkill.DamageScale] = 0.02;
+// _skills[sk, StandSkill.Icon] = global.sprSkillKnifeBarrage;
+// _skills[sk, StandSkill.MaxCooldown] = 5;
+// _skills[sk, StandSkill.Desc] = tr("knifeWallDesc");
 
 sk = StandState.SkillD;
 _skills[sk, StandSkill.Skill] = TwTimestop;
@@ -95,8 +70,8 @@ with (_s)
     sprite_index = global.sprHeavensDoor;
     color = 0xffffff;
     summonSound = global.sndTwSummon;
-    discType = global.jjbamDiscHd;
     saveKey = "jjbamHd";
+    UpdateRarity(Rarity.WIP);
 }
 return _s;
 

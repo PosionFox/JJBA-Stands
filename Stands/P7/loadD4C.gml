@@ -603,16 +603,16 @@ if (hasEye)
 {
     _cEye = c_white;
 }
-draw_sprite_ext(global.sprHolyLeftArm, 0, 368, _height - 96, 2, 2, 0, _cArm, 1);
-draw_sprite_ext(global.sprHolyHeart, 0, 368 + 32, _height - 96, 2, 2, 0, _cHeart, 1);
-draw_sprite_ext(global.sprHolyEye, 0, 368 + 64, _height - 96, 2, 2, 0, _cEye, 1);
+draw_sprite_ext(global.sprHolyLeftArm, 0, 368, _height - 96, 2, 2, 0, _cArm, global.jjsSettGuiVisibility);
+draw_sprite_ext(global.sprHolyHeart, 0, 368 + 32, _height - 96, 2, 2, 0, _cHeart, global.jjsSettGuiVisibility);
+draw_sprite_ext(global.sprHolyEye, 0, 368 + 64, _height - 96, 2, 2, 0, _cEye, global.jjsSettGuiVisibility);
 
-draw_sprite_ext(global.sprRevCylinderGUI, 0, 321, _height - 96, 2, 2, 0, c_white, 1);
+draw_sprite_ext(global.sprRevCylinderGUI, 0, 321, _height - 96, 2, 2, 0, c_white, global.jjsSettGuiVisibility);
 for (var i = 0; i < ammo; i++)
 {
     var xx = 320 + lengthdir_x(12, i * 60);
     var yy = _height - 96 + lengthdir_y(12, i * 60);
-    draw_sprite_ext(global.sprBulletGUI, 0, xx, yy, 2, 2, 0, c_white, 1);
+    draw_sprite_ext(global.sprBulletGUI, 0, xx, yy, 2, 2, 0, c_white, global.jjsSettGuiVisibility);
 }
 
 #define D4Cdestroy

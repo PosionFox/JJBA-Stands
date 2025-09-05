@@ -165,7 +165,10 @@ if (array_find_index(instancesHit, _target.id) == -1)
     {
         script_execute(onHitEvent, onHitEventArg, _target, undefined);
     }
-    var _e = PunchEffectCreate(x, y);
+    var _hx = random_range(_target.bbox_left, _target.bbox_right);
+    var _hy = random_range(_target.bbox_top, _target.bbox_bottom);
+    var _e = PunchEffectCreate(_hx, _hy);
+    _e.depth = _target.depth - 1;
     if (crit_damage > 1)
     {
         _e.image_blend = c_red;
@@ -288,6 +291,11 @@ if (global.timeIsFrozen and canDespawnInTs or !global.timeIsFrozen)
     despawnTime -= DT;
 }
 if (despawnTime <= 0)
+{
+    instance_destroy(self);
+    exit;
+}
+if (x < -128 or x > room_width + 128 or y < -128 or y > room_height + 128)
 {
     instance_destroy(self);
     exit;
@@ -782,6 +790,55 @@ switch (attackState)
         if (skills[s, StandSkill.ExecutionTime] >= skills[s, StandSkill.MaxExecutionTime])
         {
             if barrageData.sound != noone audio_stop_sound(barrageData.sound);
+        }
+    break;
+}
+attackStateTimer += DT;
+
+#define StandBarrageVars(m, s)
+
+xTo = owner.x + lengthdir_x(GetStandReach(self), owner.attack_direction + random_range(-4, 4));
+yTo = owner.y + lengthdir_y(GetStandReach(self), owner.attack_direction + random_range(-4, 4));
+image_xscale = look_x > owner.x ? 1 : -1;
+
+switch (attackState)
+{
+    case 0:
+        if GetSkillVars(s, "sound") != undefined jj_play_audio(GetSkillVars(s, "sound"), 10, false);
+        attackState++;
+    break;
+    case 1:
+        if (distance_to_point(xTo, yTo) < 2)
+        {
+            if (attackStateTimer >= (0.08 / GetStandSpeed(self)))
+            {
+                var _snd = jj_play_audio(global.sndPunchAir, 0, false);
+                audio_sound_pitch(_snd, random_range(0.9, 1.1));
+                var xx = x + random_range(-4, 4);
+                var yy = y + random_range(-8, 8);
+                var _p = PunchSwingCreate(xx, yy, owner.attack_direction, 45, GetDmg(s));
+                var _hs = GetSkillVars(s, "hitSound");
+                var _he = GetSkillVars(s, "hitEvent");
+                var _hea = GetSkillVars(s, "hitEventArgs");
+                with (_p)
+                {
+                    if _hs != undefined onHitSound = _hs;
+                    if _he != undefined onHitEvent = _he;
+                    if _hea != undefined onHitEventArg = _hea;
+                }
+                attackStateTimer = 0;
+            }
+            skills[s, StandSkill.ExecutionTime] += DT;
+        }
+        
+        if (keyboard_check_pressed(ord(skills[s, StandSkill.Key])))
+        {
+            if GetSkillVars(s, "sound") != undefined audio_stop_sound(GetSkillVars(s, "sound"));
+            EndAtk(s);
+        }
+        if (skills[s, StandSkill.ExecutionTime] >= skills[s, StandSkill.MaxExecutionTime])
+        {
+            if GetSkillVars(s, "sound") != undefined audio_stop_sound(GetSkillVars(s, "sound"));
         }
     break;
 }

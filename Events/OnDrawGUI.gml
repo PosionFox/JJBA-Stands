@@ -7,9 +7,9 @@ if (global.jjShowMenu and !instance_exists(objPlayerMenu))
 {
     player.freeze = 5;
     
-    var _color1 = c_black;
-    var _color2 = c_gray;
-    if (instance_exists(STAND))
+    var _color1 = Color.DarkBlue;
+    var _color2 = Color.Magenta;
+    if (instance_exists(STAND) and global.jjsSettBackgroundStandColors)
     {
         _color1 = STAND.color;
         _color2 = STAND.colorAlt;
@@ -473,9 +473,12 @@ for (var i = global.jjMenuMinIndex; i < global.jjMenuMaxIndex; i++)
     {
         if (global.jjStandSlots[i] == undefined and instance_exists(STAND))
         {
-            global.jjStandSlots[i] = ConstructStandData(STAND);
-            global.jjMenuStorageNames[i] = [STAND.name, STAND.color, STAND.colorAlt];
-            RemoveStand(player);
+            if (STAND.rarity.tier != Rarity.WIP)
+            {
+                global.jjStandSlots[i] = ConstructStandData(STAND);
+                global.jjMenuStorageNames[i] = [STAND.name, STAND.color, STAND.colorAlt];
+                RemoveStand(player);
+            }
         }
         else if (global.jjStandSlots[i] != undefined and !instance_exists(STAND))
         {
@@ -697,22 +700,40 @@ if (_bb)
 switch (global.jjMenuSubCurrent)
 {
     case "graphics":
-        var _cs = draw_checkbox(_cx + 64, _cy - 64 + (48 * 0), 32, "attack shadows", global.jjSettProjShadows);
+        var _ga = draw_slider(_cx - 64, _cy - 128 + (48 * 0), 128, 32, "gui visibility " + string(round(global.jjsSettGuiVisibility * 100)) + "%", global.jjsSettGuiVisibility);
+        if (_ga != undefined)
+        {
+            global.jjsSettGuiVisibility = _ga;
+        }
+        
+        var _bc = draw_checkbox(_cx + 64, _cy - 128 + (48 * 1), 32, "background stand colors", global.jjsSettBackgroundStandColors);
+        if (_bc != undefined)
+        {
+            global.jjsSettBackgroundStandColors = _bc;
+        }
+        
+        var _cs = draw_checkbox(_cx + 64, _cy - 128 + (48 * 2), 32, "attack shadows", global.jjSettProjShadows);
         if (_cs != undefined)
         {
             global.jjSettProjShadows = _cs;
         }
         
-        var _clp = draw_checkbox(_cx + 64, _cy - 64 + (48 * 1), 32, "level up particle", global.jjsSettLevelUpParticle);
+        var _clp = draw_checkbox(_cx + 64, _cy - 128 + (48 * 3), 32, "level up particle", global.jjsSettLevelUpParticle);
         if (_clp != undefined)
         {
             global.jjsSettLevelUpParticle = _clp;
         }
         
-        var _cer = draw_checkbox(_cx + 64, _cy - 64 + (48 * 2), 32, "display empty runes", global.jjsSettDisplayEmptyRunes);
+        var _cer = draw_checkbox(_cx + 64, _cy - 128 + (48 * 4), 32, "display empty runes", global.jjsSettDisplayEmptyRunes);
         if (_cer != undefined)
         {
             global.jjsSettDisplayEmptyRunes = _cer;
+        }
+        
+        var _cer = draw_checkbox(_cx + 64, _cy - 128 + (48 * 5), 32, "show stand aura", global.jjsSettShowStandAura);
+        if (_cer != undefined)
+        {
+            global.jjsSettShowStandAura = _cer;
         }
     break;
     case "audio":
@@ -720,6 +741,10 @@ switch (global.jjMenuSubCurrent)
         if (_sv != undefined)
         {
             global.jjSettAudioVolume = _sv;
+            var _snd = global.sndMenuClick;
+            if (!global.jjsSettCustomModMenuSounds) _snd = sndUiSelect;
+            var _s = audio_play_sound(_snd, 0, false);
+            audio_sound_gain(_s, global.jjSettAudioVolume, 0);
         }
         
         var _ct = draw_checkbox(_cx + 64, _cy - 32 + (48 * 1), 32, "stand talk when idle", global.jjSettStandTalkIdle);
@@ -790,10 +815,121 @@ switch (global.jjMenuSubCurrent)
         }
     break;
     case "debug":
-        var _cc = draw_checkbox(_cx + 64, _cy - 32 + (48 * 0), 32, "attack collisions", global.jjSettProjCollisions);
+        var _cc = draw_checkbox(_cx - 224, _cy - 32 + (48 * 0), 32, "attack collisions", global.jjSettProjCollisions);
         if (_cc != undefined)
         {
             global.jjSettProjCollisions = _cc;
+        }
+        
+        var _wipt = "work in progress stands,\nwon't override current normal stand\nand cannot be stored.";
+        draw_text(_cx + 256, _ry1 + 16 + string_height(_wipt), _wipt);
+        
+        var _rmv = draw_button_square(_cx + 256, _cy - 112 + (48 * 0), 192, 32, "-remove-");
+        if (_rmv)
+        {
+            if (room == rmGame)
+            {
+                if (instance_exists(STAND))
+                {
+                    if (STAND.rarity.tier == Rarity.WIP) RemoveStand(player);
+                }
+            }
+        }
+        var _wip1 = draw_button_square(_cx + 256, _cy - 112 + (48 * 1), 192, 32, "weather report");
+        if (_wip1)
+        {
+            if (room == rmGame)
+            {
+                if (instance_exists(STAND))
+                {
+                    if (STAND.rarity.tier == Rarity.WIP) RemoveStand(player);
+                }
+                if (!instance_exists(STAND))
+                {
+                    GiveWeatherReport(player);
+                    with (STAND) UpdateRarity(Rarity.WIP);
+                }
+            }
+        }
+        var _wip2 = draw_button_square(_cx + 256, _cy - 112 + (48 * 2), 192, 32, "crazy diamond");
+        if (_wip2)
+        {
+            if (room == rmGame)
+            {
+                if (instance_exists(STAND))
+                {
+                    if (STAND.rarity.tier == Rarity.WIP) RemoveStand(player);
+                }
+                if (!instance_exists(STAND))
+                {
+                    GiveCrazyDiamond(player);
+                    with (STAND) UpdateRarity(Rarity.WIP);
+                }
+            }
+        }
+        var _wip3 = draw_button_square(_cx + 256, _cy - 112 + (48 * 3), 192, 32, "c-moon");
+        if (_wip3)
+        {
+            if (room == rmGame)
+            {
+                if (instance_exists(STAND))
+                {
+                    if (STAND.rarity.tier == Rarity.WIP) RemoveStand(player);
+                }
+                if (!instance_exists(STAND))
+                {
+                    GiveCMoon(player);
+                    with (STAND) UpdateRarity(Rarity.WIP);
+                }
+            }
+        }
+        var _wip4 = draw_button_square(_cx + 256, _cy - 112 + (48 * 4), 192, 32, "tusk");
+        if (_wip4)
+        {
+            if (room == rmGame)
+            {
+                if (instance_exists(STAND))
+                {
+                    if (STAND.rarity.tier == Rarity.WIP) RemoveStand(player);
+                }
+                if (!instance_exists(STAND))
+                {
+                    GiveTusk(player);
+                    with (STAND) UpdateRarity(Rarity.WIP);
+                }
+            }
+        }
+        var _wip5 = draw_button_square(_cx + 256, _cy - 112 + (48 * 5), 192, 32, "magician's red");
+        if (_wip5)
+        {
+            if (room == rmGame)
+            {
+                if (instance_exists(STAND))
+                {
+                    if (STAND.rarity.tier == Rarity.WIP) RemoveStand(player);
+                }
+                if (!instance_exists(STAND))
+                {
+                    GiveMagiciansRed(player);
+                    with (STAND) UpdateRarity(Rarity.WIP);
+                }
+            }
+        }
+        var _wip6 = draw_button_square(_cx + 256, _cy - 112 + (48 * 6), 192, 32, "heaven's door");
+        if (_wip6)
+        {
+            if (room == rmGame)
+            {
+                if (instance_exists(STAND))
+                {
+                    if (STAND.rarity.tier == Rarity.WIP) RemoveStand(player);
+                }
+                if (!instance_exists(STAND))
+                {
+                    GiveHeavensDoor(player);
+                    with (STAND) UpdateRarity(Rarity.WIP);
+                }
+            }
         }
     break;
 }

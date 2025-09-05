@@ -90,6 +90,7 @@ switch (_key)
     case "jjPinkSnake": GivePinkSnake(_owner); break;
     case "jjbamWsu": GiveWsu(_owner); break;
     case "jjsPs": GivePrisoner(_owner); break;
+    default: GiveStarPlatinum(_owner); break;
 }
 
 #define LoadStand(_map)
@@ -209,6 +210,9 @@ _map[? "jjsSettLevelUpSound"] = global.jjsSettLevelUpSound;
 _map[? "jjsSettLevelUpParticle"] = global.jjsSettLevelUpParticle;
 _map[? "jjsSettCustomModMenuSounds"] = global.jjsSettCustomModMenuSounds;
 _map[? "jjsSettDisplayEmptyRunes"] = global.jjsSettDisplayEmptyRunes;
+_map[? "jjsSettShowStandAura"] = global.jjsSettShowStandAura;
+_map[? "jjsSettGuiVisibility"] = global.jjsSettGuiVisibility;
+_map[? "jjsSettBackgroundStandColors"] = global.jjsSettBackgroundStandColors;
 
 // stand storage
 var _ss = array_length(global.jjStandSlots);
@@ -427,6 +431,33 @@ if (_map[? "jjsSettDisplayEmptyRunes"] != undefined)
 else
 {
     global.jjsSettDisplayEmptyRunes = true;
+}
+
+if (_map[? "jjsSettShowStandAura"] != undefined)
+{
+    global.jjsSettShowStandAura = _map[? "jjsSettShowStandAura"];
+}
+else
+{
+    global.jjsSettShowStandAura = true;
+}
+
+if (_map[? "jjsSettGuiVisibility"] != undefined)
+{
+    global.jjsSettGuiVisibility = _map[? "jjsSettGuiVisibility"];
+}
+else
+{
+    global.jjsSettGuiVisibility = 1;
+}
+
+if (_map[? "jjsSettBackgroundStandColors"] != undefined)
+{
+    global.jjsSettBackgroundStandColors = _map[? "jjsSettBackgroundStandColors"];
+}
+else
+{
+    global.jjsSettBackgroundStandColors = false;
 }
 
 #endregion

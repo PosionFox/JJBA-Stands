@@ -1,29 +1,4 @@
 
-global.jjbamDiscMr = ItemCreate(
-    undefined,
-    tr("standDiscName") + "MR",
-    tr("standDiscDescription") + "Magician's Red",
-    global.sprDisc,
-    ItemType.Consumable,
-    ItemSubType.Potion,
-    416,
-    0,
-    0,
-    [],
-    ScriptWrap(DiscMrUse),
-    5 * 10,
-    true
-);
-
-#define DiscMrUse
-
-if (instance_exists(STAND) or room != rmGame)
-{
-    GainItem(global.jjbamDiscMr);
-    exit;
-}
-GiveMagiciansRed(player);
-
 #define BurningKnife(_, s)
 
 var _dir = owner.attack_direction;
@@ -355,13 +330,13 @@ _skills[sk, StandSkill.Icon] = global.sprSkillJosephKnife;
 _skills[sk, StandSkill.MaxCooldown] = 6;
 _skills[sk, StandSkill.Desc] = tr("josephKnifeDesc");
 
-sk = StandState.SkillBOff;
-_skills[sk, StandSkill.Skill] = StopSign;
-_skills[sk, StandSkill.Damage] = 30;
-_skills[sk, StandSkill.DamageScale] = 0.15;
-_skills[sk, StandSkill.Icon] = global.sprSkillStopSign;
-_skills[sk, StandSkill.MaxCooldown] = 10;
-_skills[sk, StandSkill.Desc] = tr("stopSignDesc");
+// sk = StandState.SkillBOff;
+// _skills[sk, StandSkill.Skill] = StopSign;
+// _skills[sk, StandSkill.Damage] = 30;
+// _skills[sk, StandSkill.DamageScale] = 0.15;
+// _skills[sk, StandSkill.Icon] = global.sprSkillStopSign;
+// _skills[sk, StandSkill.MaxCooldown] = 10;
+// _skills[sk, StandSkill.Desc] = tr("stopSignDesc");
 
 sk = StandState.SkillCOff;
 _skills[sk, StandSkill.Skill] = TwBloodDrain;
@@ -415,9 +390,8 @@ with (_s)
     color = 0x3232ac;
     summonSound = global.sndTwSummon;
     auraParticleSprite = global.sprStandParticle7;
-    discType = global.jjbamDiscMr;
     saveKey = "jjbamMr";
-    
+    UpdateRarity(Rarity.WIP);
     knifeSprite = global.sprBurningKnife;
     barrageData.hitEvent = LesserBurning;
 }

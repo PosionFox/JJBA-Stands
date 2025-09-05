@@ -1145,6 +1145,7 @@ if (instance_exists(STAND))
                 STAND.hasAct4 = true;
                 STAND.nailsMax = 20;
                 STAND.nails += 5;
+                jj_play_audio(global.sndTa4Get, 10, false);
             }
         exit;
         case "jjbamD4c":

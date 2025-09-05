@@ -1,30 +1,4 @@
 
-// wip
-global.jjbamDiscTsk = ItemCreate(
-    undefined,
-    tr("standDiscName") + "TUSK",
-    tr("standDiscDescription") + "Tusk",
-    global.sprDisc,
-    ItemType.Consumable,
-    ItemSubType.Potion,
-    0,
-    0,
-    0,
-    [],
-    ScriptWrap(DiscTskUse),
-    5 * 10,
-    true
-);
-
-#define DiscTskUse
-
-if (instance_exists(STAND) or room != rmGame)
-{
-    GainItem(global.jjbamDiscTsk);
-    exit;
-}
-GiveTusk(player);
-
 #define SpinningNails(m, s) // act 1 from here
 if (nails <= 0)
 {
@@ -34,7 +8,7 @@ if (nails <= 0)
 }
 
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
-
+var _dmg = GetDmg(s);
 var _p = ProjectileCreate(player.x, player.y);
 with (_p)
 {
@@ -43,7 +17,7 @@ with (_p)
     sprite_index = global.sprBtdVoidTrace;
     image_blend = c_yellow;
     mask_index = global.sprKnife;
-    damage = GetDmg(s);
+    damage = _dmg;
     direction = _dir;
     canMoveInTs = false;
     GlowOrderCreate(self, 0.1, c_yellow);
@@ -103,7 +77,7 @@ if (nails <= 0)
 }
 
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-
+var _dmg = GetDmg(s);
 var _p = ProjectileCreate(objPlayer.x, objPlayer.y);
 with (_p)
 {
@@ -113,7 +87,7 @@ with (_p)
     image_blend = c_yellow;
     mask_index = global.sprKnife;
     onHitEvent = BulletHole;
-    damage = GetDmg(s);
+    damage = _dmg;
     direction = _dir;
     canMoveInTs = false;
     GlowOrderCreate(self, 0.1, c_yellow);
@@ -131,7 +105,7 @@ if (nails <= 0)
 }
 
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-
+var _dmg = GetDmg(s);
 if (attackStateTimer >= 0.2)
 {
     var _p = ProjectileCreate(objPlayer.x, objPlayer.y);
@@ -143,7 +117,7 @@ if (attackStateTimer >= 0.2)
         image_blend = c_yellow;
         mask_index = global.sprKnife;
         onHitEvent = BulletHole;
-        damage = GetDmg(s);
+        damage = _dmg;
         direction = _dir;
         canMoveInTs = false;
         GlowOrderCreate(self, 0.1, c_yellow);
@@ -182,7 +156,7 @@ if (nails <= 0)
 }
 
 var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-
+var _dmg = GetDmg(s);
 var _p = ProjectileCreate(objPlayer.x, objPlayer.y);
 with (_p)
 {
@@ -192,7 +166,7 @@ with (_p)
     image_blend = c_fuchsia;
     mask_index = global.sprKnife;
     onHitEvent = BulletHole;
-    damage = GetDmg(s);
+    damage = _dmg;
     direction = _dir;
     canMoveInTs = false;
     tpTime = 0;
@@ -286,7 +260,7 @@ if (nails <= 0)
 }
 
 var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
-
+var _dmg = GetDmg(s);
 var _p = ProjectileCreate(player.x, player.y);
 with (_p)
 {
@@ -296,7 +270,7 @@ with (_p)
     image_blend = c_yellow;
     mask_index = global.sprKnife;
     onHitEvent = BulletHole;
-    damage = GetDmg(s) * other.act4Meter;
+    damage = _dmg * other.act4Meter;
     direction = _dir;
     canMoveInTs = false;
     GlowOrderCreate(self, 0.1, c_yellow);
@@ -515,17 +489,15 @@ var _width = display_get_gui_width();
 var _height = display_get_gui_height() - 40;
 var _txt = string(currentAct);
 
-draw_set_color(c_fuchsia);
-draw_text(256, _height - 160, _txt);
-draw_set_color(c_white);
+draw_text_color(256, _height - 152, _txt, Color.Lavender, Color.Lavender, Color.Lavender, Color.Lavender, global.jjsSettGuiVisibility);
 
 if (hasAct1 and !hasAct2)
 {
-    draw_sprite_ext(global.sprHeart, 0, 384, _height - 104, 2, 2, 0, c_dkgray, 1);
+    draw_sprite_ext(global.sprHolyHeart, 0, 384, _height - 104, 2, 2, 0, c_dkgray, global.jjsSettGuiVisibility);
 }
 if (hasAct2 and !hasAct3)
 {
-    draw_sprite_ext(global.sprEye, 0, 384, _height - 104, 2, 2, 0, c_dkgray, 1);
+    draw_sprite_ext(global.sprHolyEye, 0, 384, _height - 104, 2, 2, 0, c_dkgray, global.jjsSettGuiVisibility);
 }
 
 if (hasAct4)
@@ -541,11 +513,11 @@ if (hasAct4)
 
 for (var i = 0; i < balls; i++)
 {
-    draw_sprite_ext(global.sprSteelBall, 0, 320 + (32 * i), _height - 108, 2, 2, 0, c_white, 1);
+    draw_sprite_ext(global.sprSteelBall, 0, 320 + (32 * i), _height - 108, 2, 2, 0, c_white, global.jjsSettGuiVisibility);
 }
 for (var i = 0; i < nails; i++)
 {
-    draw_sprite_ext(global.sprNailGUI, 0, 320 + (i mod 10) * 8, _height - 80 + (i div 10) * 8, 2, 2, 0, c_white, 1);
+    draw_sprite_ext(global.sprNailGUI, 0, 320 + (i mod 10) * 8, _height - 80 + (i div 10) * 8, 2, 2, 0, c_white, global.jjsSettGuiVisibility);
 }
 
 #define StandSkillTuskCDs
@@ -684,7 +656,7 @@ _skills4[sk, StandSkill.Damage] = 1;
 _skills4[sk, StandSkill.DamageScale] = 0.02;
 _skills4[sk, StandSkill.Icon] = global.sprSkillBarrage;
 _skills4[sk, StandSkill.MaxCooldown] = 5;
-_skills4[sk, StandSkill.MaxExecutionTime] = 3;
+_skills4[sk, StandSkill.MaxExecutionTime] = 8;
 
 sk = StandState.SkillB;
 _skills4[sk, StandSkill.Skill] = StrongPunch;
@@ -693,12 +665,12 @@ _skills4[sk, StandSkill.Damage] = 0.1;
 _skills4[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
 _skills4[sk, StandSkill.MaxCooldown] = 8;
 
-sk = StandState.SkillC;
-_skills4[sk, StandSkill.Skill] = TripleKnifeThrow;
-_skills4[sk, StandSkill.Damage] = 2;
-_skills4[sk, StandSkill.DamageScale] = 0.02;
-_skills4[sk, StandSkill.Icon] = global.sprSkillTripleKnifeThrow;
-_skills4[sk, StandSkill.MaxCooldown] = 5;
+// sk = StandState.SkillC;
+// _skills4[sk, StandSkill.Skill] = TripleKnifeThrow;
+// _skills4[sk, StandSkill.Damage] = 2;
+// _skills4[sk, StandSkill.DamageScale] = 0.02;
+// _skills4[sk, StandSkill.Icon] = global.sprSkillTripleKnifeThrow;
+// _skills4[sk, StandSkill.MaxCooldown] = 5;
 
 sk = StandState.SkillD;
 _skills4[sk, StandSkill.Skill] = InfiniteRotation;
@@ -718,10 +690,12 @@ with (_s)
     color = 0xba7bd7;
     summonSound = global.sndTa1Summon;
     saveKey = "jjbamTsk";
-    discType = global.jjbamDiscTsk;
-    
+    UpdateRarity(Rarity.WIP);
     summonMethod = StandTuskSummon;
     runCDsMethod = StandSkillTuskCDs;
+    
+    barrageData.sound = global.sndTaChumimin;
+    barrageData.hitSound = global.sndTa4Hit;
     
     currentAct = "";
     hasAct1 = true;

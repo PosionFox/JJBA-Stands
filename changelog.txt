@@ -1,3 +1,16 @@
+4/9/2025
+
+General changes:
+-Added a new section in debug settings for testing work-in-progress Stands quickly.
+-Added setting for showing Stand aura or not.
+-Added setting for changing Stand UI visibility.
+-Added setting for toggling between Stand colors and default colors for the mod menu background.
+-Changed mod menu default colors.
+-Hit effects now spawn around targets instead of attacks.
+-Fixed trait not displaying animated colors properly. 
+-Fixed some WIP Stands crashing.
+
+
 2/8/2025
 
 The mod's visuals were updated to match Forager's color palette, many sprites also got some touch ups.

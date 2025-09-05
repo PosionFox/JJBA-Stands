@@ -381,10 +381,13 @@ global.sndAmogMurder = audio_create_stream(p + "AmogMurder.ogg");
 #region tusk
 
 p = "Resources/Sounds/Tusk/";
+global.sndTaChumimin = audio_create_stream(p + "tusk_chumi.ogg");
 global.sndTa1Summon = audio_create_stream(p + "ta1Summon.ogg");
 global.sndTa2Summon = audio_create_stream(p + "ta2Summon.ogg");
 global.sndTa3Summon = audio_create_stream(p + "ta3Summon.ogg");
-global.sndTa4Summon = audio_create_stream(p + "ta4Summon.ogg");
+global.sndTa4Get = audio_create_stream(p + "tusk4_get.ogg");
+global.sndTa4Summon = audio_create_stream(p + "tusk4_summon.ogg");
+global.sndTa4Hit = audio_create_stream(p + "tusk4_hit.ogg");
 
 #endregion
 
@@ -394,6 +397,13 @@ p = "Resources/Sounds/WR/";
 global.sndSummonWR = audio_create_stream(p + "summon_wr.ogg");
 global.sndHeavyWeather = audio_create_stream(p + "heavy_weather.ogg");
 global.sndTornado = audio_create_stream(p + "tornado.ogg");
+global.sndBloodSpike1 = audio_create_stream(p + "blood_spike1.ogg");
+global.sndBloodSpike2 = audio_create_stream(p + "blood_spike2.ogg");
+global.sndWind = audio_create_stream(p + "wind.ogg");
+global.sndWater = audio_create_stream(p + "water.ogg");
+global.sndElectric = audio_create_stream(p + "electric.ogg");
+global.sndFire = audio_create_stream(p + "fire.ogg");
+global.sndToss = audio_create_stream(p + "toss.ogg");
 
 #endregion
 

@@ -384,10 +384,10 @@ return _s;
 var _width = display_get_gui_width();
 var _height = display_get_gui_height() - 40;
 
-draw_sprite_ext(global.sprRevCylinderGUI, 0, 321, _height - 96, 2, 2, 0, c_white, 1);
+draw_sprite_ext(global.sprRevCylinderGUI, 0, 321, _height - 96, 2, 2, 0, c_white, global.jjsSettGuiVisibility);
 for (var i = 0; i < ammo; i++)
 {
     var xx = 320 + lengthdir_x(12, i * 60);
     var yy = _height - 96 + lengthdir_y(12, i * 60);
-    draw_sprite_ext(global.sprBulletGUI, 0, xx, yy, 2, 2, 0, c_white, 1);
+    draw_sprite_ext(global.sprBulletGUI, 0, xx, yy, 2, 2, 0, c_white, global.jjsSettGuiVisibility);
 }

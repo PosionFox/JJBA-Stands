@@ -52,7 +52,8 @@ enum StandSkill {
 }
 
 enum Rarity {
-    Ordinary = -2,
+    WIP = -3,
+    Ordinary,
     Tragic,
     Common,
     Uncommon,

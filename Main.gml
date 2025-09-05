@@ -85,6 +85,9 @@ global.jjsSettLevelUpSound = true;
 global.jjsSettLevelUpParticle = true;
 global.jjsSettCustomModMenuSounds = true;
 global.jjsSettDisplayEmptyRunes = true;
+global.jjsSettShowStandAura = true;
+global.jjsSettGuiVisibility = 1;
+global.jjsSettBackgroundStandColors = false;
 
 #endregion
 

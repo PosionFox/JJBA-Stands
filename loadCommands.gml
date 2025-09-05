@@ -28,6 +28,35 @@ CommandCreate("jjSpawnPrisoner", true, ScriptWrap(jjSpawnPrisoner));
 
 CommandCreate("jjsInspectObj", false, ScriptWrap(jjsInspectObj), "obj");
 
+CommandCreate("jjsCheckInstances", false, ScriptWrap(jjsCheckInstances));
+
+#define jjsCheckInstances
+
+var _found = [];
+with (all)
+{
+    array_push(_found, object_get_name(object_index));
+}
+Trace("instances found:");
+Trace(_found)
+
+var _foundm = [];
+with (MOBJ)
+{
+    if bool("type" in self)
+    {
+        var _sub = "none";
+        if bool("subtype" in self) _sub = subtype;
+        array_push(_foundm, string(type) + ":" + string(_sub));
+    }
+    else
+    {
+        array_push(_foundm, "unkown mobj");
+    }
+}
+Trace("mod instances found:");
+Trace(_foundm)
+
 #define jjsInspectObj(_args)
 
 var _obj = asset_get_index(_args[0]);

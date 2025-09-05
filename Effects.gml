@@ -348,6 +348,8 @@ draw_line_width_color(x, y, x, y - 256, width, c_red, c_yellow);
 var o = ModObjectSpawn(_x, _y, 0);
 with (o)
 {
+    type = "effect";
+    subtype = "aura";
     owner = self;
     sprite_index = _sprite;
     image_blend = _color;
