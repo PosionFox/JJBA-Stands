@@ -47,8 +47,8 @@ if (instance_exists(owner))
 {
     _dir = owner.attack_direction;
     
-    _xx = owner.x + lengthdir_x(GetStandReach(self), _dir);
-    _yy = owner.y + lengthdir_y(GetStandReach(self), _dir);
+    _xx = owner.x + lengthdir_x(GetStandExtension(self), _dir);
+    _yy = owner.y + lengthdir_y(GetStandExtension(self), _dir);
 }
 xTo = _xx;
 yTo = _yy;
@@ -73,8 +73,8 @@ attackStateTimer += DT;
 #define RedBindPull(_, skill)
 
 var _dir = owner.attack_direction;
-xTo = owner.x + lengthdir_x(GetStandReach(self), _dir);
-yTo = owner.y + lengthdir_y(GetStandReach(self), _dir);
+xTo = owner.x + lengthdir_x(GetStandExtension(self), _dir);
+yTo = owner.y + lengthdir_y(GetStandExtension(self), _dir);
 
 switch (attackState)
 {
@@ -167,8 +167,8 @@ draw_set_color(image_blend);
 #define RedBindRestrain(_, skill)
 
 var _dir = owner.attack_direction;
-xTo = owner.x + lengthdir_x(GetStandReach(self), _dir);
-yTo = owner.y + lengthdir_y(GetStandReach(self), _dir);
+xTo = owner.x + lengthdir_x(GetStandExtension(self), _dir);
+yTo = owner.y + lengthdir_y(GetStandExtension(self), _dir);
 
 switch (attackState)
 {
@@ -286,8 +286,8 @@ if (instance_exists(owner))
 {
     _dir = owner.attack_direction;
     
-    _xx = owner.x + lengthdir_x(GetStandReach(self), _dir);
-    _yy = owner.y + lengthdir_y(GetStandReach(self), _dir);
+    _xx = owner.x + lengthdir_x(GetStandExtension(self), _dir);
+    _yy = owner.y + lengthdir_y(GetStandExtension(self), _dir);
 }
 xTo = _xx;
 yTo = _yy;

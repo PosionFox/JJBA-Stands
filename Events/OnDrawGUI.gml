@@ -269,7 +269,7 @@ some traits may be more complex, like giving you the ability to reflect damage t
         draw_text_color(_cx, _ry1 + 64, "stand runes", c_white, c_white, c_aqua, c_aqua, 1);
         draw_text_ext(_cx, _cy,
 @"every stand may have up to 3 runes at a time.
-similar to traits, runes enchance you or your stand, the key different being that you can have up to 3 runes at a time instead of just one 1 trait.
+similar to traits, runes enhance you or your stand, the key difference being that you can have up to 3 runes at a time instead of just one 1 trait.
 
 the only current method to get runes is by defeating dio.", 24, 1000);
         draw_sprite_ext(global.sprBlankRune, 0, _rx1 + 160, _ry2 - 128, 4, 4, 0, c_white, 1);

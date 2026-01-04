@@ -1,6 +1,7 @@
 
 #define KceScalpelSlash(m, s)
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+
+var _dir = owner.attack_direction;
 
 jj_play_audio(global.sndKnifeThrow, 5, false);
 KcePlayRandomScream();
@@ -23,7 +24,7 @@ EndAtk(s);
 
 #define KceScalpelThrow(m, s)
 
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+var _dir = owner.attack_direction;
 
 switch (attackState)
 {
@@ -68,13 +69,14 @@ attackStateTimer += DT;
 
 #define KceTimeSkip(m, s)
 
-if (!WaterCollision(mouse_x, mouse_y) and !modTypeExists("timeErase"))
+var _aim = get_aim_position(self);
+if (!WaterCollision(_aim.x, _aim.y) and !modTypeExists("timeErase"))
 {
     jj_play_audio(global.sndKceTeleport, 5, false);
     EffectPlayerAfterimageCreate(owner.x, owner.y);
     EffectTimeSkipCreate();
-    player.x = mouse_x;
-    player.y = mouse_y;
+    owner.x = _aim.x;
+    owner.y = _aim.y;
     EndAtk(s);
 }
 else
@@ -87,14 +89,15 @@ else
 switch (attackState)
 {
     case 0:
-        if (!WaterCollision(mouse_x, mouse_y))
+        var _aim = get_aim_position(self);
+        if (!WaterCollision(_aim.x, _aim.y))
         {
             KcePlayRandomScream();
             jj_play_audio(global.sndKcTp, 5, false);
             EffectPlayerAfterimageCreate(owner.x, owner.y);
             EffectTimeSkipCreate();
-            player.x = mouse_x;
-            player.y = mouse_y;
+            owner.x = _aim.x;
+            owner.y = _aim.y;
             attackState++;
         }
         else
@@ -104,8 +107,8 @@ switch (attackState)
     break;
     case 1:
         var _target = noone;
-        var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
-        var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+        var _dis = get_aim_distance(self, owner);
+        var _dir = owner.attack_direction;
         if (enemy_instance_exists())
         {
             _target = get_nearest_enemy(owner.x, owner.y);
@@ -114,7 +117,7 @@ switch (attackState)
             if (_dis > 64 * GetStandRange(self))
             {
                 _target = noone;
-                _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+                _dir = owner.attack_direction;
             }
         }
         xTo = owner.x + lengthdir_x(8, _dir + random_range(-4, 4));
@@ -160,11 +163,11 @@ switch (attackState)
 
 #define KceChop(m, s)
 
-var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
-var _dir = point_direction(player.x, player.y, mouse_x, mouse_y)
+var _dis = get_aim_distance(self, owner);
+var _dir = owner.attack_direction;
 
-var _xx = player.x + lengthdir_x(GetStandReach(self), _dir);
-var _yy = player.y + lengthdir_y(GetStandReach(self), _dir);
+var _xx = player.x + lengthdir_x(GetStandExtension(self), _dir);
+var _yy = player.y + lengthdir_y(GetStandExtension(self), _dir);
 xTo = _xx;
 yTo = _yy;
 image_xscale = mouseXSide;
@@ -203,7 +206,8 @@ switch (attackState)
     case 0:
         if (enemy_instance_exists())
         {
-            var _n = get_nearest_enemy(mouse_x, mouse_y);
+            var _aim = get_aim_position(self);
+            var _n = get_nearest_enemy(_aim.x, _aim.y);
             if (distance_to_object(_n) < (armChopRange * GetStandRange(self)))
             {
                 x = _n.x;

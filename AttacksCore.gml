@@ -134,7 +134,7 @@ if (col_cd <= 0)
         }
         ds_list_destroy(_hits);
     }
-    col_cd = col_cd_max;
+    col_cd = col_cd_max + (global.timeIsFrozen * 0.05);
 }
 col_cd -= DT;
 
@@ -224,7 +224,7 @@ with (_o)
     show_projectile = true;
     mask_index = global.sprHitbox16x16;
     col_size = 8;
-    col_cd_max = 0.05;
+    col_cd_max = 0.03;
     col_cd = 0;
     baseAnimSpd = 1;
     image_speed = baseAnimSpd;
@@ -751,8 +751,10 @@ return _p;
 
 #define StandBarrage(m, s)
 
-xTo = owner.x + lengthdir_x(GetStandReach(self), owner.attack_direction + random_range(-4, 4));
-yTo = owner.y + lengthdir_y(GetStandReach(self), owner.attack_direction + random_range(-4, 4));
+var _ext = GetStandExtension(self);
+var _dir = owner.attack_direction + random_range(-32 * (1 / _ext), 32 * (1 / _ext));
+xTo = owner.x + lengthdir_x(_ext, _dir);
+yTo = owner.y + lengthdir_y(_ext, _dir);
 image_xscale = look_x > owner.x ? 1 : -1;
 
 switch (attackState)
@@ -782,7 +784,7 @@ switch (attackState)
             skills[s, StandSkill.ExecutionTime] += DT;
         }
         
-        if (keyboard_check_pressed(ord(skills[s, StandSkill.Key])))
+        if (keyboard_check_pressed(ord(skills[s, StandSkill.Key])) or (stand_mode and gamepad_button_check_pressed(0, skills[s, StandSkill.GpBtn])))
         {
             if barrageData.sound != noone audio_stop_sound(barrageData.sound);
             EndAtk(s);
@@ -797,8 +799,10 @@ attackStateTimer += DT;
 
 #define StandBarrageVars(m, s)
 
-xTo = owner.x + lengthdir_x(GetStandReach(self), owner.attack_direction + random_range(-4, 4));
-yTo = owner.y + lengthdir_y(GetStandReach(self), owner.attack_direction + random_range(-4, 4));
+var _ext = GetStandExtension(self);
+var _dir = owner.attack_direction + random_range(-32 * (1 / _ext), 32 * (1 / _ext));
+xTo = owner.x + lengthdir_x(_ext, _dir);
+yTo = owner.y + lengthdir_y(_ext, _dir);
 image_xscale = look_x > owner.x ? 1 : -1;
 
 switch (attackState)
@@ -831,7 +835,7 @@ switch (attackState)
             skills[s, StandSkill.ExecutionTime] += DT;
         }
         
-        if (keyboard_check_pressed(ord(skills[s, StandSkill.Key])))
+        if (keyboard_check_pressed(ord(skills[s, StandSkill.Key])) or (stand_mode and gamepad_button_check_pressed(0, skills[s, StandSkill.GpBtn])))
         {
             if GetSkillVars(s, "sound") != undefined audio_stop_sound(GetSkillVars(s, "sound"));
             EndAtk(s);
@@ -882,8 +886,8 @@ if (instance_exists(owner))
 {
     _dir = owner.attack_direction;
     
-    _xx = owner.x + lengthdir_x(GetStandReach(self), _dir);
-    _yy = owner.y + lengthdir_y(GetStandReach(self), _dir);
+    _xx = owner.x + lengthdir_x(GetStandExtension(self), _dir);
+    _yy = owner.y + lengthdir_y(GetStandExtension(self), _dir);
 }
 xTo = _xx;
 yTo = _yy;

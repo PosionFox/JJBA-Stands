@@ -47,7 +47,8 @@ switch (attackState)
 attackStateTimer += DT * GetStandSpeed(self);
 
 #define TrickShot(method, skill)
-var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+
+var _dir = owner.attack_direction;
 
 if (ammo > 0)
 {
@@ -106,7 +107,8 @@ FireCD(skill)
 state = StandState.Idle;
 
 #define BulletVolley(method, skill) //attacks
-var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+
+var _dir = owner.attack_direction;
 StandDefaultPos();
 
 if (attackStateTimer >= 0.15)
@@ -144,8 +146,8 @@ if (attackState >= 3)
 }
 
 #define DoubleSlap(method, skill)
-var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-var _dis = GetStandReach(self);
+var _dir = owner.attack_direction;
+var _dis = GetStandExtension(self);
 
 switch (attackState)
 {
@@ -158,7 +160,7 @@ switch (attackState)
         }
     break;
     case 1:
-        _dis = GetStandReach(self) * 1.5;
+        _dis = GetStandExtension(self) * 1.5;
         if (attackStateTimer > 1)
         {
             jj_play_audio(global.sndPunchAir, 0, false);
@@ -172,7 +174,7 @@ switch (attackState)
         }
     break;
     case 2:
-        _dis = GetStandReach(self) * 1.5;
+        _dis = GetStandExtension(self) * 1.5;
         if (attackStateTimer > 1.25) EndAtk(skill);
     break;
 }
@@ -185,7 +187,8 @@ yTo = objPlayer.y + lengthdir_y(_dis, _dir);
 
 if (modSubtypeExists("clone"))
 {
-    var _near = modSubtypeFindNearest(mouse_x, mouse_y, "clone");
+    var _aim = get_aim_position(self);
+    var _near = modSubtypeFindNearest(_aim.x, _aim.y, "clone");
     var prevX = player.x;
     var prevY = player.y;
     player.x = _near.x;
@@ -202,6 +205,7 @@ else
 }
 
 #define CloneBomb(method, skill)
+
 if (!instance_exists(parEnemy))
 {
     USAflag.visible = false;
@@ -214,9 +218,9 @@ if (!instance_exists(parEnemy))
     exit;
 }
 
-var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-xTo = objPlayer.x + lengthdir_x(GetStandReach(self), _dir);
-yTo = objPlayer.y + lengthdir_y(GetStandReach(self), _dir);
+var _dir = owner.attack_direction;
+xTo = objPlayer.x + lengthdir_x(GetStandExtension(self), _dir);
+yTo = objPlayer.y + lengthdir_y(GetStandExtension(self), _dir);
 image_xscale = sign(dcos(_dir));
 
 attackStateTimer += DT * GetStandSpeed(self);
@@ -261,9 +265,10 @@ switch (attackState)
 
 
 #define CloneSummon(method, skill)
-var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-xTo = objPlayer.x + lengthdir_x(GetStandReach(self), _dir);
-yTo = objPlayer.y + lengthdir_y(GetStandReach(self), _dir);
+
+var _dir = owner.attack_direction;
+xTo = objPlayer.x + lengthdir_x(GetStandExtension(self), _dir);
+yTo = objPlayer.y + lengthdir_y(GetStandExtension(self), _dir);
 image_xscale = sign(dcos(_dir));
 
 attackStateTimer += DT * GetStandSpeed(self);
@@ -308,7 +313,7 @@ switch (attackState)
 }
 
 #define DimensionalHop(method, skill)
-var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+var _dir = owner.attack_direction;
 xTo = objPlayer.x + lengthdir_x(8, 90);
 yTo = objPlayer.y + lengthdir_y(8, 90);
 

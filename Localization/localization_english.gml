@@ -504,7 +504,10 @@ tr_add(_map, "rune_might_name", "might");
 tr_add(_map, "rune_might_desc", "increases stand damage.");
 
 tr_add(_map, "rune_reach_name", "reach");
-tr_add(_map, "rune_reach_desc", "increases stand reach.");
+tr_add(_map, "rune_reach_desc", "increases stand range.");
+
+tr_add(_map, "rune_extension_name", "extension");
+tr_add(_map, "rune_extension_desc", "increases stand forward reach.");
 
 tr_add(_map, "rune_mending_name", "mending");
 tr_add(_map, "rune_mending_desc", "heals the user overtime.");

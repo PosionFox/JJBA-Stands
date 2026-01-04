@@ -100,10 +100,13 @@ global.sprRuneRemover = sprite_add(p + "RuneRemover.png", 1, false, false, 8, 8)
 global.sprEnergyOrb = sprite_add(p + "EnergyOrb.png", 1, false, false, 8, 8);
 
 global.sprBlankRune = sprite_add(p + "blank_rune.png", 1, false, false, 8, 8);
+global.sprEnergyRune = sprite_add(p + "energy_rune.png", 1, false, false, 8, 8);
+
 global.sprUnknownRune = sprite_add(p + "unknown_rune.png", 1, false, false, 8, 8);
 global.sprRuneMight = sprite_add(p + "rune_might.png", 1, false, false, 8, 8);
 global.sprRuneBriefRaspite = sprite_add(p + "rune_brief_raspite.png", 1, false, false, 8, 8);
 global.sprRuneReach = sprite_add(p + "rune_reach.png", 1, false, false, 8, 8);
+global.sprRuneExtension = sprite_add(p + "rune_extension.png", 1, false, false, 8, 8);
 global.sprRuneMending = sprite_add(p + "rune_mending.png", 1, false, false, 8, 8);
 global.sprRuneEnergize = sprite_add(p + "rune_energize.png", 1, false, false, 8, 8);
 global.sprRuneAcute = sprite_add(p + "rune_acute.png", 1, false, false, 8, 8);

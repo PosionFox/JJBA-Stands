@@ -123,8 +123,8 @@ switch (state)
 #define AirBullets(_, s)
 
 var _dir = owner.attack_direction;
-xTo = owner.x + lengthdir_x(GetStandReach(self), _dir + random_range(-4, 4));
-yTo = owner.y + lengthdir_y(GetStandReach(self), _dir + random_range(-4, 4));
+xTo = owner.x + lengthdir_x(GetStandExtension(self), _dir + random_range(-4, 4));
+yTo = owner.y + lengthdir_y(GetStandExtension(self), _dir + random_range(-4, 4));
 image_xscale = mouse_x > owner.x ? 1 : -1;
 
 switch (attackState)

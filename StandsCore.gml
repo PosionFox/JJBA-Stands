@@ -228,6 +228,21 @@ if (max_energy > 0)
     draw_line_width_color(xx - 134, yy + 134, (xx - 134) + ((energy / max_energy) * 250), yy + 134, abs(sin(current_time / 1000)) * 5, _color, _color);
 }
 
+// controller
+xx = 400;
+if (stand_mode)
+{
+    draw_text(xx, _height - 144 - 24, "stand mode");
+}
+if (lockon_mode)
+{
+    draw_text(xx, _height - 144 - 48, "lock-on mode");
+}
+if (alt_mode)
+{
+    draw_text(xx, _height - 144 - 72, "hold mode");
+}
+
 draw_set_alpha(1);
 
 #define StandSkillRunCD(s)
@@ -256,7 +271,7 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
     {
         if (owner.hp != 0 and !instance_exists(objPlayerMenu) and !global.jjShowMenu)
         {
-            if (keyboard_check(ord(skills[i, StandSkill.Key]))/* or InputCheckDown(skills[i, StandSkill.GpBtn])*/)
+            if (keyboard_check(ord(skills[i, StandSkill.Key])) or (stand_mode and gamepad_button_check_pressed(0, skills[i, StandSkill.GpBtn])))
             {
                 if (max_energy > 0)
                 {
@@ -269,6 +284,10 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
                             altAttack = true;
                             var _s = jj_play_audio(sndCoin1, 1, false);
                             audio_sound_pitch(_s, 1.5);
+                        }
+                        if (alt_mode)
+                        {
+                            altAttack = true;
                         }
                     }
                 }
@@ -284,10 +303,14 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
                             var _s = jj_play_audio(sndCoin1, 1, false);
                             audio_sound_pitch(_s, 1.5);
                         }
+                        if (alt_mode)
+                        {
+                            altAttack = true;
+                        }
                     }
                 }
             }
-            if (keyboard_check_released(ord(skills[i, StandSkill.Key]))/* or InputCheckPressed(skills[i, StandSkill.GpBtn])*/)
+            if (keyboard_check_released(ord(skills[i, StandSkill.Key])) or (stand_mode and gamepad_button_check_pressed(0, skills[i, StandSkill.GpBtn])))
             {
                 if (max_energy > 0)
                 {
@@ -349,11 +372,33 @@ if (state != StandState.Idle)
 
 script_execute(runCDsMethod);
 
+#define get_aim_position(_stand)
+
+if (_stand.stand_mode)
+{
+    return { x : aim_x, y : aim_y }
+}
+else
+{
+    return { x : mouse_x, y : mouse_y }
+}
+
+#define get_aim_distance(_stand, _from)
+
+if (_stand.stand_mode)
+{
+    return point_distance(_from.x, _from.y, aim_x, aim_y);
+}
+else
+{
+    return point_distance(_from.x, _from.y, mouse_x, mouse_y);
+}
+
 #define StandDefaultSummon
 
 if (state == StandState.Idle)
 {
-    if (keyboard_check_pressed(ord(player.summonKeybind)) and owner.freeze < 1)
+    if ((keyboard_check_pressed(ord(player.summonKeybind)) or (stand_mode and gamepad_button_check_pressed(0, player.summonKeymap))) and owner.freeze < 1)
     {
         active = !active;
         if (active)
@@ -401,14 +446,60 @@ if (!instance_exists(objPlayerMenu))
 if (instance_exists(owner))
 {
     mouseXSide = sign(owner.facing);
-    if (bool("hp" in owner) and owner.hp <= 0)
+    if (active and bool("hp" in owner) and owner.hp <= 0)
     {
         state = StandState.Idle;
-        active = false;
         if (barrageData.sound != noone and audio_is_playing(barrageData.sound))
         {
             audio_stop_sound(barrageData.sound);
         }
+        active = false;
+    }
+    
+    // controller
+    if (bool("standModeKeymap" in owner) and gamepad_button_check_pressed(0, owner.standModeKeymap))
+    {
+        stand_mode = !stand_mode;
+        if (stand_mode)
+        {
+            InputReassign(Input.A, 0, -2, "gamepad");
+            InputReassign(Input.B, 0, -3, "gamepad");
+            InputReassign(Input.X, 0, -4, "gamepad");
+            InputReassign(Input.Y, 0, -5, "gamepad");
+            InputReassign(Input.Interact, 0, -6, "gamepad");
+            InputReassign(Input.Menu, 0, -7, "gamepad");
+            InputReassign(Input.Space, 0, -8, "gamepad");
+            //InputReassign(Input.RightStick, 0, -9, "gamepad");
+        }
+        else
+        {
+            InputReassign(Input.A, 0, gp_face1, "gamepad");
+            InputReassign(Input.B, 0, gp_face2, "gamepad");
+            InputReassign(Input.X, 0, gp_face3, "gamepad");
+            InputReassign(Input.Y, 0, gp_face4, "gamepad");
+            InputReassign(Input.Interact, 0, gp_face1, "gamepad");
+            InputReassign(Input.Menu, 0, gp_face2, "gamepad");
+            //InputReassign(Input.RightStick, 0, gp_stickr, "gamepad");
+        }
+    }
+    
+    if (bool("lockonKeymap" in owner) and gamepad_button_check_pressed(0, owner.lockonKeymap))
+    {
+        lockon_mode = !lockon_mode;
+        if (lockon_mode and enemy_instance_exists())
+        {
+            lockon_target = get_nearest_enemy(aim_x, aim_y);
+        }
+        else
+        {
+            lockon_target = noone;
+            aim_x = owner.x;
+            aim_y = owner.y;
+        }
+    }
+    if (bool("altModeKeymap" in owner) and gamepad_button_check_pressed(0, owner.altModeKeymap))
+    {
+        alt_mode = !alt_mode;
     }
 }
 
@@ -480,6 +571,44 @@ soundIdleTimer -= DT;
 
 if (instance_exists(owner))
 {
+    // controller
+    if (stand_mode)
+    {
+        if (!lockon_mode)
+        {
+            //if (abs(owner.h) >= 0.5 or abs(owner.v) >= 0.5)
+            var _axh = gamepad_axis_value(0, gp_axislh);
+            var _axv = gamepad_axis_value(0, gp_axislv);
+            if (abs(_axh) > 0.25 or abs(_axv) > 0.25)
+            
+            {
+                aim_x = lerp(aim_x, owner.x + (_axh * 64), 0.25);
+                aim_y = lerp(aim_y, owner.y + (_axv * 64), 0.25);
+            }
+        }
+        
+        owner.attack_direction = point_direction(x, y, aim_x, aim_y);
+        
+        if (lockon_mode)
+        {
+            if (instance_exists(lockon_target))
+            {
+                var _n = lockon_target;
+                aim_x = _n.x;
+                aim_y = _n.y;
+                owner.attack_direction = point_direction(x, y, aim_x, aim_y);
+            }
+            else if (enemy_instance_exists())
+            {
+                lockon_target = get_nearest_enemy(aim_x, aim_y);
+            }
+            else
+            {
+                lockon_mode = false;
+                lockon_target = noone;
+            }
+        }
+    }
     if (owner.freeze < 1)
     {
         StandSkillManage();
@@ -550,6 +679,20 @@ if (post_draw != undefined)
     ScriptCall(post_draw);
 }
 
+if (stand_mode)
+{
+    var _tt = (sin(current_time / 100) * 1);
+    draw_set_color(color);
+    draw_circle_thick(aim_x, aim_y, 5 + _tt, 2 + _tt);
+    draw_set_color(colorAlt);
+    draw_circle_thick(aim_x, aim_y, 6 + _tt, 2 + _tt);
+    if (lockon_mode)
+    {
+        draw_line_width_color(owner.x, owner.y, aim_x, aim_y, 2, color, colorAlt);
+    }
+    draw_set_color(c_white);
+}
+
 #define StandSkillInit()
 
 var _arr;
@@ -588,15 +731,8 @@ for (var i = StandState.SkillAOff; i <= StandState.SkillD; i++)
     _arr[_s, StandSkill.ExecutionTime] = 0;
     _arr[_s, StandSkill.Desc] = "";
 }
-_arr[StandState.SkillAOff, StandSkill.GpBtn] = Input.LB;
-_arr[StandState.SkillBOff, StandSkill.GpBtn] = Input.LT;
-_arr[StandState.SkillCOff, StandSkill.GpBtn] = Input.RB;
-_arr[StandState.SkillDOff, StandSkill.GpBtn] = Input.RT;
-_arr[StandState.SkillA, StandSkill.GpBtn] = _arr[StandState.SkillAOff, StandSkill.GpBtn];
-_arr[StandState.SkillB, StandSkill.GpBtn] = _arr[StandState.SkillBOff, StandSkill.GpBtn];
-_arr[StandState.SkillC, StandSkill.GpBtn] = _arr[StandState.SkillCOff, StandSkill.GpBtn];
-_arr[StandState.SkillD, StandSkill.GpBtn] = _arr[StandState.SkillDOff, StandSkill.GpBtn];
 
+// keyboard inputs
 _arr[StandState.SkillAOff, StandSkill.Key] = player.abilityKeybind1;
 _arr[StandState.SkillBOff, StandSkill.Key] = player.abilityKeybind2;
 _arr[StandState.SkillCOff, StandSkill.Key] = player.abilityKeybind3;
@@ -605,6 +741,16 @@ _arr[StandState.SkillA, StandSkill.Key] = _arr[StandState.SkillAOff, StandSkill.
 _arr[StandState.SkillB, StandSkill.Key] = _arr[StandState.SkillBOff, StandSkill.Key];
 _arr[StandState.SkillC, StandSkill.Key] = _arr[StandState.SkillCOff, StandSkill.Key];
 _arr[StandState.SkillD, StandSkill.Key] = _arr[StandState.SkillDOff, StandSkill.Key];
+
+// controller inputs
+_arr[StandState.SkillAOff, StandSkill.GpBtn] = player.abilityKeymap1;
+_arr[StandState.SkillBOff, StandSkill.GpBtn] = player.abilityKeymap2;
+_arr[StandState.SkillCOff, StandSkill.GpBtn] = player.abilityKeymap3;
+_arr[StandState.SkillDOff, StandSkill.GpBtn] = player.abilityKeymap4;
+_arr[StandState.SkillA, StandSkill.GpBtn] = _arr[StandState.SkillAOff, StandSkill.GpBtn];
+_arr[StandState.SkillB, StandSkill.GpBtn] = _arr[StandState.SkillBOff, StandSkill.GpBtn];
+_arr[StandState.SkillC, StandSkill.GpBtn] = _arr[StandState.SkillCOff, StandSkill.GpBtn];
+_arr[StandState.SkillD, StandSkill.GpBtn] = _arr[StandState.SkillDOff, StandSkill.GpBtn];
 
 _arr[StandState.SkillAOff, StandSkill.EnergyCost] = 25;
 _arr[StandState.SkillBOff, StandSkill.EnergyCost] = 50;
@@ -755,6 +901,13 @@ with (_stand)
     evolutions = [];
     // serializable data
     extra_serial_data = ds_map_create();
+    // controller
+    stand_mode = false;
+    lockon_mode = false;
+    lockon_target = noone;
+    alt_mode = false;
+    aim_x = x;
+    aim_y = y;
     
     trait_give_random(self);
     
@@ -910,7 +1063,7 @@ return (_stand.spd + _stand.mod_spd);
 
 #define GetStandRange(_stand)
 
-return (_stand.range + _stand.mod_range);
+return (_stand.range + _stand.mod_range) * GetRunesStandReach(_stand);
 
 #define GetStandStamina(_stand)
 
@@ -924,9 +1077,9 @@ return (_stand.precision + _stand.mod_precision);
 
 return (_stand.destructive_power + _stand.spd + _stand.range + _stand.stamina + _stand.precision) / 5;
 
-#define GetStandReach(_stand)
+#define GetStandExtension(_stand)
 
-return ((_stand.stand_reach * GetRunesStandReach(_stand)) * GetStandRange(_stand));
+return (_stand.stand_reach * GetRunesExtension(_stand));
 
 #define AddCombo
 

@@ -132,12 +132,13 @@ attackStateTimer += DT * GetStandSpeed(self);
 
 #define TwTsTp(m, s)
 
-if (!WaterCollision(look_x, look_y) and !modTypeExists("timestop"))
+var _aim = get_aim_position(self);
+if (!WaterCollision(_aim.x, _aim.y) and !modTypeExists("timestop"))
 {
     EffectWhiteScreen(0.1);
     jj_play_audio(global.sndTwohTp, 5, false);
-    owner.x = look_x;
-    owner.y = look_y;
+    owner.x = _aim.x;
+    owner.y = _aim.y;
     EndAtk(s);
 }
 else
@@ -154,8 +155,8 @@ if (instance_exists(owner))
 {
     _dir = owner.attack_direction;
     
-    _xx = owner.x + lengthdir_x(GetStandReach(self) + (attackStateTimer * 4), _dir);
-    _yy = owner.y + lengthdir_y(GetStandReach(self) + (attackStateTimer * 4), _dir);
+    _xx = owner.x + lengthdir_x(GetStandExtension(self) + (attackStateTimer * 4), _dir);
+    _yy = owner.y + lengthdir_y(GetStandExtension(self) + (attackStateTimer * 4), _dir);
 }
 xTo = _xx;
 yTo = _yy;

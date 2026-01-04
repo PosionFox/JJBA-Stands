@@ -9,6 +9,9 @@ switch (room)
     case rmGame:
         
     break;
+    case rmMainMenu:
+        
+    break;
 }
 
 if (room != rmGame)

@@ -32,7 +32,7 @@ if (modTypeCount("coinBomb") >= 9)
     state = StandState.Idle;
     exit;
 }
-var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+var _dir = owner.attack_direction;
 
 jj_play_audio(sndCoin2, 0, false);
 CoinBombCreate(objPlayer.x, objPlayer.y, _dir - 45, GetDmg(skill));
@@ -42,9 +42,9 @@ EndAtk(skill);
 
 #define StrayCat(method, skill)
 
-var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-xTo = objPlayer.x + lengthdir_x(GetStandReach(self), _dir);
-yTo = objPlayer.y + lengthdir_y(GetStandReach(self), _dir);
+var _dir = owner.attack_direction;
+xTo = objPlayer.x + lengthdir_x(GetStandExtension(self), _dir);
+yTo = objPlayer.y + lengthdir_y(GetStandExtension(self), _dir);
 
 switch (attackState)
 {
@@ -67,7 +67,7 @@ switch (attackState)
 }
 
 #define PlaceThirdBomb(method, skill)
-var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+var _dir = owner.attack_direction;
 xTo = objPlayer.x + lengthdir_x(8, _dir);
 yTo = objPlayer.y + lengthdir_y(8, _dir);
 

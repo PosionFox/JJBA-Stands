@@ -25,9 +25,9 @@ if (instance_exists(STAND) or room != rmGame)
 GiveGoldExperience(player);
 
 #define LifePunch(method, skill)
-var _dir = point_direction(x, y, mouse_x, mouse_y);
-xTo = owner.x + lengthdir_x(GetStandReach(self), _dir);
-yTo = owner.y + lengthdir_y(GetStandReach(self), _dir);
+var _dir = owner.attack_direction;
+xTo = owner.x + lengthdir_x(GetStandExtension(self), _dir);
+yTo = owner.y + lengthdir_y(GetStandExtension(self), _dir);
 
 switch (attackState)
 {
@@ -53,7 +53,7 @@ switch (attackState)
 attackStateTimer += DT * GetStandSpeed(self);
 
 #define SelfHeal(method, skill)
-var _dir = point_direction(x, y, mouse_x, mouse_y);
+var _dir = owner.attack_direction;
 xTo = owner.x + lengthdir_x(-8, _dir);
 yTo = owner.y + lengthdir_y(-8, _dir);
 image_xscale = sign(dcos(_dir));
@@ -84,9 +84,9 @@ switch (attackState)
 attackStateTimer += DT * GetStandSpeed(self);
 
 #define LifeFormScorpion(method, skill)
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-xTo = owner.x + lengthdir_x(GetStandReach(self) * 2, _dir)
-yTo = owner.y + lengthdir_y(GetStandReach(self) * 2, _dir)
+var _dir = owner.attack_direction;
+xTo = owner.x + lengthdir_x(GetStandExtension(self) * 2, _dir)
+yTo = owner.y + lengthdir_y(GetStandExtension(self) * 2, _dir)
 alphaTarget = 1;
 image_xscale = sign(dcos(_dir));
 
@@ -112,9 +112,9 @@ switch (attackState)
 attackStateTimer += DT * GetStandSpeed(self);
 
 #define LifeFormPlant(method, skill)
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
-var xx = owner.x + lengthdir_x(GetStandReach(self) * 2, _dir);
-var yy = owner.y + lengthdir_y(GetStandReach(self) * 2, _dir);
+var _dir = owner.attack_direction;
+var xx = owner.x + lengthdir_x(GetStandExtension(self) * 2, _dir);
+var yy = owner.y + lengthdir_y(GetStandExtension(self) * 2, _dir);
 var xs = (floor(xx / 16) * 16) + 8;
 var ys = (floor(yy / 16) * 16) + 8;
 alphaTarget = 1;
@@ -168,7 +168,7 @@ switch (attackState)
 attackStateTimer += DT * GetStandSpeed(self);
 
 #define LifeFormFrog(method, skill)
-var _dir = point_direction(x, y, mouse_x, mouse_y);
+var _dir = owner.attack_direction;
 xTo = owner.x + lengthdir_x(8, _dir);
 yTo = owner.y + lengthdir_y(8, _dir);
 alphaTarget = 1;

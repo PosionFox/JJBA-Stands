@@ -26,7 +26,7 @@ GiveTWOH(player);
 
 #define LightningKnifes(m, s)
 
-var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
+var _dir = owner.attack_direction;
 var _snd = jj_play_audio(global.sndKnifeThrow, 0, false);
 audio_sound_pitch(_snd, random_range(0.9, 1.1));
 
@@ -60,7 +60,8 @@ if (enemy_instance_exists())
 
 EffectWhiteScreen(0.1);
 jj_play_audio(global.sndTwohTp, 5, false);
-var _target = get_nearest_enemy(mouse_x, mouse_y);
+var _aim = get_aim_position(self);
+var _target = get_nearest_enemy(_aim.x, _aim.y);
 var _k = 16;
 for (var i = 0; i <= _k; i++)
 {
@@ -81,7 +82,7 @@ EndAtk(s);
 
 #define RealityHeal(m, s)
 
-var _dir = point_direction(x, y, mouse_x, mouse_y);
+var _dir = owner.attack_direction;
 xTo = owner.x + lengthdir_x(-8, _dir);
 yTo = owner.y + lengthdir_y(-8, _dir);
 image_xscale = sign(dcos(_dir));
@@ -114,12 +115,13 @@ attackStateTimer += DT * GetStandSpeed(self);
 
 #define TwohTsTp(m, s)
 
-if (!WaterCollision(mouse_x, mouse_y) and !modTypeExists("timestop"))
+var _aim = get_aim_position(self);
+if (!WaterCollision(_aim.x, _aim.y) and !modTypeExists("timestop"))
 {
     EffectWhiteScreen(0.1);
     jj_play_audio(global.sndTwohTp, 5, false);
-    player.x = mouse_x;
-    player.y = mouse_y;
+    player.x = _aim.x;
+    player.y = _aim.y;
     EndAtk(s);
 }
 else
@@ -129,7 +131,7 @@ else
 
 #define ThunderousWave(m, s)
 
-var _dir = point_direction(x, y, mouse_x, mouse_y);
+var _dir = owner.attack_direction;
 xTo = owner.x + lengthdir_x(8, _dir);
 yTo = owner.y + lengthdir_y(8, _dir);
 image_xscale = sign(dcos(_dir));
@@ -182,7 +184,7 @@ _e.life = 0.5;
 
 #define MeleeCombo(m, s)
 
-var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+var _dir = owner.attack_direction;
 var _dis = 12;
 xTo = objPlayer.x + lengthdir_x(_dis, _dir);
 yTo = objPlayer.y + lengthdir_y(_dis, _dir);
@@ -233,8 +235,8 @@ attackStateTimer += DT * GetStandSpeed(self);
 
 #define RealityOverwritePunch(m, s)
 
-var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
-var _dir = point_direction(player.x, player.y, mouse_x, mouse_y)
+var _dis = get_aim_distance(self, owner);
+var _dir = owner.attack_direction;
 
 var _xx = player.x + lengthdir_x(8, _dir);
 var _yy = player.y + lengthdir_y(8, _dir);

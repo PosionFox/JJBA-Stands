@@ -26,8 +26,8 @@ GiveTwroh(player);
 
 #define TwrohBarrage(m, s)
 
-var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+var _dis = get_aim_distance(self, owner);
+var _dir = owner.attack_direction;
 
 xTo = owner.x + lengthdir_x(8, _dir + random_range(-4, 4));
 yTo = owner.y + lengthdir_y(8, _dir + random_range(-4, 4));
@@ -53,7 +53,7 @@ switch (attackState)
             skills[s, StandSkill.ExecutionTime] += DT;
         }
         
-        if (keyboard_check_pressed(ord(skills[s, StandSkill.Key])))
+        if (keyboard_check_pressed(ord(skills[s, StandSkill.Key])) or (stand_mode and gamepad_button_check_pressed(0, skills[s, StandSkill.GpBtn])))
         {
             audio_stop_sound(global.sndTwrBarrage);
             EndAtk(s);

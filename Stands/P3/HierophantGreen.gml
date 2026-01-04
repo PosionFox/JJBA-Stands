@@ -26,11 +26,11 @@ GiveHierophantGreen(player);
 
 #define EmeraldSplash(m, s)
 
-var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+var _dis = get_aim_distance(self, owner);
+var _dir = owner.attack_direction;
 
-var _xx = owner.x + lengthdir_x(GetStandReach(self), _dir);
-var _yy = owner.y + lengthdir_y(GetStandReach(self), _dir);
+var _xx = owner.x + lengthdir_x(GetStandExtension(self), _dir);
+var _yy = owner.y + lengthdir_y(GetStandExtension(self), _dir);
 xTo = _xx;
 yTo = _yy;
 image_xscale = mouse_x > owner.x ? 1 : -1;
@@ -121,11 +121,11 @@ image_xscale = lerp(image_xscale, lengthMax, 0.1);
 
 #define EmeraldSplash20Meters(m, s)
 
-var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+var _dis = get_aim_distance(self, owner);
+var _dir = owner.attack_direction;
 
-var _xx = owner.x + lengthdir_x(GetStandReach(self), _dir);
-var _yy = owner.y + lengthdir_y(GetStandReach(self), _dir);
+var _xx = owner.x + lengthdir_x(GetStandExtension(self), _dir);
+var _yy = owner.y + lengthdir_y(GetStandExtension(self), _dir);
 xTo = _xx;
 yTo = _yy;
 image_xscale = mouse_x > owner.x ? 1 : -1;

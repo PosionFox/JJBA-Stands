@@ -26,7 +26,17 @@ _rune.save_key = "rsk_reach";
 _rune.name = tr("rune_reach_name");
 _rune.description = tr("rune_reach_desc");
 _rune.sprite = global.sprRuneReach;
-_rune.stand_reach = 0.1;
+_rune.reach = 0.1;
+return _rune;
+
+#define ConstructRuneExtension
+
+var _rune = ConstructRuneBase();
+_rune.save_key = "rsk_extension";
+_rune.name = tr("rune_extension_name");
+_rune.description = tr("rune_extension_desc");
+_rune.sprite = global.sprRuneExtension;
+_rune.extension = 0.5;
 return _rune;
 
 #define ConstructRuneMending
@@ -45,6 +55,7 @@ var _rune = ConstructRuneBase();
 _rune.save_key = "rsk_energize";
 _rune.name = tr("rune_energize_name");
 _rune.description = tr("rune_energize_desc");
+_rune.base_sprite = global.sprEnergyRune;
 _rune.sprite = global.sprRuneEnergize;
 _rune.max_energy = 200;
 return _rune;

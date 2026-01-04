@@ -219,8 +219,8 @@ var jadd = 360 / segments;
 draw_primitive_begin(pr_trianglestrip);
 for (var j = 0; j <= 360; j += jadd)
 {
-    draw_vertex(x + lengthdir_x(inner_radius, j), y + lengthdir_y(inner_radius, j));
-    draw_vertex(x + lengthdir_x(inner_radius + thickness , j), y + lengthdir_y(inner_radius + thickness, j));
+    draw_vertex(_x + lengthdir_x(inner_radius, j), _y + lengthdir_y(inner_radius, j));
+    draw_vertex(_x + lengthdir_x(inner_radius + thickness , j), _y + lengthdir_y(inner_radius + thickness, j));
 }
 draw_primitive_end();
 

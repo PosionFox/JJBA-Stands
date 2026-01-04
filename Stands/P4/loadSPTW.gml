@@ -26,7 +26,7 @@ GiveSPTW(player);
 
 #define BearingShot(m, s)
 
-var _dir = DIR_PLAYER_TO_MOUSE;
+var _dir = owner.attack_direction;
 var _snd = jj_play_audio(global.sndGunShot, 0, false);
 audio_sound_pitch(_snd, 2);
 BulletCreate(x, y, _dir, GetDmg(s));
@@ -34,12 +34,13 @@ EndAtk(s);
 
 #define TimeStopTeleport(m, s)
 
-if (!WaterCollision(mouse_x, mouse_y) and !modTypeExists("timestop"))
+var _aim = get_aim_position(self);
+if (!WaterCollision(_aim.x, _aim.y) and !modTypeExists("timestop"))
 {
     EffectWhiteScreen(0.1);
     jj_play_audio(global.sndSptwTp, 5, false);
-    player.x = mouse_x;
-    player.y = mouse_y;
+    player.x = _aim.x;
+    player.y = _aim.y;
     EndAtk(s);
 }
 else

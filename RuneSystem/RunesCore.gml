@@ -53,6 +53,7 @@ var _pool = [
     ConstructRuneAcute,
     ConstructRuneMending,
     ConstructRuneReach,
+    ConstructRuneExtension,
     ConstructRuneEnergize
 ];
 var _plen = array_length(_pool) - 1;
@@ -108,12 +109,15 @@ var _base_rune = {
     stand_user : noone,
     base_sprite : global.sprBlankRune,
     sprite : global.sprUnknownRune,
+    // stats
     damage : 0, // mult
     crit_chance : 0, // mult
     healing : 0,
-    stand_reach : 0, // mult
+    reach : 0, // mult
+    extension: 0,
     max_energy : 0,
     damage_reduction : 0, // mult
+    // methods
     update : ScriptWrap(RuneBaseUpdate),
     update_tick : ScriptWrap(RuneBaseUpdateTick),
     on_equip : ScriptWrap(RuneBaseOnEquip),
@@ -131,6 +135,7 @@ switch (_key)
     case "rsk_brief_raspite": _r = ConstructRuneBriefRaspite(); break;
     case "rsk_mending": _r = ConstructRuneMending(); break;
     case "rsk_reach": _r = ConstructRuneReach(); break;
+    case "rsk_extension": _r = ConstructRuneExtension(); break;
     case "rsk_energize": _r = ConstructRuneEnergize(); break;
     case "rsk_acute": _r = ConstructRuneAcute(); break;
     default: _r = ConstructRuneMight(); break;
@@ -150,7 +155,8 @@ var _pm = GetPowerMultiplier(_rune.rarity);
 _rune.damage *= _pm;
 _rune.crit_chance *= _pm;
 _rune.healing *= _pm;
-_rune.stand_reach *= _pm;
+_rune.reach *= _pm;
+_rune.extension *= _pm;
 if (_rune.max_energy > 0) _rune.max_energy += 50 * _pm;
 _rune.damage_reduction *= _pm;
 
@@ -311,7 +317,21 @@ for (var i = 0; i < _len; i++)
     var _rune = _stand.runes[i];
     if (_rune != undefined)
     {
-        _total_range += _rune.stand_reach;
+        _total_range += _rune.reach;
+    }
+}
+return  (1 + _total_range);
+
+#define GetRunesExtension(_stand)
+
+var _total_range = 0;
+var _len = array_length(_stand.runes);
+for (var i = 0; i < _len; i++)
+{
+    var _rune = _stand.runes[i];
+    if (_rune != undefined)
+    {
+        _total_range += _rune.extension;
     }
 }
 return  (1 + _total_range);

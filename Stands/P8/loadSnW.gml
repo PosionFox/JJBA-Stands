@@ -30,8 +30,8 @@ jj_play_audio(global.sndSnwBubbleSummon, 5, false)
 var _amount = 8 * GetStandRange(self);
 for (var i = 0; i < _amount; i++)
 {
-    var xx = x + lengthdir_x(8 + GetStandReach(self), 0 + (i * (360 / _amount)));
-    var yy = y + lengthdir_y(8 + GetStandReach(self), 0 + (i * (360 / _amount)));
+    var xx = x + lengthdir_x(8 + GetStandExtension(self), 0 + (i * (360 / _amount)));
+    var yy = y + lengthdir_y(8 + GetStandExtension(self), 0 + (i * (360 / _amount)));
     var _dmg = GetDmg(s);
     var _p = ProjectileCreate(xx, yy);
     with (_p)
@@ -64,11 +64,11 @@ if (modSubtypeExists("stopSignSwing"))
 
 #define BubbleBarrage(m, s)
 
-var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+var _dis = get_aim_distance(self, owner);
+var _dir = owner.attack_direction;
 
-xTo = owner.x + lengthdir_x(GetStandReach(self), _dir + random_range(-4, 4));
-yTo = owner.y + lengthdir_y(GetStandReach(self), _dir + random_range(-4, 4));
+xTo = owner.x + lengthdir_x(GetStandExtension(self), _dir + random_range(-4, 4));
+yTo = owner.y + lengthdir_y(GetStandExtension(self), _dir + random_range(-4, 4));
 image_xscale = mouse_x > owner.x ? 1 : -1;
 
 switch (attackState)
@@ -102,7 +102,7 @@ switch (attackState)
             skills[s, StandSkill.ExecutionTime] += DT;
         }
         
-        if (keyboard_check_pressed(ord(skills[s, StandSkill.Key])))
+        if (keyboard_check_pressed(ord(skills[s, StandSkill.Key])) or (stand_mode and gamepad_button_check_pressed(0, skills[s, StandSkill.GpBtn])))
         {
             audio_stop_sound(global.sndSnwBubble);
             EndAtk(s);
@@ -117,11 +117,11 @@ attackStateTimer += DT;
 
 #define ScrewsAndNuts(m, s)
 
-var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+var _dis = get_aim_distance(self, owner);
+var _dir = owner.attack_direction;
 
-xTo = owner.x + lengthdir_x(GetStandReach(self), _dir + random_range(-4, 4));
-yTo = owner.y + lengthdir_y(GetStandReach(self), _dir + random_range(-4, 4));
+xTo = owner.x + lengthdir_x(GetStandExtension(self), _dir + random_range(-4, 4));
+yTo = owner.y + lengthdir_y(GetStandExtension(self), _dir + random_range(-4, 4));
 image_xscale = mouse_x > owner.x ? 1 : -1;
 
 switch (attackState)
@@ -203,11 +203,11 @@ y = owner.y;
 
 #define BubbleTrap(m, s)
 
-var _dis = point_distance(owner.x, owner.y, mouse_x, mouse_y);
-var _dir = point_direction(owner.x, owner.y, mouse_x, mouse_y);
+var _dis = get_aim_distance(self, owner);
+var _dir = owner.attack_direction
 
-xTo = owner.x + lengthdir_x(GetStandReach(self), _dir + random_range(-4, 4));
-yTo = owner.y + lengthdir_y(GetStandReach(self), _dir + random_range(-4, 4));
+xTo = owner.x + lengthdir_x(GetStandExtension(self), _dir + random_range(-4, 4));
+yTo = owner.y + lengthdir_y(GetStandExtension(self), _dir + random_range(-4, 4));
 image_xscale = mouse_x > owner.x ? 1 : -1;
 
 switch (attackState)

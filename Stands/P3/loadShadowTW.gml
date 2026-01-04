@@ -33,7 +33,7 @@ alphaTarget = 0;
 #define StwXXI(method, skill) //attacks
 
 var _dir = owner.attack_direction;
-var _dis = GetStandReach(self) * 1.5 + (attackStateTimer * 16);
+var _dis = GetStandExtension(self) * 1.5 + (attackStateTimer * 16);
 alphaTarget = 1;
 
 switch (attackState)
@@ -97,9 +97,9 @@ yTo = objPlayer.y + lengthdir_y(_dis, _dir);
 attackStateTimer += DT * GetStandSpeed(self);
 
 #define StwPunishment(method, skill)
-var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-xTo = objPlayer.x + lengthdir_x(GetStandReach(self) * 1.5 + (attackStateTimer * 32), _dir);
-yTo = objPlayer.y + lengthdir_y(GetStandReach(self) * 1.5 + (attackStateTimer * 32), _dir);
+var _dir = owner.attack_direction;
+xTo = objPlayer.x + lengthdir_x(GetStandExtension(self) * 1.5 + (attackStateTimer * 32), _dir);
+yTo = objPlayer.y + lengthdir_y(GetStandExtension(self) * 1.5 + (attackStateTimer * 32), _dir);
 alphaTarget = 1;
 
 switch (attackState)
@@ -189,7 +189,7 @@ for (var i = 0; i <= _k; i++)
 }
 
 #define StwThrowingKnifes(method, skill)
-var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
+var _dir = owner.attack_direction;
 
 switch (attackState)
 {
@@ -286,7 +286,7 @@ switch (attackState)
 attackStateTimer += DT * GetStandSpeed(self);
 
 #define StwSRSE(method, skill)
-var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
+var _dir = owner.attack_direction;
 
 player.h = lengthdir_x(1, _dir + 180);
 player.v = lengthdir_y(1, _dir + 180);
@@ -324,7 +324,7 @@ FireCD(skill);
 state = StandState.Idle;
 
 #define StwUry(method, skill)
-var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
+var _dir = owner.attack_direction;
 
 switch (attackState)
 {

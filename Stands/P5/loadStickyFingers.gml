@@ -25,9 +25,9 @@ if (instance_exists(STAND) or room != rmGame)
 GiveStickyFingers(player);
 
 #define ZipperPunch(method, skill)
-var _dir = point_direction(x, y, mouse_x, mouse_y);
-xTo = objPlayer.x + lengthdir_x(GetStandReach(self), _dir);
-yTo = objPlayer.y + lengthdir_y(GetStandReach(self), _dir);
+var _dir = owner.attack_direction;
+xTo = objPlayer.x + lengthdir_x(GetStandExtension(self), _dir);
+yTo = objPlayer.y + lengthdir_y(GetStandExtension(self), _dir);
 
 switch (attackState)
 {
@@ -51,9 +51,9 @@ switch (attackState)
 attackStateTimer += DT * GetStandSpeed(self);
 
 #define ZipperGrab(method, skill)
-var _dir = point_direction(x, y, mouse_x, mouse_y);
-xTo = objPlayer.x + lengthdir_x(GetStandReach(self), _dir);
-yTo = objPlayer.y + lengthdir_y(GetStandReach(self), _dir);
+var _dir = owner.attack_direction;
+xTo = objPlayer.x + lengthdir_x(GetStandExtension(self), _dir);
+yTo = objPlayer.y + lengthdir_y(GetStandExtension(self), _dir);
 
 switch (attackState)
 {
@@ -113,8 +113,10 @@ switch (attackState)
 attackStateTimer += DT * GetStandSpeed(self);
 
 #define SfPortal(method, skill)
-var _sc = collision_circle(mouse_x, mouse_y, 16, parSolid, false, true);
-var _wc = WaterCollision(mouse_x, mouse_y);
+
+var _aim = get_aim_position(self);
+var _sc = collision_circle(_aim.x, _aim.y, 16, parSolid, false, true);
+var _wc = WaterCollision(_aim.x, _aim.y);
 if (_sc or _wc)
 {
     ResetCD(skill);
@@ -122,9 +124,9 @@ if (_sc or _wc)
     exit;
 }
 
-var _dir = point_direction(x, y, mouse_x, mouse_y);
-xTo = objPlayer.x + lengthdir_x(GetStandReach(self), _dir);
-yTo = objPlayer.y + lengthdir_y(GetStandReach(self), _dir);
+var _dir = owner.attack_direction;
+xTo = objPlayer.x + lengthdir_x(GetStandExtension(self), _dir);
+yTo = objPlayer.y + lengthdir_y(GetStandExtension(self), _dir);
 
 switch (attackState)
 {
@@ -145,7 +147,7 @@ switch (attackState)
             var _p1 = SfPortalCreate(xTo, yTo);
             _p1.subtype = "sfP1";
             _p1.sprite_index = _pskin;
-            var _p2 = SfPortalCreate(mouse_x, mouse_y);
+            var _p2 = SfPortalCreate(_aim.x, _aim.y);
             _p2.subtype = "sfP2";
             _p2.sprite_index = _pskin;
         }

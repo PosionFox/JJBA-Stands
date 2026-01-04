@@ -1,3 +1,25 @@
+3/1/2026
+
+Controller support (WIP):
+-Most Stands can now be played with a controller.
+-Press Select to switch between stand modes.
+-When stand mode is active you can use abilities by pressing A/Cross, B/Circle, X/Square, Y/Triangle.
+-Press LT/L2 to switch between tap and hold abilities.
+-Press the left stick to summon/dismiss your Stand.
+-Press the right stick to enable/disable lock-on.
+
+Rune changes:
+-Reach rune now grants range stat.
+-New extension rune now grants what reach rune used to grant.
+
+Other changes:
+-Made attack hitboxes more reliable.
+-Fixed typo on info menu.
+
+
+Merry new year
+
+
 4/9/2025
 
 General changes:

@@ -23,6 +23,22 @@ if (instance_exists(player))
     
     if !bool("specKeybind1" in player) { player.specKeybind1 = "V" }
     if !bool("specKeybind2" in player) { player.specKeybind2 = "B" }
+    
+    // controller
+    InputReassign(Input.A, 0, gp_face1, "gamepad");
+    InputReassign(Input.B, 0, gp_face2, "gamepad");
+    InputReassign(Input.X, 0, gp_face3, "gamepad");
+    InputReassign(Input.Y, 0, gp_face4, "gamepad");
+    InputReassign(Input.Interact, 0, gp_face1, "gamepad");
+    InputReassign(Input.Menu, 0, gp_face2, "gamepad");
+    if !bool("standModeKeymap" in player) { player.standModeKeymap = gp_select }
+    if !bool("altModeKeymap" in player) { player.altModeKeymap = gp_shoulderlb }
+    if !bool("summonKeymap" in player) { player.summonKeymap = gp_stickl }
+    if !bool("lockonKeymap" in player) { player.lockonKeymap = gp_stickr }
+    if !bool("abilityKeymap1" in player) { player.abilityKeymap1 = gp_face1 }
+    if !bool("abilityKeymap2" in player) { player.abilityKeymap2 = gp_face2 }
+    if !bool("abilityKeymap3" in player) { player.abilityKeymap3 = gp_face3 }
+    if !bool("abilityKeymap4" in player) { player.abilityKeymap4 = gp_face4 }
 }
 
 #define newClass(class)

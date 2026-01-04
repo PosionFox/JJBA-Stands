@@ -30,6 +30,30 @@ CommandCreate("jjsInspectObj", false, ScriptWrap(jjsInspectObj), "obj");
 
 CommandCreate("jjsCheckInstances", false, ScriptWrap(jjsCheckInstances));
 
+CommandCreate("jjcGiveRune", true, ScriptWrap(jjcGiveRune));
+
+#define jjcGiveRune(_args)
+
+var _new_rune = RuneConstructByKey(_args[0]);
+var _ra = Rarity.Common;
+switch (_args[1])
+{
+    case "ordinary": _ra = Rarity.Ordinary; break;
+    case "tragic": _ra = Rarity.Tragic; break;
+    case "common": _ra = Rarity.Common; break;
+    case "uncommon": _ra = Rarity.Uncommon; break;
+    case "rare": _ra = Rarity.Rare; break;
+    case "epic": _ra = Rarity.Epic; break;
+    case "legendary": _ra = Rarity.Legendary; break;
+    case "mythical": _ra = Rarity.Mythical; break;
+    case "celestial": _ra = Rarity.Celestial; break;
+    case "ultimate": _ra = Rarity.Ultimate; break;
+    case "bizarre": _ra = Rarity.Bizarre; break;
+}
+_new_rune.rarity = _ra;
+UpdateRuneValues(_new_rune);
+RuneAdd(_new_rune);
+
 #define jjsCheckInstances
 
 var _found = [];

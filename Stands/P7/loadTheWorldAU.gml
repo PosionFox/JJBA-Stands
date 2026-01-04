@@ -25,7 +25,8 @@ if (instance_exists(STAND) or room != rmGame)
 GiveTheWorldAU(player);
 
 #define TripleKnifeThrow(m, s)
-var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
+
+var _dir = owner.attack_direction;
 var _snd = jj_play_audio(global.sndKnifeThrow, 0, false);
 audio_sound_pitch(_snd, random_range(0.9, 1.1));
 
@@ -184,11 +185,11 @@ life -= DT;
 
 #define KnifeBarrage(method, skill) //attacks
 
-var _dis = point_distance(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+var _dis = get_aim_distance(self, owner);
+var _dir = owner.attack_direction;
 
-var _xx = objPlayer.x + lengthdir_x(GetStandReach(self), _dir);
-var _yy = objPlayer.y + lengthdir_y(GetStandReach(self), _dir);
+var _xx = objPlayer.x + lengthdir_x(GetStandExtension(self), _dir);
+var _yy = objPlayer.y + lengthdir_y(GetStandExtension(self), _dir);
 xTo = _xx;
 yTo = _yy;
 image_xscale = mouse_x > objPlayer.x ? 1 : -1;
@@ -218,7 +219,7 @@ if (distance_to_point(_xx, _yy) < 2)
     skills[skill, StandSkill.ExecutionTime] += DT;
 }
 
-if (keyboard_check_pressed(ord(skills[skill, StandSkill.Key])))
+if (keyboard_check_pressed(ord(skills[skill, StandSkill.Key])) or (stand_mode and gamepad_button_check_pressed(0, skills[s, StandSkill.GpBtn])))
 {
     if (skills[skill, StandSkill.ExecutionTime] > 0)
     {

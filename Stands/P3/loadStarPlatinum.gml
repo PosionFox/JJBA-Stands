@@ -33,8 +33,8 @@ EndAtk(s);
 
 #define GroundSlam(_, s)
 
-xTo = owner.x + lengthdir_x(GetStandReach(self) * 2, owner.attack_direction);
-yTo = owner.y + lengthdir_y(GetStandReach(self) * 2, owner.attack_direction);
+xTo = owner.x + lengthdir_x(GetStandExtension(self) * 2, owner.attack_direction);
+yTo = owner.y + lengthdir_y(GetStandExtension(self) * 2, owner.attack_direction);
 
 switch (attackState)
 {
@@ -82,10 +82,10 @@ attackStateTimer += DT * GetStandSpeed(self);
 
 #define StarFinger(method, skill) //attacks
 
-var _dir = point_direction(player.x, player.y, mouse_x, mouse_y);
+var _dir = owner.attack_direction;
 
-var _xx = player.x + lengthdir_x(GetStandReach(self), _dir);
-var _yy = player.y + lengthdir_y(GetStandReach(self), _dir);
+var _xx = player.x + lengthdir_x(GetStandExtension(self), _dir);
+var _yy = player.y + lengthdir_y(GetStandExtension(self), _dir);
 xTo = _xx;
 yTo = _yy;
 image_xscale = mouse_x > player.x ? 1 : -1;

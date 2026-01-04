@@ -27,7 +27,7 @@ GiveWhiteSnake(player);
 
 #define QuickHand(m, s)
 
-var _dir = DIR_PLAYER_TO_MOUSE;
+var _dir = owner.attack_direction;;
 var _snd = jj_play_audio(global.sndPunchAir, 0, false);
 audio_sound_pitch(_snd, random_range(0.9, 1.1));
 var xx = x + random_range(-4, 4);
@@ -54,7 +54,7 @@ if (instance_exists(_s) and !_s.taken)
 
 if (discs > 0)
 {
-    var _dir = DIR_PLAYER_TO_MOUSE;
+    var _dir = owner.attack_direction;;
     var _dmg = GetDmg(s);
     var _snd = jj_play_audio(global.sndWsToss, 0, false);
     audio_sound_pitch(_snd, random_range(0.9, 1.1));
@@ -141,7 +141,8 @@ switch (attackState)
     case 0:
         if (enemy_instance_exists())
         {
-            var _n = get_nearest_enemy(mouse_x, mouse_y);
+            var _aim = get_aim_position(self);
+            var _n = get_nearest_enemy(_aim.x, _aim.y);
             if (distance_to_object(_n) < 512)
             {
                 velocity = 0.1;
@@ -221,10 +222,10 @@ switch (attackState)
 attackStateTimer += DT;
 
 #define WsGun(m, s)
-var _dir = point_direction(x, y, mouse_x, mouse_y);
+var _dir = owner.attack_direction;
 
-xTo = owner.x + lengthdir_x(GetStandReach(self), _dir);
-yTo = owner.y + lengthdir_y(GetStandReach(self), _dir);
+xTo = owner.x + lengthdir_x(GetStandExtension(self), _dir);
+yTo = owner.y + lengthdir_y(GetStandExtension(self), _dir);
 image_xscale = -sign(dcos(_dir + 180));
 
 switch (attackState)
@@ -292,10 +293,10 @@ if (instance_exists(_p))
 
 #define AcidicSpit(m, s)
 
-var _dir = point_direction(x, y, mouse_x, mouse_y);
+var _dir = owner.attack_direction;
 
-xTo = owner.x + lengthdir_x(GetStandReach(self), _dir);
-yTo = owner.y + lengthdir_y(GetStandReach(self), _dir);
+xTo = owner.x + lengthdir_x(GetStandExtension(self), _dir);
+yTo = owner.y + lengthdir_y(GetStandExtension(self), _dir);
 
 switch (attackState)
 {
@@ -334,7 +335,7 @@ switch (attackState)
 attackStateTimer += DT * GetStandSpeed(self);
 
 #define MeltYourHeart(m, s)
-var _dir = point_direction(x, y, mouse_x, mouse_y);
+var _dir = owner.attack_direction;
 
 xTo = owner.x + lengthdir_x(8, _dir);
 yTo = owner.y + lengthdir_y(8, _dir);
@@ -401,7 +402,7 @@ if (instance_exists(_t))
 
 #define DiscSteal(m, s)
 
-var _dir = DIR_PLAYER_TO_MOUSE;
+var _dir = owner.attack_direction;
 
 xTo = owner.x + lengthdir_x(8, _dir);
 yTo = owner.y + lengthdir_y(8, _dir);

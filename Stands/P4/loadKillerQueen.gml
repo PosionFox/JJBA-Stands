@@ -25,15 +25,16 @@ if (instance_exists(STAND) or room != rmGame)
 GiveKillerQueen(player);
 
 #define PlaceBomb(method, skill) //attacks
+
 if (modTypeExists("bomb"))
 {
     ResetCD(skill);
     state = StandState.Idle;
     exit;
 }
-var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-xTo = objPlayer.x + lengthdir_x(GetStandReach(self), _dir);
-yTo = objPlayer.y + lengthdir_y(GetStandReach(self), _dir);
+var _dir = owner.attack_direction;
+xTo = objPlayer.x + lengthdir_x(GetStandExtension(self), _dir);
+yTo = objPlayer.y + lengthdir_y(GetStandExtension(self), _dir);
 
 switch (attackState)
 {
@@ -56,7 +57,7 @@ attackStateTimer += DT * GetStandSpeed(self);
 
 if (modTypeCount("coinBomb") < 5)
 {
-    var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
+    var _dir = owner.attack_direction;
     jj_play_audio(sndCoin1, 0, false);
     CoinBombCreate(objPlayer.x, objPlayer.y, _dir, GetDmg(skill));
     FireCD(skill);

@@ -25,11 +25,12 @@ if (instance_exists(STAND) or room != rmGame)
 GiveD4CLT(player);
 
 #define SlashingStrikes(m, s)
-var _dis = point_distance(player.x, player.y, mouse_x, mouse_y);
-var _dir = DIR_PLAYER_TO_MOUSE;
 
-xTo = player.x + lengthdir_x(GetStandReach(self), _dir + random_range(-4, 4));
-yTo = player.y + lengthdir_y(GetStandReach(self), _dir + random_range(-4, 4));
+var _dis = get_aim_distance(self, owner)
+var _dir = owner.attack_direction;;
+
+xTo = player.x + lengthdir_x(GetStandExtension(self), _dir + random_range(-4, 4));
+yTo = player.y + lengthdir_y(GetStandExtension(self), _dir + random_range(-4, 4));
 image_xscale = mouse_x > player.x ? 1 : -1;
 
 attackStateTimer += DT * GetStandSpeed(self);
@@ -82,8 +83,8 @@ switch (attackState)
         attackState++;
     break;
     case 1:
-        xTo = player.x + lengthdir_x(GetStandReach(self) * (attackStateTimer * 16), DIR_PLAYER_TO_MOUSE);
-        yTo = player.y + lengthdir_y(GetStandReach(self) * (attackStateTimer * 16), DIR_PLAYER_TO_MOUSE);
+        xTo = player.x + lengthdir_x(GetStandExtension(self) * (attackStateTimer * 16), owner.attack_direction);
+        yTo = player.y + lengthdir_y(GetStandExtension(self) * (attackStateTimer * 16), owner.attack_direction);
         if (instance_exists(GetSkillVars(s, "grab").target)) 
         {
             jj_play_audio(global.sndPunchHit, 0, false);
@@ -92,8 +93,8 @@ switch (attackState)
         if (attackStateTimer > 0.75) attackState = 3;
     break;
     case 2:
-        xTo = player.x + lengthdir_x(GetStandReach(self) * 2, DIR_PLAYER_TO_MOUSE);
-        yTo = player.y + lengthdir_y(GetStandReach(self) * 2, DIR_PLAYER_TO_MOUSE);
+        xTo = player.x + lengthdir_x(GetStandExtension(self) * 2, owner.attack_direction);
+        yTo = player.y + lengthdir_y(GetStandExtension(self) * 2, owner.attack_direction);
         if (attackStateTimer > 0.75) attackState++;
     break;
     case 3:
@@ -107,9 +108,10 @@ switch (attackState)
 attackStateTimer += DT * GetStandSpeed(self);
 
 #define SuperCloneSummon(m, skill)
-var _dir = point_direction(objPlayer.x, objPlayer.y, mouse_x, mouse_y);
-xTo = objPlayer.x + lengthdir_x(GetStandReach(self), _dir);
-yTo = objPlayer.y + lengthdir_y(GetStandReach(self), _dir);
+
+var _dir = owner.attack_direction;
+xTo = objPlayer.x + lengthdir_x(GetStandExtension(self), _dir);
+yTo = objPlayer.y + lengthdir_y(GetStandExtension(self), _dir);
 image_xscale = sign(dcos(_dir));
 
 attackStateTimer += DT * GetStandSpeed(self);
