@@ -1,16 +1,17 @@
 
 #define FireCD(skill)
 
-attackState = 0;
+ResetStandVars();
+
 if (max_energy > 0)
 {
     if (altAttack)
     {
-        skills[skill, StandSkill.CooldownAlt] = 0.1;
+        skills[skill, StandSkill.CooldownAlt] = 1;
     }
     else
     {
-        skills[skill, StandSkill.Cooldown] = 0.1;
+        skills[skill, StandSkill.Cooldown] = 1;
     }
 }
 else
@@ -24,11 +25,12 @@ else
         skills[skill, StandSkill.Cooldown] = skills[skill, StandSkill.MaxCooldown] / GetStandStamina(self);
     }
 }
-attackStateTimer = 0;
 altAttack = false;
 skills[skill, StandSkill.ExecutionTime] = 0;
 
 #define ResetCD(skill)
+
+ResetStandVars();
 
 var _was_alt = altAttack;
 FireCD(skill);
@@ -47,6 +49,16 @@ if (max_energy > 0)
 
 #define EndAtk(skill)
 
+FireCD(skill);
+state = StandState.Idle;
+
+#define ResetAtk(skill)
+
+ResetCD(skill);
+state = StandState.Idle;
+
+#define ResetStandVars
+
 angleTarget = 0;
 angleTargetSpd = 0.1;
 scaleX = 1;
@@ -56,17 +68,8 @@ scaleYSpd = 0.1;
 height_speed = 0.2;
 height_target = 0;
 velocity = 0.5;
-
+attackState = 0;
 attackStateTimer = 0;
-FireCD(skill);
-state = StandState.Idle;
-
-#define ResetAtk(skill)
-
-angleTarget = 0;
-angleTargetSpd = 0.1;
-ResetCD(skill);
-state = StandState.Idle;
 
 #define AttackHandler(method, skill)
 
@@ -113,6 +116,10 @@ return _vars;
 
 if (col_cd <= 0)
 {
+    if (global.timeIsFrozen and !canMoveInTs)
+    {
+        exit;
+    }
     for (var i = array_length(targets) - 1; i >= 0; i--)
     {
         var obj = targets[i];
@@ -134,7 +141,7 @@ if (col_cd <= 0)
         }
         ds_list_destroy(_hits);
     }
-    col_cd = col_cd_max + (global.timeIsFrozen * 0.05);
+    col_cd = col_cd_max;
 }
 col_cd -= DT;
 
@@ -355,7 +362,7 @@ if (instance_exists(self))
     
     try
     {
-        // collision detection v3
+        //collision detection v3
         AttackCollisionDetect();
         
         // collision detection v2
@@ -779,6 +786,7 @@ switch (attackState)
                     if other.barrageData.hitEvent != noone onHitEvent = other.barrageData.hitEvent;
                     if other.barrageData.hitEventArgs != noone onHitEventArg = other.barrageData.hitEventArgs;
                 }
+                angleTarget = random_range(-8, 8);
                 attackStateTimer = 0;
             }
             skills[s, StandSkill.ExecutionTime] += DT;
@@ -897,9 +905,11 @@ switch (attackState)
     case 0:
         var _sc = GetSkillVars(skill, "cry_sound");
         if (_sc != undefined) jj_play_audio(_sc, 0, false);
+        angleTarget = 8;
         attackState++;
     break;
     case 1:
+        angleTarget = 8;
         if (attackStateTimer >= 0.8)
         {
             attackState++;
@@ -917,9 +927,11 @@ switch (attackState)
             onHitSound = global.sndStrongPunch;
             if (_hs != undefined) onHitSound = _hs;
         }
+        angleTarget = -8;
         attackState++;
     break;
     case 3:
+        angleTarget = -8;
         if (attackStateTimer >= 1.05) EndAtk(skill);
     break;
 }

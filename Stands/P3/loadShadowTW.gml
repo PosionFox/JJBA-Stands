@@ -248,6 +248,8 @@ attackStateTimer += DT * GetStandSpeed(self);
 
 #define StwDivineBlood(method, skill)
 var _dir = owner.attack_direction;
+xTo = owner.x + lengthdir_x(2, _dir);
+yTo = owner.y + lengthdir_y(2, _dir);
 
 switch (attackState)
 {

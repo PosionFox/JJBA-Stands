@@ -91,7 +91,7 @@ global.jjMenuMaxIndex = 8;
 // rune storage
 global.jjsMenuRuneDeleteMode = false;
 global.jjsMenuRuneMinIndex = 0;
-global.jjsMenuRuneMaxIndex = 8;
+global.jjsMenuRuneMaxIndex = 16;
 // settings
 global.jjSettAudioVolume = 1.0;
 global.jjSettStandTalkIdle = true;

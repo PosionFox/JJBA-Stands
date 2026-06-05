@@ -285,7 +285,7 @@ _skills[sk, StandSkill.Desc] = tr("revolverReloadDesc");
 
 sk = StandState.SkillBOff;
 _skills[sk, StandSkill.Skill] = TrickShot;
-_skills[sk, StandSkill.Damage] = 4;
+_skills[sk, StandSkill.Damage] = 2;
 _skills[sk, StandSkill.DamageScale] = 0.2;
 _skills[sk, StandSkill.Icon] = global.sprSkillGunShot;
 _skills[sk, StandSkill.MaxCooldown] = 0.5;

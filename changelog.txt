@@ -1,3 +1,21 @@
+5/6/2026
+
+Stats menu rework:
+-Added the classic stand stat chart.
+-Rune modifiers now display on the stats menu.
+-Changed color palette of stats.
+
+General:
+-Added the first bizarre variant.
+-Optimized projectiles in time stop.
+-Tweaked some attack animations.
+-Increased the amount of runes visible on their menu.
+-Updated a handful of sprites.
+-Ordinary and tragic stand variants now get a stat points boost.
+-Buffed D4CLT's trick shot.
+-Fixed STW's divine blood misplaced attack.
+
+
 3/1/2026
 
 Controller support (WIP):

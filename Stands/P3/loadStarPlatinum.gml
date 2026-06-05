@@ -41,7 +41,7 @@ switch (attackState)
     case 0:
         alphaTarget = 1;
         scaleX = sign(dcos(owner.attack_direction));
-        angleTargetSpd = 0.002;
+        angleTargetSpd = 0.02;
         angleTarget = 45;
         height_target = 8;
         if (attackStateTimer >= 0.6) attackState++;
@@ -93,26 +93,33 @@ image_xscale = mouse_x > player.x ? 1 : -1;
 switch (attackState)
 {
     case 0:
+        angleTarget = 8;
         var _ss = GetSkillVars(skill, "star_sound");
         if (_ss != undefined) jj_play_audio(_ss, 5, false);
         attackState++;
     break;
     case 1:
+        angleTarget = 8;
         if (attackStateTimer >= 1.15)
         {
             attackState++;
         }
     break;
     case 2:
+        angleTarget = -8;
         var _fs = GetSkillVars(skill, "finger_sound");
         if (_fs != undefined) jj_play_audio(_fs, 5, false);
         var _dmg = GetDmg(skill);
+        var _flen = 64 * GetStandRange(self);
         var _p = ProjectileCreate(x, y);
         with (_p)
         {
             subtype = "starFinger";
             owner = other;
+            finger_size = _flen;
+            finger_length = 0;
             sprite_index = global.sprStarPlatinumFinger;
+            image_alpha = 0;
             image_xscale = 0;
             image_blend = other.color;
             damage = _dmg;
@@ -124,11 +131,12 @@ switch (attackState)
             despawnTime = 1;
             
             InstanceAssignMethod(self, "step", ScriptWrap(StarFingerStep));
-            //InstanceAssignMethod(self, "draw", ScriptWrap(StarFingerDraw));
+            InstanceAssignMethod(self, "draw", ScriptWrap(StarFingerDraw));
         }
         attackState++;
     break;
     case 3:
+        angleTarget = -8;
         if (attackStateTimer >= 2.2)
         {
             attackState++;
@@ -142,15 +150,18 @@ attackStateTimer += DT * GetStandSpeed(self);
 
 #define StarFingerStep
 
-image_xscale = lerp(image_xscale, 1, 0.1);
-var w = image_xscale * (sprite_width / 2);
-x = STAND.x + lengthdir_x(w, direction);
-y = STAND.y + lengthdir_y(w, direction);
+finger_length = lerp(finger_length, finger_size, 0.1);
+//image_xscale = lerp(image_xscale, 1, 0.1);
+//var w = image_xscale * ((sprite_width / 2) * finger_length);
+// x = owner.x + lengthdir_x(w, direction);
+// y = owner.y + lengthdir_y(w, direction);
+x = owner.x;
+y = owner.y;
 image_angle = direction;
 
 for (var i = array_length(owner.targets) - 1; i >= 0; i--)
 {
-    var _col = collision_line(owner.x, owner.y, owner.x + lengthdir_x(sprite_width, image_angle), owner.y + lengthdir_y(sprite_width, image_angle), owner.targets[i], false, true); 
+    var _col = collision_line(owner.x, owner.y, owner.x + lengthdir_x(finger_length, image_angle), owner.y + lengthdir_y(finger_length, image_angle), owner.targets[i], false, true); 
     if (_col)
     {
         var valid = true;
@@ -161,7 +172,8 @@ for (var i = array_length(owner.targets) - 1; i >= 0; i--)
 
 #define StarFingerDraw
 
-draw_line_width(owner.x, owner.y, owner.x + lengthdir_x(sprite_width, image_angle), owner.y + lengthdir_y(sprite_width, image_angle), 4);
+draw_line_width_color(x, y, x + lengthdir_x(finger_length + 2, image_angle), y + lengthdir_y(finger_length + 2, image_angle), 6, owner.colorAlt, owner.colorAlt);
+draw_line_width_color(x, y, x + lengthdir_x(finger_length, image_angle), y + lengthdir_y(finger_length, image_angle), 4, owner.color, owner.color);
 
 #define SpTimestop(m, s)
 

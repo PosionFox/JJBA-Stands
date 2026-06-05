@@ -101,9 +101,11 @@ attackStateTimer += DT;
 var _aim = get_aim_position(self);
 if (!WaterCollision(_aim.x, _aim.y) and !modTypeExists("timeErase"))
 {
-    jj_play_audio(global.sndKcTp, 5, false);
+    // var _sc = GetSkillVars(s, "tp_sound");
+    // if (_sc != undefined) jj_play_audio(_sc, 5, false);
+    jj_play_audio(tpSound, 5, false);
     EffectPlayerAfterimageCreate(owner.x, owner.y);
-    EffectTimeSkipCreate();
+    EffectTimeSkipCreate(self);
     player.x = _aim.x;
     player.y = _aim.y;
     EndAtk(s);
@@ -121,9 +123,9 @@ switch (attackState)
         var _aim = get_aim_position(self);
         if (!WaterCollision(_aim.x, _aim.y))
         {
-            jj_play_audio(global.sndKcTp, 5, false);
+            jj_play_audio(tpSound, 5, false);
             EffectPlayerAfterimageCreate(owner.x, owner.y);
-            EffectTimeSkipCreate();
+            EffectTimeSkipCreate(self);
             player.x = _aim.x;
             player.y = _aim.y;
             attackState++;
@@ -233,6 +235,11 @@ switch (attackState)
     case 0:
         if (enemy_instance_exists())
         {
+            var _sn = GetSkillVars(s, "sound");
+            if (_sn != undefined)
+            {
+                jj_play_audio(_sn, 5, false);
+            }
             var _aim = get_aim_position(self);
             var _n = get_nearest_enemy(_aim.x, _aim.y);
             if (distance_to_object(_n) < (armChopRange * GetStandRange(self)))
@@ -338,12 +345,26 @@ switch (attackState)
         }
     break;
     case 2:
-        EffectTimeSkipCreate();
+        var _bassnd = teBassSound;
+        var _sc = GetSkillVars(s, "bass_sounds");
+        if (_sc != undefined)
+        {
+            var _cc = GetSkillVars(s, "te_count");
+            if (_cc != undefined)
+            {
+                _bassnd = _sc[_cc];
+                _cc++;
+                SetSkillVar(s, "te_count", _cc);
+                if (_cc > 2) { SetSkillVar(s, "te_count", 0); }
+            }
+        }
+        EffectTimeSkipCreate(self);
         var o = ModObjectSpawn(x, y, -100000);
         with (o)
         {
             type = "timeErase";
-            daBass = jj_play_audio(other.teBassSound, 5, false);
+            owner = other;
+            daBass = jj_play_audio(_bassnd, 5, false);
             endSound = other.teEndSound;
             surf = 0;
             
@@ -362,6 +383,22 @@ switch (attackState)
 attackStateTimer += DT * GetStandSpeed(self);
 
 #define TimeEraseStep
+
+if (!instance_exists(owner))
+{
+    jj_play_audio(endSound, 5, false);
+    EffectTimeSkipCreate(self);
+    if (surface_exists(surf))
+    {
+        surface_free(surf);
+    }
+    if (audio_is_playing(daBass))
+    {
+        audio_stop_sound(daBass);
+    }
+    instance_destroy(self);
+    exit;
+}
 
 if (!surface_exists(surf) and surface_exists(application_surface))
 {
@@ -413,7 +450,7 @@ life -= DT;
 if (life <= 0)
 {
     jj_play_audio(endSound, 5, false);
-    EffectTimeSkipCreate();
+    EffectTimeSkipCreate(self);
     if (surface_exists(surf))
     {
         surface_free(surf);
@@ -545,6 +582,7 @@ with (_s)
     idlePos = KcPos;
     summonSound = global.sndKcSummon;
     discType = global.jjbamDiscKc;
+    tpSound = global.sndKcTp;
     teSound = global.sndKcTe;
     teBassSound = global.sndKcTeBass;
     teEndSound = global.sndKcTeEnd;
@@ -557,7 +595,8 @@ with (_s)
     variants[3] = [global.sprKingCrimsonMono, Rarity.Legendary];
     variants[4] = [global.sprKingCrimsonManga, Rarity.Mythical];
     variants[5] = [global.sprKCE, Rarity.Celestial];
-    variants[6] = [global.sprKCF, Rarity.Event];
+    variants[6] = [global.sprCG, Rarity.Bizarre];
+    variants[7] = [global.sprKCF, Rarity.Event];
     
     InstanceAssignMethod(self, "step", ScriptWrap(KingCrimsonStep));
     InstanceAssignMethod(self, "draw", ScriptWrap(KingCrimsonDraw), false);

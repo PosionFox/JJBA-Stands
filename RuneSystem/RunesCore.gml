@@ -350,6 +350,20 @@ for (var i = 0; i < _len; i++)
 }
 return _total_energy;
 
+#define GetRunesHealing(_stand)
+
+var _total = 0;
+var _len = array_length(_stand.runes);
+for (var i = 0; i < _len; i++)
+{
+    var _rune = _stand.runes[i];
+    if (_rune != undefined)
+    {
+        _total += _rune.healing;
+    }
+}
+return  (1 + _total);
+
 #define CreateEnergyOrb(_x, _y, _depth)
 
 var _o = ModObjectSpawn(_x, _y, _depth);

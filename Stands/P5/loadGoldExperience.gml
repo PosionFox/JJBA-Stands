@@ -271,7 +271,7 @@ sk = StandState.SkillB;
 _skills[sk, StandSkill.Skill] = LifePunch;
 _skills[sk, StandSkill.Damage] = 15;
 _skills[sk, StandSkill.DamageScale] = 0.02;
-_skills[sk, StandSkill.Icon] = global.sprSkillStrongPunch;
+_skills[sk, StandSkill.Icon] = global.sprSkillLifePunch;
 _skills[sk, StandSkill.MaxCooldown] = 8;
 _skills[sk, StandSkill.Desc] = tr("lifePunchDesc");
 

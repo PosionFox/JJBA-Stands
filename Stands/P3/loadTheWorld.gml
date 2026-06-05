@@ -165,6 +165,8 @@ image_xscale = sign(dcos(_dir));
 switch (attackState)
 {
     case 0:
+        angleTarget = 16;
+        angleTargetSpd = 0.02;
         jj_play_audio(global.sndTwWindup, 0, false);
         var _sc = GetSkillVars(s, "cry_sound");
         if (_sc != undefined) jj_play_audio(_sc, 0, false);
@@ -177,6 +179,8 @@ switch (attackState)
         }
     break;
     case 2:
+        angleTarget = -16;
+        angleTargetSpd = 0.1;
         var _hs = global.sndTwDonut;
         var _snd = jj_play_audio(global.sndPunchAir, 0, false);
         audio_sound_pitch(_snd, random_range(0.9, 1.1));
@@ -193,7 +197,7 @@ switch (attackState)
         attackState++;
     break;
     case 3:
-        if (attackStateTimer >= 1.5) EndAtk(s);
+        if (attackStateTimer >= 2.) EndAtk(s);
     break;
 }
 attackStateTimer += DT * GetStandSpeed(self);

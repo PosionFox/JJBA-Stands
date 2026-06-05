@@ -208,8 +208,26 @@ for (var i = _start; i <= _end; i++)
         // {
         //     txt += "\n" + tr("dmgDisplay") + " alt: " + string(GetDmg(i)) + " + " + string(player.dmg);
         // }
-        draw_set_color(c_dkgray);
-        draw_rectangle(gx, (yy - 64) - string_height(txt), gx + string_width(txt), (yy - 64), false);
+        // draw_set_color(0x1a1117);
+        
+        // draw_rectangle(gx, (yy - 64) - string_height(txt), gx + string_width(txt), (yy - 64), false);
+        // draw_set_color(0x2b2938);
+        
+        // draw_rectangle(gx, (yy - 64) - string_height(txt) - 4, gx + string_width(txt), (yy - 64) + 4, false);
+        var _bc1 = Color.DarkBlue;
+        var _bc2 = Color.Magenta;
+        if (instance_exists(STAND) and global.jjsSettBackgroundStandColors)
+        {
+            _bc1 = STAND.color;
+            _bc2 = STAND.colorAlt;
+        }
+        var _bgx1 = gx;
+        var _bgx2 = (yy - 64) - string_height(txt);
+        var _bgy1 = gx + string_width(txt);
+        var _bgy2 = (yy - 64);
+        draw_rectangle_color(_bgx1 - 8, _bgx2 - 8, _bgy1 + 8, _bgy2 + 8, _bc2, _bc2, _bc1, _bc1, false);
+        draw_rectangle_color(_bgx1 - 4, _bgx2 - 4, _bgy1 + 4, _bgy2 + 4, _bc1, _bc1, _bc2, _bc2, false);
+        
         draw_set_color(c_white);
         draw_set_halign(fa_left);
         draw_set_valign(fa_top);
@@ -506,7 +524,7 @@ if (instance_exists(owner))
 x = lerp(x, xTo, velocity);
 y = lerp(y, yTo, velocity);
 image_alpha = lerp(image_alpha, alphaTarget, 0.1);
-image_angle = lerp(image_angle, angleTarget * image_xscale, 0.1);
+image_angle = lerp(image_angle, angleTarget * image_xscale, angleTargetSpd);
 image_xscale = lerp(image_xscale, scaleX, scaleXSpd);
 image_yscale = lerp(image_yscale, scaleY, scaleYSpd);
 experience_display_thick = lerp(experience_display_thick, 1, 0.3);
@@ -645,7 +663,16 @@ if (experience >= experienceNext)
         experience = max(experience - experienceNext, 0);
         experience_display = 0;
         experienceNext = (12 * level) / (1 + (level / 20));
-        stat_points += irandom_range(1, powerMultiplier);
+        var _statsgain = irandom_range(1, round(1 + powerMultiplier));
+        if (rarity.tier == Rarity.Ordinary)
+        {
+            _statsgain *= 10;
+        }
+        if (rarity.tier == Rarity.Tragic)
+        {
+            _statsgain *= 5;
+        }
+        stat_points += _statsgain;
         experience_display_thick += 8;
         
         var _e = ShrinkingCircleEffect(x, y);
@@ -872,12 +899,12 @@ with (_stand)
     experience_display_thick = 1;
     trait = {};
     stat_points = 0;
-    destructive_power = (random_range(0.5, 2));
-    spd = (random_range(0.5, 2));
-    range = (random_range(0.5, 2));
-    stamina = (random_range(0.5, 2));
-    precision = (random_range(0.5, 2));
-    development_potential = (random_range(0.5, 3));
+    destructive_power = (irandom_range(50, 200) / 100);
+    spd = (irandom_range(50, 200) / 100);
+    range = (irandom_range(50, 200) / 100);
+    stamina = (irandom_range(50, 200) / 100);
+    precision = (irandom_range(50, 200) / 100);
+    development_potential = (irandom_range(50, 300) / 100);
     mod_destructive_power = 0;
     mod_spd = 0;
     mod_range = 0;

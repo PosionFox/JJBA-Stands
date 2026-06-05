@@ -385,11 +385,12 @@ else
     instance_destroy(self);
 }
 
-#define EffectTimeSkipCreate
+#define EffectTimeSkipCreate(_stand)
 
 var o = ModObjectSpawn(0, 0, 0);
 with (o)
 {
+    stand = _stand;
     lineX = 0;
     lineW = 128;
     
@@ -408,13 +409,14 @@ if (lineX - lineW * 4 > display_get_gui_width())
 
 #define EffectTimeSkipDrawGUI
 
-draw_line_width_color(lineX, 0 - 32, lineX - 128, display_get_gui_height() + 32, lineW, STAND.color, STAND.colorAlt);
+if (!instance_exists(stand)) return;
+draw_line_width_color(lineX, 0 - 32, lineX - 128, display_get_gui_height() + 32, lineW, stand.color, stand.colorAlt);
 draw_set_alpha(0.75);
-draw_line_width_color(lineX - lineW * 1, 0 - 32, (lineX - 128) - lineW * 1, display_get_gui_height() + 32, lineW, STAND.color, STAND.colorAlt);
+draw_line_width_color(lineX - lineW * 1, 0 - 32, (lineX - 128) - lineW * 1, display_get_gui_height() + 32, lineW, stand.color, stand.colorAlt);
 draw_set_alpha(0.5);
-draw_line_width_color(lineX - lineW * 2, 0 - 32, (lineX - 128) - lineW * 2, display_get_gui_height() + 32, lineW, STAND.color, STAND.colorAlt);
+draw_line_width_color(lineX - lineW * 2, 0 - 32, (lineX - 128) - lineW * 2, display_get_gui_height() + 32, lineW, stand.color, stand.colorAlt);
 draw_set_alpha(0.25);
-draw_line_width_color(lineX - lineW * 3, 0 - 32, (lineX - 128) - lineW * 3, display_get_gui_height() + 32, lineW, STAND.color, STAND.colorAlt);
+draw_line_width_color(lineX - lineW * 3, 0 - 32, (lineX - 128) - lineW * 3, display_get_gui_height() + 32, lineW, stand.color, stand.colorAlt);
 draw_set_alpha(1);
 
 #define EffectPlayerAfterimageCreate(_x, _y)

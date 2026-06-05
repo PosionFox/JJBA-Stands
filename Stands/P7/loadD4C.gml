@@ -57,13 +57,14 @@ if (ammo > 0)
     with (_p)
     {
         type = "bulletTime";
+        destroyOnImpact = false;
         prevSkill = skill;
         knockback = 2;
         var _snds = [global.sndRevFire1, global.sndRevFire2, global.sndRevFire3, global.sndRevFire4];
         var _s = jj_play_audio(_snds[irandom(array_length(_snds) - 1)], 5, false);
         audio_sound_pitch(_s, random_range(0.9, 1.1));
         audio_sound_gain(_s, 0.5, 0);
-        baseSpd = 10;
+        baseSpd = 7;
         sprite_index = global.sprBtdVoidTrace;
         image_blend = c_yellow;
         mask_index = global.sprKnife;
@@ -92,13 +93,13 @@ else
 var _o = modTypeFind("bulletTime");
 if (_o)
 {
-    if (enemy_instance_exists())
-    {
-        var _e = ShrinkingCircleEffect(_o.x, _o.y);
-        _e.color = c_aqua;
-        var _near = get_nearest_enemy(_o.x, _o.y);
-        _o.direction = point_direction(_o.x, _o.y, _near.x, _near.y);
-    }
+    var _e = ShrinkingCircleEffect(_o.x, _o.y);
+    _e.color = c_aqua;
+    // var _near = get_nearest_enemy(_o.x, _o.y);
+    // _o.direction = point_direction(_o.x, _o.y, _near.x, _near.y);
+    _o.damage *= 2;
+    var _aim = get_aim_position(self);
+    _o.direction = point_direction(_o.x, _o.y, _aim.x, _aim.y);
 }
 skills[skill, StandSkill.Skill] = TrickShot;
 skills[skill, StandSkill.MaxCooldown] = 2;

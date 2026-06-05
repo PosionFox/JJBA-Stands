@@ -525,9 +525,6 @@ else
 
 #define GrantBizarreAbility
 
-GainItem(global.jjsBizarreArrow);
-exit;
-
 if (room != rmGame)
 {
     GainItem(global.jjsBizarreArrow);

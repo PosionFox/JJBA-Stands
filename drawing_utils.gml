@@ -1,4 +1,18 @@
 
+#define draw_circle_thick(_x, _y, _radius, _thickness)
+
+var inner_radius = _radius;
+var thickness = _thickness;
+var segments = 20;
+var jadd = 360 / segments;
+draw_primitive_begin(pr_trianglestrip);
+for (var j = 0; j <= 360; j += jadd)
+{
+    draw_vertex(_x + lengthdir_x(inner_radius, j), _y + lengthdir_y(inner_radius, j));
+    draw_vertex(_x + lengthdir_x(inner_radius + thickness , j), _y + lengthdir_y(inner_radius + thickness, j));
+}
+draw_primitive_end();
+
 #define draw_button_square(_x, _y, _w, _h, _txt)
 
 var _color1 = Color.DarkBlue;
@@ -164,8 +178,10 @@ if (_hover)
     }
     if (_rune != undefined)
     {
-        draw_text(_cx, _cy - 160, GetRarityName(_rune.rarity) + " " + string(_rune.name));
-        draw_text(_cx, _cy - 160 + 16 + (string_height(_rune.description)), _rune.description);
+        draw_set_color(c_ltgray);
+        draw_text(_cx, _cy - 192, GetRarityName(_rune.rarity) + " " + string(_rune.name));
+        draw_text(_cx, _cy - 192 + 8 + (string_height(_rune.description)), _rune.description);
+        draw_set_color(c_white);
     }
 }
 else
@@ -658,3 +674,92 @@ draw_rectangle_color(_x, _y + _handle_pos - _center, _x + _thick, _y + _handle_p
 
 return _var;
 
+#define draw_pentagon(_x, _y)
+
+var _cx = _x;
+var _cy = _y;
+var _radius = 100;
+var _rotation = -90;
+
+draw_set_color(c_orange);
+draw_primitive_begin(pr_trianglestrip);
+
+for (var i = 0; i <= 5; i++)
+{
+    var _angle = _rotation + (i * (360 / 5));
+    
+    var _vx = _cx + lengthdir_x(_radius, _angle);
+    var _vy = _cy + lengthdir_y(_radius, _angle);
+    
+    draw_vertex(_cx, _cy);
+    draw_vertex(_vx, _vy);
+}
+
+draw_primitive_end();
+
+#define draw_hexagon_stats(_x, _y, _stats)
+
+var _cx = _x;
+var _cy = _y;
+var _radius = 64;
+var _rotation = 90;
+
+for (var i = 0; i < 6; i++)
+{
+    var _angle = _rotation + (i * (360 / 6));
+    var _vx = lengthdir_x(224, _angle);
+    var _vy = lengthdir_y(224, _angle);
+    draw_line_width(_cx, _cy, _cx + _vx, _cy + _vy, 2);
+}
+
+draw_primitive_begin(pr_trianglestrip);
+
+for (var i = 0; i <= 6; i++)
+{
+    var _angle = _rotation + (i * (360 / 6));
+    var _stp = min(_stats[i][0], 3.5);
+    
+    var _vx = _cx + lengthdir_x(_stp * _radius, _angle);
+    var _vy = _cy + lengthdir_y(_stp * _radius, _angle);
+    
+    // draw_vertex(_cx, _cy);
+    // draw_vertex(_vx, _vy);
+    
+    draw_vertex_color(_cx, _cy, c_white, 1);
+    draw_vertex_color(_vx, _vy, _stats[i][1], 1);
+    
+}
+
+draw_primitive_end();
+
+draw_set_halign(fa_center);
+draw_set_valign(fa_middle);
+
+for (var i = 0; i <= 5; i++)
+{
+    var _quality = "?";
+    var _stp = _stats[i][0];
+    if (_stp < 3) _quality = "sss";
+    if (_stp < 2.75) _quality = "ss";
+    if (_stp < 2.5) _quality = "s+";
+    if (_stp < 2.25) _quality = "s";
+    if (_stp < 2) _quality = "a+";
+    if (_stp < 1.75) _quality = "a";
+    if (_stp < 1.5) _quality = "b";
+    if (_stp < 1.25) _quality = "c";
+    if (_stp < 1) _quality = "d";
+    if (_stp < 0.75) _quality = "e";
+    if (_stp < 0.55) _quality = "f";
+    _stp = min(_stp, 2.5);
+    
+    var _angle = _rotation + (i * (360 / 6));
+    var _vx = _cx + lengthdir_x(_stp * _radius + 24, _angle);
+    var _vy = _cy + lengthdir_y(_stp * _radius + 24, _angle);
+    draw_set_color(_stats[i][1]);
+    //draw_text(_vx, _vy, _quality);
+    var _sc = _stp * .5 + .5
+    draw_text_transformed(_vx, _vy, _quality, _sc, _sc, 0);
+}
+draw_set_color(c_white);
+draw_set_valign(fa_top);
+draw_set_halign(fa_left);

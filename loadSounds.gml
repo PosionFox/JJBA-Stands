@@ -355,6 +355,16 @@ global.sndKceScream4 = audio_create_stream(p + "kceScream4.ogg");
 global.sndKceStare = audio_create_stream(p + "kceStare.ogg");
 global.sndKceTeleport = audio_create_stream(p + "kceTeleport.ogg");
 
+p = "Resources/Sounds/KC/CG/";
+global.sndCgSummon = audio_create_stream(p + "cgSummon.ogg");
+global.sndCgTe = audio_create_stream(p + "cgTe.ogg");
+global.sndCgTeBass1 = audio_create_stream(p + "cgBass1.ogg");
+global.sndCgTeBass2 = audio_create_stream(p + "cgBass2.ogg");
+global.sndCgTeBass3 = audio_create_stream(p + "cgBass3.ogg");
+global.sndCgTeEnd = audio_create_stream(p + "cgTeEnd.ogg");
+global.sndCgTp = audio_create_stream(p + "cgTp.ogg");
+global.sndCgChop = audio_create_stream(p + "cgChop.ogg");
+
 #endregion
 
 #region kcau

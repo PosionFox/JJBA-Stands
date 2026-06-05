@@ -399,10 +399,11 @@ enemies in range will also be teleported.");
 
 // d4clt
 tr_add(_map, "trickShotDesc", @"trick shot:
-fire a projectile forwards.
+fire a piercing projectile forward.
 
 (after cast) bullet time:
-redirects the projectile into the nearest enemy.");
+redirects the projectile into your aiming direction
+and doubles its damage.");
 tr_add(_map, "slashingStrikesDesc", @"slashing strikes:
 launches a short barrage of strikes that inflict bleeding.
 

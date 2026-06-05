@@ -720,8 +720,10 @@ global.arrow_ability_pool =
     // ultimate
     [GiveSPROH, global.ultimate_rarity_weight],
     [GivePinkSnake, global.ultimate_rarity_weight],
-    [GiveWsu, global.ultimate_rarity_weight]
+    [GiveWsu, global.ultimate_rarity_weight],
     // bizarre
+    //[GiveShadowDIO, global.bizarre_rarity_weight],
+    [GiveCg, global.bizarre_rarity_weight],
 ];
 
 #define WeatherReportDiscUse

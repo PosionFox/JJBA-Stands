@@ -74,7 +74,7 @@ if (!WaterCollision(_aim.x, _aim.y) and !modTypeExists("timeErase"))
 {
     jj_play_audio(global.sndKceTeleport, 5, false);
     EffectPlayerAfterimageCreate(owner.x, owner.y);
-    EffectTimeSkipCreate();
+    EffectTimeSkipCreate(self);
     owner.x = _aim.x;
     owner.y = _aim.y;
     EndAtk(s);
@@ -95,7 +95,7 @@ switch (attackState)
             KcePlayRandomScream();
             jj_play_audio(global.sndKcTp, 5, false);
             EffectPlayerAfterimageCreate(owner.x, owner.y);
-            EffectTimeSkipCreate();
+            EffectTimeSkipCreate(self);
             owner.x = _aim.x;
             owner.y = _aim.y;
             attackState++;
@@ -309,7 +309,7 @@ switch (attackState)
         }
     break;
     case 2:
-        EffectTimeSkipCreate();
+        EffectTimeSkipCreate(self);
         var o = ModObjectSpawn(x, y, -100000);
         with (o)
         {

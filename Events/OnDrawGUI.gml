@@ -310,39 +310,46 @@ if (_bst)
 
 if (instance_exists(STAND))
 {
-    var _sx = _cx;
-    var _sy = _ry1 + 96;
-    draw_text_color(_sx, _sy - 48, string_lower(string(STAND.name)), STAND.color, STAND.colorAlt, STAND.color, STAND.colorAlt, 1);
+    draw_text_color(_cx, _ry1 + 16, string_lower(string(STAND.name)), STAND.color, STAND.colorAlt, STAND.color, STAND.colorAlt, 1);
+    
+    var _sx = _rx1 + 8;
+    var _sy = _ry1 + 64;
     
     var _stats = [
-        ["destructive power", STAND.destructive_power, "destructive_power", c_orange, STAND.mod_destructive_power],
-        ["speed", STAND.spd, "spd", c_red, STAND.mod_spd],
-        ["range", STAND.range, "range", c_aqua, STAND.mod_range],
-        ["stamina", STAND.stamina, "stamina", c_lime, STAND.mod_stamina],
-        ["precision", STAND.precision, "precision", c_fuchsia, STAND.mod_precision]
+        ["power", STAND.destructive_power, "destructive_power", Color.Power, STAND.mod_destructive_power],
+        ["speed", STAND.spd, "spd", Color.Speed, STAND.mod_spd],
+        ["range", STAND.range, "range", Color.Range, STAND.mod_range],
+        ["stamina", STAND.stamina, "stamina", Color.Stamina, STAND.mod_stamina],
+        ["precision", STAND.precision, "precision", Color.Precision, STAND.mod_precision]
     ]
     
     for (var i = 0; i < array_length(_stats); i++)
     {
-        var _quality = "?";
-        var _stp = _stats[i][1];
-        if (_stp < 3) _quality = "sss";
-        if (_stp < 2.75) _quality = "ss";
-        if (_stp < 2.5) _quality = "s+";
-        if (_stp < 2.25) _quality = "s";
-        if (_stp < 2) _quality = "a+";
-        if (_stp < 1.75) _quality = "a";
-        if (_stp < 1.5) _quality = "b";
-        if (_stp < 1.25) _quality = "c";
-        if (_stp < 1) _quality = "d";
-        if (_stp < 0.75) _quality = "e";
-        if (_stp < 0.55) _quality = "f";
-        var _txt = string(_stats[i][0]) + ": " + string(round(_stats[i][1] * 100)) + "% (" + string(_quality) + ")";
-        if (_stats[i][4] > 0) _txt += " +" + string(round(_stats[i][4] * 100)) + "% buff";
-        draw_text_color(_sx, _sy + (48 * i) + 12, _txt, _stats[i][3], _stats[i][3], c_white, c_white, 1);
-        draw_rectangle_color(_sx - 56, _sy + (48 * i) + 24, _sx + 56, _sy + (48 * i) + 24 + 16, c_white, c_white, _stats[i][3], _stats[i][3], false);
+        // var _quality = "?";
+        // var _stp = _stats[i][1];
+        // if (_stp < 3) _quality = "sss";
+        // if (_stp < 2.75) _quality = "ss";
+        // if (_stp < 2.5) _quality = "s+";
+        // if (_stp < 2.25) _quality = "s";
+        // if (_stp < 2) _quality = "a+";
+        // if (_stp < 1.75) _quality = "a";
+        // if (_stp < 1.5) _quality = "b";
+        // if (_stp < 1.25) _quality = "c";
+        // if (_stp < 1) _quality = "d";
+        // if (_stp < 0.75) _quality = "e";
+        // if (_stp < 0.55) _quality = "f";
+        // var _txt = string(_stats[i][0]) + ": " + string(round(_stats[i][1] * 100)) + "% (" + string(_quality) + ")";
+        var _txt = string(_stats[i][0]) + ": " + string(round(_stats[i][1] * 100)) + "%";
+        if (_stats[i][4] > 0) _txt += " +" + string(round(_stats[i][4] * 100));
+        draw_set_halign(fa_left);
+        var _bgap = 40;
+        var _spac = 80;
+        var _col = _stats[i][3];
+        draw_text_color(_sx, _sy + (_spac * i) + 12, _txt, _col, _col, _col, _col, 1);
+        //draw_rectangle_color(_sx - 56, _sy + (48 * i) + 24, _sx + 56, _sy + (48 * i) + 24 + 16, c_white, c_white, _stats[i][3], _stats[i][3], false);
         
-        if (draw_button_circle(_sx - 48, _sy + (48 * i) + 34, 10, "--", true))
+        draw_set_halign(fa_center);
+        if (draw_button_circle(_sx + 8 + (_bgap * 0), _sy + (_spac * i) + 34, 10, "--", true))
         {
             if (variable_instance_get(STAND, _stats[i][2]) > 0.5)
             {
@@ -350,7 +357,7 @@ if (instance_exists(STAND))
                 STAND.stat_points++;
             }
         }
-        if (draw_button_circle(_sx - 16, _sy + (48 * i) + 34, 10, "-", false))
+        if (draw_button_circle(_sx + 8 + (_bgap * 1), _sy + (_spac * i) + 34, 10, "-", false))
         {
             if (variable_instance_get(STAND, _stats[i][2]) > 0.5)
             {
@@ -358,7 +365,7 @@ if (instance_exists(STAND))
                 STAND.stat_points++;
             }
         }
-        if (draw_button_circle(_sx + 16, _sy + (48 * i) + 34, 10, "+", false))
+        if (draw_button_circle(_sx + 8 + (_bgap * 2), _sy + (_spac * i) + 34, 10, "+", false))
         {
             if (STAND.stat_points > 0)
             {
@@ -366,7 +373,7 @@ if (instance_exists(STAND))
                 STAND.stat_points--;
             }
         }
-        if (draw_button_circle(_sx + 48, _sy + (48 * i) + 34, 10, "++", true))
+        if (draw_button_circle(_sx + 8 + (_bgap * 3), _sy + (_spac * i) + 34, 10, "++", true))
         {
             if (STAND.stat_points > 0)
             {
@@ -375,10 +382,52 @@ if (instance_exists(STAND))
             }
         }
     }
+    
+    var _rnx = _rx2 - 144;
+    var _rny = _ry1 + 64;
+    draw_text_color(_rnx, _rny, "rune modifiers", Color.Rune, Color.Rune, Color.Rune, Color.Rune, 1);
+    var _modfs = [
+        ["damage", GetRunesDamage(STAND)],
+        ["critical chance", GetRunesCritChance(STAND)],
+        ["reach", GetRunesStandReach(STAND)],
+        ["extension", GetRunesExtension(STAND)],
+        ["energy", GetRunesMaxEnergy(STAND)],
+        ["healing", GetRunesHealing(STAND)],
+    ];
+    var _smodfs = [];
+    var _ii = 0;
+    for (var i = 0; i < array_length(_modfs); i++)
+    {
+        if (_modfs[i][1] > 1)
+        {
+            var _val = (_modfs[i][1] - 1) * 100;
+            if (_val > 100) { _val = _modfs[i][1]; }
+            draw_text(_rnx, _rny + 48 + (32 * _ii), _modfs[i][0] + ": " + string(_val) + "%");
+            _ii++;
+        }
+    }
+    
+    draw_set_halign(fa_left);
+    draw_text_color(_rx1 + 8, _ry2 - 32, "potential: " + string(STAND.development_potential * 100) + "%", Color.Potential, Color.Potential, Color.Potential, Color.Potential, 1);
+    draw_set_halign(fa_right);
     var _total_power = (GetStandTotalPower(STAND) * 100);
-    draw_text_color(_sx, _sy + (48 * 6), "total power: " + string(_total_power) + "%", c_orange, c_aqua, c_lime, c_red, 1);
-    draw_text_color(_sx, _sy + (48 * 7), "development potential: " + string(STAND.development_potential * 100) + "%", c_yellow, c_yellow, c_white, c_white, 1);
-    draw_text_color(_sx, _sy + (48 * 8), "stat points: " + string(STAND.stat_points), c_navy, c_navy, c_white, c_white, 1);
+    draw_text_color(_rx2 - 8, _ry2 - 40, "total power: " + string(_total_power) + "%", Color.Power, Color.Speed, Color.Range, Color.Stamina, 1);
+    draw_text_color(_rx2 - 8, _ry2 - 16, "stat points: " + string(STAND.stat_points), c_white, c_white, c_white, c_white, 1);
+    draw_set_halign(fa_left);
+    
+    var _stx = _cx;
+    var _sty = _cy;
+    //draw_sprite(global.sprStatsUI, 0, _stx, _sty);
+    draw_circle_color(_stx, _sty, 224, STAND.color, 0x1a1117, false);
+    draw_hexagon_stats(_stx, _sty, [
+        [STAND.destructive_power, Color.Power],
+        [STAND.development_potential, Color.Potential],
+        [STAND.precision, Color.Precision],
+        [STAND.stamina, Color.Stamina],
+        [STAND.range, Color.Range],
+        [STAND.spd, Color.Speed],
+        [STAND.destructive_power, Color.Power]
+    ]);
 }
 else
 {
@@ -513,47 +562,50 @@ if (_be)
 var _title = "rune storage";
 draw_text(_cx, _ry1 + string_height(_title), _title);
 
-var _bLeft = draw_button_square(_cx - 320 - 32, _cy, 32, 32, "-");
-var _bRight = draw_button_square(_cx + 320, _cy, 32, 32, "+");
-var _bLeftPlus = draw_button_square(_cx - (320 + 64 + 32), _cy, 32, 32, "--");
-var _bRightPlus = draw_button_square(_cx + (320 + 64), _cy, 32, 32, "++");
+var _bLeft = draw_button_square(_cx - 320 - 32, _cy + 32, 32, 32, "-");
+var _bRight = draw_button_square(_cx + 320, _cy + 32, 32, 32, "+");
+var _bLeftPlus = draw_button_square(_cx - (320 + 64 + 32), _cy + 32, 32, 32, "--");
+var _bRightPlus = draw_button_square(_cx + (320 + 64), _cy + 32, 32, 32, "++");
 
 var _arr_len = array_length(global.jjsRuneSlots);
 
 draw_text(_cx, _ry1 + 40, string(global.jjsMenuRuneMaxIndex) + "/" + string(_arr_len));
 
+var _mv1 = 16;
+var _mv2 = 32;
+
 if (_bLeft)
 {
-    global.jjsMenuRuneMinIndex -= 8;
-    global.jjsMenuRuneMaxIndex = global.jjsMenuRuneMinIndex + 8;
-    global.jjsMenuRuneMinIndex = clamp(global.jjsMenuRuneMinIndex, 0, _arr_len - 8);
-    global.jjsMenuRuneMaxIndex = clamp(global.jjsMenuRuneMaxIndex, 8, _arr_len);
+    global.jjsMenuRuneMinIndex -= _mv1;
+    global.jjsMenuRuneMaxIndex = global.jjsMenuRuneMinIndex + _mv1;
+    global.jjsMenuRuneMinIndex = clamp(global.jjsMenuRuneMinIndex, 0, _arr_len - _mv1);
+    global.jjsMenuRuneMaxIndex = clamp(global.jjsMenuRuneMaxIndex, _mv1, _arr_len);
 }
 if (_bRight)
 {
-    global.jjsMenuRuneMinIndex += 8;
-    global.jjsMenuRuneMaxIndex = global.jjsMenuRuneMinIndex + 8;
-    global.jjsMenuRuneMinIndex = clamp(global.jjsMenuRuneMinIndex, 0, _arr_len - 8);
-    global.jjsMenuRuneMaxIndex = clamp(global.jjsMenuRuneMaxIndex, 8, _arr_len);
+    global.jjsMenuRuneMinIndex += _mv1;
+    global.jjsMenuRuneMaxIndex = global.jjsMenuRuneMinIndex + _mv1;
+    global.jjsMenuRuneMinIndex = clamp(global.jjsMenuRuneMinIndex, 0, _arr_len - _mv1);
+    global.jjsMenuRuneMaxIndex = clamp(global.jjsMenuRuneMaxIndex, _mv1, _arr_len);
 }
 if (_bLeftPlus)
 {
-    global.jjsMenuRuneMinIndex -= 16;
-    global.jjsMenuRuneMaxIndex = global.jjsMenuRuneMinIndex + 8;
+    global.jjsMenuRuneMinIndex -= _mv2;
+    global.jjsMenuRuneMaxIndex = global.jjsMenuRuneMinIndex + _mv1;
     global.jjsMenuRuneMinIndex = clamp(global.jjsMenuRuneMinIndex, 0, _arr_len - 8);
-    global.jjsMenuRuneMaxIndex = clamp(global.jjsMenuRuneMaxIndex, 8, _arr_len);
+    global.jjsMenuRuneMaxIndex = clamp(global.jjsMenuRuneMaxIndex, _mv1, _arr_len);
 }
 if (_bRightPlus)
 {
-    global.jjsMenuRuneMinIndex += 16;
-    global.jjsMenuRuneMaxIndex = global.jjsMenuRuneMinIndex + 8;
-    global.jjsMenuRuneMinIndex = clamp(global.jjsMenuRuneMinIndex, 0, _arr_len - 8);
-    global.jjsMenuRuneMaxIndex = clamp(global.jjsMenuRuneMaxIndex, 8, _arr_len);
+    global.jjsMenuRuneMinIndex += _mv2;
+    global.jjsMenuRuneMaxIndex = global.jjsMenuRuneMinIndex + _mv1;
+    global.jjsMenuRuneMinIndex = clamp(global.jjsMenuRuneMinIndex, 0, _arr_len - _mv1);
+    global.jjsMenuRuneMaxIndex = clamp(global.jjsMenuRuneMaxIndex, _mv1, _arr_len);
 }
 
 for (var i = global.jjsMenuRuneMinIndex; i < global.jjsMenuRuneMaxIndex; i++)
 {
-    var _b = draw_button_rune(_cx - 192 + (96 * (i mod 4)), _cy - 64 + (96 * ((i - global.jjsMenuRuneMinIndex) div 4)), 64, 64, global.jjsRuneSlots[i]);
+    var _b = draw_button_rune(_cx - 192 + (96 * (i mod 4)), _cy - 128 + (96 * ((i - global.jjsMenuRuneMinIndex) div 4)), 64, 64, global.jjsRuneSlots[i]);
     if (_b)
     {
         if (global.jjsRuneSlots[i] != undefined)

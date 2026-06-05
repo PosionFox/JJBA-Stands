@@ -127,6 +127,7 @@ global.sprHitbox64x64 = sprite_add(p + "Hitbox64x64.png", 1, false, false, 32, 3
 global.sprGun = sprite_add(p + "Gun.png", 1, false, false, 4, 4);
 global.sprStarTier = sprite_add(p + "StarTier.png", 1, false, false, 8, 8);
 global.sprGroundSlam = sprite_add(p + "ground_slam.png", 1, false, false, 16, 16);
+global.sprStatsUI = sprite_add(p + "StatsUI.png", 1, false, false, 128, 128);
 
 // particles
 global.sprStandParticle = sprite_add(p + "StandParticle.png", 1, false, false, 1, 1);
@@ -174,6 +175,7 @@ p = "Resources/Sprites/STW/";
 global.sprShadowTheWorld = sprite_add(p + "ShadowTheWorld.png", 1, false, false, 16, 19);
 global.sprShadow = sprite_add(p + "Shadow.png", 1, false, false, 16, 19);
 global.sprDW = sprite_add(p + "DarkWorld.png", 1, false, false, 16, 19);
+global.sprShadowDIO = sprite_add(p + "ShadowDIO.png", 4, false, false, 16, 19);
 global.sprKnifeStw = sprite_add(p + "KnifeStw.png", 1, false, false, 8, 8);
 global.sprKnifeShad = sprite_add(p + "KnifeShad.png", 1, false, false, 8, 8);
 global.sprStwPunch = sprite_add(p + "StwPunch.png", 1, false, false, 16, 16);
@@ -353,6 +355,7 @@ global.sprSkillLifeFormPlant = sprite_add(p + "SkillLifeFormPlant.png", 1, false
 global.sprSkillLifeFormScorpion = sprite_add(p + "SkillLifeFormScorpion.png", 1, false, false, 16, 16);
 global.sprSkillLifeFormFrog = sprite_add(p + "SkillLifeFormFrog.png", 1, false, false, 16, 16);
 global.sprSkillSelfHeal = sprite_add(p + "SkillSelfHeal.png", 1, false, false, 16, 16);
+global.sprSkillLifePunch = sprite_add(p + "SkillLifePunch.png", 1, false, false, 16, 16);
 
 // requiem
 p = "Resources/Sprites/GE/Requiem/";
@@ -390,6 +393,8 @@ global.sprKingCrimsonAqua = sprite_add(p + "KCAqua.png", 1, false, false, 16, 19
 global.sprKCG = sprite_add(p + "KCGray.png", 1, false, false, 16, 19);
 global.sprKCF = sprite_add(p + "KingCrimsonFestive.png", 1, false, false, 16, 19);
 global.sprKCE = sprite_add(p + "KCEnderman.png", 1, false, false, 16, 19);
+global.sprCG = sprite_add(p + "CrimsonGrid.png", 4, false, false, 16, 19);
+global.sprCGParticle = sprite_add(p + "CgParticle.png", 4, false, false, 1, 1);
 
 #endregion
 

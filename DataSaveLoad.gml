@@ -3,6 +3,7 @@
 
 switch (_key)
 {
+    case "none": RemoveStand(_owner); break;
     // p3
     case "jjbamTw": GiveTheWorld(_owner); break;
     case "jjbamSpp": GiveSpp(_owner); break;
@@ -90,6 +91,8 @@ switch (_key)
     case "jjPinkSnake": GivePinkSnake(_owner); break;
     case "jjbamWsu": GiveWsu(_owner); break;
     case "jjsPs": GivePrisoner(_owner); break;
+    case "jjbamShadowDIO": GiveShadowDIO(_owner); break;
+    case "jjbamCg": GiveCg(_owner); break;
     default: GiveStarPlatinum(_owner); break;
 }
 

@@ -129,7 +129,16 @@ enum Color {
     Aqua = 0xf2ee87,
     PaleSkin = 0xd0d7ff,
     DimWhite = 0xffeae6,
-    White = 0xffffff
+    White = 0xffffff,
+    
+    Power = 0x2c75ff,
+    Speed = 0xaa80ff,
+    Range = 0xff9838,
+    Stamina = 0x70ffdc,
+    Precision = 0xcd4c67,
+    Potential = 0x75f2ff,
+    
+    Rune = 0x6a3746
 }
 
 
