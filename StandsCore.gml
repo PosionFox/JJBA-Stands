@@ -396,10 +396,7 @@ if (_stand.stand_mode)
 {
     return { x : aim_x, y : aim_y }
 }
-else
-{
-    return { x : mouse_x, y : mouse_y }
-}
+return { x : mouse_x, y : mouse_y }
 
 #define get_aim_distance(_stand, _from)
 
@@ -407,10 +404,7 @@ if (_stand.stand_mode)
 {
     return point_distance(_from.x, _from.y, aim_x, aim_y);
 }
-else
-{
-    return point_distance(_from.x, _from.y, mouse_x, mouse_y);
-}
+return point_distance(_from.x, _from.y, mouse_x, mouse_y);
 
 #define StandDefaultSummon
 
